@@ -8,7 +8,7 @@ const root = fileURLToPath(new URL('../', import.meta.url));
 describe('built package boundaries', () => {
   it('loads the public ESM export through package self-reference', () => {
     const output = execFileSync(process.execPath, ['--input-type=module', '-e', `
-      import { conjugate, conjugationOptions, renderParts, getCatalogue } from 'verbodrome';
+      import { conjugate, conjugationOptions, renderParts, getCatalogue } from 'conjugation-engine';
       const query = conjugationOptions('fr', 'aller').indicative('perfect').person(1, 'plural').gender('feminine').build();
       const result = conjugate(query);
       console.log(JSON.stringify({

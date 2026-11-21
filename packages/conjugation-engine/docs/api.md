@@ -10,8 +10,8 @@ import {
   renderParts,
   getCatalogue,
   ConjugationError,
-} from 'verbodrome';
-import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'verbodrome';
+} from 'conjugation-engine';
+import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'conjugation-engine';
 ```
 
 `conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
@@ -155,10 +155,10 @@ Language-specific methods and mood-specific tense arguments are checked by TypeS
 ## CLI flags and exit codes
 
 ```text
-verbodrome <fr|nl> <infinitive> [options]
+conjugation-engine <fr|nl> <infinitive> [options]
 ```
 
-Quote multiword reflexive infinitives, for example `verbodrome fr "se laver"`.
+Quote multiword reflexive infinitives, for example `conjugation-engine fr "se laver"`.
 
 Common flags: `--mood`, `--tense`, `--person`, `--number`, `--auxiliary`, `--class`, `--stems '<JSON>'`, `--json`, `--bare`, `--help`.
 
