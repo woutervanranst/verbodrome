@@ -23,3 +23,5 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: node --experimental-strip-types scripts/report-corpus.ts
+        working-directory: packages/conjugation-engine
+      - run: npm run build

@@ -288,6 +288,7 @@ export const inseparableDerivatives: Readonly<Record<string, DutchDerivative>> =
   bestaan: { prefix: 'be', base: 'staan', auxiliary: 'hebben' },
   begaan: { prefix: 'be', base: 'gaan', auxiliary: 'hebben' },
   vergaan: { prefix: 'ver', base: 'gaan' },
+  vertrekken: { prefix: 'ver', base: 'trekken', auxiliary: 'zijn' },
   bevriezen: { prefix: 'be', base: 'vriezen', auxiliary: 'both', personal: true },
 };
 
