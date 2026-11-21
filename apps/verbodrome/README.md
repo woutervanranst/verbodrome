@@ -1,6 +1,6 @@
 # verbodrome (trainer app)
 
-A static single-page trainer for Dutch-speaking pupils drilling French conjugations. A Dutch prompt is shown on a Paris street plaque; the learner picks the right French form from ten métro tickets, then gets a comparison with their answer, the formation rule and the full conjugation.
+A static single-page trainer for Dutch-speaking pupils drilling French conjugations. A Dutch prompt is shown large over a Paris backdrop; the learner picks the right French form from ten answer cards, then gets a comparison with their answer, the formation rule and the full conjugation.
 
 All forms come from [`conjugation-engine`](../../packages/conjugation-engine/README.md) at runtime. There is no backend.
 

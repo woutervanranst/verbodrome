@@ -10,8 +10,6 @@ interface HeaderProps {
   readonly onOpenPicker: () => void;
 }
 
-const STOPS = 10;
-
 export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker }: HeaderProps) {
   const [pulse, setPulse] = useState(false);
   useEffect(() => {
@@ -35,11 +33,6 @@ export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker }: H
 
       <div className="board" role="status" aria-label={`Reeks ${stats.streak}, record ${stats.best}, ${stats.xp} XP`}>
         <div className={`board__streak${hot ? ' is-hot' : ''}${pulse ? ' is-pulse' : ''}`}>
-          <div className="stops" aria-hidden="true">
-            {Array.from({ length: STOPS }, (_, i) => (
-              <span key={i} className={`stops__stop${i < Math.min(stats.streak, STOPS) ? ' is-on' : ''}`} />
-            ))}
-          </div>
           <span className="board__num">{stats.streak}</span>
           <span className="board__label">Reeks</span>
         </div>
