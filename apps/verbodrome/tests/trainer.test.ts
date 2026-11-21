@@ -3,7 +3,7 @@ import { TENSES, tenseById } from '../src/config/tenses';
 import { VERBS, verbByFr } from '../src/config/verbs';
 import { diff, subjectLength } from '../src/trainer/diff';
 import { mistakes } from '../src/trainer/distractors';
-import { formAt, verbForms } from '../src/trainer/forms';
+import { exampleOf, formAt, verbForms } from '../src/trainer/forms';
 import { dutchPrompt } from '../src/trainer/prompt';
 import { askable, makeQuestion } from '../src/trainer/question';
 import type { Question } from '../src/trainer/question';
@@ -38,6 +38,32 @@ describe('configuration', () => {
     expect(tensesForLevel('g2')).toEqual(expect.arrayContaining(['indicative.future', 'gerund.present']));
     expect(tensesForLevel('g3')).toHaveLength(15);
     expect(tensesForLevel('g3')).not.toContain('subjunctive.imperfect');
+  });
+
+  it('treats Extra as the level above the 3e graad: it selects everything', () => {
+    expect(tensesForLevel('extra')).toHaveLength(25);
+    expect(verbsForLevel('extra')).toHaveLength(VERBS.length);
+    expect(matchingLevel(TENSES.map(t => t.id), tensesForLevel)).toBe('extra');
+  });
+
+  it('orders tenses along the time axis, from furthest past to future', () => {
+    const order = TENSES.map(t => t.id);
+    const at = (id: string) => order.indexOf(id);
+    expect(at('indicative.pluperfect')).toBeLessThan(at('indicative.imperfect'));
+    expect(at('indicative.imperfect')).toBeLessThan(at('indicative.perfect'));
+    expect(at('indicative.recent_past')).toBeLessThan(at('indicative.present'));
+    expect(at('indicative.present')).toBeLessThan(at('indicative.near_future'));
+    expect(at('indicative.near_future')).toBeLessThan(at('indicative.future'));
+    expect(tensesForLevel('g1')).toEqual(['indicative.imperfect', 'indicative.perfect', 'indicative.recent_past', 'indicative.present', 'imperative.present', 'indicative.near_future']);
+    expect(tenseById('indicative.pluperfect')?.era).toBe('voorverleden');
+    expect(tenseById('indicative.near_future')?.era).toBe('straks');
+  });
+
+  it('illustrates every tense with an example form', () => {
+    expect(exampleOf('parler', 'indicative.imperfect')).toBe('je parlais');
+    expect(exampleOf('parler', 'imperative.present')).toBe('parle !');
+    expect(exampleOf('parler', 'gerund.present')).toBe('en parlant');
+    for (const t of TENSES) expect(exampleOf('parler', t.id), t.id).not.toBeNull();
   });
 
   it('keeps quick-picks cumulative and leaves rare verbs out', () => {
@@ -114,6 +140,14 @@ describe('Dutch prompts', () => {
     expect(prompt('naître', 'indicative.future', '1s')).toBe('ik zal geboren worden');
     expect(prompt('falloir', 'indicative.present', '3s')).toBe('het moet');
     expect(prompt('pleuvoir', 'indicative.imperfect', '3s')).toBe('het regende');
+  });
+
+  it('keeps a fixed tail word after the verb (houden van)', () => {
+    expect(prompt('aimer', 'indicative.present', '1s')).toBe('ik houd van');
+    expect(prompt('aimer', 'indicative.perfect', '3s')).toBe('hij heeft gehouden van');
+    expect(prompt('aimer', 'indicative.future', '1p')).toBe('wij zullen houden van');
+    expect(prompt('aimer', 'imperative.present', '2s')).toBe('houd van! (jij)');
+    expect(prompt('aimer', 'imperative.present', '1p')).toBe('laten we houden van!');
   });
 });
 
@@ -224,6 +258,19 @@ describe('questions', () => {
       const question = makeQuestion({ verbs: ['finir'], tenses: tensesForLevel('g1') }, null, random)!;
       const labels = question.options.filter(o => !o.correct && o.nl).map(o => o.label);
       expect(labels.some(label => /subjonctif|antérieur|passé simple/.test(label)), labels.join(' | ')).toBe(false);
+    }
+  });
+
+  it('never asks a tense that is excluded for a verb', () => {
+    expect(verb('aller').exclude).toEqual(['indicative.near_future']);
+    expect(makeQuestion({ verbs: ['aller'], tenses: ['indicative.near_future'] })).toBeNull();
+    expect(makeQuestion({ verbs: ['naître'], tenses: ['indicative.perfect'] })).toBeNull();
+    expect(askable(verb('aller'), new Set(['indicative.near_future', 'indicative.present'])).map(f => f.tense.id))
+      .toEqual(Array(6).fill('indicative.present'));
+    const random = seeded(21);
+    for (let i = 0; i < 200; i++) {
+      const question = makeQuestion({ verbs: ['aller', 'naître'], tenses: tensesForLevel('g2') }, null, random)!;
+      expect(`${question.verb.fr} ${question.tense.id}`).not.toMatch(/aller indicative\.near_future|naître indicative\.perfect/);
     }
   });
 

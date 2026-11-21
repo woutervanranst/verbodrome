@@ -15,11 +15,18 @@ Everything a teacher or maintainer would want to change lives in `src/config/`:
 | `levels.ts` | The school levels (Lager onderwijs, 1e/2e/3e graad secundair, Extra) and their line colours. Levels are cumulative. |
 | `app.ts` | Number of answer tickets, auto-advance, optional backdrop photo. |
 
-The Dutch counterparts in `verbs.ts` are a first pass and should be reviewed by a teacher. A Dutch verb the engine cannot classify on its own takes engine hints there (`separablePrefix`, `inseparablePrefix`, `stems`, …); `complement` adds a fixed word, as in *geboren worden* for `naître`.
+The Dutch counterparts in `verbs.ts` are a first pass and should be reviewed by a teacher. Per verb you can set:
+
+- engine hints for a Dutch verb the engine cannot classify on its own (`separablePrefix`, `inseparablePrefix`, `stems`, …);
+- `complement`: a fixed word before the verb, as in *geboren worden* for `naître`;
+- `tail`: a fixed word after the verb, as in *houden van* for `aimer`;
+- `exclude`: tense ids never asked for that verb, e.g. `{ exclude: ['indicative.near_future'] }` on `aller` to avoid *hij gaat gaan*.
+
+`tenses.ts` also holds the time axis (nog vroeger → verleden → nu → straks → later) that orders the tenses in the picker. Picking **Extra** selects everything: it sits on top of the 3e graad.
 
 ### Backdrop photo
 
-By default the dusk sky and rooftops are drawn in CSS/SVG. To use a photo instead, put it in `public/assets/` and set `backdropPhoto: 'assets/paris.png'` in `src/config/app.ts`.
+`public/assets/paris.jpg` is the photo from the design. Set `backdropPhoto: null` in `src/config/app.ts` to use the dusk sky drawn in CSS/SVG instead.
 
 ## How it works
 
