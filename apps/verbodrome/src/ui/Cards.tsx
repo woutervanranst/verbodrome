@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 import type { Option } from '../trainer/question';
 
 const GAP = 12;
-const MIN_WIDTH = 158;
+const MIN_WIDTH = 150;
 
 /** Even rows where the option count allows it (10 → 5×2 wide, 2×5 narrow). */
 export function columnsFor(count: number, width: number): number {
@@ -14,15 +14,14 @@ export function columnsFor(count: number, width: number): number {
   return cols;
 }
 
-interface TicketsProps {
+interface CardsProps {
   readonly options: readonly Option[];
   readonly picked: number | null;
   readonly onPick: (index: number) => void;
 }
 
-const KEYS = '1234567890';
-
-export function Tickets({ options, picked, onPick }: TicketsProps) {
+/** The answer cards. Keys 1–9 and 0 pick a card; see App. */
+export function Cards({ options, picked, onPick }: CardsProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1040);
   useEffect(() => {
@@ -36,15 +35,14 @@ export function Tickets({ options, picked, onPick }: TicketsProps) {
   const cols = columnsFor(options.length, width);
   const answered = picked !== null;
   return (
-    <div ref={ref} className={`tickets${answered ? ' is-answered' : ''}`} lang="fr"
+    <div ref={ref} className={`cards${answered ? ' is-answered' : ''}`} lang="fr"
       style={{ '--cols': cols } as CSSProperties}>
       {options.map((option, index) => {
         const state = !answered ? '' : option.correct ? ' is-correct' : index === picked ? ' is-wrong' : ' is-dim';
         return (
-          <button key={option.text} type="button" className={`ticket${state}`} disabled={answered}
+          <button key={option.text} type="button" className={`card${state}`} disabled={answered}
             onClick={() => onPick(index)} style={{ '--i': index } as CSSProperties}>
-            <span className="ticket__stub" aria-hidden="true">{KEYS[index] ?? ''}</span>
-            <span className="ticket__text">{option.text}</span>
+            {option.text}
           </button>
         );
       })}

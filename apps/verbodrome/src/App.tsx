@@ -9,10 +9,10 @@ import { DEFAULT_LEVEL, matchingLevel, sanitize, selectionForLevel, tensesForLev
 import { Feedback } from './ui/Feedback';
 import { Header } from './ui/Header';
 import { Picker } from './ui/Picker';
-import { Plaque } from './ui/Plaque';
+import { Prompt } from './ui/Prompt';
 import { Scene } from './ui/Scene';
 import { KEYS, read, write } from './ui/storage';
-import { Tickets } from './ui/Tickets';
+import { Cards } from './ui/Cards';
 
 const CHEERS = ['Juist!', 'Knap!', 'Mooi zo!', 'Helemaal goed!', 'Sterk!', 'Raak!'];
 const cheer = (): string => CHEERS[Math.floor(Math.random() * CHEERS.length)]!;
@@ -128,8 +128,8 @@ export function App() {
       <main className="stage" inert={pickerOpen}>
         {question ? (
           <div className="stage__round" key={round}>
-            <Plaque prompt={question.prompt} tense={question.showTense ? question.tense.label : null} compact={answered} />
-            <Tickets options={question.options} picked={picked} onPick={pick} />
+            <Prompt prompt={question.prompt} tense={question.showTense ? question.tense.label : null} compact={answered} />
+            <Cards options={question.options} picked={picked} onPick={pick} />
           </div>
         ) : (
           <div className="stage__empty">
