@@ -11,6 +11,8 @@ export interface DutchCounterpart extends DutchHints {
   readonly infinitive: string;
   /** Fixed word that completes the meaning, e.g. "geboren" in "geboren worden". */
   readonly complement?: string;
+  /** Fixed word that always follows the verb, e.g. "van" in "houden van". */
+  readonly tail?: string;
 }
 
 export interface VerbDef {
@@ -20,10 +22,17 @@ export interface VerbDef {
   readonly nl: DutchCounterpart;
   readonly group: VerbGroup;
   readonly level: Level;
+  /**
+   * Tense ids (`mood.tense`) never asked for this verb, e.g. because the Dutch
+   * prompt would be unnatural. The forms still exist and can appear as wrong answers.
+   */
+  readonly exclude?: readonly string[];
 }
 
-const v = (fr: string, nl: string | DutchCounterpart, group: VerbGroup, level: Level): VerbDef =>
-  ({ fr, nl: typeof nl === 'string' ? { infinitive: nl } : nl, group, level });
+const v = (
+  fr: string, nl: string | DutchCounterpart, group: VerbGroup, level: Level,
+  options: { exclude?: readonly string[] } = {},
+): VerbDef => ({ fr, nl: typeof nl === 'string' ? { infinitive: nl } : nl, group, level, ...options });
 
 /**
  * CONFIGURATION — the verbs offered by the trainer.
@@ -40,9 +49,10 @@ export const VERBS: readonly VerbDef[] = [
   // Lager onderwijs
   v('être', 'zijn', 'onregelmatig', 'lager'),
   v('avoir', 'hebben', 'onregelmatig', 'lager'),
-  v('aller', 'gaan', 'onregelmatig', 'lager'),
+  // "hij gaat gaan" is not something anyone says.
+  v('aller', 'gaan', 'onregelmatig', 'lager', { exclude: ['indicative.near_future'] }),
   v('faire', 'doen', 'onregelmatig', 'lager'),
-  v('aimer', { infinitive: 'beminnen', inseparablePrefix: 'be' }, 'er', 'lager'),
+  v('aimer', { infinitive: 'houden', tail: 'van' }, 'er', 'lager'),
   v('parler', 'spreken', 'er', 'lager'),
   v('manger', 'eten', 'er', 'lager'),
 
@@ -91,7 +101,8 @@ export const VERBS: readonly VerbDef[] = [
   v('joindre', { infinitive: 'verbinden', inseparablePrefix: 'ver' }, 'onregelmatig', 'g2'),
   v('battre', 'slaan', 'onregelmatig', 'g2'),
   v('mourir', 'sterven', 'onregelmatig', 'g2'),
-  v('naître', { infinitive: 'worden', complement: 'geboren' }, 'onregelmatig', 'g2'),
+  // Dutch says "hij is geboren", not "hij is geboren geworden".
+  v('naître', { infinitive: 'worden', complement: 'geboren' }, 'onregelmatig', 'g2', { exclude: ['indicative.perfect'] }),
   v('falloir', 'moeten', 'onregelmatig', 'g2'),
   v('pleuvoir', 'regenen', 'onregelmatig', 'g2'),
   v('valoir', { infinitive: 'zijn', complement: 'waard' }, 'onregelmatig', 'g2'),
