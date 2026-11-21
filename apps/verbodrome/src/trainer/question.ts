@@ -55,11 +55,13 @@ export function describe(form: FrForm): string {
   return who ? `${form.tense.label} · ${who}` : form.tense.label;
 }
 
-/** Forms of one verb that can be asked: in a selected tense and with a Dutch prompt. */
+/** Forms of one verb that can be asked: in a selected tense, not excluded for the verb, and with a Dutch prompt. */
 export function askable(verb: VerbDef, tenses: ReadonlySet<string>): FrForm[] {
   let forms: VerbForms;
   try { forms = verbForms(verb.fr); } catch { return []; }
-  return forms.all.filter(form => tenses.has(form.tense.id) && dutchPrompt(verb, form.tense, form.slot) !== null);
+  return forms.all.filter(form => tenses.has(form.tense.id)
+    && !verb.exclude?.includes(form.tense.id)
+    && dutchPrompt(verb, form.tense, form.slot) !== null);
 }
 
 /**
@@ -113,7 +115,11 @@ function build(
   const prompt = dutchPrompt(verb, target.tense, target.slot)!;
   const showTense = isAmbiguous(verb, target, candidates);
   const real = new Map<string, FrForm>();
-  for (const form of forms.all) if (!real.has(form.text)) real.set(form.text, form);
+  // "je finis" is both présent and passé simple: name it after the tense the learner knows best.
+  const familiarity = (form: FrForm): number => (selected.has(form.tense.id) ? 0 : 10) + LEVEL_RANK.indexOf(form.tense.level);
+  for (const form of [...forms.all].sort((x, y) => familiarity(x) - familiarity(y))) {
+    if (!real.has(form.text)) real.set(form.text, form);
+  }
 
   type Candidate = { text: string; label: string };
   const asCandidate = (form: FrForm): Candidate => ({ text: form.text, label: describe(form) });

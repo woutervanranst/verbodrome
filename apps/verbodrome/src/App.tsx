@@ -31,7 +31,8 @@ function loadStats(): Stats {
 function routeName(selection: Selection): string {
   const tenses = matchingLevel(selection.tenses, tensesForLevel);
   const verbs = matchingLevel(selection.verbs, verbsForLevel);
-  return tenses && tenses === verbs ? levelDef(tenses).name : 'Eigen traject';
+  if (!tenses || tenses !== verbs) return 'Eigen traject';
+  return tenses === 'extra' ? 'Alles' : levelDef(tenses).name;
 }
 
 const plural = (count: number, one: string, many: string): string => `${count} ${count === 1 ? one : many}`;

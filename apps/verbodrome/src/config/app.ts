@@ -9,7 +9,9 @@ export const APP = {
   autoAdvanceMs: 1800,
   /**
    * Optional photo behind the scene, relative to the site root, e.g. 'assets/paris.png'
-   * (put the file in `public/assets/`). With `null` the dusk sky is drawn in CSS.
+   * (the file lives in `public/assets/`). With `null` the dusk sky is drawn in CSS.
    */
-  backdropPhoto: null as string | null,
+  backdropPhoto: 'assets/paris.jpg' as string | null,
+  /** Verb used to illustrate each tense in the picker ("je parlais"). */
+  exampleVerb: 'parler',
 } as const;
