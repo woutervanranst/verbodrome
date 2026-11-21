@@ -74,6 +74,12 @@ describe('Dutch grammatical generation', () => {
       .toEqual(['houd je', 'hou je']);
   });
 
+  it('conjugates vertrekken as the strong inseparable derivative of trekken with zijn', () => {
+    expect(dutch({ language: 'nl', infinitive: 'vertrekken', mood: 'indicative', tense: 'past', person: 1, number: 'singular' })).toEqual(['ik vertrok']);
+    expect(dutch({ language: 'nl', infinitive: 'vertrekken', mood: 'indicative', tense: 'past', person: 1, number: 'plural' })).toEqual(['wij vertrokken']);
+    expect(dutch({ language: 'nl', infinitive: 'vertrekken', mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['ik ben vertrokken']);
+  });
+
   it('does not inherit weather restrictions into personal freezing derivatives', () => {
     expect(dutch({ language: 'nl', infinitive: 'vriezen', mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual([]);
     expect(dutch({ language: 'nl', infinitive: 'invriezen', mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual(['ik vries in']);

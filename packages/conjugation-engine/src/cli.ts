@@ -4,7 +4,7 @@ import { conjugate, ConjugationError, parseConjugationOptions, renderParts } fro
 import type { ConjugatedForm, ResolvedTarget } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
 
-const help = `Usage: verbodrome <fr|nl> <infinitive> [options]
+const help = `Usage: conjugation-engine <fr|nl> <infinitive> [options]
 
   --mood <id>       Grammatical mood (omit for all)
   --tense <id>      Tense (omit for all)
@@ -28,7 +28,7 @@ const help = `Usage: verbodrome <fr|nl> <infinitive> [options]
   --separable-prefix <prefix> / --inseparable-prefix <prefix>
   --help
 
-Example: verbodrome fr aimer --mood indicative --tense present --person 1 --number plural
+Example: conjugation-engine fr aimer --mood indicative --tense present --person 1 --number plural
 `;
 
 function targetLabel(target: ResolvedTarget, labels: { mood: string; tense: string }): string {

@@ -1,38 +1,18 @@
 {
-  "name": "verbodrome",
-  "version": "0.1.0",
-  "description": "Rule-based French and Dutch conjugation with reusable grammatical components",
+  "name": "verbodrome-workspace",
+  "private": true,
   "type": "module",
   "engines": {
     "node": ">=22.18"
   },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
-    }
-  },
-  "bin": {
-    "verbodrome": "./dist/cli.js"
-  },
-  "files": [
-    "dist",
-    "docs",
-    "README.md"
+  "workspaces": [
+    "packages/*",
+    "apps/*"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "typecheck": "tsc --noEmit",
-    "pretest": "npm run build",
-    "test": "vitest run",
-    "cli": "node dist/cli.js",
-    "corpus:import": "node --experimental-strip-types scripts/import-corpus.ts",
-    "corpus:check": "vitest run tests/corpus.test.ts tests/corpus-parser.test.ts && node --experimental-strip-types scripts/report-corpus.ts"
-  },
-  "devDependencies": {
-    "@types/node": "^22.18.0",
-    "cheerio": "^1.1.2",
-    "typescript": "^5.9.3",
-    "vitest": "^4.0.0"
+    "build": "npm run build -w conjugation-engine && npm run build -w verbodrome",
+    "typecheck": "npm run typecheck -w conjugation-engine && npm run typecheck -w verbodrome",
+    "test": "npm test -w conjugation-engine && npm test -w verbodrome",
+    "dev": "npm run dev -w verbodrome"
   }
 }
