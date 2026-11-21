@@ -13,7 +13,41 @@ export interface TenseDef {
   readonly label: string;
   readonly finite: boolean;
   readonly level: Level;
+  /** Where the tense sits on the time axis. */
+  readonly era: Era;
 }
+
+/** The time axis of the picker, from furthest past to furthest future. */
+export type Era = 'voorverleden' | 'verleden' | 'nu' | 'straks' | 'later';
+
+export const ERAS: readonly { readonly id: Era; readonly label: string }[] = [
+  { id: 'voorverleden', label: 'nog vroeger' },
+  { id: 'verleden', label: 'verleden' },
+  { id: 'nu', label: 'nu' },
+  { id: 'straks', label: 'straks' },
+  { id: 'later', label: 'later' },
+];
+
+/**
+ * CONFIGURATION — chronological order of the tenses, earliest first.
+ * Tenses are shown in this order everywhere; the era groups them on the axis.
+ */
+const TIMELINE: readonly (readonly [Era, readonly string[]])[] = [
+  ['voorverleden', ['indicative.pluperfect', 'indicative.past_anterior', 'subjunctive.pluperfect']],
+  ['verleden', [
+    'indicative.simple_past', 'indicative.imperfect', 'indicative.perfect', 'indicative.recent_past',
+    'subjunctive.imperfect', 'subjunctive.past', 'conditional.past', 'imperative.past',
+    'infinitive.past', 'participle.past', 'participle.perfect', 'gerund.past',
+  ]],
+  ['nu', [
+    'indicative.present', 'imperative.present', 'subjunctive.present', 'conditional.present',
+    'infinitive.present', 'participle.present', 'gerund.present',
+  ]],
+  ['straks', ['indicative.near_future']],
+  ['later', ['indicative.future_perfect', 'indicative.future']],
+];
+const ORDER: readonly string[] = TIMELINE.flatMap(([, ids]) => ids);
+const eraOf = (id: string): Era => TIMELINE.find(([, ids]) => ids.includes(id))?.[0] ?? 'nu';
 
 /**
  * CONFIGURATION — at which level each tense is introduced.
@@ -40,9 +74,6 @@ const TENSE_LEVELS: Readonly<Record<string, Level>> = {
   'indicative.simple_past': 'g3',
 };
 
-/** Display order inside a level follows this list, then engine order. */
-const ORDER = Object.keys(TENSE_LEVELS);
-
 function label(mood: string, moodLabel: string, tenseLabel: string): string {
   const tense = tenseLabel.toLowerCase();
   return mood === 'indicative' ? tense : `${moodLabel.toLowerCase()} ${tense}`;
@@ -59,6 +90,7 @@ export const TENSES: readonly TenseDef[] = getCatalogue('fr')
       label: label(entry.mood, entry.moodLabel, entry.tenseLabel),
       finite: entry.finite,
       level: TENSE_LEVELS[id] ?? 'extra',
+      era: eraOf(id),
     } satisfies TenseDef;
   })
   .sort((a, b) => {

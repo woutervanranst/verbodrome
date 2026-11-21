@@ -23,7 +23,7 @@ function word(text: string): ConjugationPart {
 }
 
 function hints(nl: DutchCounterpart): Partial<DutchConjugationOptions> {
-  const { infinitive: _infinitive, complement: _complement, ...rest } = nl;
+  const { infinitive: _infinitive, complement: _complement, tail: _tail, ...rest } = nl;
   return rest;
 }
 
@@ -115,9 +115,16 @@ export function dutchPrompt(verb: VerbDef, tense: TenseDef, slot: string): strin
   const key = `${verb.fr}|${tense.id}|${slot}`;
   const cached = cache.get(key);
   if (cached !== undefined) return cached;
-  const value = compose(verb, tense, slot);
+  const value = withTail(compose(verb, tense, slot), verb.nl.tail);
   cache.set(key, value);
   return value;
+}
+
+/** "houden van": the fixed word closes the phrase, before any exclamation mark. */
+function withTail(prompt: string | null, tail: string | undefined): string | null {
+  if (!prompt || !tail) return prompt;
+  const bang = prompt.indexOf('!');
+  return bang < 0 ? `${prompt} ${tail}` : `${prompt.slice(0, bang)} ${tail}${prompt.slice(bang)}`;
 }
 
 function compose(verb: VerbDef, tense: TenseDef, slot: string): string | null {

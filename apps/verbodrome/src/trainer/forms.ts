@@ -94,6 +94,12 @@ export function verbForms(infinitive: string): VerbForms {
   return value;
 }
 
+/** One representative form of a tense, for illustration: "je parlais", "parle !", "parlant". */
+export function exampleOf(infinitive: string, tenseId: string): string | null {
+  const forms = verbForms(infinitive).byTense.get(tenseId) ?? [];
+  return (forms.find(form => form.slot === '1s') ?? forms.find(form => form.slot === '2s') ?? forms[0])?.text ?? null;
+}
+
 export function formAt(forms: VerbForms, tenseId: string, slot: string): FrForm | undefined {
   return forms.byTense.get(tenseId)?.find(form => form.slot === slot);
 }

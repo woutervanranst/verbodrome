@@ -2,9 +2,12 @@ import { useEffect, useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import { LEVELS, QUICK_LEVELS, levelDef } from '../config/levels';
 import type { Level } from '../config/levels';
-import { TENSES } from '../config/tenses';
+import { APP } from '../config/app';
+import { ERAS, TENSES } from '../config/tenses';
 import { GROUP_LABELS, VERBS } from '../config/verbs';
 import type { VerbGroup } from '../config/verbs';
+import { exampleOf } from '../trainer/forms';
+import { dutchPrompt } from '../trainer/prompt';
 import { askable } from '../trainer/question';
 import type { Selection } from '../trainer/question';
 import { matchingLevel, tensesForLevel, toggle, verbsForLevel } from '../trainer/selection';
@@ -19,8 +22,22 @@ interface PickerProps {
 
 const GROUP_ORDER: readonly VerbGroup[] = ['er', 'ir', 're', 'onregelmatig', 'zeldzaam'];
 
-const gloss = (nl: { infinitive: string; complement?: string }): string =>
-  nl.complement ? `${nl.complement} ${nl.infinitive}` : nl.infinitive;
+const gloss = (nl: { infinitive: string; complement?: string; tail?: string }): string =>
+  [nl.complement, nl.infinitive, nl.tail].filter(Boolean).join(' ');
+
+/** Every tense illustrated with the example verb: French form and its Dutch meaning. */
+function tenseExamples(): Map<string, { fr: string; nl: string | null }> {
+  const verb = VERBS.find(candidate => candidate.fr === APP.exampleVerb);
+  const examples = new Map<string, { fr: string; nl: string | null }>();
+  if (!verb) return examples;
+  for (const tense of TENSES) {
+    const fr = exampleOf(verb.fr, tense.id);
+    if (!fr) continue;
+    const slot = tense.finite ? (tense.mood === 'imperative' ? '2s' : '1s') : '-';
+    examples.set(tense.id, { fr, nl: dutchPrompt(verb, tense, slot) });
+  }
+  return examples;
+}
 
 /** "Kies je traject": tenses as stations on one métro line per school level, verbs as tickets. */
 export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps) {
@@ -34,6 +51,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
     return () => window.removeEventListener('keydown', onKey);
   }, [canCancel, onCancel]);
 
+  const examples = useMemo(tenseExamples, []);
   const tenseLevel = matchingLevel(tenses, tensesForLevel);
   const verbLevel = matchingLevel(verbs, verbsForLevel);
 
@@ -70,41 +88,59 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
           <section className="picker__section" aria-labelledby="picker-tenses">
             <div className="picker__section-head">
               <h3 id="picker-tenses">Tijden</h3>
-              <p>Elke lijn is een graad. Tik op het lijnnummer om alles tot en met die graad te nemen, of zet haltes apart aan en uit.</p>
+              <p>Elke lijn is een graad, elke halte een tijd, van vroeger naar later. Tik op het lijnnummer om alles tot en met die graad te nemen, of zet haltes apart aan en uit.</p>
             </div>
+            <p className="axis" aria-hidden="true">
+              {ERAS.map(era => <span key={era.id}>{era.label}</span>)}
+            </p>
             <div className="network">
               {LEVELS.map(level => {
                 const stations = TENSES.filter(tense => tense.level === level.id);
-                const quick = QUICK_LEVELS.includes(level.id);
                 const active = tenseLevel === level.id;
                 const style = { '--line': level.color, '--line-ink': level.ink } as CSSProperties;
                 return (
                   <div className="line" key={level.id} style={style}>
                     <button type="button" className={`line__head${active ? ' is-active' : ''}`}
-                      onClick={() => quick
-                        ? setTenses(tensesForLevel(level.id))
-                        : setTenses(stations.every(s => tenses.includes(s.id))
-                          ? tenses.filter(id => !stations.some(s => s.id === id))
-                          : [...new Set([...tenses, ...stations.map(s => s.id)])])}
+                      onClick={() => setTenses(tensesForLevel(level.id))}
                       aria-pressed={active}
-                      title={quick ? `Alle tijden tot en met ${level.name}` : 'Alle extra tijden aan of uit'}>
+                      title={level.id === 'extra' ? 'Alle tijden' : `Alle tijden tot en met ${level.name}`}>
                       <span className="line__roundel" aria-hidden="true">{level.line}</span>
                       <span className="line__name">{level.name}<small>{level.detail}</small></span>
                     </button>
-                    <ol className="line__stations">
-                      {stations.map(tense => {
-                        const on = tenses.includes(tense.id);
+                    <div className="line__stations">
+                      {ERAS.map(era => {
+                        const zone = stations.filter(tense => tense.era === era.id);
+                        if (!zone.length) return null;
                         return (
-                          <li key={tense.id}>
-                            <button type="button" className={`station${on ? ' is-on' : ''}`} aria-pressed={on}
-                              onClick={() => setTenses(toggle(tenses, tense.id))}>
-                              <span className="station__dot" aria-hidden="true" />
-                              <span className="station__name" lang="fr">{tense.label}</span>
-                            </button>
-                          </li>
+                          <div className="zone" key={era.id} style={{ flexGrow: zone.length }}>
+                            <span className="zone__label">{era.label}</span>
+                            <ol className="zone__stations">
+                              {zone.map(tense => {
+                                const on = tenses.includes(tense.id);
+                                const example = examples.get(tense.id);
+                                return (
+                                  <li key={tense.id}>
+                                    <button type="button" className={`station${on ? ' is-on' : ''}`} aria-pressed={on}
+                                      onClick={() => setTenses(toggle(tenses, tense.id))}>
+                                      <span className="station__dot" aria-hidden="true" />
+                                      <span className="station__text">
+                                        <span className="station__name" lang="fr">{tense.label}</span>
+                                        {example && (
+                                          <span className="station__example">
+                                            <span lang="fr">{example.fr}</span>
+                                            {example.nl && <span className="station__nl">{example.nl}</span>}
+                                          </span>
+                                        )}
+                                      </span>
+                                    </button>
+                                  </li>
+                                );
+                              })}
+                            </ol>
+                          </div>
                         );
                       })}
-                    </ol>
+                    </div>
                   </div>
                 );
               })}
