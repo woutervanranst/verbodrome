@@ -96,7 +96,7 @@ describe('compiled CLI', () => {
   it('provides usage independently of conjugation', () => {
     const result = run(['--help']);
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain('Usage: verbodrome <fr|nl> <infinitive>');
+    expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl> <infinitive>');
     expect(result.stderr).toBe('');
   });
 });

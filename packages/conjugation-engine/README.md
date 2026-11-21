@@ -1,4 +1,4 @@
-# Verbodrome
+# conjugation-engine
 
 A rule-based TypeScript conjugation engine for **French (`fr`)** and **Dutch (`nl`)**, with a small Node CLI and a browser-safe ESM API.
 
@@ -22,7 +22,7 @@ npm run cli -- nl zorpen --mood indicative --tense past --person 1 --number sing
 The built package exposes `conjugate(options)`:
 
 ```ts
-import { conjugate, conjugationOptions, renderParts } from 'verbodrome';
+import { conjugate, conjugationOptions, renderParts } from 'conjugation-engine';
 
 const result = conjugate({
   language: 'fr',
@@ -80,7 +80,7 @@ node dist/cli.js fr faire --mood subjunctive --tense present --person 2 --number
 node dist/cli.js --help
 ```
 
-An installed local package also provides the `verbodrome` executable. For one resolved target, plain output is its preferred phrase. Wildcards print labelled variants and any unavailable targets. `--json` returns the full result; `--bare` changes plain presentation only. Invoke the executable or `node dist/cli.js` directly when stdout must contain only JSON, without npm's own script banners.
+An installed local package also provides the `conjugation-engine` executable. For one resolved target, plain output is its preferred phrase. Wildcards print labelled variants and any unavailable targets. `--json` returns the full result; `--bare` changes plain presentation only. Invoke the executable or `node dist/cli.js` directly when stdout must contain only JSON, without npm's own script banners.
 
 ## Development and corpus coverage
 
