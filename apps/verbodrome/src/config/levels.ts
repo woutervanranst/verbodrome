@@ -9,15 +9,14 @@ export interface LevelDef {
   readonly id: Level;
   readonly name: string;
   readonly detail: string;
-  readonly color: string;
 }
 
 export const LEVELS: readonly LevelDef[] = [
-  { id: 'lager', name: 'Lager onderwijs', detail: '5e en 6e leerjaar', color: '#f2c931' },
-  { id: 'g1', name: '1e graad secundair', detail: '1e en 2e middelbaar', color: '#2a6bd1' },
-  { id: 'g2', name: '2e graad secundair', detail: '3e en 4e middelbaar', color: '#2f9e6a' },
-  { id: 'g3', name: '3e graad secundair', detail: '5e en 6e middelbaar', color: '#b0409a' },
-  { id: 'extra', name: 'Extra', detail: '3e graad + literair en zeldzaam', color: '#8b8378' },
+  { id: 'lager', name: 'Lager onderwijs', detail: '5e en 6e leerjaar' },
+  { id: 'g1', name: '1e graad secundair', detail: '1e en 2e middelbaar' },
+  { id: 'g2', name: '2e graad secundair', detail: '3e en 4e middelbaar' },
+  { id: 'g3', name: '3e graad secundair', detail: '5e en 6e middelbaar' },
+  { id: 'extra', name: 'Extra', detail: '3e graad + literair en zeldzaam' },
 ];
 
 export const QUICK_LEVELS: readonly Level[] = ['lager', 'g1', 'g2', 'g3', 'extra'];

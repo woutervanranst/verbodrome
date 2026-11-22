@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import type { CSSProperties } from 'react';
 import { LEVELS, QUICK_LEVELS, levelDef } from '../config/levels';
 import type { Level } from '../config/levels';
 import { APP } from '../config/app';
@@ -57,9 +56,8 @@ function LevelChips({ label, active, onPick }: { label: string; active: Level | 
         const level = levelDef(id);
         return (
           <button key={id} type="button" className={`chip${active === id ? ' is-active' : ''}`}
-            style={{ '--level': level.color } as CSSProperties} aria-pressed={active === id}
-            title={level.detail} onClick={() => onPick(id)}>
-            <span className="chip__dot" aria-hidden="true" />{level.name}
+            aria-pressed={active === id} title={level.detail} onClick={() => onPick(id)}>
+            {level.name}
           </button>
         );
       })}
@@ -122,19 +120,17 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
             <div className="timeline">
               {ERAS.map(era => {
                 const members = byEra.get(era.id) ?? [];
-                const lit = members.some(tense => tenses.includes(tense.id));
                 return (
-                  <section className={`era${lit ? ' is-lit' : ''}`} key={era.id} aria-label={era.label}>
+                  <section className={`era${era.id === 'nu' ? ' is-now' : ''}`} key={era.id} aria-label={era.label}>
                     <h4 className="era__head"><span className="era__dot" aria-hidden="true" />{era.label}</h4>
                     <ul className="era__box">
                       {members.map(tense => {
                         const on = tenses.includes(tense.id);
-                        const level = levelDef(tense.level);
                         const example = examples.get(tense.id);
                         return (
                           <li key={tense.id}>
                             <button type="button" className={`tense${on ? ' is-on' : ''}`} aria-pressed={on}
-                              style={{ '--level': level.color } as CSSProperties} title={level.name}
+                              title={levelDef(tense.level).name}
                               onClick={() => setTenses(toggle(tenses, tense.id))}>
                               <span className="tense__check" aria-hidden="true" />
                               <span className="tense__text">
