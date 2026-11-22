@@ -81,7 +81,8 @@ export function App() {
     store.saveProgress(result);
     setVerdict(cheer());
     setGain(result.gain ? { amount: result.gain, key: Date.now() } : null);
-    if (option.correct && APP.autoAdvance) {
+    // A repeat is never rushed: the learner reads the comparison and moves on when ready.
+    if (option.correct && APP.autoAdvance && !asked.review) {
       setAdvancing(true);
       clearTimeout(timer.current);
       timer.current = setTimeout(next, APP.autoAdvanceMs);
