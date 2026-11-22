@@ -4,12 +4,15 @@ import { APP } from '../config/app';
 import { diff, subjectLength } from '../trainer/diff';
 import { verbForms } from '../trainer/forms';
 import type { FrForm } from '../trainer/forms';
+import type { Recall } from '../trainer/coach';
 import type { Option, Question } from '../trainer/question';
 import { rule } from '../trainer/rules';
 
 interface FeedbackProps {
   readonly question: Question;
   readonly picked: Option;
+  /** Set when this question was asked before: how this answer compares with the earlier one. */
+  readonly recall: Recall | null;
   readonly cheer: string;
   readonly tableOpen: boolean;
   readonly advancing: boolean;
@@ -28,7 +31,7 @@ function tableRows(forms: readonly FrForm[]): (FrForm | null)[][] {
   return rows.length ? rows : forms.map(form => [form]);
 }
 
-export function Feedback({ question, picked, cheer, tableOpen, advancing, onToggleTable, onNext }: FeedbackProps) {
+export function Feedback({ question, picked, recall, cheer, tableOpen, advancing, onToggleTable, onNext }: FeedbackProps) {
   const wrong = !picked.correct;
   const hasSubject = question.slot !== '-' && question.tense.mood !== 'imperative';
   const correctParts = diff(question.correct, wrong ? picked.text : null, subjectLength(question.correct, hasSubject));
@@ -48,6 +51,12 @@ export function Feedback({ question, picked, cheer, tableOpen, advancing, onTogg
           <p className="sheet__verdict">{wrong ? 'Net niet' : cheer}</p>
           <button type="button" className="btn btn--go" onClick={onNext}>Volgende</button>
         </div>
+
+        {recall && (
+          <p className={`sheet__recall is-${recall.tone}`}>
+            <span className="sheet__badge">Herhaling</span>{recall.text}
+          </p>
+        )}
 
         <div className="compare">
           {wrong && (

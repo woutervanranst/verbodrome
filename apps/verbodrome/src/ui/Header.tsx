@@ -8,9 +8,10 @@ interface HeaderProps {
   readonly routeLabel: string;
   readonly routeDetail: string;
   readonly onOpenPicker: () => void;
+  readonly onOpenReport: () => void;
 }
 
-export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker }: HeaderProps) {
+export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker, onOpenReport }: HeaderProps) {
   const [pulse, setPulse] = useState(false);
   useEffect(() => {
     if (!gain) return;
@@ -44,6 +45,7 @@ export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker }: H
           <span className="board__label">XP</span>
           {gain && <span key={gain.key} className="board__pop">+{gain.amount}</span>}
         </div>
+        <button type="button" className="board__report" onClick={onOpenReport}>Resultaten</button>
       </div>
     </header>
   );

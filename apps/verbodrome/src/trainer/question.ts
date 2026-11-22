@@ -1,3 +1,4 @@
+import { tenseById } from '../config/tenses';
 import type { TenseDef } from '../config/tenses';
 import type { VerbDef } from '../config/verbs';
 import { verbByFr } from '../config/verbs';
@@ -21,6 +22,24 @@ export interface Option {
   readonly label: string;
   /** Dutch meaning when the option is a real form of the verb. */
   readonly nl: string | null;
+  /**
+   * Stable category of the mistake, for the answer log: `persoon` (another person's form),
+   * `tijd:<tense id>` (another tense), or the Dutch name of a made-up error. Empty for the correct one.
+   */
+  readonly kind: string;
+}
+
+/** A wrong answer the learner gave before; it is offered again so the same slip can show up. */
+export interface Earlier {
+  readonly text: string;
+  readonly kind: string;
+}
+
+/** Readable name of a mistake category: "verward met imparfait", "vorm van een andere persoon". */
+export function kindLabel(kind: string): string {
+  if (kind === 'persoon') return 'vorm van een andere persoon';
+  if (kind.startsWith('tijd:')) return `verward met ${tenseById(kind.slice(5))?.label ?? 'een andere tijd'}`;
+  return kind;
 }
 
 export interface Question {
@@ -124,11 +143,24 @@ export function makeQuestion(
   return null;
 }
 
+/** The question for one specific form, or null when it cannot be asked within the selection. */
+export function questionFor(
+  selection: Selection, item: { readonly verb: string; readonly tense: string; readonly slot: string },
+  random: Random = Math.random, optionCount = DEFAULT_OPTION_COUNT, earlier: Earlier | null = null,
+): Question | null {
+  const verb = verbByFr(item.verb);
+  if (!verb || !selection.verbs.includes(item.verb)) return null;
+  const tenses = new Set(selection.tenses);
+  const candidates = askable(verb, tenses);
+  const target = candidates.find(form => form.tense.id === item.tense && form.slot === item.slot);
+  return target ? build(verb, target, candidates, tenses, random, optionCount, earlier) : null;
+}
+
 const LEVEL_RANK: readonly string[] = ['lager', 'g1', 'g2', 'g3', 'extra'];
 
 function build(
   verb: VerbDef, target: FrForm, candidates: readonly FrForm[],
-  selected: ReadonlySet<string>, random: Random, optionCount: number,
+  selected: ReadonlySet<string>, random: Random, optionCount: number, earlier: Earlier | null = null,
 ): Question {
   const forms = verbForms(verb.fr);
   const prompt = dutchPrompt(verb, target.tense, target.slot)!;
@@ -140,7 +172,7 @@ function build(
     if (!real.has(form.text)) real.set(form.text, form);
   }
 
-  type Candidate = { text: string; label: string };
+  type Candidate = { text: string; label: string; kind?: string };
   const asCandidate = (form: FrForm): Candidate => ({ text: form.text, label: describe(form) });
   const finite = target.slot !== '-';
 
@@ -154,7 +186,7 @@ function build(
     if (form.subject === null || form.slot === target.slot) return [asCandidate(form)];
     const text = inPerson(forms, form, target.slot);
     const tense = form.tense.id === target.tense.id ? '' : `${form.tense.label} · `;
-    return text ? [{ text, label: `${tense}vorm van ${form.subject}` }] : [];
+    return text ? [{ text, label: `${tense}vorm van ${form.subject}`, kind: 'persoon' }] : [];
   });
   const otherPersons = recast((forms.byTense.get(target.tense.id) ?? []).filter(form => form.slot !== target.slot));
   const errors = mistakes(forms, target);
@@ -175,6 +207,7 @@ function build(
     }
   };
 
+  if (earlier) take([{ text: earlier.text, label: kindLabel(earlier.kind), kind: earlier.kind }], 1);
   // A balanced first draw from what the learner is practising, then the rest of it.
   if (imperative) { take(errors, 5); take(otherPersons, 2); take(otherTenses, 2); }
   else { take(otherTenses, 4); take(otherPersons, 3); take(errors, 2); }
@@ -190,9 +223,10 @@ function build(
       correct: false,
       label: match ? describe(match) : candidate.label,
       nl: match ? dutchPrompt(verb, match.tense, match.slot) : null,
+      kind: candidate.kind ?? (!match ? candidate.label : match.tense.id === target.tense.id ? 'persoon' : `tijd:${match.tense.id}`),
     };
   });
-  options.push({ text: target.text, correct: true, label: '', nl: prompt });
+  options.push({ text: target.text, correct: true, label: '', nl: prompt, kind: '' });
 
   return {
     verb, tense: target.tense, slot: target.slot, correct: target.text, prompt, showTense,
