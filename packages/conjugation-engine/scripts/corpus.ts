@@ -29,8 +29,6 @@ export interface CorpusFile {
   readonly auxiliary: string | null;
   readonly pattern: 'default' | 'second';
   readonly templatePlaceholders: number;
-  readonly encoding: string;
-  readonly checksum: string;
   readonly cells: readonly CorpusCell[];
 }
 
@@ -60,9 +58,7 @@ export interface CorpusStats {
 }
 
 export interface CorpusManifest {
-  readonly repository: string;
   readonly revision: string;
-  readonly attribution: Readonly<Record<Language, string>>;
   readonly files: readonly Omit<CorpusFile, 'cells'>[];
   readonly fixtures: Readonly<Record<Language, CorpusStats>>;
   readonly corrections: { readonly count: number; readonly checksum: string };

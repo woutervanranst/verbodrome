@@ -40,16 +40,21 @@ for (const [language, directory, expectedFiles, encoding] of [
     const html = new TextDecoder(encoding, { fatal: true }).decode(bytes);
     const parsed = language === 'fr' ? parseFrench(html, name) : parseDutch(html, name);
     const { cells } = parsed;
+    const infinitive = normalizeText(name.slice(0, -5).split('_')[0] ?? '');
+    const gender = language === 'fr' ? (name.includes('feminin') ? 'feminine' : 'masculine') : null;
+    const auxiliary = name.includes('auxiliaire-avoir') ? 'avoir' : name.includes('auxiliaire-etre') ? 'être' : null;
+    const pattern = name.includes('deuxieme-forme') ? 'second' : 'default';
+    // Neutral fixture id built from the grammatical variant, not from the source file name.
+    const id = [language, infinitive, pattern === 'second' ? 'second' : '', gender === 'feminine' ? 'feminine' : '', auxiliary ?? '']
+      .filter(Boolean).join('/');
     const entry = {
-      file: `${directory}/${name}`,
+      file: id,
       language,
-      infinitive: normalizeText(name.slice(0, -5).split('_')[0] ?? ''),
-      gender: language === 'fr' ? (name.includes('feminin') ? 'feminine' : 'masculine') : null,
-      auxiliary: name.includes('auxiliaire-avoir') ? 'avoir' : name.includes('auxiliaire-etre') ? 'être' : null,
-      pattern: name.includes('deuxieme-forme') ? 'second' : 'default',
+      infinitive,
+      gender,
+      auxiliary,
+      pattern,
       templatePlaceholders: parsed.templatePlaceholders,
-      encoding,
-      checksum: createHash('sha256').update(bytes).digest('hex'),
     } satisfies Omit<CorpusFile, 'cells'>;
     const fixture = { ...entry, cells };
     fixtures.push(fixture);
@@ -69,9 +74,7 @@ for (const [language, directory, expectedFiles, encoding] of [
 }
 const correctionContent = JSON.stringify(corrections, null, 2) + '\n';
 const inventory: CorpusManifest = {
-  repository: 'woutervanranst/VerbodromeX',
   revision: corpusRevision,
-  attribution: { fr: 'Le Conjugueur / Le Figaro', nl: 'Verbix' },
   files: manifest,
   fixtures: stats,
   corrections: { count: corrections.length, checksum: checksum(correctionContent) },

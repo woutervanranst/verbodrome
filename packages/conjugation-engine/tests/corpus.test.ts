@@ -26,7 +26,7 @@ function applicableForms(file: CorpusFile, target: CorpusFile['cells'][number]['
 }
 
 describe('complete pinned corpus accounting', () => {
-  it('retains every file, grammatical cell, template placeholder, and source checksum', () => {
+  it('retains every file, grammatical cell, template placeholder, and fixture checksum', () => {
     expect(manifest.revision).toBe(corpusRevision);
     expect(manifest.files).toHaveLength(429);
     expect(files).toHaveLength(429);
@@ -44,7 +44,6 @@ describe('complete pinned corpus accounting', () => {
     for (const file of files) {
       const { cells, ...metadata } = file;
       expect(manifest.files.find(entry => entry.file === file.file)).toEqual(metadata);
-      expect(file.checksum).toMatch(/^[0-9a-f]{64}$/u);
       expect(cells).toHaveLength(file.language === 'fr' ? 118 : 52);
     }
   });
