@@ -1,8 +1,8 @@
-import { TENSES } from '../config/tenses';
+import { TENSES, tenseById } from '../config/tenses';
 import type { TenseDef } from '../config/tenses';
 import { skills } from './coach';
 import type { History, Skill } from './coach';
-import { kindLabel } from './question';
+import { categoryOf, WRONG_TENSE } from './question';
 import type { Selection } from './question';
 
 export interface TenseScore {
@@ -11,13 +11,26 @@ export interface TenseScore {
   readonly skill: Skill | null;
 }
 
-export interface MistakeScore {
-  readonly kind: string;
-  readonly label: string;
-  readonly count: number;
-  /** The most recent example: what was picked and what was right. */
+export interface MistakeExample {
   readonly pick: string;
   readonly want: string;
+}
+
+/** Within "verkeerde tijd": one pair of tenses that gets mixed up. */
+export interface MistakeGroup {
+  readonly label: string;
+  readonly count: number;
+  readonly examples: readonly MistakeExample[];
+}
+
+export interface MistakeScore {
+  /** Category name, as shown in the feedback after a question. */
+  readonly category: string;
+  readonly count: number;
+  /** Newest first. */
+  readonly examples: readonly MistakeExample[];
+  /** Only for mixed-up tenses: the pairs, most frequent first. */
+  readonly groups: readonly MistakeGroup[];
 }
 
 export interface VerbScore {
@@ -26,6 +39,9 @@ export interface VerbScore {
   readonly wrong: number;
 }
 
+/** Examples kept per category and per pair. */
+const MAX_EXAMPLES = 12;
+
 export interface Report {
   readonly answered: number;
   readonly correct: number;
@@ -33,7 +49,7 @@ export interface Report {
   readonly today: { readonly answered: number; readonly correct: number };
   /** Tenses that are being practised or have been asked, in time-axis order. */
   readonly tenses: readonly TenseScore[];
-  /** Most frequent kinds of mistake first. */
+  /** Most frequent categories of mistake first. */
   readonly mistakes: readonly MistakeScore[];
   /** Verbs that go wrong most often (asked at least 3 times). */
   readonly verbs: readonly VerbScore[];
@@ -45,14 +61,32 @@ export function buildReport(history: History, selection: Selection, now = Date.n
   const midnight = new Date(now).setHours(0, 0, 0, 0);
   const today = answers.filter(answer => answer.at >= midnight);
 
-  const mistakes = new Map<string, MistakeScore>();
-  for (const answer of answers) {
+  type Bucket = { count: number; examples: MistakeExample[] };
+  const add = (map: Map<string, Bucket>, key: string, example: MistakeExample): void => {
+    const bucket = map.get(key) ?? { count: 0, examples: [] };
+    bucket.count++;
+    if (bucket.examples.length < MAX_EXAMPLES) bucket.examples.push(example);
+    map.set(key, bucket);
+  };
+  const byCount = <T extends { count: number }>(a: T, b: T): number => b.count - a.count;
+  const categories = new Map<string, Bucket>();
+  const pairs = new Map<string, Bucket>();
+  // Newest first, so the examples kept are the most recent ones.
+  for (const answer of [...answers].reverse()) {
     if (answer.ok || !answer.kind) continue;
-    mistakes.set(answer.kind, {
-      kind: answer.kind, label: kindLabel(answer.kind), count: (mistakes.get(answer.kind)?.count ?? 0) + 1,
-      pick: answer.pick ?? '', want: answer.want ?? '',
-    });
+    const example = { pick: answer.pick ?? '', want: answer.want ?? '' };
+    const category = categoryOf(answer.kind);
+    add(categories, category, example);
+    if (category === WRONG_TENSE) {
+      const order = (id: string): number => TENSES.findIndex(tense => tense.id === id);
+      const pair = [answer.tense, answer.kind.slice(5)].sort((a, b) => order(a) - order(b));
+      add(pairs, pair.map(id => tenseById(id)?.label ?? id).join(' ↔ '), example);
+    }
   }
+  const mistakes: MistakeScore[] = [...categories].map(([category, bucket]) => ({
+    category, ...bucket,
+    groups: category === WRONG_TENSE ? [...pairs].map(([label, pair]) => ({ label, ...pair })).sort(byCount) : [],
+  })).sort(byCount);
 
   const verbs = [...known.verbs]
     .map(([verb, skill]) => ({ verb, asked: skill.asked, wrong: skill.asked - skill.correct }))
@@ -67,7 +101,7 @@ export function buildReport(history: History, selection: Selection, now = Date.n
     tenses: TENSES
       .filter(tense => selection.tenses.includes(tense.id) || known.tenses.has(tense.id))
       .map(tense => ({ tense, skill: known.tenses.get(tense.id) ?? null })),
-    mistakes: [...mistakes.values()].sort((a, b) => b.count - a.count).slice(0, 6),
+    mistakes,
     verbs,
   };
 }

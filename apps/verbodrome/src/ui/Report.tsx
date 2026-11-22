@@ -4,6 +4,7 @@ import { ERAS } from '../config/tenses';
 import type { History, Skill } from '../trainer/coach';
 import type { Selection } from '../trainer/question';
 import { buildReport } from '../trainer/report';
+import type { MistakeExample } from '../trainer/report';
 import type { Stats } from '../trainer/score';
 
 interface ReportProps {
@@ -26,9 +27,18 @@ function verdict(skill: Skill): { word: string; tone: 'good' | 'mid' | 'bad' } {
   return { word: 'extra oefenen', tone: 'bad' };
 }
 
+function Examples({ examples }: { examples: readonly MistakeExample[] }) {
+  return (
+    <ul className="examples" lang="fr">
+      {examples.map((example, index) => <li key={index}><s>{example.pick}</s><span aria-hidden="true">→</span><span>{example.want}</span></li>)}
+    </ul>
+  );
+}
+
 /** "Mijn resultaten": how the learner has done so far, on this device. */
 export function Report({ history, selection, stats, onClose, onReset }: ReportProps) {
   const [confirming, setConfirming] = useState(false);
+  const [open, setOpen] = useState<string | null>(null);
   const report = useMemo(() => buildReport(history, selection), [history, selection]);
 
   useEffect(() => {
@@ -98,17 +108,36 @@ export function Report({ history, selection, stats, onClose, onReset }: ReportPr
               <section className="picker__section" aria-labelledby="report-mistakes">
                 <div className="picker__section-head">
                   <h3 id="report-mistakes">Typische fouten</h3>
-                  <p>De soorten fouten die je het vaakst maakt, met je laatste voorbeeld.</p>
+                  <p>De soorten fouten die je het vaakst maakt. Tik op een soort om je fouten te zien.</p>
                 </div>
                 {report.mistakes.length ? (
                   <ul className="rows">
-                    {report.mistakes.map(mistake => (
-                      <li key={mistake.kind}>
-                        <span className="rows__main">{mistake.label}</span>
-                        <span className="rows__example" lang="fr"><s>{mistake.pick}</s> → {mistake.want}</span>
-                        <span className="rows__count">{times(mistake.count)}</span>
-                      </li>
-                    ))}
+                    {report.mistakes.map(mistake => {
+                      const isOpen = open === mistake.category;
+                      return (
+                        <li key={mistake.category} className="rows__fold">
+                          <button type="button" className="rows__toggle" aria-expanded={isOpen}
+                            onClick={() => setOpen(isOpen ? null : mistake.category)}>
+                            <span className="rows__main">{mistake.category}</span>
+                            <span className="rows__count">{times(mistake.count)}</span>
+                            <span className="rows__caret" aria-hidden="true">{isOpen ? '▾' : '▸'}</span>
+                          </button>
+                          {isOpen && (
+                            <div className="rows__detail">
+                              {mistake.groups.length ? mistake.groups.map(group => (
+                                <div key={group.label}>
+                                  <p className="rows__group"><span lang="fr">{group.label}</span><span>{times(group.count)}</span></p>
+                                  <Examples examples={group.examples} />
+                                </div>
+                              )) : <Examples examples={mistake.examples} />}
+                              {!mistake.groups.length && mistake.count > mistake.examples.length && (
+                                <p className="report__note">Je laatste {mistake.examples.length} van {mistake.count}.</p>
+                              )}
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 ) : <p className="report__note">Nog geen fouten. Knap!</p>}
               </section>

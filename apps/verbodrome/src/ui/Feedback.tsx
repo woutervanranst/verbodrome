@@ -5,6 +5,7 @@ import { diff, subjectLength } from '../trainer/diff';
 import { verbForms } from '../trainer/forms';
 import type { FrForm } from '../trainer/forms';
 import type { Recall } from '../trainer/coach';
+import { categoryOf } from '../trainer/question';
 import type { Option, Question } from '../trainer/question';
 import { rule } from '../trainer/rules';
 
@@ -33,6 +34,8 @@ function tableRows(forms: readonly FrForm[]): (FrForm | null)[][] {
 
 export function Feedback({ question, picked, recall, cheer, tableOpen, advancing, onToggleTable, onNext }: FeedbackProps) {
   const wrong = !picked.correct;
+  // Named exactly as in the results report.
+  const category = categoryOf(picked.kind);
   const hasSubject = question.slot !== '-' && question.tense.mood !== 'imperative';
   const correctParts = diff(question.correct, wrong ? picked.text : null, subjectLength(question.correct, hasSubject));
   const pickedParts = diff(picked.text, question.correct, subjectLength(picked.text, hasSubject));
@@ -63,7 +66,7 @@ export function Feedback({ question, picked, recall, cheer, tableOpen, advancing
             <div className="compare__row compare__row--you">
               <span className="compare__tag">Jij</span>
               <span className="compare__form" lang="fr"><Marked parts={pickedParts} className="mark--bad" /></span>
-              <span className="compare__meta">{picked.nl ? `= ${picked.nl} · ` : ''}{picked.label}</span>
+              <span className="compare__meta">{picked.nl ? `= ${picked.nl} · ` : ''}{picked.label}{category !== picked.label && <> · <strong>{category}</strong></>}</span>
             </div>
           )}
           <div className="compare__row compare__row--right">
