@@ -35,11 +35,11 @@ export function corpusCorrection(file: CorpusFile, cell: CorpusCell, index: numb
     if (['falloir', 'pleuvoir', 'seoir', 'messeoir', 'être', 'dormir', 'plaire', 'pouvoir', 'rire'].includes(file.infinitive) && mood === 'participle' && tense === 'past' && !unavailable) {
       correctedTarget = { ...cell.target, agreement: null };
       reasons.push('This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.');
-      source = `https://leconjugueur.lefigaro.fr/conjugaison/verbe/${encodeURIComponent(file.infinitive)}.html`;
+      source = `https://www.cnrtl.fr/definition/${encodeURIComponent(file.infinitive)}`;
     }
     if (file.infinitive === 'déchoir' && mood === 'subjunctive' && tense === 'imperfect' && person === 2 && number === 'singular') {
       change('The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.',
-        'https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html',
+        'https://www.cnrtl.fr/definition/d%C3%A9choir',
         text => text.replace('déchoies', 'déchusses'));
     }
     if (file.infinitive === 'clore' && unavailable && (tense === 'near_future' || tense === 'recent_past') && number === 'plural' && (person === 1 || person === 2)) {
@@ -49,12 +49,12 @@ export function corpusCorrection(file: CorpusFile, cell: CorpusCell, index: numb
       expected = [phrase];
       unavailable = false;
       reasons.push('Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.');
-      source = 'https://leconjugueur.lefigaro.fr/frfuturproche.php';
+      source = 'https://www.cnrtl.fr/definition/clore';
     }
     if (['seoir', 'messeoir'].includes(file.infinitive) && ((mood === 'participle' && tense === 'perfect')
       || (mood === 'infinitive' && tense === 'past') || (mood === 'gerund' && tense === 'past'))) {
       markUnavailable('This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.',
-        `https://leconjugueur.lefigaro.fr/conjugaison/verbe/${file.infinitive}.html`);
+        `https://www.cnrtl.fr/definition/${file.infinitive}`);
     }
     if (file.infinitive === 'messeoir') {
       change('The alternate present participle retains the mes- prefix; seyant alone belongs to seoir.',
@@ -63,7 +63,7 @@ export function corpusCorrection(file: CorpusFile, cell: CorpusCell, index: numb
     }
     if (file.infinitive === 'pleuvoir' && file.pattern === 'second') {
       change('The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.',
-        'https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html',
+        'https://www.cnrtl.fr/definition/pleuvoir',
         text => text.replace(/pleuvèrent/gu, 'plurent').replace(/pleuver/gu, 'pleuvr').replace(/pleuvassent/gu, 'plussent'));
     }
   } else {

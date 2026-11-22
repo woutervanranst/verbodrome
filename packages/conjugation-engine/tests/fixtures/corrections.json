@@ -1,6 +1,6 @@
 [
   {
-    "file": "Français/clore.html",
+    "file": "fr/clore",
     "cell": 109,
     "original": "-",
     "expected": [
@@ -8,7 +8,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "near_future",
@@ -19,7 +19,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore.html",
+    "file": "fr/clore",
     "cell": 110,
     "original": "-",
     "expected": [
@@ -27,7 +27,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "near_future",
@@ -38,7 +38,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore.html",
+    "file": "fr/clore",
     "cell": 115,
     "original": "-",
     "expected": [
@@ -46,7 +46,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "recent_past",
@@ -57,7 +57,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore.html",
+    "file": "fr/clore",
     "cell": 116,
     "original": "-",
     "expected": [
@@ -65,7 +65,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "recent_past",
@@ -76,7 +76,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore_feminin.html",
+    "file": "fr/clore/feminine",
     "cell": 109,
     "original": "-",
     "expected": [
@@ -84,7 +84,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "near_future",
@@ -95,7 +95,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore_feminin.html",
+    "file": "fr/clore/feminine",
     "cell": 110,
     "original": "-",
     "expected": [
@@ -103,7 +103,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "near_future",
@@ -114,7 +114,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore_feminin.html",
+    "file": "fr/clore/feminine",
     "cell": 115,
     "original": "-",
     "expected": [
@@ -122,7 +122,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "recent_past",
@@ -133,7 +133,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/clore_feminin.html",
+    "file": "fr/clore/feminine",
     "cell": 116,
     "original": "-",
     "expected": [
@@ -141,7 +141,7 @@
     ],
     "unavailable": false,
     "reason": "Periphrases conjugate aller/venir, not clore: a defective clore present-plural stem does not suppress its infinitive.",
-    "source": "https://leconjugueur.lefigaro.fr/frfuturproche.php",
+    "source": "https://www.cnrtl.fr/definition/clore",
     "target": {
       "mood": "indicative",
       "tense": "recent_past",
@@ -152,7 +152,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/dormir.html",
+    "file": "fr/dormir",
     "cell": 97,
     "original": "dormi",
     "expected": [
@@ -160,7 +160,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -180,7 +180,7 @@
     }
   },
   {
-    "file": "Français/dormir.html",
+    "file": "fr/dormir",
     "cell": 98,
     "original": "dormi",
     "expected": [
@@ -188,7 +188,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -208,7 +208,7 @@
     }
   },
   {
-    "file": "Français/dormir.html",
+    "file": "fr/dormir",
     "cell": 99,
     "original": "dormi",
     "expected": [
@@ -216,7 +216,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -236,7 +236,7 @@
     }
   },
   {
-    "file": "Français/dormir.html",
+    "file": "fr/dormir",
     "cell": 100,
     "original": "dormi",
     "expected": [
@@ -244,7 +244,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -264,7 +264,7 @@
     }
   },
   {
-    "file": "Français/dormir_feminin.html",
+    "file": "fr/dormir/feminine",
     "cell": 97,
     "original": "dormi",
     "expected": [
@@ -272,7 +272,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -292,7 +292,7 @@
     }
   },
   {
-    "file": "Français/dormir_feminin.html",
+    "file": "fr/dormir/feminine",
     "cell": 98,
     "original": "dormi",
     "expected": [
@@ -300,7 +300,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -320,7 +320,7 @@
     }
   },
   {
-    "file": "Français/dormir_feminin.html",
+    "file": "fr/dormir/feminine",
     "cell": 99,
     "original": "dormi",
     "expected": [
@@ -328,7 +328,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -348,7 +348,7 @@
     }
   },
   {
-    "file": "Français/dormir_feminin.html",
+    "file": "fr/dormir/feminine",
     "cell": 100,
     "original": "dormi",
     "expected": [
@@ -356,7 +356,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html",
+    "source": "https://www.cnrtl.fr/definition/dormir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -376,7 +376,7 @@
     }
   },
   {
-    "file": "Français/déchoir.html",
+    "file": "fr/déchoir",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -384,7 +384,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -395,7 +395,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_auxiliaire-avoir.html",
+    "file": "fr/déchoir/avoir",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -403,7 +403,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -414,7 +414,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_auxiliaire-etre.html",
+    "file": "fr/déchoir/être",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -422,7 +422,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -433,7 +433,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_deuxieme-forme-auxiliaire-avoir.html",
+    "file": "fr/déchoir/second/avoir",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -441,7 +441,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -452,7 +452,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_deuxieme-forme-auxiliaire-etre.html",
+    "file": "fr/déchoir/second/être",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -460,7 +460,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -471,7 +471,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_deuxieme-forme-feminin-auxiliaire-avoir.html",
+    "file": "fr/déchoir/second/feminine/avoir",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -479,7 +479,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -490,7 +490,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_deuxieme-forme-feminin-auxiliaire-etre.html",
+    "file": "fr/déchoir/second/feminine/être",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -498,7 +498,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -509,7 +509,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_feminin-auxiliaire-avoir.html",
+    "file": "fr/déchoir/feminine/avoir",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -517,7 +517,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -528,7 +528,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/déchoir_feminin-auxiliaire-etre.html",
+    "file": "fr/déchoir/feminine/être",
     "cell": 61,
     "original": "que tu déchoies",
     "expected": [
@@ -536,7 +536,7 @@
     ],
     "unavailable": false,
     "reason": "The source substitutes a present-subjunctive cell under the imperfect heading; the past-simple stem gives déchusses.",
-    "source": "https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html",
+    "source": "https://www.cnrtl.fr/definition/d%C3%A9choir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -547,7 +547,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/falloir.html",
+    "file": "fr/falloir",
     "cell": 97,
     "original": "fallu",
     "expected": [
@@ -555,7 +555,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/falloir.html",
+    "source": "https://www.cnrtl.fr/definition/falloir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "file": "Français/falloir_feminin.html",
+    "file": "fr/falloir/feminine",
     "cell": 97,
     "original": "fallu",
     "expected": [
@@ -583,7 +583,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/falloir.html",
+    "source": "https://www.cnrtl.fr/definition/falloir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -603,7 +603,7 @@
     }
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 96,
     "original": "messéant/seyant",
     "expected": [
@@ -623,7 +623,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 97,
     "original": "messis",
     "expected": [
@@ -631,7 +631,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -651,7 +651,7 @@
     }
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 98,
     "original": "messis",
     "expected": [
@@ -659,7 +659,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -679,7 +679,7 @@
     }
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 99,
     "original": "messis",
     "expected": [
@@ -687,7 +687,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -707,7 +707,7 @@
     }
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 100,
     "original": "messis",
     "expected": [
@@ -715,7 +715,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -735,13 +735,13 @@
     }
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 101,
     "original": "ayant messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "perfect",
@@ -752,13 +752,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 103,
     "original": "avoir messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "infinitive",
       "tense": "past",
@@ -769,7 +769,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 104,
     "original": "en messéant/seyant",
     "expected": [
@@ -789,13 +789,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir.html",
+    "file": "fr/messeoir",
     "cell": 105,
     "original": "en ayant messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "gerund",
       "tense": "past",
@@ -806,7 +806,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 96,
     "original": "messéant/seyant",
     "expected": [
@@ -826,7 +826,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 97,
     "original": "messis",
     "expected": [
@@ -834,7 +834,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -854,7 +854,7 @@
     }
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 98,
     "original": "messis",
     "expected": [
@@ -862,7 +862,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -882,7 +882,7 @@
     }
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 99,
     "original": "messis",
     "expected": [
@@ -890,7 +890,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -910,7 +910,7 @@
     }
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 100,
     "original": "messis",
     "expected": [
@@ -918,7 +918,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -938,13 +938,13 @@
     }
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 101,
     "original": "ayant messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "participle",
       "tense": "perfect",
@@ -955,13 +955,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 103,
     "original": "avoir messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "infinitive",
       "tense": "past",
@@ -972,7 +972,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 104,
     "original": "en messéant/seyant",
     "expected": [
@@ -992,13 +992,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/messeoir_feminin.html",
+    "file": "fr/messeoir/feminine",
     "cell": 105,
     "original": "en ayant messis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/messeoir.html",
+    "source": "https://www.cnrtl.fr/definition/messeoir",
     "target": {
       "mood": "gerund",
       "tense": "past",
@@ -1009,7 +1009,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/plaire.html",
+    "file": "fr/plaire",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1017,7 +1017,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1037,7 +1037,7 @@
     }
   },
   {
-    "file": "Français/plaire.html",
+    "file": "fr/plaire",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1045,7 +1045,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1065,7 +1065,7 @@
     }
   },
   {
-    "file": "Français/plaire.html",
+    "file": "fr/plaire",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1073,7 +1073,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1093,7 +1093,7 @@
     }
   },
   {
-    "file": "Français/plaire.html",
+    "file": "fr/plaire",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1101,7 +1101,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1121,7 +1121,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme-feminin.html",
+    "file": "fr/plaire/second/feminine",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1129,7 +1129,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1149,7 +1149,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme-feminin.html",
+    "file": "fr/plaire/second/feminine",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1157,7 +1157,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1177,7 +1177,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme-feminin.html",
+    "file": "fr/plaire/second/feminine",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1185,7 +1185,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1205,7 +1205,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme-feminin.html",
+    "file": "fr/plaire/second/feminine",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1213,7 +1213,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1233,7 +1233,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme.html",
+    "file": "fr/plaire/second",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1241,7 +1241,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1261,7 +1261,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme.html",
+    "file": "fr/plaire/second",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1269,7 +1269,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1289,7 +1289,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme.html",
+    "file": "fr/plaire/second",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1297,7 +1297,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1317,7 +1317,7 @@
     }
   },
   {
-    "file": "Français/plaire_deuxieme-forme.html",
+    "file": "fr/plaire/second",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1325,7 +1325,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1345,7 +1345,7 @@
     }
   },
   {
-    "file": "Français/plaire_feminin.html",
+    "file": "fr/plaire/feminine",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1353,7 +1353,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1373,7 +1373,7 @@
     }
   },
   {
-    "file": "Français/plaire_feminin.html",
+    "file": "fr/plaire/feminine",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1381,7 +1381,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1401,7 +1401,7 @@
     }
   },
   {
-    "file": "Français/plaire_feminin.html",
+    "file": "fr/plaire/feminine",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1409,7 +1409,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1429,7 +1429,7 @@
     }
   },
   {
-    "file": "Français/plaire_feminin.html",
+    "file": "fr/plaire/feminine",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1437,7 +1437,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/plaire.html",
+    "source": "https://www.cnrtl.fr/definition/plaire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1457,7 +1457,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir.html",
+    "file": "fr/pleuvoir",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1465,7 +1465,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1485,7 +1485,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 29,
     "original": "elles pleuvèrent",
     "expected": [
@@ -1493,7 +1493,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "indicative",
       "tense": "simple_past",
@@ -1504,7 +1504,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 41,
     "original": "elles pleuveront",
     "expected": [
@@ -1512,7 +1512,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "indicative",
       "tense": "future",
@@ -1523,7 +1523,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 65,
     "original": "qu'elles pleuvassent",
     "expected": [
@@ -1531,7 +1531,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -1542,7 +1542,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 77,
     "original": "elles pleuveraient",
     "expected": [
@@ -1550,7 +1550,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "conditional",
       "tense": "present",
@@ -1561,7 +1561,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1569,7 +1569,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1589,7 +1589,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1597,7 +1597,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1617,7 +1617,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1625,7 +1625,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1645,7 +1645,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pleuvoir/second/feminine",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1653,7 +1653,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1673,7 +1673,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 29,
     "original": "ils pleuvèrent",
     "expected": [
@@ -1681,7 +1681,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "indicative",
       "tense": "simple_past",
@@ -1692,7 +1692,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 41,
     "original": "ils pleuveront",
     "expected": [
@@ -1700,7 +1700,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "indicative",
       "tense": "future",
@@ -1711,7 +1711,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 65,
     "original": "qu'ils pleuvassent",
     "expected": [
@@ -1719,7 +1719,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "subjunctive",
       "tense": "imperfect",
@@ -1730,7 +1730,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 77,
     "original": "ils pleuveraient",
     "expected": [
@@ -1738,7 +1738,7 @@
     ],
     "unavailable": false,
     "reason": "The figurative plural retains third-group stems: plurent, pleuvront, plussent; the historical table incorrectly analogizes first-group endings.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "conditional",
       "tense": "present",
@@ -1749,7 +1749,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1757,7 +1757,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1777,7 +1777,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 98,
     "original": "plu",
     "expected": [
@@ -1785,7 +1785,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1805,7 +1805,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 99,
     "original": "plu",
     "expected": [
@@ -1813,7 +1813,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1833,7 +1833,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_deuxieme-forme.html",
+    "file": "fr/pleuvoir/second",
     "cell": 100,
     "original": "plu",
     "expected": [
@@ -1841,7 +1841,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1861,7 +1861,7 @@
     }
   },
   {
-    "file": "Français/pleuvoir_feminin.html",
+    "file": "fr/pleuvoir/feminine",
     "cell": 97,
     "original": "plu",
     "expected": [
@@ -1869,7 +1869,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pleuvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1889,7 +1889,7 @@
     }
   },
   {
-    "file": "Français/pouvoir.html",
+    "file": "fr/pouvoir",
     "cell": 97,
     "original": "pu",
     "expected": [
@@ -1897,7 +1897,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1917,7 +1917,7 @@
     }
   },
   {
-    "file": "Français/pouvoir.html",
+    "file": "fr/pouvoir",
     "cell": 98,
     "original": "pu",
     "expected": [
@@ -1925,7 +1925,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1945,7 +1945,7 @@
     }
   },
   {
-    "file": "Français/pouvoir.html",
+    "file": "fr/pouvoir",
     "cell": 99,
     "original": "pu",
     "expected": [
@@ -1953,7 +1953,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -1973,7 +1973,7 @@
     }
   },
   {
-    "file": "Français/pouvoir.html",
+    "file": "fr/pouvoir",
     "cell": 100,
     "original": "pu",
     "expected": [
@@ -1981,7 +1981,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2001,7 +2001,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pouvoir/second/feminine",
     "cell": 97,
     "original": "pu",
     "expected": [
@@ -2009,7 +2009,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2029,7 +2029,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pouvoir/second/feminine",
     "cell": 98,
     "original": "pu",
     "expected": [
@@ -2037,7 +2037,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2057,7 +2057,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pouvoir/second/feminine",
     "cell": 99,
     "original": "pu",
     "expected": [
@@ -2065,7 +2065,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2085,7 +2085,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme-feminin.html",
+    "file": "fr/pouvoir/second/feminine",
     "cell": 100,
     "original": "pu",
     "expected": [
@@ -2093,7 +2093,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2113,7 +2113,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme.html",
+    "file": "fr/pouvoir/second",
     "cell": 97,
     "original": "pu",
     "expected": [
@@ -2121,7 +2121,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2141,7 +2141,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme.html",
+    "file": "fr/pouvoir/second",
     "cell": 98,
     "original": "pu",
     "expected": [
@@ -2149,7 +2149,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2169,7 +2169,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme.html",
+    "file": "fr/pouvoir/second",
     "cell": 99,
     "original": "pu",
     "expected": [
@@ -2177,7 +2177,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2197,7 +2197,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_deuxieme-forme.html",
+    "file": "fr/pouvoir/second",
     "cell": 100,
     "original": "pu",
     "expected": [
@@ -2205,7 +2205,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2225,7 +2225,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_feminin.html",
+    "file": "fr/pouvoir/feminine",
     "cell": 97,
     "original": "pu",
     "expected": [
@@ -2233,7 +2233,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2253,7 +2253,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_feminin.html",
+    "file": "fr/pouvoir/feminine",
     "cell": 98,
     "original": "pu",
     "expected": [
@@ -2261,7 +2261,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2281,7 +2281,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_feminin.html",
+    "file": "fr/pouvoir/feminine",
     "cell": 99,
     "original": "pu",
     "expected": [
@@ -2289,7 +2289,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2309,7 +2309,7 @@
     }
   },
   {
-    "file": "Français/pouvoir_feminin.html",
+    "file": "fr/pouvoir/feminine",
     "cell": 100,
     "original": "pu",
     "expected": [
@@ -2317,7 +2317,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/pouvoir.html",
+    "source": "https://www.cnrtl.fr/definition/pouvoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2337,7 +2337,7 @@
     }
   },
   {
-    "file": "Français/rire.html",
+    "file": "fr/rire",
     "cell": 97,
     "original": "ri",
     "expected": [
@@ -2345,7 +2345,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2365,7 +2365,7 @@
     }
   },
   {
-    "file": "Français/rire.html",
+    "file": "fr/rire",
     "cell": 98,
     "original": "ri",
     "expected": [
@@ -2373,7 +2373,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2393,7 +2393,7 @@
     }
   },
   {
-    "file": "Français/rire.html",
+    "file": "fr/rire",
     "cell": 99,
     "original": "ri",
     "expected": [
@@ -2401,7 +2401,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2421,7 +2421,7 @@
     }
   },
   {
-    "file": "Français/rire.html",
+    "file": "fr/rire",
     "cell": 100,
     "original": "ri",
     "expected": [
@@ -2429,7 +2429,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2449,7 +2449,7 @@
     }
   },
   {
-    "file": "Français/rire_feminin.html",
+    "file": "fr/rire/feminine",
     "cell": 97,
     "original": "ri",
     "expected": [
@@ -2457,7 +2457,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2477,7 +2477,7 @@
     }
   },
   {
-    "file": "Français/rire_feminin.html",
+    "file": "fr/rire/feminine",
     "cell": 98,
     "original": "ri",
     "expected": [
@@ -2485,7 +2485,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2505,7 +2505,7 @@
     }
   },
   {
-    "file": "Français/rire_feminin.html",
+    "file": "fr/rire/feminine",
     "cell": 99,
     "original": "ri",
     "expected": [
@@ -2513,7 +2513,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2533,7 +2533,7 @@
     }
   },
   {
-    "file": "Français/rire_feminin.html",
+    "file": "fr/rire/feminine",
     "cell": 100,
     "original": "ri",
     "expected": [
@@ -2541,7 +2541,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/rire.html",
+    "source": "https://www.cnrtl.fr/definition/rire",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2561,7 +2561,7 @@
     }
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 97,
     "original": "sis",
     "expected": [
@@ -2569,7 +2569,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2589,7 +2589,7 @@
     }
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 98,
     "original": "sis",
     "expected": [
@@ -2597,7 +2597,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2617,7 +2617,7 @@
     }
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 99,
     "original": "sis",
     "expected": [
@@ -2625,7 +2625,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2645,7 +2645,7 @@
     }
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 100,
     "original": "sis",
     "expected": [
@@ -2653,7 +2653,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2673,13 +2673,13 @@
     }
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 101,
     "original": "ayant sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "perfect",
@@ -2690,13 +2690,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 103,
     "original": "avoir sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "infinitive",
       "tense": "past",
@@ -2707,13 +2707,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/seoir.html",
+    "file": "fr/seoir",
     "cell": 105,
     "original": "en ayant sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "gerund",
       "tense": "past",
@@ -2724,7 +2724,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 97,
     "original": "sis",
     "expected": [
@@ -2732,7 +2732,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2752,7 +2752,7 @@
     }
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 98,
     "original": "sis",
     "expected": [
@@ -2760,7 +2760,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2780,7 +2780,7 @@
     }
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 99,
     "original": "sis",
     "expected": [
@@ -2788,7 +2788,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2808,7 +2808,7 @@
     }
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 100,
     "original": "sis",
     "expected": [
@@ -2816,7 +2816,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2836,13 +2836,13 @@
     }
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 101,
     "original": "ayant sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "participle",
       "tense": "perfect",
@@ -2853,13 +2853,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 103,
     "original": "avoir sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "infinitive",
       "tense": "past",
@@ -2870,13 +2870,13 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/seoir_feminin.html",
+    "file": "fr/seoir/feminine",
     "cell": 105,
     "original": "en ayant sis",
     "expected": [],
     "unavailable": true,
     "reason": "This defective verb exists only in simple forms; the source mechanically inserts an auxiliary before an isolated sis/messis.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/seoir.html",
+    "source": "https://www.cnrtl.fr/definition/seoir",
     "target": {
       "mood": "gerund",
       "tense": "past",
@@ -2887,7 +2887,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Français/être.html",
+    "file": "fr/être",
     "cell": 97,
     "original": "été",
     "expected": [
@@ -2895,7 +2895,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2915,7 +2915,7 @@
     }
   },
   {
-    "file": "Français/être.html",
+    "file": "fr/être",
     "cell": 98,
     "original": "été",
     "expected": [
@@ -2923,7 +2923,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2943,7 +2943,7 @@
     }
   },
   {
-    "file": "Français/être.html",
+    "file": "fr/être",
     "cell": 99,
     "original": "été",
     "expected": [
@@ -2951,7 +2951,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2971,7 +2971,7 @@
     }
   },
   {
-    "file": "Français/être.html",
+    "file": "fr/être",
     "cell": 100,
     "original": "été",
     "expected": [
@@ -2979,7 +2979,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -2999,7 +2999,7 @@
     }
   },
   {
-    "file": "Français/être_feminin.html",
+    "file": "fr/être/feminine",
     "cell": 97,
     "original": "été",
     "expected": [
@@ -3007,7 +3007,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -3027,7 +3027,7 @@
     }
   },
   {
-    "file": "Français/être_feminin.html",
+    "file": "fr/être/feminine",
     "cell": 98,
     "original": "été",
     "expected": [
@@ -3035,7 +3035,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -3055,7 +3055,7 @@
     }
   },
   {
-    "file": "Français/être_feminin.html",
+    "file": "fr/être/feminine",
     "cell": 99,
     "original": "été",
     "expected": [
@@ -3063,7 +3063,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -3083,7 +3083,7 @@
     }
   },
   {
-    "file": "Français/être_feminin.html",
+    "file": "fr/être/feminine",
     "cell": 100,
     "original": "été",
     "expected": [
@@ -3091,7 +3091,7 @@
     ],
     "unavailable": false,
     "reason": "This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.",
-    "source": "https://leconjugueur.lefigaro.fr/conjugaison/verbe/%C3%AAtre.html",
+    "source": "https://www.cnrtl.fr/definition/%C3%AAtre",
     "target": {
       "mood": "participle",
       "tense": "past",
@@ -3111,7 +3111,7 @@
     }
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 2,
     "original": "geband",
     "expected": [
@@ -3130,7 +3130,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 9,
     "original": "ik heb geband",
     "expected": [
@@ -3149,7 +3149,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 10,
     "original": "jij hebt geband",
     "expected": [
@@ -3168,7 +3168,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 11,
     "original": "hij heeft geband",
     "expected": [
@@ -3187,7 +3187,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 12,
     "original": "wij hebben geband",
     "expected": [
@@ -3206,7 +3206,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 13,
     "original": "jullie hebben geband",
     "expected": [
@@ -3225,7 +3225,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 14,
     "original": "zij hebben geband",
     "expected": [
@@ -3244,7 +3244,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 21,
     "original": "ik had geband",
     "expected": [
@@ -3263,7 +3263,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 22,
     "original": "jij had geband",
     "expected": [
@@ -3282,7 +3282,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 23,
     "original": "hij had geband",
     "expected": [
@@ -3301,7 +3301,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 24,
     "original": "wij hadden geband",
     "expected": [
@@ -3320,7 +3320,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 25,
     "original": "jullie hadden geband",
     "expected": [
@@ -3339,7 +3339,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 26,
     "original": "zij hadden geband",
     "expected": [
@@ -3358,7 +3358,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 33,
     "original": "ik zal geband hebben",
     "expected": [
@@ -3377,7 +3377,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 34,
     "original": "jij zult geband hebben",
     "expected": [
@@ -3396,7 +3396,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 35,
     "original": "hij zal geband hebben",
     "expected": [
@@ -3415,7 +3415,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 36,
     "original": "wij zullen geband hebben",
     "expected": [
@@ -3434,7 +3434,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 37,
     "original": "jullie zullen geband hebben",
     "expected": [
@@ -3453,7 +3453,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 38,
     "original": "zij zullen geband hebben",
     "expected": [
@@ -3472,7 +3472,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 45,
     "original": "ik zou geband hebben",
     "expected": [
@@ -3491,7 +3491,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 46,
     "original": "jij zou geband hebben",
     "expected": [
@@ -3510,7 +3510,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 47,
     "original": "hij zou geband hebben",
     "expected": [
@@ -3529,7 +3529,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 48,
     "original": "wij zouden geband hebben",
     "expected": [
@@ -3548,7 +3548,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 49,
     "original": "jullie zouden geband hebben",
     "expected": [
@@ -3567,7 +3567,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bannen.html",
+    "file": "nl/bannen",
     "cell": 50,
     "original": "zij zouden geband hebben",
     "expected": [
@@ -3586,7 +3586,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 9,
     "original": "ik heb bezweken",
     "expected": [
@@ -3605,7 +3605,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 10,
     "original": "jij hebt bezweken",
     "expected": [
@@ -3624,7 +3624,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 11,
     "original": "hij heeft bezweken",
     "expected": [
@@ -3643,7 +3643,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 12,
     "original": "wij hebben bezweken",
     "expected": [
@@ -3662,7 +3662,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 13,
     "original": "jullie hebben bezweken",
     "expected": [
@@ -3681,7 +3681,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 14,
     "original": "zij hebben bezweken",
     "expected": [
@@ -3700,7 +3700,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 21,
     "original": "ik had bezweken",
     "expected": [
@@ -3719,7 +3719,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 22,
     "original": "jij had bezweken",
     "expected": [
@@ -3738,7 +3738,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 23,
     "original": "hij had bezweken",
     "expected": [
@@ -3757,7 +3757,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 24,
     "original": "wij hadden bezweken",
     "expected": [
@@ -3776,7 +3776,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 25,
     "original": "jullie hadden bezweken",
     "expected": [
@@ -3795,7 +3795,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 26,
     "original": "zij hadden bezweken",
     "expected": [
@@ -3814,7 +3814,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 33,
     "original": "ik zal bezweken hebben",
     "expected": [
@@ -3833,7 +3833,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 34,
     "original": "jij zult bezweken hebben",
     "expected": [
@@ -3852,7 +3852,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 35,
     "original": "hij zal bezweken hebben",
     "expected": [
@@ -3871,7 +3871,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 36,
     "original": "wij zullen bezweken hebben",
     "expected": [
@@ -3890,7 +3890,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 37,
     "original": "jullie zullen bezweken hebben",
     "expected": [
@@ -3909,7 +3909,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 38,
     "original": "zij zullen bezweken hebben",
     "expected": [
@@ -3928,7 +3928,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 45,
     "original": "ik zou bezweken hebben",
     "expected": [
@@ -3947,7 +3947,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 46,
     "original": "jij zou bezweken hebben",
     "expected": [
@@ -3966,7 +3966,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 47,
     "original": "hij zou bezweken hebben",
     "expected": [
@@ -3985,7 +3985,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 48,
     "original": "wij zouden bezweken hebben",
     "expected": [
@@ -4004,7 +4004,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 49,
     "original": "jullie zouden bezweken hebben",
     "expected": [
@@ -4023,7 +4023,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/bezwijken.html",
+    "file": "nl/bezwijken",
     "cell": 50,
     "original": "zij zouden bezweken hebben",
     "expected": [
@@ -4042,7 +4042,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 3,
     "original": "blijk",
     "expected": [
@@ -4061,7 +4061,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 4,
     "original": "blijkt",
     "expected": [
@@ -4080,7 +4080,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 6,
     "original": "blijken",
     "expected": [
@@ -4099,7 +4099,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 7,
     "original": "blijken",
     "expected": [
@@ -4118,7 +4118,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 8,
     "original": "blijken",
     "expected": [
@@ -4137,7 +4137,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 9,
     "original": "heb gebleken",
     "expected": [
@@ -4156,7 +4156,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 10,
     "original": "hebt gebleken",
     "expected": [
@@ -4175,7 +4175,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 11,
     "original": "het heeft gebleken",
     "expected": [
@@ -4194,7 +4194,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 12,
     "original": "hebben gebleken",
     "expected": [
@@ -4213,7 +4213,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 13,
     "original": "hebben gebleken",
     "expected": [
@@ -4232,7 +4232,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 14,
     "original": "hebben gebleken",
     "expected": [
@@ -4251,7 +4251,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 15,
     "original": "bleek",
     "expected": [
@@ -4270,7 +4270,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 16,
     "original": "bleek",
     "expected": [
@@ -4289,7 +4289,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 18,
     "original": "bleken",
     "expected": [
@@ -4308,7 +4308,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 19,
     "original": "bleken",
     "expected": [
@@ -4327,7 +4327,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 20,
     "original": "bleken",
     "expected": [
@@ -4346,7 +4346,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 21,
     "original": "had gebleken",
     "expected": [
@@ -4365,7 +4365,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 22,
     "original": "had gebleken",
     "expected": [
@@ -4384,7 +4384,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 23,
     "original": "het had gebleken",
     "expected": [
@@ -4403,7 +4403,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 24,
     "original": "hadden gebleken",
     "expected": [
@@ -4422,7 +4422,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 25,
     "original": "hadden gebleken",
     "expected": [
@@ -4441,7 +4441,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 26,
     "original": "hadden gebleken",
     "expected": [
@@ -4460,7 +4460,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 27,
     "original": "zal blijken",
     "expected": [
@@ -4479,7 +4479,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 28,
     "original": "zult blijken",
     "expected": [
@@ -4498,7 +4498,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 30,
     "original": "zullen blijken",
     "expected": [
@@ -4517,7 +4517,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 31,
     "original": "zullen blijken",
     "expected": [
@@ -4536,7 +4536,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 32,
     "original": "zullen blijken",
     "expected": [
@@ -4555,7 +4555,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 33,
     "original": "zal gebleken hebben",
     "expected": [
@@ -4574,7 +4574,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 34,
     "original": "zult gebleken hebben",
     "expected": [
@@ -4593,7 +4593,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 35,
     "original": "het zal gebleken hebben",
     "expected": [
@@ -4612,7 +4612,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 36,
     "original": "zullen gebleken hebben",
     "expected": [
@@ -4631,7 +4631,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 37,
     "original": "zullen gebleken hebben",
     "expected": [
@@ -4650,7 +4650,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 38,
     "original": "zullen gebleken hebben",
     "expected": [
@@ -4669,7 +4669,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 39,
     "original": "zou blijken",
     "expected": [
@@ -4688,7 +4688,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 40,
     "original": "zou blijken",
     "expected": [
@@ -4707,7 +4707,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 42,
     "original": "zouden blijken",
     "expected": [
@@ -4726,7 +4726,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 43,
     "original": "zouden blijken",
     "expected": [
@@ -4745,7 +4745,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 44,
     "original": "zouden blijken",
     "expected": [
@@ -4764,7 +4764,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 45,
     "original": "zou gebleken hebben",
     "expected": [
@@ -4783,7 +4783,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 46,
     "original": "zou gebleken hebben",
     "expected": [
@@ -4802,7 +4802,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 47,
     "original": "het zou gebleken hebben",
     "expected": [
@@ -4821,7 +4821,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 48,
     "original": "zouden gebleken hebben",
     "expected": [
@@ -4840,7 +4840,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 49,
     "original": "zouden gebleken hebben",
     "expected": [
@@ -4859,7 +4859,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/blijken.html",
+    "file": "nl/blijken",
     "cell": 50,
     "original": "zouden gebleken hebben",
     "expected": [
@@ -4878,7 +4878,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 2,
     "original": "geëten",
     "expected": [
@@ -4897,7 +4897,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 9,
     "original": "ik heb geëten",
     "expected": [
@@ -4916,7 +4916,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 10,
     "original": "jij hebt geëten",
     "expected": [
@@ -4935,7 +4935,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 11,
     "original": "hij heeft geëten",
     "expected": [
@@ -4954,7 +4954,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 12,
     "original": "wij hebben geëten",
     "expected": [
@@ -4973,7 +4973,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 13,
     "original": "jullie hebben geëten",
     "expected": [
@@ -4992,7 +4992,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 14,
     "original": "zij hebben geëten",
     "expected": [
@@ -5011,7 +5011,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 21,
     "original": "ik had geëten",
     "expected": [
@@ -5030,7 +5030,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 22,
     "original": "jij had geëten",
     "expected": [
@@ -5049,7 +5049,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 23,
     "original": "hij had geëten",
     "expected": [
@@ -5068,7 +5068,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 24,
     "original": "wij hadden geëten",
     "expected": [
@@ -5087,7 +5087,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 25,
     "original": "jullie hadden geëten",
     "expected": [
@@ -5106,7 +5106,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 26,
     "original": "zij hadden geëten",
     "expected": [
@@ -5125,7 +5125,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 33,
     "original": "ik zal geëten hebben",
     "expected": [
@@ -5144,7 +5144,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 34,
     "original": "jij zult geëten hebben",
     "expected": [
@@ -5163,7 +5163,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 35,
     "original": "hij zal geëten hebben",
     "expected": [
@@ -5182,7 +5182,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 36,
     "original": "wij zullen geëten hebben",
     "expected": [
@@ -5201,7 +5201,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 37,
     "original": "jullie zullen geëten hebben",
     "expected": [
@@ -5220,7 +5220,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 38,
     "original": "zij zullen geëten hebben",
     "expected": [
@@ -5239,7 +5239,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 45,
     "original": "ik zou geëten hebben",
     "expected": [
@@ -5258,7 +5258,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 46,
     "original": "jij zou geëten hebben",
     "expected": [
@@ -5277,7 +5277,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 47,
     "original": "hij zou geëten hebben",
     "expected": [
@@ -5296,7 +5296,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 48,
     "original": "wij zouden geëten hebben",
     "expected": [
@@ -5315,7 +5315,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 49,
     "original": "jullie zouden geëten hebben",
     "expected": [
@@ -5334,7 +5334,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/eten.html",
+    "file": "nl/eten",
     "cell": 50,
     "original": "zij zouden geëten hebben",
     "expected": [
@@ -5353,7 +5353,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 9,
     "original": "ik heb gegleden",
     "expected": [
@@ -5372,7 +5372,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 10,
     "original": "jij hebt gegleden",
     "expected": [
@@ -5391,7 +5391,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 11,
     "original": "hij heeft gegleden",
     "expected": [
@@ -5410,7 +5410,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 12,
     "original": "wij hebben gegleden",
     "expected": [
@@ -5429,7 +5429,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 13,
     "original": "jullie hebben gegleden",
     "expected": [
@@ -5448,7 +5448,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 14,
     "original": "zij hebben gegleden",
     "expected": [
@@ -5467,7 +5467,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 21,
     "original": "ik had gegleden",
     "expected": [
@@ -5486,7 +5486,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 22,
     "original": "jij had gegleden",
     "expected": [
@@ -5505,7 +5505,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 23,
     "original": "hij had gegleden",
     "expected": [
@@ -5524,7 +5524,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 24,
     "original": "wij hadden gegleden",
     "expected": [
@@ -5543,7 +5543,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 25,
     "original": "jullie hadden gegleden",
     "expected": [
@@ -5562,7 +5562,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 26,
     "original": "zij hadden gegleden",
     "expected": [
@@ -5581,7 +5581,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 33,
     "original": "ik zal gegleden hebben",
     "expected": [
@@ -5600,7 +5600,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 34,
     "original": "jij zult gegleden hebben",
     "expected": [
@@ -5619,7 +5619,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 35,
     "original": "hij zal gegleden hebben",
     "expected": [
@@ -5638,7 +5638,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 36,
     "original": "wij zullen gegleden hebben",
     "expected": [
@@ -5657,7 +5657,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 37,
     "original": "jullie zullen gegleden hebben",
     "expected": [
@@ -5676,7 +5676,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 38,
     "original": "zij zullen gegleden hebben",
     "expected": [
@@ -5695,7 +5695,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 45,
     "original": "ik zou gegleden hebben",
     "expected": [
@@ -5714,7 +5714,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 46,
     "original": "jij zou gegleden hebben",
     "expected": [
@@ -5733,7 +5733,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 47,
     "original": "hij zou gegleden hebben",
     "expected": [
@@ -5752,7 +5752,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 48,
     "original": "wij zouden gegleden hebben",
     "expected": [
@@ -5771,7 +5771,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 49,
     "original": "jullie zouden gegleden hebben",
     "expected": [
@@ -5790,7 +5790,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/glijden.html",
+    "file": "nl/glijden",
     "cell": 50,
     "original": "zij zouden gegleden hebben",
     "expected": [
@@ -5809,7 +5809,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/hoeven.html",
+    "file": "nl/hoeven",
     "cell": 51,
     "original": "hoef",
     "expected": [],
@@ -5826,7 +5826,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 3,
     "original": "kost",
     "expected": [
@@ -5845,7 +5845,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 4,
     "original": "kost",
     "expected": [
@@ -5864,7 +5864,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 6,
     "original": "kosten",
     "expected": [
@@ -5883,7 +5883,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 7,
     "original": "kosten",
     "expected": [
@@ -5902,7 +5902,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 8,
     "original": "kosten",
     "expected": [
@@ -5921,7 +5921,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 9,
     "original": "heb gekost",
     "expected": [
@@ -5940,7 +5940,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 10,
     "original": "hebt gekost",
     "expected": [
@@ -5959,7 +5959,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 12,
     "original": "hebben gekost",
     "expected": [
@@ -5978,7 +5978,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 13,
     "original": "hebben gekost",
     "expected": [
@@ -5997,7 +5997,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 14,
     "original": "hebben gekost",
     "expected": [
@@ -6016,7 +6016,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 15,
     "original": "kostte",
     "expected": [
@@ -6035,7 +6035,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 16,
     "original": "kostte",
     "expected": [
@@ -6054,7 +6054,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 18,
     "original": "kostten",
     "expected": [
@@ -6073,7 +6073,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 19,
     "original": "kostten",
     "expected": [
@@ -6092,7 +6092,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 20,
     "original": "kostten",
     "expected": [
@@ -6111,7 +6111,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 21,
     "original": "had gekost",
     "expected": [
@@ -6130,7 +6130,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 22,
     "original": "had gekost",
     "expected": [
@@ -6149,7 +6149,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 24,
     "original": "hadden gekost",
     "expected": [
@@ -6168,7 +6168,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 25,
     "original": "hadden gekost",
     "expected": [
@@ -6187,7 +6187,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 26,
     "original": "hadden gekost",
     "expected": [
@@ -6206,7 +6206,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 27,
     "original": "zal kosten",
     "expected": [
@@ -6225,7 +6225,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 28,
     "original": "zult kosten",
     "expected": [
@@ -6244,7 +6244,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 30,
     "original": "zullen kosten",
     "expected": [
@@ -6263,7 +6263,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 31,
     "original": "zullen kosten",
     "expected": [
@@ -6282,7 +6282,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 32,
     "original": "zullen kosten",
     "expected": [
@@ -6301,7 +6301,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 33,
     "original": "zal gekost hebben",
     "expected": [
@@ -6320,7 +6320,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 34,
     "original": "zult gekost hebben",
     "expected": [
@@ -6339,7 +6339,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 36,
     "original": "zullen gekost hebben",
     "expected": [
@@ -6358,7 +6358,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 37,
     "original": "zullen gekost hebben",
     "expected": [
@@ -6377,7 +6377,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 38,
     "original": "zullen gekost hebben",
     "expected": [
@@ -6396,7 +6396,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 39,
     "original": "zou kosten",
     "expected": [
@@ -6415,7 +6415,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 40,
     "original": "zou kosten",
     "expected": [
@@ -6434,7 +6434,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 42,
     "original": "zouden kosten",
     "expected": [
@@ -6453,7 +6453,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 43,
     "original": "zouden kosten",
     "expected": [
@@ -6472,7 +6472,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 44,
     "original": "zouden kosten",
     "expected": [
@@ -6491,7 +6491,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 45,
     "original": "zou gekost hebben",
     "expected": [
@@ -6510,7 +6510,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 46,
     "original": "zou gekost hebben",
     "expected": [
@@ -6529,7 +6529,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 48,
     "original": "zouden gekost hebben",
     "expected": [
@@ -6548,7 +6548,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 49,
     "original": "zouden gekost hebben",
     "expected": [
@@ -6567,7 +6567,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kosten.html",
+    "file": "nl/kosten",
     "cell": 50,
     "original": "zouden gekost hebben",
     "expected": [
@@ -6586,7 +6586,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/kunnen.html",
+    "file": "nl/kunnen",
     "cell": 51,
     "original": "kan",
     "expected": [],
@@ -6603,7 +6603,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/moeten.html",
+    "file": "nl/moeten",
     "cell": 51,
     "original": "moet",
     "expected": [],
@@ -6620,7 +6620,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 2,
     "original": "gemoogd",
     "expected": [
@@ -6639,7 +6639,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 9,
     "original": "ik heb gemoogd",
     "expected": [
@@ -6658,7 +6658,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 10,
     "original": "jij hebt gemoogd",
     "expected": [
@@ -6677,7 +6677,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 11,
     "original": "hij heeft gemoogd",
     "expected": [
@@ -6696,7 +6696,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 12,
     "original": "wij hebben gemoogd",
     "expected": [
@@ -6715,7 +6715,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 13,
     "original": "jullie hebben gemoogd",
     "expected": [
@@ -6734,7 +6734,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 14,
     "original": "zij hebben gemoogd",
     "expected": [
@@ -6753,7 +6753,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 21,
     "original": "ik had gemoogd",
     "expected": [
@@ -6772,7 +6772,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 22,
     "original": "jij had gemoogd",
     "expected": [
@@ -6791,7 +6791,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 23,
     "original": "hij had gemoogd",
     "expected": [
@@ -6810,7 +6810,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 24,
     "original": "wij hadden gemoogd",
     "expected": [
@@ -6829,7 +6829,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 25,
     "original": "jullie hadden gemoogd",
     "expected": [
@@ -6848,7 +6848,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 26,
     "original": "zij hadden gemoogd",
     "expected": [
@@ -6867,7 +6867,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 33,
     "original": "ik zal gemoogd hebben",
     "expected": [
@@ -6886,7 +6886,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 34,
     "original": "jij zult gemoogd hebben",
     "expected": [
@@ -6905,7 +6905,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 35,
     "original": "hij zal gemoogd hebben",
     "expected": [
@@ -6924,7 +6924,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 36,
     "original": "wij zullen gemoogd hebben",
     "expected": [
@@ -6943,7 +6943,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 37,
     "original": "jullie zullen gemoogd hebben",
     "expected": [
@@ -6962,7 +6962,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 38,
     "original": "zij zullen gemoogd hebben",
     "expected": [
@@ -6981,7 +6981,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 45,
     "original": "ik zou gemoogd hebben",
     "expected": [
@@ -7000,7 +7000,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 46,
     "original": "jij zou gemoogd hebben",
     "expected": [
@@ -7019,7 +7019,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 47,
     "original": "hij zou gemoogd hebben",
     "expected": [
@@ -7038,7 +7038,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 48,
     "original": "wij zouden gemoogd hebben",
     "expected": [
@@ -7057,7 +7057,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 49,
     "original": "jullie zouden gemoogd hebben",
     "expected": [
@@ -7076,7 +7076,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 50,
     "original": "zij zouden gemoogd hebben",
     "expected": [
@@ -7095,7 +7095,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/mogen.html",
+    "file": "nl/mogen",
     "cell": 51,
     "original": "mag",
     "expected": [],
@@ -7112,7 +7112,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 9,
     "original": "ik heb gerezen",
     "expected": [
@@ -7131,7 +7131,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 10,
     "original": "jij hebt gerezen",
     "expected": [
@@ -7150,7 +7150,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 11,
     "original": "hij heeft gerezen",
     "expected": [
@@ -7169,7 +7169,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 12,
     "original": "wij hebben gerezen",
     "expected": [
@@ -7188,7 +7188,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 13,
     "original": "jullie hebben gerezen",
     "expected": [
@@ -7207,7 +7207,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 14,
     "original": "zij hebben gerezen",
     "expected": [
@@ -7226,7 +7226,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 21,
     "original": "ik had gerezen",
     "expected": [
@@ -7245,7 +7245,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 22,
     "original": "jij had gerezen",
     "expected": [
@@ -7264,7 +7264,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 23,
     "original": "hij had gerezen",
     "expected": [
@@ -7283,7 +7283,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 24,
     "original": "wij hadden gerezen",
     "expected": [
@@ -7302,7 +7302,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 25,
     "original": "jullie hadden gerezen",
     "expected": [
@@ -7321,7 +7321,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 26,
     "original": "zij hadden gerezen",
     "expected": [
@@ -7340,7 +7340,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 33,
     "original": "ik zal gerezen hebben",
     "expected": [
@@ -7359,7 +7359,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 34,
     "original": "jij zult gerezen hebben",
     "expected": [
@@ -7378,7 +7378,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 35,
     "original": "hij zal gerezen hebben",
     "expected": [
@@ -7397,7 +7397,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 36,
     "original": "wij zullen gerezen hebben",
     "expected": [
@@ -7416,7 +7416,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 37,
     "original": "jullie zullen gerezen hebben",
     "expected": [
@@ -7435,7 +7435,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 38,
     "original": "zij zullen gerezen hebben",
     "expected": [
@@ -7454,7 +7454,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 45,
     "original": "ik zou gerezen hebben",
     "expected": [
@@ -7473,7 +7473,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 46,
     "original": "jij zou gerezen hebben",
     "expected": [
@@ -7492,7 +7492,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 47,
     "original": "hij zou gerezen hebben",
     "expected": [
@@ -7511,7 +7511,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 48,
     "original": "wij zouden gerezen hebben",
     "expected": [
@@ -7530,7 +7530,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 49,
     "original": "jullie zouden gerezen hebben",
     "expected": [
@@ -7549,7 +7549,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/rijzen.html",
+    "file": "nl/rijzen",
     "cell": 50,
     "original": "zij zouden gerezen hebben",
     "expected": [
@@ -7568,7 +7568,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/schuilen.html",
+    "file": "nl/schuilen",
     "cell": 18,
     "original": "wij schoolen; schuilden",
     "expected": [
@@ -7588,7 +7588,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/schuilen.html",
+    "file": "nl/schuilen",
     "cell": 19,
     "original": "jullie schoolen; schuilden",
     "expected": [
@@ -7608,7 +7608,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/schuilen.html",
+    "file": "nl/schuilen",
     "cell": 20,
     "original": "zij schoolen; schuilden",
     "expected": [
@@ -7628,7 +7628,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 9,
     "original": "ik heb geslonken",
     "expected": [
@@ -7647,7 +7647,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 10,
     "original": "jij hebt geslonken",
     "expected": [
@@ -7666,7 +7666,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 11,
     "original": "hij heeft geslonken",
     "expected": [
@@ -7685,7 +7685,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 12,
     "original": "wij hebben geslonken",
     "expected": [
@@ -7704,7 +7704,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 13,
     "original": "jullie hebben geslonken",
     "expected": [
@@ -7723,7 +7723,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 14,
     "original": "zij hebben geslonken",
     "expected": [
@@ -7742,7 +7742,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 21,
     "original": "ik had geslonken",
     "expected": [
@@ -7761,7 +7761,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 22,
     "original": "jij had geslonken",
     "expected": [
@@ -7780,7 +7780,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 23,
     "original": "hij had geslonken",
     "expected": [
@@ -7799,7 +7799,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 24,
     "original": "wij hadden geslonken",
     "expected": [
@@ -7818,7 +7818,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 25,
     "original": "jullie hadden geslonken",
     "expected": [
@@ -7837,7 +7837,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 26,
     "original": "zij hadden geslonken",
     "expected": [
@@ -7856,7 +7856,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 33,
     "original": "ik zal geslonken hebben",
     "expected": [
@@ -7875,7 +7875,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 34,
     "original": "jij zult geslonken hebben",
     "expected": [
@@ -7894,7 +7894,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 35,
     "original": "hij zal geslonken hebben",
     "expected": [
@@ -7913,7 +7913,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 36,
     "original": "wij zullen geslonken hebben",
     "expected": [
@@ -7932,7 +7932,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 37,
     "original": "jullie zullen geslonken hebben",
     "expected": [
@@ -7951,7 +7951,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 38,
     "original": "zij zullen geslonken hebben",
     "expected": [
@@ -7970,7 +7970,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 45,
     "original": "ik zou geslonken hebben",
     "expected": [
@@ -7989,7 +7989,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 46,
     "original": "jij zou geslonken hebben",
     "expected": [
@@ -8008,7 +8008,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 47,
     "original": "hij zou geslonken hebben",
     "expected": [
@@ -8027,7 +8027,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 48,
     "original": "wij zouden geslonken hebben",
     "expected": [
@@ -8046,7 +8046,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 49,
     "original": "jullie zouden geslonken hebben",
     "expected": [
@@ -8065,7 +8065,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/slinken.html",
+    "file": "nl/slinken",
     "cell": 50,
     "original": "zij zouden geslonken hebben",
     "expected": [
@@ -8084,7 +8084,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 8,
     "original": "spijten",
     "expected": [
@@ -8103,7 +8103,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 14,
     "original": "hebben gespeten",
     "expected": [
@@ -8122,7 +8122,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 20,
     "original": "speten",
     "expected": [
@@ -8141,7 +8141,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 26,
     "original": "hadden gespeten",
     "expected": [
@@ -8160,7 +8160,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 32,
     "original": "zullen spijten",
     "expected": [
@@ -8179,7 +8179,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 38,
     "original": "zullen gespeten hebben",
     "expected": [
@@ -8198,7 +8198,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 44,
     "original": "zouden spijten",
     "expected": [
@@ -8217,7 +8217,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spijten.html",
+    "file": "nl/spijten",
     "cell": 50,
     "original": "zouden gespeten hebben",
     "expected": [
@@ -8236,7 +8236,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 9,
     "original": "ik heb gesproten",
     "expected": [
@@ -8255,7 +8255,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 10,
     "original": "jij hebt gesproten",
     "expected": [
@@ -8274,7 +8274,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 11,
     "original": "hij heeft gesproten",
     "expected": [
@@ -8293,7 +8293,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 12,
     "original": "wij hebben gesproten",
     "expected": [
@@ -8312,7 +8312,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 13,
     "original": "jullie hebben gesproten",
     "expected": [
@@ -8331,7 +8331,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 14,
     "original": "zij hebben gesproten",
     "expected": [
@@ -8350,7 +8350,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 21,
     "original": "ik had gesproten",
     "expected": [
@@ -8369,7 +8369,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 22,
     "original": "jij had gesproten",
     "expected": [
@@ -8388,7 +8388,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 23,
     "original": "hij had gesproten",
     "expected": [
@@ -8407,7 +8407,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 24,
     "original": "wij hadden gesproten",
     "expected": [
@@ -8426,7 +8426,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 25,
     "original": "jullie hadden gesproten",
     "expected": [
@@ -8445,7 +8445,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 26,
     "original": "zij hadden gesproten",
     "expected": [
@@ -8464,7 +8464,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 33,
     "original": "ik zal gesproten hebben",
     "expected": [
@@ -8483,7 +8483,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 34,
     "original": "jij zult gesproten hebben",
     "expected": [
@@ -8502,7 +8502,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 35,
     "original": "hij zal gesproten hebben",
     "expected": [
@@ -8521,7 +8521,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 36,
     "original": "wij zullen gesproten hebben",
     "expected": [
@@ -8540,7 +8540,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 37,
     "original": "jullie zullen gesproten hebben",
     "expected": [
@@ -8559,7 +8559,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 38,
     "original": "zij zullen gesproten hebben",
     "expected": [
@@ -8578,7 +8578,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 45,
     "original": "ik zou gesproten hebben",
     "expected": [
@@ -8597,7 +8597,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 46,
     "original": "jij zou gesproten hebben",
     "expected": [
@@ -8616,7 +8616,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 47,
     "original": "hij zou gesproten hebben",
     "expected": [
@@ -8635,7 +8635,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 48,
     "original": "wij zouden gesproten hebben",
     "expected": [
@@ -8654,7 +8654,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 49,
     "original": "jullie zouden gesproten hebben",
     "expected": [
@@ -8673,7 +8673,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/spruiten.html",
+    "file": "nl/spruiten",
     "cell": 50,
     "original": "zij zouden gesproten hebben",
     "expected": [
@@ -8692,7 +8692,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 0,
     "original": "vergissen",
     "expected": [
@@ -8711,7 +8711,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 1,
     "original": "vergissend",
     "expected": [
@@ -8730,7 +8730,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 3,
     "original": "ik vergis",
     "expected": [
@@ -8749,7 +8749,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 4,
     "original": "jij vergist",
     "expected": [
@@ -8768,7 +8768,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 5,
     "original": "hij vergist",
     "expected": [
@@ -8787,7 +8787,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 6,
     "original": "wij vergissen",
     "expected": [
@@ -8806,7 +8806,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 7,
     "original": "jullie vergissen",
     "expected": [
@@ -8825,7 +8825,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 8,
     "original": "zij vergissen",
     "expected": [
@@ -8844,7 +8844,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 9,
     "original": "ik heb vergist",
     "expected": [
@@ -8863,7 +8863,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 10,
     "original": "jij hebt vergist",
     "expected": [
@@ -8882,7 +8882,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 11,
     "original": "hij heeft vergist",
     "expected": [
@@ -8901,7 +8901,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 12,
     "original": "wij hebben vergist",
     "expected": [
@@ -8920,7 +8920,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 13,
     "original": "jullie hebben vergist",
     "expected": [
@@ -8939,7 +8939,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 14,
     "original": "zij hebben vergist",
     "expected": [
@@ -8958,7 +8958,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 15,
     "original": "ik vergiste",
     "expected": [
@@ -8977,7 +8977,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 16,
     "original": "jij vergiste",
     "expected": [
@@ -8996,7 +8996,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 17,
     "original": "hij vergiste",
     "expected": [
@@ -9015,7 +9015,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 18,
     "original": "wij vergisten",
     "expected": [
@@ -9034,7 +9034,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 19,
     "original": "jullie vergisten",
     "expected": [
@@ -9053,7 +9053,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 20,
     "original": "zij vergisten",
     "expected": [
@@ -9072,7 +9072,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 21,
     "original": "ik had vergist",
     "expected": [
@@ -9091,7 +9091,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 22,
     "original": "jij had vergist",
     "expected": [
@@ -9110,7 +9110,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 23,
     "original": "hij had vergist",
     "expected": [
@@ -9129,7 +9129,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 24,
     "original": "wij hadden vergist",
     "expected": [
@@ -9148,7 +9148,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 25,
     "original": "jullie hadden vergist",
     "expected": [
@@ -9167,7 +9167,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 26,
     "original": "zij hadden vergist",
     "expected": [
@@ -9186,7 +9186,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 27,
     "original": "ik zal vergissen",
     "expected": [
@@ -9205,7 +9205,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 28,
     "original": "jij zult vergissen",
     "expected": [
@@ -9224,7 +9224,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 29,
     "original": "hij zal vergissen",
     "expected": [
@@ -9243,7 +9243,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 30,
     "original": "wij zullen vergissen",
     "expected": [
@@ -9262,7 +9262,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 31,
     "original": "jullie zullen vergissen",
     "expected": [
@@ -9281,7 +9281,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 32,
     "original": "zij zullen vergissen",
     "expected": [
@@ -9300,7 +9300,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 33,
     "original": "ik zal vergist hebben",
     "expected": [
@@ -9319,7 +9319,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 34,
     "original": "jij zult vergist hebben",
     "expected": [
@@ -9338,7 +9338,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 35,
     "original": "hij zal vergist hebben",
     "expected": [
@@ -9357,7 +9357,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 36,
     "original": "wij zullen vergist hebben",
     "expected": [
@@ -9376,7 +9376,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 37,
     "original": "jullie zullen vergist hebben",
     "expected": [
@@ -9395,7 +9395,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 38,
     "original": "zij zullen vergist hebben",
     "expected": [
@@ -9414,7 +9414,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 39,
     "original": "ik zou vergissen",
     "expected": [
@@ -9433,7 +9433,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 40,
     "original": "jij zou vergissen",
     "expected": [
@@ -9452,7 +9452,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 41,
     "original": "hij zou vergissen",
     "expected": [
@@ -9471,7 +9471,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 42,
     "original": "wij zouden vergissen",
     "expected": [
@@ -9490,7 +9490,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 43,
     "original": "jullie zouden vergissen",
     "expected": [
@@ -9509,7 +9509,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 44,
     "original": "zij zouden vergissen",
     "expected": [
@@ -9528,7 +9528,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 45,
     "original": "ik zou vergist hebben",
     "expected": [
@@ -9547,7 +9547,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 46,
     "original": "jij zou vergist hebben",
     "expected": [
@@ -9566,7 +9566,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 47,
     "original": "hij zou vergist hebben",
     "expected": [
@@ -9585,7 +9585,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 48,
     "original": "wij zouden vergist hebben",
     "expected": [
@@ -9604,7 +9604,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 49,
     "original": "jullie zouden vergist hebben",
     "expected": [
@@ -9623,7 +9623,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 50,
     "original": "zij zouden vergist hebben",
     "expected": [
@@ -9642,7 +9642,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/vergissen.html",
+    "file": "nl/vergissen",
     "cell": 51,
     "original": "vergis",
     "expected": [
@@ -9661,7 +9661,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 3,
     "original": "ik weev",
     "expected": [
@@ -9680,7 +9680,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 4,
     "original": "jij weevt",
     "expected": [
@@ -9699,7 +9699,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 5,
     "original": "hij weevt",
     "expected": [
@@ -9718,7 +9718,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 15,
     "original": "ik weevde",
     "expected": [
@@ -9737,7 +9737,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 16,
     "original": "jij weevde",
     "expected": [
@@ -9756,7 +9756,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 17,
     "original": "hij weevde",
     "expected": [
@@ -9775,7 +9775,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 18,
     "original": "wij weevden",
     "expected": [
@@ -9794,7 +9794,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 19,
     "original": "jullie weevden",
     "expected": [
@@ -9813,7 +9813,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 20,
     "original": "zij weevden",
     "expected": [
@@ -9832,7 +9832,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/weven.html",
+    "file": "nl/weven",
     "cell": 51,
     "original": "weev",
     "expected": [
@@ -9851,7 +9851,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 9,
     "original": "ik heb geweken",
     "expected": [
@@ -9870,7 +9870,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 10,
     "original": "jij hebt geweken",
     "expected": [
@@ -9889,7 +9889,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 11,
     "original": "hij heeft geweken",
     "expected": [
@@ -9908,7 +9908,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 12,
     "original": "wij hebben geweken",
     "expected": [
@@ -9927,7 +9927,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 13,
     "original": "jullie hebben geweken",
     "expected": [
@@ -9946,7 +9946,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 14,
     "original": "zij hebben geweken",
     "expected": [
@@ -9965,7 +9965,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 21,
     "original": "ik had geweken",
     "expected": [
@@ -9984,7 +9984,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 22,
     "original": "jij had geweken",
     "expected": [
@@ -10003,7 +10003,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 23,
     "original": "hij had geweken",
     "expected": [
@@ -10022,7 +10022,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 24,
     "original": "wij hadden geweken",
     "expected": [
@@ -10041,7 +10041,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 25,
     "original": "jullie hadden geweken",
     "expected": [
@@ -10060,7 +10060,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 26,
     "original": "zij hadden geweken",
     "expected": [
@@ -10079,7 +10079,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 33,
     "original": "ik zal geweken hebben",
     "expected": [
@@ -10098,7 +10098,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 34,
     "original": "jij zult geweken hebben",
     "expected": [
@@ -10117,7 +10117,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 35,
     "original": "hij zal geweken hebben",
     "expected": [
@@ -10136,7 +10136,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 36,
     "original": "wij zullen geweken hebben",
     "expected": [
@@ -10155,7 +10155,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 37,
     "original": "jullie zullen geweken hebben",
     "expected": [
@@ -10174,7 +10174,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 38,
     "original": "zij zullen geweken hebben",
     "expected": [
@@ -10193,7 +10193,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 45,
     "original": "ik zou geweken hebben",
     "expected": [
@@ -10212,7 +10212,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 46,
     "original": "jij zou geweken hebben",
     "expected": [
@@ -10231,7 +10231,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 47,
     "original": "hij zou geweken hebben",
     "expected": [
@@ -10250,7 +10250,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 48,
     "original": "wij zouden geweken hebben",
     "expected": [
@@ -10269,7 +10269,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 49,
     "original": "jullie zouden geweken hebben",
     "expected": [
@@ -10288,7 +10288,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/wijken.html",
+    "file": "nl/wijken",
     "cell": 50,
     "original": "zij zouden geweken hebben",
     "expected": [
@@ -10307,7 +10307,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zeggen.html",
+    "file": "nl/zeggen",
     "cell": 18,
     "original": "wij zeien; zegden",
     "expected": [
@@ -10327,7 +10327,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zeggen.html",
+    "file": "nl/zeggen",
     "cell": 19,
     "original": "jullie zeien; zegden",
     "expected": [
@@ -10347,7 +10347,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zeggen.html",
+    "file": "nl/zeggen",
     "cell": 20,
     "original": "zij zeien; zegden",
     "expected": [
@@ -10367,7 +10367,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 9,
     "original": "ik heb gezonken",
     "expected": [
@@ -10386,7 +10386,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 10,
     "original": "jij hebt gezonken",
     "expected": [
@@ -10405,7 +10405,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 11,
     "original": "hij heeft gezonken",
     "expected": [
@@ -10424,7 +10424,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 12,
     "original": "wij hebben gezonken",
     "expected": [
@@ -10443,7 +10443,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 13,
     "original": "jullie hebben gezonken",
     "expected": [
@@ -10462,7 +10462,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 14,
     "original": "zij hebben gezonken",
     "expected": [
@@ -10481,7 +10481,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 21,
     "original": "ik had gezonken",
     "expected": [
@@ -10500,7 +10500,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 22,
     "original": "jij had gezonken",
     "expected": [
@@ -10519,7 +10519,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 23,
     "original": "hij had gezonken",
     "expected": [
@@ -10538,7 +10538,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 24,
     "original": "wij hadden gezonken",
     "expected": [
@@ -10557,7 +10557,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 25,
     "original": "jullie hadden gezonken",
     "expected": [
@@ -10576,7 +10576,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 26,
     "original": "zij hadden gezonken",
     "expected": [
@@ -10595,7 +10595,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 33,
     "original": "ik zal gezonken hebben",
     "expected": [
@@ -10614,7 +10614,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 34,
     "original": "jij zult gezonken hebben",
     "expected": [
@@ -10633,7 +10633,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 35,
     "original": "hij zal gezonken hebben",
     "expected": [
@@ -10652,7 +10652,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 36,
     "original": "wij zullen gezonken hebben",
     "expected": [
@@ -10671,7 +10671,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 37,
     "original": "jullie zullen gezonken hebben",
     "expected": [
@@ -10690,7 +10690,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 38,
     "original": "zij zullen gezonken hebben",
     "expected": [
@@ -10709,7 +10709,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 45,
     "original": "ik zou gezonken hebben",
     "expected": [
@@ -10728,7 +10728,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 46,
     "original": "jij zou gezonken hebben",
     "expected": [
@@ -10747,7 +10747,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 47,
     "original": "hij zou gezonken hebben",
     "expected": [
@@ -10766,7 +10766,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 48,
     "original": "wij zouden gezonken hebben",
     "expected": [
@@ -10785,7 +10785,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 49,
     "original": "jullie zouden gezonken hebben",
     "expected": [
@@ -10804,7 +10804,7 @@
     "correctedTarget": null
   },
   {
-    "file": "Nederlands/zinken.html",
+    "file": "nl/zinken",
     "cell": 50,
     "original": "zij zouden gezonken hebben",
     "expected": [
