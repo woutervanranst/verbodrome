@@ -22,8 +22,7 @@ export function Header({ stats, gain, routeLabel, routeDetail, onOpenPicker }: H
   const hot = stats.streak >= 5;
   return (
     <header className="top">
-      <button type="button" className="route" onClick={onOpenPicker} aria-label={`Traject wijzigen. Nu: ${routeLabel}, ${routeDetail}`}>
-        <span className="route__roundel" aria-hidden="true">V</span>
+      <button type="button" className="route" onClick={onOpenPicker} aria-label={`Oefening wijzigen. Nu: ${routeLabel}, ${routeDetail}`}>
         <span className="route__text">
           <span className="route__name">{routeLabel}</span>
           <span className="route__detail">{routeDetail}</span>

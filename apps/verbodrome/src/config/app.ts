@@ -2,7 +2,7 @@
  * CONFIGURATION — app-level settings.
  */
 export const APP = {
-  /** Answer tickets per question (4–12). Verbs with few forms may show fewer. */
+  /** Answer cards per question (4–12). Verbs with few forms may show fewer. */
   optionCount: 10,
   /** Move on by itself after a correct answer. */
   autoAdvance: true,

@@ -4,6 +4,7 @@ import { LEVELS, QUICK_LEVELS, levelDef } from '../config/levels';
 import type { Level } from '../config/levels';
 import { APP } from '../config/app';
 import { ERAS, TENSES } from '../config/tenses';
+import type { Era, TenseDef } from '../config/tenses';
 import { GROUP_LABELS, VERBS } from '../config/verbs';
 import type { VerbGroup } from '../config/verbs';
 import { exampleOf } from '../trainer/forms';
@@ -39,7 +40,34 @@ function tenseExamples(): Map<string, { fr: string; nl: string | null }> {
   return examples;
 }
 
-/** "Kies je traject": tenses as stations on one métro line per school level, verbs as tickets. */
+const LEVEL_ORDER: readonly Level[] = LEVELS.map(level => level.id);
+
+/** Tenses per era of the time axis; within an era the ones taught first come first. */
+function tensesByEra(): Map<Era, TenseDef[]> {
+  const out = new Map<Era, TenseDef[]>();
+  for (const tense of TENSES) out.set(tense.era, [...(out.get(tense.era) ?? []), tense]);
+  for (const list of out.values()) list.sort((a, b) => LEVEL_ORDER.indexOf(a.level) - LEVEL_ORDER.indexOf(b.level));
+  return out;
+}
+
+function LevelChips({ label, active, onPick }: { label: string; active: Level | null; onPick: (level: Level) => void }) {
+  return (
+    <div className="levels" role="group" aria-label={label}>
+      {QUICK_LEVELS.map(id => {
+        const level = levelDef(id);
+        return (
+          <button key={id} type="button" className={`chip${active === id ? ' is-active' : ''}`}
+            style={{ '--level': level.color } as CSSProperties} aria-pressed={active === id}
+            title={level.detail} onClick={() => onPick(id)}>
+            <span className="chip__dot" aria-hidden="true" />{level.name}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Pick what to practise: tenses on a time axis, verbs as a list; both with quick-picks per school level. */
 export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps) {
   const [tenses, setTenses] = useState<readonly string[]>(initial.tenses);
   const [verbs, setVerbs] = useState<readonly string[]>(initial.verbs);
@@ -52,6 +80,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
   }, [canCancel, onCancel]);
 
   const examples = useMemo(tenseExamples, []);
+  const byEra = useMemo(tensesByEra, []);
   const tenseLevel = matchingLevel(tenses, tensesForLevel);
   const verbLevel = matchingLevel(verbs, verbsForLevel);
 
@@ -78,8 +107,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
       <div className="picker__panel">
         <header className="picker__head">
           <div>
-            <p className="picker__kicker">Plan van het net</p>
-            <h2 id="picker-title" className="picker__title">Kies je traject</h2>
+            <h2 id="picker-title" className="picker__title">Wat wil je oefenen?</h2>
           </div>
           {canCancel && <button type="button" className="picker__close" onClick={onCancel} aria-label="Sluiten zonder wijzigen">×</button>}
         </header>
@@ -88,84 +116,52 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
           <section className="picker__section" aria-labelledby="picker-tenses">
             <div className="picker__section-head">
               <h3 id="picker-tenses">Tijden</h3>
-              <p>Elke lijn is een graad, elke halte een tijd, van vroeger naar later. Tik op het lijnnummer om alles tot en met die graad te nemen, of zet haltes apart aan en uit.</p>
+              <p>Kies een graad om alles tot en met die graad te nemen, of zet tijden apart aan en uit op de tijdlijn.</p>
             </div>
-            <p className="axis" aria-hidden="true">
-              {ERAS.map(era => <span key={era.id}>{era.label}</span>)}
-            </p>
-            <div className="network">
-              {LEVELS.map(level => {
-                const stations = TENSES.filter(tense => tense.level === level.id);
-                const active = tenseLevel === level.id;
-                const style = { '--line': level.color, '--line-ink': level.ink } as CSSProperties;
+            <LevelChips label="Tijden per graad" active={tenseLevel} onPick={id => setTenses(tensesForLevel(id))} />
+            <div className="timeline">
+              {ERAS.map(era => {
+                const members = byEra.get(era.id) ?? [];
+                const lit = members.some(tense => tenses.includes(tense.id));
                 return (
-                  <div className="line" key={level.id} style={style}>
-                    <button type="button" className={`line__head${active ? ' is-active' : ''}`}
-                      onClick={() => setTenses(tensesForLevel(level.id))}
-                      aria-pressed={active}
-                      title={level.id === 'extra' ? 'Alle tijden' : `Alle tijden tot en met ${level.name}`}>
-                      <span className="line__roundel" aria-hidden="true">{level.line}</span>
-                      <span className="line__name">{level.name}<small>{level.detail}</small></span>
-                    </button>
-                    <div className="line__stations">
-                      {ERAS.map(era => {
-                        const zone = stations.filter(tense => tense.era === era.id);
-                        if (!zone.length) return null;
+                  <section className={`era${lit ? ' is-lit' : ''}`} key={era.id} aria-label={era.label}>
+                    <h4 className="era__head"><span className="era__dot" aria-hidden="true" />{era.label}</h4>
+                    <ul className="era__box">
+                      {members.map(tense => {
+                        const on = tenses.includes(tense.id);
+                        const level = levelDef(tense.level);
+                        const example = examples.get(tense.id);
                         return (
-                          <div className="zone" key={era.id} style={{ flexGrow: zone.length }}>
-                            <span className="zone__label">{era.label}</span>
-                            <ol className="zone__stations">
-                              {zone.map(tense => {
-                                const on = tenses.includes(tense.id);
-                                const example = examples.get(tense.id);
-                                return (
-                                  <li key={tense.id}>
-                                    <button type="button" className={`station${on ? ' is-on' : ''}`} aria-pressed={on}
-                                      onClick={() => setTenses(toggle(tenses, tense.id))}>
-                                      <span className="station__dot" aria-hidden="true" />
-                                      <span className="station__text">
-                                        <span className="station__name" lang="fr">{tense.label}</span>
-                                        {example && (
-                                          <span className="station__example">
-                                            <span lang="fr">{example.fr}</span>
-                                            {example.nl && <span className="station__nl">{example.nl}</span>}
-                                          </span>
-                                        )}
-                                      </span>
-                                    </button>
-                                  </li>
-                                );
-                              })}
-                            </ol>
-                          </div>
+                          <li key={tense.id}>
+                            <button type="button" className={`tense${on ? ' is-on' : ''}`} aria-pressed={on}
+                              style={{ '--level': level.color } as CSSProperties} title={level.name}
+                              onClick={() => setTenses(toggle(tenses, tense.id))}>
+                              <span className="tense__check" aria-hidden="true" />
+                              <span className="tense__text">
+                                <span className="tense__name" lang="fr">{tense.label}</span>
+                                {example && <span className="tense__example" lang="fr">{example.fr}</span>}
+                                {example?.nl && <span className="tense__nl">{example.nl}</span>}
+                              </span>
+                            </button>
+                          </li>
                         );
                       })}
-                    </div>
-                  </div>
+                    </ul>
+                  </section>
                 );
               })}
             </div>
+            <p className="timeline__ends" aria-hidden="true"><span>← verleden</span><span>toekomst →</span></p>
           </section>
 
           <section className="picker__section" aria-labelledby="picker-verbs">
             <div className="picker__section-head">
               <h3 id="picker-verbs">Werkwoorden</h3>
-              <p>Je carnet met tickets. Neem het pakket van een graad of stel zelf samen.</p>
+              <p>Neem de werkwoorden van een graad of stel zelf een lijst samen.</p>
             </div>
-            <div className="carnet__tools">
-              <div className="carnet__levels" role="group" aria-label="Werkwoorden per graad">
-                {QUICK_LEVELS.map((id: Level) => {
-                  const level = levelDef(id);
-                  return (
-                    <button key={id} type="button" className={`chip${verbLevel === id ? ' is-active' : ''}`}
-                      style={{ '--line': level.color, '--line-ink': level.ink } as CSSProperties}
-                      aria-pressed={verbLevel === id} onClick={() => setVerbs(verbsForLevel(id))}>
-                      <span className="chip__roundel" aria-hidden="true">{level.line}</span>{level.name}
-                    </button>
-                  );
-                })}
-              </div>
-              <input className="carnet__search" type="search" value={search} placeholder="Zoek een werkwoord…"
+            <div className="verbs__tools">
+              <LevelChips label="Werkwoorden per graad" active={verbLevel} onPick={id => setVerbs(verbsForLevel(id))} />
+              <input className="verbs__search" type="search" value={search} placeholder="Zoek een werkwoord…"
                 aria-label="Zoek een werkwoord" onChange={event => setSearch(event.target.value)} />
             </div>
 
@@ -175,21 +171,21 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
               const all = VERBS.filter(verb => verb.group === group);
               const allOn = all.every(verb => verbs.includes(verb.fr));
               return (
-                <div className="carnet__group" key={group}>
-                  <div className="carnet__group-head">
+                <div className="verbs__group" key={group}>
+                  <div className="verbs__group-head">
                     <h4>{GROUP_LABELS[group]}</h4>
                     <button type="button" className="btn btn--tiny" onClick={() => setGroup(group, !allOn)}>
                       {allOn ? 'geen' : 'alle'}
                     </button>
                   </div>
-                  <div className="carnet">
+                  <div className="verbs">
                     {members.map(verb => {
                       const on = verbs.includes(verb.fr);
                       return (
-                        <button key={verb.fr} type="button" className={`stub${on ? ' is-on' : ''}`} aria-pressed={on}
+                        <button key={verb.fr} type="button" className={`verb${on ? ' is-on' : ''}`} aria-pressed={on}
                           onClick={() => setVerbs(toggle(verbs, verb.fr))}>
-                          <span className="stub__fr" lang="fr">{verb.fr}</span>
-                          <span className="stub__nl">{gloss(verb.nl)}</span>
+                          <span className="verb__fr" lang="fr">{verb.fr}</span>
+                          <span className="verb__nl">{gloss(verb.nl)}</span>
                         </button>
                       );
                     })}
@@ -197,7 +193,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
                 </div>
               );
             })}
-            {!visible.length && <p className="carnet__empty">Geen werkwoord gevonden voor „{search}”.</p>}
+            {!visible.length && <p className="verbs__empty">Geen werkwoord gevonden voor „{search}”.</p>}
           </section>
         </div>
 
@@ -207,7 +203,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
           </p>
           <button type="button" className="btn btn--go btn--big" disabled={problem !== null}
             onClick={() => onConfirm({ verbs, tenses })}>
-            Vertrek
+            Start
           </button>
         </footer>
       </div>

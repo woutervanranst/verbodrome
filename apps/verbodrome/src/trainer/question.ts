@@ -1,8 +1,9 @@
 import type { TenseDef } from '../config/tenses';
 import type { VerbDef } from '../config/verbs';
 import { verbByFr } from '../config/verbs';
+import { renderParts } from 'conjugation-engine';
 import { mistakes } from './distractors';
-import { verbForms } from './forms';
+import { formAt, verbForms } from './forms';
 import type { FrForm, VerbForms } from './forms';
 import { dutchPrompt } from './prompt';
 
@@ -75,6 +76,24 @@ export function isAmbiguous(verb: VerbDef, target: FrForm, candidates: readonly 
     && dutchPrompt(verb, other.tense, other.slot) === prompt);
 }
 
+const PERSONAL = new Set(['subject', 'reflexivePronoun']);
+
+/**
+ * A form of another person, said with the asked person's pronouns: "nous partons" → "je partons".
+ * The subject would otherwise give the answer away; the verb after it is the real trap.
+ * Null when the form has no subject to replace or the result cannot be built.
+ */
+export function inPerson(forms: VerbForms, source: FrForm, slot: string): string | null {
+  if (source.slot === slot) return source.text;
+  if (source.subject === null) return null;
+  const own = formAt(forms, source.tense.id, slot)?.form.parts.filter(part => PERSONAL.has(part.role));
+  if (!own) return null;
+  let used = 0;
+  const parts = source.form.parts.map(part => PERSONAL.has(part.role) ? own[used++] : part);
+  if (used !== own.length || parts.some(part => part === undefined)) return null;
+  return renderParts('fr', parts as FrForm['form']['parts']);
+}
+
 export const DEFAULT_OPTION_COUNT = 10;
 
 /**
@@ -128,11 +147,17 @@ function build(
   const sameSlot = forms.all.filter(form => form.tense.id !== target.tense.id
     && (finite ? form.slot === target.slot : form.slot === '-'));
   const otherTenses = sameSlot.filter(form => selected.has(form.tense.id)).map(asCandidate);
-  const otherPersons = (forms.byTense.get(target.tense.id) ?? [])
-    .filter(form => form.slot !== target.slot)
-    .map(asCandidate);
-  const errors = mistakes(forms, target);
   const imperative = target.tense.mood === 'imperative';
+  // With a visible subject, every option keeps that subject: only the verb may differ.
+  const keepSubject = target.subject !== null;
+  const recast = (pool: readonly FrForm[]): Candidate[] => !keepSubject ? pool.map(asCandidate) : pool.flatMap(form => {
+    if (form.subject === null || form.slot === target.slot) return [asCandidate(form)];
+    const text = inPerson(forms, form, target.slot);
+    const tense = form.tense.id === target.tense.id ? '' : `${form.tense.label} · `;
+    return text ? [{ text, label: `${tense}vorm van ${form.subject}` }] : [];
+  });
+  const otherPersons = recast((forms.byTense.get(target.tense.id) ?? []).filter(form => form.slot !== target.slot));
+  const errors = mistakes(forms, target);
 
   const seen = new Set<string>(target.accepted);
   const picked: Candidate[] = [];
@@ -156,7 +181,7 @@ function build(
   take(errors, 99); take(otherTenses, 99); take(otherPersons, 99);
   // Still short: tenses outside the selection, nearest school level first.
   for (const level of LEVEL_RANK) take(sameSlot.filter(form => form.tense.level === level).map(asCandidate), 99);
-  for (const level of LEVEL_RANK) take(forms.all.filter(form => form.tense.level === level).map(asCandidate), 99);
+  for (const level of LEVEL_RANK) take(recast(forms.all.filter(form => form.tense.level === level)), 99);
 
   const options: Option[] = picked.map(candidate => {
     const match = real.get(candidate.text);
