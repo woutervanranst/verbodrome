@@ -13,7 +13,7 @@ Everything a teacher or maintainer would want to change lives in `src/config/`:
 | `verbs.ts` | The verb list: French infinitive, Dutch counterpart, picker group and school level. Adding a verb is one line. |
 | `tenses.ts` | At which level each tense is introduced. The list of tenses itself comes from the engine's catalogue. |
 | `levels.ts` | The school levels (Lager onderwijs, 1e/2e/3e graad secundair, Extra) and their line colours. Levels are cumulative. |
-| `app.ts` | Number of answer tickets, auto-advance, optional backdrop photo. |
+| `app.ts` | Number of answer cards, auto-advance, optional backdrop photo. |
 
 The Dutch counterparts in `verbs.ts` are a first pass and should be reviewed by a teacher. Per verb you can set:
 
@@ -40,7 +40,7 @@ The Dutch counterparts in `verbs.ts` are a first pass and should be reviewed by 
 
 `src/ui/` holds the React components; `src/styles.css` the look.
 
-Progress (`xp`, `best`) and the chosen traject are kept in the browser's `localStorage`.
+Progress (`xp`, `best`) and the chosen verbs and tenses are kept in the browser's `localStorage`.
 
 ## Scripts
 

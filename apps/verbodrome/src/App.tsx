@@ -27,11 +27,11 @@ function loadStats(): Stats {
   return { streak: 0, xp: number(saved?.xp), best: number(saved?.best) };
 }
 
-/** "1e graad secundair" when the selection is exactly a quick-pick, else "Eigen traject". */
+/** "1e graad secundair" when the selection is exactly a quick-pick, else "Eigen keuze". */
 function routeName(selection: Selection): string {
   const tenses = matchingLevel(selection.tenses, tensesForLevel);
   const verbs = matchingLevel(selection.verbs, verbsForLevel);
-  if (!tenses || tenses !== verbs) return 'Eigen traject';
+  if (!tenses || tenses !== verbs) return 'Eigen keuze';
   return tenses === 'extra' ? 'Alles' : levelDef(tenses).name;
 }
 
@@ -133,8 +133,8 @@ export function App() {
           </div>
         ) : (
           <div className="stage__empty">
-            <p>Met dit traject valt er niets te vervoegen.</p>
-            <button type="button" className="btn btn--go" onClick={openPicker}>Kies een ander traject</button>
+            <p>Met deze keuze valt er niets te vervoegen.</p>
+            <button type="button" className="btn btn--go" onClick={openPicker}>Kies iets anders</button>
           </div>
         )}
       </main>

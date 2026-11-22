@@ -5,7 +5,7 @@ import { diff, subjectLength } from '../src/trainer/diff';
 import { mistakes } from '../src/trainer/distractors';
 import { exampleOf, formAt, verbForms } from '../src/trainer/forms';
 import { dutchPrompt } from '../src/trainer/prompt';
-import { askable, makeQuestion } from '../src/trainer/question';
+import { askable, inPerson, makeQuestion } from '../src/trainer/question';
 import type { Question } from '../src/trainer/question';
 import { rule } from '../src/trainer/rules';
 import { applyAnswer } from '../src/trainer/score';
@@ -249,6 +249,34 @@ describe('questions', () => {
       const question = makeQuestion(selectionForLevel('g3'), null, random)!;
       if (question.showTense) continue;
       for (const option of question.options.filter(o => !o.correct)) expect(option.nl, `${question.correct} / ${option.text}`).not.toBe(question.prompt);
+    }
+  });
+
+  it('says another person\'s form with the asked subject', () => {
+    const partir = verbForms('partir'), aimer = verbForms('aimer'), mefier = verbForms('se méfier');
+    expect(inPerson(partir, formAt(partir, 'indicative.present', '3p')!, '1s')).toBe('je partent');
+    expect(inPerson(aimer, formAt(aimer, 'indicative.present', '1p')!, '1s')).toBe("j'aimons");
+    expect(inPerson(aimer, formAt(aimer, 'indicative.perfect', '1s')!, '1p')).toBe('nous ai aimé');
+    expect(inPerson(partir, formAt(partir, 'subjunctive.present', '1p')!, '3s')).toBe("qu'il partions");
+    expect(inPerson(mefier, formAt(mefier, 'indicative.present', '2p')!, '1s')).toBe('je me méfiez');
+  });
+
+  it('never gives the answer away through the subject: every option keeps the asked person', () => {
+    const pronoun = /^(?:que |qu')?(j'|je |tu |il |elle |on |nous |vous |ils |elles )/;
+    const random = seeded(11);
+    for (const level of ['g1', 'g3', 'extra'] as const) {
+      const selection = selectionForLevel(level);
+      let last: Question | null = null;
+      for (let round = 0; round < 300; round++) {
+        const question: Question = makeQuestion(selection, last, random)!;
+        last = question;
+        const asked = pronoun.exec(question.correct)?.[1]?.replace("j'", 'je ');
+        if (!asked) continue;
+        for (const option of question.options) {
+          const said = pronoun.exec(option.text)?.[1]?.replace("j'", 'je ');
+          if (said) expect(`${option.text} ← ${said}`).toBe(`${option.text} ← ${asked}`);
+        }
+      }
     }
   });
 
