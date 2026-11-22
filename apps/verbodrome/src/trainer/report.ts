@@ -1,7 +1,7 @@
 import { TENSES } from '../config/tenses';
 import type { TenseDef } from '../config/tenses';
 import { skills } from './coach';
-import type { History, Review, Skill } from './coach';
+import type { History, Skill } from './coach';
 import { kindLabel } from './question';
 import type { Selection } from './question';
 
@@ -37,8 +37,6 @@ export interface Report {
   readonly mistakes: readonly MistakeScore[];
   /** Verbs that go wrong most often (asked at least 3 times). */
   readonly verbs: readonly VerbScore[];
-  /** Missed questions still waiting to come back. */
-  readonly pending: readonly Review[];
 }
 
 export function buildReport(history: History, selection: Selection, now = Date.now()): Report {
@@ -71,6 +69,5 @@ export function buildReport(history: History, selection: Selection, now = Date.n
       .map(tense => ({ tense, skill: known.tenses.get(tense.id) ?? null })),
     mistakes: [...mistakes.values()].sort((a, b) => b.count - a.count).slice(0, 6),
     verbs,
-    pending: [...history.reviews].sort((a, b) => a.due - b.due),
   };
 }
