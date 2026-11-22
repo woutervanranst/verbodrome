@@ -167,7 +167,7 @@ describe('choosing what to ask', () => {
 });
 
 describe('report', () => {
-  it('summarises totals, tenses, typical mistakes and what is still to come back', () => {
+  it('summarises totals, tenses, and typical mistakes', () => {
     const { history } = play(200, (asked, state) => asked.question.tense.id !== 'indicative.imperfect' && state.count % 7 !== 0, 31);
     const report = buildReport(history, selection, 1000);
     expect(report.answered).toBe(200);
@@ -178,7 +178,6 @@ describe('report', () => {
     expect(report.mistakes.length).toBeGreaterThan(0);
     expect(report.mistakes[0]!.count).toBeGreaterThanOrEqual(report.mistakes.at(-1)!.count);
     expect(report.mistakes[0]!.pick).not.toBe('');
-    expect(report.pending.length).toBe(history.reviews.length);
     expect(buildReport(EMPTY_HISTORY, selection).answered).toBe(0);
   });
 });

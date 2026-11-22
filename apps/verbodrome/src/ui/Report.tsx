@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
-import { ERAS, tenseById } from '../config/tenses';
+import { ERAS } from '../config/tenses';
 import type { History, Skill } from '../trainer/coach';
-import { formAt, verbForms } from '../trainer/forms';
 import type { Selection } from '../trainer/question';
 import { buildReport } from '../trainer/report';
 import type { Stats } from '../trainer/score';
@@ -130,27 +129,6 @@ export function Report({ history, selection, stats, onClose, onReset }: ReportPr
                 </section>
               )}
 
-              {report.pending.length > 0 && (
-                <section className="picker__section" aria-labelledby="report-pending">
-                  <div className="picker__section-head">
-                    <h3 id="report-pending">Komen nog terug</h3>
-                    <p>Vragen die je miste. Ze duiken na een tijdje opnieuw op, tot je ze twee keer juist hebt.</p>
-                  </div>
-                  <ul className="rows">
-                    {report.pending.map(review => {
-                      let form: string | undefined;
-                      try { form = formAt(verbForms(review.verb), review.tense, review.slot)?.text; } catch { /* verb left the configuration */ }
-                      return (
-                        <li key={`${review.verb}|${review.tense}|${review.slot}`}>
-                          <span className="rows__main" lang="fr">{form ?? review.verb}</span>
-                          <span className="rows__example" lang="fr">{tenseById(review.tense)?.label}</span>
-                          <span className="rows__count">{review.stage === 1 ? 'één keer juist sindsdien' : `${times(review.misses)} gemist`}</span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </section>
-              )}
             </>
           )}
         </div>
