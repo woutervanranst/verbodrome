@@ -168,10 +168,9 @@ mark { color: inherit; }
 
 /* Quick-picks per school level */
 .levels { display: flex; gap: 8px; flex-wrap: wrap; }
-.chip { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 14px 4px 12px; border: 0; border-radius: 999px; background: var(--paper-2); color: var(--ink); font-size: 14px; font-weight: 600; }
+.chip { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 16px; border: 0; border-radius: 999px; background: var(--paper-2); color: var(--ink); font-size: 14px; font-weight: 600; }
 .chip:hover { background: var(--paper-line); }
 .chip.is-active { background: #fff; box-shadow: inset 0 0 0 2px var(--ink); }
-.chip__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--level); }
 
 /* Time axis: one column per era, the tenses of that era underneath */
 .timeline { --dot: 26px; position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 22px; padding-right: 14px; }
@@ -180,13 +179,13 @@ mark { color: inherit; }
 .era { min-width: 0; display: flex; flex-direction: column; gap: 10px; }
 .era__head { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0; font-size: 15px; font-weight: 700; }
 .era__dot { position: relative; z-index: 1; width: var(--dot); height: var(--dot); border-radius: 50%; background: var(--paper); border: 3px solid var(--good-deep); transition: background 160ms; }
-.era.is-lit .era__dot { background: var(--gold); border-color: var(--ink); }
+.era.is-now .era__dot { background: var(--gold); border-color: var(--ink); }
 .era__box { flex: 1; display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 6px; list-style: none; border: 1px dashed #b9b2a4; border-radius: 12px; }
 .tense { display: flex; align-items: flex-start; gap: 8px; width: 100%; min-height: 44px; padding: 8px; border: 0; border-radius: 8px; background: transparent; color: var(--ink-2); text-align: left; transition: background 140ms; }
 .tense:hover { background: var(--paper-2); }
 .tense.is-on { background: #fff; color: var(--ink); box-shadow: inset 0 0 0 1px var(--paper-line); }
-.tense__check { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; border: 3px solid var(--level); background: transparent; }
-.tense.is-on .tense__check { background: var(--level); }
+.tense__check { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; border: 2px solid var(--ink-2); background: transparent; }
+.tense.is-on .tense__check { background: var(--good-deep); border-color: var(--good-deep); }
 .tense__text { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .tense__name { font-size: 14px; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
 .tense__example { font-family: var(--serif); font-style: italic; font-size: 16px; line-height: 1.15; color: var(--ink); }
