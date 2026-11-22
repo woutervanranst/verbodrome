@@ -35,7 +35,18 @@ export interface Earlier {
   readonly kind: string;
 }
 
-/** Readable name of a mistake category: "verward met imparfait", "vorm van een andere persoon". */
+export const WRONG_TENSE = 'verkeerde tijd';
+
+/**
+ * The category a mistake is counted under, with the same name in the feedback
+ * and in the report. Every mix-up of two tenses is one category.
+ */
+export function categoryOf(kind: string): string {
+  if (kind === 'persoon') return 'vorm van een andere persoon';
+  return kind.startsWith('tijd:') ? WRONG_TENSE : kind;
+}
+
+/** The mistake in detail, naming the tense it was confused with: "verward met imparfait", "vorm van een andere persoon". */
 export function kindLabel(kind: string): string {
   if (kind === 'persoon') return 'vorm van een andere persoon';
   if (kind.startsWith('tijd:')) return `verward met ${tenseById(kind.slice(5))?.label ?? 'een andere tijd'}`;

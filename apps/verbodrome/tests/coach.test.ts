@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { COACH, EMPTY_HISTORY, nextQuestion, recall, record, skills, wantsEasy } from '../src/trainer/coach';
 import type { Answer, Asked, History } from '../src/trainer/coach';
-import { questionFor } from '../src/trainer/question';
+import { WRONG_TENSE, categoryOf, questionFor } from '../src/trainer/question';
 import type { Option } from '../src/trainer/question';
 import { buildReport } from '../src/trainer/report';
 import { selectionForLevel } from '../src/trainer/selection';
@@ -177,7 +177,14 @@ describe('report', () => {
     expect(imparfait.correct).toBe(0);
     expect(report.mistakes.length).toBeGreaterThan(0);
     expect(report.mistakes[0]!.count).toBeGreaterThanOrEqual(report.mistakes.at(-1)!.count);
-    expect(report.mistakes[0]!.pick).not.toBe('');
+    expect(report.mistakes.reduce((sum, mistake) => sum + mistake.count, 0)).toBe(200 - report.correct);
+    expect(report.mistakes[0]!.examples[0]!.pick).toBe(history.answers.findLast(item => !item.ok && categoryOf(item.kind!) === report.mistakes[0]!.category)!.pick);
+    // Every mix-up of two tenses is one category, split into pairs inside.
+    const tense = report.mistakes.find(mistake => mistake.category === WRONG_TENSE)!;
+    expect(report.mistakes.filter(mistake => mistake.category.startsWith('verward'))).toHaveLength(0);
+    expect(tense.groups.reduce((sum, group) => sum + group.count, 0)).toBe(tense.count);
+    expect(tense.groups[0]!.label).toMatch(/ ↔ /);
+    expect(report.mistakes.find(mistake => mistake.category !== WRONG_TENSE)!.groups).toEqual([]);
     expect(buildReport(EMPTY_HISTORY, selection).answered).toBe(0);
   });
 });
