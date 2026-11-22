@@ -36,11 +36,30 @@ The Dutch counterparts in `verbs.ts` are a first pass and should be reviewed by 
 - `prompt.ts` — the Dutch prompt. Dutch verb forms come from the engine; this arranges them where Dutch has no one-to-one tense (futur proche, passé récent, subjonctif as a *dat*-clause, impératif, non-finite forms).
 - `distractors.ts` — plausible wrong answers, made by recombining or editing the engine's grammatical parts (wrong auxiliary, regularised stem, indicative after *que*, …). The engine itself never produces wrong forms.
 - `question.ts` — picks verb, tense and person from the selection and assembles the options. The tense name is shown with the prompt only when another selected tense gives the same Dutch prompt.
+- `question.ts` also keeps the subject fixed: wrong answers taken from other persons are said with the asked subject (*je partent*), so the pronoun never gives the answer away.
+- `coach.ts` — decides what to ask next from the answer log, and schedules missed questions to come back. Its `COACH` constant holds the tuning (see below).
+- `report.ts` — the numbers behind "Mijn resultaten".
 - `rules.ts`, `diff.ts`, `score.ts`, `selection.ts` — feedback text, highlight, XP/streak, quick-picks.
 
 `src/ui/` holds the React components; `src/styles.css` the look.
 
-Progress (`xp`, `best`) and the chosen verbs and tenses are kept in the browser's `localStorage`.
+### The coach
+
+- **Repeats.** A missed question returns after 4–8 other questions, with the card that was wrongly picked among the options again. Answered right, it returns once more 15 questions later and is then cleared; missed again, it starts over. At most one question in three is a repeat. The feedback says whether it was the exact same mistake, the same kind, a different one, or right this time.
+- **What needs work.** Every tense and every verb has a skill between 0 and 1 that follows recent answers. Weak tenses and verbs are drawn about three times as often as strong ones; tenses answered fewer than twice get a bonus so they are tried early.
+- **Easy ones.** After two misses in a row, the next two questions take the strongest tense and a verb that goes well. They are not announced.
+
+### Storage
+
+Everything is kept in the browser's `localStorage`, on the learner's own device, through `src/storage/store.ts`:
+
+| Key | Contents |
+|---|---|
+| `verbodrome:v2:settings` | chosen verbs and tenses, first-visit flag |
+| `verbodrome:v2:progress` | XP and record streak |
+| `verbodrome:v2:history` | answer log (last 5000 answers) and the questions waiting to be repeated |
+
+Each document is validated when read, so damaged or outdated data falls back to defaults. Values from the first version (`fr-conj-v1`, `verbodrome-traject-v1`, `verbodrome-welkom-v1`) are carried over once.
 
 ## Scripts
 
