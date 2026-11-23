@@ -2,7 +2,7 @@
 
 A rule-based TypeScript conjugation engine for **French (`fr`)** and **Dutch (`nl`)**, with a small Node CLI and a browser-safe ESM API.
 
-Forms are derived from stems, endings, spelling rules, and auxiliary constructions. Compact lexical data supplies irregular principal parts, verified families, and grammatical restrictions. The production engine does **not** import conjugation tables, read test fixtures, or call an external service. Invented verbs work within the documented regular models.
+French forms come from conjugation models: each model is selected by an infinitive ending (or, for suppletive verbs, by name), strips a fixed number of letters to obtain the stem, and appends endings from a compact table. Dutch forms are derived from stems, endings, and spelling rules. Both languages build compound tenses from auxiliary constructions, and compact lexical data supplies auxiliaries and grammatical restrictions. The production engine does **not** import the test corpus, read fixtures, or call an external service. Invented verbs work within the productive models.
 
 ## Quick start
 
