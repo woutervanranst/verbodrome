@@ -46,9 +46,13 @@ function inflections(lemma: string, model: FrenchModel, overrides: ReadonlyMap<n
   }));
 }
 
+/** Regular classes report their group (spelling subclasses included); irregular models report their family. */
+const groups: Readonly<Record<ModelKind, string | null>> = { er: 'group1', ir: 'group2', re: 'group3', irregular: null };
+
 function lexemeFor(lemma: string, choice: ModelChoice, source: Lexeme['source'], overrides?: ReadonlyMap<number, string[]>): Lexeme {
   const { model, selector } = choice;
-  return { lemma, family: model.id, kind: model.kind, model, source, selector, inflections: inflections(lemma, model, overrides) };
+  const family = (model.productive ? groups[model.kind] : null) ?? model.id;
+  return { lemma, family, kind: model.kind, model, source, selector, inflections: inflections(lemma, model, overrides) };
 }
 
 const knownLexemes = new Map<string, Lexeme>();
