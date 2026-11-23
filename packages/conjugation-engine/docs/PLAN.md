@@ -151,7 +151,7 @@ Illustrative result, with some metadata fields abbreviated:
   ],
   unavailableTargets: [],
   analysis: {
-    classification: 'group1',
+    classification: 'aimer',
     classificationSource: 'regularRule',
     assumptions: [],
   },
@@ -260,6 +260,8 @@ Unknown ordinary Dutch verbs default to weak conjugation. Stress, pronunciation,
 
 ### Exception-data boundary
 
+> **Revision.** French morphology now uses suffix-selected conjugation models: compact per-model ending tables appended to a stripped stem, documented in [grammar.md](grammar.md#conjugation-models). Tables are per model, never per verb, except for suppletive verbs; compound tenses remain composed. The Dutch boundary below is unchanged.
+
 Permitted runtime data: lexical class/family membership, exceptional principal parts, truly suppletive cell overrides, auxiliary/reflexive/availability metadata, and accepted variant conditions.
 
 Forbidden runtime approach: import the corpus as complete verb-by-mood-by-tense-by-person answer tables, precompute all those tables into production data, or call an external conjugation service. Regular forms and compound tenses must remain derived from rules.
@@ -295,7 +297,7 @@ src/conjugate.ts
 src/render.ts
 src/errors.ts
 src/cli.ts
-src/languages/fr/{index,rules,orthography,exceptions}.ts
+src/languages/fr/{index,models,table,lexicon,principal}.ts
 src/languages/nl/{index,rules,orthography,exceptions}.ts
 scripts/import-corpus.ts
 tests/fixtures/{manifest,fr,nl,corrections}.json

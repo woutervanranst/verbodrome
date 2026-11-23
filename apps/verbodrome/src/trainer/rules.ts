@@ -6,10 +6,11 @@ import type { VerbForms } from './forms';
 const IMPERFECT = '-ais, -ais, -ait, -ions, -iez, -aient';
 const FUTURE = '-ai, -as, -a, -ons, -ez, -ont';
 const SUBJUNCTIVE = '-e, -es, -e, -ions, -iez, -ent';
+/** Present endings of the regular classes, keyed by infinitive ending. */
 const PRESENT: Readonly<Record<string, string>> = {
-  group1: '-e, -es, -e, -ons, -ez, -ent',
-  group2: '-is, -is, -it, -issons, -issez, -issent',
-  group3: '-s, -s, –, -ons, -ez, -ent',
+  er: '-e, -es, -e, -ons, -ez, -ent',
+  ir: '-is, -is, -it, -issons, -issez, -issent',
+  re: '-s, -s, –, -ons, -ez, -ent',
 };
 const SIMPLE_PAST: readonly (readonly [string, string])[] = [
   ['ai', '-ai, -as, -a, -âmes, -âtes, -èrent'],
@@ -35,7 +36,8 @@ export function rule(verb: VerbDef, tense: TenseDef): string {
   const forms = verbForms(verb.fr);
   const inf = forms.analysis.lemma;
   const regular = forms.analysis.classificationSource === 'regularRule';
-  const group = forms.analysis.classification;
+  // A regular verb's class follows from its infinitive (-er, -ir/-ïr, -re).
+  const regularClass = regular ? inf.slice(-2).replace('ï', 'i') : null;
   const participle = word(forms, 'participle.past', '-');
   const auxiliary = forms.analysis.auxiliaries.includes('être') && !forms.analysis.auxiliaries.includes('avoir') ? 'être' : 'avoir';
   const pp = participle ? ` + voltooid deelwoord ${participle}` : ' + voltooid deelwoord';
@@ -50,8 +52,8 @@ export function rule(verb: VerbDef, tense: TenseDef): string {
 
   switch (tense.id) {
     case 'indicative.present': {
-      const endings = PRESENT[group];
-      if (regular && endings) {
+      const endings = regularClass ? PRESENT[regularClass] : undefined;
+      if (endings) {
         const stem = inf.slice(0, -2);
         return `Regelmatig werkwoord op -${inf.slice(-2)}: stam ${stem}- + ${endings}. Let op de schrijfwijze van de stam.`;
       }
@@ -106,7 +108,7 @@ export function rule(verb: VerbDef, tense: TenseDef): string {
       return 'Subjonctif imparfait, een literaire tijd afgeleid van de passé simple. Je moet hem vooral kunnen herkennen.';
     case 'imperative.present':
       return 'Gebiedende wijs, zonder onderwerp. Er zijn drie vormen: tu, nous en vous.'
-        + (group === 'group1' ? ' Bij werkwoorden op -er valt de -s van de tu-vorm weg.' : '');
+        + (regularClass === 'er' ? ' Bij werkwoorden op -er valt de -s van de tu-vorm weg.' : '');
     case 'infinitive.present':
       return `De infinitief is de onvervoegde vorm die je in het woordenboek vindt: ${inf}.`;
     case 'participle.present':
