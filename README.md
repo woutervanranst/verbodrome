@@ -11,7 +11,7 @@ The engine is leading: the app contains no conjugation tables. Verbs, tenses and
 
 ## Getting started
 
-Node 22.18 or newer.
+Node 26 or newer.
 
 ```sh
 npm ci
