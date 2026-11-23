@@ -6,7 +6,7 @@ French forms come from conjugation models: each model is selected by an infiniti
 
 ## Quick start
 
-From a checkout, with Node **22.18 or newer**:
+From a checkout, with Node **26 or newer**:
 
 ```sh
 npm ci
