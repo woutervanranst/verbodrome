@@ -4,7 +4,7 @@
   "description": "Rule-based French and Dutch conjugation with reusable grammatical components",
   "type": "module",
   "engines": {
-    "node": ">=22.18"
+    "node": ">=26"
   },
   "exports": {
     ".": {
