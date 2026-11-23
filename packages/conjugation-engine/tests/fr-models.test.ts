@@ -43,6 +43,20 @@ describe('French model inventory', () => {
     expect(selectModel('glouloir')).toBeUndefined();
   });
 
+  it('reports regular groups for productive models and the family for irregular ones', () => {
+    const analysis = (infinitive: string): [string, string] => {
+      const { classification, classificationSource } = conjugate({ language: 'fr', infinitive, mood: 'infinitive', tense: 'present' }).analysis;
+      return [classification, classificationSource];
+    };
+    expect(analysis('parler')).toEqual(['group1', 'regularRule']);
+    expect(analysis('placer')).toEqual(['group1', 'regularRule']);
+    expect(analysis('lever')).toEqual(['group1', 'regularRule']);
+    expect(analysis('finir')).toEqual(['group2', 'regularRule']);
+    expect(analysis('rendre')).toEqual(['group3', 'regularRule']);
+    expect(analysis('venir')).toEqual(['venir', 'lexicon']);
+    expect(analysis('conduire')).toEqual(['cuire', 'lexicon']);
+  });
+
   it('parses alternatives, spellings, grave stems and empty endings', () => {
     const paradigm = parseTable(`
       ^e t:erai/r:^erai 0 - a/b ez
