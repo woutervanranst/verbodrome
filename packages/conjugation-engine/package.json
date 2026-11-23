@@ -30,7 +30,7 @@
     "corpus:check": "vitest run tests/corpus.test.ts tests/corpus-parser.test.ts && node --experimental-strip-types scripts/report-corpus.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.18.0",
+    "@types/node": "^26.6.6",
     "cheerio": "^1.1.2",
     "typescript": "^7.0.2",
     "vitest": "^5.1.1"
