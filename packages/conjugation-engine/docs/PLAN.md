@@ -151,7 +151,7 @@ Illustrative result, with some metadata fields abbreviated:
   ],
   unavailableTargets: [],
   analysis: {
-    classification: 'group1',
+    classification: 'aimer',
     classificationSource: 'regularRule',
     assumptions: [],
   },
