@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate } from '../src/index.js';
-import { frenchExceptions } from '../src/languages/fr/exceptions.js';
+import { isListedFrenchLemma } from '../src/languages/fr/index.js';
 import { dutchExceptions } from '../src/languages/nl/exceptions.js';
 
 describe('independent productive-rule goldens', () => {
@@ -14,7 +14,7 @@ describe('independent productive-rule goldens', () => {
     const result = conjugate({ language: 'fr', infinitive, mood: 'indicative', tense: 'present', gender: 'masculine' });
     expect(result.forms.map(form => form.text)).toEqual(expected);
     expect(result.analysis.classificationSource).toBe('regularRule');
-    expect(frenchExceptions).not.toHaveProperty(infinitive);
+    expect(isListedFrenchLemma(infinitive)).toBe(false);
   });
 
   it.each([
@@ -60,7 +60,7 @@ describe('independent productive-rule goldens', () => {
   it('applies deterministic regular suffix invariants without dictionary entries', () => {
     for (const root of ['darp', 'forp', 'nalp', 'zilp']) {
       const infinitive = `${root}er`;
-      expect(frenchExceptions).not.toHaveProperty(infinitive);
+      expect(isListedFrenchLemma(infinitive)).toBe(false);
       expect(conjugate({ language: 'fr', infinitive, mood: 'indicative', tense: 'present', gender: 'masculine' }).forms.map(form => form.text))
         .toEqual([`je ${root}e`, `tu ${root}es`, `il ${root}e`, `nous ${root}ons`, `vous ${root}ez`, `ils ${root}ent`]);
       expect(conjugate({ language: 'fr', infinitive, mood: 'participle', tense: 'past' }).forms.map(form => form.text))

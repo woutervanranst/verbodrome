@@ -4,9 +4,9 @@
 
 `src/conjugate.ts` validates a query, resolves the language model, expands valid catalogue slots, applies grammatical availability, composes components, renders them, and deduplicates/orders equivalent records. French and Dutch adapters share contracts and orchestration, not a speculative universal grammar.
 
-Runtime exception data contains principal parts, truly suppletive overrides, verified family membership, and lexical auxiliary/reflexive/availability metadata. Regular stems/endings and compound constructions are derived. Test fixtures, HTML parsers, filesystem/network access, and the CLI are not imported by the library.
+French morphology is model-driven (see below); Dutch morphology is rule-driven with principal parts. Lexical auxiliary/reflexive/availability metadata is kept separately from morphology, and compound constructions are always composed, never stored. Test fixtures, HTML parsers, filesystem/network access, and the CLI are not imported by the library.
 
-To add coverage, prefer a productive rule or a verified principal-part/family entry with an independent regression. Do not replace a rule with verb-by-mood-by-tense-by-person answer tables. Adding another language requires its typed options, catalogue, adapter, validation/dispatch, sources, and tests.
+To add French coverage, add or widen a model selector, or add a model, with an independent regression. To add Dutch coverage, prefer a productive rule or a verified principal-part entry. Do not add per-verb answer tables for verbs a model can cover. Adding another language requires its typed options, catalogue, adapter, validation/dispatch, sources, and tests.
 
 ## French
 
@@ -23,9 +23,18 @@ The primary grammar is [Le Conjugueur's rule index](https://leconjugueur.lefigar
 | Literary imperfect subjunctive | [Formation](https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html) |
 | `aller + infinitif`, `venir de + infinitif` | [Futur proche and passé récent](https://leconjugueur.lefigaro.fr/frfuturproche.php) |
 
-Implemented rules include productive `-er`, second-group `-ir/-issant`, a regular `rendre`-like `-re` model, and compact third-group principal parts/families. Orthography covers `-cer/-ger`, vowel/consonant environments, `-yer`, mute `e`, `é/è`, doubling boundaries, circumflexes, and diaereses. Future/imperfect/subjunctive stems and shared auxiliaries derive compound and literary forms.
+### Conjugation models
 
-Important exception boundaries are explicit: appeler/jeter families retain doubling; irregular envoyer/renvoyer future stems are not overwritten by productive `-er` rules; accroître and émouvoir do not inherit every accent of croître/mouvoir. Only verified derivative prefixes are recognized automatically.
+`src/languages/fr/models.ts` lists the French conjugation models. A model has selectors, a strip length, and one or more ending tables:
+
+- **Selection.** An infinitive listed in a model's `lemmas` uses it. Otherwise the model with the longest matching `suffixes` entry wins (`prévaloir` over `valoir`, `-ecer` over `-cer`), unless the infinitive is in that model's `except` list or ends with one of its `exceptEndings`. A family is therefore covered by one suffix: `-eindre` covers atteindre, éteindre, and peindre; `-uire` covers conduire and construire.
+- **Forms.** The stem is the infinitive minus `strip` letters; each table cell is appended to it. Eight rows hold the indicative present, imperfect, simple past, and future, the subjunctive present and imperfect, the conditional, and a last row with the three imperatives, the present participle, the four past participles, and the infinitive.
+- **Cell notation.** `-` marks a missing form, `/` separates accepted alternatives, `t:`/`r:` restrict an alternative to traditional/1990 spelling, `^` rewrites the stem's last `e`/`é` to `è` (lever → lève, céder → cède), and `0` is an empty ending.
+- **Model flags** record invariant participles, impersonal use, third-person-only verbs, missing imperatives, and restricted compound tenses. Verb-level restrictions that a shared model cannot express (advenir within the venir family) live in `lexicon.ts`.
+
+Productive models cover regular `-er` (with spelling classes for `-cer`, `-ger`, mute `e`, closed `é`, `-eler/-eter` doubling or grave, and `-yer`), second-group `-ir/-issant`, and regular `-re`. In 1990 spelling, `-er` stems also drop circumflexes on `i` and `u`. Irregular families and suppletive verbs have their own tables; defective verbs mark missing cells.
+
+Important boundaries are explicit selectors: appeler/jeter families double in both spellings; other `-eler/-eter` verbs double traditionally and take `è` in 1990 spelling, except a closed list (geler, modeler, acheter, harceler, …) that takes `è` in both; envoyer/renvoyer keep their irregular future while other `-voyer` verbs do not; accroître and émouvoir do not inherit every accent of croître/mouvoir.
 
 Suffix membership does not override a different productive class: [asservir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/asservir.html) uses second-group `asservissons`, not servir's pattern. [Convenir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/convenir_auxiliaire-etre.html) retains both lexical auxiliary choices, and [advenir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/advenir.html) is restricted to third-person uses.
 
@@ -37,7 +46,7 @@ Verbal participles marked invariant have no invented agreement identity. The [do
 
 ### French defaults and limits
 
-Unlisted `-er`, `-ir`, and compatible `-re` infinitives use the documented regular models; unfamiliar `-ir` defaults to second-group morphology, not a guessed third-group exception. Other non-productive spellings need a compatible model or principal parts. Explicit regular hints can select a different morphological interpretation, as with the [second ressortir model](https://leconjugueur.lefigaro.fr/conjugaison/verbe/ressortir_deuxieme-forme.html).
+Unlisted infinitives use the model their ending selects. An ending shared by an irregular family selects that family, and the analysis records the inference as an assumption. Otherwise `-er`, `-ir`, and `-re` use the productive models; unfamiliar `-ir` defaults to second-group morphology, not a guessed third-group exception. Endings that no model claims, such as an unknown `-oir`, need a compatible model or principal parts. Explicit regular hints can select a different morphological interpretation, as with the [second ressortir model](https://leconjugueur.lefigaro.fr/conjugaison/verbe/ressortir_deuxieme-forme.html).
 
 Unlisted non-reflexives default to `avoir`; known dual auxiliaries preserve conditioned choices. Spelling cannot determine transitivity, lexical sense, or a preceding object. An unlisted initial `h` is assumed mute unless `aspiratedH` is provided. Unclassified reflexive pronouns are assumed direct unless indirect context is supplied.
 

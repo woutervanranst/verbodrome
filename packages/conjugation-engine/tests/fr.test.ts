@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { expandTargets } from '../src/catalogue.js';
-import { resolveFrench } from '../src/languages/fr/index.js';
-import { frenchExceptions } from '../src/languages/fr/exceptions.js';
+import { isListedFrenchLemma, resolveFrench } from '../src/languages/fr/index.js';
 import { ConjugationError } from '../src/errors.js';
 import { renderParts } from '../src/render.js';
 import { conjugate } from '../src/conjugate.js';
@@ -18,7 +17,7 @@ describe('French grammatical generation', () => {
     ['glonger', 'nous glongeons'], ['brumir', 'nous brumissons'],
   ])('conjugates invented %s from productive rules', (infinitive, expected) => {
     expect(french({ language: 'fr', infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'plural' })).toEqual([expected]);
-    expect(frenchExceptions).not.toHaveProperty(infinitive);
+    expect(isListedFrenchLemma(infinitive)).toBe(false);
   });
 
   it('retains complete payer and rectified/traditional alternatives', () => {
