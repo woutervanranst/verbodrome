@@ -122,7 +122,7 @@ conjugate({
 
 ## Results, variants, and errors
 
-`ConjugationResult` contains `language`, normalized `verbId`, cloned `query`, `status`, flat `forms`, `unavailableTargets`, and `analysis`. `analysis` identifies the lexical lemma, classification, source (`lexicon`, `regularRule`, or `explicitHint`), reflexivity, auxiliaries, and regular-default assumptions.
+`ConjugationResult` contains `language`, normalized `verbId`, cloned `query`, `status`, flat `forms`, `unavailableTargets`, and `analysis`. `analysis` identifies the lexical lemma, classification, source (`lexicon`, `regularRule`, or `explicitHint`), reflexivity, auxiliaries, and regular-default assumptions. For French, `classification` is the conjugation model the verb follows (`aimer`, `placer`, `finir`, `rendre`, `venir`, …); passing it back as `model` selects the same inflection. Use `classificationSource === 'regularRule'` to tell productive models from irregular families.
 
 Each form contains:
 

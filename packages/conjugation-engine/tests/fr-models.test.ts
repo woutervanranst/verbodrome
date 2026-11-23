@@ -43,18 +43,24 @@ describe('French model inventory', () => {
     expect(selectModel('glouloir')).toBeUndefined();
   });
 
-  it('reports regular groups for productive models and the family for irregular ones', () => {
+  it('reports the conjugation model, which the model hint accepts back', () => {
     const analysis = (infinitive: string): [string, string] => {
       const { classification, classificationSource } = conjugate({ language: 'fr', infinitive, mood: 'infinitive', tense: 'present' }).analysis;
       return [classification, classificationSource];
     };
-    expect(analysis('parler')).toEqual(['group1', 'regularRule']);
-    expect(analysis('placer')).toEqual(['group1', 'regularRule']);
-    expect(analysis('lever')).toEqual(['group1', 'regularRule']);
-    expect(analysis('finir')).toEqual(['group2', 'regularRule']);
-    expect(analysis('rendre')).toEqual(['group3', 'regularRule']);
+    expect(analysis('parler')).toEqual(['aimer', 'regularRule']);
+    expect(analysis('placer')).toEqual(['placer', 'regularRule']);
+    expect(analysis('lever')).toEqual(['lever', 'regularRule']);
+    expect(analysis('finir')).toEqual(['finir', 'regularRule']);
+    expect(analysis('rendre')).toEqual(['rendre', 'regularRule']);
     expect(analysis('venir')).toEqual(['venir', 'lexicon']);
     expect(analysis('conduire')).toEqual(['cuire', 'lexicon']);
+    for (const infinitive of ['ploucer', 'atteindre', 'parler', 'brumir']) {
+      const options = { language: 'fr', infinitive, mood: 'indicative', tense: 'present' } as const;
+      const inferred = conjugate(options);
+      const hinted = conjugate({ ...options, model: inferred.analysis.classification });
+      expect(hinted.forms.map(form => form.text), infinitive).toEqual(inferred.forms.map(form => form.text));
+    }
   });
 
   it('parses alternatives, spellings, grave stems and empty endings', () => {
