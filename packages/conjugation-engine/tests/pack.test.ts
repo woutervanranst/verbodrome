@@ -33,9 +33,9 @@ describe('catalogue entries from moodEntries', () => {
 
 describe('language packs', () => {
   it('lists registered languages and rejects others by name', () => {
-    expect(languages).toEqual(['fr', 'nl']);
+    expect(languages).toEqual(['fr', 'nl', 'es']);
     for (const call of [() => conjugate({ language: 'xx', infinitive: 'a' } as never), () => getCatalogue('xx' as never), () => renderParts('xx' as never, [])]) {
-      expect(call).toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl.' }));
+      expect(call).toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl, es.' }));
     }
   });
 
