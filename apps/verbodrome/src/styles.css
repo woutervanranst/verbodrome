@@ -102,6 +102,34 @@ button { cursor: pointer; }
 .card.is-dim { opacity: 0.35; }
 @keyframes card-in { from { opacity: 0; transform: translateY(16px) scale(0.98); } to { opacity: 1; transform: none; } }
 
+/* Typed answer */
+.typein { width: 100%; max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 14px; margin: 0; animation: card-in 360ms var(--ease-out) both; }
+.typein__row { width: 100%; display: flex; gap: 10px; }
+.typein__field {
+  flex: 1; min-width: 0; min-height: 70px; padding: 0 22px;
+  border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 12px; background: rgba(255, 255, 255, 0.94); color: #000;
+  font-family: var(--serif); font-size: clamp(30px, 3.6vw, 40px); line-height: 1;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); transition: background-color 200ms, border-color 200ms, color 200ms;
+}
+/* Same font and size as what is typed, so the placeholder sits on the caret's line. */
+.typein__field::placeholder { font-style: italic; color: #9a95a0; opacity: 1; }
+.typein__field:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255, 191, 9, 0.35), 0 8px 24px rgba(0, 0, 0, 0.18); }
+.typein__check { min-height: 70px; padding: 0 28px; font-size: 17px; }
+.typein__keys { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.key {
+  width: 44px; height: 44px; border: 0; border-radius: 10px; background: rgba(12, 8, 20, 0.55);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); color: #fff; font-size: 21px; font-weight: 500;
+  transition: background 140ms, transform 120ms var(--ease-out);
+}
+.key:hover { background: rgba(12, 8, 20, 0.78); }
+.key:active { transform: scale(0.92); }
+.typein__hint { margin: 0; font-size: 13px; opacity: 0.85; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5); }
+.typein.is-answered .typein__keys, .typein.is-answered .typein__hint, .typein.is-answered .typein__check { display: none; }
+/* Answered: the colour says it all, so no focus ring around it. */
+.typein.is-answered .typein__field { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18); }
+.typein.is-right .typein__field { background: var(--good); border-color: var(--good); color: #fff; }
+.typein.is-wrong .typein__field { background: var(--bad); border-color: var(--bad); color: #fff; text-decoration: line-through; text-decoration-thickness: 2px; }
+
 /* ── Buttons ───────────────────────────────────────────────────────────── */
 .btn { border: 0; border-radius: 10px; font-weight: 600; }
 .btn--go { min-height: 48px; padding: 0 24px; background: var(--good-deep); color: #fff; font-size: 16px; transition: filter 160ms; }
@@ -177,6 +205,17 @@ mark { color: inherit; }
 .chip { display: flex; align-items: center; gap: 8px; min-height: 40px; padding: 4px 16px; border: 0; border-radius: 999px; background: var(--paper-2); color: var(--ink); font-size: 14px; font-weight: 600; }
 .chip:hover { background: var(--paper-line); }
 .chip.is-active { background: #fff; box-shadow: inset 0 0 0 2px var(--ink); }
+
+/* How to answer: a two-way switch with a sliding thumb */
+.mode { position: relative; display: inline-grid; grid-template-columns: 1fr 1fr; padding: 4px; border-radius: 999px; background: var(--paper-2); }
+.mode__thumb {
+  position: absolute; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px); border-radius: 999px;
+  background: #fff; box-shadow: inset 0 0 0 2px var(--ink), 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.mode.is-typing .mode__thumb { transform: translateX(100%); }
+.mode__opt { position: relative; z-index: 1; min-height: 44px; padding: 0 22px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2); font-size: 15px; font-weight: 600; white-space: nowrap; transition: color 200ms; }
+.mode__opt:hover, .mode__opt.is-on { color: var(--ink); }
 
 /* Time axis: one column per era, the tenses of that era underneath */
 .timeline { --dot: 26px; position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin-top: 22px; padding-right: 14px; }
@@ -261,6 +300,12 @@ mark { color: inherit; }
   .era__head { flex-direction: row; gap: 10px; }
   .era__box { margin-left: calc(var(--dot) + 10px); }
   .timeline__ends { display: none; }
+}
+@media (max-width: 560px) {
+  .typein__row { flex-direction: column; }
+  .typein__field { min-height: 60px; font-size: 30px; padding: 0 16px; }
+  .typein__check { min-height: 52px; }
+  .key { width: 40px; height: 42px; font-size: 20px; }
 }
 @media (max-width: 720px) {
   .route__change { display: none; }

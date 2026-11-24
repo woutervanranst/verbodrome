@@ -14,4 +14,8 @@ export const APP = {
   backdropPhoto: 'assets/paris.jpg' as string | null,
   /** Verb used to illustrate each tense in the picker ("je parlais"). */
   exampleVerb: 'parler',
+  /** XP for a right answer is multiplied by this when it was typed instead of picked. */
+  typedXpFactor: 1.5,
+  /** Buttons under the answer field, for letters a Dutch keyboard does not have. */
+  accentKeys: ['é', 'è', 'ê', 'ë', 'à', 'â', 'î', 'ï', 'ô', 'û', 'ù', 'ç', 'œ'],
 } as const;
