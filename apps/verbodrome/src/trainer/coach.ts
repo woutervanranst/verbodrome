@@ -5,6 +5,7 @@ import type { VerbDef } from '../config/verbs';
 import type { FrForm } from './forms';
 import { askable, kindLabel, questionFor } from './question';
 import type { Option, Question, Random, Selection } from './question';
+import { SPELLING } from './typed';
 
 /**
  * The coach decides what to ask next. It reads the answer log to learn which
@@ -29,6 +30,8 @@ export interface Answer {
   readonly review?: boolean;
   /** The question was an easy one, served after two misses in a row. */
   readonly easy?: boolean;
+  /** The answer was typed rather than picked from the cards. */
+  readonly typed?: boolean;
 }
 
 /** A missed question waiting to be asked again. */
@@ -210,7 +213,9 @@ export function nextQuestion(
       .filter(review => review.due <= history.count && fresh(review))
       .sort((a, b) => a.due - b.due);
     for (const review of due) {
-      const question = questionFor(selection, review, random, optionCount, { text: review.pick, kind: review.kind });
+      // A typed spelling mistake can be any text at all: it is not worth showing as a card.
+      const earlier = review.kind === SPELLING ? null : { text: review.pick, kind: review.kind };
+      const question = questionFor(selection, review, random, optionCount, earlier);
       if (question) return { question, review, easy: false };
     }
   }
@@ -222,8 +227,10 @@ export function nextQuestion(
   return question ? { question, review: null, easy: false } : null;
 }
 
-/** The log and review list after one answer. */
-export function record(history: History, asked: Asked, option: Option, random: Random = Math.random, now = Date.now()): History {
+/** The log and review list after one answer; `typed` when it was typed rather than picked. */
+export function record(
+  history: History, asked: Asked, option: Option, random: Random = Math.random, now = Date.now(), typed = false,
+): History {
   const { question } = asked;
   const item = itemOf(question);
   const count = history.count + 1;
@@ -232,6 +239,7 @@ export function record(history: History, asked: Asked, option: Option, random: R
     ...(option.correct ? {} : { pick: option.text, want: question.correct, kind: option.kind }),
     ...(asked.review ? { review: true } : {}),
     ...(asked.easy ? { easy: true } : {}),
+    ...(typed ? { typed: true } : {}),
   };
   const existing = history.reviews.find(review => sameItem(review, item));
   const others = history.reviews.filter(review => review !== existing);

@@ -9,7 +9,7 @@ import type { KeyValue } from './local';
  * Everything verbodrome remembers on this device, in three documents under one
  * versioned prefix:
  *
- *   verbodrome:v2:settings  — what the learner chose to practise
+ *   verbodrome:v2:settings  — what the learner chose to practise, and how they answer
  *   verbodrome:v2:progress  — XP and record streak
  *   verbodrome:v2:history   — the answer log and the questions waiting to be repeated
  *
@@ -27,11 +27,15 @@ export const KEYS = {
 /** Keys of the first version: loose values, one per concern. */
 const V1 = { stats: 'fr-conj-v1', selection: 'verbodrome-traject-v1', welcomed: 'verbodrome-welkom-v1' } as const;
 
+/** How the learner answers: pick one of the cards (multiple choice), or type the form. */
+export type AnswerMode = 'cards' | 'typing';
+
 export interface Settings {
   /** Null until the learner has chosen; the app then starts from its default level. */
   readonly selection: Selection | null;
   /** False on the very first visit, when the picker opens by itself. */
   readonly welcomed: boolean;
+  readonly mode: AnswerMode;
 }
 
 export interface Progress {
@@ -44,8 +48,8 @@ const count = (value: unknown): number => typeof value === 'number' && Number.is
 const text = (value: unknown): value is string => typeof value === 'string' && value.length > 0;
 
 export function parseSettings(value: unknown): Settings {
-  if (!isRecord(value)) return { selection: null, welcomed: false };
-  return { selection: sanitize(value.selection), welcomed: value.welcomed === true };
+  if (!isRecord(value)) return { selection: null, welcomed: false, mode: 'cards' };
+  return { selection: sanitize(value.selection), welcomed: value.welcomed === true, mode: value.mode === 'typing' ? 'typing' : 'cards' };
 }
 
 export function parseProgress(value: unknown): Progress {
@@ -61,6 +65,7 @@ function parseAnswer(value: unknown): Answer | null {
     ...(text(value.kind) ? { kind: value.kind } : {}),
     ...(value.review === true ? { review: true } : {}),
     ...(value.easy === true ? { easy: true } : {}),
+    ...(value.typed === true ? { typed: true } : {}),
   };
 }
 
@@ -99,7 +104,7 @@ function migrateV1(storage: KeyValue | null): void {
   const welcomed = read(storage, V1.welcomed);
   const stats = read(storage, V1.stats);
   if (selection === null && welcomed === null && stats === null) return;
-  write(storage, KEYS.settings, { selection, welcomed: welcomed === true });
+  write(storage, KEYS.settings, { selection, welcomed: welcomed === true, mode: 'cards' });
   write(storage, KEYS.progress, parseProgress(stats));
   for (const key of Object.values(V1)) remove(storage, key);
 }

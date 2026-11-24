@@ -317,6 +317,12 @@ describe('feedback helpers', () => {
     expect(subjectLength('mangeant', false)).toBe(0);
   });
 
+  it('highlights an accent slip on the first letter of a form without subject, but not a whole different word', () => {
+    expect(diff('ecris !', 'écris !')).toEqual(['', 'e', 'cris !']);
+    expect(diff('écris !', 'ecris !')).toEqual(['', 'é', 'cris !']);
+    expect(diff('parlant', 'ayant parlé')).toEqual(['parlant', '', '']);
+  });
+
   it('explains formation with stems read from the engine', () => {
     expect(rule(verb('être'), tense('indicative.future'))).toBe('Onregelmatige stam ser- + -ai, -as, -a, -ons, -ez, -ont.');
     expect(rule(verb('parler'), tense('indicative.future'))).toContain('Neem de infinitief (parler)');
@@ -332,5 +338,11 @@ describe('feedback helpers', () => {
     expect(applyAnswer({ streak: 3, best: 5, xp: 100 }, true)).toEqual({ streak: 4, best: 5, xp: 116, gain: 16 });
     expect(applyAnswer({ streak: 25, best: 25, xp: 0 }, true).gain).toBe(30);
     expect(applyAnswer({ streak: 7, best: 9, xp: 50 }, false)).toEqual({ streak: 0, best: 9, xp: 50, gain: 0 });
+  });
+
+  it('gives more XP for a typed answer, rounded', () => {
+    expect(applyAnswer({ streak: 3, best: 5, xp: 100 }, true, 1.5)).toEqual({ streak: 4, best: 5, xp: 124, gain: 24 });
+    expect(applyAnswer({ streak: 0, best: 0, xp: 0 }, true, 1.25).gain).toBe(13);
+    expect(applyAnswer({ streak: 3, best: 5, xp: 100 }, false, 1.5).gain).toBe(0);
   });
 });
