@@ -1,4 +1,6 @@
 import type { Citation, Work } from '../../core/sources.js';
+import type { LexiconCheck } from './entries.js';
+import { latinEntries } from './lexicon.js';
 import type { latinRules } from './rules.js';
 
 /** The works Latin rules cite (GD §1.1). Wiktionary and the scraped corpus are data, never cited for a rule. */
@@ -40,14 +42,36 @@ export function ls(lemma: string): Citation {
   return { work: 'ls', locator: `Lewis & Short, s.v. ${lemma}`, url: `https://logeion.uchicago.edu/${lemma}` };
 }
 
-/** Where each rule is stated. */
-export const latinCitations = {} as const satisfies Record<keyof typeof latinRules, Citation | readonly Citation[]>;
+/** Lewis & Short as a whole, for rules that read the lexicon. */
+const lsWhole: Citation = { work: 'ls', locator: 'Lewis & Short', url: 'https://logeion.uchicago.edu/' };
+const thirdLists = (sub: string): Citation => ag('classified-lists-verbs-3rd-conjugation', `§211.${sub}`);
 
-/** How a lexicon entry was checked: against the 1903 A&G print, against Lewis & Short, or only a secondary source. */
-export interface LexiconVerification {
-  readonly url: `https://${string}`;
-  readonly status: 'ag-print' | 'ls' | 'secondary';
-}
+/** Where each rule is stated (GD §4). */
+export const latinCitations = {
+  'la.classify.lexicon': [ag('four-conjugations', '§172'), lsWhole],
+  'la.classify.compound': [ag('compound-words', '§267.a, Note 2'), ag('phonetic-changes', '§16')],
+  'la.classify.conjugation': [ag('four-conjugations', '§171'), bennett(98)],
+  'la.classify.io': [ag('forms-conjugation', '§179.c.1'), ag('3rd-conjugation-io-verbs', '§188'), bennett(109)],
+  'la.classify.deponent': [ag('deponent-verbs', '§190'), ag('verb-conjugations', '§156.b')],
+  'la.classify.semi-deponent': [ag('deponent-verbs', '§192'), bennett(114)],
+  'la.classify.assume-third': ag('four-conjugations', '§171'),
+  'la.classify.assume-second-deponent': ag('deponent-verbs', '§190'),
+  'la.classify.assume-consonant-stem': ag('3rd-conjugation-io-verbs', '§188'),
+  'la.classify.assume-quantity': ag('quantity-syllables', '§10'),
+  'la.classify.assume-passive': [ag('verb-conjugations', '§154.a'), ag('impersonal-verbs', '§208.d')],
+  'la.classify.assume-compound': bennett(118, ' (4.a, Note 1)'),
+  'la.classify.default-parts': ag('forms-conjugation', '§179.a.2, b.2, d'),
+  'la.classify.default-sigmatic': [ag('perfect-stem', '§177.b'), thirdLists('a')],
+  'la.classify.default-uo': thirdLists('f'),
+  'la.classify.default-sco': thirdLists('c'),
+  'la.classify.default-u': thirdLists('c'),
+} as const satisfies Record<keyof typeof latinRules, Citation | readonly Citation[]>;
 
-/** The verification of every lexicon entry, keyed by its first principal part (or infinitive for a defective verb). */
-export const lexiconVerification: Readonly<Record<string, LexiconVerification>> = {};
+/**
+ * How each lexicon entry was checked, keyed by its first principal part (or its infinitive for coepī, ōdī, meminī):
+ * `ag-print` against the 1903 A&G page scan, `ag-text` against the DCC text of A&G only (a page whose scan is missing,
+ * or a model verb of §172), `ls` against Lewis & Short via Logeion, `secondary` against Bennett only.
+ */
+export const lexiconVerification: Readonly<Record<string, LexiconCheck>> = Object.fromEntries(
+  latinEntries.map(entry => [entry.present ?? entry.infinitive, entry.checked]),
+);

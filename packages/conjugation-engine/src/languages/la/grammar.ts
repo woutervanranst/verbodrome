@@ -1,6 +1,7 @@
-import { ConjugationError } from '../../errors.js';
 import type { StagedGrammar } from '../../core/staged.js';
 import { validateGrammar } from '../../core/staged.js';
+import { ConjugationError } from '../../errors.js';
+import { classifyLatin, lexemeOfLatin } from './classify.js';
 import type { LatinLexeme } from './lexicon.js';
 
 function notBuilt(hook: string): never {
@@ -9,8 +10,8 @@ function notBuilt(hook: string): never {
 
 /** The Latin staged grammar. */
 export const latinGrammar: StagedGrammar<LatinLexeme> = {
-  classify: () => notBuilt('classify'),
-  lexemeOf: () => notBuilt('lexemeOf'),
+  classify: classifyLatin,
+  lexemeOf: lexemeOfLatin,
   cellOf: () => notBuilt('cellOf'),
   availability: () => notBuilt('availability'),
   stem: () => notBuilt('stem'),

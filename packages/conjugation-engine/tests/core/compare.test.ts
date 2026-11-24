@@ -5,7 +5,7 @@ import { toyPack } from '../toy/pack.js';
 
 describe('comparison keys', () => {
   it('normalises case, Unicode form and spacing by default', () => {
-    expect(plainComparisonKey('  Je  télé ')).toBe('je télé');
+    expect(plainComparisonKey('  Je  te\u0301lé ')).toBe('je télé');
   });
 
   it('uses a pack\'s own key when it declares one, and the plain key otherwise', () => {
