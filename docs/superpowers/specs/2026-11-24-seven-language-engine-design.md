@@ -86,7 +86,7 @@ What an unfiltered query returns (my call, keeps today's output stable):
 
 Agreement is a clause-stage rule that records its own step ("with être the participle agrees with the subject: feminine → + e"). French already works this way (`gender`, `agreement`, `_feminin` corpus files); the snapshot is taken with and without `gender` so that behaviour is pinned.
 
-**Pack contract (`core/pack.ts`).** `LanguagePack<L>` exposes `catalogue`, `subjects`, `options` (declarative validation schema), `rules`, `citations`, `periphrases`, and the stage hooks `classify`, `availability`, `stem`, `ending`, ordered `orthography` rules, `clause`, `rank`. Stages return `Fork<T>` = list of outcomes with variant tags and steps; an empty fork is a defective cell.
+**Pack contract (`core/pack.ts`).** The orchestrator talks to one small contract, `LanguageEngine.generate(target)`. A `LanguagePack` supplies `catalogue`, `options` (declarative validation schema), `rendering` (onset, sandhi, bare omission), `rank`, optional target and form filters, `rules`, `works`, `citations`, and an `engine(query)` factory. Rule-first packs build that factory with `stagedEngine(grammar)`, where a `StagedGrammar` has the stage hooks `classify`, `availability`, `cellOf`, optional whole-cell `cell`, `stem`, `ending`, ordered `orthography` rules, `periphrases` and `clause`. Stages return `Fork<T>` = list of outcomes with variant tags and steps; an empty fork is a defective cell. The existing French and Dutch resolvers plug in as `engine` unchanged until they are migrated.
 
 Core owns:
 
@@ -95,7 +95,7 @@ Core owns:
 - Dedup on a signature that excludes steps; a form is born `orthography: 'both'` unless a spelling-sensitive rule fired (replaces today's outer spelling loop).
 - Sandhi (elision) stays a render-time function over parts, because the app recombines parts and re-renders.
 
-**Derivation (`core/derivation.ts`).** `DerivationStep { rule, stage, kind: rule | lexical | assumption | unavailable, before, after, params }`. Rules are declared with `rule({ id, stage, params, when, apply, describe })`; the runner records steps, authors never push them. Rule ids form a union type from each pack's `rules` object. Steps attach to parts (word level), forms (periphrasis, clause, agreement) and `analysis` (classification, assumptions). Unavailable targets carry a step too. `ruleIds` stays as a derived, deprecated field.
+**Derivation (`core/derivation.ts`).** `DerivationStep { rule, stage, kind: rule | lexical | assumption | unavailable, before, after, params }`. Rules are declared as metadata with `defineRules({...})` (id, stage, kind, param kinds); stage functions build steps with `step(rule, before, after, params)`, and spelling rules are `JunctureRule`s whose steps the runner records. Rule ids form a union type from each pack's `rules` object. Steps attach to parts (word level), forms (periphrasis, clause, agreement) and `analysis` (classification, assumptions). Unavailable targets carry a step too. `ruleIds` stays as a derived, deprecated field.
 
 **Citations (`sources.ts`).** `satisfies Record<RuleId, Citation | Citation[]>` — a rule without a citation is a type error.
 
@@ -153,15 +153,15 @@ Known intended diffs to expect: today's mute-e rule is an ending whitelist, so i
 ```
 scripts/corpus/
   model.ts
-  sources/{leconjugueur,verbix-old,verbix-html5,reverso,elconjugador,cactus2000}.ts
+  parsers/<lang>.ts         one parser per language (en and it share a helper)
   languages/<lang>.ts       directory, encoding, expected files, section map, unmodelled reasons
   corrections/<lang>.ts
   import.ts  report.ts
-tests/fixtures/<lang>.json  corrections/<lang>.json  manifest.json  remaps.json
+tests/fixtures/<lang>.json  corrections.json  manifest.json  remaps.json
 tests/goldens/<lang>/*.json
 ```
 
-- Source: the pinned VerbodromeX revision `3a9a01de…`; all seven directories are tracked there (139 de / 145 en / 89 es / 222 fr / 20 it / 18 la / 207 nl files). Manifest v2 adds per-file byte hashes and encodings.
+- Source: the pinned VerbodromeX revision `3a9a01de…`; all seven directories are tracked there (139 de / 145 en / 89 es / 222 fr / 20 it / 18 la / 207 nl files). Fixtures stay neutral, as decided in commit `5e7d30d`: no source file names, encodings, file checksums or site names in fixtures or manifest; the pin is the revision check, the clean-checkout check and the per-language file counts.
 - Mislabelled source headings (Reverso Konjunktiv "Präteritum", verbix subjunctive "Present") are template-level remaps with a reason and URL, counted and pinned.
 - Real source bugs (`shaked`, `flys`, `diging`, `ho stato`, `ihr bewegte`) are per-cell corrections with reason and authority URL, as today.
 - Corpus cells the engine does not model stay in the fixture as `scope: 'unmodelled'`, counted and pinned.
