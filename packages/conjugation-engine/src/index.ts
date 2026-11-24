@@ -13,7 +13,7 @@ export type { ConjugationErrorCode } from './errors.js';
 export type * from './types.js';
 export type { CatalogueEntry, LanguagePack, PackRendering } from './core/pack.js';
 export type { Engine } from './core/engine.js';
-export type { LanguageEngine } from './languages/adapter.js';
+export type { LanguageEngine } from './core/pack.js';
 export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';
 export type { Citation, Work } from './core/sources.js';
 export type { RuleInfo } from './core/derivation.js';

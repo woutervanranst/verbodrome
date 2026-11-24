@@ -1,14 +1,18 @@
 /**
- * The gate every language pack passes: each rule it declares has a message in every locale and a citation, and each
- * message is well formed. A language registers its pack in `src/languages/index.ts` and its messages in
- * `src/i18n/locales/<locale>/index.ts`; this test then checks it with no further change.
+ * The gate every language pack passes: each rule it declares has a message in every locale and a citation, each
+ * message is well formed, each rule id starts with `<pack.language>.` (`core.` is the core catalog's), and no two packs,
+ * nor a pack and the core, define the same key (catalogs are merged flat per locale). A language registers its pack in
+ * `src/languages/index.ts` and its messages in `src/i18n/locales/<locale>/index.ts`; this test then checks it with no
+ * further change.
  */
 import { describe, expect, it } from 'vitest';
+import { defineRules } from '../../src/core/derivation.js';
 import type { LanguagePack } from '../../src/core/pack.js';
 import type { Citation } from '../../src/core/sources.js';
 import type { Catalog } from '../../src/i18n/catalog.js';
 import { formatMessage, placeholders } from '../../src/i18n/format.js';
 import type { MessageArg } from '../../src/i18n/format.js';
+import { core } from '../../src/i18n/locales/en/core.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import { packs } from '../../src/languages/index.js';
 import { en as toyEn, nl as toyNl } from '../toy/messages.js';
@@ -70,6 +74,8 @@ function problemsWith(pack: LanguagePack, catalogs: Catalogs, format: typeof for
   }
   if (!pack.rules) return problems;
   for (const [id, rule] of Object.entries(pack.rules)) {
+    if (id.startsWith('core.')) problems.push(`${id} is in core., which is reserved for the core catalog`);
+    else if (!id.startsWith(`${pack.language}.`)) problems.push(`${id} does not start with ${pack.language}.`);
     for (const reserved of ['before', 'after']) {
       if (Object.hasOwn(rule.params, reserved)) problems.push(`${id} declares a param named ${reserved}, which every message already has`);
     }
@@ -83,6 +89,25 @@ function problemsWith(pack: LanguagePack, catalogs: Catalogs, format: typeof for
     for (const citation of citations) {
       if (!Object.hasOwn(pack.works ?? {}, citation.work)) problems.push(`${id} cites the work ${citation.work}, which the pack does not list`);
       if (citation.url !== undefined && !citation.url.startsWith('https://')) problems.push(`${id} has a citation url that is not https`);
+    }
+  }
+  return problems;
+}
+
+/** The keys each source puts into the merged catalogs: the core's messages, then each pack's rule ids. */
+function keySources(packList: readonly LanguagePack[]): readonly (readonly [string, readonly string[]])[] {
+  return [['core', Object.keys(core)], ...packList.map(pack => [pack.language, Object.keys(pack.rules ?? {})] as const)];
+}
+
+/** Keys that two sources define: catalogs are merged flat per locale, so one message would silently replace the other. */
+function sharedKeys(sources: readonly (readonly [string, readonly string[]])[]): string[] {
+  const owner = new Map<string, string>();
+  const problems: string[] = [];
+  for (const [name, keys] of sources) {
+    for (const key of keys) {
+      const first = owner.get(key);
+      if (first === undefined) owner.set(key, name);
+      else problems.push(`${key} is defined by ${first} and ${name}`);
     }
   }
   return problems;
@@ -125,6 +150,26 @@ describe('rule catalogs are complete', () => {
       'xx.stem.drop-a (en) cannot be formatted (boom)', 'xx.stem.drop-a (nl) cannot be formatted (boom)',
     ]));
     expect(check({ en, nl: { ...nl, 'xx.extra': 'x' } })).toContain('xx.extra is in nl but not in en');
+  });
+
+  it('keeps every pack\'s keys apart from the other packs\' and the core\'s', () => {
+    expect(sharedKeys(keySources(subjects.map(({ pack }) => pack)))).toEqual([]);
+  });
+
+  it('finds rule ids outside the pack\'s namespace and keys two sources define', () => {
+    const rules = defineRules({ 'xx.stem.ok': { stage: 'stem' }, 'yy.stem.other': { stage: 'stem' }, 'core.stem.reserved': { stage: 'stem' } });
+    const misnamed = { ...toyPack, rules, citations: {} } as LanguagePack;
+    expect(problemsWith(misnamed, { en: {}, nl: {} }).filter(problem => !/message|citation/u.test(problem))).toEqual([
+      'yy.stem.other does not start with xx.',
+      'core.stem.reserved is in core., which is reserved for the core catalog',
+    ]);
+    // A second pack for the same language, and a pack whose namespace is a core key's.
+    const term = { ...toyPack, language: 'term', rules: defineRules({ 'term.person.1': { stage: 'stem' } }) } as LanguagePack;
+    expect(problemsWith(term, { en: {}, nl: {} })).not.toContain('term.person.1 does not start with term.');
+    expect(sharedKeys(keySources([toyPack, { ...toyPack }, term]))).toEqual([
+      ...Object.keys(toyPack.rules!).map(key => `${key} is defined by xx and xx`),
+      'term.person.1 is defined by core and term',
+    ]);
   });
 
   it('finds missing and malformed citations', () => {

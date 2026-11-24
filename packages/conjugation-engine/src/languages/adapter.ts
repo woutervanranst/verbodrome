@@ -1,7 +1,2 @@
-import type { GenerationResult, ResolvedTarget, VerbAnalysis } from '../types.js';
-
-export interface LanguageEngine {
-  readonly verbId: string;
-  readonly analysis: VerbAnalysis;
-  generate(target: ResolvedTarget): GenerationResult;
-}
+/** `LanguageEngine` lives in the core pack contract; this path keeps existing imports working. */
+export type { LanguageEngine } from '../core/pack.js';

@@ -44,5 +44,14 @@ export const moods: Equal<Mood, 'indicative' | 'subjunctive' | 'conditional' | '
 export const dutchMoods: Equal<MoodFor<'nl'>, 'indicative' | 'conditional' | 'imperative' | 'infinitive' | 'participle'> = true;
 export const frenchSubjunctive: Equal<TenseFor<'fr', 'subjunctive'>, 'present' | 'past' | 'imperfect' | 'pluperfect'> = true;
 
+// A builder builds the options of its own language.
+export const frenchBuild: Equal<ReturnType<ConjugationOptionsBuilder<'fr'>['build']>, FrenchConjugationOptions> = true;
+export const dutchBuild: Equal<ReturnType<ConjugationOptionsBuilder<'nl'>['build']>, DutchConjugationOptions> = true;
+
 // No language's context key may shadow a builder method or a mood method.
 export const noCollision: Extract<keyof LanguageRegistry[Language]['context'], keyof ConjugationOptionsBuilder<Language> | Mood> extends never ? true : false = true;
+
+// A builder over any language still builds options `conjugate` accepts.
+export function anyLanguage(language: Language): ConjugationOptions {
+  return conjugationOptions(language, 'zorpen').build();
+}

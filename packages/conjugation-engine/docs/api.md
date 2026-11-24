@@ -132,7 +132,7 @@ conjugate({
 Each form contains:
 
 - `target`: resolved mood/tense, finite person/number or `null`, relevant subject gender or `null`, and separate participle agreement or `null`.
-- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds`.
+- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds` (deprecated: use `steps`).
 - `variant`: orthography (`rectified`, `traditional`, `both`), auxiliary, correlated pattern, usage (`standard`, `literary`, `dated`), and any construction/sense condition.
 
 There is one preferred form per fully resolved target, not one answer for an entire wildcard result. Standard usage is preferred to literary/dated variants, then the requested French spelling preference applies. Dutch orthography is `both` because that distinction is French-specific. Identical strings may remain distinct across targets or meaningful pattern/condition identities; callers must not deduplicate solely by `text`.
@@ -151,7 +151,7 @@ Text comes from message catalogs: `Record<string, string>` per locale, in the IC
 
 With an `en` catalog, a staged pack's `analysis.assumptions` are the English text of its assumption steps, and the `explanation` of each of its unavailable targets is the English text of the target's `step`; without one they are rule ids. These are rendered without the form's own mood, so an assumption rule must not take a `tense` term param (a `mood` term is fine); an availability rule can, because its target is known. A rule's params may not be named `before` or `after`: `defineRules` rejects them.
 
-A staged pack declares `rules` (the `defineRules` result), `works` (the grammars it cites, keyed by id) and `citations` (rule id to one citation or several, each `{ work, locator, url? }`). `tests/i18n/completeness.test.ts` checks every pack that declares rules: each rule has a well-formed message in every locale whose placeholders are declared params, `en` and `nl` have the same keys, every rule has a citation to a listed work, and every url is `https`.
+A staged pack declares `rules` (the `defineRules` result), `works` (the grammars it cites, keyed by id) and `citations` (rule id to one citation or several, each `{ work, locator, url? }`). `tests/i18n/completeness.test.ts` checks every pack that declares rules: each rule id starts with the pack's language code and a dot (`nl.stem.…`; `core.` is reserved), no two packs and no pack and the core catalog define the same key, each rule has a well-formed message in every locale whose placeholders are declared params, `en` and `nl` have the same keys, every rule has a citation to a listed work, and every url is `https`.
 
 The staged-pack authoring API is exported for language packs: `stagedEngine`, `validateGrammar`, `StagedGrammar`, `ClauseGrammar`, `Periphrasis`, `ChainElement`, `Cell`, `LexemeBase`, `Fork`, `Outcome`, `one`, `chain`, `combine`, `JunctureRule`, `defineRules`, `step` and `RuleInfo`.
 

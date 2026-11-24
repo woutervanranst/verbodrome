@@ -1,12 +1,19 @@
 import { ConjugationError } from '../errors.js';
-import type { LanguageEngine } from '../languages/adapter.js';
 import type { RuleInfo } from './derivation.js';
 import { usageRank } from './fork.js';
 import type { OptionSchema } from './options.js';
 import type { Citation, Work } from './sources.js';
 import type {
-  ConjugationPart, FormVariant, GeneratedForm, GrammaticalNumber, Mood, Onset, Orthography, Person, ResolvedTarget, Tense, Voice,
+  ConjugationPart, FormVariant, GeneratedForm, GenerationResult, GrammaticalNumber, Mood, Onset, Orthography, Person,
+  ResolvedTarget, Tense, VerbAnalysis, Voice,
 } from '../types.js';
+
+/** What a pack's engine gives the orchestrator for one query: the verb's analysis and the forms of each target. */
+export interface LanguageEngine {
+  readonly verbId: string;
+  readonly analysis: VerbAnalysis;
+  generate(target: ResolvedTarget): GenerationResult;
+}
 
 export interface CatalogueEntry {
   readonly mood: Mood; readonly tense: Tense; readonly moodLabel: string; readonly tenseLabel: string; readonly finite: boolean;

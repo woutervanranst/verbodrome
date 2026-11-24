@@ -1,5 +1,4 @@
 import { ConjugationError } from '../errors.js';
-import type { LanguageEngine } from '../languages/adapter.js';
 import type {
   ConjugationPart, GeneratedForm, GenerationResult, Mood, ResolvedTarget, Tense, UnavailableTarget, VerbAnalysis,
 } from '../types.js';
@@ -10,7 +9,7 @@ import type { Fork, Outcome, VariantTags } from './fork.js';
 import type { Agreement, GrammaticalNumber, Person, Voice } from './grammar.js';
 import { applyJunctureRules } from './juncture.js';
 import type { JunctureRule } from './juncture.js';
-import type { PackRendering } from './pack.js';
+import type { LanguageEngine, PackRendering } from './pack.js';
 import { periphrasesFor, periphrasisStep, reportedAuxiliary, usesPerfectAuxiliary } from './periphrasis.js';
 import type { ChainElement, Periphrasis, VerbRef } from './periphrasis.js';
 import { targetKey } from './target.js';

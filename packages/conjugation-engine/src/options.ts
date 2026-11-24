@@ -4,7 +4,7 @@ import { engine } from './default-engine.js';
 import { packs } from './languages/index.js';
 import type { LanguageRegistry } from './languages/registry.js';
 import type {
-  ConjugationOptions, DutchConjugationOptions, FrenchConjugationOptions, GrammaticalNumber, Language, MoodFor, Person, TenseFor,
+  ConjugationOptions, ConjugationOptionsFor, GrammaticalNumber, Language, MoodFor, Person, TenseFor,
 } from './types.js';
 
 export function parseConjugationOptions(value: unknown): ConjugationOptions {
@@ -103,15 +103,13 @@ export class ConjugationOptionsBuilder<L extends Language> {
     return this;
   }
 
-  build(this: ConjugationOptionsBuilder<'fr'>): FrenchConjugationOptions;
-  build(this: ConjugationOptionsBuilder<'nl'>): DutchConjugationOptions;
-  build(): ConjugationOptions;
-  build(): ConjugationOptions {
+  /** The options of language `L`, validated at runtime. */
+  build(): ConjugationOptionsFor<L> {
     return parseConjugationOptions({
       ...this.values,
       language: this.language,
       infinitive: this.infinitiveValue,
-    });
+    }) as ConjugationOptionsFor<L>;
   }
 }
 

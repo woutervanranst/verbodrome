@@ -41,13 +41,14 @@ type TargetQuery<L extends Language> =
     } & (M extends LanguageRegistry[L]['nonFinite'] ? NonFiniteConstraints : FiniteConstraints);
   }[keyof TensesFor<L>];
 
-export type ConjugationOptionsFor<L extends Language> = {
+/** The options of language `L`; over a union of languages, the union of each language's options. */
+export type ConjugationOptionsFor<L extends Language> = L extends Language ? {
   readonly language: L;
   readonly infinitive: string;
   readonly auxiliary?: LanguageRegistry[L]['auxiliary'];
   readonly classHint?: LanguageRegistry[L]['classHint'];
   readonly stems?: LanguageRegistry[L]['stems'];
-} & LanguageRegistry[L]['context'] & TargetQuery<L>;
+} & LanguageRegistry[L]['context'] & TargetQuery<L> : never;
 
 export type FrenchConjugationOptions = ConjugationOptionsFor<'fr'>;
 export type DutchConjugationOptions = ConjugationOptionsFor<'nl'>;
@@ -101,6 +102,7 @@ export interface GeneratedForm {
   readonly target: ResolvedTarget;
   readonly parts: readonly ConjugationPart[];
   readonly variant: FormVariant;
+  /** @deprecated Use steps. */
   readonly ruleIds: readonly string[];
   readonly steps?: readonly DerivationStep[];
 }
