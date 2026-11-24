@@ -1,4 +1,7 @@
+import type { DerivationStep } from './core/derivation.js';
 import type { Language, LanguageRegistry } from './languages/registry.js';
+
+export type { DerivationStep } from './core/derivation.js';
 
 export type { Language } from './languages/registry.js';
 export type {
@@ -91,6 +94,7 @@ export interface ConjugationPart {
   readonly features: PartFeatures;
   readonly phonology: { readonly onset: Onset };
   readonly joinBefore: 'space' | 'hyphen' | 'attached';
+  readonly steps?: readonly DerivationStep[];
 }
 
 export interface FormVariant {
@@ -99,6 +103,7 @@ export interface FormVariant {
   readonly pattern: string | null;
   readonly usage: 'standard' | 'literary' | 'dated';
   readonly condition: string | null;
+  readonly region?: string | null;
 }
 
 export interface GeneratedForm {
@@ -106,6 +111,7 @@ export interface GeneratedForm {
   readonly parts: readonly ConjugationPart[];
   readonly variant: FormVariant;
   readonly ruleIds: readonly string[];
+  readonly steps?: readonly DerivationStep[];
 }
 
 export interface ConjugatedForm extends GeneratedForm {
@@ -119,6 +125,7 @@ export interface UnavailableTarget {
   readonly reason: 'impersonal' | 'defective' | 'noImperative';
   readonly explanation: string;
   readonly source: string;
+  readonly step?: DerivationStep;
 }
 
 export interface VerbAnalysis {
@@ -128,6 +135,7 @@ export interface VerbAnalysis {
   readonly reflexive: boolean;
   readonly auxiliaries: readonly string[];
   readonly assumptions: readonly string[];
+  readonly steps?: readonly DerivationStep[];
 }
 
 export interface ConjugationResult {
