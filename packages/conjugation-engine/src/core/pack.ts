@@ -1,5 +1,6 @@
 import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
+import type { OptionSchema } from './options.js';
 import type {
   ConjugationPart, FormVariant, GeneratedForm, GrammaticalNumber, Mood, Onset, Orthography, Person, ResolvedTarget, Tense,
 } from '../types.js';
@@ -21,6 +22,8 @@ export interface LanguagePack<L extends string = string> {
   readonly language: L;
   readonly catalogue: readonly CatalogueEntry[];
   readonly rendering: PackRendering;
+  /** The language's own option keys and how each is validated; the common keys are validated by the core. */
+  readonly options: OptionSchema;
   /** Extra target filter from language-specific options (Dutch `pronoun`). */
   acceptsTarget?(query: Readonly<Record<string, unknown>>, target: ResolvedTarget): boolean;
   /** Extra form filter after generation (French `agreement`). */

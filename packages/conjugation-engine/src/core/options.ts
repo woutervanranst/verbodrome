@@ -1,19 +1,31 @@
 import { ConjugationError } from '../errors.js';
+import type { ConjugationErrorCode } from '../errors.js';
 import { packFor } from './pack.js';
 import type { LanguagePack } from './pack.js';
 
-// Interim: the French/Dutch validation moved out of src/options.ts so an engine can validate against its own packs
-// without an import cycle. Only the language check is pack-driven; the French and Dutch checks below are still
-// hard-coded here and belong in the packs.
-const commonKeys = ['language', 'infinitive', 'mood', 'tense', 'person', 'number'];
-const frenchKeys = [
-  'gender', 'agreement', 'precedingDirectObject', 'reflexiveObject', 'auxiliary',
-  'classHint', 'model', 'stems', 'aspiratedH', 'preferredOrthography',
-];
-const dutchKeys = [
-  'pronoun', 'inversion', 'reflexive', 'auxiliary', 'classHint', 'stems',
-  'separablePrefix', 'inseparablePrefix',
-];
+/** How one option field of a language is validated. Messages are generated from the field name and these values. */
+export type FieldSpec =
+  /** One of `values` (strings, numbers or booleans). */
+  | { readonly kind: 'enum'; readonly values: readonly (string | number | boolean)[] }
+  | { readonly kind: 'boolean' }
+  /** A string matching `pattern`; anything else throws `code` with `message`. Normalized like the infinitive. */
+  | { readonly kind: 'word'; readonly pattern: RegExp; readonly code: ConjugationErrorCode; readonly message: string }
+  /** `{ gender?, number? }`; `required` demands both. */
+  | { readonly kind: 'agreement'; readonly required: boolean }
+  /** An object of stem `words` (each a grammatical stem) and `enums` (each one of the listed values); no other keys. */
+  | { readonly kind: 'stems'; readonly words: readonly string[]; readonly enums: Readonly<Record<string, readonly unknown[]>> };
+
+export interface OptionSchema {
+  /** The language's own option keys, validated in declaration order. */
+  readonly fields: Readonly<Record<string, FieldSpec>>;
+  /** Cross-field checks, run after every field is valid; throws ConjugationError. */
+  check?(options: Readonly<Record<string, unknown>>): void;
+}
+
+const infinitivePattern = /^[\p{L}\p{M}' -]+$/u;
+const stemPattern = /^[\p{L}\p{M}-]+$/u;
+const genders = ['masculine', 'feminine'];
+const numbers = ['singular', 'plural'];
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -24,6 +36,10 @@ function removeUndefined(value: Record<string, unknown>): void {
     if (item === undefined) delete value[key];
     else if (isRecord(item)) removeUndefined(item);
   }
+}
+
+function spelling(text: string): string {
+  return text.normalize('NFC').toLowerCase().replace(/[’ʼ]/gu, "'").trim().replace(/ +/gu, ' ');
 }
 
 function member(value: unknown, choices: readonly unknown[], key: string): void {
@@ -37,98 +53,87 @@ function agreement(value: unknown, required: boolean, key: string): void {
   if (!isRecord(value) || Object.keys(value).some(k => !['gender', 'number'].includes(k))) {
     throw new ConjugationError('INVALID_REQUEST', `${key} must contain only gender and number.`);
   }
-  member(value.gender, ['masculine', 'feminine'], `${key}.gender`);
-  member(value.number, ['singular', 'plural'], `${key}.number`);
+  member(value.gender, genders, `${key}.gender`);
+  member(value.number, numbers, `${key}.number`);
   if (required && (value.gender === undefined || value.number === undefined)) {
     throw new ConjugationError('INVALID_REQUEST', `${key} requires gender and number.`);
   }
 }
 
-function stemHints(value: unknown, language: string): void {
+function stems(value: unknown, spec: Extract<FieldSpec, { kind: 'stems' }>, language: string): void {
   if (value === undefined) return;
-  const words = language === 'fr'
-    ? ['singular', 'plural', 'thirdPlural', 'future', 'past', 'pastParticiple']
-    : ['stem', 'pastSingular', 'pastPlural', 'pastParticiple'];
-  const other = language === 'fr' ? ['pastVowel'] : ['pastSuffix', 'unstressedFinalSyllable'];
-  if (!isRecord(value) || Object.keys(value).some(k => ![...words, ...other].includes(k))) {
+  const known = [...spec.words, ...Object.keys(spec.enums)];
+  if (!isRecord(value) || Object.keys(value).some(k => !known.includes(k))) {
     throw new ConjugationError('INVALID_HINT', `Unknown ${language} stem hint.`);
   }
-  for (const key of words) {
-    if (value[key] !== undefined && (typeof value[key] !== 'string' || !/^[\p{L}\p{M}-]+$/u.test(value[key]))) {
+  for (const key of spec.words) {
+    const stem = value[key];
+    if (stem !== undefined && (typeof stem !== 'string' || !stemPattern.test(stem))) {
       throw new ConjugationError('INVALID_HINT', `${key} must be a nonempty grammatical stem.`);
     }
   }
-  member(value.pastVowel, ['a', 'i', 'u', 'in'], 'stems.pastVowel');
-  member(value.pastSuffix, ['d', 't', 'both'], 'stems.pastSuffix');
-  member(value.unstressedFinalSyllable, [true, false], 'stems.unstressedFinalSyllable');
-  if (language === 'fr' && typeof value.future === 'string' && !value.future.endsWith('r')) {
-    throw new ConjugationError('INVALID_HINT', 'A French future stem must include its final r.');
+  for (const [key, choices] of Object.entries(spec.enums)) member(value[key], choices, `stems.${key}`);
+}
+
+function validateField(key: string, spec: FieldSpec, value: unknown, language: string): void {
+  switch (spec.kind) {
+    case 'enum': return member(value, spec.values, key);
+    case 'boolean': return member(value, [true, false], key);
+    case 'word':
+      if (value !== undefined && (typeof value !== 'string' || !spec.pattern.test(value))) {
+        throw new ConjugationError(spec.code, spec.message);
+      }
+      return;
+    case 'agreement': return agreement(value, spec.required, key);
+    case 'stems': return stems(value, spec, language);
   }
 }
 
-function assertOptions(packs: Readonly<Record<string, LanguagePack>>, value: unknown): asserts value is Record<string, unknown> {
-  if (!isRecord(value)) throw new ConjugationError('INVALID_REQUEST', 'Conjugation options must be an object.');
-  const { catalogue } = packFor(packs, value.language);
-  const language = String(value.language);
-  const allowed = [...commonKeys, ...(language === 'fr' ? frenchKeys : dutchKeys)];
-  for (const key of Object.keys(value)) {
-    if (!allowed.includes(key)) throw new ConjugationError('INVALID_REQUEST', `Unknown ${language} option: ${key}.`);
+/** Lowercases/NFC-normalizes the infinitive, every `word` field and every string inside `stems`. */
+function normalizeSpelling(normalized: Record<string, unknown>, schema: OptionSchema): void {
+  const words = ['infinitive', ...Object.entries(schema.fields).filter(([, spec]) => spec.kind === 'word').map(([key]) => key)];
+  for (const key of words) {
+    const item = normalized[key];
+    if (typeof item === 'string') normalized[key] = spelling(item);
   }
-  if (typeof value.infinitive !== 'string' || !value.infinitive || !/^[\p{L}\p{M}' -]+$/u.test(value.infinitive)) {
-    throw new ConjugationError('INVALID_INFINITIVE', 'Infinitive must be a nonempty verb spelling.');
-  }
-  member(value.mood, catalogue.map(e => e.mood), 'mood');
-  member(value.tense, catalogue.map(e => e.tense), 'tense');
-  member(value.person, [1, 2, 3], 'person');
-  member(value.number, ['singular', 'plural'], 'number');
-  stemHints(value.stems, language);
-  if (language === 'fr') {
-    member(value.gender, ['masculine', 'feminine'], 'gender');
-    member(value.auxiliary, ['avoir', 'être'], 'auxiliary');
-    member(value.classHint, ['er', 'ir', 're'], 'classHint');
-    member(value.reflexiveObject, ['direct', 'indirect'], 'reflexiveObject');
-    member(value.aspiratedH, [true, false], 'aspiratedH');
-    member(value.preferredOrthography, ['rectified', 'traditional'], 'preferredOrthography');
-    agreement(value.agreement, false, 'agreement');
-    agreement(value.precedingDirectObject, true, 'precedingDirectObject');
-    if (value.model !== undefined && (typeof value.model !== 'string' || !/^[\p{L}\p{M}-]+$/u.test(value.model))) {
-      throw new ConjugationError('INVALID_HINT', 'model must be a French model infinitive.');
-    }
-  } else {
-    member(value.auxiliary, ['hebben', 'zijn'], 'auxiliary');
-    member(value.classHint, ['weak', 'strong', 'loan'], 'classHint');
-    member(value.pronoun, ['ik', 'jij', 'je', 'u', 'hij', 'zij', 'ze', 'het', 'wij', 'we', 'jullie'], 'pronoun');
-    member(value.inversion, [true, false], 'inversion');
-    member(value.reflexive, [true, false], 'reflexive');
-    for (const key of ['separablePrefix', 'inseparablePrefix']) {
-      if (value[key] !== undefined && (typeof value[key] !== 'string' || !/^[\p{L}\p{M}]+$/u.test(value[key]))) {
-        throw new ConjugationError('INVALID_HINT', `${key} must be a nonempty prefix.`);
-      }
-    }
-    if (value.separablePrefix !== undefined && value.inseparablePrefix !== undefined) {
-      throw new ConjugationError('INVALID_HINT', 'A prefix cannot be both separable and inseparable.');
+  for (const [key, spec] of Object.entries(schema.fields)) {
+    const item = normalized[key];
+    if (spec.kind === 'stems' && isRecord(item)) {
+      normalized[key] = Object.fromEntries(Object.entries(item).map(([stem, text]) => [
+        stem, typeof text === 'string' ? spelling(text) : text,
+      ]));
     }
   }
 }
 
 /**
  * Normalizes spelling, validates against the registered packs and returns a clone without undefined values.
+ * Every language's keys, values and cross-field rules come from its pack's option schema.
  * Does not check that the grammatical filters match a target; the engine's target expansion does.
  */
 export function parseOptions(packs: Readonly<Record<string, LanguagePack>>, value: unknown): Record<string, unknown> {
   if (!isRecord(value)) throw new ConjugationError('INVALID_REQUEST', 'Conjugation options must be an object.');
+  const { catalogue, options: schema } = packFor(packs, value.language);
+  const language = String(value.language);
   const normalized = { ...value };
-  const spelling = (text: string): string => text.normalize('NFC').toLowerCase()
-    .replace(/[’ʼ]/gu, "'").trim().replace(/ +/gu, ' ');
-  for (const key of ['infinitive', 'model', 'separablePrefix', 'inseparablePrefix']) {
-    if (typeof normalized[key] === 'string') normalized[key] = spelling(normalized[key]);
+  normalizeSpelling(normalized, schema);
+
+  const common = ['language', 'infinitive', 'mood', 'tense', 'person', 'number'];
+  for (const key of Object.keys(normalized)) {
+    if (!common.includes(key) && !Object.hasOwn(schema.fields, key)) {
+      throw new ConjugationError('INVALID_REQUEST', `Unknown ${language} option: ${key}.`);
+    }
   }
-  if (isRecord(normalized.stems)) {
-    normalized.stems = Object.fromEntries(Object.entries(normalized.stems).map(([key, item]) => [
-      key, typeof item === 'string' ? spelling(item) : item,
-    ]));
+  if (typeof normalized.infinitive !== 'string' || !normalized.infinitive || !infinitivePattern.test(normalized.infinitive)) {
+    throw new ConjugationError('INVALID_INFINITIVE', 'Infinitive must be a nonempty verb spelling.');
   }
-  assertOptions(packs, normalized);
+  member(normalized.mood, catalogue.map(e => e.mood), 'mood');
+  member(normalized.tense, catalogue.map(e => e.tense), 'tense');
+  member(normalized.person, [1, 2, 3], 'person');
+  member(normalized.number, numbers, 'number');
+  for (const [key, spec] of Object.entries(schema.fields)) validateField(key, spec, normalized[key], language);
+  schema.check?.(normalized);
+
   const parsed = structuredClone(normalized);
   removeUndefined(parsed);
   return parsed;

@@ -3,6 +3,7 @@ import type { LanguagePack } from '../../core/pack.js';
 import type { DutchConjugationOptions, DutchPronoun, GrammaticalNumber, Person } from '../../types.js';
 import { dutchCatalogue } from './catalogue.js';
 import { resolveDutch } from './index.js';
+import { dutchOptions } from './options.js';
 import { dutchRendering } from './rendering.js';
 
 function pronounMatches(pronoun: DutchPronoun, person: Person, number: GrammaticalNumber): boolean {
@@ -18,6 +19,7 @@ export const dutchPack: LanguagePack<'nl'> = {
   language: 'nl',
   catalogue: dutchCatalogue,
   rendering: dutchRendering,
+  options: dutchOptions,
   /** A `pronoun` keeps only the finite slots it can be the subject of. */
   acceptsTarget(query, target) {
     const { pronoun } = query as DutchConjugationOptions;

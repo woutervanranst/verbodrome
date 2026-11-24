@@ -1,10 +1,10 @@
 import { parseOptions } from './core/options.js';
+import type { LanguagePack } from './core/pack.js';
 import { engine } from './default-engine.js';
 import { packs } from './languages/index.js';
+import type { LanguageRegistry } from './languages/registry.js';
 import type {
-  Agreement, AgreementQuery, ConjugationOptions, DutchClassHint, DutchConjugationOptions, DutchPronoun,
-  DutchStemHints, FrenchClassHint, FrenchConjugationOptions, FrenchStemHints, Gender, GrammaticalNumber,
-  Language, MoodFor, Person, TenseFor,
+  ConjugationOptions, DutchConjugationOptions, FrenchConjugationOptions, GrammaticalNumber, Language, MoodFor, Person, TenseFor,
 } from './types.js';
 
 export function parseConjugationOptions(value: unknown): ConjugationOptions {
@@ -13,6 +13,25 @@ export function parseConjugationOptions(value: unknown): ConjugationOptions {
   return parsed;
 }
 
+/** One method per mood of `L`; the tense argument is optional and, when omitted, clears any tense. */
+export type MoodSugar<L extends Language> = {
+  readonly [M in MoodFor<L>]: (tense?: TenseFor<L, M>) => Builder<L>;
+};
+
+/** One setter per context option of `L`; boolean options default to `true`. */
+export type ContextSugar<L extends Language> = {
+  readonly [K in keyof LanguageRegistry[L]['context']]-?: [Required<LanguageRegistry[L]['context']>[K]] extends [boolean]
+    ? (value?: boolean) => Builder<L>
+    : (value: Required<LanguageRegistry[L]['context']>[K]) => Builder<L>;
+};
+
+export type Builder<L extends Language> = ConjugationOptionsBuilder<L> & MoodSugar<L> & ContextSugar<L>;
+
+/**
+ * Collects options for one verb. The language-independent setters are methods here; the mood and context-option
+ * methods of the chosen language are installed on the instance from that language's pack (`packs`, the same map
+ * the default engine is built from).
+ */
 export class ConjugationOptionsBuilder<L extends Language> {
   private readonly values: Record<string, unknown> = {};
   private readonly language: L;
@@ -21,6 +40,31 @@ export class ConjugationOptionsBuilder<L extends Language> {
   constructor(language: L, infinitive: string) {
     this.language = language;
     this.infinitiveValue = infinitive;
+    // An unregistered language gets no sugar; build() reports it as UNSUPPORTED_LANGUAGE.
+    const pack: LanguagePack | undefined = Object.hasOwn(packs, language) ? packs[language] : undefined;
+    if (pack) this.installSugar(pack);
+  }
+
+  private installSugar(pack: LanguagePack): void {
+    const install = (name: string, method: (value?: unknown) => this): void => {
+      Object.defineProperty(this, name, { value: method });
+    };
+    for (const mood of new Set(pack.catalogue.map(entry => entry.mood))) {
+      install(mood, tense => {
+        this.values.mood = mood;
+        if (tense === undefined) delete this.values.tense;
+        else this.values.tense = tense;
+        return this;
+      });
+    }
+    for (const [key, spec] of Object.entries(pack.options.fields)) {
+      if (key in ConjugationOptionsBuilder.prototype) continue; // auxiliary, classHint and stems are shared methods
+      const isBoolean = spec.kind === 'boolean';
+      install(key, value => {
+        this.values[key] = isBoolean ? value ?? true : value;
+        return this;
+      });
+    }
   }
 
   mood(mood: MoodFor<L>): this {
@@ -30,55 +74,6 @@ export class ConjugationOptionsBuilder<L extends Language> {
 
   tense(tense: TenseFor<L>): this {
     this.values.tense = tense;
-    return this;
-  }
-
-  indicative(tense?: L extends 'fr' ? import('./types.js').FrenchTenses['indicative'] : import('./types.js').DutchTenses['indicative']): this {
-    this.values.mood = 'indicative';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  conditional(tense?: 'present' | 'past'): this {
-    this.values.mood = 'conditional';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  subjunctive(this: ConjugationOptionsBuilder<'fr'>, tense?: 'present' | 'past' | 'imperfect' | 'pluperfect'): ConjugationOptionsBuilder<'fr'> {
-    this.values.mood = 'subjunctive';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  imperative(tense?: L extends 'fr' ? 'present' | 'past' : 'present'): this {
-    this.values.mood = 'imperative';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  infinitive(tense?: L extends 'fr' ? 'present' | 'past' : 'present'): this {
-    this.values.mood = 'infinitive';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  participle(tense?: L extends 'fr' ? 'present' | 'past' | 'perfect' : 'present' | 'past'): this {
-    this.values.mood = 'participle';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
-    return this;
-  }
-
-  gerund(this: ConjugationOptionsBuilder<'fr'>, tense?: 'present' | 'past'): ConjugationOptionsBuilder<'fr'> {
-    this.values.mood = 'gerund';
-    if (tense === undefined) delete this.values.tense;
-    else this.values.tense = tense;
     return this;
   }
 
@@ -93,78 +88,18 @@ export class ConjugationOptionsBuilder<L extends Language> {
     return this;
   }
 
-  gender(this: ConjugationOptionsBuilder<'fr'>, gender: Gender): ConjugationOptionsBuilder<'fr'> {
-    this.values.gender = gender;
-    return this;
-  }
-
-  agreement(this: ConjugationOptionsBuilder<'fr'>, agreement: AgreementQuery): ConjugationOptionsBuilder<'fr'> {
-    this.values.agreement = agreement;
-    return this;
-  }
-
-  precedingDirectObject(this: ConjugationOptionsBuilder<'fr'>, agreement: Agreement): ConjugationOptionsBuilder<'fr'> {
-    this.values.precedingDirectObject = agreement;
-    return this;
-  }
-
-  reflexiveObject(this: ConjugationOptionsBuilder<'fr'>, role: 'direct' | 'indirect'): ConjugationOptionsBuilder<'fr'> {
-    this.values.reflexiveObject = role;
-    return this;
-  }
-
-  auxiliary(auxiliary: L extends 'fr' ? 'avoir' | 'être' : 'hebben' | 'zijn'): this {
+  auxiliary(auxiliary: LanguageRegistry[L]['auxiliary']): this {
     this.values.auxiliary = auxiliary;
     return this;
   }
 
-  classHint(hint: L extends 'fr' ? FrenchClassHint : DutchClassHint): this {
+  classHint(hint: LanguageRegistry[L]['classHint']): this {
     this.values.classHint = hint;
     return this;
   }
 
-  model(this: ConjugationOptionsBuilder<'fr'>, infinitive: string): ConjugationOptionsBuilder<'fr'> {
-    this.values.model = infinitive;
-    return this;
-  }
-
-  stems(stems: L extends 'fr' ? FrenchStemHints : DutchStemHints): this {
+  stems(stems: LanguageRegistry[L]['stems']): this {
     this.values.stems = stems;
-    return this;
-  }
-
-  aspiratedH(this: ConjugationOptionsBuilder<'fr'>, aspirated = true): ConjugationOptionsBuilder<'fr'> {
-    this.values.aspiratedH = aspirated;
-    return this;
-  }
-
-  preferredOrthography(this: ConjugationOptionsBuilder<'fr'>, orthography: 'rectified' | 'traditional'): ConjugationOptionsBuilder<'fr'> {
-    this.values.preferredOrthography = orthography;
-    return this;
-  }
-
-  pronoun(this: ConjugationOptionsBuilder<'nl'>, pronoun: DutchPronoun): ConjugationOptionsBuilder<'nl'> {
-    this.values.pronoun = pronoun;
-    return this;
-  }
-
-  inversion(this: ConjugationOptionsBuilder<'nl'>, inverted = true): ConjugationOptionsBuilder<'nl'> {
-    this.values.inversion = inverted;
-    return this;
-  }
-
-  reflexive(this: ConjugationOptionsBuilder<'nl'>, reflexive = true): ConjugationOptionsBuilder<'nl'> {
-    this.values.reflexive = reflexive;
-    return this;
-  }
-
-  separablePrefix(this: ConjugationOptionsBuilder<'nl'>, prefix: string): ConjugationOptionsBuilder<'nl'> {
-    this.values.separablePrefix = prefix;
-    return this;
-  }
-
-  inseparablePrefix(this: ConjugationOptionsBuilder<'nl'>, prefix: string): ConjugationOptionsBuilder<'nl'> {
-    this.values.inseparablePrefix = prefix;
     return this;
   }
 
@@ -180,6 +115,6 @@ export class ConjugationOptionsBuilder<L extends Language> {
   }
 }
 
-export function conjugationOptions<L extends Language>(language: L, infinitive: string): ConjugationOptionsBuilder<L> {
-  return new ConjugationOptionsBuilder(language, infinitive);
+export function conjugationOptions<L extends Language>(language: L, infinitive: string): Builder<L> {
+  return new ConjugationOptionsBuilder(language, infinitive) as Builder<L>;
 }

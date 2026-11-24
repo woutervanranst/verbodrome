@@ -3,12 +3,14 @@ import type { LanguagePack } from '../../core/pack.js';
 import type { FrenchConjugationOptions } from '../../types.js';
 import { frenchCatalogue } from './catalogue.js';
 import { resolveFrench } from './index.js';
+import { frenchOptions } from './options.js';
 import { frenchRendering } from './rendering.js';
 
 export const frenchPack: LanguagePack<'fr'> = {
   language: 'fr',
   catalogue: frenchCatalogue,
   rendering: frenchRendering,
+  options: frenchOptions,
   /** An `agreement` filter keeps only participle forms that agree as asked. */
   acceptsForm(query, form) {
     const { agreement } = query as FrenchConjugationOptions;

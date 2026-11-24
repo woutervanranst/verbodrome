@@ -152,7 +152,9 @@ Bare projection removes subjects and French subjunctive `que`, while preserving 
 
 ## Builder
 
-`conjugationOptions(language, infinitive)` offers mood-specific methods such as `.indicative('perfect')`, `.subjunctive('present')`, and `.participle('past')`, plus the applicable option setters above. `.build()` returns the language-specific query after runtime validation; it has no independent conjugation logic.
+`conjugationOptions(language, infinitive)` returns a builder with the language-independent setters `.mood()`, `.tense()`, `.person()`, `.number()`, `.auxiliary()`, `.classHint()` and `.stems()`, plus methods installed from the language's pack: one per mood in its catalogue (`.indicative('perfect')`, `.subjunctive('present')`, `.participle('past')`; the tense argument is optional and clears any tense when omitted) and one per language-specific option (`.gender('feminine')`, `.pronoun('u')`; boolean options such as `.inversion()` default to `true`). A language only has the methods of its own moods and options, so Dutch has no `.gerund()` or `.gender()`. `.build()` returns the language-specific query after runtime validation; it has no independent conjugation logic.
+
+Which keys a query may carry, and how each value is validated, is declared per language as an option schema on its pack (`pack.options`). Adding a language means writing its pack and schema; the validator and the builder need no changes.
 
 Language-specific methods and mood-specific tense arguments are checked by TypeScript. The generic `.mood()`/`.tense()` setters and constraints added after a non-finite method are checked for their combined compatibility at `.build()`.
 

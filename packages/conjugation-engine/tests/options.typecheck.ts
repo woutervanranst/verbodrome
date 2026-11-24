@@ -1,5 +1,8 @@
 import { conjugationOptions } from '../src/index.js';
-import type { ConjugationOptions, DutchConjugationOptions, FrenchConjugationOptions, Mood, MoodFor, TenseFor } from '../src/index.js';
+import type { LanguageRegistry } from '../src/languages/registry.js';
+import type {
+  ConjugationOptions, ConjugationOptionsBuilder, DutchConjugationOptions, FrenchConjugationOptions, Language, Mood, MoodFor, TenseFor,
+} from '../src/index.js';
 
 export const french: FrenchConjugationOptions = conjugationOptions('fr', 'aller').indicative('perfect').gender('feminine').build();
 export const dutch: DutchConjugationOptions = conjugationOptions('nl', 'werken').indicative('present').pronoun('u').build();
@@ -36,3 +39,6 @@ type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B 
 export const moods: Equal<Mood, 'indicative' | 'subjunctive' | 'conditional' | 'imperative' | 'infinitive' | 'participle' | 'gerund'> = true;
 export const dutchMoods: Equal<MoodFor<'nl'>, 'indicative' | 'conditional' | 'imperative' | 'infinitive' | 'participle'> = true;
 export const frenchSubjunctive: Equal<TenseFor<'fr', 'subjunctive'>, 'present' | 'past' | 'imperfect' | 'pluperfect'> = true;
+
+// No language's context key may shadow a builder method or a mood method.
+export const noCollision: Extract<keyof LanguageRegistry[Language]['context'], keyof ConjugationOptionsBuilder<Language> | Mood> extends never ? true : false = true;
