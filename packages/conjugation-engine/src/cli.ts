@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util';
 import type { ParseArgsOptionsConfig } from 'node:util';
-import { conjugate, ConjugationError, languages, parseConjugationOptions, renderParts } from './index.js';
+import { conjugate, ConjugationError, explain, languages, parseConjugationOptions, renderParts } from './index.js';
 import { agreementKeys } from './core/options.js';
 import type { FieldSpec } from './core/options.js';
+import { explanationLines } from './i18n/explain.js';
+import { isLocale, locales } from './i18n/locales/index.js';
 import { packs } from './languages/index.js';
 import type { ConjugatedForm, ResolvedTarget } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
@@ -18,6 +20,8 @@ const commonHelp = [
   ['--number <singular|plural>', ''],
   ['--json', 'Complete structured result'],
   ['--bare', 'Omit the finite subject and any conjunction such as the French subjunctive que'],
+  ['--explain', 'Print the rule behind each step of a form, indented under it (JSON: an explanation per form)'],
+  [`--locale <${Object.keys(locales).join('|')}>`, 'Language of --explain (default en)'],
   ['--help', ''],
 ] as const;
 
@@ -120,6 +124,7 @@ try {
   const declared: ParseArgsOptionsConfig = {
     mood: { type: 'string' }, tense: { type: 'string' }, person: { type: 'string' }, number: { type: 'string' },
     json: { type: 'boolean' }, bare: { type: 'boolean' }, help: { type: 'boolean' },
+    explain: { type: 'boolean' }, locale: { type: 'string' },
   };
   for (const { name, shape } of flags) {
     declared[name] = { type: shape === 'boolean' ? 'boolean' : 'string' };
@@ -144,18 +149,28 @@ try {
         options[flag.field] = flagValue(flag, given);
       }
     }
+    const locale = typeof values.locale === 'string' ? values.locale : 'en';
+    if (!isLocale(locale)) throw new ConjugationError('INVALID_REQUEST', `Locale must be one of: ${Object.keys(locales).join(', ')}.`);
     const result = conjugate(parseConjugationOptions(options));
     if (values.json) {
-      console.log(JSON.stringify(result, null, 2));
+      const forms = values.explain ? result.forms.map(form => ({ ...form, explanation: explain(result.language, form, locale) })) : result.forms;
+      console.log(JSON.stringify({ ...result, forms }, null, 2));
     } else {
+      const steps = (form: ConjugatedForm): void => {
+        if (values.explain) for (const line of explanationLines(explain(result.language, form, locale))) console.log(line);
+      };
       const targets = new Set(result.forms.map(form => resolvedTargetKey(form.target)));
       const display = (form: ConjugatedForm): string => values.bare ? renderParts(result.language, form.parts, { bare: true }) : form.text;
       if (targets.size === 1 && !result.unavailableTargets.length) {
         const preferred = result.forms.find(form => form.preferred);
         if (!preferred) throw new ConjugationError('GENERATION_FAILURE', 'No preferred form for the resolved target.');
         console.log(display(preferred));
+        steps(preferred);
       } else {
-        for (const form of result.forms) console.log(`${formLabel(form)}: ${display(form)}`);
+        for (const form of result.forms) {
+          console.log(`${formLabel(form)}: ${display(form)}`);
+          steps(form);
+        }
       }
       for (const unavailable of result.unavailableTargets) {
         console.log(`${targetLabel(unavailable.target, labelsFor(result.language, unavailable.target))}: unavailable (${unavailable.explanation})`);

@@ -140,4 +140,33 @@ describe('compiled CLI', () => {
     expect(result.status).toBe(1);
     expect(result.stderr).toBe('INVALID_REQUEST: Unknown nl option: gender.\n');
   });
+
+  it('prints no step lines for a language that records no steps yet', () => {
+    const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present'];
+    const explained = run([...args, '--explain']);
+    expect(explained.status).toBe(0);
+    expect(explained.stdout).toBe(run(args).stdout);
+    expect(explained.stdout).toBe('aimer\n');
+    expect(explained.stderr).toBe('');
+    expect(run([...args, '--explain', '--locale', 'nl']).stdout).toBe('aimer\n');
+  });
+
+  it('adds an explanation to every form in JSON only when asked', () => {
+    const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present', '--json'];
+    const plain: ConjugationResult = JSON.parse(run(args).stdout);
+    expect(plain.forms[0]).not.toHaveProperty('explanation');
+    const explained: { forms: { text: string; explanation: { summary: string; sections: unknown[] } }[] } = JSON.parse(run([...args, '--explain']).stdout);
+    expect(explained.forms[0]?.text).toBe('aimer');
+    expect(explained.forms[0]?.explanation).toEqual({ summary: 'aimer: Infinitif, Présent', sections: [] });
+  });
+
+  it('rejects an unknown locale and lists the flags in the help', () => {
+    const result = run(['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present', '--locale', 'xx']);
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toBe('INVALID_REQUEST: Locale must be one of: en, nl.\n');
+    const common = run(['--help']).stdout.split('\n\n').find(section => section.startsWith('Common options:'));
+    expect(common).toContain('--explain');
+    expect(common).toContain('--locale <en|nl>');
+  });
 });

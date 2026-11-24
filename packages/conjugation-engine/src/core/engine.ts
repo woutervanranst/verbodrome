@@ -2,8 +2,11 @@ import { ConjugationError } from '../errors.js';
 import { deepFreeze } from '../parts.js';
 import type {
   ConjugatedForm, ConjugationOptions, ConjugationPart, ConjugationResult, GeneratedForm, GrammaticalNumber, Language,
-  Person, RenderContext, ResolvedTarget, UnavailableTarget, Voice,
+  Person, RenderContext, ResolvedTarget, UnavailableTarget, VerbAnalysis, Voice,
 } from '../types.js';
+import { explainSubject, renderStep } from '../i18n/explain.js';
+import type { Explainable, Explanation, StepContext } from '../i18n/explain.js';
+import type { Catalog } from '../i18n/catalog.js';
 import { parseOptions } from './options.js';
 import { packFor } from './pack.js';
 import type { CatalogueEntry, LanguagePack } from './pack.js';
@@ -16,6 +19,12 @@ export interface Engine {
   renderParts(language: string, parts: readonly ConjugationPart[], context?: RenderContext): string;
   /** Every grammatical target the query's filters select, in catalogue order. */
   expandTargets(options: Readonly<Record<string, unknown>>): ResolvedTarget[];
+  /**
+   * A form, an unavailable target or a verb analysis, step by step in the catalog of `locale`. A subject without steps
+   * (French and Dutch for now) has no sections. Throws INVALID_REQUEST for a locale the engine has no catalog for and
+   * GENERATION_FAILURE for a rule or term without text.
+   */
+  explain(language: string, subject: Explainable, locale: string): Explanation;
   readonly languages: readonly string[];
 }
 
@@ -66,16 +75,34 @@ function signature(form: GeneratedForm): string {
 }
 
 /**
- * An engine over the given packs, keyed by language code; only those languages are accepted.
+ * An engine over the given packs, keyed by language code; only those languages are accepted. `catalogs` are the message
+ * catalogs by locale, each already merged from the core messages and the packs' messages for that locale.
  * Throws INVALID_REQUEST when a key differs from its pack's `language`.
  */
-export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Engine {
+export function createEngine(packs: Readonly<Record<string, LanguagePack>>, catalogs: Readonly<Record<string, Catalog>> = {}): Engine {
   for (const [language, pack] of Object.entries(packs)) {
     if (pack.language !== language) {
       throw new ConjugationError('INVALID_REQUEST', `The pack registered as ${language} is the pack for ${pack.language}.`);
     }
   }
   const registry: Readonly<Record<string, LanguagePack>> = Object.freeze({ ...packs });
+  const messages: Readonly<Record<string, Catalog>> = Object.freeze({ ...catalogs });
+
+  function catalogFor(locale: unknown): Catalog {
+    const catalog = typeof locale === 'string' && Object.hasOwn(messages, locale) ? messages[locale] : undefined;
+    if (!catalog) {
+      throw new ConjugationError('INVALID_REQUEST', `Locale must be one of: ${Object.keys(messages).join(', ') || '(none: this engine has no catalogs)'}.`);
+    }
+    return catalog;
+  }
+
+  /** A staged pack's assumptions as English text, once the engine has an English catalog; otherwise its own strings. */
+  function analysisWithText(pack: LanguagePack, analysis: VerbAnalysis): VerbAnalysis {
+    if (!pack.rules || !analysis.steps || !Object.hasOwn(messages, 'en')) return analysis;
+    const ctx: StepContext = { pack, catalog: catalogFor('en'), locale: 'en', target: null };
+    const assumptions = analysis.steps.filter(s => s.kind === 'assumption').map(s => renderStep(s, ctx));
+    return { ...analysis, assumptions: [...new Set(assumptions)] };
+  }
 
   function conjugate(options: unknown): ConjugationResult {
     const query = parseOptions(registry, options);
@@ -127,7 +154,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Eng
     return deepFreeze({
       language: query.language as Language, verbId: engine.verbId, query: query as ConjugationOptions,
       status: forms.length ? unavailableTargets.length ? 'partiallyAvailable' : 'available' : 'unavailable',
-      forms, unavailableTargets, analysis: engine.analysis,
+      forms, unavailableTargets, analysis: analysisWithText(pack, engine.analysis),
     });
   }
 
@@ -136,6 +163,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Eng
     getCatalogue: language => packFor(registry, language).catalogue,
     renderParts: (language, parts, context) => renderWith(packFor(registry, language).rendering, parts, context),
     expandTargets: options => expandTargets(packFor(registry, options.language), options),
+    explain: (language, subject, locale) => explainSubject(packFor(registry, language), catalogFor(locale), locale, subject),
     languages: Object.freeze(Object.keys(registry)),
   };
 }

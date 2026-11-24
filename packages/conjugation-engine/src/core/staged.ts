@@ -84,7 +84,7 @@ export function synthesize<X extends LexemeBase>(grammar: StagedGrammar<X>, lexe
  * not declare exactly one param, `auxiliary` of kind text, or its chain does not use it and the rule declares params;
  * or when its chain has no verb. Nesting depends on `cellOf`, so generation checks it.
  */
-export function validateGrammar(grammar: StagedGrammar): void {
+export function validateGrammar<X extends LexemeBase>(grammar: StagedGrammar<X>): void {
   for (const periphrasis of grammar.periphrases) {
     const { mood, tense, voice, rule } = periphrasis;
     const fail = (reason: string): never => {
@@ -266,7 +266,7 @@ export function stagedEngine<X extends LexemeBase>(
       classificationSource: lexeme.classSource,
       reflexive: lexeme.reflexive,
       auxiliaries: lexeme.auxiliaries,
-      // Rule ids until the i18n layer renders assumption steps as text.
+      // Rule ids; an engine with an English catalog replaces them with the rendered steps.
       assumptions: [...new Set(classified.steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
       steps: classified.steps,
     },

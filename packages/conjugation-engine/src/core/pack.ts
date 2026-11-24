@@ -1,6 +1,8 @@
 import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
+import type { RuleInfo } from './derivation.js';
 import type { OptionSchema } from './options.js';
+import type { Citation, Work } from './sources.js';
 import type {
   ConjugationPart, FormVariant, GeneratedForm, GrammaticalNumber, Mood, Onset, Orthography, Person, ResolvedTarget, Tense, Voice,
 } from '../types.js';
@@ -38,6 +40,12 @@ export interface LanguagePack<L extends string = string> {
   /** Sort key within one target; lower sorts first. */
   rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
   engine(query: Readonly<Record<string, unknown>>): LanguageEngine;
+  /** The rules the pack's steps record, keyed by id (the `defineRules` result). Absent while a pack records no steps. */
+  readonly rules?: Readonly<Record<string, RuleInfo>>;
+  /** The works the pack's citations name, keyed by `Work.id`. */
+  readonly works?: Readonly<Record<string, Work>>;
+  /** Where each rule is described, keyed by rule id. */
+  readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
 }
 
 /** The pack registered for `language`; anything else is UNSUPPORTED_LANGUAGE, naming the registered languages. */

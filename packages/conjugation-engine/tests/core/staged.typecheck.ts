@@ -1,0 +1,14 @@
+import { validateGrammar } from '../../src/core/staged.js';
+import type { LexemeBase, StagedGrammar } from '../../src/core/staged.js';
+import { toyGrammar } from '../toy/pack.js';
+import type { ToyLexeme } from '../toy/pack.js';
+
+// A grammar over a stricter lexeme type is accepted, with the lexeme type inferred or given.
+export function checkValidateGrammarIsGeneric(strict: StagedGrammar<ToyLexeme>): void {
+  validateGrammar(strict);
+  validateGrammar<ToyLexeme>(toyGrammar);
+  validateGrammar<LexemeBase>(toyGrammar as unknown as StagedGrammar);
+}
+
+// @ts-expect-error A lexeme type must extend LexemeBase.
+export type NotAGrammar = StagedGrammar<{ readonly lemma: string }>;

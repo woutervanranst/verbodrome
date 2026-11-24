@@ -9,6 +9,7 @@ import {
   parseConjugationOptions,
   renderParts,
   getCatalogue,
+  explain,
   languages,
   createEngine,
   ConjugationError,
@@ -18,7 +19,7 @@ import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'con
 
 `conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
 
-Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs)` builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets` over a chosen set of packs, accepting only those languages.
+Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs, catalogs?)` builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets`, plus `explain`, over a chosen set of packs, accepting only those languages. `catalogs` maps a locale to its message catalog (see Explanations); without them the engine cannot `explain`.
 
 The ESM library runs in modern browsers supporting `structuredClone`. Node-only CLI and corpus-import modules are not reachable from the library entry point.
 
@@ -140,6 +141,20 @@ There is one preferred form per fully resolved target, not one answer for an ent
 
 Invalid requests and failed generation throw `ConjugationError`, with a stable `code`: `INVALID_REQUEST`, `UNSUPPORTED_LANGUAGE`, `INVALID_INFINITIVE`, `INVALID_TARGET`, `INVALID_HINT`, `AMBIGUOUS_CLASSIFICATION`, or `GENERATION_FAILURE`. An empty adapter result without an availability decision is a generation failure, not grammatical unavailability.
 
+## Explanations
+
+A pack built on the staged engine records, for every form, the rule applied at each step: `form.steps` (periphrasis, agreement and clause rules) and `part.steps` (the stem, ending and spelling rules of one word); `analysis.steps` holds the classification steps and `unavailableTarget.step` the availability rule. French and Dutch record no steps yet.
+
+`explain(language, subject, locale)` turns those steps into text. The subject is a `ConjugatedForm`, an `UnavailableTarget` or a `VerbAnalysis`; the locale is `'en'` or `'nl'`. The result is `{ summary, sections }`. A form has one section per part that has steps (`part` is the part's index, `title` its text) followed by one with `part: null` for the form-level steps; an unavailable target and an analysis have one section with `part: null`; a subject without steps has none. Each step is `{ text, rule, stage, kind, before, after, citations }`, where each citation is `{ work, locator, url?, title }` and `title` is the cited work's title. `explain` throws `INVALID_REQUEST` for an unknown locale and `GENERATION_FAILURE` for a rule or term that has no text.
+
+Text comes from message catalogs: `Record<string, string>` per locale, in the ICU subset described in `src/i18n/format.ts` (`{name}`, `plural`, `select`, `''` for an apostrophe; an apostrophe directly before a placeholder quotes it, so write `l''{noun}`). A rule's id is the key of its message, and the message may use the rule's declared params, `{before}` and `{after}` (empty when the step has none). A `mood` or `tense` param is rendered with the native label of the pack's catalogue entry (a tense is looked up in the form's own mood); a `person`, `number`, `gender`, `voice` or `case` param is the catalog message `term.<kind>.<id>`. Each locale's catalog is the core catalog (`src/i18n/locales/<locale>/core.ts`) merged with the messages of every language pack for that locale.
+
+With an `en` catalog, a staged pack's `analysis.assumptions` are the English text of its assumption steps; without one they are rule ids.
+
+A staged pack declares `rules` (the `defineRules` result), `works` (the grammars it cites, keyed by id) and `citations` (rule id to one citation or several, each `{ work, locator, url? }`). `tests/i18n/completeness.test.ts` checks every pack that declares rules: each rule has a well-formed message in every locale whose placeholders are declared params, `en` and `nl` have the same keys, every rule has a citation to a listed work, and every url is `https`.
+
+The staged-pack authoring API is exported for language packs: `stagedEngine`, `validateGrammar`, `StagedGrammar`, `ClauseGrammar`, `Periphrasis`, `ChainElement`, `Cell`, `LexemeBase`, `Fork`, `Outcome`, `one`, `chain`, `combine`, `JunctureRule`, `defineRules`, `step` and `RuleInfo`.
+
 ## Components and rendering
 
 Parts are generated before strings, not recovered by splitting them. Roles are `moodMarker`, `subject`, `reflexivePronoun`, `auxiliary`, `lexicalVerb`, `particle`, and `linker`. Each part carries underlying text, lexical lemma where applicable, its own grammatical features, onset (`vowel`, `consonant`, `muteH`, `aspiratedH`; Dutch uses only `vowel` and `consonant`), and joining style.
@@ -166,7 +181,9 @@ conjugation-engine <fr|nl> <infinitive> [options]
 
 Quote multiword reflexive infinitives, for example `conjugation-engine fr "se laver"`.
 
-Common flags: `--mood`, `--tense`, `--person`, `--number`, `--json`, `--bare`, `--help`.
+Common flags: `--mood`, `--tense`, `--person`, `--number`, `--json`, `--bare`, `--explain`, `--locale`, `--help`.
+
+`--explain` prints, under each form line, one line per derivation step indented by four spaces: each part's steps in part order, then the form-level steps. A language that records no steps prints none. `--locale <en|nl>` (default `en`) chooses the language of those lines; an unknown locale is `INVALID_REQUEST`. With `--json`, `--explain` adds an `explanation` field to every form.
 
 Every other flag is derived from the option schema of the registered language packs, so a new language needs no CLI changes. A flag is the kebab-case of an option field (`aspiratedH` becomes `--aspirated-h`); a boolean field accepts `--x` and `--no-x` (giving both is an error); `agreement` and `stems` fields take JSON; an enum field lists its allowed values. `--help` prints one section per language, headed by the pack's `label` (for example `Dutch (nl):`), with that language's flags and values. A flag the chosen language does not declare is rejected by the engine as `Unknown <language> option: <key>.`.
 

@@ -12,6 +12,7 @@ import { one } from '../../src/core/fork.js';
 import type { Fork } from '../../src/core/fork.js';
 import type { JunctureRule } from '../../src/core/juncture.js';
 import { allPersons, moodEntries, noPersons, variantRank } from '../../src/core/pack.js';
+import type { Citation, Work } from '../../src/core/sources.js';
 import type { CatalogueEntry, LanguagePack, PackRendering } from '../../src/core/pack.js';
 import type { ChainElement, Periphrasis } from '../../src/core/periphrasis.js';
 import { stagedEngine, validateGrammar } from '../../src/core/staged.js';
@@ -44,6 +45,40 @@ export const toyRules = defineRules({
   'xx.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
   'xx.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
 });
+
+export const toyWorks = {
+  toy: { id: 'toy', title: 'Toy Grammar', author: 'A. Invented', year: 2026 },
+  'toy-lexicon': { id: 'toy-lexicon', title: 'The Toy Lexicon', url: 'https://example.org/toy-lexicon' },
+} as const satisfies Record<string, Work>;
+
+const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator });
+const lexiconCitation = (locator: string): Citation => ({ work: 'toy-lexicon', locator, url: 'https://example.org/toy-lexicon#entries' });
+
+/** Every rule cites the grammar; rules that read the lexicon cite it too. */
+export const toyCitations = {
+  'xx.classify.listed': lexiconCitation('Entries'),
+  'xx.classify.a-verb': grammarCitation('§1'),
+  'xx.assume.unlisted': [grammarCitation('§1'), lexiconCitation('Entries')],
+  'xx.avail.no-participle': grammarCitation('§4'),
+  'xx.lex.present': lexiconCitation('Suppletive verbs'),
+  'xx.stem.drop-a': grammarCitation('§1'),
+  'xx.stem.listed': lexiconCitation('Stems'),
+  'xx.end.present': grammarCitation('§2'),
+  'xx.end.long': grammarCitation('§2.3'),
+  'xx.end.passive': grammarCitation('§2.2'),
+  'xx.end.infinitive': grammarCitation('§2.1'),
+  'xx.end.present-participle': grammarCitation('§2.4'),
+  'xx.end.participle': grammarCitation('§2.5'),
+  'xx.orth.c-qu': grammarCitation('§3.1'),
+  'xx.orth.ph-f': grammarCitation('§3.2'),
+  'xx.periphrasis.perfect': grammarCitation('§5.1'),
+  'xx.periphrasis.passive-perfect': grammarCitation('§5.2'),
+  'xx.periphrasis.future': grammarCitation('§5.3'),
+  'xx.periphrasis.future-inverted': grammarCitation('§5.4'),
+  'xx.agree.gender': grammarCitation('§6'),
+  'xx.clause.particle-final': grammarCitation('§7.1'),
+  'xx.clause.particle-attached': grammarCitation('§7.2'),
+} as const satisfies Record<keyof typeof toyRules, Citation | readonly Citation[]>;
 
 export interface ToyLexeme extends LexemeBase {
   /** The infinitive without its particle: what stems are formed from. */
@@ -279,4 +314,7 @@ export const toyPack: LanguagePack<'xx'> = {
   options: { fields: { voice: { kind: 'enum', values: ['active', 'passive'] } } },
   rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(toyGrammar, toyRendering, query),
+  rules: toyRules,
+  works: toyWorks,
+  citations: toyCitations,
 };
