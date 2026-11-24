@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { alternatives, applyRemaps, corpusCell, infinitiveFromFileName, normalizeText, remapRun } from '../scripts/corpus/model.ts';
-import type { CorpusRemap } from '../scripts/corpus/model.ts';
+import { alternatives, applyRemaps, corpusCell, infinitiveFromFileName, normalizeText, remapRun, summarizeCorpus, uncoveredRuns } from '../scripts/corpus/model.ts';
+import type { CorpusFile, CorpusRemap } from '../scripts/corpus/model.ts';
 import { parseDutch } from '../scripts/corpus/parsers/nl.ts';
 import { parseFrench } from '../scripts/corpus/parsers/fr.ts';
 
@@ -60,6 +60,19 @@ describe('corpusCell', () => {
     expect(corpusCell({ mood: 'indicative', tense: 'present', original: 'a | b', index: 0, expected: ['a', 'b'] }).expected).toEqual(['a', 'b']);
   });
 
+  it('removes repeated expected forms when they are passed explicitly, keeping the first occurrence order', () => {
+    expect(corpusCell({ mood: 'indicative', tense: 'present', original: 'b | a | b', index: 0, expected: ['b', 'a', 'b'] }).expected).toEqual(['b', 'a']);
+  });
+
+  it('accepts undefined for every optional field, as looked-up values are', () => {
+    const cell = corpusCell({
+      mood: 'indicative', tense: 'present', original: 'x', index: 0, agreement: undefined, construction: undefined, notused: undefined,
+      pronoun: undefined, expected: undefined, voice: undefined, subject: undefined, variant: undefined, scope: undefined, reason: undefined, heading: undefined,
+    });
+    expect(Object.keys(cell)).toEqual(['target', 'original', 'expected', 'sourceUnavailable', 'construction', 'availabilityMarker', 'pronoun']);
+    expect(cell).toMatchObject({ pronoun: null, construction: null, expected: ['x'] });
+  });
+
   it('refuses a scope without a reason and a reason without a scope', () => {
     expect(() => corpusCell({ mood: 'indicative', tense: 'present', original: 'x', index: 0, scope: 'unmodelled' })).toThrow('reason');
     expect(() => corpusCell({ mood: 'indicative', tense: 'present', original: 'x', index: 0, reason: 'why' })).toThrow('scope');
@@ -72,7 +85,7 @@ describe('remaps', () => {
     ...[0, 1].map(index => at('A', index)), ...[0, 1].map(index => at('B', index)), ...[0, 1].map(index => at('A', index)),
     corpusCell({ mood: 'infinitive', tense: 'present', original: 'x', index: 0 }),
   ];
-  const remap = (heading: string, occurrence: number): CorpusRemap => ({
+  const remap = (heading: string, occurrence: number | 'all'): CorpusRemap => ({
     heading, occurrence, target: { mood: 'subjunctive', tense: 'past' }, reason: 'The page labels this table with the wrong tense.', source: 'https://example.org/',
   });
 
@@ -92,5 +105,63 @@ describe('remaps', () => {
     expect(Object.keys(remapped[4]?.target ?? {})).toEqual(['mood', 'tense', 'person', 'number', 'agreement']);
     expect(remapped[4]?.heading).toBe('A');
     expect(cells[4]?.target.tense).toBe('present');
+  });
+
+  it('can correct person, number, subject and voice besides mood and tense', () => {
+    const { cells: remapped } = applyRemaps(cells, [{ ...remap('B', 0), target: { mood: 'imperative', tense: 'present', person: 3, number: 'plural', subject: '3pl.formal', voice: 'active' } }]);
+    expect(remapped[2]?.target).toEqual({ mood: 'imperative', tense: 'present', person: 3, number: 'plural', agreement: null });
+    expect(remapped[2]).toMatchObject({ subject: '3pl.formal', voice: 'active' });
+    expect(remapped[3]).toMatchObject({ subject: '3pl.formal', voice: 'active', target: { person: 3, number: 'plural' } });
+    // A field the remap does not name stays as it was.
+    const { cells: only } = applyRemaps(cells, [remap('B', 0)]);
+    expect(only[2]?.target).toMatchObject({ person: 1, number: 'singular' });
+    expect(only[2]?.subject).toBeUndefined();
+  });
+
+  it('counts every run of the heading with occurrence "all"', () => {
+    expect(remapRun(cells, 'A', 'all')).toEqual([0, 1, 4, 5]);
+    const { cells: remapped, matched } = applyRemaps(cells, [remap('A', 'all')]);
+    expect(matched).toEqual([true]);
+    expect(remapped.map(cell => cell.target.tense)).toEqual(['past', 'past', 'present', 'present', 'past', 'past', 'present']);
+  });
+
+  it('reports runs of a remapped heading that are neither remapped nor exempted', () => {
+    expect(uncoveredRuns(cells, [remap('A', 0), remap('B', 0)], [])).toEqual([{ heading: 'A', occurrence: 1 }]);
+    expect(uncoveredRuns(cells, [remap('A', 0), remap('B', 0)], [{ heading: 'A', occurrence: 1, reason: 'The second table is correctly headed in the source.' }])).toEqual([]);
+    expect(uncoveredRuns(cells, [remap('A', 'all'), remap('B', 0)], [])).toEqual([]);
+    // A heading no remap mentions is not audited.
+    expect(uncoveredRuns(cells, [remap('B', 0)], [])).toEqual([]);
+  });
+});
+
+describe('summarizeCorpus', () => {
+  const file = (cells: CorpusFile['cells']): CorpusFile => ({
+    file: 'xx/x', language: 'fr', infinitive: 'x', gender: null, auxiliary: null, pattern: 'default', templatePlaceholders: 0, cells,
+  });
+  const base = { mood: 'indicative', tense: 'present', index: 0 } as const;
+
+  it('keeps unmodelled cells out of the available, unavailable and expected-form counts', () => {
+    const stats = summarizeCorpus([file([
+      corpusCell({ ...base, original: 'a/b' }),
+      corpusCell({ ...base, index: 1, original: '-' }),
+      corpusCell({ ...base, index: 2, original: 'c', scope: 'unmodelled', reason: 'no-such-form' }),
+      corpusCell({ ...base, index: 3, original: '-', scope: 'unmodelled', reason: 'no-such-form' }),
+    ])], []);
+    expect(stats).toMatchObject({ cells: 4, availableCells: 1, unavailableCells: 1, unmodelledCells: 2, expectedForms: 2 });
+    expect(stats.availableCells + stats.unavailableCells + (stats.unmodelledCells ?? 0)).toBe(stats.cells);
+    expect(summarizeCorpus([file([corpusCell({ ...base, original: 'a' })])], [])).not.toHaveProperty('unmodelledCells');
+  });
+
+  it('tells targets apart by agreement case, voice and subject', () => {
+    const cells = [
+      corpusCell({ mood: 'participle', tense: 'past', index: 0, original: 'a', agreement: { gender: 'masculine', number: 'singular', case: 'nominative' } }),
+      corpusCell({ mood: 'participle', tense: 'past', index: 0, original: 'a', agreement: { gender: 'masculine', number: 'singular', case: 'accusative' } }),
+      corpusCell({ ...base, original: 'a', voice: 'active' }),
+      corpusCell({ ...base, original: 'a', voice: 'passive' }),
+      corpusCell({ ...base, original: 'a', subject: '1sg' }),
+      corpusCell({ ...base, original: 'a', subject: '2sg' }),
+      corpusCell({ ...base, original: 'a' }),
+    ];
+    expect(summarizeCorpus([file(cells)], []).targets).toBe(7);
   });
 });

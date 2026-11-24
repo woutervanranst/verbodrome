@@ -2,8 +2,8 @@ import { createHash } from 'node:crypto';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { conjugate, parseConjugationOptions } from '../src/index.js';
-import { targetKey } from '../src/catalogue.js';
-import { candidateForms, corpusRevision, hasVariantTag, remapRun, summarizeCorpus, untaggedExtras } from '../scripts/corpus/model.ts';
+import { resolvedTargetKey, targetKey } from '../src/catalogue.js';
+import { candidateForms, cellSatisfied, corpusRevision, hasVariantTag, remapRun, summarizeCorpus, uncoveredRuns, untaggedExtras } from '../scripts/corpus/model.ts';
 import type { CorpusCell, CorpusCorrection, CorpusFile, CorpusLanguage, CorpusManifest, CorpusRemapRecord } from '../scripts/corpus/model.ts';
 import { corpusLanguages } from '../scripts/corpus/languages/index.ts';
 import type { ConjugatedForm, FormVariant, Language, ResolvedTarget } from '../src/types.js';
@@ -37,7 +37,9 @@ function targetForms(target: CorpusCell['target'], cell: CorpusCell, forms: read
   };
   return forms.filter(form => {
     if (targetKey(form.target) !== targetKey(wanted)) return false;
-    return !target.agreement || JSON.stringify(target.agreement) === JSON.stringify(form.target.agreement);
+    const agreement = form.target.agreement;
+    return !target.agreement || (agreement !== null && agreement.gender === target.agreement.gender
+      && agreement.number === target.agreement.number && agreement.case === target.agreement.case);
   });
 }
 
@@ -69,7 +71,7 @@ describe('complete pinned corpus accounting', () => {
       expect(createHash('sha256').update(read(language.language)).digest('hex')).toBe(stats.checksum);
       const remaps = remapRecords.filter(record => record.language === language.language);
       expect(summarizeCorpus(subset, corrections, remaps)).toEqual((({ checksum: _, ...rest }) => rest)(stats));
-      expect(stats.availableCells + stats.unavailableCells).toBe(stats.cells);
+      expect(stats.availableCells + stats.unavailableCells + (stats.unmodelledCells ?? 0)).toBe(stats.cells);
       for (const file of subset) expect(file.cells).toHaveLength(language.cellsPerFile);
     }
     expect(Object.keys(manifest.fixtures)).toEqual(corpusLanguages.map(language => language.language));
@@ -101,13 +103,28 @@ describe('complete pinned corpus accounting', () => {
     for (const remap of remapRecords) {
       expect(remap.source).toMatch(/^https:\/\//u);
       expect(remap.reason.length).toBeGreaterThan(30);
-      expect(Number.isInteger(remap.occurrence) && remap.occurrence >= 0).toBe(true);
+      expect(remap.occurrence === 'all' || (Number.isInteger(remap.occurrence) && remap.occurrence >= 0)).toBe(true);
+      const { subject, voice, ...onTarget } = remap.target;
       const matched = files.filter(file => file.language === remap.language).flatMap(file => {
         const run = remapRun(file.cells, remap.heading, remap.occurrence);
-        for (const index of run) expect(file.cells[index]?.target, `${file.file}:${index}`).toMatchObject(remap.target);
+        for (const index of run) {
+          const cell = file.cells[index];
+          expect(cell?.target, `${file.file}:${index}`).toMatchObject(onTarget);
+          if (subject !== undefined) expect(cell?.subject, `${file.file}:${index}`).toBe(subject);
+          if (voice !== undefined) expect(cell?.voice, `${file.file}:${index}`).toBe(voice);
+        }
         return run;
       });
       expect(matched.length, `remap ${remap.heading} #${remap.occurrence} matches no cell`).toBeGreaterThan(0);
+    }
+  });
+
+  it('leaves no run of a remapped heading that is neither remapped nor listed as intentionally unremapped', () => {
+    for (const language of corpusLanguages) {
+      for (const file of files.filter(file => file.language === language.language)) {
+        expect(uncoveredRuns(file.cells, language.remaps ?? [], language.unremapped ?? []), file.file).toEqual([]);
+      }
+      for (const exempt of language.unremapped ?? []) expect(exempt.reason.length).toBeGreaterThan(30);
     }
   });
 
@@ -142,17 +159,14 @@ describe('complete pinned corpus accounting', () => {
       const target = correction?.correctedTarget ?? cell.target;
       const byLabel = new Map([...generated].map(([label, forms]) => [label, targetForms(target, cell, forms)] as const));
       const candidates = candidateForms(language, file, cell, byLabel);
-      const texts = new Set(candidates.map(form => form.text));
       const location = `${file.file}:${index} ${target.mood}/${target.tense}/${target.person ?? '-'}/${target.number ?? '-'} ${cell.original}`;
-      if (unavailable) {
-        expect([...texts], location).toEqual([]);
-      } else {
-        expect(expected.length, location).toBeGreaterThan(0);
-        for (const text of expected) expect(texts.has(text), `${location}: missing ${text}; generated ${[...texts].join(' | ')}`).toBe(true);
-        if (language.requireTaggedExtras) {
-          const untagged = untaggedExtras(candidates, expected).map(form => form.text);
-          expect(untagged, `${location}: generated beyond the expected forms without a variant tag`).toEqual([]);
-        }
+      if (!unavailable) expect(expected.length, location).toBeGreaterThan(0);
+      const verdict = cellSatisfied(candidates, expected, unavailable);
+      expect(verdict.missing, `${location}: missing ${verdict.missing.join(', ')}; generated ${candidates.map(form => form.text).join(' | ')}`).toEqual([]);
+      expect(verdict.unexpected, `${location}: an unavailable cell has candidates`).toEqual([]);
+      if (!unavailable && language.requireTaggedExtras) {
+        const untagged = untaggedExtras(candidates, expected, resolvedTargetKey).map(form => form.text);
+        expect(untagged, `${location}: generated beyond the expected forms without a variant tag`).toEqual([]);
       }
     }
   });
@@ -209,12 +223,45 @@ describe('how a cell is compared with the engine', () => {
     expect(hasVariantTag({ ...variant, auxiliary: 'have', condition: 'figurative' })).toBe(false);
   });
 
-  it('fails an untagged extra form and accepts tagged ones', () => {
-    const forms = [form('x'), form('y'), form('z', { pattern: 'variant' }), form('w', { region: 'US' }), form('v', { usage: 'dated' })];
-    expect(untaggedExtras(forms, ['x']).map(extra => extra.text)).toEqual(['y']);
-    expect(untaggedExtras(forms.filter(candidate => candidate.text !== 'y'), ['x'])).toEqual([]);
-    // Expected forms never count as extras, whatever their tags.
-    expect(untaggedExtras([form('x'), form('y', { region: 'GB' })], ['x', 'y'])).toEqual([]);
-    expect(untaggedExtras([form('x'), form('y')], ['x', 'y'])).toEqual([]);
+  it('is satisfied by a cell whose every expected form is a candidate, and reports what is missing', () => {
+    expect(cellSatisfied([form('x'), form('y')], ['x', 'y'], false)).toEqual({ satisfied: true, missing: [], unexpected: [] });
+    expect(cellSatisfied([form('x'), form('z')], ['x'], false).satisfied).toBe(true);
+    expect(cellSatisfied([form('x')], ['x', 'y'], false)).toEqual({ satisfied: false, missing: ['y'], unexpected: [] });
+    expect(cellSatisfied([], ['x', 'y'], false)).toMatchObject({ satisfied: false, missing: ['x', 'y'] });
+  });
+
+  it('is satisfied by an unavailable cell only when there is no candidate', () => {
+    expect(cellSatisfied([], [], true)).toEqual({ satisfied: true, missing: [], unexpected: [] });
+    expect(cellSatisfied([form('x')], [], true)).toEqual({ satisfied: false, missing: [], unexpected: ['x'] });
+  });
+
+  describe('the extra-forms guard', () => {
+    const inTarget = (text: string, change: Partial<ResolvedTarget>, tags: Partial<FormVariant> = {}): ConjugatedForm =>
+      ({ ...form(text, tags), target: { ...target, ...change } });
+    const male = { gender: 'masculine', number: 'singular' } as const;
+    const female = { gender: 'feminine', number: 'singular' } as const;
+
+    it('fails an untagged second spelling in the resolved target of an expected form', () => {
+      expect(untaggedExtras([form('x'), form('y')], ['x'], resolvedTargetKey).map(extra => extra.text)).toEqual(['y']);
+    });
+
+    it('accepts a tagged second spelling, and a form that is expected', () => {
+      const forms = [form('x'), form('z', { pattern: 'variant' }), form('w', { region: 'US' }), form('v', { usage: 'dated' })];
+      expect(untaggedExtras(forms, ['x'], resolvedTargetKey)).toEqual([]);
+      expect(untaggedExtras([form('x'), form('y')], ['x', 'y'], resolvedTargetKey)).toEqual([]);
+      expect(untaggedExtras([form('x'), form('y', { region: 'GB' })], ['x', 'y'], resolvedTargetKey)).toEqual([]);
+    });
+
+    it('ignores forms that differ only in agreement gender or in subject gender', () => {
+      const agreeing = [inTarget('sono andato', { agreement: male }), inTarget('sono andata', { agreement: female })];
+      expect(untaggedExtras(agreeing, ['sono andato'], resolvedTargetKey)).toEqual([]);
+      const gendered = [inTarget('sono andato', { gender: 'masculine' }), inTarget('sono andata', { gender: 'feminine' })];
+      expect(untaggedExtras(gendered, ['sono andato'], resolvedTargetKey)).toEqual([]);
+    });
+
+    it('still fails an untagged extra inside the expected form\'s own gendered target', () => {
+      const forms = [inTarget('sono andato', { agreement: male }), inTarget('son andato', { agreement: male }), inTarget('sono andata', { agreement: female })];
+      expect(untaggedExtras(forms, ['sono andato'], resolvedTargetKey).map(extra => extra.text)).toEqual(['son andato']);
+    });
   });
 });
