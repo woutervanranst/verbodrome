@@ -16,6 +16,11 @@ type SpellingContext = { readonly lexeme: EnglishLexeme; readonly cell: Cell };
 
 const rules = englishRules;
 const vowelEnding = (j: Juncture): boolean => j.ending === 'ed' || j.ending === 'ing';
+/**
+ * The stem is still the plain form: no earlier rule shortened it. c→ck, doubling and the British l read the verb's own
+ * last letters, never those an e-drop left (facing, becoming, not facking, becomming).
+ */
+const unchanged = (j: Juncture, lexeme: EnglishLexeme): boolean => j.stem === lexeme.lemma;
 
 /** 1. After s, x, z, sh and ch the ending -s is written -es (watches, fixes, quizzes). */
 const esSibilant: JunctureRule<SpellingContext> = {
@@ -58,7 +63,8 @@ const dropE: JunctureRule<SpellingContext> = {
 /** 7. A final c after one vowel becomes ck before -ed and -ing (panicked). */
 const cToCk: JunctureRule<SpellingContext> = {
   info: rules['en.orth.c-to-ck'],
-  apply: j => vowelEnding(j) && j.stem.endsWith('c') && singleVowelBeforeFinal(j.stem) ? one({ stem: `${j.stem}k`, ending: j.ending }) : null,
+  apply: (j, { lexeme }) => vowelEnding(j) && unchanged(j, lexeme) && j.stem.endsWith('c') && singleVowelBeforeFinal(j.stem)
+    ? one({ stem: `${j.stem}k`, ending: j.ending }) : null,
 };
 
 /**
@@ -71,7 +77,7 @@ const doubleConsonant: JunctureRule<SpellingContext> = {
   apply(j, { lexeme }) {
     const before = vowelEnding(j) || (j.ending === 'es' && j.stem.endsWith('z'));
     const doubles = lexeme.finalStress || lexeme.doubling !== 'stress';
-    if (!before || !endsInDoublingConsonant(j.stem) || !doubles || (j.stem.endsWith('l') && !lexeme.finalStress)) return null;
+    if (!before || !unchanged(j, lexeme) || !endsInDoublingConsonant(j.stem) || !doubles || (j.stem.endsWith('l') && !lexeme.finalStress)) return null;
     const doubled = one({ stem: j.stem + j.stem.charAt(j.stem.length - 1), ending: j.ending });
     if (lexeme.doubling !== 'alwaysUsSingle') return doubled;
     const single = step(rules['en.orth.single-consonant-american'], null, j.stem + j.ending);
@@ -86,7 +92,7 @@ const doubleConsonant: JunctureRule<SpellingContext> = {
 const doubleLBritish: JunctureRule<SpellingContext> = {
   info: rules['en.orth.double-l-british'],
   apply(j, { lexeme }) {
-    if (!vowelEnding(j) || lexeme.finalStress || lexeme.lNotDoubled || !britishLEnvironment(j.stem)) return null;
+    if (!vowelEnding(j) || !unchanged(j, lexeme) || lexeme.finalStress || lexeme.lNotDoubled || !britishLEnvironment(j.stem)) return null;
     const single = step(rules['en.orth.single-l-american'], null, j.stem + j.ending);
     return [...one({ stem: `${j.stem}l`, ending: j.ending }, [], { region: 'GB' }), ...one(j, [single], { region: 'US' })];
   },

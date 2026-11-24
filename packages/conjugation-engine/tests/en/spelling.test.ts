@@ -40,6 +40,15 @@ describe('English spelling rules on invented verbs (design §8a)', () => {
     expect(form(verb, 'participle', 'present', extra)).toEqual([ing]);
   });
 
+  it('applies c→ck, doubling and the British l only to a stem no earlier rule changed', () => {
+    expect(form('face', 'participle', 'present')).toEqual(['facing']);
+    expect(form('place', 'participle', 'present')).toEqual(['placing']);
+    expect(form('become', 'participle', 'present')).toEqual(['becoming']);
+    expect(form('forgive', 'participle', 'present')).toEqual(['forgiving']);
+    expect(form('frobe', 'participle', 'present', { stress: 'final' })).toEqual(['frobing']);
+    expect(form('frandele', 'participle', 'present')).toEqual(['frandeling']);
+  });
+
   it('forks British and American l', () => {
     expect(form('frandel', 'indicative', 'present')).toEqual(['he frandels']);
     expect(form('frandel', 'indicative', 'past')).toEqual(['he frandelled', 'he frandeled']);
