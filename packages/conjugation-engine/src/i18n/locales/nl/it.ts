@@ -2,6 +2,9 @@ import type { italianRules } from '../../../languages/it/rules.js';
 
 /** Dutch explanations of the Italian rules, for Dutch-speaking pupils: plain Dutch with the school-grammar terms they know. */
 export const it = {
+  // The titles of the two paradigms of a verb with and without -isc- (mentire).
+  'it.label.pattern.isc': 'met -isc-',
+  'it.label.pattern.plain': 'zonder -isc-',
   'it.classify.lexicon': '{before} staat in de woordenlijst: het volgt het patroon {after}.',
   'it.classify.conjugation': '{before} eindigt op -{ending}: het wordt vervoegd zoals de werkwoorden op -{ending}.',
   'it.classify.contracted': '{before} is een verkorte infinitief; de andere vormen worden gemaakt met de lange stam {stem}-.',
@@ -76,4 +79,4 @@ export const it = {
   'it.clause.enclitic-doubling': 'Na een gebiedende wijs van één lettergreep valt de apostrof weg en verdubbelt de eerste medeklinker van {pronoun}: {before} wordt {after}.',
   'it.clause.negative-infinitive': 'Ontkennende gebiedende wijs voor tu: non plus de infinitief.',
   'it.clause.negative': 'Ontkennende gebiedende wijs: non voor de vorm van de gebiedende wijs.',
-} as const satisfies Record<keyof typeof italianRules, string>;
+} as const satisfies Record<keyof typeof italianRules | 'it.label.pattern.isc' | 'it.label.pattern.plain', string>;

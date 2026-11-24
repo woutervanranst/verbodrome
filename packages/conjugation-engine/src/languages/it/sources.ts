@@ -1,4 +1,7 @@
 import type { Citation, Work } from '../../core/sources.js';
+import { listedFamilyMembers, noInherit } from './families.js';
+import { italianLexicon } from './lexicon.js';
+import { dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
 import type { italianRules } from './rules.js';
 
 /** The works the Italian pack cites (grammar design §1.1). */
@@ -143,3 +146,51 @@ export const italianCitations = {
   'it.clause.negative-infinitive': grammar('imperativo', 'Imperativo'),
   'it.clause.negative': grammar('imperativo', 'Imperativo'),
 } as const satisfies Record<keyof typeof italianRules, Citation | readonly Citation[]>;
+
+/** The Vocabolario page of an entry when it is not simply the lemma (homograph numbers, search-only entries). */
+const vocabolarioPages: Readonly<Record<string, string>> = {
+  essere: 'essere1', avere: 'avere2', andare: 'andare1', dare: 'dare2', fare: 'fare2', dovere: 'dovere2', potere: 'potere2',
+  volere: 'volere2', sapere: 'sapere2', sedere: 'sedere2', udire: 'udire2', piacere: 'piacere2', parere: 'parere2', sciare: 'sciare1',
+  apparire: 'apparire_res-9fe60ebd-000e-11de-9d89-0016357eee51', uccidere: 'uccidere_res-aff60ce9-0038-11de-9d89-0016357eee51',
+  esistere: 'esistere_res-2bada212-001b-11de-9d89-0016357eee51', agire: 'agire_res-e10c22ff-000c-11de-9d89-0016357eee51',
+  accorgere: 'accorgersi', pentire: 'pentirsi', disdire: 'disdire1', ridare: 'ridare1', ripartire: 'ripartire1', ardire: 'ardire1',
+  derivare: 'derivare1', avvenire: 'avvenire2', divenire: 'divenire2', dispiacere: 'dispiacere2', volare: 'volare2', avanzare: 'avanzare1',
+  sbocciare: 'sbocciare1',
+};
+
+/** What the Vocabolario header does not state for an entry that is otherwise checked, and where it comes from. */
+const verificationNotes: Readonly<Record<string, string>> = {
+  parere: 'No imperative: from the grammar design and en.wiktionary (secondary); the header does not mention the imperative.',
+  solere: 'No future, conditional or imperative: from the grammar design and en.wiktionary (secondary). No auxiliary stated.',
+  sedere: 'No auxiliary stated in the entry: avere is assumed.',
+  piovere: 'The header prints only the 3rd person piovve; the verb is modelled as impersonal (3rd persons only).',
+  provenire: 'The header gives "coniug. come venire" but no auxiliary: essere is taken from the grammar design.',
+  bastare: 'The header states no auxiliary: essere is taken from the grammar design.',
+  fare: 'The Vocabolario prints "fo o faccio" without a label; faccio is ranked first and fo marked literary, as vo beside vado.',
+  dire: "The imperative di' is not passed on to derived verbs: contraddire, benedire and maledire print the imperative in -dici.",
+  sparire: 'The Vocabolario adds "per il resto coniug. come apparire"; only the regular -isc- forms (sparii, sparito) are generated.',
+  cuocere: 'The intransitive use with essere (sense 2) is not modelled: avere only.',
+};
+
+/** Lemmas that could not be checked in the Vocabolario. */
+const notInVocabolario: ReadonlySet<string> = new Set(['riavviare']);
+
+export interface LexiconVerification {
+  readonly url: Url;
+  /** vocabolario: the Vocabolario header was read; secondary: only en.wiktionary; unverified: neither. */
+  readonly status: 'vocabolario' | 'secondary' | 'unverified';
+  readonly note?: string;
+}
+
+/**
+ * How each lexicon entry and each side-list or family lemma was checked: its Vocabolario page (read on 2026-11-24 for this
+ * pack), with a note for what the page does not state.
+ */
+export const lexiconVerification: Readonly<Record<string, LexiconVerification>> = Object.fromEntries([
+  ...Object.keys(italianLexicon), ...nonIscVerbs, ...iscVerbs, ...Object.keys(iscBothVerbs), ...essereVerbs, ...Object.keys(dualVerbs),
+  ...stressedIVerbs, ...palatalVerbs, ...impersonalVerbs, ...listedFamilyMembers, ...noInherit.keys(),
+].map(lemma => [lemma, {
+  url: vocabolario(vocabolarioPages[lemma] ?? lemma),
+  status: notInVocabolario.has(lemma) ? 'unverified' : 'vocabolario',
+  ...(Object.hasOwn(verificationNotes, lemma) ? { note: verificationNotes[lemma]! } : {}),
+} satisfies LexiconVerification]));

@@ -2,6 +2,9 @@ import type { italianRules } from '../../../languages/it/rules.js';
 
 /** English explanations of the Italian rules (grammar design §4): one learner-level sentence each. */
 export const it = {
+  // The titles of the two paradigms of a verb with and without -isc- (mentire).
+  'it.label.pattern.isc': 'with -isc-',
+  'it.label.pattern.plain': 'without -isc-',
   'it.classify.lexicon': '{before} is in the lexicon: it follows the {after} pattern.',
   'it.classify.conjugation': '{before} ends in -{ending}: it follows the -{ending} conjugation.',
   'it.classify.contracted': '{before} is a shortened infinitive; its other forms are built on the long stem {stem}-.',
@@ -76,4 +79,4 @@ export const it = {
   'it.clause.enclitic-doubling': 'After a one-syllable imperative the apostrophe goes and the first consonant of {pronoun} doubles: {before} becomes {after}.',
   'it.clause.negative-infinitive': 'Negative imperative for tu: non plus the infinitive.',
   'it.clause.negative': 'Negative imperative: non before the imperative form.',
-} as const satisfies Record<keyof typeof italianRules, string>;
+} as const satisfies Record<keyof typeof italianRules | 'it.label.pattern.isc' | 'it.label.pattern.plain', string>;
