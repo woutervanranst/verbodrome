@@ -169,6 +169,67 @@ export function questionFor(
 
 const LEVEL_RANK: readonly string[] = ['lager', 'g1', 'g2', 'g3', 'extra'];
 
+/** A wrong answer before it is labelled: its text, and what it is when it is not a real form. */
+interface Candidate {
+  readonly text: string;
+  readonly label: string;
+  readonly kind?: string;
+}
+
+const asCandidate = (form: FrForm): Candidate => ({ text: form.text, label: describe(form) });
+
+/** Every real form of the verb by its text. "je finis" is both présent and passé simple: it is named after the tense the learner knows best. */
+function realForms(forms: VerbForms, selected: ReadonlySet<string>): Map<string, FrForm> {
+  const familiarity = (form: FrForm): number => (selected.has(form.tense.id) ? 0 : 10) + LEVEL_RANK.indexOf(form.tense.level);
+  const real = new Map<string, FrForm>();
+  for (const form of [...forms.all].sort((x, y) => familiarity(x) - familiarity(y))) {
+    if (!real.has(form.text)) real.set(form.text, form);
+  }
+  return real;
+}
+
+/** Forms of other persons, said with the asked subject when it has one: only the verb may differ ("je partons"). */
+function recast(forms: VerbForms, target: FrForm, pool: readonly FrForm[]): Candidate[] {
+  if (target.subject === null) return pool.map(asCandidate);
+  return pool.flatMap(form => {
+    if (form.subject === null || form.slot === target.slot) return [asCandidate(form)];
+    const text = inPerson(forms, form, target.slot);
+    const tense = form.tense.id === target.tense.id ? '' : `${form.tense.label} · `;
+    return text ? [{ text, label: `${tense}vorm van ${form.subject}`, kind: 'persoon' }] : [];
+  });
+}
+
+/** A wrong answer as an option: a real form is named after its tense and person, anything else after its mistake. */
+function toOption(verb: VerbDef, target: FrForm, real: ReadonlyMap<string, FrForm>, candidate: Candidate): Option {
+  const match = real.get(candidate.text);
+  return {
+    text: candidate.text,
+    correct: false,
+    label: match ? describe(match) : candidate.label,
+    nl: match ? dutchPrompt(verb, match.tense, match.slot) : null,
+    kind: candidate.kind ?? (!match ? candidate.label : match.tense.id === target.tense.id ? 'persoon' : `tijd:${match.tense.id}`),
+  };
+}
+
+/**
+ * Every wrong answer a question about `target` can be met with, labelled as its card would be:
+ * all real forms of the verb (other persons with their own subject included), other persons said
+ * with the asked subject, and the made-up mistakes. Used to recognise a typed answer.
+ */
+export function wrongAnswers(verb: VerbDef, target: FrForm, selected: ReadonlySet<string>): Option[] {
+  const forms = verbForms(verb.fr);
+  const real = realForms(forms, selected);
+  const others = forms.all.filter(form => form !== target);
+  const seen = new Set(target.accepted);
+  const out: Option[] = [];
+  for (const candidate of [...others.map(asCandidate), ...recast(forms, target, others), ...mistakes(forms, target)]) {
+    if (seen.has(candidate.text)) continue;
+    seen.add(candidate.text);
+    out.push(toOption(verb, target, real, candidate));
+  }
+  return out;
+}
+
 function build(
   verb: VerbDef, target: FrForm, candidates: readonly FrForm[],
   selected: ReadonlySet<string>, random: Random, optionCount: number, earlier: Earlier | null = null,
@@ -176,30 +237,14 @@ function build(
   const forms = verbForms(verb.fr);
   const prompt = dutchPrompt(verb, target.tense, target.slot)!;
   const showTense = isAmbiguous(verb, target, candidates);
-  const real = new Map<string, FrForm>();
-  // "je finis" is both présent and passé simple: name it after the tense the learner knows best.
-  const familiarity = (form: FrForm): number => (selected.has(form.tense.id) ? 0 : 10) + LEVEL_RANK.indexOf(form.tense.level);
-  for (const form of [...forms.all].sort((x, y) => familiarity(x) - familiarity(y))) {
-    if (!real.has(form.text)) real.set(form.text, form);
-  }
-
-  type Candidate = { text: string; label: string; kind?: string };
-  const asCandidate = (form: FrForm): Candidate => ({ text: form.text, label: describe(form) });
+  const real = realForms(forms, selected);
   const finite = target.slot !== '-';
 
   const sameSlot = forms.all.filter(form => form.tense.id !== target.tense.id
     && (finite ? form.slot === target.slot : form.slot === '-'));
   const otherTenses = sameSlot.filter(form => selected.has(form.tense.id)).map(asCandidate);
   const imperative = target.tense.mood === 'imperative';
-  // With a visible subject, every option keeps that subject: only the verb may differ.
-  const keepSubject = target.subject !== null;
-  const recast = (pool: readonly FrForm[]): Candidate[] => !keepSubject ? pool.map(asCandidate) : pool.flatMap(form => {
-    if (form.subject === null || form.slot === target.slot) return [asCandidate(form)];
-    const text = inPerson(forms, form, target.slot);
-    const tense = form.tense.id === target.tense.id ? '' : `${form.tense.label} · `;
-    return text ? [{ text, label: `${tense}vorm van ${form.subject}`, kind: 'persoon' }] : [];
-  });
-  const otherPersons = recast((forms.byTense.get(target.tense.id) ?? []).filter(form => form.slot !== target.slot));
+  const otherPersons = recast(forms, target, (forms.byTense.get(target.tense.id) ?? []).filter(form => form.slot !== target.slot));
   const errors = mistakes(forms, target);
 
   const seen = new Set<string>(target.accepted);
@@ -225,18 +270,9 @@ function build(
   take(errors, 99); take(otherTenses, 99); take(otherPersons, 99);
   // Still short: tenses outside the selection, nearest school level first.
   for (const level of LEVEL_RANK) take(sameSlot.filter(form => form.tense.level === level).map(asCandidate), 99);
-  for (const level of LEVEL_RANK) take(recast(forms.all.filter(form => form.tense.level === level)), 99);
+  for (const level of LEVEL_RANK) take(recast(forms, target, forms.all.filter(form => form.tense.level === level)), 99);
 
-  const options: Option[] = picked.map(candidate => {
-    const match = real.get(candidate.text);
-    return {
-      text: candidate.text,
-      correct: false,
-      label: match ? describe(match) : candidate.label,
-      nl: match ? dutchPrompt(verb, match.tense, match.slot) : null,
-      kind: candidate.kind ?? (!match ? candidate.label : match.tense.id === target.tense.id ? 'persoon' : `tijd:${match.tense.id}`),
-    };
-  });
+  const options: Option[] = picked.map(candidate => toOption(verb, target, real, candidate));
   options.push({ text: target.text, correct: true, label: '', nl: prompt, kind: '' });
 
   return {

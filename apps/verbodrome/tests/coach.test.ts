@@ -5,7 +5,7 @@ import { WRONG_TENSE, categoryOf, questionFor } from '../src/trainer/question';
 import type { Option } from '../src/trainer/question';
 import { buildReport } from '../src/trainer/report';
 import { selectionForLevel } from '../src/trainer/selection';
-import { KEYS, createStore, parseHistory } from '../src/storage/store';
+import { KEYS, createStore, parseHistory, parseSettings } from '../src/storage/store';
 import type { KeyValue } from '../src/storage/local';
 
 function seeded(seed: number): () => number {
@@ -67,6 +67,24 @@ describe('repeating missed questions', () => {
     // Right once: it stays on the list for one more check, 15 questions later.
     expect(history.reviews).toHaveLength(1);
     expect(history.reviews[0]!.stage).toBe(1);
+  });
+
+  it('never brings back a typed spelling mistake as a card, but does bring back an accent slip', () => {
+    const item = { verb: 'boire', tense: 'indicative.perfect', slot: '2s' };
+    const due = (pick: string, kind: string): History => ({
+      count: 10, answers: [], reviews: [{ ...item, due: 10, stage: 0, pick, kind, misses: 1 }],
+    });
+    const typo = nextQuestion(due('tu as bou', 'spelfout'), selection, null, seeded(2))!;
+    expect(typo.review).not.toBeNull();
+    expect(typo.question.options.map(option => option.text)).not.toContain('tu as bou');
+    const accent = nextQuestion(due('tu as bû', 'verkeerd accent'), selection, null, seeded(2))!;
+    expect(accent.question.options.map(option => option.text)).toContain('tu as bû');
+  });
+
+  it('marks an answer that was typed', () => {
+    const asked = boire();
+    expect(record(EMPTY_HISTORY, asked, right(asked), seeded(1), 0, true).answers[0]!.typed).toBe(true);
+    expect(record(EMPTY_HISTORY, asked, right(asked), seeded(1), 0).answers[0]).not.toHaveProperty('typed');
   });
 
   it('clears a question after two right answers and restarts it after a new miss', () => {
@@ -199,12 +217,12 @@ describe('storage', () => {
     const storage = memory();
     const store = createStore(storage);
     const { history } = play(12, (_, state) => state.count % 2 === 0);
-    store.saveSettings({ selection, welcomed: true });
+    store.saveSettings({ selection, welcomed: true, mode: 'typing' });
     store.saveProgress({ xp: 120, best: 7 });
     store.saveHistory(history);
     expect([...storage.data.keys()].sort()).toEqual([KEYS.history, KEYS.progress, KEYS.settings]);
     const again = createStore(storage);
-    expect(again.loadSettings()).toEqual({ selection, welcomed: true });
+    expect(again.loadSettings()).toEqual({ selection, welcomed: true, mode: 'typing' });
     expect(again.loadProgress()).toEqual({ xp: 120, best: 7 });
     expect(again.loadHistory()).toEqual(history);
     again.clearResults();
@@ -220,9 +238,20 @@ describe('storage', () => {
       'verbodrome-welkom-v1': 'true',
     });
     const store = createStore(storage);
-    expect(store.loadSettings()).toEqual({ selection, welcomed: true });
+    expect(store.loadSettings()).toEqual({ selection, welcomed: true, mode: 'cards' });
     expect(store.loadProgress()).toEqual({ xp: 50, best: 3 });
     expect(storage.data.has('fr-conj-v1')).toBe(false);
+  });
+
+  it('remembers how the learner answers, multiple choice unless typing was chosen', () => {
+    expect(parseSettings({ welcomed: true }).mode).toBe('cards');
+    expect(parseSettings({ welcomed: true, mode: 'typing' }).mode).toBe('typing');
+    expect(parseSettings({ welcomed: true, mode: 'voice' }).mode).toBe('cards');
+  });
+
+  it('keeps the typed mark in the answer log', () => {
+    expect(parseHistory({ count: 1, answers: [answer(true, { typed: true })], reviews: [] }).answers[0]!.typed).toBe(true);
+    expect(parseHistory({ count: 1, answers: [{ ...answer(true), typed: 'yes' }], reviews: [] }).answers[0]).not.toHaveProperty('typed');
   });
 
   it('survives damaged or missing storage', () => {
@@ -231,7 +260,7 @@ describe('storage', () => {
       .toEqual({ count: 1, answers: [answer(true)], reviews: [] });
     const broken = createStore(memory({ [KEYS.history]: '{not json', [KEYS.settings]: '[]' }));
     expect(broken.loadHistory()).toEqual(EMPTY_HISTORY);
-    expect(broken.loadSettings()).toEqual({ selection: null, welcomed: false });
+    expect(broken.loadSettings()).toEqual({ selection: null, welcomed: false, mode: 'cards' });
     const none = createStore(null);
     none.saveProgress({ xp: 1, best: 1 });
     expect(none.loadProgress()).toEqual({ xp: 0, best: 0 });

@@ -11,13 +11,35 @@ import { dutchPrompt } from '../trainer/prompt';
 import { askable } from '../trainer/question';
 import type { Selection } from '../trainer/question';
 import { matchingLevel, tensesForLevel, toggle, verbsForLevel } from '../trainer/selection';
+import type { AnswerMode } from '../storage/store';
 
 interface PickerProps {
   readonly initial: Selection;
+  readonly initialMode: AnswerMode;
   /** First visit: there is nothing to go back to, so no close button. */
   readonly canCancel: boolean;
-  readonly onConfirm: (selection: Selection) => void;
+  readonly onConfirm: (selection: Selection, mode: AnswerMode) => void;
   readonly onCancel: () => void;
+}
+
+const MODES: readonly { readonly id: AnswerMode; readonly label: string }[] = [
+  { id: 'cards', label: 'Multiple choice' },
+  { id: 'typing', label: 'Typen' },
+];
+
+/** Two-way switch whose thumb slides to the chosen way of answering. */
+function ModeSwitch({ mode, onChange }: { mode: AnswerMode; onChange: (mode: AnswerMode) => void }) {
+  return (
+    <div className={`mode${mode === 'typing' ? ' is-typing' : ''}`} role="group" aria-labelledby="picker-answers">
+      <span className="mode__thumb" aria-hidden="true" />
+      {MODES.map(option => (
+        <button key={option.id} type="button" className={`mode__opt${mode === option.id ? ' is-on' : ''}`}
+          aria-pressed={mode === option.id} onClick={() => onChange(option.id)}>
+          {option.label}
+        </button>
+      ))}
+    </div>
+  );
 }
 
 const GROUP_ORDER: readonly VerbGroup[] = ['er', 'ir', 're', 'onregelmatig', 'zeldzaam'];
@@ -66,7 +88,8 @@ function LevelChips({ label, active, onPick }: { label: string; active: Level | 
 }
 
 /** Pick what to practise: tenses on a time axis, verbs as a list; both with quick-picks per school level. */
-export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps) {
+export function Picker({ initial, initialMode, canCancel, onConfirm, onCancel }: PickerProps) {
+  const [mode, setMode] = useState<AnswerMode>(initialMode);
   const [tenses, setTenses] = useState<readonly string[]>(initial.tenses);
   const [verbs, setVerbs] = useState<readonly string[]>(initial.verbs);
   const [search, setSearch] = useState('');
@@ -111,6 +134,14 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
         </header>
 
         <div className="picker__body">
+          <section className="picker__section" aria-labelledby="picker-answers">
+            <div className="picker__section-head">
+              <h3 id="picker-answers">Antwoorden</h3>
+              <p>Kies hoe je je antwoorden wil geven: multiple choice of zelf typen.</p>
+            </div>
+            <ModeSwitch mode={mode} onChange={setMode} />
+          </section>
+
           <section className="picker__section" aria-labelledby="picker-tenses">
             <div className="picker__section-head">
               <h3 id="picker-tenses">Tijden</h3>
@@ -198,7 +229,7 @@ export function Picker({ initial, canCancel, onConfirm, onCancel }: PickerProps)
             {problem ?? <><strong>{verbs.length}</strong> {verbs.length === 1 ? 'werkwoord' : 'werkwoorden'} · <strong>{tenses.length}</strong> {tenses.length === 1 ? 'tijd' : 'tijden'}</>}
           </p>
           <button type="button" className="btn btn--go btn--big" disabled={problem !== null}
-            onClick={() => onConfirm({ verbs, tenses })}>
+            onClick={() => onConfirm({ verbs, tenses }, mode)}>
             Start
           </button>
         </footer>
