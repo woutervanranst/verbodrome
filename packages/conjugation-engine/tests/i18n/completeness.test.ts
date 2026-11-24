@@ -28,7 +28,7 @@ const apostropheBeforePlaceholder = /(?<!')(?:'')*'\{[A-Za-z_]\w*\}/u;
 const literalPlaceholder = /\{[A-Za-z_]\w*\}/u;
 
 /** What is wrong with one message of a rule, if anything. */
-function messageProblems(source: string, params: Readonly<Record<string, string>>): string[] {
+function messageProblems(source: string, params: Readonly<Record<string, string>>, format: typeof formatMessage): string[] {
   let found: ReadonlyMap<string, string>;
   try {
     found = placeholders(source);
@@ -43,14 +43,20 @@ function messageProblems(source: string, params: Readonly<Record<string, string>
   }
   // An apostrophe directly before a placeholder opens a quoted literal: `l'{noun} et l'{other}` loses {noun}. Write `l''{noun}`.
   const args: Record<string, MessageArg> = Object.fromEntries([...found].map(([name, kind]) => [name, kind === 'number' ? 1 : 'x']));
-  if (apostropheBeforePlaceholder.test(source) || literalPlaceholder.test(formatMessage(source, args, 'en'))) {
+  let rendered: string;
+  try {
+    rendered = format(source, args, 'en');
+  } catch (error) {
+    return [...problems, `cannot be formatted (${error instanceof Error ? error.message : String(error)})`];
+  }
+  if (apostropheBeforePlaceholder.test(source) || literalPlaceholder.test(rendered)) {
     problems.push('has an apostrophe directly before a placeholder, which quotes it (write two apostrophes)');
   }
   return problems;
 }
 
 /** Everything the completeness gate finds wrong with a pack and its catalogs; `[]` for a pack without rules. */
-function problemsWith(pack: LanguagePack, catalogs: Catalogs): string[] {
+function problemsWith(pack: LanguagePack, catalogs: Catalogs, format: typeof formatMessage = formatMessage): string[] {
   const problems: string[] = [];
   const keySets = Object.entries(catalogs).map(([locale, catalog]) => [locale, new Set(Object.keys(catalog))] as const);
   for (const [locale, keys] of keySets) {
@@ -69,7 +75,7 @@ function problemsWith(pack: LanguagePack, catalogs: Catalogs): string[] {
     }
     for (const [locale, catalog] of Object.entries(catalogs)) {
       if (!Object.hasOwn(catalog, id)) problems.push(`${id} has no ${locale} message`);
-      else problems.push(...messageProblems(catalog[id]!, rule.params).map(problem => `${id} (${locale}) ${problem}`));
+      else problems.push(...messageProblems(catalog[id]!, rule.params, format).map(problem => `${id} (${locale}) ${problem}`));
     }
     const cited = pack.citations !== undefined && Object.hasOwn(pack.citations, id) ? pack.citations[id]! : [];
     const citations: readonly Citation[] = Array.isArray(cited) ? cited : [cited as Citation];
@@ -113,6 +119,11 @@ describe('rule catalogs are complete', () => {
       .toEqual(expect.arrayContaining([expect.stringContaining('as a number')]));
     expect(check(withEn({ 'xx.stem.drop-a': 'Drop l\'{before} et l\'{after}' }))).toEqual(expect.arrayContaining([expect.stringContaining('apostrophe')]));
     expect(check(withEn({ 'xx.stem.drop-a': 'Drop l\'\'{before} et l\'\'{after}' }))).toEqual([]);
+    // A message that parses but cannot be formatted is a problem line, not an exception.
+    const failing = (): string => { throw new RangeError('boom'); };
+    expect(problemsWith(toyPack, toyCatalogs, failing)).toEqual(expect.arrayContaining([
+      'xx.stem.drop-a (en) cannot be formatted (boom)', 'xx.stem.drop-a (nl) cannot be formatted (boom)',
+    ]));
     expect(check({ en, nl: { ...nl, 'xx.extra': 'x' } })).toContain('xx.extra is in nl but not in en');
   });
 

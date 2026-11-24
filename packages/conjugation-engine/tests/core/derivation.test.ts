@@ -111,3 +111,13 @@ describe('applyJunctureRules', () => {
     expect(applyJunctureRules([none, cedilla], start, null)).toEqual([]);
   });
 });
+
+describe('defineRules', () => {
+  it('rejects a param named before or after, naming the rule', () => {
+    for (const name of ['before', 'after']) {
+      expect(() => defineRules({ 'xx.bad.param': { stage: 'stem', params: { [name]: 'text' } } }))
+        .toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining('xx.bad.param') }));
+    }
+    expect(() => defineRules({ 'xx.ok.param': { stage: 'stem', params: { beforehand: 'text' } } })).not.toThrow();
+  });
+});

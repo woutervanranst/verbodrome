@@ -8,5 +8,3 @@ export type Catalog = Readonly<Record<string, string>>;
 
 /** The locales of the default engine: the keys of the locale index. */
 export type Locale = keyof typeof locales;
-
-export type Catalogs = Readonly<Record<Locale, Catalog>>;

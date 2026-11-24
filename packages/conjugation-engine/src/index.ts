@@ -14,7 +14,7 @@ export type * from './types.js';
 export type { CatalogueEntry, LanguagePack, PackRendering } from './core/pack.js';
 export type { Engine } from './core/engine.js';
 export type { LanguageEngine } from './languages/adapter.js';
-export type { Catalog, Locale, ExplainedStep, Explanation } from './explain.js';
+export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';
 export type { Citation, Work } from './core/sources.js';
 export type { RuleInfo } from './core/derivation.js';
 export type { StagedGrammar, LexemeBase, Cell } from './core/staged.js';

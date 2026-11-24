@@ -275,7 +275,7 @@ export function stagedEngine<X extends LexemeBase>(
       if (absent) {
         return {
           forms: [],
-          // The explanation is the rule id until the i18n layer renders the step.
+          // The rule id; an engine with an English catalog replaces it with the rendered step.
           unavailable: [{ target, reason: absent.reason, explanation: absent.step.rule, source: absent.source, step: absent.step }],
         };
       }

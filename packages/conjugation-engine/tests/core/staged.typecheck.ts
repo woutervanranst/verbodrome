@@ -1,3 +1,4 @@
+import type { Explainable } from '../../src/index.js';
 import { validateGrammar } from '../../src/core/staged.js';
 import type { LexemeBase, StagedGrammar } from '../../src/core/staged.js';
 import { toyGrammar } from '../toy/pack.js';
@@ -12,3 +13,6 @@ export function checkValidateGrammarIsGeneric(strict: StagedGrammar<ToyLexeme>):
 
 // @ts-expect-error A lexeme type must extend LexemeBase.
 export type NotAGrammar = StagedGrammar<{ readonly lemma: string }>;
+
+// The subject union `explain` accepts is part of the public surface.
+export const explainable: Explainable | null = null;

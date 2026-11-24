@@ -81,6 +81,15 @@ describe('explain', () => {
     expect(explained.sections[0]!.steps.map(s => s.text)).toEqual(['placa ends in -a: class a-verb.', 'Assuming the verb is regular: it is not in the lexicon.']);
   });
 
+  it('renders the explanation of an unavailable target in English when the engine has an English catalog', () => {
+    const query = { language: 'xx', infinitive: 'solea', mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', voice: 'active' };
+    const [unavailable] = toy.conjugate(query).unavailableTargets;
+    expect(unavailable!.explanation).toBe('This verb has no participle, so the perfect and the past participle do not exist.');
+    expect(unavailable!.step!.rule).toBe('xx.avail.no-participle');
+    expect(createEngine({ xx: toyPack }, { nl: catalogs.nl }).conjugate(query).unavailableTargets[0]!.explanation).toBe('xx.avail.no-participle');
+    expect(createEngine({ xx: toyPack }).conjugate(query).unavailableTargets[0]!.explanation).toBe('xx.avail.no-participle');
+  });
+
   it('renders a staged pack\'s assumptions in English when the engine has an English catalog', () => {
     const query = { language: 'xx', infinitive: 'placa' };
     expect(toy.conjugate(query).analysis.assumptions).toEqual(['Assuming the verb is regular: it is not in the lexicon.']);

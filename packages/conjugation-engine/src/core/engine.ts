@@ -96,12 +96,23 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     return catalog;
   }
 
-  /** A staged pack's assumptions as English text, once the engine has an English catalog; otherwise its own strings. */
+  /** The English context for a staged pack's steps once the engine has an English catalog; otherwise null (the packs' own strings stay). */
+  function englishContext(pack: LanguagePack, target: ResolvedTarget | null): StepContext | null {
+    return pack.rules && Object.hasOwn(messages, 'en') ? { pack, catalog: catalogFor('en'), locale: 'en', target } : null;
+  }
+
+  /** A staged pack's assumptions as English text. Assumptions have no target, so their rules cannot name a tense. */
   function analysisWithText(pack: LanguagePack, analysis: VerbAnalysis): VerbAnalysis {
-    if (!pack.rules || !analysis.steps || !Object.hasOwn(messages, 'en')) return analysis;
-    const ctx: StepContext = { pack, catalog: catalogFor('en'), locale: 'en', target: null };
+    const ctx = englishContext(pack, null);
+    if (!ctx || !analysis.steps) return analysis;
     const assumptions = analysis.steps.filter(s => s.kind === 'assumption').map(s => renderStep(s, ctx));
     return { ...analysis, assumptions: [...new Set(assumptions)] };
+  }
+
+  /** A staged pack's unavailable target with the English sentence of its step as the explanation. */
+  function unavailableWithText(pack: LanguagePack, unavailable: UnavailableTarget): UnavailableTarget {
+    const ctx = englishContext(pack, unavailable.target);
+    return ctx && unavailable.step ? { ...unavailable, explanation: renderStep(unavailable.step, ctx) } : unavailable;
   }
 
   function conjugate(options: unknown): ConjugationResult {
@@ -154,7 +165,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     return deepFreeze({
       language: query.language as Language, verbId: engine.verbId, query: query as ConjugationOptions,
       status: forms.length ? unavailableTargets.length ? 'partiallyAvailable' : 'available' : 'unavailable',
-      forms, unavailableTargets, analysis: analysisWithText(pack, engine.analysis),
+      forms, unavailableTargets: unavailableTargets.map(u => unavailableWithText(pack, u)), analysis: analysisWithText(pack, engine.analysis),
     });
   }
 

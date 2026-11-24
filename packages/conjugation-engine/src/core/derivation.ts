@@ -25,12 +25,17 @@ export interface DerivationStep {
   readonly params: Readonly<Record<string, StepParam>>;
 }
 
-/** Declares a pack's rules; ids are the object keys. `kind` defaults to 'rule', `params` to {}. */
+/** Declares a pack's rules; ids are the object keys. `kind` defaults to 'rule', `params` to {}; a param may not be named `before` or `after`, which every message has. */
 export function defineRules<const T extends Record<string, { stage: Stage; kind?: StepKind; params?: Record<string, ParamKind> }>>(
   defs: T,
 ): { readonly [K in keyof T & string]: RuleInfo & { readonly id: K } } {
   const rules: Record<string, RuleInfo> = {};
   for (const [id, def] of Object.entries(defs)) {
+    for (const reserved of ['before', 'after']) {
+      if (def.params && Object.hasOwn(def.params, reserved)) {
+        throw new ConjugationError('GENERATION_FAILURE', `Rule ${id} declares a param named "${reserved}", which every message already has.`);
+      }
+    }
     rules[id] = { id, stage: def.stage, kind: def.kind ?? 'rule', params: { ...def.params } };
   }
   return rules as { readonly [K in keyof T & string]: RuleInfo & { readonly id: K } };
