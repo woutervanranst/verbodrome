@@ -7,8 +7,9 @@ import type { FieldSpec } from './core/options.js';
 import { explanationLines } from './i18n/explain.js';
 import { isLocale, locales } from './i18n/locales/index.js';
 import { packs } from './languages/index.js';
-import type { ConjugatedForm, ResolvedTarget } from './types.js';
+import type { ConjugatedForm } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
+import { formLabel, targetLabel } from './cli-labels.js';
 
 /** Short flag names for fields whose kebab-case spelling is not the one users know. */
 const aliases: Readonly<Record<string, string>> = { classHint: 'class', preferredOrthography: 'orthography' };
@@ -100,25 +101,6 @@ function flagValue(flag: Flag, raw: string): unknown {
   if (flag.shape === 'json') return JSON.parse(raw);
   if (flag.spec.kind === 'enum') return flag.spec.values.find(value => String(value) === raw) ?? raw;
   return raw;
-}
-
-function targetLabel(target: ResolvedTarget, labels: { mood: string; tense: string }): string {
-  return [
-    labels.mood, labels.tense, ...(target.person ? [`${target.person} ${target.number}`] : []),
-    ...(target.subject ? [target.subject] : []),
-    ...(target.gender ? [target.gender] : []),
-    ...(target.agreement ? [`participle ${target.agreement.gender} ${target.agreement.number}`] : []),
-  ].join(' / ');
-}
-
-function formLabel(form: ConjugatedForm): string {
-  return [
-    targetLabel(form.target, form.labels),
-    ...(form.variant.orthography !== 'both' ? [form.variant.orthography] : []),
-    ...(form.variant.pattern ? [form.variant.pattern] : []),
-    ...(form.variant.usage !== 'standard' ? [form.variant.usage] : []),
-    ...(form.variant.condition ? [form.variant.condition] : []),
-  ].join(' / ');
 }
 
 try {

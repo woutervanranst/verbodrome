@@ -103,6 +103,12 @@ export class ConjugationOptionsBuilder<L extends Language> {
     return this;
   }
 
+  /** A subject slot of the language (`never` for a language without slots). */
+  subject(subject: LanguageRegistry[L]['subject']): this {
+    this.values.subject = subject;
+    return this;
+  }
+
   /** The options of language `L`, validated at runtime. */
   build(): ConjugationOptionsFor<L> {
     return parseConjugationOptions({

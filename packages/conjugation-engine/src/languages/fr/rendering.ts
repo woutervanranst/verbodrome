@@ -9,7 +9,8 @@ function canElide(part: ConjugationPart): boolean {
 }
 
 export const frenchRendering: PackRendering = {
-  onset(text, { aspiratedH = false }) {
+  onset(text, flags) {
+    const aspiratedH = flags.aspiratedH ?? false;
     const initial = text.toLowerCase();
     return initial.startsWith('h')
       ? (aspiratedH ? 'aspiratedH' : 'muteH')

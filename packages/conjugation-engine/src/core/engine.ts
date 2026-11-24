@@ -36,14 +36,11 @@ export function catalogueLabels(catalogue: readonly CatalogueEntry[], target: Re
   return { mood: entry.moodLabel, tense: entry.tenseLabel };
 }
 
-/** The single person/number slot of a non-finite entry. */
-const nonFinite: readonly (readonly [null, null])[] = [[null, null]];
-
 /** The one "voice" of an entry without a voice dimension. */
 const noVoice: readonly (Voice | undefined)[] = [undefined];
 
-/** The one "subject" of a target without a subject slot: a non-finite one, or any target of a pack without slots. */
-const noSubject: readonly (SubjectSlot | null)[] = [null];
+/** The voices a target key can name after its person and number. */
+const voiceNames: readonly Voice[] = ['active', 'passive'];
 
 const noSubjects: readonly SubjectSlot[] = Object.freeze([]);
 
@@ -55,6 +52,11 @@ function selectedSubjects(pack: LanguagePack, options: Readonly<Record<string, u
   const subjects = pack.subjects ?? noSubjects;
   if (!subjects.length) return null;
   const chosen = new Set((pack.subjectsFor?.(options) ?? defaultSubjectsFor(subjects, options)).map(slot => slot.id));
+  const declared = new Set(subjects.map(slot => slot.id));
+  const unknown = [...chosen].find(id => !declared.has(id));
+  if (unknown !== undefined) {
+    throw new ConjugationError('GENERATION_FAILURE', `The ${pack.language} pack's subjectsFor returned the slot ${unknown}, which the pack does not declare in subjects.`);
+  }
   return subjects.filter(slot => chosen.has(slot.id));
 }
 
@@ -63,9 +65,30 @@ function subjectOf(pack: LanguagePack, target: ResolvedTarget): SubjectSlot | nu
   return target.subject === undefined ? null : pack.subjects?.find(slot => slot.id === target.subject) ?? null;
 }
 
+/** One person, number and subject slot an entry's targets are made for; all null for a non-finite entry. */
+interface Candidate {
+  readonly person: Person | null;
+  readonly number: GrammaticalNumber | null;
+  readonly subject: SubjectSlot | null;
+}
+
+/**
+ * What an entry expands to before the voice: its `slots` among the selected ones, each at its own person and number;
+ * otherwise each of its persons, with every selected slot of that person and number (or none, for a pack without slots).
+ */
+function candidatesOf(entry: CatalogueEntry, selected: readonly SubjectSlot[] | null): Candidate[] {
+  if (!entry.finite) return [{ person: null, number: null, subject: null }];
+  if (selected === null) return entry.persons.map(([person, number]) => ({ person, number, subject: null }));
+  const { slots } = entry;
+  if (slots !== undefined) return selected.filter(slot => slots.includes(slot.id)).map(subject => ({ person: subject.person, number: subject.number, subject }));
+  return entry.persons.flatMap(([person, number]) =>
+    selected.filter(slot => slot.person === person && slot.number === number).map(subject => ({ person, number, subject })));
+}
+
 /**
  * Targets in catalogue order: per entry, voice-major (the whole active paradigm, then the passive), then person/number,
- * then, for a pack with subject slots, one target per selected slot of that person and number.
+ * then, for a pack with subject slots, one target per selected slot of that person and number. An entry that lists
+ * `slots` has exactly those of the selected slots, each at its own person and number.
  */
 function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unknown>>): ResolvedTarget[] {
   const selected = selectedSubjects(pack, options);
@@ -75,23 +98,20 @@ function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unkn
     if (options.tense !== undefined && options.tense !== entry.tense) continue;
     // Like person on a non-finite entry: asking for a subject excludes entries without one.
     if (options.subject !== undefined && !entry.finite) continue;
-    const slots: readonly (readonly [Person | null, GrammaticalNumber | null])[] = entry.finite ? entry.persons : nonFinite;
+    const candidates = candidatesOf(entry, selected);
     for (const voice of entry.voices?.length ? entry.voices : noVoice) {
       // Like person on a non-finite entry: asking for a voice excludes entries without one.
       if (options.voice !== undefined && options.voice !== voice) continue;
-      for (const [person, number] of slots) {
+      for (const { person, number, subject } of candidates) {
         if (options.number !== undefined && options.number !== number) continue;
         if (options.person !== undefined && options.person !== person) continue;
-        const subjects = selected === null || person === null ? noSubject : selected.filter(slot => slot.person === person && slot.number === number);
-        for (const subject of subjects) {
-          const target: ResolvedTarget = {
-            mood: entry.mood, tense: entry.tense, person, number,
-            gender: subject !== null && pack.genderedTargets ? subject.gender ?? null : null,
-            agreement: null, ...(voice ? { voice } : {}), ...(subject ? { subject: subject.id } : {}),
-          };
-          if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
-          targets.push(target);
-        }
+        const target: ResolvedTarget = {
+          mood: entry.mood, tense: entry.tense, person, number,
+          gender: subject !== null && pack.genderedTargets ? subject.gender ?? null : null,
+          agreement: null, ...(voice ? { voice } : {}), ...(subject ? { subject: subject.id } : {}),
+        };
+        if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
+        targets.push(target);
       }
     }
   }
@@ -111,7 +131,8 @@ function signature(form: GeneratedForm): string {
 /**
  * An engine over the given packs, keyed by language code; only those languages are accepted. `catalogs` are the message
  * catalogs by locale, each already merged from the core messages and the packs' messages for that locale.
- * Throws INVALID_REQUEST when a key differs from its pack's `language` or a pack declares one subject slot id twice.
+ * Throws INVALID_REQUEST when a key differs from its pack's `language`, a pack declares one subject slot id twice or an id
+ * that clashes with a voice name or contains `/`, or a catalogue entry lists a slot the pack does not declare.
  */
 export function createEngine(packs: Readonly<Record<string, LanguagePack>>, catalogs: Readonly<Record<string, Catalog>> = {}): Engine {
   for (const [language, pack] of Object.entries(packs)) {
@@ -121,6 +142,17 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     const ids = (pack.subjects ?? noSubjects).map(slot => slot.id);
     const repeated = ids.find((id, index) => ids.indexOf(id) !== index);
     if (repeated !== undefined) throw new ConjugationError('INVALID_REQUEST', `The ${language} pack declares the subject ${repeated} twice.`);
+    // A slot id is a segment of the target key, next to the voice: it must not look like another segment.
+    const clash = ids.find(id => id.includes('/') || (voiceNames as readonly string[]).includes(id));
+    if (clash !== undefined) {
+      throw new ConjugationError('INVALID_REQUEST', `The ${language} pack names a subject slot "${clash}", which would clash with the other segments of a target key: a slot id contains no "/" and is not a voice name.`);
+    }
+    for (const entry of pack.catalogue) {
+      const unknown = entry.slots?.find(id => !ids.includes(id));
+      if (unknown !== undefined) {
+        throw new ConjugationError('INVALID_REQUEST', `The ${language} pack lists the subject slot ${unknown} in ${entry.mood}/${entry.tense}, but does not declare it.`);
+      }
+    }
   }
   const registry: Readonly<Record<string, LanguagePack>> = Object.freeze({ ...packs });
   const messages: Readonly<Record<string, Catalog>> = Object.freeze({ ...catalogs });

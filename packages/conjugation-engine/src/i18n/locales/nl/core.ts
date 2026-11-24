@@ -17,10 +17,12 @@ export const core = {
   'term.case.dative': 'datief',
   'term.case.accusative': 'accusatief',
   'term.case.ablative': 'ablatief',
+  'term.case.vocative': 'vocatief',
   'explain.summary.form': '{text}: {mood}, {tense}',
-  'explain.summary.unavailable': '{mood}, {tense}: niet beschikbaar ({reason, select, impersonal {onpersoonlijk} defective {defectief} noImperative {geen gebiedende wijs} other {overig}})',
+  'explain.summary.unavailable': '{mood}, {tense}: niet beschikbaar ({reason, select, impersonal {onpersoonlijk} defective {defectief} noImperative {geen gebiedende wijs} noPassive {geen lijdende vorm} other {overig}})',
   'explain.summary.analysis': '{lemma}: {classification}',
   'explain.section.form': 'De hele vorm',
   'explain.section.availability': 'Beschikbaarheid',
   'explain.section.classify': 'Het werkwoord',
+  'explain.section.classify.paradigm': 'Het werkwoord ({pattern})',
 } as const satisfies Record<keyof typeof english, string>;

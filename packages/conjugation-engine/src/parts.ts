@@ -14,10 +14,12 @@ export function grammaticalPart(
   features: Partial<PartFeatures> = {},
   joinBefore: ConjugationPart['joinBefore'] = 'space',
   aspiratedH = false,
+  onsetFlags?: Readonly<Record<string, boolean>>,
 ): ConjugationPart {
   if (!text) throw new ConjugationError('GENERATION_FAILURE', `Empty ${role} component.`);
   const normalized = text.normalize('NFC');
-  const onset = rendering.onset(normalized, { aspiratedH });
+  // `aspiratedH` is French's flag; a pack with other flags passes them whole instead.
+  const onset = rendering.onset(normalized, onsetFlags ?? { aspiratedH });
   return { role, text: normalized, lemma, features: { ...emptyFeatures, ...features }, phonology: { onset }, joinBefore };
 }
 

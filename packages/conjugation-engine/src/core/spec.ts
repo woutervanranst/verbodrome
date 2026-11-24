@@ -7,6 +7,8 @@ export interface LanguageSpec {
   auxiliary: string;
   classHint: string;
   stems: object;
+  /** The union of the language's subject slot ids; `never` for a language without slots. */
+  subject: string;
   /** Every other language-specific option. */
   context: object;
 }

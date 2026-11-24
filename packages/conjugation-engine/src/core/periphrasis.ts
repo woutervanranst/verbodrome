@@ -1,8 +1,7 @@
 import type { FormVariant, ResolvedTarget } from '../types.js';
 import { step } from './derivation.js';
 import type { DerivationStep, RuleInfo } from './derivation.js';
-import type { Voice } from './grammar.js';
-import type { LexemeBase } from './staged.js';
+import type { LexemeBase, Voice } from './grammar.js';
 
 /** The verb a chain element conjugates: the queried verb, its perfect auxiliary (one run per auxiliary), or a named verb. */
 export type VerbRef = 'main' | 'perfectAuxiliary' | { readonly lemma: string };

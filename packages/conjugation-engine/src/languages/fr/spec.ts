@@ -40,6 +40,7 @@ export interface FrenchSpec extends LanguageSpec {
   auxiliary: 'avoir' | 'être';
   classHint: FrenchClassHint;
   stems: FrenchStemHints;
+  subject: never;
   context: {
     readonly gender?: FrenchGender;
     readonly agreement?: Partial<FrenchAgreement>;

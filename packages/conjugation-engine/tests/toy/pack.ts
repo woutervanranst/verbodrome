@@ -20,7 +20,12 @@
  * grammar's `cellOf` says which, lexeme by lexeme, and the periphrasis `applies` only to deponents.
  *
  * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
- * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot.
+ * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot. The
+ * imperative entry lists its slot (2sg) instead of deriving it from a person, so no other slot can join it. The clause
+ * learns which cells agree from `agreeing`, not from the target's mood.
+ *
+ * A word's part carries the voice of its cell (the passive present's ur- forms), and the case of its agreement where the
+ * grammar names one (the toy's participles do not decline).
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';
@@ -308,9 +313,10 @@ export const toyRendering: PackRendering = {
 
 const clause: ClauseGrammar<ToyLexeme> = {
   /** Only the past participle agrees in gender: standing alone, in the passive and after esta, never after haba. */
-  agreements({ target, auxiliary }) {
-    // Asked for a simple non-finite target, or for the past participle of a compound tense.
-    const pastParticiple = target.mood === 'participle' ? target.tense === 'past' : target.mood !== 'infinitive';
+  agreements({ target, agreeing, auxiliary }) {
+    // `agreeing` has the cells that would agree: the past participle of a compound tense or of the target itself, the
+    // present participle or the infinitive of a simple non-finite target.
+    const pastParticiple = agreeing.some(cell => cell.kind === 'nonFinite' && cell.form === 'participle');
     if (!pastParticiple || (auxiliary !== null && auxiliary !== 'esta')) return one(null);
     const number = target.number ?? 'singular';
     return genders.flatMap(gender =>
@@ -442,7 +448,8 @@ export const toyCatalogue: readonly CatalogueEntry[] = [
   ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future'], ['simple_past', 'Simple past']]).map(voiced),
   // The conditional's past has another label than the indicative's.
   ...moodEntries('conditional', 'Conditional', allPersons, [['past', 'Future in the past']]),
-  ...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]),
+  // The slots are listed, not derived from the person: the imperative is the 2sg slot, whatever other slot is 2sg.
+  ...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]).map(entry => Object.freeze({ ...entry, slots: Object.freeze(['2sg']) })),
   ...moodEntries('infinitive', 'Infinitive', noPersons, [['present', 'Present']]),
   ...moodEntries('participle', 'Participle', noPersons, [['present', 'Present'], ['past', 'Past']]),
 ];

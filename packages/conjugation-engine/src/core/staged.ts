@@ -6,7 +6,7 @@ import type { ChainWord, ClauseContext, ClauseGrammar } from './clause.js';
 import type { DerivationStep } from './derivation.js';
 import { chain, combine, one } from './fork.js';
 import type { Fork, Outcome, VariantTags } from './fork.js';
-import type { Agreement, GrammaticalNumber, Person, Voice } from './grammar.js';
+import type { Agreement, GrammaticalNumber, LexemeBase, Person, Voice } from './grammar.js';
 import { applyJunctureRules } from './juncture.js';
 import type { JunctureRule } from './juncture.js';
 import type { LanguageEngine, PackRendering, SubjectSlot } from './pack.js';
@@ -14,18 +14,7 @@ import { periphrasesFor, periphrasisStep, reportedAuxiliary, usesPerfectAuxiliar
 import type { ChainElement, Periphrasis, VerbRef } from './periphrasis.js';
 import { targetKey } from './target.js';
 
-/** What every staged grammar knows about a verb; a grammar extends it with its own lexical data. */
-export interface LexemeBase {
-  readonly lemma: string;
-  readonly verbId: string;
-  readonly classId: string;
-  readonly classSource: VerbAnalysis['classificationSource'];
-  readonly reflexive: boolean;
-  /** Perfect auxiliaries, in output order; a periphrasis using `perfectAuxiliary` runs once per entry. */
-  readonly auxiliaries: readonly string[];
-  /** A verbal particle (de/nl prefix); the clause places it. */
-  readonly particle: { readonly text: string; readonly separable: boolean } | null;
-}
+export type { LexemeBase } from './grammar.js';
 
 /**
  * One word-sized paradigm cell, in the pack's own mood, tense and form ids. An absent `voice` means active, the
@@ -189,8 +178,11 @@ function periphrasisTags({ pattern, usage }: Pick<Periphrasis, 'pattern' | 'usag
   return { ...(pattern === undefined ? {} : { pattern }), ...(usage === undefined ? {} : { usage }) };
 }
 
-/** The analysis of one paradigm. Its assumptions are rule ids; an engine with an English catalog replaces them with the rendered steps. */
-function analysisOf({ value: lexeme, steps }: Outcome<LexemeBase>): VerbAnalysis {
+/**
+ * The analysis of one paradigm; `labelled` (the lemma has several paradigms) adds the paradigm's `pattern` and `condition`
+ * tags. Its assumptions are rule ids; an engine with an English catalog replaces them with the rendered steps.
+ */
+function analysisOf({ value: lexeme, steps, tags }: Outcome<LexemeBase>, labelled: boolean): VerbAnalysis {
   return {
     lemma: lexeme.lemma,
     classification: lexeme.classId,
@@ -199,6 +191,8 @@ function analysisOf({ value: lexeme, steps }: Outcome<LexemeBase>): VerbAnalysis
     auxiliaries: lexeme.auxiliaries,
     assumptions: [...new Set(steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
     steps,
+    ...(!labelled || tags.pattern === undefined ? {} : { pattern: tags.pattern }),
+    ...(!labelled || tags.condition === undefined ? {} : { condition: tags.condition }),
   };
 }
 
@@ -321,8 +315,10 @@ export function stagedEngine<X extends LexemeBase>(
   ): GeneratedForm[] {
     const { periphrasis, auxiliary, slots } = construction;
     const lexeme = paradigm.value;
-    const context: ClauseContext<X> = { query, lexeme, target, subject, auxiliary, rendering };
-    const agreements = slots.some(slot => slot.kind === 'verb' && slot.agree) ? grammar.clause.agreements(context) : one(null);
+    // The cells that take the agreement: those of the `agree` elements, or the target's own non-finite cell.
+    const agreeing = slots.flatMap(slot => slot.kind === 'verb' && slot.agree ? [slot.cell] : []);
+    const context: ClauseContext<X> = { query, lexeme, target, subject, agreeing, auxiliary, rendering };
+    const agreements = agreeing.length ? grammar.clause.agreements(context) : one(null);
     // The paradigm's tags apply to every form of it; the periphrasis step opens the form-level steps.
     const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], paradigm.tags);
     const agreed = chain(opening, () => agreements);
@@ -368,10 +364,11 @@ export function stagedEngine<X extends LexemeBase>(
     return forms;
   }
 
-  const alternatives = paradigms.slice(1).map(analysisOf);
+  const labelled = paradigms.length > 1;
+  const alternatives = paradigms.slice(1).map(paradigm => analysisOf(paradigm, labelled));
   return {
     verbId: first.value.verbId,
-    analysis: structuredClone(alternatives.length ? { ...analysisOf(first), alternatives } : analysisOf(first)),
+    analysis: structuredClone(labelled ? { ...analysisOf(first, labelled), alternatives } : analysisOf(first, labelled)),
     generate(target, subject = null): GenerationResult {
       if (subject?.id !== target.subject) {
         const given = subject?.id ?? 'no subject slot';

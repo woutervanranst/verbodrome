@@ -1,15 +1,19 @@
 import { describe, expect, it } from 'vitest';
+import { wordPart } from '../../src/core/clause.js';
+import type { ChainWord, ClauseContext } from '../../src/core/clause.js';
 import { createEngine } from '../../src/core/engine.js';
 import { resolvedTargetKey, targetKey } from '../../src/core/target.js';
 import * as catalogue from '../../src/catalogue.js';
 import { step } from '../../src/core/derivation.js';
 import type { DerivationStep } from '../../src/core/derivation.js';
 import { one } from '../../src/core/fork.js';
+import type { PackRendering } from '../../src/core/pack.js';
 import type { Fork } from '../../src/core/fork.js';
 import type { Periphrasis } from '../../src/core/periphrasis.js';
 import { stagedEngine, synthesize, validateGrammar } from '../../src/core/staged.js';
 import type { Cell } from '../../src/core/staged.js';
 import { packs } from '../../src/languages/index.js';
+import { grammaticalPart } from '../../src/parts.js';
 import type { ConjugatedForm, ResolvedTarget } from '../../src/types.js';
 import { toyGrammar, toyPack, toyRendering, toyRules } from '../toy/pack.js';
 import type { ToyLexeme } from '../toy/pack.js';
@@ -515,10 +519,14 @@ describe('several paradigms for one lemma', () => {
     expect(result.verbId).toBe('apvena');
     expect(result.analysis).toEqual({
       ...verb,
+      pattern: 'separable',
+      condition: 'intransitive',
       auxiliaries: ['esta'],
       steps: [listed, { rule: 'xx.classify.separable', stage: 'classify', kind: 'rule', before: 'apvena', after: null, params: { particle: 'ap' } }],
       alternatives: [{
         ...verb,
+        pattern: 'inseparable',
+        condition: 'transitive',
         auxiliaries: ['haba'],
         steps: [listed, { rule: 'xx.classify.inseparable', stage: 'classify', kind: 'rule', before: 'apvena', after: null, params: { particle: 'ap' } }],
       }],
@@ -527,8 +535,13 @@ describe('several paradigms for one lemma', () => {
     expect(Object.hasOwn(result.analysis.alternatives![0]!, 'alternatives')).toBe(false);
     expect(Object.isFrozen(result.analysis.alternatives![0]!.steps)).toBe(true);
     for (const infinitive of ['placa', 'apzorpa', 'esa']) {
-      expect(Object.hasOwn(toy.conjugate({ language: 'xx', infinitive, mood: 'infinitive' }).analysis, 'alternatives')).toBe(false);
+      const { analysis } = toy.conjugate({ language: 'xx', infinitive, mood: 'infinitive' });
+      expect(Object.hasOwn(analysis, 'alternatives')).toBe(false);
+      // A single paradigm has no pattern or condition to tell it apart by, even where its forms are tagged.
+      expect(Object.hasOwn(analysis, 'pattern') || Object.hasOwn(analysis, 'condition')).toBe(false);
     }
+    const hinted = toy.conjugate({ ...perfect, prefix: 'inseparable' }).analysis;
+    expect(Object.hasOwn(hinted, 'pattern') || Object.hasOwn(hinted, 'condition')).toBe(false);
   });
 
   it('merges a paradigm\'s tags into each form: labels join, constraints keep only the forms that agree', () => {
@@ -713,6 +726,118 @@ describe('lexeme-aware cells and periphrases', () => {
     expect(() => validateGrammar(broken)).toThrow(expect.objectContaining({
       code: 'GENERATION_FAILURE', message: expect.stringContaining('indicative/simple_past'),
     }));
+  });
+});
+
+describe('part features and the clause context', () => {
+  const passive = { language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' };
+  const perfect = { ...passive, tense: 'perfect', voice: 'active' };
+  const participle = { language: 'xx', infinitive: 'placa', mood: 'participle', tense: 'past' };
+
+  /** The toy grammar recording what its clause is asked: the agreeing cells in `agreements` and in `assemble`. */
+  function recording() {
+    const agreements: ClauseContext<ToyLexeme>['agreeing'][] = [];
+    const assembled: ClauseContext<ToyLexeme>['agreeing'][] = [];
+    const grammar: StagedGrammar<ToyLexeme> = {
+      ...toyGrammar,
+      clause: {
+        agreements(context) {
+          agreements.push(context.agreeing);
+          return toyGrammar.clause.agreements(context);
+        },
+        assemble(words, context) {
+          assembled.push(context.agreeing);
+          return toyGrammar.clause.assemble(words, context);
+        },
+      },
+    };
+    return { engine: toyWith(grammar), agreements, assembled };
+  }
+
+  it('gives the part of a passive word the voice of its cell, and none to an active word', () => {
+    const verb = toy.conjugate(passive).forms[0]!.parts.at(-1)!;
+    expect(verb.features).toMatchObject({ voice: 'passive', mood: 'indicative', tense: 'present', person: 3, number: 'singular', verbForm: 'finite' });
+    const active = toy.conjugate({ ...passive, voice: 'active' }).forms[0]!.parts.at(-1)!;
+    expect(active.features).not.toHaveProperty('voice');
+    // Every word of a passive compound keeps its own cell's voice: the auxiliary is an active present, the participle has none.
+    const compound = toy.conjugate({ ...perfect, voice: 'passive' }).forms[0]!.parts;
+    expect(compound.map(part => [part.text, part.features.voice])).toEqual([['il', undefined], ['estat', undefined], ['placado', undefined]]);
+  });
+
+  it('gives a declined participle the case its agreement names', () => {
+    const declined = toyWith({
+      ...toyGrammar,
+      clause: { ...toyGrammar.clause, agreements: () => one({ gender: 'feminine', number: 'singular', case: 'vocative' }) },
+    });
+    const form = declined.conjugate(participle).forms[0]!;
+    expect(form.target.agreement).toEqual({ gender: 'feminine', number: 'singular', case: 'vocative' });
+    expect(form.parts.at(-1)!.features).toMatchObject({ gender: 'feminine', number: 'singular', case: 'vocative' });
+    // An agreement without a case adds no case feature.
+    expect(toy.conjugate(participle).forms[0]!.parts.at(-1)!.features).not.toHaveProperty('case');
+  });
+
+  it('tells agreements which cells take the agreement: the participle of a periphrasis, or the target\'s own non-finite cell', () => {
+    const { engine, agreements, assembled } = recording();
+    const participleCell: Cell = { kind: 'nonFinite', form: 'participle' };
+
+    engine.conjugate(perfect);
+    expect(agreements).toEqual([[participleCell]]);
+    expect(assembled).toEqual([[participleCell]]);
+
+    agreements.length = assembled.length = 0;
+    engine.conjugate(participle);
+    expect(agreements).toEqual([[participleCell]]);
+
+    agreements.length = assembled.length = 0;
+    engine.conjugate({ ...participle, tense: 'present' });
+    expect(agreements).toEqual([[{ kind: 'nonFinite', form: 'presentParticiple' }]]);
+  });
+
+  it('leaves agreeing empty where agreements is not asked, and asks exactly as before', () => {
+    const { engine, agreements, assembled } = recording();
+    // A simple finite target and a periphrasis without an agreeing element have no agreement to choose.
+    engine.conjugate({ ...passive, voice: 'active' });
+    engine.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'future', person: 3, number: 'singular' });
+    expect(agreements).toEqual([]);
+    expect(assembled.length).toBeGreaterThan(0);
+    expect(assembled.every(agreeing => agreeing.length === 0)).toBe(true);
+  });
+
+  it('lets the toy decide who agrees from the cells it is given', () => {
+    // The present participle and the infinitive take no agreement; the past participle does, in every construction.
+    expect(toy.conjugate({ ...participle, tense: 'present' }).forms.map(form => form.text)).toEqual(['placante']);
+    expect(toy.conjugate({ ...participle, mood: 'infinitive', tense: 'present' }).forms.map(form => form.text)).toEqual(['placa']);
+    expect(toy.conjugate(participle).forms.map(form => form.text)).toEqual(['placado', 'placada']);
+    expect(toy.conjugate({ ...perfect, infinitive: 'vena', auxiliary: 'esta' }).forms.map(form => form.text)).toEqual(['il estat venado', 'il estat venada']);
+    expect(toy.conjugate({ ...perfect, infinitive: 'vena', auxiliary: 'haba' }).forms.map(form => form.text)).toEqual(['il habat venado']);
+  });
+
+  describe('wordPart', () => {
+    const word: ChainWord = { role: 'lexicalVerb', text: 'ado', lemma: 'a', cell: { kind: 'nonFinite', form: 'participle' }, steps: [] };
+    const seen: Readonly<Record<string, boolean>>[] = [];
+    const spying: PackRendering = { ...toyRendering, onset: (text, flags) => { seen.push(flags); return toyRendering.onset(text, flags); } };
+
+    it('keeps its defaults: a spaced part whose onset is asked with aspiratedH false', () => {
+      seen.length = 0;
+      const part = wordPart(spying, word);
+      expect(part).toMatchObject({ text: 'ado', joinBefore: 'space', phonology: { onset: 'vowel' } });
+      expect(seen).toEqual([{ aspiratedH: false }]);
+      expect(grammaticalPart(spying, 'linker', 'a')).toMatchObject({ joinBefore: 'space' });
+      expect(seen.at(-1)).toEqual({ aspiratedH: false });
+    });
+
+    it('takes the join and the onset flags from its options', () => {
+      seen.length = 0;
+      const part = wordPart(spying, word, {}, { joinBefore: 'hyphen', onsetFlags: { aspiratedH: true, fricative: false } });
+      expect(part.joinBefore).toBe('hyphen');
+      expect(seen).toEqual([{ aspiratedH: true, fricative: false }]);
+      expect(wordPart(spying, word, {}, { joinBefore: 'attached' }).joinBefore).toBe('attached');
+    });
+
+    it('lets a pack name the progressive aspect and a case on a part', () => {
+      const part = wordPart(spying, word, { aspect: 'progressive', case: 'vocative', voice: 'passive', verbForm: 'gerundive' });
+      expect(part.features).toMatchObject({ aspect: 'progressive', case: 'vocative', voice: 'passive', verbForm: 'gerundive' });
+    });
   });
 });
 

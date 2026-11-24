@@ -6,7 +6,7 @@ import { resolvedTargetKey, targetKey } from '../../src/core/target.js';
 import { getSubjects } from '../../src/index.js';
 import { packs } from '../../src/languages/index.js';
 import type { ConjugatedForm, ResolvedTarget } from '../../src/types.js';
-import { toyGrammar, toyPack, toyRendering, toySubjects } from '../toy/pack.js';
+import { toyCatalogue, toyGrammar, toyPack, toyRendering, toySubjects } from '../toy/pack.js';
 
 const toy = createEngine({ xx: toyPack });
 const present = { language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', voice: 'active' } as const;
@@ -148,6 +148,66 @@ describe('subject slots', () => {
   it('rejects a pack that declares one slot id twice', () => {
     expect(() => createEngine({ xx: { ...toyPack, subjects: [...toySubjects, { ...slot('3sg.f'), pronoun: 'ela' }] } }))
       .toThrow(invalid('INVALID_REQUEST', 'The xx pack declares the subject 3sg.f twice.'));
+  });
+});
+
+describe('catalogue entries that restrict their slots', () => {
+  const imperative = { language: 'xx', infinitive: 'placa', mood: 'imperative', tense: 'present' } as const;
+  /** Every slot is a default one, so only `slots` decides which ones an entry has. */
+  const everyDefault = toySubjects.map(subject => ({ ...subject, default: true }));
+  const restricted = (slots: readonly string[]): LanguagePack => ({
+    ...toyPack,
+    subjects: everyDefault,
+    catalogue: toyCatalogue.map(entry => entry.mood === 'imperative' ? { ...entry, slots } : entry),
+  });
+
+  it('expands exactly the listed slots, each with its own person and number', () => {
+    const engine = createEngine({ xx: restricted(['2sg.formal', '2pl']) });
+    const targets = engine.expandTargets(imperative);
+    // 2sg.formal governs the 3sg, and the default 3sg slot of the same person and number is not listed, so it is not there.
+    // The entry's own persons (2sg only) are ignored, and the order is the pack's.
+    expect(targets.map(target => [target.subject, target.person, target.number])).toEqual([
+      ['2sg.formal', 3, 'singular'], ['2pl', 2, 'plural'],
+    ]);
+    expect(engine.conjugate(imperative).forms.map(form => [form.text, form.target.subject])).toEqual([['plaque', '2sg.formal'], ['plaque', '2pl']]);
+    // The person and number filters still apply, to the slot's own person and number.
+    expect(engine.expandTargets({ ...imperative, person: 3 }).map(target => target.subject)).toEqual(['2sg.formal']);
+    expect(() => engine.expandTargets({ ...imperative, person: 2, number: 'singular' })).toThrow(invalid('INVALID_TARGET'));
+  });
+
+  it('lists only the slots the query selects', () => {
+    // 2sg.formal is not a default slot of the toy, so a query without a subject does not select it.
+    const engine = createEngine({ xx: { ...restricted(['2sg.formal', '2pl']), subjects: toySubjects } });
+    expect(engine.expandTargets(imperative).map(target => target.subject)).toEqual(['2pl']);
+    expect(engine.expandTargets({ ...imperative, subject: '2sg.formal' }).map(target => target.subject)).toEqual(['2sg.formal']);
+  });
+
+  it('leaves entries without slots as they are, and the toy imperative lists its slot', () => {
+    expect(toyCatalogue.find(entry => entry.mood === 'imperative')!.slots).toEqual(['2sg']);
+    expect(toy.expandTargets(imperative).map(target => target.subject)).toEqual(['2sg']);
+    expect(toy.expandTargets({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'past' }).map(target => target.subject))
+      .toEqual(['1sg', '2sg', '3sg', '1pl', '2pl', '3pl']);
+  });
+
+  it('rejects an entry that lists a slot the pack does not declare', () => {
+    expect(() => createEngine({ xx: restricted(['2sg', 'du']) }))
+      .toThrow(invalid('INVALID_REQUEST', 'The xx pack lists the subject slot du in imperative/present, but does not declare it.'));
+    expect(() => createEngine({ xx: { ...restricted(['2sg']), subjects: [] } }))
+      .toThrow(invalid('INVALID_REQUEST', 'The xx pack lists the subject slot 2sg in imperative/present, but does not declare it.'));
+  });
+});
+
+describe('subject slots the core cannot trust', () => {
+  it('fails when subjectsFor returns a slot the pack does not declare', () => {
+    const ghost: SubjectSlot = { ...slot('3sg'), id: 'ghost' };
+    const engine = createEngine({ xx: { ...toyPack, subjectsFor: () => [slot('3sg'), ghost] } });
+    expect(() => engine.conjugate(present)).toThrow(invalid('GENERATION_FAILURE', expect.stringMatching(/ghost.*xx|xx.*ghost/u)));
+    expect(() => engine.expandTargets(present)).toThrow(invalid('GENERATION_FAILURE'));
+  });
+
+  it.each(['active', 'passive', 'a/b', '/'])('rejects a slot id that would collide with another target-key segment: %s', id => {
+    expect(() => createEngine({ xx: { ...toyPack, subjects: [...toySubjects, { ...slot('3sg.f'), id }] } }))
+      .toThrow(invalid('INVALID_REQUEST', expect.stringContaining(`"${id}"`)));
   });
 });
 

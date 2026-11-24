@@ -27,6 +27,7 @@ export interface DutchSpec extends LanguageSpec {
   auxiliary: 'hebben' | 'zijn';
   classHint: DutchClassHint;
   stems: DutchStemHints;
+  subject: never;
   context: {
     readonly pronoun?: DutchPronoun;
     readonly inversion?: boolean;

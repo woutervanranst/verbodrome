@@ -1,5 +1,6 @@
 import type { DerivationStep } from './core/derivation.js';
-import type { Agreement, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
+import type { Agreement, Case, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
+import type { LanguageSpec } from './core/spec.js';
 import type { Language, LanguageRegistry } from './languages/registry.js';
 
 export type { DerivationStep } from './core/derivation.js';
@@ -22,33 +23,39 @@ export type TenseFor<L extends Language, M extends MoodFor<L> = MoodFor<L>> =
 export type Mood = MoodFor<Language>;
 export type Tense = TenseFor<Language>;
 
-type FiniteConstraints = {
+/** What only a finite query has: a person and number, and a subject slot (`never` for a language without slots). */
+type FiniteConstraints<S extends LanguageSpec> = {
   readonly person?: Person;
   readonly number?: GrammaticalNumber;
+  readonly subject?: S['subject'];
 };
 
 type NonFiniteConstraints = {
   readonly person?: never;
   readonly number?: never;
+  readonly subject?: never;
 };
 
-type TargetQuery<L extends Language> =
-  | ({ readonly mood?: undefined; readonly tense?: TensesFor<L>[keyof TensesFor<L>] } & FiniteConstraints)
+type TargetQuery<S extends LanguageSpec> =
+  | ({ readonly mood?: undefined; readonly tense?: S['tenses'][keyof S['tenses']] } & FiniteConstraints<S>)
   | {
-    [M in keyof TensesFor<L>]: {
+    [M in keyof S['tenses']]: {
       readonly mood: M;
-      readonly tense?: TensesFor<L>[M];
-    } & (M extends LanguageRegistry[L]['nonFinite'] ? NonFiniteConstraints : FiniteConstraints);
-  }[keyof TensesFor<L>];
+      readonly tense?: S['tenses'][M];
+    } & (M extends S['nonFinite'] ? NonFiniteConstraints : FiniteConstraints<S>);
+  }[keyof S['tenses']];
 
-/** The options of language `L`; over a union of languages, the union of each language's options. */
-export type ConjugationOptionsFor<L extends Language> = L extends Language ? {
+/** The options of a language called `L` whose registry entry is `S`. */
+export type ConjugationOptionsOf<L extends string, S extends LanguageSpec> = {
   readonly language: L;
   readonly infinitive: string;
-  readonly auxiliary?: LanguageRegistry[L]['auxiliary'];
-  readonly classHint?: LanguageRegistry[L]['classHint'];
-  readonly stems?: LanguageRegistry[L]['stems'];
-} & LanguageRegistry[L]['context'] & TargetQuery<L> : never;
+  readonly auxiliary?: S['auxiliary'];
+  readonly classHint?: S['classHint'];
+  readonly stems?: S['stems'];
+} & S['context'] & TargetQuery<S>;
+
+/** The options of language `L`; over a union of languages, the union of each language's options. */
+export type ConjugationOptionsFor<L extends Language> = L extends Language ? ConjugationOptionsOf<L, LanguageRegistry[L]> : never;
 
 export type FrenchConjugationOptions = ConjugationOptionsFor<'fr'>;
 export type DutchConjugationOptions = ConjugationOptionsFor<'nl'>;
@@ -69,7 +76,8 @@ export interface ResolvedTarget {
 }
 
 export type PartRole = 'moodMarker' | 'subject' | 'reflexivePronoun' | 'auxiliary' | 'lexicalVerb' | 'particle' | 'linker';
-export type VerbForm = 'finite' | 'infinitive' | 'presentParticiple' | 'pastParticiple';
+export type VerbForm =
+  | 'finite' | 'infinitive' | 'presentParticiple' | 'pastParticiple' | 'gerund' | 'gerundive' | 'supine' | 'futureParticiple';
 export type Onset = 'vowel' | 'consonant' | 'muteH' | 'aspiratedH';
 
 export interface PartFeatures {
@@ -79,6 +87,11 @@ export interface PartFeatures {
   readonly number: GrammaticalNumber | null;
   readonly gender: Gender | null;
   readonly verbForm: VerbForm | null;
+  /** The voice of the word's own cell; absent for an active word, since active is the unmarked voice. */
+  readonly voice?: Voice | null;
+  /** The case of a declined word (a Latin participle), from its agreement. */
+  readonly case?: Case | null;
+  readonly aspect?: 'progressive' | null;
 }
 
 export interface ConjugationPart {
@@ -117,7 +130,7 @@ export interface ConjugatedForm extends GeneratedForm {
 
 export interface UnavailableTarget {
   readonly target: ResolvedTarget;
-  readonly reason: 'impersonal' | 'defective' | 'noImperative';
+  readonly reason: 'impersonal' | 'defective' | 'noImperative' | 'noPassive';
   readonly explanation: string;
   readonly source: string;
   readonly step?: DerivationStep;
@@ -132,6 +145,12 @@ export interface VerbAnalysis {
   readonly auxiliaries: readonly string[];
   readonly assumptions: readonly string[];
   readonly steps?: readonly DerivationStep[];
+  /**
+   * For a lemma with several paradigms: this paradigm's `pattern` and `condition` tags, the labels its forms carry as
+   * `variant.pattern` and `variant.condition`. Absent for a lemma with one paradigm, and when the paradigm has no such tag.
+   */
+  readonly pattern?: string;
+  readonly condition?: string;
   /**
    * The analyses of the lemma's other paradigms, in order, each without `alternatives` of its own. Absent when the
    * lemma has one paradigm.

@@ -1,7 +1,10 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import type { ConjugationResult } from '../src/index.js';
+import { formLabel, targetLabel } from '../src/cli-labels.js';
+import { createEngine } from '../src/core/engine.js';
+import type { ConjugatedForm, ConjugationResult, ResolvedTarget } from '../src/index.js';
+import { toyPack } from './toy/pack.js';
 
 const cli = fileURLToPath(new URL('../dist/cli.js', import.meta.url));
 const exact = ['fr', 'aimer', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'plural'];
@@ -177,5 +180,43 @@ describe('compiled CLI', () => {
     const common = run(['--help']).stdout.split('\n\n').find(section => section.startsWith('Common options:'));
     expect(common).toContain('--explain');
     expect(common).toContain('--locale <en|nl>');
+  });
+});
+
+describe('form and target labels', () => {
+  const target: ResolvedTarget = { mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null };
+  const labels = { mood: 'Indicative', tense: 'Present' };
+  const variant = { orthography: 'both', auxiliary: null, pattern: null, usage: 'standard', condition: null } as const;
+  const formOf = (over: Partial<ConjugatedForm>): ConjugatedForm => ({
+    target, parts: [], variant, ruleIds: [], text: '', preferred: true, labels, ...over,
+  });
+
+  it('prints what it always printed for a target without voice, case, region or subject', () => {
+    expect(formLabel(formOf({}))).toBe('Indicative / Present / 3 singular');
+    expect(targetLabel(target, labels)).toBe('Indicative / Present / 3 singular');
+    const participle = formOf({
+      target: { ...target, person: null, number: null, gender: 'feminine', agreement: { gender: 'feminine', number: 'plural' } },
+      variant: { ...variant, orthography: 'rectified', pattern: 'y-to-i', usage: 'dated', condition: 'old' },
+    });
+    expect(formLabel(participle)).toBe('Indicative / Present / feminine / participle feminine plural / rectified / y-to-i / dated / old');
+  });
+
+  it('appends voice, agreement case, region and subject, in that order, only when present', () => {
+    const everything = formOf({
+      target: { ...target, voice: 'passive', subject: '3sg.f', agreement: { gender: 'feminine', number: 'singular', case: 'ablative' } },
+      variant: { ...variant, pattern: 'long', usage: 'literary', condition: 'old', region: 'AT' },
+    });
+    expect(formLabel(everything)).toBe('Indicative / Present / 3 singular / participle feminine singular / long / literary / old / passive / ablative / AT / 3sg.f');
+    expect(formLabel(formOf({ variant: { ...variant, region: 'AT' } }))).toBe('Indicative / Present / 3 singular / AT');
+    expect(formLabel(formOf({ variant: { ...variant, region: null } }))).toBe('Indicative / Present / 3 singular');
+    expect(formLabel(formOf({ target: { ...target, voice: null } }))).toBe('Indicative / Present / 3 singular');
+    // An unavailable target has no variant, so no region.
+    expect(targetLabel({ ...target, voice: 'passive', subject: '3sg.f' }, labels)).toBe('Indicative / Present / 3 singular / passive / 3sg.f');
+  });
+
+  it('labels the forms of a language with voices and subject slots', () => {
+    const toy = createEngine({ xx: toyPack });
+    const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' }).forms;
+    expect(forms.map(formLabel)).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
   });
 });

@@ -15,13 +15,16 @@ export const core = {
   'term.case.dative': 'dative',
   'term.case.accusative': 'accusative',
   'term.case.ablative': 'ablative',
+  'term.case.vocative': 'vocative',
   // {text} the form, {mood} and {tense} its native labels.
   'explain.summary.form': '{text}: {mood}, {tense}',
   // {mood} and {tense} the native labels of the target, {reason} the UnavailableTarget reason.
-  'explain.summary.unavailable': '{mood}, {tense}: unavailable ({reason, select, impersonal {impersonal} defective {defective} noImperative {no imperative} other {other}})',
+  'explain.summary.unavailable': '{mood}, {tense}: unavailable ({reason, select, impersonal {impersonal} defective {defective} noImperative {no imperative} noPassive {no passive} other {other}})',
   // {lemma} the verb, {classification} the class it follows.
   'explain.summary.analysis': '{lemma}: {classification}',
   'explain.section.form': 'The whole form',
   'explain.section.availability': 'Availability',
   'explain.section.classify': 'The verb',
+  // {pattern} the paradigm's pattern label, for a verb with several paradigms.
+  'explain.section.classify.paradigm': 'The verb ({pattern})',
 } as const;

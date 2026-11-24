@@ -1,7 +1,9 @@
 import { conjugationOptions } from '../src/index.js';
 import type { LanguageRegistry } from '../src/languages/registry.js';
+import type { LanguageSpec } from '../src/core/spec.js';
 import type {
-  ConjugationOptions, ConjugationOptionsBuilder, DutchConjugationOptions, FrenchConjugationOptions, Language, Mood, MoodFor, TenseFor,
+  Case, ConjugationOptions, ConjugationOptionsBuilder, ConjugationOptionsOf, DutchConjugationOptions, FrenchConjugationOptions, Language,
+  Mood, MoodFor, PartFeatures, TenseFor, UnavailableTarget, VerbForm,
 } from '../src/index.js';
 
 export const french: FrenchConjugationOptions = conjugationOptions('fr', 'aller').indicative('perfect').gender('feminine').build();
@@ -26,7 +28,47 @@ export const frenchNeuter: ConjugationOptions = { language: 'fr', infinitive: 'a
 // @ts-expect-error French participles do not agree in the neuter.
 export const frenchNeuterAgreement: ConjugationOptions = { language: 'fr', infinitive: 'aimer', agreement: { gender: 'neuter' } };
 
+// A language without subject slots has no `subject` option, in a query or on a builder.
+// @ts-expect-error French declares no subject slots.
+export const frenchSubject: ConjugationOptions = { language: 'fr', infinitive: 'aimer', subject: 'x' };
+// @ts-expect-error Dutch declares no subject slots.
+export const dutchSubject: ConjugationOptions = { language: 'nl', infinitive: 'werken', mood: 'indicative', subject: 'x' };
+
+/** The registry shape of a language whose slots are `1sg`, `2sg` and `3sg`, with one non-finite mood. */
+interface SlottedSpec extends LanguageSpec {
+  tenses: { indicative: 'present' | 'past'; infinitive: 'present' };
+  nonFinite: 'infinitive';
+  auxiliary: never;
+  classHint: never;
+  stems: object;
+  context: object;
+  subject: '1sg' | '2sg' | '3sg';
+}
+type SlottedOptions = ConjugationOptionsOf<'xx', SlottedSpec>;
+export const slotted: SlottedOptions[] = [
+  { language: 'xx', infinitive: 'a', subject: '2sg' },
+  { language: 'xx', infinitive: 'a', mood: 'indicative', tense: 'past', person: 3, subject: '3sg' },
+  { language: 'xx', infinitive: 'a', mood: 'infinitive' },
+];
+// @ts-expect-error A slot the language does not declare.
+export const unknownSlot: SlottedOptions = { language: 'xx', infinitive: 'a', subject: '4sg' };
+// @ts-expect-error A non-finite query has no subject, as it has no person.
+export const nonFiniteSubject: SlottedOptions = { language: 'xx', infinitive: 'a', mood: 'infinitive', subject: '1sg' };
+
+// The vocabulary every language shares: Latin's cases and extra verb forms, and the progressive aspect.
+export const vocative: Case = 'vocative';
+export const verbForms: VerbForm[] = ['finite', 'infinitive', 'presentParticiple', 'pastParticiple', 'gerund', 'gerundive', 'supine', 'futureParticiple'];
+export const noPassive: UnavailableTarget['reason'] = 'noPassive';
+export const progressive: Partial<PartFeatures> = { voice: 'passive', case: 'vocative', aspect: 'progressive' };
+export const unmarked: Partial<PartFeatures> = { voice: null, case: null, aspect: null };
+// @ts-expect-error Only the progressive aspect is named.
+export const perfectiveAspect: Partial<PartFeatures> = { aspect: 'perfective' };
+
 export function checkBuilderLanguageConstraints(): void {
+  // @ts-expect-error French has no subject slots to name.
+  conjugationOptions('fr', 'aimer').subject('x');
+  // @ts-expect-error Dutch has no subject slots to name.
+  conjugationOptions('nl', 'werken').subject('x');
   // @ts-expect-error Dutch builders cannot set French gender.
   conjugationOptions('nl', 'werken').gender('feminine');
   // @ts-expect-error French builders cannot set a Dutch pronoun.

@@ -24,7 +24,11 @@ export interface LanguageEngine {
  * subject addresses: a formal 'you' that conjugates as a third person is a slot with person 3.
  */
 export interface SubjectSlot {
-  /** Unique within the pack, e.g. '3sg.f', '2sg.formal'; the value of the `subject` option and of `ResolvedTarget.subject`. */
+  /**
+   * Unique within the pack, e.g. '3sg.f', '2sg.formal'; the value of the `subject` option and of `ResolvedTarget.subject`.
+   * It becomes a segment of the target key, so it must not contain `/` or equal a voice name (`active`, `passive`);
+   * `createEngine` rejects such a pack.
+   */
   readonly id: string;
   readonly person: Person;
   readonly number: GrammaticalNumber;
@@ -46,10 +50,23 @@ export interface CatalogueEntry {
    * voice dimension and its targets have no `voice`. A pack with voices declares a `voice` enum option to filter by.
    */
   readonly voices?: readonly Voice[];
+  /**
+   * For a finite entry of a pack with `subjects`: the ids of the slots the entry has, which replace `persons` for
+   * expansion (`persons` is then ignored, though `finite` must still be true). The entry expands to those of the query's
+   * selected slots (`subjectsFor`) whose id is listed, in the pack's order, each with its own person and number, so a
+   * formal slot that governs another person is there and a default slot with the same person and number that is not
+   * listed is not (the German imperative lists du, wir, ihr and Sie, never the third-person plural). Absent: the entry
+   * has every selected slot of each of its `persons`. `createEngine` rejects an id the pack does not declare.
+   */
+  readonly slots?: readonly string[];
 }
 
 export interface PackRendering {
-  onset(text: string, flags: { readonly aspiratedH?: boolean }): Onset;
+  /**
+   * The onset of `text`. `flags` are the pack's own phonological hints for the word (French reads `aspiratedH`); a
+   * rendering reads the flags it knows and ignores the rest.
+   */
+  onset(text: string, flags: Readonly<Record<string, boolean>>): Onset;
   /** Text of `left` when it fuses with `right` (French elision), or null. The renderer then joins without a space. */
   sandhi(left: ConjugationPart, right: ConjugationPart): string | null;
   bareOmits(part: ConjugationPart): boolean;
