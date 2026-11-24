@@ -2,6 +2,7 @@
 import { parseArgs } from 'node:util';
 import type { ParseArgsOptionsConfig } from 'node:util';
 import { conjugate, ConjugationError, languages, parseConjugationOptions, renderParts } from './index.js';
+import { agreementKeys } from './core/options.js';
 import type { FieldSpec } from './core/options.js';
 import { packs } from './languages/index.js';
 import type { ConjugatedForm, ResolvedTarget } from './types.js';
@@ -64,7 +65,7 @@ function flagUsage({ name, spec }: Flag): string {
 
 function flagNote({ spec }: Flag): string {
   switch (spec.kind) {
-    case 'agreement': return 'keys: gender, number';
+    case 'agreement': return `keys: ${agreementKeys(spec).join(', ')}`;
     case 'stems': return `keys: ${[...spec.words, ...Object.keys(spec.enums)].join(', ')}`;
     default: return '';
   }

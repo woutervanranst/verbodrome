@@ -113,6 +113,8 @@ describe('compiled CLI', () => {
     expect(french).toContain('--orthography <rectified|traditional>');
     expect(french).toContain('--class <er|ir|re>');
     expect(french).toContain('--agreement <JSON>');
+    expect(french).toMatch(/--agreement <JSON>\s+keys: gender, number\n/u);
+    expect(french).toMatch(/--preceding-direct-object <JSON>\s+keys: gender, number\n/u);
     expect(french).not.toContain('--pronoun');
     expect(sections.find(section => section.startsWith('Common options:'))).toContain('--mood <id>');
   });

@@ -1,5 +1,6 @@
 import { ConjugationError } from '../errors.js';
 import type { ConjugationErrorCode } from '../errors.js';
+import type { Case, Gender } from './grammar.js';
 import { packFor } from './pack.js';
 import type { LanguagePack } from './pack.js';
 
@@ -10,8 +11,11 @@ export type FieldSpec =
   | { readonly kind: 'boolean' }
   /** A string matching `pattern`; anything else throws `code` with `message`. Normalized like the infinitive. */
   | { readonly kind: 'word'; readonly pattern: RegExp; readonly code: ConjugationErrorCode; readonly message: string }
-  /** `{ gender?, number? }`; `required` demands both. */
-  | { readonly kind: 'agreement'; readonly required: boolean }
+  /**
+   * `{ gender?, number? }` with a gender from `genders`, plus `case?` from `cases` when the language declines its
+   * participles; `required` demands gender and number.
+   */
+  | { readonly kind: 'agreement'; readonly required: boolean; readonly genders: readonly Gender[]; readonly cases?: readonly Case[] }
   /** An object of stem `words` (each a grammatical stem) and `enums` (each one of the listed values); no other keys. */
   | { readonly kind: 'stems'; readonly words: readonly string[]; readonly enums: Readonly<Record<string, readonly unknown[]>> };
 
@@ -24,8 +28,19 @@ export interface OptionSchema {
 
 const infinitivePattern = /^[\p{L}\p{M}' -]+$/u;
 const stemPattern = /^[\p{L}\p{M}-]+$/u;
-const genders = ['masculine', 'feminine'];
 const numbers = ['singular', 'plural'];
+
+type AgreementSpec = Extract<FieldSpec, { kind: 'agreement' }>;
+
+/** The keys an agreement field accepts: gender and number, and case where the field declares cases. */
+export function agreementKeys(spec: AgreementSpec): readonly string[] {
+  return spec.cases ? ['gender', 'number', 'case'] : ['gender', 'number'];
+}
+
+/** `a and b`, `a, b and c`. */
+function listed(items: readonly string[]): string {
+  return items.length > 1 ? `${items.slice(0, -1).join(', ')} and ${items.at(-1)}` : items.join('');
+}
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === 'object' && !Array.isArray(value);
@@ -48,14 +63,16 @@ function member(value: unknown, choices: readonly unknown[], key: string): void 
   }
 }
 
-function agreement(value: unknown, required: boolean, key: string): void {
+function agreement(value: unknown, spec: AgreementSpec, key: string): void {
   if (value === undefined) return;
-  if (!isRecord(value) || Object.keys(value).some(k => !['gender', 'number'].includes(k))) {
-    throw new ConjugationError('INVALID_REQUEST', `${key} must contain only gender and number.`);
+  const keys = agreementKeys(spec);
+  if (!isRecord(value) || Object.keys(value).some(k => !keys.includes(k))) {
+    throw new ConjugationError('INVALID_REQUEST', `${key} must contain only ${listed(keys)}.`);
   }
-  member(value.gender, genders, `${key}.gender`);
+  member(value.gender, spec.genders, `${key}.gender`);
   member(value.number, numbers, `${key}.number`);
-  if (required && (value.gender === undefined || value.number === undefined)) {
+  if (spec.cases) member(value.case, spec.cases, `${key}.case`);
+  if (spec.required && (value.gender === undefined || value.number === undefined)) {
     throw new ConjugationError('INVALID_REQUEST', `${key} requires gender and number.`);
   }
 }
@@ -84,7 +101,7 @@ function validateField(key: string, spec: FieldSpec, value: unknown, language: s
         throw new ConjugationError(spec.code, spec.message);
       }
       return;
-    case 'agreement': return agreement(value, spec.required, key);
+    case 'agreement': return agreement(value, spec, key);
     case 'stems': return stems(value, spec, language);
   }
 }

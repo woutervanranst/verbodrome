@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import type { LanguagePack } from '../src/core/pack.js';
 import { expandTargets } from '../src/catalogue.js';
 import { ConjugationError } from '../src/errors.js';
-import { parseOptions } from '../src/core/options.js';
+import { agreementKeys, parseOptions } from '../src/core/options.js';
+import type { FieldSpec } from '../src/core/options.js';
 import { packs } from '../src/languages/index.js';
 import { conjugationOptions, parseConjugationOptions } from '../src/options.js';
 
@@ -96,6 +97,28 @@ describe('grammatical options', () => {
       .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'tag must be letters.' }));
     expect(() => parse({ language: 'xx', infinitive: 'ab', mode: 'b', flag: true }))
       .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'b excludes flag.' }));
+  });
+
+  it('validates agreement fields against the genders and cases the pack declares', () => {
+    const invalid = (message: string) => expect.objectContaining({ code: 'INVALID_REQUEST', message });
+    expect(() => parseConjugationOptions({ language: 'fr', infinitive: 'aimer', agreement: { gender: 'neuter' } }))
+      .toThrow(invalid('Invalid agreement.gender: neuter.'));
+    expect(() => parseConjugationOptions({ language: 'fr', infinitive: 'aimer', precedingDirectObject: { gender: 'neuter', number: 'singular' } }))
+      .toThrow(invalid('Invalid precedingDirectObject.gender: neuter.'));
+    expect(() => parseConjugationOptions({ language: 'fr', infinitive: 'aimer', agreement: { gender: 'feminine', case: 'ablative' } }))
+      .toThrow(invalid('agreement must contain only gender and number.'));
+
+    const declined: FieldSpec = {
+      kind: 'agreement', required: false, genders: ['masculine', 'feminine', 'neuter'], cases: ['nominative', 'ablative'],
+    };
+    const xx = { ...packs.fr, language: 'xx', options: { fields: { agreement: declined } } } satisfies LanguagePack;
+    const parse = (agreement: unknown) => parseOptions({ xx }, { language: 'xx', infinitive: 'ab', agreement });
+    expect(parse({ gender: 'neuter', number: 'singular', case: 'ablative' }))
+      .toEqual({ language: 'xx', infinitive: 'ab', agreement: { gender: 'neuter', number: 'singular', case: 'ablative' } });
+    expect(() => parse({ gender: 'neuter', case: 'locative' })).toThrow(invalid('Invalid agreement.case: locative.'));
+    expect(() => parse({ gender: 'neuter', mood: 'x' })).toThrow(invalid('agreement must contain only gender, number and case.'));
+    expect(agreementKeys(declined)).toEqual(['gender', 'number', 'case']);
+    expect(agreementKeys(packs.fr.options.fields.agreement as Extract<FieldSpec, { kind: 'agreement' }>)).toEqual(['gender', 'number']);
   });
 
   it('keeps the shared hint checks in the pack schemas', () => {

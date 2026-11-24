@@ -1,7 +1,9 @@
 /**
  * An invented language (`xx`) that exercises every hook of the staged engine. It is not a model of any language and is
  * never imported from `src/`. Infinitives end in -a; the present takes -o -as -at -amos -etes -ant (passive: -ur- before
- * them); the perfect is haba (or esta) + a participle in -ado, which agrees in gender (-ada) except after haba.
+ * them); the present participle ends in -ante; the perfect is haba (or esta) + a past participle in -ado, which agrees
+ * in gender (-ada) standing alone, in the passive and after esta. Stems in -ph have a traditional and a rectified
+ * (-f) spelling; canta has a literary long 1pl ending.
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';
@@ -12,7 +14,7 @@ import type { JunctureRule } from '../../src/core/juncture.js';
 import { allPersons, moodEntries, noPersons, variantRank } from '../../src/core/pack.js';
 import type { CatalogueEntry, LanguagePack, PackRendering } from '../../src/core/pack.js';
 import type { ChainElement, Periphrasis } from '../../src/core/periphrasis.js';
-import { stagedEngine } from '../../src/core/staged.js';
+import { stagedEngine, validateGrammar } from '../../src/core/staged.js';
 import type { Cell, LexemeBase, StagedGrammar } from '../../src/core/staged.js';
 import { ConjugationError } from '../../src/errors.js';
 import { grammaticalPart, itemAt } from '../../src/parts.js';
@@ -27,10 +29,13 @@ export const toyRules = defineRules({
   'xx.stem.drop-a': { stage: 'stem' },
   'xx.stem.listed': { stage: 'stem', kind: 'lexical' },
   'xx.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
+  'xx.end.long': { stage: 'ending', params: { ending: 'text' } },
   'xx.end.passive': { stage: 'ending' },
   'xx.end.infinitive': { stage: 'ending' },
+  'xx.end.present-participle': { stage: 'ending' },
   'xx.end.participle': { stage: 'ending', params: { ending: 'text' } },
-  'xx.orth.c-qu': { stage: 'orthography' },
+  'xx.orth.c-qu': { stage: 'orthography', params: { vowel: 'text' } },
+  'xx.orth.ph-f': { stage: 'orthography' },
   'xx.periphrasis.perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
   'xx.periphrasis.passive-perfect': { stage: 'periphrasis' },
   'xx.periphrasis.future': { stage: 'periphrasis' },
@@ -48,6 +53,8 @@ export interface ToyLexeme extends LexemeBase {
   /** Stems the lexicon lists for single present cells, keyed `person.number`. */
   readonly listedStems: Readonly<Record<string, string>>;
   readonly hasParticiple: boolean;
+  /** Has the literary long 1pl present ending -amusse beside -amos. */
+  readonly longPlural: boolean;
 }
 
 interface Entry {
@@ -56,6 +63,7 @@ interface Entry {
   readonly present?: readonly string[];
   readonly stems?: Readonly<Record<string, string>>;
   readonly noParticiple?: true;
+  readonly longPlural?: true;
 }
 
 const lexicon: Readonly<Record<string, Entry>> = {
@@ -68,6 +76,10 @@ const lexicon: Readonly<Record<string, Entry>> = {
   solea: { noParticiple: true },
   // Lists the 2pl stem the c-qu spelling rule already derives: two derivations of one form.
   roca: { stems: { '2.plural': 'roqu' } },
+  // A stem in -ph whose perfect auxiliary also has one: both words carry the spelling pair.
+  grapha: { auxiliaries: ['epha'] },
+  epha: {},
+  canta: { longPlural: true },
 };
 
 function lexemeOf(lemma: string): ToyLexeme {
@@ -85,6 +97,7 @@ function lexemeOf(lemma: string): ToyLexeme {
     present: entry.present ?? null,
     listedStems: entry.stems ?? {},
     hasParticiple: !entry.noParticiple,
+    longPlural: entry.longPlural ?? false,
   };
 }
 
@@ -98,14 +111,28 @@ function slot(cell: FiniteCell): number {
   return (cell.number === 'plural' ? 3 : 0) + cell.person - 1;
 }
 
-const cQu: JunctureRule<{ readonly lexeme: ToyLexeme; readonly cell: Cell }> = {
+type SpellingContext = { readonly lexeme: ToyLexeme; readonly cell: Cell };
+
+/** Stem-final c is written qu before e. */
+const cQu: JunctureRule<SpellingContext> = {
   info: toyRules['xx.orth.c-qu'],
   apply: j => j.stem.endsWith('c') && j.ending.startsWith('e') ? one({ stem: `${j.stem.slice(0, -1)}qu`, ending: j.ending }) : null,
+  describe: (_, after) => ({ vowel: after.ending.charAt(0) }),
 };
 
-function ending(cell: Cell, stem: string): Fork<string> {
+/** Stem-final ph: kept in the traditional spelling, written f in the rectified one. */
+const phF: JunctureRule<SpellingContext> = {
+  info: toyRules['xx.orth.ph-f'],
+  apply: j => j.stem.endsWith('ph') ? [
+    ...one(j, [], { orthography: 'traditional' }),
+    ...one({ stem: `${j.stem.slice(0, -2)}f`, ending: j.ending }, [], { orthography: 'rectified' }),
+  ] : null,
+};
+
+function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
   if (cell.kind === 'nonFinite') {
     if (cell.form === 'infinitive') return one('a', [step(toyRules['xx.end.infinitive'], stem, `${stem}a`)]);
+    if (cell.form === 'presentParticiple') return one('ante', [step(toyRules['xx.end.present-participle'], stem, `${stem}ante`)]);
     if (cell.form !== 'participle') throw new ConjugationError('GENERATION_FAILURE', `No toy form ${cell.form}.`);
     const text = cell.agreement?.gender === 'feminine' ? 'ada' : 'ado';
     return one(text, [step(toyRules['xx.end.participle'], stem, stem + text, { ending: text })]);
@@ -113,12 +140,14 @@ function ending(cell: Cell, stem: string): Fork<string> {
   if (cell.tense !== 'present') throw new ConjugationError('GENERATION_FAILURE', `No toy simple tense ${cell.tense}.`);
   const personal = itemAt(presentEndings, slot(cell));
   const marker = cell.voice === 'passive' ? 'ur' : '';
-  return one(marker + personal, [
+  const regular = one(marker + personal, [
     ...(marker ? [step(toyRules['xx.end.passive'], stem, stem + marker)] : []),
     step(toyRules['xx.end.present'], stem + marker, stem + marker + personal, {
       ending: personal, person: { term: 'person', id: String(cell.person) }, number: { term: 'number', id: cell.number },
     }),
   ]);
+  if (!lexeme.longPlural || marker || slot(cell) !== 3) return regular;
+  return [...regular, ...one('amusse', [step(toyRules['xx.end.long'], stem, `${stem}amusse`, { ending: 'amusse' })], { usage: 'literary', pattern: 'long' })];
 }
 
 const present = { mood: 'indicative', tense: 'present' } as const;
@@ -145,6 +174,7 @@ const periphrases: readonly Periphrasis[] = [
 
 const nonFiniteFeatures: Readonly<Record<string, Partial<PartFeatures>>> = {
   infinitive: { mood: 'infinitive', tense: 'present', verbForm: 'infinitive' },
+  presentParticiple: { mood: 'participle', tense: 'present', verbForm: 'presentParticiple' },
   participle: { mood: 'participle', tense: 'past', verbForm: 'pastParticiple' },
 };
 
@@ -155,9 +185,11 @@ export const toyRendering: PackRendering = {
 };
 
 const clause: ClauseGrammar<ToyLexeme> = {
-  /** The participle agrees in gender with the subject, except after haba. */
+  /** Only the past participle agrees in gender: standing alone, in the passive and after esta, never after haba. */
   agreements({ target, auxiliary }) {
-    if (auxiliary === 'haba') return one(null);
+    // Asked for a simple non-finite target, or for the past participle of a compound tense.
+    const pastParticiple = target.mood === 'participle' ? target.tense === 'past' : target.mood !== 'infinitive';
+    if (!pastParticiple || (auxiliary !== null && auxiliary !== 'esta')) return one(null);
     const number = target.number ?? 'singular';
     return genders.flatMap(gender =>
       one({ gender, number }, [step(toyRules['xx.agree.gender'], null, null, { gender: { term: 'gender', id: gender } })]));
@@ -199,7 +231,7 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
   lexemeOf,
   cellOf(target) {
     if (target.mood === 'infinitive') return { kind: 'nonFinite', form: 'infinitive' };
-    if (target.mood === 'participle') return { kind: 'nonFinite', form: 'participle' };
+    if (target.mood === 'participle') return { kind: 'nonFinite', form: target.tense === 'present' ? 'presentParticiple' : 'participle' };
     if (target.mood !== 'indicative' || target.tense !== 'present' || target.person === null || target.number === null) return null;
     // Active is the unmarked voice, so an active cell is the same cell a periphrasis asks for.
     return {
@@ -208,7 +240,8 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
     };
   },
   availability(lexeme, target) {
-    if (lexeme.hasParticiple || (target.tense !== 'perfect' && target.mood !== 'participle')) return null;
+    const needsParticiple = target.tense === 'perfect' || (target.mood === 'participle' && target.tense === 'past');
+    if (lexeme.hasParticiple || !needsParticiple) return null;
     return { reason: 'defective', step: step(toyRules['xx.avail.no-participle'], null, null), source: 'Toy grammar §4' };
   },
   cell(lexeme, cell) {
@@ -222,11 +255,12 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
     const listed = cell.kind === 'finite' ? lexeme.listedStems[`${cell.person}.${cell.number}`] : undefined;
     return listed === undefined ? derived : [...derived, ...one(listed, [step(toyRules['xx.stem.listed'], lexeme.base, listed)])];
   },
-  ending: (_lexeme, cell, stem) => ending(cell, stem),
-  orthography: [cQu],
+  ending,
+  orthography: [cQu, phF],
   periphrases,
   clause,
 };
+validateGrammar(toyGrammar);
 
 const voiced = (entry: CatalogueEntry): CatalogueEntry =>
   entry.tense === 'present' || entry.tense === 'perfect' ? Object.freeze({ ...entry, voices: Object.freeze(['active', 'passive'] as const) }) : entry;
@@ -234,7 +268,7 @@ const voiced = (entry: CatalogueEntry): CatalogueEntry =>
 export const toyCatalogue: readonly CatalogueEntry[] = [
   ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['perfect', 'Perfect'], ['future', 'Future']]).map(voiced),
   ...moodEntries('infinitive', 'Infinitive', noPersons, [['present', 'Present']]),
-  ...moodEntries('participle', 'Participle', noPersons, [['past', 'Past']]),
+  ...moodEntries('participle', 'Participle', noPersons, [['present', 'Present'], ['past', 'Past']]),
 ];
 
 export const toyPack: LanguagePack<'xx'> = {

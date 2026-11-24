@@ -1,12 +1,10 @@
 import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
-import { itemAt } from '../parts.js';
 import type {
   ConjugationPart, FormVariant, GeneratedForm, GenerationResult, Mood, ResolvedTarget, Tense, UnavailableTarget, VerbAnalysis,
 } from '../types.js';
 import type { ChainWord, ClauseContext, ClauseGrammar } from './clause.js';
 import type { DerivationStep } from './derivation.js';
-import { targetKey } from './engine.js';
 import { chain, combine, one } from './fork.js';
 import type { Fork, Outcome } from './fork.js';
 import type { Agreement, GrammaticalNumber, Person, Voice } from './grammar.js';
@@ -15,6 +13,7 @@ import type { JunctureRule } from './juncture.js';
 import type { PackRendering } from './pack.js';
 import { periphrasesFor, periphrasisStep, usesPerfectAuxiliary } from './periphrasis.js';
 import type { ChainElement, Periphrasis, VerbRef } from './periphrasis.js';
+import { targetKey } from './target.js';
 
 /** What every staged grammar knows about a verb; a grammar extends it with its own lexical data. */
 export interface LexemeBase {
@@ -29,7 +28,11 @@ export interface LexemeBase {
   readonly particle: { readonly text: string; readonly separable: boolean } | null;
 }
 
-/** One word-sized paradigm cell, in the pack's own mood, tense and form ids. */
+/**
+ * One word-sized paradigm cell, in the pack's own mood, tense and form ids. An absent `voice` means active, the
+ * unmarked voice: a grammar writes `voice` only for a marked voice (the passive), so the cell of an active target and
+ * the cell a finite chain element asks for (which never has a voice) are one cell and share one synthesis.
+ */
 export type Cell =
   | {
     readonly kind: 'finite'; readonly mood: string; readonly tense: string;
@@ -44,7 +47,12 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
   classify(query: Readonly<Record<string, unknown>>): Outcome<X>;
   /** Lexeme for an auxiliary or other verb named by a periphrasis. */
   lexemeOf(lemma: string): X;
-  /** Which simple cell a simple catalogue target maps to, or null when the target is periphrastic. */
+  /**
+   * Which simple cell a simple catalogue target maps to, or null when the target is periphrastic. Also called with the
+   * voiceless targets the engine builds for finite chain elements (the element's mood and tense; the target's person,
+   * number and gender; no agreement, no voice), for which it returns the active cell, or null if that mood and tense
+   * are periphrastic (periphrases do not nest).
+   */
   cellOf(target: ResolvedTarget): Cell | null;
   availability(lexeme: X, target: ResolvedTarget): Unavailability | null;
   /** Whole-word lexical override (suppletive cells); null = derive by stages. */
@@ -70,6 +78,31 @@ export function synthesize<X extends LexemeBase>(grammar: StagedGrammar<X>, lexe
         one(juncture.stem + juncture.ending))));
 }
 
+/**
+ * Checks a grammar's periphrasis declarations; a pack calls it once at module load. Throws GENERATION_FAILURE naming
+ * the periphrasis when its rule is not of stage 'periphrasis'; when its chain uses `perfectAuxiliary` but its rule does
+ * not declare exactly one param, `auxiliary` of kind text, or its chain does not use it and the rule declares params;
+ * or when its chain has no verb. Nesting depends on `cellOf`, so generation checks it.
+ */
+export function validateGrammar(grammar: StagedGrammar): void {
+  for (const periphrasis of grammar.periphrases) {
+    const { mood, tense, voice, rule } = periphrasis;
+    const fail = (reason: string): never => {
+      throw new ConjugationError('GENERATION_FAILURE', `Periphrasis ${mood}/${tense}${voice ? `/${voice}` : ''} (${rule.id}) ${reason}.`);
+    };
+    if (rule.stage !== 'periphrasis') fail(`has a rule of stage ${rule.stage}; it must be periphrasis`);
+    const params = Object.keys(rule.params);
+    if (usesPerfectAuxiliary(periphrasis)) {
+      if (params.length !== 1 || rule.params.auxiliary !== 'text') {
+        fail('uses perfectAuxiliary, so its rule must declare exactly one param: auxiliary, of kind text');
+      }
+    } else if (params.length) {
+      fail('has a chain without perfectAuxiliary, so its rule must declare no params');
+    }
+    if (!periphrasis.chain.some(element => 'verb' in element)) fail('has no verb in its chain');
+  }
+}
+
 /** A stable key for a cell, independent of property order. */
 function cellKey(cell: Cell): string {
   return cell.kind === 'finite'
@@ -92,11 +125,13 @@ interface Construction<X extends LexemeBase> {
   readonly slots: readonly Slot<X>[];
 }
 
-const usageOrder: readonly FormVariant['usage'][] = ['standard', 'literary', 'dated'];
+/** How marked each usage is; a new usage value does not compile until it is ranked here. */
+const usageRank: Readonly<Record<FormVariant['usage'], number>> = { standard: 0, literary: 1, dated: 2 };
 
 /** The most marked of the usages given: dated over literary over standard. */
 function markedUsage(...usages: readonly (FormVariant['usage'] | undefined)[]): FormVariant['usage'] {
-  return itemAt(usageOrder, Math.max(0, ...usages.map(usage => usage === undefined ? 0 : usageOrder.indexOf(usage))));
+  return usages.reduce<FormVariant['usage']>(
+    (marked, usage) => usage !== undefined && usageRank[usage] > usageRank[marked] ? usage : marked, 'standard');
 }
 
 /**
@@ -170,7 +205,11 @@ export function stagedEngine<X extends LexemeBase>(
 
   function constructions(target: ResolvedTarget): Construction<X>[] {
     const cell = grammar.cellOf(target);
-    if (cell !== null) return [{ periphrasis: null, auxiliary: null, slots: [{ kind: 'verb', role: 'lexicalVerb', lexeme, cell, agree: false }] }];
+    if (cell !== null) {
+      // A simple non-finite form asks the clause for agreement, as an `agree` chain element does; a finite one never does.
+      const slot: Slot<X> = { kind: 'verb', role: 'lexicalVerb', lexeme, cell, agree: cell.kind === 'nonFinite' };
+      return [{ periphrasis: null, auxiliary: null, slots: [slot] }];
+    }
     const periphrases = periphrasesFor(grammar.periphrases, target);
     if (!periphrases.length) {
       throw new ConjugationError('GENERATION_FAILURE', `No simple cell or periphrasis builds ${targetKey(target)}.`);

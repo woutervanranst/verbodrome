@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { createEngine, resolvedTargetKey, targetKey } from '../../src/core/engine.js';
+import { createEngine } from '../../src/core/engine.js';
+import { resolvedTargetKey, targetKey } from '../../src/core/target.js';
+import * as catalogue from '../../src/catalogue.js';
 import type { DerivationStep } from '../../src/core/derivation.js';
 import type { Periphrasis } from '../../src/core/periphrasis.js';
-import { stagedEngine, synthesize } from '../../src/core/staged.js';
+import { stagedEngine, synthesize, validateGrammar } from '../../src/core/staged.js';
 import type { Cell } from '../../src/core/staged.js';
 import { packs } from '../../src/languages/index.js';
 import type { ConjugatedForm, ResolvedTarget } from '../../src/types.js';
@@ -46,7 +48,40 @@ describe('staged engine', () => {
         rule: 'xx.end.present', stage: 'ending', kind: 'rule', before: 'plac', after: 'placetes',
         params: { ending: 'etes', person: { term: 'person', id: '2' }, number: { term: 'number', id: 'plural' } },
       },
-      { rule: 'xx.orth.c-qu', stage: 'orthography', kind: 'rule', before: 'placetes', after: 'plaquetes', params: {} },
+      { rule: 'xx.orth.c-qu', stage: 'orthography', kind: 'rule', before: 'placetes', after: 'plaquetes', params: { vowel: 'e' } },
+    ]);
+  });
+
+  it('records describe() params on a spelling step', () => {
+    expect(toyRules['xx.orth.c-qu'].params).toEqual({ vowel: 'text' });
+    const verb = only({ language: 'xx', infinitive: 'roca', mood: 'indicative', tense: 'present', person: 2, number: 'plural' }).parts.at(-1)!;
+    expect(verb.steps!.find(s => s.rule === 'xx.orth.c-qu')!.params).toEqual({ vowel: 'e' });
+  });
+
+  it('carries variant tags from words to the form', () => {
+    const variant = (form: ConjugatedForm) => [form.text, form.variant.orthography, form.variant.usage, form.variant.pattern];
+    const spelled = toy.conjugate({ language: 'xx', infinitive: 'grapha', mood: 'indicative', tense: 'present', person: 1, number: 'singular', voice: 'active' }).forms;
+    expect(spelled.map(variant)).toEqual([
+      ['mi grafo', 'rectified', 'standard', null],
+      ['mi grapho', 'traditional', 'standard', null],
+    ]);
+    expect(rules(spelled[0]!.parts.at(-1)!.steps)).toContain('xx.orth.ph-f');
+    expect(rules(spelled[1]!.parts.at(-1)!.steps)).not.toContain('xx.orth.ph-f');
+    const long = toy.conjugate({ language: 'xx', infinitive: 'canta', mood: 'indicative', tense: 'present', person: 1, number: 'plural', voice: 'active' }).forms;
+    expect(long.map(variant)).toEqual([
+      ['nos cantamos', 'both', 'standard', null],
+      ['nos cantamusse', 'both', 'literary', 'long'],
+    ]);
+  });
+
+  it('drops chains whose words carry conflicting tags', () => {
+    const cell: Cell = { kind: 'nonFinite', form: 'participle' };
+    expect(synthesize(toyGrammar, toyGrammar.lexemeOf('grapha'), cell).map(o => [o.value, o.tags.orthography]))
+      .toEqual([['graphado', 'traditional'], ['grafado', 'rectified']]);
+    const forms = toy.conjugate({ language: 'xx', infinitive: 'grapha', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular', voice: 'active' }).forms;
+    expect(forms.map(f => [f.text, f.variant.orthography, f.variant.auxiliary])).toEqual([
+      ['il efat grafado', 'rectified', 'epha'],
+      ['il ephat graphado', 'traditional', 'epha'],
     ]);
   });
 
@@ -74,12 +109,50 @@ describe('staged engine', () => {
       ['il estat venado', 'esta', { gender: 'masculine', number: 'singular' }],
       ['il estat venada', 'esta', { gender: 'feminine', number: 'singular' }],
     ]);
+    expect(texts({ language: 'xx', infinitive: 'zorpa', mood: 'indicative', tense: 'perfect', person: 1, number: 'plural', voice: 'active' }))
+      .toEqual(['nos habamos zorpado']);
     const feminine = result.forms[2]!;
     expect(feminine.steps).toEqual([
       { rule: 'xx.periphrasis.perfect', stage: 'periphrasis', kind: 'rule', before: null, after: null, params: { auxiliary: 'esta' } },
       { rule: 'xx.agree.gender', stage: 'clause', kind: 'rule', before: null, after: null, params: { gender: { term: 'gender', id: 'feminine' } } },
     ]);
     expect(feminine.parts.at(-1)!.features).toMatchObject({ gender: 'feminine', number: 'singular', verbForm: 'pastParticiple' });
+  });
+
+  it('forks a standalone participle over agreement', () => {
+    const forms = toy.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'participle', tense: 'past' }).forms;
+    expect(forms.map(f => [f.text, f.target.agreement])).toEqual([
+      ['zorpado', { gender: 'masculine', number: 'singular' }],
+      ['zorpada', { gender: 'feminine', number: 'singular' }],
+    ]);
+    for (const form of forms) expect(form.steps!.some(s => s.stage === 'periphrasis')).toBe(false);
+    expect(forms[1]!.steps).toEqual([
+      { rule: 'xx.agree.gender', stage: 'clause', kind: 'rule', before: null, after: null, params: { gender: { term: 'gender', id: 'feminine' } } },
+    ]);
+    expect(forms[1]!.parts[0]!.features).toMatchObject({ gender: 'feminine', number: 'singular', verbForm: 'pastParticiple' });
+  });
+
+  it('asks clause.agreements for non-finite simple targets only, and changes nothing on a null outcome', () => {
+    const asked: string[] = [];
+    const engine = toyWith({
+      ...toyGrammar,
+      clause: {
+        ...toyGrammar.clause,
+        agreements: context => {
+          asked.push(targetKey(context.target));
+          return toyGrammar.clause.agreements(context);
+        },
+      },
+    });
+    engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'indicative', tense: 'present' });
+    expect(asked).toEqual([]);
+    for (const tense of ['present', 'past']) engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'participle', tense });
+    engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'infinitive' });
+    expect(asked).toEqual(['participle/present/-/-', 'participle/past/-/-', 'infinitive/present/-/-']);
+    for (const [mood, tense, text] of [['infinitive', 'present', 'zorpa'], ['participle', 'present', 'zorpante']] as const) {
+      const forms = toy.conjugate({ language: 'xx', infinitive: 'zorpa', mood, tense }).forms;
+      expect(forms.map(f => [f.text, f.target.agreement, f.steps])).toEqual([[text, null, []]]);
+    }
   });
 
   it('places a separable particle and keeps it attached in non-finite forms', () => {
@@ -93,8 +166,8 @@ describe('staged engine', () => {
 
     expect(only({ language: 'xx', infinitive: 'apzorpa', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular' }).text)
       .toBe('il habat apzorpado');
-    const participle = toy.conjugate({ language: 'xx', infinitive: 'apzorpa', mood: 'participle' }).forms;
-    expect(participle.map(f => f.text)).toEqual(['apzorpado']);
+    const participle = toy.conjugate({ language: 'xx', infinitive: 'apzorpa', mood: 'participle', tense: 'past' }).forms;
+    expect(participle.map(f => f.text)).toEqual(['apzorpado', 'apzorpada']);
     expect(participle[0]!.parts).toHaveLength(1);
     expect(participle[0]!.parts[0]!.steps!.at(-1)).toEqual(
       { rule: 'xx.clause.particle-attached', stage: 'clause', kind: 'rule', before: 'zorpado', after: 'apzorpado', params: { particle: 'ap' } },
@@ -140,6 +213,8 @@ describe('staged engine', () => {
       step: { rule: 'xx.avail.no-participle', stage: 'availability', kind: 'unavailable', before: null, after: null, params: {} },
     });
     expect(toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'indicative', tense: 'present', person: 1 }).status).toBe('available');
+    expect(toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'participle', tense: 'present' }).status).toBe('available');
+    expect(toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'participle', tense: 'past' }).status).toBe('unavailable');
   });
 
   it('deduplicates forms that differ only in steps', () => {
@@ -152,8 +227,10 @@ describe('staged engine', () => {
     const form = only({ language: 'xx', infinitive: 'roca', mood: 'indicative', tense: 'present', person: 2, number: 'plural' });
     expect(form.text).toBe('vos roquetes');
     expect(rules(form.parts.at(-1)!.steps)).toEqual(['xx.stem.drop-a', 'xx.end.present', 'xx.orth.c-qu']);
-    // ruleIds name every rule path that produced the surviving form.
-    expect(form.ruleIds).toEqual(['xx.stem.drop-a', 'xx.end.present', 'xx.orth.c-qu', 'xx.stem.listed']);
+    // ruleIds follow the surviving form's own steps, not the derivation that collapsed into it.
+    expect(form.ruleIds).toEqual(['xx.stem.drop-a', 'xx.end.present', 'xx.orth.c-qu']);
+    const recorded = new Set([...form.steps!, ...form.parts.flatMap(p => p.steps ?? [])].map(s => s.rule));
+    for (const id of form.ruleIds) expect(recorded).toContain(id);
   });
 
   it('rejects a periphrasis that references a periphrastic cell', () => {
@@ -221,6 +298,29 @@ describe('staged engine', () => {
   });
 });
 
+describe('validateGrammar', () => {
+  const [perfect, , future] = toyGrammar.periphrases as [Periphrasis, Periphrasis, Periphrasis];
+  const auxiliaryRule = toyRules['xx.periphrasis.perfect'];
+
+  it('accepts the toy grammar', () => {
+    expect(() => validateGrammar(toyGrammar)).not.toThrow();
+  });
+
+  it.each<[string, Periphrasis, string, string]>([
+    ['a rule of another stage', { ...future, rule: toyRules['xx.orth.ph-f'] }, 'indicative/future', 'stage orthography'],
+    ['a perfect auxiliary without the auxiliary param', { ...perfect, rule: toyRules['xx.periphrasis.future'] }, 'indicative/perfect/active', 'perfectAuxiliary'],
+    ['an auxiliary param of the wrong kind', { ...perfect, rule: { ...auxiliaryRule, params: { auxiliary: 'number' } } }, 'indicative/perfect/active', 'perfectAuxiliary'],
+    ['an auxiliary param beside another', { ...perfect, rule: { ...auxiliaryRule, params: { auxiliary: 'text', mood: 'term' } } }, 'indicative/perfect/active', 'perfectAuxiliary'],
+    ['an auxiliary param without a perfect auxiliary', { ...future, rule: auxiliaryRule }, 'indicative/future', 'without perfectAuxiliary'],
+    ['an empty chain', { ...future, chain: [] }, 'indicative/future', 'no verb'],
+    ['a chain without a verb', { ...future, chain: [{ word: 'a', role: 'linker' }] }, 'indicative/future', 'no verb'],
+  ])('rejects %s, naming the periphrasis', (_, periphrasis, name, reason) => {
+    const broken = { ...toyGrammar, periphrases: [toyGrammar.periphrases[1]!, periphrasis] };
+    expect(() => validateGrammar(broken)).toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining(name) }));
+    expect(() => validateGrammar(broken)).toThrow(expect.objectContaining({ message: expect.stringContaining(reason) }));
+  });
+});
+
 describe('target identity', () => {
   const base: ResolvedTarget = { mood: 'indicative', tense: 'present', person: 1, number: 'plural', gender: null, agreement: null };
 
@@ -240,5 +340,10 @@ describe('target identity', () => {
     expect(resolvedTargetKey({ ...base, agreement: { ...agreement, case: 'ablative' } }))
       .not.toBe(resolvedTargetKey({ ...base, agreement: { ...agreement, case: 'nominative' } }));
     expect(resolvedTargetKey({ ...base, voice: null })).toBe(resolvedTargetKey(base));
+  });
+
+  it('keeps the catalogue wrapper exporting the same key functions', () => {
+    expect(catalogue.targetKey).toBe(targetKey);
+    expect(catalogue.resolvedTargetKey).toBe(resolvedTargetKey);
   });
 });

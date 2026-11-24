@@ -18,11 +18,15 @@ export type ChainElement =
 
 /**
  * A compound tense as a recipe. Several entries for one target are named variants (`pattern`, `usage`).
- * A periphrasis without `voice` builds only targets without a voice.
+ * `validateGrammar` checks the declaration once; nesting is checked when a target is generated.
  */
 export interface Periphrasis {
   readonly mood: string;
   readonly tense: string;
+  /**
+   * Matched exactly: a periphrasis without `voice` builds only targets without a voice, so a language whose catalogue
+   * has voices writes `voice: 'active'` explicitly on its active compound tenses.
+   */
   readonly voice?: Voice;
   /** Stage 'periphrasis'. Declares one `auxiliary` text param when the chain uses `perfectAuxiliary`, and no params otherwise. */
   readonly rule: RuleInfo;

@@ -8,6 +8,7 @@ import { parseOptions } from './options.js';
 import { packFor } from './pack.js';
 import type { CatalogueEntry, LanguagePack } from './pack.js';
 import { renderWith } from './render.js';
+import { resolvedTargetKey, targetKey } from './target.js';
 
 export interface Engine {
   conjugate(options: unknown): ConjugationResult;
@@ -16,25 +17,6 @@ export interface Engine {
   /** Every grammatical target the query's filters select, in catalogue order. */
   expandTargets(options: Readonly<Record<string, unknown>>): ResolvedTarget[];
   readonly languages: readonly string[];
-}
-
-/** Identifies a catalogue slot. The voice takes part only when the target has one, so voiceless keys keep their old form. */
-export function targetKey(target: ResolvedTarget): string {
-  const key = `${target.mood}/${target.tense}/${target.person ?? '-'}/${target.number ?? '-'}`;
-  return target.voice ? `${key}/${target.voice}` : key;
-}
-
-/** Identifies a resolved target. Voice and agreement case are appended only when present, so other keys keep their old form. */
-export function resolvedTargetKey(target: ResolvedTarget): string {
-  const key: unknown[] = [
-    target.mood, target.tense, target.person, target.number, target.gender,
-    target.agreement?.gender ?? null, target.agreement?.number ?? null,
-  ];
-  const extra: Record<string, string> = {};
-  if (target.voice) extra.voice = target.voice;
-  if (target.agreement?.case) extra.case = target.agreement.case;
-  if (Object.keys(extra).length) key.push(extra);
-  return JSON.stringify(key);
 }
 
 export function catalogueLabels(catalogue: readonly CatalogueEntry[], target: ResolvedTarget): { mood: string; tense: string } {
@@ -118,11 +100,12 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Eng
         const key = signature(form);
         const previous = unique.get(key);
         if (!previous) unique.set(key, form);
-        // The first form keeps its parts and steps; ruleIds collect the rules of every form that collapsed into it.
+        // The first form keeps its parts and steps. A form with steps keeps the ruleIds its steps derive; a form without
+        // steps (French, Dutch) collects the ruleIds of every form that collapsed into it.
         else unique.set(key, {
           ...previous,
           variant: { ...previous.variant, orthography: previous.variant.orthography === form.variant.orthography ? form.variant.orthography : 'both' },
-          ruleIds: [...new Set([...previous.ruleIds, ...form.ruleIds])],
+          ruleIds: previous.steps ? previous.ruleIds : [...new Set([...previous.ruleIds, ...form.ruleIds])],
         });
       }
     }
