@@ -8,6 +8,7 @@ import { frenchRendering } from './rendering.js';
 
 export const frenchPack: LanguagePack<'fr'> = {
   language: 'fr',
+  label: 'French',
   catalogue: frenchCatalogue,
   rendering: frenchRendering,
   options: frenchOptions,

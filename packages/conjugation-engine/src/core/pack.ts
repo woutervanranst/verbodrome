@@ -20,6 +20,8 @@ export interface PackRendering {
 
 export interface LanguagePack<L extends string = string> {
   readonly language: L;
+  /** The language's English name, used for headings such as `Dutch (nl):` in CLI help. */
+  readonly label: string;
   readonly catalogue: readonly CatalogueEntry[];
   readonly rendering: PackRendering;
   /** The language's own option keys and how each is validated; the common keys are validated by the core. */

@@ -166,12 +166,15 @@ conjugation-engine <fr|nl> <infinitive> [options]
 
 Quote multiword reflexive infinitives, for example `conjugation-engine fr "se laver"`.
 
-Common flags: `--mood`, `--tense`, `--person`, `--number`, `--auxiliary`, `--class`, `--stems '<JSON>'`, `--json`, `--bare`, `--help`.
+Common flags: `--mood`, `--tense`, `--person`, `--number`, `--json`, `--bare`, `--help`.
 
-French flags: `--gender`, `--agreement '<JSON>'`, `--preceding-direct-object '<JSON>'`, `--reflexive-object`, `--model`, `--aspirated-h`, `--orthography`.
+Every other flag is derived from the option schema of the registered language packs, so a new language needs no CLI changes. A flag is the kebab-case of an option field (`aspiratedH` becomes `--aspirated-h`); a boolean field accepts `--x` and `--no-x` (giving both is an error); `agreement` and `stems` fields take JSON; an enum field lists its allowed values. `--help` prints one section per language, headed by the pack's `label` (for example `Dutch (nl):`), with that language's flags and values. A flag the chosen language does not declare is rejected by the engine as `Unknown <language> option: <key>.`.
 
-Dutch flags: `--pronoun`, `--inversion`, `--reflexive` / `--no-reflexive`, `--separable-prefix`, `--inseparable-prefix`.
+Flags by language today:
 
-The CLI maps these directly to API fields (`--class` to `classHint`, `--orthography` to `preferredOrthography`). Plain single-target output is the preferred phrase; wildcard output includes native target labels and meaningful variant distinctions. Unavailable targets are displayed explicitly.
+- French: `--stems '<JSON>'`, `--gender`, `--auxiliary`, `--class`, `--reflexive-object`, `--aspirated-h` / `--no-aspirated-h`, `--orthography`, `--agreement '<JSON>'`, `--preceding-direct-object '<JSON>'`, `--model`.
+- Dutch: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--pronoun`, `--inversion` / `--no-inversion`, `--reflexive` / `--no-reflexive`, `--separable-prefix`, `--inseparable-prefix`.
+
+Flags map directly to API fields; the two short aliases are `--class` for `classHint` and `--orthography` for `preferredOrthography`. Plain single-target output is the preferred phrase; wildcard output includes native target labels and meaningful variant distinctions. Unavailable targets are displayed explicitly.
 
 `--json` always returns the complete structured result, even with `--bare`. Invalid requests emit diagnostics only on stderr. Exit codes are **0** for available/partially available requests or help, **1** for invalid requests/classification or argument errors, **2** for internal generation failure, and **3** when no requested grammatical form is available.

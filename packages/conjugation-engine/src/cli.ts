@@ -1,35 +1,100 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util';
-import { conjugate, ConjugationError, parseConjugationOptions, renderParts } from './index.js';
+import type { ParseArgsOptionsConfig } from 'node:util';
+import { conjugate, ConjugationError, languages, parseConjugationOptions, renderParts } from './index.js';
+import type { FieldSpec } from './core/options.js';
+import { packs } from './languages/index.js';
 import type { ConjugatedForm, ResolvedTarget } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
 
-const help = `Usage: conjugation-engine <fr|nl> <infinitive> [options]
+/** Short flag names for fields whose kebab-case spelling is not the one users know. */
+const aliases: Readonly<Record<string, string>> = { classHint: 'class', preferredOrthography: 'orthography' };
 
-  --mood <id>       Grammatical mood (omit for all)
-  --tense <id>      Tense (omit for all)
-  --person <1|2|3>  Finite grammatical person
-  --number <singular|plural>
-  --json           Complete structured result
-  --bare           Omit finite subject and French subjunctive que
-  --gender <masculine|feminine>  French subject/participle context
-  --agreement <JSON>            French participle agreement filters
-  --preceding-direct-object <JSON>  French preceding object agreement
-  --reflexive-object <direct|indirect>
-  --auxiliary <avoir|être|hebben|zijn>
-  --class <er|ir|re|weak|strong|loan>
-  --model <infinitive>          French conjugation model
-  --stems <JSON>               Language-specific principal-part hints
-  --aspirated-h                French aspirated h
-  --orthography <rectified|traditional>
-  --pronoun <id>               Dutch subject pronoun
-  --inversion                  Dutch verb-before-subject order
-  --reflexive / --no-reflexive  Dutch reflexivity
-  --separable-prefix <prefix> / --inseparable-prefix <prefix>
-  --help
+const commonHelp = [
+  ['--mood <id>', 'Grammatical mood (omit for all)'],
+  ['--tense <id>', 'Tense (omit for all)'],
+  ['--person <1|2|3>', 'Finite grammatical person'],
+  ['--number <singular|plural>', ''],
+  ['--json', 'Complete structured result'],
+  ['--bare', 'Omit the finite subject and any conjunction such as the French subjunctive que'],
+  ['--help', ''],
+] as const;
 
-Example: conjugation-engine fr aimer --mood indicative --tense present --person 1 --number plural
-`;
+type FlagShape = 'boolean' | 'json' | 'text';
+
+interface Flag {
+  /** The option key in the conjugation query, for example `preferredOrthography`. */
+  readonly field: string;
+  /** The flag without dashes, for example `orthography`. */
+  readonly name: string;
+  readonly shape: FlagShape;
+  readonly spec: FieldSpec;
+}
+
+function shapeOf(spec: FieldSpec): FlagShape {
+  return spec.kind === 'boolean' ? 'boolean' : spec.kind === 'agreement' || spec.kind === 'stems' ? 'json' : 'text';
+}
+
+function flagFor(field: string, spec: FieldSpec): Flag {
+  return { field, name: aliases[field] ?? field.replace(/[A-Z]/gu, letter => `-${letter.toLowerCase()}`), shape: shapeOf(spec), spec };
+}
+
+/** One flag per option field that any registered language declares; a field shared by languages is one flag. */
+function unionFlags(): Flag[] {
+  const flags = new Map<string, Flag>();
+  for (const pack of Object.values(packs)) {
+    for (const [field, spec] of Object.entries(pack.options.fields)) {
+      const flag = flagFor(field, spec);
+      const known = flags.get(field);
+      if (known && known.shape !== flag.shape) throw new Error(`Option ${field} is declared with incompatible kinds by different languages.`);
+      flags.set(field, known ?? flag);
+    }
+  }
+  return [...flags.values()];
+}
+
+function flagUsage({ name, spec }: Flag): string {
+  switch (spec.kind) {
+    case 'boolean': return `--${name} / --no-${name}`;
+    case 'enum': return `--${name} <${spec.values.join('|')}>`;
+    case 'word': return `--${name} <word>`;
+    case 'agreement': case 'stems': return `--${name} <JSON>`;
+  }
+}
+
+function flagNote({ spec }: Flag): string {
+  switch (spec.kind) {
+    case 'agreement': return 'keys: gender, number';
+    case 'stems': return `keys: ${[...spec.words, ...Object.keys(spec.enums)].join(', ')}`;
+    default: return '';
+  }
+}
+
+function section(heading: string, rows: readonly (readonly [string, string])[]): string {
+  const width = Math.max(...rows.map(([usage]) => usage.length));
+  return [heading, ...rows.map(([usage, note]) => `  ${usage.padEnd(width)}  ${note}`.trimEnd())].join('\n');
+}
+
+function helpText(): string {
+  const sections = Object.values(packs).map(pack => section(
+    `${pack.label} (${pack.language}):`,
+    Object.entries(pack.options.fields).map(([field, spec]) => [flagUsage(flagFor(field, spec)), flagNote(flagFor(field, spec))] as const),
+  ));
+  return [
+    `Usage: conjugation-engine <${languages.join('|')}> <infinitive> [options]`,
+    'Quote multiword infinitives, for example: conjugation-engine fr "se laver"',
+    section('Common options:', commonHelp),
+    ...sections,
+    'Example: conjugation-engine fr aimer --mood indicative --tense present --person 1 --number plural',
+  ].join('\n\n');
+}
+
+/** The query value for a flag given on the command line; the engine validates it. */
+function flagValue(flag: Flag, raw: string): unknown {
+  if (flag.shape === 'json') return JSON.parse(raw);
+  if (flag.spec.kind === 'enum') return flag.spec.values.find(value => String(value) === raw) ?? raw;
+  return raw;
+}
 
 function targetLabel(target: ResolvedTarget, labels: { mood: string; tense: string }): string {
   return [
@@ -50,36 +115,34 @@ function formLabel(form: ConjugatedForm): string {
 }
 
 try {
-  const { values, positionals } = parseArgs({
-    allowPositionals: true,
-    options: {
-      mood: { type: 'string' }, tense: { type: 'string' }, person: { type: 'string' }, number: { type: 'string' },
-      json: { type: 'boolean' }, bare: { type: 'boolean' }, help: { type: 'boolean' },
-      gender: { type: 'string' }, agreement: { type: 'string' }, auxiliary: { type: 'string' },
-      class: { type: 'string' }, model: { type: 'string' }, stems: { type: 'string' },
-      'preceding-direct-object': { type: 'string' }, 'reflexive-object': { type: 'string' },
-      'aspirated-h': { type: 'boolean' }, orthography: { type: 'string' },
-      pronoun: { type: 'string' }, inversion: { type: 'boolean' }, reflexive: { type: 'boolean' },
-      'no-reflexive': { type: 'boolean' }, 'separable-prefix': { type: 'string' }, 'inseparable-prefix': { type: 'string' },
-    },
-  });
+  const flags = unionFlags();
+  const declared: ParseArgsOptionsConfig = {
+    mood: { type: 'string' }, tense: { type: 'string' }, person: { type: 'string' }, number: { type: 'string' },
+    json: { type: 'boolean' }, bare: { type: 'boolean' }, help: { type: 'boolean' },
+  };
+  for (const { name, shape } of flags) {
+    declared[name] = { type: shape === 'boolean' ? 'boolean' : 'string' };
+    if (shape === 'boolean') declared[`no-${name}`] = { type: 'boolean' };
+  }
+  const { values, positionals } = parseArgs({ allowPositionals: true, options: declared });
   if (values.help) {
-    console.log(help);
+    console.log(helpText());
   } else {
     if (positionals.length !== 2) throw new ConjugationError('INVALID_REQUEST', 'Expected language and infinitive. Use --help for usage.');
-    if (values.reflexive && values['no-reflexive']) throw new ConjugationError('INVALID_REQUEST', '--reflexive and --no-reflexive conflict.');
     const options: Record<string, unknown> = { language: positionals[0], infinitive: positionals[1] };
-    const names: Readonly<Record<string, string>> = {
-      class: 'classHint', 'preceding-direct-object': 'precedingDirectObject', 'reflexive-object': 'reflexiveObject',
-      'aspirated-h': 'aspiratedH', orthography: 'preferredOrthography',
-      'separable-prefix': 'separablePrefix', 'inseparable-prefix': 'inseparablePrefix',
-    };
-    for (const [key, value] of Object.entries(values)) {
-      if (['json', 'bare', 'help', 'no-reflexive'].includes(key)) continue;
-      options[names[key] ?? key] = ['stems', 'agreement', 'preceding-direct-object'].includes(key) && typeof value === 'string'
-        ? JSON.parse(value) : key === 'person' ? Number(value) : value;
+    for (const key of ['mood', 'tense', 'number'] as const) if (values[key] !== undefined) options[key] = values[key];
+    if (values.person !== undefined) options.person = Number(values.person);
+    for (const flag of flags) {
+      const given = values[flag.name];
+      if (flag.shape === 'boolean') {
+        const negated = values[`no-${flag.name}`];
+        if (given && negated) throw new ConjugationError('INVALID_REQUEST', `--${flag.name} and --no-${flag.name} conflict.`);
+        if (given) options[flag.field] = true;
+        if (negated) options[flag.field] = false;
+      } else if (typeof given === 'string') {
+        options[flag.field] = flagValue(flag, given);
+      }
     }
-    if (values['no-reflexive']) options.reflexive = false;
     const result = conjugate(parseConjugationOptions(options));
     if (values.json) {
       console.log(JSON.stringify(result, null, 2));

@@ -99,4 +99,43 @@ describe('compiled CLI', () => {
     expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl> <infinitive>');
     expect(result.stderr).toBe('');
   });
+
+  it('derives one help section per registered language from its option schema', () => {
+    const help = run(['--help']).stdout;
+    const sections = help.split('\n\n');
+    const dutch = sections.find(section => section.startsWith('Dutch (nl):'));
+    const french = sections.find(section => section.startsWith('French (fr):'));
+    expect(dutch).toContain('--separable-prefix');
+    expect(dutch).toContain('--reflexive / --no-reflexive');
+    expect(dutch).toContain('--auxiliary <hebben|zijn>');
+    expect(dutch).not.toContain('--gender');
+    expect(french).toContain('--auxiliary <avoir|être>');
+    expect(french).toContain('--orthography <rectified|traditional>');
+    expect(french).toContain('--class <er|ir|re>');
+    expect(french).toContain('--agreement <JSON>');
+    expect(french).not.toContain('--pronoun');
+    expect(sections.find(section => section.startsWith('Common options:'))).toContain('--mood <id>');
+  });
+
+  it('reports an unregistered language with the registered ones', () => {
+    const result = run(['xx', 'aimer']);
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toBe('UNSUPPORTED_LANGUAGE: Language must be one of: fr, nl.\n');
+  });
+
+  it('accepts negated boolean flags for every boolean option', () => {
+    const base = ['nl', 'opstaan', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular'];
+    const json = (...flags: string[]): { forms: { text: string }[] } => JSON.parse(run([...base, ...flags, '--json']).stdout);
+    expect(json('--inversion').forms[0]?.text).toBe('sta ik op');
+    expect(json('--no-inversion').forms[0]?.text).toBe('ik sta op');
+    expect(run([...base, '--inversion', '--no-inversion']).status).toBe(1);
+    expect(run(['fr', 'haïr', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular', '--no-aspirated-h']).status).toBe(0);
+  });
+
+  it('lets the engine reject a flag the language does not declare', () => {
+    const result = run(['nl', 'werken', '--gender', 'feminine']);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toBe('INVALID_REQUEST: Unknown nl option: gender.\n');
+  });
 });

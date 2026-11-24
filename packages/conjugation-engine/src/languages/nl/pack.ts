@@ -17,6 +17,7 @@ function pronounMatches(pronoun: DutchPronoun, person: Person, number: Grammatic
 
 export const dutchPack: LanguagePack<'nl'> = {
   language: 'nl',
+  label: 'Dutch',
   catalogue: dutchCatalogue,
   rendering: dutchRendering,
   options: dutchOptions,
