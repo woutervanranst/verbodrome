@@ -10,6 +10,7 @@ import {
 } from './exceptions.js';
 import type { DutchDerivative, DutchLexeme } from './exceptions.js';
 import { nativeStem } from './orthography.js';
+import { dutchRendering } from './rendering.js';
 import { imperativeForms, participles, pastForms, presentForms } from './rules.js';
 
 const subjects = ['ik', 'jij', 'hij', 'wij', 'jullie', 'zij'] as const;
@@ -31,13 +32,13 @@ function availability(lemma: string, lexical: DutchLexeme, target: ResolvedTarge
 
 function subject(target: ResolvedTarget, options: DutchConjugationOptions, impersonal: boolean): ConjugationPart {
   const text = options.pronoun ?? (impersonal && target.number === 'singular' ? 'het' : itemAt(subjects, personIndex(target)));
-  return grammaticalPart('subject', text, null, { person: target.person, number: target.number });
+  return grammaticalPart(dutchRendering, 'subject', text, null, { person: target.person, number: target.number });
 }
 
 function reflexivePart(target: ResolvedTarget, pronoun?: DutchPronoun): ConjugationPart {
   const text = target.person === null ? 'zich' : pronoun === 'u'
     ? target.mood === 'imperative' ? 'u' : 'zich' : itemAt(reflexives, personIndex(target));
-  return grammaticalPart('reflexivePronoun', text, null, { person: target.person, number: target.number });
+  return grammaticalPart(dutchRendering, 'reflexivePronoun', text, null, { person: target.person, number: target.number });
 }
 
 export function resolveDutch(options: DutchConjugationOptions): LanguageEngine {
@@ -130,11 +131,11 @@ export function resolveDutch(options: DutchConjugationOptions): LanguageEngine {
       const forms: GeneratedForm[] = [];
       const { mood, tense } = target;
       const lexicalFinite = (word: string, ownTarget = target): ConjugationPart =>
-        grammaticalPart('lexicalVerb', finiteWord(word), lemma, finiteFeatures(ownTarget));
+        grammaticalPart(dutchRendering, 'lexicalVerb', finiteWord(word), lemma, finiteFeatures(ownTarget));
       const lexicalInfinitive = (word: string): ConjugationPart =>
-        grammaticalPart('lexicalVerb', word, lemma, { mood: 'infinitive', tense: 'present', verbForm: 'infinitive' });
+        grammaticalPart(dutchRendering, 'lexicalVerb', word, lemma, { mood: 'infinitive', tense: 'present', verbForm: 'infinitive' });
       const lexicalParticiple = (word: string): ConjugationPart =>
-        grammaticalPart('lexicalVerb', word, lemma, { mood: 'participle', tense: 'past', verbForm: 'pastParticiple' });
+        grammaticalPart(dutchRendering, 'lexicalVerb', word, lemma, { mood: 'participle', tense: 'past', verbForm: 'pastParticiple' });
       const add = (parts: readonly ConjugationPart[], auxiliary: string | null = null, condition: string | null = null): void => {
         forms.push({
           target, parts,
@@ -143,7 +144,7 @@ export function resolveDutch(options: DutchConjugationOptions): LanguageEngine {
         });
       };
       const clitics = reflexive ? [reflexivePart(target, options.pronoun)] : [];
-      const detached = separable ? [grammaticalPart('particle', separable)] : [];
+      const detached = separable ? [grammaticalPart(dutchRendering, 'particle', separable)] : [];
       const finiteSequence = (verb: ConjugationPart, tail: readonly ConjugationPart[]): ConjugationPart[] => {
         const pronoun = subject(target, options, lexical.impersonal === true);
         return [...(options.inversion ? [verb, pronoun] : [pronoun, verb]), ...clitics, ...tail];
@@ -154,7 +155,7 @@ export function resolveDutch(options: DutchConjugationOptions): LanguageEngine {
         if (tense === 'past') {
           for (const word of inflections) add([lexicalParticiple(word)]);
         } else {
-          add([...clitics, grammaticalPart('lexicalVerb', lemma + 'd', lemma, {
+          add([...clitics, grammaticalPart(dutchRendering, 'lexicalVerb', lemma + 'd', lemma, {
             mood: 'participle', tense: 'present', verbForm: 'presentParticiple',
           })]);
         }
@@ -181,10 +182,10 @@ export function resolveDutch(options: DutchConjugationOptions): LanguageEngine {
           const auxWords = auxiliaryTense === 'present' ? presentForms(finiteAuxiliary, auxLexical, auxStem, auxTarget, options)
             : pastForms(auxLexical, auxStem, auxTarget, auxiliaryOptions);
           for (const auxWord of auxWords) {
-            const finite = grammaticalPart('auxiliary', auxWord, finiteAuxiliary, finiteFeatures(auxTarget));
+            const finite = grammaticalPart(dutchRendering, 'auxiliary', auxWord, finiteAuxiliary, finiteFeatures(auxTarget));
             if (compound) {
               for (const word of inflections) for (const finalAuxiliary of futureConstruction ? auxiliary === 'zijn' ? ['zijn', 'wezen'] : ['hebben'] : ['']) {
-                const tail = [lexicalParticiple(word), ...(finalAuxiliary ? [grammaticalPart('auxiliary', finalAuxiliary, auxiliary, {
+                const tail = [lexicalParticiple(word), ...(finalAuxiliary ? [grammaticalPart(dutchRendering, 'auxiliary', finalAuxiliary, auxiliary, {
                   mood: 'infinitive', tense: 'present', verbForm: 'infinitive',
                 })] : [])];
                 add(finiteSequence(finite, tail), auxiliary, finalAuxiliary === 'wezen' ? 'Spoken infinitive alternative to zijn.'

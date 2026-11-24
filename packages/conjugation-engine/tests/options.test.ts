@@ -30,6 +30,11 @@ describe('grammatical options', () => {
     expect(() => parseConjugationOptions(options)).toThrow(ConjugationError);
   });
 
+  it('names the registered languages when rejecting another', () => {
+    expect(() => parseConjugationOptions({ language: 'xx', infinitive: 'aimer' }))
+      .toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl.' }));
+  });
+
   it('normalizes spelling without dropping accents', () => {
     expect(parseConjugationOptions({ language: 'fr', infinitive: ' S’AIMER ' }).infinitive).toBe("s'aimer");
     expect(parseConjugationOptions({ language: 'fr', infinitive: 'ME\u0301FIER' }).infinitive).toBe('méfier');

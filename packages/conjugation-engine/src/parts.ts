@@ -1,11 +1,13 @@
+import type { PackRendering } from './core/pack.js';
 import { ConjugationError } from './errors.js';
-import type { ConjugationPart, Onset, PartFeatures, PartRole, ResolvedTarget } from './types.js';
+import type { ConjugationPart, PartFeatures, PartRole, ResolvedTarget } from './types.js';
 
 export const emptyFeatures: PartFeatures = Object.freeze({
   mood: null, tense: null, person: null, number: null, gender: null, verbForm: null,
 });
 
 export function grammaticalPart(
+  rendering: PackRendering,
   role: PartRole,
   text: string,
   lemma: string | null = null,
@@ -15,10 +17,7 @@ export function grammaticalPart(
 ): ConjugationPart {
   if (!text) throw new ConjugationError('GENERATION_FAILURE', `Empty ${role} component.`);
   const normalized = text.normalize('NFC');
-  const initial = normalized.toLowerCase();
-  const onset: Onset = initial.startsWith('h')
-    ? (aspiratedH ? 'aspiratedH' : 'muteH')
-    : (/^[aeiouyàâäéèêëîïôöùûüœæ]/u.test(initial) ? 'vowel' : 'consonant');
+  const onset = rendering.onset(normalized, { aspiratedH });
   return { role, text: normalized, lemma, features: { ...emptyFeatures, ...features }, phonology: { onset }, joinBefore };
 }
 

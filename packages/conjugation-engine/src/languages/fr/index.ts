@@ -1,6 +1,6 @@
+import { renderWith } from '../../core/render.js';
 import { ConjugationError } from '../../errors.js';
 import { finiteFeatures, grammaticalPart, itemAt, personIndex } from '../../parts.js';
-import { renderParts } from '../../render.js';
 import type {
   Agreement, ConjugationPart, FormVariant, FrenchConjugationOptions, Gender,
   GeneratedForm, GenerationResult, GrammaticalNumber, ResolvedTarget, UnavailableTarget,
@@ -12,6 +12,7 @@ import {
 import { frenchModels, modelById, selectModel } from './models.js';
 import type { FrenchModel, ModelChoice } from './models.js';
 import { completeHints, hintCells } from './principal.js';
+import { frenchRendering } from './rendering.js';
 import { cellTexts, finiteSlot, infinitiveSlot, pastParticipleSlot, presentParticipleSlot } from './table.js';
 import type { ModelKind, Paradigm, Spelling } from './table.js';
 
@@ -132,27 +133,27 @@ function simpleCell(target: ResolvedTarget): number {
 }
 
 function lexicalPart(lemma: string, word: string, target: ResolvedTarget, aspirated: boolean): ConjugationPart {
-  return grammaticalPart('lexicalVerb', word, lemma, finiteFeatures(target), 'space', aspirated);
+  return grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, finiteFeatures(target), 'space', aspirated);
 }
 
 function clitic(target: ResolvedTarget, affirmative = false): ConjugationPart {
   const text = target.person === null ? 'se'
     : affirmative && target.person === 2 && target.number === 'singular' ? 'toi'
     : itemAt(reflexivePronouns, personIndex(target));
-  return grammaticalPart('reflexivePronoun', text, null, { person: target.person, number: target.number }, affirmative ? 'hyphen' : 'space');
+  return grammaticalPart(frenchRendering, 'reflexivePronoun', text, null, { person: target.person, number: target.number }, affirmative ? 'hyphen' : 'space');
 }
 
 function subject(target: ResolvedTarget): ConjugationPart {
   let text: string = itemAt(subjectPronouns, personIndex(target));
   if (target.person === 3 && target.gender === 'feminine') text = target.number === 'singular' ? 'elle' : 'elles';
-  return grammaticalPart('subject', text, null, { person: target.person, number: target.number, gender: target.gender });
+  return grammaticalPart(frenchRendering, 'subject', text, null, { person: target.person, number: target.number, gender: target.gender });
 }
 
 function contextParts(target: ResolvedTarget): ConjugationPart[] {
   return [
-    ...(target.mood === 'subjunctive' ? [grammaticalPart('moodMarker', 'que')] : []),
+    ...(target.mood === 'subjunctive' ? [grammaticalPart(frenchRendering, 'moodMarker', 'que')] : []),
     ...(target.person !== null && target.mood !== 'imperative' ? [subject(target)] : []),
-    ...(target.mood === 'gerund' ? [grammaticalPart('moodMarker', 'en')] : []),
+    ...(target.mood === 'gerund' ? [grammaticalPart(frenchRendering, 'moodMarker', 'en')] : []),
   ];
 }
 
@@ -244,13 +245,13 @@ export function resolveFrench(options: FrenchConjugationOptions): LanguageEngine
   }
 
   function infinitiveParts(spelling: Spelling): ConjugationPart[] {
-    return (itemAt(lexeme.inflections, 0).forms(infinitiveSlot, spelling) ?? []).map(word => grammaticalPart('lexicalVerb', word, lemma, {
+    return (itemAt(lexeme.inflections, 0).forms(infinitiveSlot, spelling) ?? []).map(word => grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, {
       mood: 'infinitive', tense: 'present', verbForm: 'infinitive',
     }, 'space', aspirated));
   }
 
   return {
-    verbId: reflexive ? renderParts('fr', [grammaticalPart('reflexivePronoun', 'se'), grammaticalPart('lexicalVerb', lemma, lemma, {}, 'space', aspirated)]) : lemma,
+    verbId: reflexive ? renderWith(frenchRendering, [grammaticalPart(frenchRendering, 'reflexivePronoun', 'se'), grammaticalPart(frenchRendering, 'lexicalVerb', lemma, lemma, {}, 'space', aspirated)]) : lemma,
     analysis: {
       lemma, classification: family, classificationSource: hinted ? 'explicitHint' : lexeme.source,
       reflexive, auxiliaries: selectedAuxiliaries,
@@ -302,21 +303,21 @@ export function resolveFrench(options: FrenchConjugationOptions): LanguageEngine
           const word = firstForm(knownLexeme(auxiliary), finiteSlot(auxTarget), spelling);
           for (const infinitive of infinitiveParts(spelling)) {
             add([
-              ...prefix, grammaticalPart('auxiliary', word, auxiliary, finiteFeatures(auxTarget)),
-              ...(tense === 'recent_past' ? [grammaticalPart('linker', 'de')] : []),
+              ...prefix, grammaticalPart(frenchRendering, 'auxiliary', word, auxiliary, finiteFeatures(auxTarget)),
+              ...(tense === 'recent_past' ? [grammaticalPart(frenchRendering, 'linker', 'de')] : []),
               ...(reflexive ? [clitic(target)] : []), infinitive,
             ], target, auxiliary);
           }
         } else if (simpleParticiple) {
           if (invariable) {
             for (const word of inflection.forms(pastParticipleSlot(null, null), spelling) ?? []) {
-              add([grammaticalPart('lexicalVerb', word, lemma, { mood: 'participle', tense: 'past', verbForm: 'pastParticiple' }, 'space', aspirated)]);
+              add([grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, { mood: 'participle', tense: 'past', verbForm: 'pastParticiple' }, 'space', aspirated)]);
             }
             continue;
           }
           for (const agreement of agreements(options, target, '', reflexive, lexeme)) {
             for (const word of inflection.forms(pastParticipleSlot(agreement.gender, agreement.number), spelling) ?? []) {
-              add([grammaticalPart('lexicalVerb', word, lemma, {
+              add([grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, {
                 mood: 'participle', tense: 'past', gender: agreement.gender, number: agreement.number, verbForm: 'pastParticiple',
               }, 'space', aspirated)], { ...target, agreement });
             }
@@ -329,18 +330,18 @@ export function resolveFrench(options: FrenchConjugationOptions): LanguageEngine
             const resolved = { ...target, agreement: invariable ? null : agreement };
             const cell = invariable ? pastParticipleSlot(null, null) : pastParticipleSlot(agreement.gender, agreement.number);
             for (const word of inflection.forms(cell, spelling) ?? []) {
-              const pp = grammaticalPart('lexicalVerb', word, lemma, {
+              const pp = grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, {
                 mood: 'participle', tense: 'past', gender: invariable ? null : agreement.gender,
                 number: invariable ? null : agreement.number, verbForm: 'pastParticiple',
               }, 'space', aspirated);
               let auxParts: ConjugationPart[];
               if (target.person !== null) {
                 const auxTarget = compoundAuxiliaryTarget(target, second);
-                auxParts = [grammaticalPart('auxiliary', firstForm(auxLexeme, finiteSlot(auxTarget), spelling), auxiliary, finiteFeatures(auxTarget))];
+                auxParts = [grammaticalPart(frenchRendering, 'auxiliary', firstForm(auxLexeme, finiteSlot(auxTarget), spelling), auxiliary, finiteFeatures(auxTarget))];
               } else if (mood === 'infinitive') {
-                auxParts = [grammaticalPart('auxiliary', auxiliary, auxiliary, { mood: 'infinitive', tense: 'present', verbForm: 'infinitive' })];
+                auxParts = [grammaticalPart(frenchRendering, 'auxiliary', auxiliary, auxiliary, { mood: 'infinitive', tense: 'present', verbForm: 'infinitive' })];
               } else {
-                auxParts = [grammaticalPart('auxiliary', firstForm(auxLexeme, presentParticipleSlot, spelling), auxiliary, {
+                auxParts = [grammaticalPart(frenchRendering, 'auxiliary', firstForm(auxLexeme, presentParticipleSlot, spelling), auxiliary, {
                   mood: 'participle', tense: 'present', verbForm: 'presentParticiple',
                 })];
               }
@@ -351,7 +352,7 @@ export function resolveFrench(options: FrenchConjugationOptions): LanguageEngine
           for (const infinitive of infinitiveParts(spelling)) add([...(reflexive ? [clitic(target)] : []), infinitive]);
         } else if (mood === 'participle' || mood === 'gerund') {
           for (const word of inflection.forms(presentParticipleSlot, spelling) ?? []) {
-            add([...prefix, ...(reflexive ? [clitic(target)] : []), grammaticalPart('lexicalVerb', word, lemma, {
+            add([...prefix, ...(reflexive ? [clitic(target)] : []), grammaticalPart(frenchRendering, 'lexicalVerb', word, lemma, {
               mood: 'participle', tense: 'present', verbForm: 'presentParticiple',
             }, 'space', aspirated)]);
           }

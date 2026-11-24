@@ -9,12 +9,16 @@ import {
   parseConjugationOptions,
   renderParts,
   getCatalogue,
+  languages,
+  createEngine,
   ConjugationError,
 } from 'conjugation-engine';
 import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'conjugation-engine';
 ```
 
 `conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
+
+Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs)` builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets` over a chosen set of packs, accepting only those languages.
 
 The ESM library runs in modern browsers supporting `structuredClone`. Node-only CLI and corpus-import modules are not reachable from the library entry point.
 
@@ -32,7 +36,7 @@ Wildcards enumerate grammatical targets and accepted morphological variants in t
 
 ## Supported moods and tenses
 
-`getCatalogue(language)` returns immutable mood/tense entries with `finite`, `moodLabel`, and `tenseLabel`. Its 25 French entries expand to 109 base grammatical slots; the 12 Dutch entries expand to 53. Agreement and variant identities can increase the number of returned forms.
+`getCatalogue(language)` returns immutable mood/tense entries with `finite`, `persons` (the person/number slots of a finite entry, in output order; empty when non-finite), `moodLabel`, and `tenseLabel`. Its 25 French entries expand to 109 base grammatical slots; the 12 Dutch entries expand to 53. Agreement and variant identities can increase the number of returned forms.
 
 ### French
 
@@ -138,7 +142,7 @@ Invalid requests and failed generation throw `ConjugationError`, with a stable `
 
 ## Components and rendering
 
-Parts are generated before strings, not recovered by splitting them. Roles are `moodMarker`, `subject`, `reflexivePronoun`, `auxiliary`, `lexicalVerb`, `particle`, and `linker`. Each part carries underlying text, lexical lemma where applicable, its own grammatical features, onset (`vowel`, `consonant`, `muteH`, `aspiratedH`), and joining style.
+Parts are generated before strings, not recovered by splitting them. Roles are `moodMarker`, `subject`, `reflexivePronoun`, `auxiliary`, `lexicalVerb`, `particle`, and `linker`. Each part carries underlying text, lexical lemma where applicable, its own grammatical features, onset (`vowel`, `consonant`, `muteH`, `aspiratedH`; Dutch uses only `vowel` and `consonant`), and joining style.
 
 Underlying `je`, `que`, `se`, and `de` remain unelided. Auxiliary features identify the auxiliary's actual simple mood/tense; non-finite lexical features have no finite person. Dutch future perfect can contain both finite `zal` and final infinitive `hebben`.
 

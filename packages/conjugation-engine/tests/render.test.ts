@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { grammaticalPart as part } from '../src/parts.js';
+import { packs } from '../src/languages/index.js';
+import { grammaticalPart } from '../src/parts.js';
 import { renderParts } from '../src/render.js';
+
+const part = grammaticalPart.bind(null, packs.fr.rendering);
 
 describe('component rendering', () => {
   it('keeps subjects unelided and joins according to the replacement component', () => {
