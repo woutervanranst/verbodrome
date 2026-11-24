@@ -53,12 +53,16 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
   /** Lexeme for an auxiliary or other verb named by a periphrasis. */
   lexemeOf(lemma: string): X;
   /**
-   * Which simple cell a simple catalogue target maps to, or null when the target is periphrastic. Also called with the
-   * voiceless targets the engine builds for finite chain elements (the element's mood and tense; the target's person,
-   * number and gender; no agreement, no voice), for which it returns the active cell, or null if that mood and tense
-   * are periphrastic (periphrases do not nest).
+   * Which simple cell `target` maps to for `lexeme`, or null when the target is periphrastic for it: one tense can be a
+   * word for one verb and a compound for another (a deponent's perfect). When it returns a cell, that cell builds the
+   * target and no periphrasis runs, even if one applies to the lexeme too; when it returns null, the periphrases that
+   * match the target and apply to the lexeme build it, and none is a GENERATION_FAILURE. For the main verb's own target
+   * the lexeme is the paradigm being built. It is also called with the voiceless targets the engine builds for finite
+   * chain elements (the element's mood and tense; the target's person, number and gender; no agreement, no voice), then
+   * with the lexeme of the verb that element names (an auxiliary's own, not the main verb's), and returns the active
+   * cell, or null if that mood and tense are periphrastic for that verb (periphrases do not nest).
    */
-  cellOf(target: ResolvedTarget): Cell | null;
+  cellOf(target: ResolvedTarget, lexeme: X): Cell | null;
   /**
    * Why `target` has no form for `lexeme` (defective, impersonal, no imperative), with the rule and source that say so;
    * null when it has forms. This is the only place a pack declares that a target has no form: when an available target
@@ -80,7 +84,7 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
    */
   ending(lexeme: X, cell: Cell, stem: string): Fork<string>;
   readonly orthography: readonly JunctureRule<{ readonly lexeme: X; readonly cell: Cell }>[];
-  readonly periphrases: readonly Periphrasis[];
+  readonly periphrases: readonly Periphrasis<X>[];
   readonly clause: ClauseGrammar<X>;
 }
 
@@ -160,7 +164,7 @@ type Slot<X extends LexemeBase> =
 
 /** How one target is built: a simple cell (no periphrasis), or one run of a periphrasis with one auxiliary. */
 interface Construction<X extends LexemeBase> {
-  readonly periphrasis: Periphrasis | null;
+  readonly periphrasis: Periphrasis<X> | null;
   /** The perfect auxiliary this run uses, if any; the form may report another verb (`reportedAuxiliary`). */
   readonly auxiliary: string | null;
   readonly slots: readonly Slot<X>[];
@@ -181,7 +185,7 @@ function emptyStages(): { note(stage: FormStage, lemma: string): void; first(): 
 }
 
 /** The pattern and usage a periphrasis adds to its forms, after the labels of their words. */
-function periphrasisTags({ pattern, usage }: Periphrasis): VariantTags {
+function periphrasisTags({ pattern, usage }: Pick<Periphrasis, 'pattern' | 'usage'>): VariantTags {
   return { ...(pattern === undefined ? {} : { pattern }), ...(usage === undefined ? {} : { usage }) };
 }
 
@@ -257,7 +261,7 @@ export function stagedEngine<X extends LexemeBase>(
     return lexemeNamed(ref.lemma);
   }
 
-  function slotFor(periphrasis: Periphrasis, element: ChainElement, target: ResolvedTarget, lexeme: X, auxiliary: string | null): Slot<X> {
+  function slotFor(periphrasis: Periphrasis<X>, element: ChainElement, target: ResolvedTarget, lexeme: X, auxiliary: string | null): Slot<X> {
     if ('word' in element) return { kind: 'word', role: element.role, text: element.word };
     const role = element.verb === 'main' ? 'lexicalVerb' : 'auxiliary';
     const verb = verbOf(element.verb, lexeme, auxiliary);
@@ -271,24 +275,24 @@ export function stagedEngine<X extends LexemeBase>(
     // A chain element names a simple cell; the voiceless target of that mood and tense must have one.
     const cell = grammar.cellOf({
       mood: mood as Mood, tense: tense as Tense, person: target.person, number: target.number, gender: target.gender, agreement: null,
-    });
+    }, verb);
     if (cell === null) {
-      throw new ConjugationError('GENERATION_FAILURE', `Periphrasis ${periphrasis.rule.id} uses ${mood}/${tense}, which is periphrastic itself; periphrases do not nest.`);
+      throw new ConjugationError('GENERATION_FAILURE', `Periphrasis ${periphrasis.rule.id} uses ${mood}/${tense}, which is periphrastic itself for ${verb.lemma}; periphrases do not nest.`);
     }
     return { kind: 'verb', role, lexeme: verb, cell, agree: false };
   }
 
   /** The ways one paradigm, whose lexeme is `lexeme`, builds `target`: with its own perfect auxiliaries only. */
   function constructions(target: ResolvedTarget, lexeme: X): Construction<X>[] {
-    const cell = grammar.cellOf(target);
+    const cell = grammar.cellOf(target, lexeme);
     if (cell !== null) {
       // A simple non-finite form asks the clause for agreement, as an `agree` chain element does; a finite one never does.
       const slot: Slot<X> = { kind: 'verb', role: 'lexicalVerb', lexeme, cell, agree: cell.kind === 'nonFinite' };
       return [{ periphrasis: null, auxiliary: null, slots: [slot] }];
     }
-    const periphrases = periphrasesFor(grammar.periphrases, target);
+    const periphrases = periphrasesFor(grammar.periphrases, target, lexeme);
     if (!periphrases.length) {
-      throw new ConjugationError('GENERATION_FAILURE', `No simple cell or periphrasis builds ${targetKey(target)}.`);
+      throw new ConjugationError('GENERATION_FAILURE', `No simple cell or periphrasis builds ${targetKey(target)} for ${lexeme.lemma}.`);
     }
     return periphrases.flatMap(periphrasis => (usesPerfectAuxiliary(periphrasis) ? lexeme.auxiliaries : [null]).map(auxiliary => ({
       periphrasis, auxiliary, slots: periphrasis.chain.map(element => slotFor(periphrasis, element, target, lexeme, auxiliary)),

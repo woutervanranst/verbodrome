@@ -15,6 +15,10 @@
  * carry the pattern `separable` or `inseparable` and the condition `intransitive` or `transitive`. The `prefix` option
  * (separable or inseparable) keeps only the reading it names; the `auxiliary` option keeps the readings that take it.
  *
+ * The simple past is one word for an ordinary verb (-ei -eis -eit -eimos -eites -eint) and a compound for a deponent
+ * one (conata, `deponent` in the lexicon): the present of esta + the past participle, which agrees in gender. The
+ * grammar's `cellOf` says which, lexeme by lexeme, and the periphrasis `applies` only to deponents.
+ *
  * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
  * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot.
  */
@@ -49,6 +53,7 @@ export const toyRules = defineRules({
   'xx.end.past': { stage: 'ending', params: { ending: 'text', tense: 'term' } },
   'xx.end.imperative': { stage: 'ending' },
   'xx.end.long': { stage: 'ending', params: { ending: 'text' } },
+  'xx.end.simple-past': { stage: 'ending', params: { ending: 'text' } },
   'xx.end.passive': { stage: 'ending' },
   'xx.end.infinitive': { stage: 'ending' },
   'xx.end.present-participle': { stage: 'ending' },
@@ -61,6 +66,7 @@ export const toyRules = defineRules({
   'xx.periphrasis.future': { stage: 'periphrasis' },
   'xx.periphrasis.future-inverted': { stage: 'periphrasis' },
   'xx.periphrasis.conditional': { stage: 'periphrasis' },
+  'xx.periphrasis.deponent-past': { stage: 'periphrasis' },
   'xx.agree.gender': { stage: 'clause', params: { gender: 'term' } },
   'xx.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
   'xx.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
@@ -89,6 +95,7 @@ export const toyCitations = {
   'xx.end.past': grammarCitation('§2.6'),
   'xx.end.imperative': grammarCitation('§2.7'),
   'xx.end.long': grammarCitation('§2.3'),
+  'xx.end.simple-past': grammarCitation('§2.8'),
   'xx.end.passive': grammarCitation('§2.2'),
   'xx.end.infinitive': grammarCitation('§2.1'),
   'xx.end.present-participle': grammarCitation('§2.4'),
@@ -101,6 +108,7 @@ export const toyCitations = {
   'xx.periphrasis.future': grammarCitation('§5.3'),
   'xx.periphrasis.future-inverted': grammarCitation('§5.4'),
   'xx.periphrasis.conditional': grammarCitation('§5.5'),
+  'xx.periphrasis.deponent-past': grammarCitation('§5.6'),
   'xx.agree.gender': grammarCitation('§6'),
   'xx.clause.particle-final': grammarCitation('§7.1'),
   'xx.clause.particle-attached': grammarCitation('§7.2'),
@@ -116,6 +124,8 @@ export interface ToyLexeme extends LexemeBase {
   readonly hasParticiple: boolean;
   /** Has the literary long 1pl present ending -amusse beside -amos. */
   readonly longPlural: boolean;
+  /** A deponent verb has no one-word simple past: it forms it with esta and the past participle. */
+  readonly deponent: boolean;
 }
 
 /** One reading of a particle verb whose particle is separable in one sense and inseparable in another. */
@@ -135,6 +145,7 @@ interface Entry {
   readonly stems?: Readonly<Record<string, string>>;
   readonly noParticiple?: true;
   readonly longPlural?: true;
+  readonly deponent?: true;
 }
 
 const lexicon: Readonly<Record<string, Entry>> = {
@@ -151,6 +162,8 @@ const lexicon: Readonly<Record<string, Entry>> = {
   grapha: { auxiliaries: ['epha'] },
   epha: {},
   canta: { longPlural: true },
+  // Deponent: no one-word simple past, which is esta + the participle.
+  conata: { deponent: true },
   // Separable and intransitive in one sense, inseparable and transitive in the other: two paradigms, never mixed.
   apvena: {
     particle: 'ap',
@@ -179,6 +192,7 @@ function lexemeOf(lemma: string, reading?: Reading): ToyLexeme {
     listedStems: entry.stems ?? {},
     hasParticiple: !entry.noParticiple,
     longPlural: entry.longPlural ?? false,
+    deponent: entry.deponent ?? false,
   };
 }
 
@@ -186,6 +200,7 @@ type FiniteCell = Extract<Cell, { kind: 'finite' }>;
 
 const presentEndings = ['o', 'as', 'at', 'amos', 'etes', 'ant'] as const;
 const pastEndings = ['i', 'is', 'it', 'imos', 'ites', 'int'] as const;
+const simplePastEndings = ['ei', 'eis', 'eit', 'eimos', 'eites', 'eint'] as const;
 const genders = ['masculine', 'feminine'] as const;
 
 function slot(cell: FiniteCell): number {
@@ -225,6 +240,10 @@ function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
     return one(text, [step(toyRules['xx.end.participle'], stem, stem + text, { ending: text })]);
   }
   if (cell.mood === 'imperative') return one('e', [step(toyRules['xx.end.imperative'], stem, `${stem}e`)]);
+  if (cell.tense === 'simple_past') {
+    const personal = itemAt(simplePastEndings, slot(cell));
+    return one(personal, [step(toyRules['xx.end.simple-past'], stem, stem + personal, { ending: personal })]);
+  }
   if (cell.tense === 'past') {
     // The past has no passive. Its rule names the tense, which `explain` labels in the word's own mood.
     const personal = itemAt(pastEndings, slot(cell));
@@ -246,7 +265,7 @@ function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
 const present = { mood: 'indicative', tense: 'present' } as const;
 const agreeingParticiple: ChainElement = { verb: 'main', nonFinite: 'participle', agree: true };
 
-const periphrases: readonly Periphrasis[] = [
+const periphrases: readonly Periphrasis<ToyLexeme>[] = [
   {
     mood: 'indicative', tense: 'perfect', voice: 'active', rule: toyRules['xx.periphrasis.perfect'],
     chain: [{ verb: 'perfectAuxiliary', finite: present }, agreeingParticiple],
@@ -267,6 +286,11 @@ const periphrases: readonly Periphrasis[] = [
     // The auxiliary is conjugated in another mood than the target's: the indicative past inside a conditional.
     mood: 'conditional', tense: 'past', rule: toyRules['xx.periphrasis.conditional'],
     chain: [{ verb: { lemma: 'vada' }, finite: { mood: 'indicative', tense: 'past' } }, { verb: 'main', nonFinite: 'infinitive' }],
+  },
+  {
+    // Only a deponent verb: an ordinary verb's simple past is a cell.
+    mood: 'indicative', tense: 'simple_past', rule: toyRules['xx.periphrasis.deponent-past'], applies: lexeme => lexeme.deponent,
+    chain: [{ verb: { lemma: 'esta' }, finite: present }, agreeingParticiple],
   },
 ];
 
@@ -374,12 +398,13 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
     return withAuxiliaryHint(lemma, withPrefixHint(lemma, paradigmsOf(lemma), query.prefix), query.auxiliary);
   },
   lexemeOf,
-  cellOf(target) {
+  cellOf(target, lexeme) {
     if (target.mood === 'infinitive') return { kind: 'nonFinite', form: 'infinitive' };
     if (target.mood === 'participle') return { kind: 'nonFinite', form: target.tense === 'present' ? 'presentParticiple' : 'participle' };
     if (target.person === null || target.number === null) return null;
     if (target.mood === 'imperative') return { kind: 'finite', mood: 'imperative', tense: 'present', person: target.person, number: target.number };
-    const simple = target.tense === 'present' || target.tense === 'past';
+    // A deponent verb's simple past is periphrastic; every other verb has it as a cell.
+    const simple = target.tense === 'present' || target.tense === 'past' || (target.tense === 'simple_past' && !lexeme.deponent);
     if (target.mood !== 'indicative' || !simple) return null;
     // Active is the unmarked voice, so an active cell is the same cell a periphrasis asks for.
     return {
@@ -414,7 +439,7 @@ const voiced = (entry: CatalogueEntry): CatalogueEntry =>
   entry.tense === 'present' || entry.tense === 'perfect' ? Object.freeze({ ...entry, voices: Object.freeze(['active', 'passive'] as const) }) : entry;
 
 export const toyCatalogue: readonly CatalogueEntry[] = [
-  ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future']]).map(voiced),
+  ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future'], ['simple_past', 'Simple past']]).map(voiced),
   // The conditional's past has another label than the indicative's.
   ...moodEntries('conditional', 'Conditional', allPersons, [['past', 'Future in the past']]),
   ...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]),

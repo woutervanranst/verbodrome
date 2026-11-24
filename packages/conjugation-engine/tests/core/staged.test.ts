@@ -592,6 +592,130 @@ describe('several paradigms for one lemma', () => {
   });
 });
 
+describe('lexeme-aware cells and periphrases', () => {
+  // The simple past is one word for an ordinary verb and esta + the past participle for a deponent one (conata).
+  const simplePast = (infinitive: string) => ({ language: 'xx', infinitive, mood: 'indicative', tense: 'simple_past', person: 3, number: 'singular' });
+  const forms = (query: Query, engine = toy) => engine.conjugate(query).forms;
+  const deponentPeriphrasis = toyGrammar.periphrases.find(p => p.tense === 'simple_past')!;
+  /** The toy grammar with `cellOf` and `applies` recording the lexeme each was asked about. */
+  function spied() {
+    const cellCalls: string[][] = [];
+    const appliesCalls: string[] = [];
+    const engine = toyWith({
+      ...toyGrammar,
+      cellOf(target, lexeme) {
+        cellCalls.push([target.tense, lexeme.lemma]);
+        return toyGrammar.cellOf(target, lexeme);
+      },
+      periphrases: toyGrammar.periphrases.map(p => p !== deponentPeriphrasis ? p : {
+        ...p,
+        applies(lexeme) {
+          appliesCalls.push(lexeme.lemma);
+          return p.applies!(lexeme);
+        },
+      }),
+    });
+    return { engine, cellCalls, appliesCalls };
+  }
+
+  it('gives an ordinary verb a one-word simple past and no periphrasis step', () => {
+    const [form, ...others] = forms(simplePast('zorpa'));
+    expect(others).toEqual([]);
+    expect(form!.text).toBe('il zorpeit');
+    expect(form!.steps).toEqual([]);
+    expect(form!.ruleIds).toEqual(['xx.stem.drop-a', 'xx.end.simple-past']);
+    expect(form!.variant.auxiliary).toBeNull();
+    expect(form!.parts.map(p => [p.role, p.text, p.lemma])).toEqual([['subject', 'il', null], ['lexicalVerb', 'zorpeit', 'zorpa']]);
+  });
+
+  it('gives a deponent verb the periphrasis, with esta and the agreeing participle', () => {
+    const result = forms(simplePast('conata'));
+    expect(result.map(f => [f.text, f.variant.auxiliary, f.target.agreement])).toEqual([
+      ['il estat conatado', 'esta', { gender: 'masculine', number: 'singular' }],
+      ['il estat conatada', 'esta', { gender: 'feminine', number: 'singular' }],
+    ]);
+    expect(rules(result[0]!.steps)).toEqual(['xx.periphrasis.deponent-past', 'xx.agree.gender']);
+    expect(result[0]!.parts.map(p => [p.role, p.text, p.lemma])).toEqual([
+      ['subject', 'il', null], ['auxiliary', 'estat', 'esta'], ['lexicalVerb', 'conatado', 'conata'],
+    ]);
+    // The deponent keeps its ordinary cells in every other tense.
+    expect(forms({ ...simplePast('conata'), tense: 'present', voice: 'active' }).map(f => f.text)).toEqual(['il conatat']);
+  });
+
+  it('conjugates every person of both kinds of verb in the simple past', () => {
+    const all = (infinitive: string) => toy.conjugate({ language: 'xx', infinitive, mood: 'indicative', tense: 'simple_past' }).forms.map(f => f.text);
+    expect(all('zorpa')).toEqual(['mi zorpei', 'tu zorpeis', 'il zorpeit', 'nos zorpeimos', 'vos zorpeites', 'ils zorpeint']);
+    expect(all('conata')).toEqual([
+      'mi esto conatado', 'mi esto conatada', 'tu estas conatado', 'tu estas conatada', 'il estat conatado', 'il estat conatada',
+      'nos estamos conatado', 'nos estamos conatada', 'vos estetes conatado', 'vos estetes conatada', 'ils estant conatado', 'ils estant conatada',
+    ]);
+  });
+
+  it('asks cellOf about the main verb for the target and about each verb\'s own lexeme for chain elements', () => {
+    const { engine, cellCalls, appliesCalls } = spied();
+    forms(simplePast('conata'), engine);
+    expect(cellCalls).toEqual([['simple_past', 'conata'], ['present', 'esta']]);
+    // applies is asked about the main verb, never about the auxiliary.
+    expect(appliesCalls).toEqual(['conata']);
+    cellCalls.length = 0;
+    appliesCalls.length = 0;
+    forms(simplePast('zorpa'), engine);
+    expect(cellCalls).toEqual([['simple_past', 'zorpa']]);
+    expect(appliesCalls).toEqual([]);
+  });
+
+  it('resolves a named verb\'s finite element in that verb\'s own cell, not the main verb\'s', () => {
+    const naming = (lemma: string): Periphrasis => ({
+      mood: 'indicative', tense: 'future', rule: toyRules['xx.periphrasis.future'],
+      chain: [{ verb: { lemma }, finite: { mood: 'indicative', tense: 'simple_past' } }, { verb: 'main', nonFinite: 'infinitive' }],
+    });
+    const future = (infinitive: string) => ({ ...simplePast(infinitive), tense: 'future' });
+    // zorpa has a simple past of its own, though the main verb conata does not.
+    expect(forms(future('conata'), toyWith({ ...toyGrammar, periphrases: [naming('zorpa')] })).map(f => f.text)).toEqual(['il zorpeit conata']);
+    // conata is periphrastic in the simple past, though the main verb zorpa is not: periphrases do not nest.
+    expect(() => forms(future('zorpa'), toyWith({ ...toyGrammar, periphrases: [naming('conata')] })))
+      .toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringMatching(/indicative\/simple_past.*periphrastic itself.*conata/u) }));
+  });
+
+  it('decides per paradigm when a lemma has several', () => {
+    const engine = toyWith({
+      ...toyGrammar,
+      // The second paradigm of every verb is a deponent reading of it.
+      classify: query => toyGrammar.classify(query).flatMap(paradigm => [paradigm, { ...paradigm, value: { ...paradigm.value, deponent: true } }]),
+    });
+    expect(forms(simplePast('zorpa'), engine).map(f => f.text)).toEqual(['il zorpeit', 'il estat zorpado', 'il estat zorpada']);
+  });
+
+  it('lets the cell win when it exists, even if a periphrasis applies to the verb too', () => {
+    const engine = toyWith({ ...toyGrammar, cellOf: (target, lexeme) => toyGrammar.cellOf(target, { ...lexeme, deponent: false }) });
+    expect(forms(simplePast('conata'), engine).map(f => [f.text, f.steps])).toEqual([['il conateit', []]]);
+  });
+
+  it('treats a periphrasis without applies as applying to every verb', () => {
+    const { applies, ...everyVerb } = deponentPeriphrasis;
+    expect(applies).toBeTypeOf('function');
+    const engine = toyWith({ ...toyGrammar, cellOf: (target, lexeme) => target.tense === 'simple_past' ? null : toyGrammar.cellOf(target, lexeme), periphrases: [everyVerb] });
+    expect(forms(simplePast('zorpa'), engine).map(f => f.text)).toEqual(['il estat zorpado', 'il estat zorpada']);
+    expect(forms(simplePast('conata'), engine).map(f => f.text)).toEqual(['il estat conatado', 'il estat conatada']);
+  });
+
+  it('fails, naming the target and the lemma, when no cell exists and no periphrasis applies', () => {
+    const engine = toyWith({ ...toyGrammar, cellOf: (target, lexeme) => target.tense === 'simple_past' ? null : toyGrammar.cellOf(target, lexeme) });
+    // zorpa is not a deponent: the deponent periphrasis does not apply and the cell is gone.
+    expect(() => forms(simplePast('zorpa'), engine)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE', message: expect.stringMatching(/indicative\/simple_past\/3\/singular.*zorpa/u),
+    }));
+    expect(forms(simplePast('conata'), engine)).toHaveLength(2);
+  });
+
+  it('validates a periphrasis with applies like any other', () => {
+    const broken = { ...toyGrammar, periphrases: [{ ...deponentPeriphrasis, rule: toyRules['xx.orth.ph-f'] }] };
+    expect(() => validateGrammar(broken)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE', message: expect.stringContaining('indicative/simple_past'),
+    }));
+  });
+});
+
 describe('validateGrammar', () => {
   const [perfect, , future] = toyGrammar.periphrases as [Periphrasis, Periphrasis, Periphrasis];
   const auxiliaryRule = toyRules['xx.periphrasis.perfect'];

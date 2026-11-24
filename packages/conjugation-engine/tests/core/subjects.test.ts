@@ -94,7 +94,7 @@ describe('subject slots', () => {
     expect(targets.every(target => target.subject === '3sg.f' && target.person === 3)).toBe(true);
     expect(targets.map(target => `${target.mood}/${target.tense}`)).toEqual([
       'indicative/present', 'indicative/present', 'indicative/past', 'indicative/perfect', 'indicative/perfect',
-      'indicative/future', 'conditional/past',
+      'indicative/future', 'indicative/simple_past', 'conditional/past',
     ]);
     const unfiltered = toy.expandTargets({ language: 'xx', infinitive: 'placa', mood: 'participle' });
     expect(unfiltered.map(target => Object.hasOwn(target, 'subject'))).toEqual([false, false]);

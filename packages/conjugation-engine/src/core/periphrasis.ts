@@ -2,6 +2,7 @@ import type { FormVariant, ResolvedTarget } from '../types.js';
 import { step } from './derivation.js';
 import type { DerivationStep, RuleInfo } from './derivation.js';
 import type { Voice } from './grammar.js';
+import type { LexemeBase } from './staged.js';
 
 /** The verb a chain element conjugates: the queried verb, its perfect auxiliary (one run per auxiliary), or a named verb. */
 export type VerbRef = 'main' | 'perfectAuxiliary' | { readonly lemma: string };
@@ -18,9 +19,10 @@ export type ChainElement =
 
 /**
  * A compound tense as a recipe. Several entries for one target are named variants (`pattern`, `usage`).
- * `validateGrammar` checks the declaration once; nesting is checked when a target is generated.
+ * `validateGrammar` checks the declaration once; nesting is checked when a target is generated. `X` is the lexeme type
+ * of the pack's grammar, so `applies` can read the pack's own lexical data without a cast.
  */
-export interface Periphrasis {
+export interface Periphrasis<X extends LexemeBase = LexemeBase> {
   readonly mood: string;
   readonly tense: string;
   /**
@@ -28,6 +30,13 @@ export interface Periphrasis {
    * has voices writes `voice: 'active'` explicitly on its active compound tenses.
    */
   readonly voice?: Voice;
+  /**
+   * Whether this recipe builds the target for `lexeme`, the verb being conjugated (never an auxiliary the chain names):
+   * a deponent verb's perfect is a compound tense where an ordinary verb's is one word. Absent: applies to every verb.
+   * Only the periphrases that apply to a verb are considered for it; a target the verb's `cellOf` already maps to a cell
+   * is built from that cell, and no periphrasis runs for it.
+   */
+  readonly applies?: (lexeme: X) => boolean;
   /** Stage 'periphrasis'. Declares one `auxiliary` text param when the chain uses `perfectAuxiliary`, and no params otherwise. */
   readonly rule: RuleInfo;
   readonly chain: readonly ChainElement[];
@@ -40,17 +49,21 @@ export interface Periphrasis {
   readonly reports?: VerbRef;
 }
 
-/** The periphrases that build `target`: same mood and tense, and the same voice or both without one. */
-export function periphrasesFor(periphrases: readonly Periphrasis[], target: ResolvedTarget): Periphrasis[] {
-  return periphrases.filter(p => p.mood === target.mood && p.tense === target.tense && (p.voice ?? null) === (target.voice ?? null));
+/**
+ * The periphrases that build `target` for `lexeme`: same mood and tense, the same voice or both without one, and
+ * applying to the lexeme.
+ */
+export function periphrasesFor<X extends LexemeBase>(periphrases: readonly Periphrasis<X>[], target: ResolvedTarget, lexeme: X): Periphrasis<X>[] {
+  return periphrases.filter(p =>
+    p.mood === target.mood && p.tense === target.tense && (p.voice ?? null) === (target.voice ?? null) && (p.applies?.(lexeme) ?? true));
 }
 
-export function usesPerfectAuxiliary(periphrasis: Periphrasis): boolean {
+export function usesPerfectAuxiliary(periphrasis: Pick<Periphrasis, 'chain'>): boolean {
   return periphrasis.chain.some(element => 'verb' in element && element.verb === 'perfectAuxiliary');
 }
 
 /** The lemma a form built by `periphrasis` reports as its auxiliary; `perfectAuxiliary` is the one this run uses, if any. */
-export function reportedAuxiliary(periphrasis: Periphrasis, perfectAuxiliary: string | null): string | null {
+export function reportedAuxiliary(periphrasis: Pick<Periphrasis, 'chain' | 'reports'>, perfectAuxiliary: string | null): string | null {
   const reported = periphrasis.reports ?? (usesPerfectAuxiliary(periphrasis) ? 'perfectAuxiliary' : firstNamedVerb(periphrasis.chain));
   if (reported === 'main') return null;
   return reported === 'perfectAuxiliary' ? perfectAuxiliary : reported.lemma;
@@ -63,6 +76,6 @@ function firstNamedVerb(chain: readonly ChainElement[]): VerbRef {
 }
 
 /** The form-level step that names the construction; `auxiliary` is the perfect auxiliary this run uses, if any. */
-export function periphrasisStep(periphrasis: Periphrasis, auxiliary: string | null): DerivationStep {
+export function periphrasisStep(periphrasis: Pick<Periphrasis, 'rule'>, auxiliary: string | null): DerivationStep {
   return step(periphrasis.rule, null, null, auxiliary === null ? {} : { auxiliary });
 }
