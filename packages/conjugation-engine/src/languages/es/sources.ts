@@ -51,8 +51,63 @@ export const spanishWorks = {
   },
 } as const satisfies Record<string, Work>;
 
-/** The citation of each rule, filled in as the rules are added. */
-export const spanishCitations = {} as const satisfies Record<SpanishRuleId, Citation | readonly Citation[]>;
+type Url = `https://${string}`;
+
+const ngle = (locator: string): Citation => ({ work: 'ngle', locator });
+const orto = (locator: string, path = 'reglas-de-acentuaci%C3%B3n'): Citation => ({ work: 'orto', locator, url: `https://www.rae.es/ortograf%C3%ADa/${path}` });
+const dpd = (entry: string, path = entry): Citation => ({ work: 'dpd', locator: `«${entry}»`, url: `https://www.rae.es/dpd/${path}` });
+const dle = (locator: string): Citation => ({ work: 'dle', locator });
+const dpdTilde = (locator: string): Citation => ({ work: 'dpd-tilde', locator });
+
+/** The citation of each rule (grammar design §4, cite columns). */
+export const spanishCitations = {
+  'es.classify.conjugation': ngle('§4.3, §4.6'),
+  'es.classify.reflexive': dpd('pronombres personales átonos', 'pronombres%20personales%20%C3%A1tonos'),
+  'es.classify.restore-accent': [orto('§3.4.2', 'palabras-con-hiato'), dpdTilde('§2.2.2')],
+  'es.classify.lexicon': dle('the verb\'s entry and its conjugation table'),
+  'es.classify.two-paradigms': [dle('the numbered homographs of the verb'), dpd('lemas con superíndice', 'ayuda/lemas-con-superindice')],
+  'es.classify.prefixed': ngle('§4.16'),
+  'es.classify.family': [ngle('§4.11, §4.12'), dpd('conducir')],
+  'es.classify.uar-stress': [ngle('§4.9'), dpd('averiguar'), { work: 'aml-minucias', locator: 'licuo y licúo' }],
+  'es.classify.hint': ngle('§4.10'),
+  'es.classify.assume-regular': ngle('§4.6'),
+  'es.classify.assume-glide': ngle('§4.9'),
+  'es.classify.assume-diphthong': ngle('§4.9'),
+  'es.classify.assume-zc': ngle('§4.11'),
+} as const satisfies Record<SpanishRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose only source the implementer could read is a secondary copy of an RAE text (see the header). */
-export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>([]);
+export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>(['es.classify.restore-accent']);
+
+/** Lemmas whose forms were cross-checked against a secondary source (English Wiktionary), which does not verify them. */
+const secondaryChecks: Readonly<Record<string, Url>> = Object.fromEntries(
+  ['raer', 'roer', 'yacer', 'satisfacer', 'predecir', 'contradecir', 'desdecir', 'bendecir', 'maldecir', 'erguir', 'ir', 'errar',
+    'prender', 'imprimir', 'proveer', 'agriar', 'auxiliar', 'paliar', 'expatriar', 'repatriar', 'historiar', 'vidriar', 'adecuar',
+    'evacuar', 'licuar', 'anticuar', 'soler'].map(lemma => [lemma, `https://en.wiktionary.org/wiki/${encodeURIComponent(lemma)}` as Url]),
+);
+
+export interface LexiconVerification {
+  readonly status: 'verified' | 'unverified';
+  /** The authority's page for the lemma (its DLE entry with the conjugation table). */
+  readonly url: Url;
+  /** When the page was tried. */
+  readonly checked: string;
+  readonly note: string;
+  /** A secondary source the forms were compared with, if any. */
+  readonly secondary?: Url;
+}
+
+/**
+ * The verification status of a lexicon lemma against its authority. None could be verified: dle.rae.es and
+ * www.rae.es/dpd answered HTTP 403 to automated fetching on 24 Nov 2026, and no browser was connected for a manual check.
+ */
+export function lexiconVerification(lemma: string): LexiconVerification {
+  const secondary = Object.hasOwn(secondaryChecks, lemma) ? secondaryChecks[lemma] : undefined;
+  return {
+    status: 'unverified',
+    url: `https://dle.rae.es/${encodeURIComponent(lemma)}`,
+    checked: '2026-11-24',
+    note: 'dle.rae.es refused automated fetching (HTTP 403) and no browser was available to open it by hand',
+    ...(secondary === undefined ? {} : { secondary }),
+  };
+}
