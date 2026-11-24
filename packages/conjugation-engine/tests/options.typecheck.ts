@@ -1,5 +1,5 @@
 import { conjugationOptions } from '../src/index.js';
-import type { ConjugationOptions, DutchConjugationOptions, FrenchConjugationOptions } from '../src/index.js';
+import type { ConjugationOptions, DutchConjugationOptions, FrenchConjugationOptions, Mood, MoodFor, TenseFor } from '../src/index.js';
 
 export const french: FrenchConjugationOptions = conjugationOptions('fr', 'aller').indicative('perfect').gender('feminine').build();
 export const dutch: DutchConjugationOptions = conjugationOptions('nl', 'werken').indicative('present').pronoun('u').build();
@@ -31,3 +31,8 @@ export function checkBuilderLanguageConstraints(): void {
   // @ts-expect-error Language-specific auxiliary.
   conjugationOptions('fr', 'aimer').auxiliary('hebben');
 }
+
+type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
+export const moods: Equal<Mood, 'indicative' | 'subjunctive' | 'conditional' | 'imperative' | 'infinitive' | 'participle' | 'gerund'> = true;
+export const dutchMoods: Equal<MoodFor<'nl'>, 'indicative' | 'conditional' | 'imperative' | 'infinitive' | 'participle'> = true;
+export const frenchSubjunctive: Equal<TenseFor<'fr', 'subjunctive'>, 'present' | 'past' | 'imperfect' | 'pluperfect'> = true;
