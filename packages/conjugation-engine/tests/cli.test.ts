@@ -99,7 +99,7 @@ describe('compiled CLI', () => {
   it('provides usage independently of conjugation', () => {
     const result = run(['--help']);
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl> <infinitive>');
+    expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl|it> <infinitive>');
     expect(result.stderr).toBe('');
   });
 
@@ -126,7 +126,7 @@ describe('compiled CLI', () => {
     const result = run(['xx', 'aimer']);
     expect(result.status).toBe(1);
     expect(result.stdout).toBe('');
-    expect(result.stderr).toBe('UNSUPPORTED_LANGUAGE: Language must be one of: fr, nl.\n');
+    expect(result.stderr).toBe('UNSUPPORTED_LANGUAGE: Language must be one of: fr, nl, it.\n');
   });
 
   it('accepts negated boolean flags for every boolean option', () => {
