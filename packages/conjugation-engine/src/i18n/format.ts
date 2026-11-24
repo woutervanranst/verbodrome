@@ -13,8 +13,8 @@ type Node =
   | { readonly type: 'text'; readonly value: string }
   | { readonly type: 'arg'; readonly name: string }
   | { readonly type: 'hash' }
-  | { readonly type: 'plural'; readonly name: string; readonly exact: ReadonlyMap<number, Branch>; readonly categories: ReadonlyMap<string, Branch>; readonly other: Branch }
-  | { readonly type: 'select'; readonly name: string; readonly cases: ReadonlyMap<string, Branch>; readonly other: Branch };
+  | { readonly type: 'plural'; readonly name: string; readonly exact: ReadonlyMap<number, Branch>; readonly categories: ReadonlyMap<string, Branch>; readonly other: Branch; readonly inSourceOrder: readonly Branch[] }
+  | { readonly type: 'select'; readonly name: string; readonly cases: ReadonlyMap<string, Branch>; readonly other: Branch; readonly inSourceOrder: readonly Branch[] };
 type Branch = readonly Node[];
 
 const PLURAL_CATEGORIES: ReadonlySet<string> = new Set(['zero', 'one', 'two', 'few', 'many', 'other']);
@@ -87,8 +87,10 @@ class Parser {
       this.pos++;
       return "'";
     }
+    const opened = this.pos;
     this.pos++;
     let quoted = '';
+    let closed = false;
     while (this.pos < this.src.length) {
       const ch = this.src.charAt(this.pos);
       if (ch === "'") {
@@ -98,11 +100,13 @@ class Parser {
           continue;
         }
         this.pos++;
+        closed = true;
         break;
       }
       quoted += ch;
       this.pos++;
     }
+    if (!closed) this.fail("Unterminated quote; write '' for a literal apostrophe before a brace", opened);
     return quoted;
   }
 
@@ -163,10 +167,12 @@ class Parser {
   private parsePlural(name: string): Node {
     const exact = new Map<number, Branch>();
     const categories = new Map<string, Branch>();
+    const inSourceOrder: Branch[] = [];
     this.parseBranches((key, at) => {
       if (key.startsWith('offset:')) this.fail('Plural offsets are not supported', at);
       if (!PLURAL_CATEGORIES.has(key) && !/^=-?\d+(\.\d+)?$/u.test(key)) this.fail(`Invalid plural key "${key}"`, at);
     }, true, (key, body, at) => {
+      inSourceOrder.push(body);
       if (key.startsWith('=')) {
         const value = Number(key.slice(1));
         if (exact.has(value)) this.fail(`Duplicate plural key "${key}"`, at);
@@ -179,19 +185,21 @@ class Parser {
     const other = categories.get('other');
     if (!other) this.fail(`Plural "${name}" requires an "other" branch`);
     categories.delete('other');
-    return { type: 'plural', name, exact, categories, other };
+    return { type: 'plural', name, exact, categories, other, inSourceOrder };
   }
 
   private parseSelect(name: string, inPlural: boolean): Node {
     const cases = new Map<string, Branch>();
+    const inSourceOrder: Branch[] = [];
     this.parseBranches(() => undefined, inPlural, (key, body, at) => {
+      inSourceOrder.push(body);
       if (cases.has(key)) this.fail(`Duplicate select key "${key}"`, at);
       cases.set(key, body);
     });
     const other = cases.get('other');
     if (!other) this.fail(`Select "${name}" requires an "other" branch`);
     cases.delete('other');
-    return { type: 'select', name, cases, other };
+    return { type: 'select', name, cases, other, inSourceOrder };
   }
 }
 
@@ -204,10 +212,10 @@ function collectPlaceholders(nodes: Branch, found: Map<string, PlaceholderKind>)
     if (node.type === 'arg') note(node.name, 'any');
     else if (node.type === 'plural') {
       note(node.name, 'number');
-      for (const branch of [...node.exact.values(), ...node.categories.values(), node.other]) collectPlaceholders(branch, found);
+      for (const branch of node.inSourceOrder) collectPlaceholders(branch, found);
     } else if (node.type === 'select') {
       note(node.name, 'select');
-      for (const branch of [...node.cases.values(), node.other]) collectPlaceholders(branch, found);
+      for (const branch of node.inSourceOrder) collectPlaceholders(branch, found);
     }
   }
 }
@@ -231,6 +239,10 @@ function cached<T>(cache: Map<string, T>, locale: string, create: () => T): T {
   return value;
 }
 
+function numberFormat(locale: string): Intl.NumberFormat {
+  return cached(numberFormatByLocale, locale, () => new Intl.NumberFormat(locale));
+}
+
 function render(nodes: Branch, args: Readonly<Record<string, MessageArg>>, locale: string, hash: string | undefined): string {
   let out = '';
   for (const node of nodes) {
@@ -241,9 +253,11 @@ function render(nodes: Branch, args: Readonly<Record<string, MessageArg>>, local
       case 'hash':
         out += hash ?? '#';
         break;
-      case 'arg':
-        out += String(argument(args, node.name));
+      case 'arg': {
+        const value = argument(args, node.name);
+        out += typeof value === 'number' ? numberFormat(locale).format(value) : value;
         break;
+      }
       case 'select': {
         const branch = node.cases.get(String(argument(args, node.name))) ?? node.other;
         out += render(branch, args, locale, hash);
@@ -255,7 +269,7 @@ function render(nodes: Branch, args: Readonly<Record<string, MessageArg>>, local
         const branch = node.exact.get(value)
           ?? node.categories.get(cached(pluralRulesByLocale, locale, () => new Intl.PluralRules(locale)).select(value))
           ?? node.other;
-        out += render(branch, args, locale, cached(numberFormatByLocale, locale, () => new Intl.NumberFormat(locale)).format(value));
+        out += render(branch, args, locale, numberFormat(locale).format(value));
         break;
       }
     }
@@ -269,7 +283,11 @@ function argument(args: Readonly<Record<string, MessageArg>>, name: string): Mes
   return value;
 }
 
-/** Formats `source` with `args`; plural categories and `#` follow `locale`. Throws RangeError for a missing argument or a non-number plural argument. */
+/**
+ * Formats `source` with `args`; plural categories and number formatting (`#` and a number in a plain `{name}`) follow `locale`.
+ * Quoting follows ICU: `''` is an apostrophe, and `'` directly before `{` or `}` (or `#` in a plural branch) opens a quoted
+ * literal that must be closed by another `'`, so `'{x}'` is the text `{x}`. An unterminated quote is a SyntaxError:
+ * write `l''{noun}`, not `l'{noun}`. Any other apostrophe (`'t kofschip`, `verb's`) is literal. Throws RangeError for a missing argument or a non-number plural argument. */
 export function formatMessage(source: string, args: Readonly<Record<string, MessageArg>>, locale: string): string {
   return render(parse(source), args, locale, undefined);
 }

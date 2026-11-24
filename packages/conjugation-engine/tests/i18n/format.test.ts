@@ -56,7 +56,18 @@ describe('formatMessage', () => {
     expect(formatMessage("l'arbre", {}, 'fr')).toBe("l'arbre");
     expect(formatMessage("a '' b", {}, 'en')).toBe("a ' b");
     expect(formatMessage("'{a}' and '}' and '{it''s}'", {}, 'en')).toBe("{a} and } and {it's}");
-    expect(formatMessage("'{unterminated", {}, 'en')).toBe('{unterminated');
+    expect(formatMessage("'t kofschip {x}", { x: 'v' }, 'nl')).toBe("'t kofschip v");
+    expect(formatMessage("verb's {x} l'élision", { x: 'v' }, 'en')).toBe("verb's v l'élision");
+    expect(formatMessage("'{literal}' {x}", { x: 'ok' }, 'en')).toBe('{literal} ok');
+    expect(formatMessage("l''{noun}", { noun: 'arbre' }, 'fr')).toBe("l'arbre");
+  });
+
+  it('rejects an unterminated quoted section, pointing at the opening apostrophe', () => {
+    for (const source of ["l'{noun}", "'{unterminated", "d'{ending} et {x}", "x '}"]) {
+      expect(() => placeholders(source), source).toThrow(SyntaxError);
+      expect(() => formatMessage(source, { noun: 'a', ending: 'b', x: 'c' }, 'fr'), source).toThrow(SyntaxError);
+    }
+    expect(() => placeholders("l'{noun}")).toThrow(/''.*offset 1\b/);
   });
 
   it('passes literal text without placeholders through unchanged', () => {
@@ -64,8 +75,11 @@ describe('formatMessage', () => {
     expect(formatMessage('plain text', {}, 'en')).toBe('plain text');
   });
 
-  it('formats a number argument in a simple placeholder', () => {
+  it('formats a number in a simple placeholder like #, and inserts strings unchanged', () => {
     expect(formatMessage('{n}', { n: 3 }, 'en')).toBe('3');
+    expect(formatMessage('{n}', { n: 1234 }, 'en')).toBe('1,234');
+    expect(formatMessage('{n}', { n: 1234 }, 'nl')).toBe('1.234');
+    expect(formatMessage('{n}', { n: '1234' }, 'en')).toBe('1234');
   });
 
   it('is repeatable for the same source (parse cache)', () => {
@@ -109,6 +123,12 @@ describe('placeholders', () => {
     expect([...placeholders('{n} {s, select, other {x}} {s} {n, plural, other {#}} {s, select, other {y}} {n}')])
       .toEqual([['n', 'number'], ['s', 'select']]);
     expect([...placeholders('{x} {x, select, other {z}}')]).toEqual([['x', 'select']]);
+  });
+
+  it('reports placeholders in source order whatever the branch layout', () => {
+    expect([...placeholders('{s, select, other {{b}} x {{c}}}')].map(([name]) => name)).toEqual(['s', 'b', 'c']);
+    expect([...placeholders('{n, plural, one {{a}} =0 {{b}} other {{c}}}')].map(([name]) => name)).toEqual(['n', 'a', 'b', 'c']);
+    expect([...placeholders('{n, plural, other {{c}} =0 {{b}} one {{a}}}')].map(([name]) => name)).toEqual(['n', 'c', 'b', 'a']);
   });
 
   it('is empty for plain text', () => expect(placeholders('just text').size).toBe(0));
