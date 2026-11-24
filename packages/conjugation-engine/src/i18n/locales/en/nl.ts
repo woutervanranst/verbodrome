@@ -5,8 +5,8 @@
 import type { dutchRules } from '../../../languages/nl/rule-table.js';
 
 export const dutch = {
-  'nl.classify.lexicon': '{before} is in the list of verbs as a {after, select, strong {strong verb} mixed {mixed verb} other {weak verb}}.',
-  'nl.classify.loan': '{before} is a verb from English: its stem keeps the English spelling.',
+  'nl.classify.lexicon': '{before} has its own entry in the verb list: {after, select, strong {a strong verb} mixed {a mixed verb (weak past tense, strong past participle)} other {a weak verb}}.',
+  'nl.classify.loan': '{before} is a verb borrowed from English, so its stem is the one given for it, not one formed by the Dutch stem rules.',
   'nl.classify.separable': '{before} is a separable verb: {particle} carries the stress and can stand apart from the verb.',
   'nl.classify.inseparable': '{before} starts with the unstressed prefix {prefix}-, which never splits off, so the past participle gets no ge-.',
   'nl.classify.default-weak': 'An unlisted Dutch verb defaults to the weak native model.',
@@ -16,7 +16,7 @@ export const dutch = {
   'nl.stem.drop-en': 'Take -en off {before} to get the stem: {after}-.',
   'nl.stem.undouble-consonant': 'A word does not end in a double consonant, so {before}- becomes {after}-.',
   'nl.stem.lengthen-vowel': 'A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-.',
-  'nl.stem.unstressed-e': 'The e in the last syllable of {before}- is unstressed, so it is not written double: the stem stays {after}-.',
+  'nl.stem.unstressed-e': 'The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.',
   'nl.stem.devoice': 'At the end of a word, v and z are written f and s, so {before}- becomes {after}-.',
-  'nl.stem.lexical': 'The stem of {before} is {after}-: learn it by heart, it does not follow from the rules.',
+  'nl.stem.lexical': 'The stem of {before} is {after}-, as given for this verb.',
 } as const satisfies Record<keyof typeof dutchRules, string>;

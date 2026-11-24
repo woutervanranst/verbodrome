@@ -70,6 +70,9 @@ describe('Dutch present stem', () => {
     expect(stemOf('trapen', { stems: { unstressedFinalSyllable: true } })).toEqual({
       stem: 'trap', steps: ['nl.stem.drop-en: trapen -> trap', 'nl.stem.unstressed-e: trap -> trap'],
     });
+    // A hinted stress can keep any vowel single, so the message does not name the e.
+    const hinted = dutchGrammar.stem(classified('trapen', { stems: { unstressedFinalSyllable: true } }).lexeme, present1sg)[0]!.steps;
+    expect(english(hinted.slice(1))).toEqual(['The last syllable of trap- is unstressed, so its vowel is not written double: the stem stays trap-.']);
   });
 
   it('does not count an unstressed prefix when it infers stress', () => {
@@ -118,11 +121,12 @@ describe('Dutch classification', () => {
 
   it('records what the lexicon says about a listed verb', () => {
     const { lexeme, steps } = classified('lopen');
-    expect(english(steps)).toEqual(['lopen is in the list of verbs as a strong verb.']);
+    expect(english(steps)).toEqual(['lopen has its own entry in the verb list: a strong verb.']);
     expect(lexeme).toMatchObject({ classId: 'strong', classSource: 'lexicon', auxiliaries: ['hebben', 'zijn'], defaultAuxiliaries: ['hebben', 'zijn'] });
     expect(lexeme.entry.pastSingular).toEqual(['liep']);
-    expect(english(classified('bakken').steps)).toEqual(['bakken is in the list of verbs as a mixed verb.']);
-    expect(english(classified('wandelen').steps)).toEqual(['wandelen is in the list of verbs as a weak verb.']);
+    expect(english(classified('bakken').steps)).toEqual(['bakken has its own entry in the verb list: a mixed verb (weak past tense, strong past participle).']);
+    // wandelen is listed for its auxiliaries only: the sentence stays true.
+    expect(english(classified('wandelen').steps)).toEqual(['wandelen has its own entry in the verb list: a weak verb.']);
   });
 
   it('records a separable and an inseparable prefix, and the base the forms are built on', () => {

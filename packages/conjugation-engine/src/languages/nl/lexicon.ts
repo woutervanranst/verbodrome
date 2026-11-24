@@ -12,8 +12,8 @@ import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
 import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
-import { dutchRules } from './rule-table.js';
 import type { DutchConjugationOptions } from '../../types.js';
+import { dutchRules } from './rule-table.js';
 import type { DutchStemHints } from './spec.js';
 import { presentStem } from './stems.js';
 import type { PresentStem } from './stems.js';
@@ -494,6 +494,7 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
 
 /** The one paradigm of the verb a query names, with its classification steps. */
 export function classifyDutch(query: Readonly<Record<string, unknown>>): Fork<DutchLexeme> {
+  // The core has parsed the query against the Dutch option schema (`dutchOptions`), so these keys have these types.
   const { lexeme, steps } = classification(query as DutchQuery);
   return one(lexeme, steps);
 }
