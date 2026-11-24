@@ -87,7 +87,7 @@ describe('built package boundaries', () => {
         engine: [typeof root.createEngine, typeof core.createEngine, root.packs && Object.keys(root.packs), root.locales && Object.keys(root.locales)],
       }));
     `], { cwd: root, encoding: 'utf8' });
-    expect(JSON.parse(output)).toEqual({ core: [], root: [], engine: ['function', 'function', ['fr', 'nl'], ['en', 'nl']] });
+    expect(JSON.parse(output)).toEqual({ core: [], root: [], engine: ['function', 'function', ['fr', 'nl', 'la'], ['en', 'nl']] });
   });
 
   it('runs the ./core import graph without Node, corpus or fixture code', () => {

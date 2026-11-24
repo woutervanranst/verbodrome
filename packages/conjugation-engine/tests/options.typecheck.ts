@@ -84,7 +84,7 @@ export function checkBuilderLanguageConstraints(): void {
 }
 
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
-export const moods: Equal<Mood, 'indicative' | 'subjunctive' | 'conditional' | 'imperative' | 'infinitive' | 'participle' | 'gerund'> = true;
+export const moods: Equal<Mood, 'indicative' | 'subjunctive' | 'conditional' | 'imperative' | 'infinitive' | 'participle' | 'gerund' | 'supine'> = true;
 export const dutchMoods: Equal<MoodFor<'nl'>, 'indicative' | 'conditional' | 'imperative' | 'infinitive' | 'participle'> = true;
 export const frenchSubjunctive: Equal<TenseFor<'fr', 'subjunctive'>, 'present' | 'past' | 'imperfect' | 'pluperfect'> = true;
 

@@ -14,3 +14,9 @@ export type * from './types.js';
 export type { CatalogueEntry, SubjectSlot } from './core/pack.js';
 export type { Engine } from './core/engine.js';
 export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';
+import { comparisonFor } from './core/compare.js';
+import { packs as builtInPacks } from './languages/index.js';
+import type { Language } from './types.js';
+
+/** The key answers are compared by in `language`: equal keys are the same answer (Latin ignores macrons). */
+export const normalizeForComparison: (language: Language, text: string) => string = comparisonFor(builtInPacks);

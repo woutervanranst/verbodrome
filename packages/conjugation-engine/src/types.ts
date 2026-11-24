@@ -13,6 +13,7 @@ export type {
 export type {
   DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchTenses,
 } from './languages/nl/spec.js';
+export type { LatinClassHint, LatinGender, LatinSpec, LatinStemHints, LatinSubject, LatinTenses } from './languages/la/spec.js';
 
 export type Orthography = 'rectified' | 'traditional' | 'both';
 
@@ -59,6 +60,7 @@ export type ConjugationOptionsFor<L extends Language> = L extends Language ? Con
 
 export type FrenchConjugationOptions = ConjugationOptionsFor<'fr'>;
 export type DutchConjugationOptions = ConjugationOptionsFor<'nl'>;
+export type LatinConjugationOptions = ConjugationOptionsFor<'la'>;
 
 export type ConjugationOptions = { [L in Language]: ConjugationOptionsFor<L> }[Language];
 
