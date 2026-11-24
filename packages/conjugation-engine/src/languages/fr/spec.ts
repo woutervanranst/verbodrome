@@ -24,6 +24,13 @@ export interface FrenchAgreement {
   readonly number: GrammaticalNumber;
 }
 
+/**
+ * The French subject slots: je, tu, il, nous, vous, ils, all without a gender (the clause shows il/elle and an agreeing
+ * participle's gender form by form). The registered pack declares them when it moves to the staged engine; until then
+ * `FrenchSpec.subject` stays `never`, so the `subject` option is typed only where the pack accepts it.
+ */
+export type FrenchSubject = '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl';
+
 export interface FrenchStemHints {
   readonly singular?: string;
   readonly plural?: string;

@@ -78,7 +78,7 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
 }
 
 /** The stages whose hooks can leave an available target without a form. */
-type FormStage = 'cell' | 'stem' | 'ending' | 'orthography' | 'agreements' | 'assemble';
+type FormStage = 'cell' | 'stem' | 'ending' | 'orthography' | 'subjectGenders' | 'agreements' | 'assemble';
 
 /** One word's outcomes, and the stage that left it none when there are none. */
 interface Synthesis { readonly words: Fork<string>; readonly emptyAt: FormStage | null }
@@ -320,13 +320,18 @@ export function stagedEngine<X extends LexemeBase>(
     const periphrasisVoice = periphrasis?.voice === undefined || periphrasis.voice === 'active' ? undefined : periphrasis.voice;
     const agreeing = slots.flatMap(slot => slot.kind === 'verb' && slot.agree ? [slot.cell] : []);
     const context: ClauseContext<X> = { query, lexeme, target, subject, agreeing, auxiliary, rendering };
-    const agreements = agreeing.length ? grammar.clause.agreements(context) : one(null);
     // The paradigm's tags apply to every form of it; the periphrasis step opens the form-level steps.
     const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], paradigm.tags);
-    const agreed = chain(opening, () => agreements);
-    if (!agreed.length) noteEmpty('agreements', lexeme.lemma);
-    const assembled = chain(agreed, agreement => {
-      const resolved: ResolvedTarget = agreement === null ? target : { ...target, agreement };
+    // One branch per subject gender the form shows: the clause's choice, or the target's own when it has no hook.
+    const gendered = chain(opening, () => grammar.clause.subjectGenders?.(context) ?? one(target.gender));
+    if (!gendered.length) noteEmpty('subjectGenders', lexeme.lemma);
+    const agreed = chain(gendered, gender => {
+      const shown = gender === target.gender ? context : { ...context, target: { ...target, gender } };
+      return chain(agreeing.length ? grammar.clause.agreements(shown) : one(null), agreement => one({ shown: shown.target, agreement }));
+    });
+    if (gendered.length && !agreed.length) noteEmpty('agreements', lexeme.lemma);
+    const assembled = chain(agreed, ({ shown, agreement }) => {
+      const resolved: ResolvedTarget = agreement === null ? shown : { ...shown, agreement };
       const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement, periphrasisVoice, noteEmpty)));
       // Words whose tags cannot combine leave nothing to assemble, which counts against the assemble stage.
       const forms = chain(words, chainWords => chain(grammar.clause.assemble(chainWords, { ...context, target: resolved }), parts =>

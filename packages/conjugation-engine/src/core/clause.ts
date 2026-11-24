@@ -3,7 +3,7 @@ import { grammaticalPart } from '../parts.js';
 import type { ConjugationPart, Mood, PartFeatures, ResolvedTarget, Tense } from '../types.js';
 import type { DerivationStep } from './derivation.js';
 import type { Fork } from './fork.js';
-import type { Agreement, LexemeBase, Voice } from './grammar.js';
+import type { Agreement, Gender, LexemeBase, Voice } from './grammar.js';
 import type { PackRendering, SubjectSlot } from './pack.js';
 import type { Cell } from './staged.js';
 
@@ -26,7 +26,10 @@ export interface ClauseContext<X extends LexemeBase> {
   readonly query: Readonly<Record<string, unknown>>;
   /** The queried verb, in the paradigm being built. */
   readonly lexeme: X;
-  /** The target being built; in `assemble`, with the agreement chosen for this form. */
+  /**
+   * The target being built; in `agreements` and `assemble`, with the gender `subjectGenders` chose for this form, and in
+   * `assemble` with the agreement chosen for it too.
+   */
   readonly target: ResolvedTarget;
   /**
    * The slot `target.subject` names: its pronoun, and its gender even where the target has none (`genderedTargets`
@@ -46,6 +49,14 @@ export interface ClauseContext<X extends LexemeBase> {
 }
 
 export interface ClauseGrammar<X extends LexemeBase> {
+  /**
+   * The subject genders a form of this construction shows when its subject slot has none (French: il/elle, and
+   * je/tu/nous/vous when a participle agrees with the subject; none for an impersonal il). Each outcome becomes the form's
+   * `target.gender` and the target that `agreements` and `assemble` see; its steps are form-level steps. Optional and
+   * consulted for every target: absent, the target's own gender (one outcome, no step). An empty fork leaves the target
+   * without a form, which is a GENERATION_FAILURE naming this stage.
+   */
+  subjectGenders?(context: ClauseContext<X>): Fork<Gender | null>;
   /** Agreement contexts to generate for elements marked `agree`; [null-valued outcome] when nothing agrees. */
   agreements(context: ClauseContext<X>): Fork<Agreement | null>;
   /**

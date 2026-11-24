@@ -25,7 +25,7 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
 }
 ```
 
-The order for one target of one paradigm: `availability` (is there a form at all?), `cellOf` (is it one word, and which?), then per cell `cell` / `stem` -> `ending` -> `orthography`; for a periphrasis, the cells of its verbs the same way, then `clause.agreements` and `clause.assemble`. The hook names below are checked against the toy grammar by `tests/docs.test.ts`.
+The order for one target of one paradigm: `availability` (is there a form at all?), `cellOf` (is it one word, and which?), then per cell `cell` / `stem` -> `ending` -> `orthography`; for a periphrasis, the cells of its verbs the same way, then `clause.subjectGenders` (optional), `clause.agreements` and `clause.assemble`. The hook names below are checked against the toy grammar by `tests/docs.test.ts`.
 
 A hook that has nothing to say returns `one(value)` (a one-outcome fork without steps), `null` where the type allows it, or `[]` where an empty fork is meaningful. An empty fork never means "this form does not exist" (see section 7).
 
@@ -229,13 +229,29 @@ The compound tenses, as recipes (section 6). A grammar with no compound tenses h
 periphrases,
 ```
 
+### `clause.subjectGenders`
+
+```ts signature src/core/clause.ts
+subjectGenders?(context: ClauseContext<X>): Fork<Gender | null>;
+```
+
+Optional. The subject genders a form shows when its subject slot has none: French `il` / `elle` in the third person, and `je suis allé` / `je suis allée` where a participle agrees with a genderless subject. It runs for every target, finite or not, after the periphrasis step and before `agreements`; each outcome becomes the form's `target.gender` and the target `agreements` and `assemble` see, and its steps are form-level steps (so `explain` lists them with the form). A gender is a target dimension, not a variant: the outcomes are separate targets of one slot, each with its own preferred form. Without the hook the form keeps the target's own gender (the slot's, in a pack with `genderedTargets`), with no step, so a pack that does not define it is unaffected. Return `one(target.gender)` where nothing forks (an impersonal subject has no gender to show); an empty fork leaves the target without a form, a GENERATION_FAILURE naming the `subjectGenders` stage. Why not one slot per gender (`il`, `elle`): a target that is unavailable, or a form that does not show the gender, would then come twice. The toy forks its genderless `mi` in a perfect with esta:
+
+```ts toy
+subjectGenders({ target, auxiliary }) {
+  if (target.subject !== '1sg' || auxiliary !== 'esta') return one(target.gender);
+  return genders.flatMap(gender =>
+    one(gender, [step(toyRules['xx.clause.subject-gender'], null, null, { gender: { term: 'gender', id: gender } })]));
+},
+```
+
 ### `clause.agreements`
 
 ```ts signature src/core/clause.ts
 agreements(context: ClauseContext<X>): Fork<Agreement | null>;
 ```
 
-For a target with agreeing cells (`context.agreeing` is not empty), the agreements to generate: a fork of `{ gender, number, case? }` (each outcome a separate form), with the rule that explains the choice. `one(null)` when nothing agrees. It is not called when `agreeing` is empty.
+For a target with agreeing cells (`context.agreeing` is not empty), the agreements to generate: a fork of `{ gender, number, case? }` (each outcome a separate form), with the rule that explains the choice. `one(null)` when nothing agrees. It is not called when `agreeing` is empty. Its `context.target` has the gender `subjectGenders` chose, which a participle that agrees with the subject follows.
 
 ```ts toy
 agreements({ target, agreeing, auxiliary }) {
@@ -244,7 +260,8 @@ agreements({ target, agreeing, auxiliary }) {
   const pastParticiple = agreeing.some(cell => cell.kind === 'nonFinite' && cell.form === 'participle');
   if (!pastParticiple || (auxiliary !== null && auxiliary !== 'esta')) return one(null);
   const number = target.number ?? 'singular';
-  return genders.flatMap(gender =>
+  // A subject gender (from `subjectGenders`) decides the participle's; a target without one has both.
+  return (target.gender === null ? genders : [target.gender]).flatMap(gender =>
     one({ gender, number }, [step(toyRules['xx.agree.gender'], null, null, { gender: { term: 'gender', id: gender } })]));
 },
 ```
@@ -443,7 +460,7 @@ export interface SubjectSlot {
 }
 ```
 
-A pack with `subjects` gets one target per selected slot and accepts the common `subject` option (a slot id). The verb agrees with the slot's `person` and `number`, which need not be what the subject addresses: the toy's formal `Vu` is a slot with person 3. `pronoun` is `null` for a pro-drop language's unmarked subject. `register` is data for the clause and the app; the core does not read it. The slot's `gender` becomes `target.gender` only when the pack sets `genderedTargets: true` (French, Italian, Latin: the verb phrase changes with it); otherwise it is for the clause to read through `ClauseContext.subject`.
+A pack with `subjects` gets one target per selected slot and accepts the common `subject` option (a slot id). The verb agrees with the slot's `person` and `number`, which need not be what the subject addresses: the toy's formal `Vu` is a slot with person 3. `pronoun` is `null` for a pro-drop language's unmarked subject. `register` is data for the clause and the app; the core does not read it. The slot's `gender` becomes `target.gender` only when the pack sets `genderedTargets: true` (French, Italian, Latin: the verb phrase changes with it); otherwise it is for the clause to read through `ClauseContext.subject`. A slot without a gender can still show one form by form: `clause.subjectGenders` (section 1) forks it.
 
 - `default`: the slot is part of a query that names no subject. Within one person and number, slots expand in the order of `pack.subjects`.
 - `subjectsFor(query)` (optional): the slots to expand for this query, out of `subjects`; the person and number filters apply afterwards. The default is `defaultSubjectsFor(subjects, query)`: the slot the `subject` option names, else every default slot. Whatever order it returns, the core uses the pack's order, and a slot it returns that the pack did not declare is a GENERATION_FAILURE.
@@ -772,7 +789,7 @@ export interface ClauseContext<X extends LexemeBase> {
 }
 ```
 
-`query` is the parsed query; `lexeme` the queried verb in the paradigm being built; `target` the target being built (in `assemble`, with the `agreement` chosen for this form in `target.agreement`); `subject` the slot `target.subject` names, with its pronoun and its gender even where the target has none (`null` without slots); `agreeing` the cells that take the agreement: for a periphrasis the cells of its `agree` elements, for a simple non-finite target its own cell, empty otherwise (the cells carry no agreement yet, also in `assemble`); `auxiliary` the perfect auxiliary this run uses, or `null`; `rendering` the pack's rendering, for building parts.
+`query` is the parsed query; `lexeme` the queried verb in the paradigm being built; `target` the target being built (in `agreements` and `assemble`, with the gender `subjectGenders` chose for this form in `target.gender`, and in `assemble` with the `agreement` chosen for it in `target.agreement`); `subject` the slot `target.subject` names, with its pronoun and its gender even where the target has none (`null` without slots); `agreeing` the cells that take the agreement: for a periphrasis the cells of its `agree` elements, for a simple non-finite target its own cell, empty otherwise (the cells carry no agreement yet, also in `assemble`); `auxiliary` the perfect auxiliary this run uses, or `null`; `rendering` the pack's rendering, for building parts.
 
 ### Words and parts
 

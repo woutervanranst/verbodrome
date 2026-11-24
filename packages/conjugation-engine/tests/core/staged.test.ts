@@ -605,6 +605,68 @@ describe('several paradigms for one lemma', () => {
   });
 });
 
+describe('subject genders from the clause', () => {
+  // The 1sg slot mi has no gender; in a perfect with esta the clause forks it, so the participle shows it.
+  const perfect = { language: 'xx', infinitive: 'apvena', mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', voice: 'active', prefix: 'separable' };
+  const masculine = { gender: 'masculine', number: 'singular' };
+  const feminine = { gender: 'feminine', number: 'singular' };
+  const periphrasis = { rule: 'xx.periphrasis.perfect', stage: 'periphrasis', kind: 'rule', before: null, after: null, params: { auxiliary: 'esta' } };
+  const genderStep = (rule: string, gender: string) => ({ rule, stage: 'clause', kind: 'rule', before: null, after: null, params: { gender: { term: 'gender', id: gender } } });
+  const { subjectGenders: _, ...hookless } = toyGrammar.clause;
+  const withoutHook = toyWith({ ...toyGrammar, clause: hookless });
+
+  it('makes one target per gender the clause names, each with its own agreement and the hook\'s step', () => {
+    const forms = toy.conjugate(perfect).forms;
+    expect(forms.map(f => [f.text, f.target.gender, f.target.agreement, f.preferred])).toEqual([
+      ['mi esto apvenado', 'masculine', masculine, true],
+      ['mi esto apvenada', 'feminine', feminine, true],
+    ]);
+    expect(forms.map(f => f.steps)).toEqual([
+      [periphrasis, genderStep('xx.clause.subject-gender', 'masculine'), genderStep('xx.agree.gender', 'masculine')],
+      [periphrasis, genderStep('xx.clause.subject-gender', 'feminine'), genderStep('xx.agree.gender', 'feminine')],
+    ]);
+    expect(forms[1]!.ruleIds).toContain('xx.clause.subject-gender');
+    // The target key does not name the gender: both forms answer the one 1sg target.
+    expect(new Set(forms.map(f => targetKey(f.target)))).toEqual(new Set(['indicative/perfect/1/singular/active/1sg']));
+  });
+
+  it('leaves the target\'s own gender where the clause does not fork it', () => {
+    const third = toy.conjugate({ ...perfect, person: 3 }).forms;
+    expect(third.map(f => [f.text, f.target.gender, f.target.agreement])).toEqual([
+      ['il estat apvenado', null, masculine],
+      ['il estat apvenada', null, feminine],
+    ]);
+    const haba = toy.conjugate({ ...perfect, infinitive: 'zorpa', prefix: undefined }).forms;
+    expect(haba.map(f => [f.text, f.target.gender, f.target.agreement])).toEqual([['mi habo zorpado', null, null]]);
+  });
+
+  it('changes nothing for a clause grammar without the hook', () => {
+    const forms = withoutHook.conjugate(perfect).forms;
+    expect(forms.map(f => [f.text, f.target.gender, f.target.agreement, f.steps])).toEqual([
+      ['mi esto apvenado', null, masculine, [periphrasis, genderStep('xx.agree.gender', 'masculine')]],
+      ['mi esto apvenada', null, feminine, [periphrasis, genderStep('xx.agree.gender', 'feminine')]],
+    ]);
+    // Everywhere else the forms are the toy's own, whole paradigms of every kind of verb included.
+    const unforked = (form: ConjugatedForm) => JSON.stringify({
+      ...form, target: { ...form.target, gender: null }, steps: form.steps!.filter(s => s.rule !== 'xx.clause.subject-gender'),
+      ruleIds: form.ruleIds.filter(rule => rule !== 'xx.clause.subject-gender'),
+    });
+    for (const infinitive of ['zorpa', 'placa', 'vena', 'apvena', 'grapha', 'canta', 'conata', 'esa', 'solea', 'apzorpa']) {
+      const query = { language: 'xx', infinitive };
+      expect(withoutHook.conjugate(query).forms.map(unforked)).toEqual(toy.conjugate(query).forms.map(unforked));
+      expect(withoutHook.conjugate(query).forms.every(f => f.target.gender === null)).toBe(true);
+    }
+  });
+
+  it('counts an empty fork of subject genders against that stage', () => {
+    const engine = toyWith({ ...toyGrammar, clause: { ...toyGrammar.clause, subjectGenders: () => [] } });
+    expect(() => engine.conjugate(perfect)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE',
+      message: expect.stringContaining('indicative/perfect/1/singular/active/1sg of apvena: the subjectGenders stage came back empty.'),
+    }));
+  });
+});
+
 describe('lexeme-aware cells and periphrases', () => {
   // The simple past is one word for an ordinary verb and esta + the past participle for a deponent one (conata).
   const simplePast = (infinitive: string) => ({ language: 'xx', infinitive, mood: 'indicative', tense: 'simple_past', person: 3, number: 'singular' });

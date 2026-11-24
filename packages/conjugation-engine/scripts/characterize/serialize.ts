@@ -1,5 +1,5 @@
 import { ConjugationError, conjugate } from '../../src/index.js';
-import type { ConjugationOptions, ConjugationResult, PartRole, ResolvedTarget } from '../../src/index.js';
+import type { ConjugationOptions, ConjugationResult, Engine, PartRole, ResolvedTarget } from '../../src/index.js';
 
 export type CharacterizationQuery = { readonly language: 'fr' | 'nl'; readonly infinitive: string } & Readonly<Record<string, unknown>>;
 
@@ -62,13 +62,14 @@ function formLine(form: ConjugationResult['forms'][number]): string {
 /**
  * Serializes the complete output of `conjugate` for one query as the lines of one block:
  * the header, the analysis, every form in engine order, every unavailable target.
- * A `ConjugationError` becomes a single `E` line; any other exception propagates.
+ * A `ConjugationError` becomes a single `E` line; any other exception propagates. `engine` is the default engine
+ * unless another is given (a language pack being rebuilt in shadow mode).
  */
-export function characterize(query: CharacterizationQuery): string[] {
+export function characterize(query: CharacterizationQuery, engine?: Pick<Engine, 'conjugate'>): string[] {
   const header = queryHeader(query);
   let result: ConjugationResult;
   try {
-    result = conjugate(query as unknown as ConjugationOptions);
+    result = engine ? engine.conjugate(query) : conjugate(query as unknown as ConjugationOptions);
   } catch (error) {
     if (error instanceof ConjugationError) return [header, `E\t${error.code}`];
     throw error;

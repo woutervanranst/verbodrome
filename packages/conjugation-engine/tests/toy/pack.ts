@@ -22,7 +22,9 @@
  * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
  * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot. The
  * imperative entry lists its slot (2sg) instead of deriving it from a person, so no other slot can join it. The clause
- * learns which cells agree from `agreeing`, not from the target's mood.
+ * learns which cells agree from `agreeing`, not from the target's mood. The 1sg slot mi has no gender, but in a perfect
+ * with esta the clause's `subjectGenders` forks it (mi esto apvenado, mi esto apvenada): each form's target then has
+ * the gender, and the participle agrees with it.
  *
  * A word's part carries the voice of its cell (the passive present's ur- forms), and the case of its agreement where the
  * grammar names one (the toy's participles do not decline); in a passive compound every verb word has the voice. The two
@@ -75,6 +77,7 @@ export const toyRules = defineRules({
   'xx.periphrasis.conditional': { stage: 'periphrasis' },
   'xx.periphrasis.deponent-past': { stage: 'periphrasis' },
   'xx.agree.gender': { stage: 'clause', params: { gender: 'term' } },
+  'xx.clause.subject-gender': { stage: 'clause', params: { gender: 'term' } },
   'xx.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
   'xx.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
 });
@@ -117,6 +120,7 @@ export const toyCitations = {
   'xx.periphrasis.conditional': grammarCitation('§5.5'),
   'xx.periphrasis.deponent-past': grammarCitation('§5.6'),
   'xx.agree.gender': grammarCitation('§6'),
+  'xx.clause.subject-gender': grammarCitation('§6.1'),
   'xx.clause.particle-final': grammarCitation('§7.1'),
   'xx.clause.particle-attached': grammarCitation('§7.2'),
 } as const satisfies Record<keyof typeof toyRules, Citation | readonly Citation[]>;
@@ -314,6 +318,12 @@ export const toyRendering: PackRendering = {
 };
 
 const clause: ClauseGrammar<ToyLexeme> = {
+  /** The genderless 1sg mi shows a gender in a perfect with esta (mi esto apvenado, mi esto apvenada); no other slot does. */
+  subjectGenders({ target, auxiliary }) {
+    if (target.subject !== '1sg' || auxiliary !== 'esta') return one(target.gender);
+    return genders.flatMap(gender =>
+      one(gender, [step(toyRules['xx.clause.subject-gender'], null, null, { gender: { term: 'gender', id: gender } })]));
+  },
   /** Only the past participle agrees in gender: standing alone, in the passive and after esta, never after haba. */
   agreements({ target, agreeing, auxiliary }) {
     // `agreeing` has the cells that would agree: the past participle of a compound tense or of the target itself, the
@@ -321,7 +331,8 @@ const clause: ClauseGrammar<ToyLexeme> = {
     const pastParticiple = agreeing.some(cell => cell.kind === 'nonFinite' && cell.form === 'participle');
     if (!pastParticiple || (auxiliary !== null && auxiliary !== 'esta')) return one(null);
     const number = target.number ?? 'singular';
-    return genders.flatMap(gender =>
+    // A subject gender (from `subjectGenders`) decides the participle's; a target without one has both.
+    return (target.gender === null ? genders : [target.gender]).flatMap(gender =>
       one({ gender, number }, [step(toyRules['xx.agree.gender'], null, null, { gender: { term: 'gender', id: gender } })]));
   },
   /**
