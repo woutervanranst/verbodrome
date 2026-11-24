@@ -3,8 +3,8 @@ import { execFileSync } from 'node:child_process';
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
-import { corpusBasePath, corpusRevision, summarizeCorpus } from './model.ts';
-import type { CorpusCorrection, CorpusFile, CorpusManifest, CorpusStats } from './model.ts';
+import { applyRemaps, corpusBasePath, corpusRevision, summarizeCorpus } from './model.ts';
+import type { CorpusCorrection, CorpusFile, CorpusManifest, CorpusRemapRecord, CorpusStats } from './model.ts';
 import { corpusLanguages } from './languages/index.ts';
 import type { Language } from '../../src/types.js';
 
@@ -32,10 +32,15 @@ const checksum = (text: string): string => createHash('sha256').update(text).dig
 const previous = selected.length === corpusLanguages.length ? null : {
   manifest: JSON.parse(await readFile(resolve(output, 'manifest.json'), 'utf8')) as CorpusManifest,
   corrections: JSON.parse(await readFile(resolve(output, 'corrections.json'), 'utf8')) as CorpusCorrection[],
+  remaps: JSON.parse(await readFile(resolve(output, 'remaps.json'), 'utf8')) as CorpusRemapRecord[],
 };
+if (previous && previous.manifest.revision !== corpusRevision) {
+  throw new Error(`The existing import in ${output} is from revision ${previous.manifest.revision}, not ${corpusRevision}; run without --only to re-import every language.`);
+}
 
 const manifest: Omit<CorpusFile, 'cells'>[] = [];
 const corrections: CorpusCorrection[] = [];
+const remapRecords: CorpusRemapRecord[] = [];
 const contents = new Map<Language, string>();
 const stats: [Language, CorpusStats][] = [];
 for (const language of corpusLanguages) {
@@ -46,6 +51,7 @@ for (const language of corpusLanguages) {
     const ids = new Set(kept.map(file => file.file));
     manifest.push(...kept);
     corrections.push(...(previous?.corrections ?? []).filter(correction => ids.has(correction.file)));
+    remapRecords.push(...(previous?.remaps ?? []).filter(remap => remap.language === language.language));
     stats.push([language.language, keptStats]);
     continue;
   }
@@ -56,12 +62,22 @@ for (const language of corpusLanguages) {
   }
   const fixtures: CorpusFile[] = [];
   const languageCorrections: CorpusCorrection[] = [];
+  const languageRemaps = (language.remaps ?? []).map(remap => ({ language: language.language, ...remap }));
+  const remapped = languageRemaps.map(() => false);
   for (const name of names) {
     const html = new TextDecoder(language.encoding, { fatal: true }).decode(await readFile(resolve(path, name)));
-    const parsed = language.parse(html, name);
+    const page = language.parse(html, name);
+    const { cells, matched } = applyRemaps(page.cells, languageRemaps);
+    for (const [i, hit] of matched.entries()) remapped[i] ||= hit;
+    const parsed = { ...page, cells };
+    for (const [index, cell] of cells.entries()) {
+      if ((cell.scope === 'unmodelled') && !(cell.reason && cell.reason in (language.unmodelled ?? {}))) {
+        throw new Error(`${name}: cell ${index} is unmodelled for the undeclared reason ${cell.reason}.`);
+      }
+    }
     const context = language.context(name);
     // Neutral fixture id built from the grammatical variant, not from the source file name.
-    const id = [language.language, context.infinitive, context.pattern === 'second' ? 'second' : '',
+    const id = [language.language, context.infinitive, context.pattern === 'default' ? '' : context.pattern,
       context.gender === 'feminine' ? 'feminine' : '', context.auxiliary ?? ''].filter(Boolean).join('/');
     const entry = {
       file: id,
@@ -77,14 +93,19 @@ for (const language of corpusLanguages) {
       if (correction) languageCorrections.push(correction);
     }
   }
+  for (const [i, hit] of remapped.entries()) {
+    if (!hit) throw new Error(`${language.language}: remap "${languageRemaps[i]?.heading}" #${languageRemaps[i]?.occurrence} matches no cell.`);
+  }
   corrections.push(...languageCorrections);
+  remapRecords.push(...languageRemaps);
   const content = JSON.stringify(fixtures) + '\n';
   contents.set(language.language, content);
-  const summary: CorpusStats = { ...summarizeCorpus(fixtures, languageCorrections), checksum: checksum(content) };
+  const summary: CorpusStats = { ...summarizeCorpus(fixtures, languageCorrections, languageRemaps), checksum: checksum(content) };
   stats.push([language.language, summary]);
   console.log(`${language.language}: ${summary.files} files, ${summary.baseInfinitives} infinitives, ${summary.cells} cells, ${summary.targets} contextual targets, ${summary.availableCells} available / ${summary.unavailableCells} unavailable cells, ${summary.expectedForms} form expectations, ${summary.correctionCount} corrections, ${summary.templatePlaceholders} accounted template placeholders`);
 }
 const correctionContent = JSON.stringify(corrections, null, 2) + '\n';
+const remapContent = JSON.stringify(remapRecords, null, 2) + '\n';
 const inventory: CorpusManifest = {
   revision: corpusRevision,
   files: manifest,
@@ -94,6 +115,7 @@ const inventory: CorpusManifest = {
 await mkdir(output, { recursive: true });
 for (const [language, content] of contents) await writeFile(resolve(output, `${language}.json`), content);
 await writeFile(resolve(output, 'corrections.json'), correctionContent);
+await writeFile(resolve(output, 'remaps.json'), remapContent);
 await writeFile(resolve(output, 'manifest.json'), JSON.stringify(inventory, null, 2) + '\n');
-console.log(`${corrections.length} explicit, sourced correction records`);
+console.log(`${corrections.length} explicit, sourced correction records, ${remapRecords.length} remaps`);
 console.log('0 parser discrepancies; run npm run corpus:check to verify the generated forms.');

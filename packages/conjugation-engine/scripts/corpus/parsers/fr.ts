@@ -60,15 +60,15 @@ export function parseFrench(html: string, file: string): ParsedCorpus {
         if (values.length !== count) throw new Error(`${file}: ${mood}/${label}: expected ${count} rows, found ${values.length}.`);
         values.forEach((value, index) => {
           if (mood === 'imperative') {
-            cells.push(corpusCell(mood, tense, value, [1, 3, 4][index] ?? -1));
+            cells.push(corpusCell({ mood, tense, original: value, index: [1, 3, 4][index] ?? -1 }));
           } else if (mood === 'participle' && tense === 'past') {
-            if (index === 4) cells.push(corpusCell(mood, 'perfect', value, 0));
-            else cells.push(corpusCell(mood, tense, value, 0, {
-              gender: index % 2 === 0 ? 'masculine' : 'feminine',
-              number: index < 2 ? 'singular' : 'plural',
+            if (index === 4) cells.push(corpusCell({ mood, tense: 'perfect', original: value, index: 0 }));
+            else cells.push(corpusCell({
+              mood, tense, original: value, index: 0,
+              agreement: { gender: index % 2 === 0 ? 'masculine' : 'feminine', number: index < 2 ? 'singular' : 'plural' },
             }));
           } else {
-            cells.push(corpusCell(mood, tense, value, index, null, label === 'Passé deuxième forme' ? 'second' : null));
+            cells.push(corpusCell({ mood, tense, original: value, index, construction: label === 'Passé deuxième forme' ? 'second' : null }));
           }
         });
       });

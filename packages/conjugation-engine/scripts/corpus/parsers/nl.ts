@@ -54,19 +54,19 @@ export function parseDutch(html: string, file: string): ParsedCorpus {
       if (rows.length !== 6 && rows.length !== 0) throw new Error(`${file}: ${label}: expected 6 rows, found ${rows.length}.`);
       for (let index = 0; index < 6; index++) {
         const row = rows[index];
-        cells.push(corpusCell(mood, tense, row?.text || '-', index, null, null, row?.notused, row?.pronoun));
+        cells.push(corpusCell({ mood, tense, original: row?.text || '-', index, notused: row?.notused, pronoun: row?.pronoun }));
       }
     }
     for (const line of values) {
       const value = line.text;
       if (value.includes('Onbepaalde wijs:')) {
-        cells.push(corpusCell('infinitive', 'present', value.split('Onbepaalde wijs:')[1]?.trim() || '-', 0, null, null, line.notused));
+        cells.push(corpusCell({ mood: 'infinitive', tense: 'present', original: value.split('Onbepaalde wijs:')[1]?.trim() || '-', index: 0, notused: line.notused }));
       }
       if (value.includes('Tegenwoordig deelwoord:')) {
-        cells.push(corpusCell('participle', 'present', value.split('Tegenwoordig deelwoord:')[1]?.trim() || '-', 0, null, null, line.notused));
+        cells.push(corpusCell({ mood: 'participle', tense: 'present', original: value.split('Tegenwoordig deelwoord:')[1]?.trim() || '-', index: 0, notused: line.notused }));
       }
       if (value.includes('Verleden deelwoord:')) {
-        cells.push(corpusCell('participle', 'past', value.split('Verleden deelwoord:')[1]?.trim() || '-', 0, null, null, line.notused));
+        cells.push(corpusCell({ mood: 'participle', tense: 'past', original: value.split('Verleden deelwoord:')[1]?.trim() || '-', index: 0, notused: line.notused }));
       }
     }
   });
@@ -77,7 +77,7 @@ export function parseDutch(html: string, file: string): ParsedCorpus {
   const commandRows = dutchLines(commandNode);
   if (commandRows.length > 1) throw new Error(`${file}: unaccounted imperative template content.`);
   const command = commandRows[0];
-  cells.push(corpusCell('imperative', 'present', command?.text.replace(/^(jij|je)\s+/u, '') || '-', 1, null, null, command?.notused));
+  cells.push(corpusCell({ mood: 'imperative', tense: 'present', original: command?.text.replace(/^(jij|je)\s+/u, '') || '-', index: 1, notused: command?.notused }));
   if (cells.length !== dutchCellsPerFile || sections.size !== 8) {
     throw new Error(`${file}: expected ${dutchCellsPerFile} Dutch cells in 8 finite sections; found ${cells.length} / ${sections.size}.`);
   }
