@@ -88,6 +88,15 @@ function termText(ref: TermRef, ctx: StepContext): string {
   return message(ctx, key, {});
 }
 
+/**
+ * The text of a pattern label: the catalog message `<language>.label.pattern.<label>` when the pack's messages have one,
+ * otherwise the label itself.
+ */
+function patternText(label: string, ctx: Pick<StepContext, 'pack' | 'catalog' | 'locale'>): string {
+  const key = `${ctx.pack.language}.label.pattern.${label}`;
+  return Object.hasOwn(ctx.catalog, key) ? message(ctx, key, {}) : label;
+}
+
 /** The text of one step: the rule's catalog message over the step's params, `before` and `after` (null becomes empty). */
 export function renderStep(step: DerivationStep, ctx: StepContext): string {
   const args: Record<string, MessageArg> = {};
@@ -153,7 +162,7 @@ export function explainSubject(pack: LanguagePack, catalog: Catalog, locale: str
     // One section per paradigm; with several, a paradigm's title names its pattern, if it has one.
     const several = subject.alternatives !== undefined;
     const sections = [subject, ...(subject.alternatives ?? [])].flatMap(paradigm => section(c, null, () => paradigm.pattern !== undefined && several
-      ? message(c, 'explain.section.classify.paradigm', { pattern: paradigm.pattern })
+      ? message(c, 'explain.section.classify.paradigm', { pattern: patternText(paradigm.pattern, c) })
       : message(c, 'explain.section.classify', {}), paradigm.steps));
     explanation = { summary: message(c, 'explain.summary.analysis', { lemma: subject.lemma, classification: subject.classification }), sections };
   } else {

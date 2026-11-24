@@ -21,7 +21,7 @@ export interface DutchStemHints {
   readonly unstressedFinalSyllable?: boolean;
 }
 
-export interface DutchSpec extends LanguageSpec {
+export interface DutchSpec extends LanguageSpec<DutchTenses> {
   tenses: DutchTenses;
   nonFinite: 'infinitive' | 'participle';
   auxiliary: 'hebben' | 'zijn';

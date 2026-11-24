@@ -132,4 +132,43 @@ describe('grammatical options', () => {
     const builder = conjugationOptions('xx' as never, 'aimer');
     expect(() => builder.build()).toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE' }));
   });
+
+  describe('a pack whose names collide with the builder\'s methods', () => {
+    /** The French pack with its schema (and moods) changed, registered as `xx` for the duration of `run`. */
+    function withPack(extra: Partial<LanguagePack>, run: () => void): void {
+      const registry = packs as unknown as Record<string, LanguagePack>;
+      registry.xx = { ...packs.fr, language: 'xx', ...extra } as LanguagePack;
+      try {
+        run();
+      } finally {
+        delete registry.xx;
+      }
+    }
+    const construct = () => conjugationOptions('xx' as never, 'aimer');
+    const collision = (name: string) => expect.objectContaining({
+      code: 'INVALID_REQUEST', message: `The xx pack has a ${name.startsWith('mood:') ? 'mood' : 'option field'} named "${name.replace('mood:', '')}", which collides with a method of the options builder.`,
+    });
+
+    it.each(['build', 'mood', 'tense', 'person', 'number', 'subject', 'constructor'])('throws at construction for a schema field named %s', name => {
+      withPack({ options: { fields: { ...packs.fr.options.fields, [name]: { kind: 'boolean' } } } }, () => {
+        expect(construct).toThrow(collision(name));
+      });
+    });
+
+    it('throws for a mood named like a builder method', () => {
+      withPack({ catalogue: packs.fr.catalogue.map(entry => entry.mood === 'gerund' ? { ...entry, mood: 'build' as never } : entry) }, () => {
+        expect(construct).toThrow(collision('mood:build'));
+      });
+    });
+
+    it('throws for a field named like a mood, and still shares auxiliary, classHint and stems', () => {
+      withPack({ options: { fields: { ...packs.fr.options.fields, indicative: { kind: 'boolean' } } } }, () => {
+        expect(construct).toThrow(collision('indicative'));
+      });
+      withPack({}, () => {
+        expect(construct).not.toThrow();
+        expect(typeof (construct() as unknown as { gender: unknown }).gender).toBe('function');
+      });
+    });
+  });
 });

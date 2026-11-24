@@ -1,12 +1,13 @@
 import { ConjugationError } from '../../errors.js';
 import type { OptionSchema } from '../../core/options.js';
-import type { FrenchGender } from './spec.js';
+import type { OptionFieldsOf } from '../../core/spec.js';
+import type { FrenchGender, FrenchSpec } from './spec.js';
 
 /** French has no neuter, and its participles do not decline. */
 const genders = ['masculine', 'feminine'] as const satisfies readonly FrenchGender[];
 
 /** French option fields, in validation order. */
-export const frenchOptions: OptionSchema = {
+export const frenchOptions: OptionSchema<OptionFieldsOf<FrenchSpec>> = {
   fields: {
     stems: {
       kind: 'stems',

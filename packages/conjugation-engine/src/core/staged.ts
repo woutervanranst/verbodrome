@@ -294,13 +294,13 @@ export function stagedEngine<X extends LexemeBase>(
   }
 
   /** The words a slot can be; a verb's synthesis steps move into the word, so the fork's own steps stay form-level. */
-  function wordsFor(slot: Slot<X>, agreement: Agreement | null, noteEmpty: (stage: FormStage, lemma: string) => void): Fork<ChainWord> {
+  function wordsFor(slot: Slot<X>, agreement: Agreement | null, voice: Voice | undefined, noteEmpty: (stage: FormStage, lemma: string) => void): Fork<ChainWord> {
     if (slot.kind === 'word') return one({ role: slot.role, text: slot.text, lemma: null, cell: null, steps: [] });
     const cell: Cell = slot.agree && agreement !== null && slot.cell.kind === 'nonFinite' ? { ...slot.cell, agreement } : slot.cell;
     const { words, emptyAt } = synth(slot.lexeme, cell);
     if (emptyAt !== null) noteEmpty(emptyAt, slot.lexeme.lemma);
     return words.map(outcome => ({
-      value: { role: slot.role, text: outcome.value, lemma: slot.lexeme.lemma, cell, steps: outcome.steps },
+      value: { role: slot.role, text: outcome.value, lemma: slot.lexeme.lemma, cell, steps: outcome.steps, ...(voice === undefined ? {} : { voice }) },
       steps: [],
       tags: outcome.tags,
     }));
@@ -316,6 +316,8 @@ export function stagedEngine<X extends LexemeBase>(
     const { periphrasis, auxiliary, slots } = construction;
     const lexeme = paradigm.value;
     // The cells that take the agreement: those of the `agree` elements, or the target's own non-finite cell.
+    // Every verb word of a periphrasis has its construction's voice; active is the absence of one.
+    const periphrasisVoice = periphrasis?.voice === undefined || periphrasis.voice === 'active' ? undefined : periphrasis.voice;
     const agreeing = slots.flatMap(slot => slot.kind === 'verb' && slot.agree ? [slot.cell] : []);
     const context: ClauseContext<X> = { query, lexeme, target, subject, agreeing, auxiliary, rendering };
     const agreements = agreeing.length ? grammar.clause.agreements(context) : one(null);
@@ -325,7 +327,7 @@ export function stagedEngine<X extends LexemeBase>(
     if (!agreed.length) noteEmpty('agreements', lexeme.lemma);
     const assembled = chain(agreed, agreement => {
       const resolved: ResolvedTarget = agreement === null ? target : { ...target, agreement };
-      const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement, noteEmpty)));
+      const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement, periphrasisVoice, noteEmpty)));
       // Words whose tags cannot combine leave nothing to assemble, which counts against the assemble stage.
       const forms = chain(words, chainWords => chain(grammar.clause.assemble(chainWords, { ...context, target: resolved }), parts =>
         one({ target: resolved, parts })));

@@ -25,7 +25,9 @@
  * learns which cells agree from `agreeing`, not from the target's mood.
  *
  * A word's part carries the voice of its cell (the passive present's ur- forms), and the case of its agreement where the
- * grammar names one (the toy's participles do not decline).
+ * grammar names one (the toy's participles do not decline); in a passive compound every verb word has the voice. The two
+ * pattern labels of apvena's readings have catalog texts (`xx.label.pattern.separable`, `.inseparable`) that the title of
+ * a paradigm shows; the other labels (`long`, `inverted`) show as written.
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';

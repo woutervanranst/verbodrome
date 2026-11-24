@@ -1,12 +1,14 @@
 import { ConjugationError } from '../../errors.js';
 import type { OptionSchema } from '../../core/options.js';
+import type { OptionFieldsOf } from '../../core/spec.js';
+import type { DutchSpec } from './spec.js';
 
 const prefix = (key: string) => ({
   kind: 'word', pattern: /^[\p{L}\p{M}]+$/u, code: 'INVALID_HINT', message: `${key} must be a nonempty prefix.`,
 }) as const;
 
 /** Dutch option fields, in validation order. */
-export const dutchOptions: OptionSchema = {
+export const dutchOptions: OptionSchema<OptionFieldsOf<DutchSpec>> = {
   fields: {
     stems: {
       kind: 'stems',

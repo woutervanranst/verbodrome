@@ -195,6 +195,20 @@ describe('catalogue entries that restrict their slots', () => {
     expect(() => createEngine({ xx: { ...restricted(['2sg']), subjects: [] } }))
       .toThrow(invalid('INVALID_REQUEST', 'The xx pack lists the subject slot 2sg in imperative/present, but does not declare it.'));
   });
+
+  it('rejects slots on a non-finite entry and an empty slots list on a finite one, naming language, mood and tense', () => {
+    const withSlots = (mood: string, slots: readonly string[]): LanguagePack => ({
+      ...toyPack, catalogue: toyCatalogue.map(entry => entry.mood === mood ? { ...entry, slots } : entry),
+    });
+    expect(() => createEngine({ xx: withSlots('infinitive', ['2sg']) }))
+      .toThrow(invalid('INVALID_REQUEST', expect.stringMatching(/xx pack's infinitive\/present entry is not finite/u)));
+    expect(() => createEngine({ xx: withSlots('participle', []) }))
+      .toThrow(invalid('INVALID_REQUEST', expect.stringMatching(/xx pack's participle\/present entry is not finite/u)));
+    expect(() => createEngine({ xx: withSlots('imperative', []) }))
+      .toThrow(invalid('INVALID_REQUEST', expect.stringMatching(/xx pack's imperative\/present entry lists no subject slots/u)));
+    // A finite entry without slots, and one with a nonempty list, are fine.
+    expect(() => createEngine({ xx: toyPack })).not.toThrow();
+  });
 });
 
 describe('subject slots the core cannot trust', () => {

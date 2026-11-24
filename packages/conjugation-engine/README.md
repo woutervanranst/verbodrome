@@ -68,7 +68,7 @@ Each returned form has its own resolved target, native mood/tense labels, accept
 
 French labels follow Bescherelle terminology. French 1990 spelling is preferred without discarding accepted traditional alternatives. Dutch spelling follows Taalunie's official Leidraad, with grammar from e-ANS. Unknown French `-er`, second-group `-ir`, and modeled `-re` verbs use regular defaults; unknown ordinary Dutch verbs default to weak conjugation. Pronunciation, stress, lexical sense, and irregular classification may need hints.
 
-See [the API reference](docs/api.md) for the complete query contract and CLI flags, [grammar and corpus documentation](docs/grammar.md) for rules, defaults, sources, and limitations, and [the approved implementation plan](docs/PLAN.md).
+See [the API reference](docs/api.md) for the complete query contract and CLI flags, [the pack-authoring guide](docs/pack-authoring.md) for writing a language pack against `conjugation-engine/core`, [grammar and corpus documentation](docs/grammar.md) for rules, defaults, sources, and limitations, and [the approved implementation plan](docs/PLAN.md).
 
 ## CLI
 

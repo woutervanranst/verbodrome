@@ -759,9 +759,21 @@ describe('part features and the clause context', () => {
     expect(verb.features).toMatchObject({ voice: 'passive', mood: 'indicative', tense: 'present', person: 3, number: 'singular', verbForm: 'finite' });
     const active = toy.conjugate({ ...passive, voice: 'active' }).forms[0]!.parts.at(-1)!;
     expect(active.features).not.toHaveProperty('voice');
-    // Every word of a passive compound keeps its own cell's voice: the auxiliary is an active present, the participle has none.
+  });
+
+  it('gives every verb part of a voiced periphrasis the periphrasis\'s voice, and the other parts none', () => {
+    // The passive perfect: its auxiliary (an active present cell) and its participle are both words of the passive.
     const compound = toy.conjugate({ ...perfect, voice: 'passive' }).forms[0]!.parts;
-    expect(compound.map(part => [part.text, part.features.voice])).toEqual([['il', undefined], ['estat', undefined], ['placado', undefined]]);
+    expect(compound.map(part => [part.text, part.role, part.features.voice])).toEqual([
+      ['il', 'subject', undefined], ['estat', 'auxiliary', 'passive'], ['placado', 'lexicalVerb', 'passive'],
+    ]);
+    // The grammar writes `voice: 'active'` on the active perfect, and no part says so: active is the absence of the field.
+    const active = toy.conjugate(perfect).forms[0]!.parts;
+    expect(active.length).toBe(3);
+    for (const part of active) expect(part.features).not.toHaveProperty('voice');
+    // A literal word of a periphrasis is no verb part: it has no voice either.
+    const future = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'future', person: 3, number: 'singular' }).forms[0]!.parts;
+    expect(future.map(part => part.features.voice)).toEqual([undefined, undefined, undefined, undefined]);
   });
 
   it('gives a declined participle the case its agreement names', () => {
@@ -832,6 +844,24 @@ describe('part features and the clause context', () => {
       expect(part.joinBefore).toBe('hyphen');
       expect(seen).toEqual([{ aspiratedH: true, fricative: false }]);
       expect(wordPart(spying, word, {}, { joinBefore: 'attached' }).joinBefore).toBe('attached');
+    });
+
+    it('takes options as the third argument when it has no features to add', () => {
+      seen.length = 0;
+      const part = wordPart(spying, word, { joinBefore: 'hyphen', onsetFlags: { aspiratedH: true } });
+      expect(part).toMatchObject({ joinBefore: 'hyphen', text: 'ado', features: { verbForm: null, gender: null } });
+      expect(seen).toEqual([{ aspiratedH: true }]);
+      expect(wordPart(spying, word, { onsetFlags: { fricative: true } }).joinBefore).toBe('space');
+      expect(wordPart(spying, word, { joinBefore: 'attached' })).toEqual(wordPart(spying, word, {}, { joinBefore: 'attached' }));
+    });
+
+    it('tells the two object arguments apart by their keys, and refuses a mixture', () => {
+      expect(wordPart(spying, word, { verbForm: 'pastParticiple' }).features.verbForm).toBe('pastParticiple');
+      expect(wordPart(spying, word, {})).toEqual(wordPart(spying, word));
+      const mixed = (third: object, fourth?: object) => () => (wordPart as (...args: unknown[]) => unknown)(spying, word, third, fourth);
+      const refused = expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining('separate arguments') });
+      expect(mixed({ joinBefore: 'hyphen', verbForm: 'pastParticiple' })).toThrow(refused);
+      expect(mixed({ joinBefore: 'hyphen' }, { onsetFlags: {} })).toThrow(refused);
     });
 
     it('lets a pack name the progressive aspect and a case on a part', () => {

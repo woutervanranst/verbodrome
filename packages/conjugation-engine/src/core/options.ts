@@ -19,9 +19,14 @@ export type FieldSpec =
   /** An object of stem `words` (each a grammatical stem) and `enums` (each one of the listed values); no other keys. */
   | { readonly kind: 'stems'; readonly words: readonly string[]; readonly enums: Readonly<Record<string, readonly unknown[]>> };
 
-export interface OptionSchema {
+/**
+ * A language's own option fields. `Fields` is the set of field names the schema must declare: for a registered language
+ * the pack types its schema with the names its spec lists (`OptionFieldsOf`), so a missing or extra field does not
+ * compile; a pack outside the registry uses the default, any names.
+ */
+export interface OptionSchema<Fields extends string = string> {
   /** The language's own option keys, validated in declaration order. */
-  readonly fields: Readonly<Record<string, FieldSpec>>;
+  readonly fields: { readonly [K in Fields]: FieldSpec };
   /** Cross-field checks, run after every field is valid; throws ConjugationError. */
   check?(options: Readonly<Record<string, unknown>>): void;
 }

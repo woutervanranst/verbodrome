@@ -1,6 +1,8 @@
 import { conjugationOptions } from '../src/index.js';
 import type { LanguageRegistry } from '../src/languages/registry.js';
-import type { LanguageSpec } from '../src/core/spec.js';
+import type { LanguageSpec, OptionFieldsOf } from '../src/core/spec.js';
+import type { LanguagePack } from '../src/core/pack.js';
+import type { OptionSchema } from '../src/core/options.js';
 import type {
   Case, ConjugationOptions, ConjugationOptionsBuilder, ConjugationOptionsOf, DutchConjugationOptions, FrenchConjugationOptions, Language,
   Mood, MoodFor, PartFeatures, TenseFor, UnavailableTarget, VerbForm,
@@ -97,3 +99,39 @@ export const noCollision: Extract<keyof LanguageRegistry[Language]['context'], k
 export function anyLanguage(language: Language): ConjugationOptions {
   return conjugationOptions(language, 'zorpen').build();
 }
+
+// A spec's `nonFinite` names moods of its tenses.
+export interface GoodSpec extends LanguageSpec<{ indicative: 'present'; infinitive: 'present' }> {
+  nonFinite: 'infinitive';
+  auxiliary: never; classHint: never; stems: object; context: object; subject: never;
+}
+// @ts-expect-error `gerund` is not a mood of these tenses.
+export interface BadSpec extends LanguageSpec<{ indicative: 'present'; infinitive: 'present' }> {
+  nonFinite: 'gerund';
+  auxiliary: never; classHint: never; stems: object; context: object; subject: never;
+}
+
+// The schema of a registered language is typed against its spec: its context keys plus auxiliary, classHint and stems.
+export const dutchFields: Equal<
+  OptionFieldsOf<LanguageRegistry['nl']>,
+  'pronoun' | 'inversion' | 'reflexive' | 'separablePrefix' | 'inseparablePrefix' | 'auxiliary' | 'classHint' | 'stems'
+> = true;
+export const noContextFields: Equal<OptionFieldsOf<GoodSpec>, 'auxiliary' | 'classHint' | 'stems'> = true;
+
+const stemsField = { kind: 'stems', words: ['stem'], enums: {} } as const;
+const hintField = { kind: 'enum', values: ['a'] } as const;
+// @ts-expect-error The Dutch schema lacks the `pronoun`, `inversion`, `reflexive` and prefix fields its spec declares.
+export const missingField: LanguagePack<'nl'>['options'] = { fields: { stems: stemsField, auxiliary: hintField, classHint: hintField } };
+export const extraField: LanguagePack<'nl'>['options'] = {
+  fields: {
+    stems: stemsField, auxiliary: hintField, classHint: hintField, pronoun: hintField, inversion: { kind: 'boolean' }, reflexive: { kind: 'boolean' },
+    separablePrefix: hintField, inseparablePrefix: hintField,
+    // @ts-expect-error `gender` is a French option, not a field of the Dutch spec.
+    gender: hintField,
+  },
+};
+// A language outside the registry (the toy) has no spec to check against: any field names are accepted.
+export const unregistered: LanguagePack<'xx'>['options'] = { fields: { voice: hintField, anything: { kind: 'boolean' } } };
+export const generic: OptionSchema = unregistered;
+// A schema for a registered language is still a pack option schema in general.
+export const widened: OptionSchema = {} as LanguagePack<'fr'>['options'];

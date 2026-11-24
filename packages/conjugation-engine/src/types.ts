@@ -87,7 +87,10 @@ export interface PartFeatures {
   readonly number: GrammaticalNumber | null;
   readonly gender: Gender | null;
   readonly verbForm: VerbForm | null;
-  /** The voice of the word's own cell; absent for an active word, since active is the unmarked voice. */
+  /**
+   * The voice of the construction the word belongs to: the cell's voice for a simple target, the periphrasis's for every
+   * verb word of a voiced compound tense. Absent for an active word, since active is the unmarked voice (never 'active').
+   */
   readonly voice?: Voice | null;
   /** The case of a declined word (a Latin participle), from its agreement. */
   readonly case?: Case | null;

@@ -12,6 +12,8 @@ import {
   explain,
   languages,
   createEngine,
+  packs,
+  locales,
   ConjugationError,
 } from 'conjugation-engine';
 import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'conjugation-engine';
@@ -19,7 +21,7 @@ import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'con
 
 `conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
 
-Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs, catalogs?)` builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets`, plus `explain`, over a chosen set of packs, accepting only those languages. `catalogs` maps a locale to its message catalog (see Explanations); without them the engine cannot `explain`.
+Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs, catalogs?)` (with the built-in `packs` and `locales` exported beside it, so an engine can take a subset of the languages or extra ones) builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets`, plus `explain`, over a chosen set of packs, accepting only those languages. `catalogs` maps a locale to its message catalog (see Explanations); without them the engine cannot `explain`.
 
 The ESM library runs in modern browsers supporting `structuredClone`. Node-only CLI and corpus-import modules are not reachable from the library entry point.
 
@@ -153,7 +155,9 @@ With an `en` catalog, a staged pack's `analysis.assumptions` (and those of each 
 
 A staged pack declares `rules` (the `defineRules` result), `works` (the grammars it cites, keyed by id) and `citations` (rule id to one citation or several, each `{ work, locator, url? }`). `tests/i18n/completeness.test.ts` checks every pack that declares rules: each rule id starts with the pack's language code and a dot (`nl.stem.…`; `core.` is reserved), no two packs and no pack and the core catalog define the same key, each rule has a well-formed message in every locale whose placeholders are declared params, `en` and `nl` have the same keys, every rule has a citation to a listed work, and every url is `https`.
 
-The staged-pack authoring API is exported for language packs: `stagedEngine`, `validateGrammar`, `StagedGrammar`, `ClauseGrammar`, `Periphrasis`, `ChainElement`, `Cell`, `LexemeBase`, `Fork`, `Outcome`, `one`, `chain`, `combine`, `JunctureRule`, `defineRules`, `step` and `RuleInfo`.
+The pack-authoring API is not part of the package root: it is the `conjugation-engine/core` subpath (`src/core/index.ts`), which exports `createEngine`, `stagedEngine`, `validateGrammar`, `defineRules`, `step`, `one`, `chain`, `combine`, `mergeTags`, `applyJunctureRules`, `wordPart`, `grammaticalPart`, the catalogue helpers (`moodEntries`, `allPersons`, `noPersons`), `variantRank`, `usageRank`, `defaultSubjectsFor`, `itemAt`, `ConjugationError` and every type a pack names (`LanguagePack`, `SubjectSlot`, `CatalogueEntry`, `PackRendering`, `OptionSchema`, `FieldSpec`, `StagedGrammar`, `ClauseGrammar`, `ClauseContext`, `ChainWord`, `Periphrasis`, `ChainElement`, `VerbRef`, `Cell`, `LexemeBase`, `Unavailability`, `Fork`, `Outcome`, `VariantTags`, `JunctureRule`, `Juncture`, `RuleInfo`, `Stage`, `StepKind`, `StepParam`, `ParamKind`, `TermRef`, `Work`, `Citation`, `Catalog`, and the result types). [`pack-authoring.md`](pack-authoring.md) is the guide to writing a pack.
+
+A message may also define `<language>.label.pattern.<label>` for a pattern label its paradigms carry; the title of a paradigm in an analysis with several shows that text when the key exists and the raw label otherwise.
 
 ## Components and rendering
 
@@ -169,7 +173,7 @@ Bare projection removes subjects and French subjunctive `que`, while preserving 
 
 `conjugationOptions(language, infinitive)` returns a builder with the language-independent setters `.mood()`, `.tense()`, `.person()`, `.number()`, `.auxiliary()`, `.classHint()` and `.stems()`, plus methods installed from the language's pack: one per mood in its catalogue (`.indicative('perfect')`, `.subjunctive('present')`, `.participle('past')`; the tense argument is optional and clears any tense when omitted) and one per language-specific option (`.gender('feminine')`, `.pronoun('u')`; boolean options such as `.inversion()` default to `true`). A language only has the methods of its own moods and options, so Dutch has no `.gerund()` or `.gender()`. `.build()` returns the language-specific query after runtime validation; it has no independent conjugation logic.
 
-Which keys a query may carry, and how each value is validated, is declared per language as an option schema on its pack (`pack.options`). Adding a language means writing its pack and schema; the validator and the builder need no changes.
+Which keys a query may carry, and how each value is validated, is declared per language as an option schema on its pack (`pack.options`); for a registered language the schema is typed against its spec, so a missing or extra field does not compile. Adding a language means writing its pack and schema; the validator and the builder need no changes. The builder throws `INVALID_REQUEST` at construction when a mood or option field of a pack is named like one of its own methods (`build`, `mood`, `subject`...).
 
 Language-specific methods and mood-specific tense arguments are checked by TypeScript. The generic `.mood()`/`.tense()` setters and constraints added after a non-finite method are checked for their combined compatibility at `.build()`.
 

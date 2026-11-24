@@ -1,3 +1,4 @@
+import { ConjugationError } from './errors.js';
 import { parseOptions } from './core/options.js';
 import type { LanguagePack } from './core/pack.js';
 import { engine } from './default-engine.js';
@@ -25,12 +26,16 @@ export type ContextSugar<L extends Language> = {
     : (value: Required<LanguageRegistry[L]['context']>[K]) => Builder<L>;
 };
 
+/** The option fields every builder has a method for: the pack's schema may declare them without a method of its own. */
+const sharedSetters: readonly string[] = ['auxiliary', 'classHint', 'stems'];
+
 export type Builder<L extends Language> = ConjugationOptionsBuilder<L> & MoodSugar<L> & ContextSugar<L>;
 
 /**
  * Collects options for one verb. The language-independent setters are methods here; the mood and context-option
  * methods of the chosen language are installed on the instance from that language's pack (`packs`, the same map
- * the default engine is built from).
+ * the default engine is built from). Throws INVALID_REQUEST when a mood or option field of the pack has the name of a
+ * builder method (`build`, `mood`, `subject`...) or of another mood or field.
  */
 export class ConjugationOptionsBuilder<L extends Language> {
   private readonly values: Record<string, unknown> = {};
@@ -46,11 +51,15 @@ export class ConjugationOptionsBuilder<L extends Language> {
   }
 
   private installSugar(pack: LanguagePack): void {
-    const install = (name: string, method: (value?: unknown) => this): void => {
+    const install = (name: string, kind: string, method: (value?: unknown) => this): void => {
+      // A mood or option named like a builder method (or like another mood or option) would replace it silently.
+      if (name in this) {
+        throw new ConjugationError('INVALID_REQUEST', `The ${pack.language} pack has a ${kind} named "${name}", which collides with a method of the options builder.`);
+      }
       Object.defineProperty(this, name, { value: method });
     };
     for (const mood of new Set(pack.catalogue.map(entry => entry.mood))) {
-      install(mood, tense => {
+      install(mood, 'mood', tense => {
         this.values.mood = mood;
         if (tense === undefined) delete this.values.tense;
         else this.values.tense = tense;
@@ -58,9 +67,9 @@ export class ConjugationOptionsBuilder<L extends Language> {
       });
     }
     for (const [key, spec] of Object.entries(pack.options.fields)) {
-      if (key in ConjugationOptionsBuilder.prototype) continue; // auxiliary, classHint and stems are shared methods
+      if (sharedSetters.includes(key)) continue; // auxiliary, classHint and stems are methods of every builder
       const isBoolean = spec.kind === 'boolean';
-      install(key, value => {
+      install(key, 'option field', value => {
         this.values[key] = isBoolean ? value ?? true : value;
         return this;
       });

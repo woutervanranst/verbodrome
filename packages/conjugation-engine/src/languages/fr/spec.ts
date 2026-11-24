@@ -34,7 +34,7 @@ export interface FrenchStemHints {
   readonly pastParticiple?: string;
 }
 
-export interface FrenchSpec extends LanguageSpec {
+export interface FrenchSpec extends LanguageSpec<FrenchTenses> {
   tenses: FrenchTenses;
   nonFinite: 'infinitive' | 'participle' | 'gerund';
   auxiliary: 'avoir' | 'être';

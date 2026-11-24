@@ -87,19 +87,24 @@ describe('explain', () => {
     const english = toy.explain('xx', analysis, 'en');
     expect(english.summary).toBe('apvena: a-verb');
     expect(english.sections.map(s => [s.part, s.title, s.steps.map(x => x.text)])).toEqual([
-      [null, 'The verb (separable)', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has a separable particle, ap: it splits off from the conjugated verb.']],
-      [null, 'The verb (inseparable)', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has an inseparable particle, ap: it always stays on the verb.']],
+      [null, 'The verb (separable particle)', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has a separable particle, ap: it splits off from the conjugated verb.']],
+      [null, 'The verb (inseparable particle)', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has an inseparable particle, ap: it always stays on the verb.']],
     ]);
     expect(toy.explain('xx', analysis, 'nl').sections.map(s => s.steps[1]!.text)).toEqual([
       'In deze betekenis heeft apvena een scheidbaar partikel, ap: het komt los van het vervoegde werkwoord.',
       'In deze betekenis heeft apvena een onscheidbaar partikel, ap: het blijft altijd aan het werkwoord vast.',
     ]);
-    expect(toy.explain('xx', analysis, 'nl').sections.map(s => s.title)).toEqual(['Het werkwoord (separable)', 'Het werkwoord (inseparable)']);
+    // The title shows the catalog text of a pattern label, in the locale asked for.
+    expect(toy.explain('xx', analysis, 'nl').sections.map(s => s.title)).toEqual(['Het werkwoord (scheidbaar partikel)', 'Het werkwoord (onscheidbaar partikel)']);
+    // A label without a message of its own (`xx.label.pattern.long`) is shown as written.
+    const unlisted = { ...analysis, pattern: 'long', alternatives: [{ ...analysis.alternatives![0]!, pattern: 'inverted' }] };
+    expect(toy.explain('xx', unlisted, 'en').sections.map(s => s.title)).toEqual(['The verb (long)', 'The verb (inverted)']);
+    expect(toy.explain('xx', unlisted, 'nl').sections.map(s => s.title)).toEqual(['Het werkwoord (long)', 'Het werkwoord (inverted)']);
     // An alternative is an analysis of its own: with no alternatives of its own, it has the plain title.
     expect(toy.explain('xx', analysis.alternatives![0]!, 'en').sections).toEqual([{ ...english.sections[1], title: 'The verb' }]);
     // A paradigm without a pattern label keeps the plain title.
     const { pattern: _, ...unlabelled } = analysis.alternatives![0]!;
-    expect(toy.explain('xx', { ...analysis, alternatives: [unlabelled] }, 'en').sections.map(s => s.title)).toEqual(['The verb (separable)', 'The verb']);
+    expect(toy.explain('xx', { ...analysis, alternatives: [unlabelled] }, 'en').sections.map(s => s.title)).toEqual(['The verb (separable particle)', 'The verb']);
 
     const inseparable = toy.conjugate({ ...perfectFeminine, infinitive: 'apvena', prefix: 'inseparable' }).forms[0]!;
     expect(toy.explain('xx', inseparable, 'en').sections.map(s => [s.part, s.title, s.steps.map(x => x.text)])).toEqual([

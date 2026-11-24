@@ -2,7 +2,9 @@ import { ConjugationError } from '../errors.js';
 import type { RuleInfo } from './derivation.js';
 import { usageRank } from './fork.js';
 import type { OptionSchema } from './options.js';
+import type { OptionFieldsOf } from './spec.js';
 import type { Citation, Work } from './sources.js';
+import type { Language, LanguageRegistry } from '../languages/registry.js';
 import type {
   ConjugationPart, FormVariant, Gender, GeneratedForm, GenerationResult, GrammaticalNumber, Mood, Onset, Orthography, Person,
   ResolvedTarget, Tense, VerbAnalysis, Voice,
@@ -72,14 +74,20 @@ export interface PackRendering {
   bareOmits(part: ConjugationPart): boolean;
 }
 
+/** The option fields the pack of `L` declares: those of its spec for a registered language, any names otherwise. */
+export type OptionFieldsFor<L extends string> = L extends Language ? OptionFieldsOf<LanguageRegistry[L]> : string;
+
 export interface LanguagePack<L extends string = string> {
   readonly language: L;
   /** The language's English name, used for headings such as `Dutch (nl):` in CLI help. */
   readonly label: string;
   readonly catalogue: readonly CatalogueEntry[];
   readonly rendering: PackRendering;
-  /** The language's own option keys and how each is validated; the common keys are validated by the core. */
-  readonly options: OptionSchema;
+  /**
+   * The language's own option keys and how each is validated; the common keys are validated by the core. For a
+   * registered language the field names are exactly those of its spec (`OptionFieldsOf`).
+   */
+  readonly options: OptionSchema<OptionFieldsFor<L>>;
   /**
    * The subjects a finite target can have, in output order within one person and number. A pack that declares slots
    * gets one target per selected slot and accepts the common `subject` option; without slots, a finite target is one

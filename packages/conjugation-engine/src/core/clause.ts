@@ -1,8 +1,9 @@
+import { ConjugationError } from '../errors.js';
 import { grammaticalPart } from '../parts.js';
 import type { ConjugationPart, Mood, PartFeatures, ResolvedTarget, Tense } from '../types.js';
 import type { DerivationStep } from './derivation.js';
 import type { Fork } from './fork.js';
-import type { Agreement, LexemeBase } from './grammar.js';
+import type { Agreement, LexemeBase, Voice } from './grammar.js';
 import type { PackRendering, SubjectSlot } from './pack.js';
 import type { Cell } from './staged.js';
 
@@ -13,6 +14,12 @@ export interface ChainWord {
   readonly lemma: string | null;
   readonly cell: Cell | null;
   readonly steps: readonly DerivationStep[];
+  /**
+   * The voice of the periphrasis this word belongs to, set by the engine on the verb words of a periphrasis that declares
+   * a marked `voice` (the passive); absent otherwise, and for literal words. `wordPart` gives the part this voice, so
+   * every verb of a passive compound carries it, whatever its own cell. A simple target's word has its cell's voice.
+   */
+  readonly voice?: Voice;
 }
 
 export interface ClauseContext<X extends LexemeBase> {
@@ -48,6 +55,11 @@ export interface ClauseGrammar<X extends LexemeBase> {
   assemble(words: readonly ChainWord[], context: ClauseContext<X>): Fork<readonly ConjugationPart[]>;
 }
 
+/** The `voice` feature for `voice`: only a marked voice is written, since active is the absence of the field. */
+function markedVoice(voice: Voice | undefined): { readonly voice?: Voice } {
+  return voice === undefined || voice === 'active' ? {} : { voice };
+}
+
 /**
  * Features a cell implies: person, number, mood and tense for a finite word, agreement (and its case) for a non-finite
  * one, and the voice of either when the cell has one (an active cell has none).
@@ -58,12 +70,12 @@ function cellFeatures(cell: Cell | null): Partial<PartFeatures> {
     // A cell carries its pack's own mood and tense ids, which are the registry's once the pack is registered.
     return {
       mood: cell.mood as Mood, tense: cell.tense as Tense, person: cell.person, number: cell.number, verbForm: 'finite',
-      ...(cell.voice ? { voice: cell.voice } : {}),
+      ...markedVoice(cell.voice),
     };
   }
   return {
     gender: cell.agreement?.gender ?? null, number: cell.agreement?.number ?? null,
-    ...(cell.agreement?.case ? { case: cell.agreement.case } : {}), ...(cell.voice ? { voice: cell.voice } : {}),
+    ...(cell.agreement?.case ? { case: cell.agreement.case } : {}), ...markedVoice(cell.voice),
   };
 }
 
@@ -75,17 +87,31 @@ export interface WordPartOptions {
   readonly onsetFlags?: Readonly<Record<string, boolean>>;
 }
 
+const optionKeys: readonly string[] = ['joinBefore', 'onsetFlags'];
+
 /**
- * The part for a chain word, carrying the word's steps. Features come from its cell; `features` adds or overrides
- * them (a non-finite word's mood, tense and verbForm are the pack's to name, and so are `aspect` and a gerund's or
- * supine's `verbForm`).
+ * The part for a chain word, carrying the word's steps. Features come from its cell, and its voice is the word's own
+ * (`ChainWord.voice`, the voice of its periphrasis) or else its cell's; `features` adds or overrides them (a non-finite
+ * word's mood, tense and verbForm are the pack's to name, and so are `aspect` and a gerund's or supine's `verbForm`).
+ * `options` set how the part joins and its onset flags. A pack that has no features to add passes the options as the
+ * third argument: `wordPart(rendering, word, { joinBefore: 'hyphen' })`.
  */
+export function wordPart(rendering: PackRendering, word: ChainWord, features?: Partial<PartFeatures>, options?: WordPartOptions): ConjugationPart;
+export function wordPart(rendering: PackRendering, word: ChainWord, options: WordPartOptions): ConjugationPart;
 export function wordPart(
-  rendering: PackRendering, word: ChainWord, features: Partial<PartFeatures> = {}, options: WordPartOptions = {},
+  rendering: PackRendering, word: ChainWord, third: Partial<PartFeatures> | WordPartOptions = {}, fourth?: WordPartOptions,
 ): ConjugationPart {
+  // Options are told from features by their own keys: every key of an options object is `joinBefore` or `onsetFlags`.
+  const keys = Object.keys(third);
+  const optionLike = keys.filter(key => optionKeys.includes(key));
+  if (optionLike.length > 0 && (optionLike.length < keys.length || fourth !== undefined)) {
+    throw new ConjugationError('GENERATION_FAILURE', `wordPart was given ${keys.join(', ')} as one object: options (${optionKeys.join(', ')}) and features are separate arguments.`);
+  }
+  const [features, options]: [Partial<PartFeatures>, WordPartOptions] = optionLike.length > 0
+    ? [{}, third as WordPartOptions] : [third as Partial<PartFeatures>, fourth ?? {}];
   return {
     ...grammaticalPart(
-      rendering, word.role, word.text, word.lemma, { ...cellFeatures(word.cell), ...features },
+      rendering, word.role, word.text, word.lemma, { ...cellFeatures(word.cell), ...markedVoice(word.voice), ...features },
       options.joinBefore, false, options.onsetFlags,
     ),
     steps: word.steps,

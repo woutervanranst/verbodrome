@@ -1,11 +1,25 @@
 /**
  * The toy language's explanation messages, one set per locale. `satisfies Record<keyof typeof toyRules, string>` makes a
  * rule without a message (or a message for no rule) a type error. A message may use the rule's declared params and
- * `{before}` and `{after}`. Write an apostrophe before a placeholder as `''`, never `'`.
+ * `{before}` and `{after}`. Write an apostrophe before a placeholder as `''`, never `'`. A pattern label may have a
+ * message `<language>.label.pattern.<label>` (the toy's two readings do), shown in the title of a paradigm; a label
+ * without one is shown as it is. A pack that defines one in `en` defines it in `nl`.
  */
 import type { toyRules } from './pack.js';
 
+/** The texts of the pattern labels the toy's paradigms carry; `long` and `inverted` have none and show as written. */
+const enLabels = {
+  'xx.label.pattern.separable': 'separable particle',
+  'xx.label.pattern.inseparable': 'inseparable particle',
+} as const;
+
+const nlLabels = {
+  'xx.label.pattern.separable': 'scheidbaar partikel',
+  'xx.label.pattern.inseparable': 'onscheidbaar partikel',
+} as const satisfies Record<keyof typeof enLabels, string>;
+
 export const en = {
+  ...enLabels,
   'xx.classify.listed': '{before} is listed in the lexicon as {after}.',
   'xx.classify.a-verb': '{before} ends in -a: class {after}.',
   'xx.assume.unlisted': 'Assuming the verb is regular: it is not in the lexicon.',
@@ -36,9 +50,10 @@ export const en = {
   'xx.agree.gender': 'The participle agrees in gender: {gender}.',
   'xx.clause.particle-final': 'The separable particle {particle} goes to the end of the clause.',
   'xx.clause.particle-attached': 'The particle {particle} attaches to the verb: {before} becomes {after}.',
-} as const satisfies Record<keyof typeof toyRules, string>;
+} as const satisfies Record<keyof typeof toyRules | keyof typeof enLabels, string>;
 
 export const nl = {
+  ...nlLabels,
   'xx.classify.listed': '{before} staat in het lexicon als {after}.',
   'xx.classify.a-verb': '{before} eindigt op -a: klasse {after}.',
   'xx.assume.unlisted': 'Aangenomen dat het werkwoord regelmatig is: het staat niet in het lexicon.',
@@ -69,4 +84,4 @@ export const nl = {
   'xx.agree.gender': 'Het deelwoord komt overeen in geslacht: {gender}.',
   'xx.clause.particle-final': 'Het scheidbare partikel {particle} gaat naar het einde van de zin.',
   'xx.clause.particle-attached': 'Het partikel {particle} hecht zich aan het werkwoord: {before} wordt {after}.',
-} as const satisfies Record<keyof typeof toyRules, string>;
+} as const satisfies Record<keyof typeof toyRules | keyof typeof enLabels, string>;

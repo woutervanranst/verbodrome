@@ -132,7 +132,8 @@ function signature(form: GeneratedForm): string {
  * An engine over the given packs, keyed by language code; only those languages are accepted. `catalogs` are the message
  * catalogs by locale, each already merged from the core messages and the packs' messages for that locale.
  * Throws INVALID_REQUEST when a key differs from its pack's `language`, a pack declares one subject slot id twice or an id
- * that clashes with a voice name or contains `/`, or a catalogue entry lists a slot the pack does not declare.
+ * that clashes with a voice name or contains `/`, or a catalogue entry lists a slot the pack does not declare,
+ * has slots though it is not finite, or is finite with an empty slots list.
  */
 export function createEngine(packs: Readonly<Record<string, LanguagePack>>, catalogs: Readonly<Record<string, Catalog>> = {}): Engine {
   for (const [language, pack] of Object.entries(packs)) {
@@ -148,6 +149,13 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
       throw new ConjugationError('INVALID_REQUEST', `The ${language} pack names a subject slot "${clash}", which would clash with the other segments of a target key: a slot id contains no "/" and is not a voice name.`);
     }
     for (const entry of pack.catalogue) {
+      const where = `${language} pack's ${entry.mood}/${entry.tense} entry`;
+      if (!entry.finite && entry.slots !== undefined) {
+        throw new ConjugationError('INVALID_REQUEST', `The ${where} is not finite, so it has no subject slots; remove its slots.`);
+      }
+      if (entry.finite && entry.slots?.length === 0) {
+        throw new ConjugationError('INVALID_REQUEST', `The ${where} lists no subject slots: an empty slots list would leave it without a target (omit slots to use its persons).`);
+      }
       const unknown = entry.slots?.find(id => !ids.includes(id));
       if (unknown !== undefined) {
         throw new ConjugationError('INVALID_REQUEST', `The ${language} pack lists the subject slot ${unknown} in ${entry.mood}/${entry.tense}, but does not declare it.`);

@@ -5,6 +5,35 @@ import { describe, expect, it } from 'vitest';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 
+/**
+ * Runs the built module at `entry` (a file URL) with every import resolved inside a vm context, which refuses anything
+ * but a relative path (so any `node:*` or package import fails); `body` runs after it evaluates and prints JSON.
+ */
+function inBrowserGraph(entry: string, body: string): unknown {
+  const output = execFileSync(process.execPath, ['--experimental-vm-modules', '--no-warnings', '--input-type=module', '-e', `
+    import { readFile } from 'node:fs/promises';
+    import { SourceTextModule, createContext } from 'node:vm';
+    const context = createContext({ structuredClone });
+    const modules = new Map();
+    function load(url) {
+      if (!modules.has(url.href)) modules.set(url.href, readFile(url, 'utf8')
+        .then(source => new SourceTextModule(source, { context, identifier: url.href })));
+      return modules.get(url.href);
+    }
+    const entry = await load(new URL(${JSON.stringify(entry)}));
+    await entry.link((specifier, parent) => {
+      if (!specifier.startsWith('./') && !specifier.startsWith('../')) throw new Error('Non-browser dependency: ' + specifier);
+      return load(new URL(specifier, parent.identifier));
+    });
+    await entry.evaluate();
+    const namespace = entry.namespace;
+    const urls = [...modules.keys()];
+    if (urls.some(url => /\\/(cli\\.js|fixtures|scripts|tests)(\\/|$)/.test(new URL(url).pathname))) throw new Error('Node/tooling code reached the graph');
+    ${body}
+  `], { cwd: root, encoding: 'utf8' });
+  return JSON.parse(output);
+}
+
 describe('built package boundaries', () => {
   it('loads the public ESM export through package self-reference', () => {
     const output = execFileSync(process.execPath, ['--input-type=module', '-e', `
@@ -47,6 +76,29 @@ describe('built package boundaries', () => {
     expect(JSON.parse(output)).toEqual({ fr: 'nous glongeons', nl: 'ik zorpte' });
   });
 
+  it('exposes the pack-authoring API on the ./core subpath, and not on the root', () => {
+    const output = execFileSync(process.execPath, ['--input-type=module', '-e', `
+      import * as root from 'conjugation-engine';
+      import * as core from 'conjugation-engine/core';
+      const authoring = ['stagedEngine', 'validateGrammar', 'defineRules', 'step', 'one', 'chain', 'combine', 'mergeTags', 'applyJunctureRules', 'wordPart', 'grammaticalPart'];
+      console.log(JSON.stringify({
+        core: authoring.filter(name => typeof core[name] !== 'function'),
+        root: authoring.filter(name => name in root),
+        engine: [typeof root.createEngine, typeof core.createEngine, root.packs && Object.keys(root.packs), root.locales && Object.keys(root.locales)],
+      }));
+    `], { cwd: root, encoding: 'utf8' });
+    expect(JSON.parse(output)).toEqual({ core: [], root: [], engine: ['function', 'function', ['fr', 'nl'], ['en', 'nl']] });
+  });
+
+  it('runs the ./core import graph without Node, corpus or fixture code', () => {
+    const entry = new URL('../dist/core/index.js', import.meta.url).href;
+    const result = inBrowserGraph(entry, `
+      const { stagedEngine, createEngine, defineRules } = namespace;
+      console.log(JSON.stringify({ staged: typeof stagedEngine, engine: typeof createEngine, rules: Object.keys(defineRules({ 'xx.a.b': { stage: 'stem' } })), modules: urls.length > 5 }));
+    `);
+    expect(result).toEqual({ staged: 'function', engine: 'function', rules: ['xx.a.b'], modules: true });
+  });
+
   it('packages only compiled runtime code and directly related documentation', () => {
     const output = execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' });
     const packages: { files: { path: string }[] }[] = JSON.parse(output);
@@ -55,6 +107,9 @@ describe('built package boundaries', () => {
     expect(paths).toContain('dist/index.js');
     expect(paths).toContain('dist/index.d.ts');
     expect(paths).toContain('dist/cli.js');
+    expect(paths).toContain('dist/core/index.js');
+    expect(paths).toContain('dist/core/index.d.ts');
+    expect(paths).toContain('docs/pack-authoring.md');
     expect(paths).toContain('README.md');
     expect(paths).toContain('docs/api.md');
     expect(paths?.some(path => /(^|\/)(tests|fixtures|scripts|node_modules|\.cache|\.github)(\/|$)|\.html$/u.test(path))).toBe(false);
