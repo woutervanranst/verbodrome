@@ -6,13 +6,16 @@
 import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import type { Fork, Outcome, VariantTags } from '../../core/fork.js';
+import { applyJunctureRules } from '../../core/juncture.js';
 import type { LexemeBase } from '../../core/staged.js';
 import { ConjugationError } from '../../errors.js';
+import { needsStress, onset, vowelGroups } from './letters.js';
 import {
   doublesUnstressed, finalStress, inheritPrefixes, irregulars, keepsE, legalOnsets, lNotDoubled, modals, neverBase, noInherit,
   nonFinalStress, plainS, stressPrefixes,
 } from './lexicon.js';
 import type { Alternate } from './lexicon.js';
+import { englishOrthography } from './orthography.js';
 import { englishRules } from './rules.js';
 import type { EnglishClassHint, EnglishStemHints } from './spec.js';
 
@@ -35,55 +38,9 @@ export interface EnglishLexeme extends LexemeBase {
 
 const rules = englishRules;
 
-// --- Letters and syllables -------------------------------------------------------------------------------------------
+// --- Stress ------------------------------------------------------------------------------------------------------
 
-const vowelLetters = 'aeiou';
-const doublingConsonants = 'bdfgjklmnpqrstvz';
-
-/** Whether the letter at `index` is a vowel: a e i o u (not the u of qu), and y after a consonant letter. */
-function isVowelAt(word: string, index: number): boolean {
-  const letter = word.charAt(index);
-  if (letter === '' || (letter === 'u' && word.charAt(index - 1) === 'q')) return false;
-  if (vowelLetters.includes(letter)) return true;
-  return letter === 'y' && index > 0 && !isVowelAt(word, index - 1);
-}
-
-/**
- * The number of vowel groups (design §3 "Syllables from spelling"): maximal runs of vowels, where a word-final ial or
- * uel counts as two (di·al, fu·el).
- */
-export function vowelGroups(word: string): number {
-  let groups = 0;
-  for (let index = 0; index < word.length; index += 1) {
-    if (isVowelAt(word, index) && !isVowelAt(word, index - 1)) groups += 1;
-  }
-  return /(?:ial|uel)$/u.test(word) ? groups + 1 : groups;
-}
-
-/** The letter before the final consonant is one vowel letter: not preceded by another vowel letter, unless that is the u of qu. */
-export function singleVowelBeforeFinal(word: string): boolean {
-  const vowel = word.charAt(word.length - 2);
-  if (vowel === '' || !vowelLetters.includes(vowel)) return false;
-  const before = word.charAt(word.length - 3);
-  return before === '' || !vowelLetters.includes(before) || (before === 'u' && word.charAt(word.length - 4) === 'q');
-}
-
-/** Ends in one vowel letter and a consonant that can double (`vc`, design §4.4): not c, h, w, x or y. */
-export function endsInDoublingConsonant(word: string): boolean {
-  return word !== '' && doublingConsonants.includes(word.charAt(word.length - 1)) && singleVowelBeforeFinal(word);
-}
-
-/** Whether the stress decides the spelling: the word ends vc (design §4.4), or in a British-l environment (-ial, -uel). */
-export function needsStress(word: string): boolean {
-  return endsInDoublingConsonant(word) || /(?:ial|uel)$/u.test(word);
-}
-
-/** The consonant letters before the first vowel (`qu` included). */
-function onset(word: string): string {
-  let index = 0;
-  while (index < word.length && !isVowelAt(word, index)) index += 1;
-  return word.slice(0, index);
-}
+export { needsStress, vowelGroups } from './letters.js';
 
 /** The prefix of a prefix + one-syllable-root parse (re·blit, pre·fer, con·trol), or null (design §3). */
 export function prefixParse(word: string): string | null {
@@ -109,24 +66,37 @@ interface Reading {
   readonly identity: readonly DerivationStep[];
   /** Steps that say how the class was found; a hint replaces them. */
   readonly classSteps: readonly DerivationStep[];
+  /** The class comes from the lexicon's listed forms: the lexicon step names them, once the lexeme can spell the -ed form. */
+  readonly listedStep: boolean;
   readonly tags: VariantTags;
 }
 
-/** The alternates as a learner reads them: `swam`, `learned / learnt`; the regular form shows as `-ed`. */
-function alternatesText(alternates: readonly Alternate[]): string {
-  return alternates.length ? alternates.map(alternate => alternate.form ?? '-ed').join(' / ') : '-ed';
+/** The regular -ed form of a lexeme, spelled by the spelling rules (betted, dived, thrived). */
+function regularForm(lexeme: EnglishLexeme): string {
+  const [spelled] = applyJunctureRules(englishOrthography, { stem: lexeme.lemma, ending: 'ed' }, { lexeme, cell: { kind: 'nonFinite', form: 'pastParticiple' } });
+  return spelled!.value.stem + spelled!.value.ending;
+}
+
+/** The alternates as a learner reads them: `swam`, `learned / learnt`, `thrived / throve`. */
+function alternatesText(lexeme: EnglishLexeme, alternates: readonly Alternate[]): string {
+  return alternates.length ? alternates.map(alternate => alternate.form ?? regularForm(lexeme)).join(' / ') : regularForm(lexeme);
 }
 
 const hasListed = (alternates: readonly Alternate[]): boolean => alternates.some(alternate => alternate.form !== null);
 const hasRegular = (alternates: readonly Alternate[]): boolean => !alternates.length || alternates.some(alternate => alternate.form === null);
 
-function lexiconStep(lemma: string, past: readonly Alternate[], participle: readonly Alternate[]): DerivationStep {
-  return step(rules['en.classify.lexicon'], lemma, null, { past: alternatesText(past), participle: alternatesText(participle) });
+function lexiconStep(lexeme: EnglishLexeme): DerivationStep {
+  return step(rules['en.classify.lexicon'], lexeme.lemma, null, {
+    past: alternatesText(lexeme, lexeme.past), participle: alternatesText(lexeme, lexeme.participle),
+  });
 }
 
 /** A verb read as regular, with `steps` saying why. */
 function regularReading(classSource: EnglishLexeme['classSource'], classSteps: readonly DerivationStep[]): Reading {
-  return { classId: 'regular', classSource, past: [], participle: [], prefix: null, listedFinalStress: false, identity: [], classSteps, tags: {} };
+  return {
+    classId: 'regular', classSource, past: [], participle: [], prefix: null, listedFinalStress: false, identity: [], classSteps,
+    listedStep: false, tags: {},
+  };
 }
 
 /** The listed paradigms of `lemma`: one outcome each, tagged with their label and meaning when there are several. */
@@ -138,16 +108,14 @@ function listedReadings(lemma: string): Reading[] {
     const identity = several && paradigm.meaning !== undefined
       ? [step(rules['en.classify.homograph'], lemma, null, { meaning: paradigm.meaning })] : [];
     const classId = lemma === 'be' ? 'suppletive' : irregular ? 'irregular' : 'regular';
-    const classSteps = classId === 'suppletive'
-      ? [step(rules['en.classify.suppletive'], lemma, null)]
-      : irregular ? [lexiconStep(lemma, paradigm.past, paradigm.participle)] : [];
+    const classSteps = classId === 'suppletive' ? [step(rules['en.classify.suppletive'], lemma, null)] : [];
     const tags: VariantTags = several ? {
       ...(paradigm.label === undefined ? {} : { pattern: paradigm.label }),
       ...(paradigm.meaning === undefined ? {} : { condition: paradigm.meaning }),
     } : {};
     return {
       classId, classSource: 'lexicon', past: paradigm.past, participle: paradigm.participle, prefix: null,
-      listedFinalStress: entry.finalStress === true, identity, classSteps, tags,
+      listedFinalStress: entry.finalStress === true, identity, classSteps, listedStep: classId === 'irregular', tags,
     };
   });
 }
@@ -188,7 +156,8 @@ function inheritedReading(lemma: string, split: NonNullable<ReturnType<typeof in
   return {
     classId: hasListed(past) || hasListed(participle) ? 'irregular' : 'regular', classSource: 'lexicon', past, participle,
     prefix: split.prefix, listedFinalStress: false, identity: [],
-    classSteps: [step(rules['en.classify.prefixed'], lemma, null, { prefix: split.shownPrefix, base: split.shownBase })], tags: {},
+    classSteps: [step(rules['en.classify.prefixed'], lemma, null, { prefix: split.shownPrefix, base: split.shownBase })],
+    listedStep: false, tags: {},
   };
 }
 
@@ -207,7 +176,8 @@ function readingsOf(lemma: string, stems: EnglishStemHints | undefined): Reading
     const participle = [{ form: stems.pastParticiple! }];
     return [{
       classId: 'irregular', classSource: 'explicitHint', past, participle, prefix: null, listedFinalStress: false, identity: [],
-      classSteps: [step(rules['en.classify.hint-irregular'], lemma, null, { past: stems.past!, participle: stems.pastParticiple! })], tags: {},
+      classSteps: [step(rules['en.classify.hint-irregular'], lemma, null, { past: stems.past!, participle: stems.pastParticiple! })],
+      listedStep: false, tags: {},
     }];
   }
   if (Object.hasOwn(irregulars, lemma)) return listedReadings(lemma);
@@ -230,21 +200,14 @@ function withClassHint(lemma: string, readings: readonly Reading[], hint: Englis
     const regularOnly = (alternates: readonly Alternate[]): Alternate[] => alternates.filter(alternate => alternate.form === null);
     return kept.map(reading => ({
       ...reading, classId: 'regular', past: regularOnly(reading.past), participle: regularOnly(reading.participle), prefix: null,
-      classSteps: [step(rules['en.classify.hint-regular'], lemma, null)],
+      classSteps: [step(rules['en.classify.hint-regular'], lemma, null)], listedStep: false,
     }));
   }
   const kept = readings.filter(reading => reading.classId !== 'regular');
   if (!kept.length) throw new ConjugationError('INVALID_HINT', `${lemma} is a regular verb: it has no irregular forms.`);
   const listedOnly = (alternates: readonly Alternate[]): readonly Alternate[] =>
     hasListed(alternates) ? alternates.filter(alternate => alternate.form !== null) : alternates;
-  return kept.map(reading => {
-    const past = listedOnly(reading.past);
-    const participle = listedOnly(reading.participle);
-    const narrowed = past.length !== reading.past.length || participle.length !== reading.participle.length;
-    return narrowed && reading.classSource === 'lexicon' && reading.prefix === null
-      ? { ...reading, past, participle, classSteps: [lexiconStep(lemma, past, participle)] }
-      : { ...reading, past, participle };
-  });
+  return kept.map(reading => ({ ...reading, past: listedOnly(reading.past), participle: listedOnly(reading.participle) }));
 }
 
 /** Where the stress falls (design §3 step 7), and the step that says so. */
@@ -281,9 +244,10 @@ function lexemeOutcome(lemma: string, reading: Reading, stressHint: unknown): Ou
     particle: null, past: reading.past, participle: reading.participle, prefix: reading.prefix, finalStress: stress.final, doubling,
     ...flags,
   };
+  const classSteps = reading.listedStep ? [lexiconStep(lexeme)] : reading.classSteps;
   return {
     value: lexeme,
-    steps: [...reading.identity, ...reading.classSteps, ...flagSteps, ...(stressMatters ? stress.steps : [])],
+    steps: [...reading.identity, ...classSteps, ...flagSteps, ...(stressMatters ? stress.steps : [])],
     tags: reading.tags,
   };
 }
