@@ -42,8 +42,14 @@ export type Cell =
 export interface Unavailability { readonly reason: UnavailableTarget['reason']; readonly step: DerivationStep; readonly source: string }
 
 export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
-  /** Steps include classification and every assumption made. Throws ConjugationError for unusable input. */
-  classify(query: Readonly<Record<string, unknown>>): Outcome<X>;
+  /**
+   * One outcome per paradigm of the verb, in output order (most lemmas have one). An outcome's steps are that paradigm's
+   * classification, with every assumption made; its tags merge into each of the paradigm's forms, so a lemma with
+   * several paradigms tags each one (`pattern` names the paradigm, `condition` says when it applies). Every form comes
+   * from one paradigm's lexeme: paradigms never share auxiliaries, participles or a particle. Throws ConjugationError for
+   * unusable input; an empty fork is a GENERATION_FAILURE naming the lemma.
+   */
+  classify(query: Readonly<Record<string, unknown>>): Fork<X>;
   /** Lexeme for an auxiliary or other verb named by a periphrasis. */
   lexemeOf(lemma: string): X;
   /**
@@ -57,7 +63,8 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
    * Why `target` has no form for `lexeme` (defective, impersonal, no imperative), with the rule and source that say so;
    * null when it has forms. This is the only place a pack declares that a target has no form: when an available target
    * ends with no form (a stage returned [], or every branch was dropped), generation fails with GENERATION_FAILURE
-   * naming the target, the lemma and the stage that came back empty.
+   * naming the target, the lemma and the stage that came back empty. Asked once per paradigm: a target is reported
+   * unavailable only when every paradigm says so, and then with the first paradigm's reason and step.
    */
   availability(lexeme: X, target: ResolvedTarget): Unavailability | null;
   /**
@@ -178,13 +185,29 @@ function periphrasisTags({ pattern, usage }: Periphrasis): VariantTags {
   return { ...(pattern === undefined ? {} : { pattern }), ...(usage === undefined ? {} : { usage }) };
 }
 
+/** The analysis of one paradigm. Its assumptions are rule ids; an engine with an English catalog replaces them with the rendered steps. */
+function analysisOf({ value: lexeme, steps }: Outcome<LexemeBase>): VerbAnalysis {
+  return {
+    lemma: lexeme.lemma,
+    classification: lexeme.classId,
+    classificationSource: lexeme.classSource,
+    reflexive: lexeme.reflexive,
+    auxiliaries: lexeme.auxiliaries,
+    assumptions: [...new Set(steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
+    steps,
+  };
+}
+
 /**
- * A LanguageEngine for one query: classifies the verb once, then builds each target from a simple cell or from the
- * periphrases that match it, synthesising every verb in the chain through the same grammar and letting the clause
- * grammar order the words; the clause sees the subject slot `generate` is given, which must be the slot `target.subject`
- * names (GENERATION_FAILURE otherwise). Synthesis and lexemes named by periphrases are memoised for this engine instance only.
- * Validates the grammar the first time it is given it. The analysis and every generated form are copies, so freezing
- * a result never freezes data the pack keeps (its lexicon, or forks and steps it reuses).
+ * A LanguageEngine for one query: classifies the verb once into its paradigms, then builds each target once per
+ * paradigm from a simple cell or from the periphrases that match it, synthesising every verb in the chain through the
+ * same grammar and letting the clause grammar order the words; the clause sees the subject slot `generate` is given,
+ * which must be the slot `target.subject` names (GENERATION_FAILURE otherwise). A target's forms come paradigm by
+ * paradigm, in classification order, each carrying its paradigm's tags; the analysis is the first paradigm's, with the
+ * others as `alternatives` when there are several. Synthesis (per lexeme, so two paradigms never share a word) and
+ * lexemes named by periphrases are memoised for this engine instance only. Validates the grammar the first time it is
+ * given it. The analysis and every generated form are copies, so freezing a result never freezes data the pack keeps
+ * (its lexicon, or forks and steps it reuses).
  */
 export function stagedEngine<X extends LexemeBase>(
   grammar: StagedGrammar<X>,
@@ -192,8 +215,11 @@ export function stagedEngine<X extends LexemeBase>(
   query: Readonly<Record<string, unknown>>,
 ): LanguageEngine {
   if (!validated.has(grammar)) validateGrammar(grammar);
-  const classified = grammar.classify(query);
-  const lexeme = classified.value;
+  const paradigms = grammar.classify(query);
+  const [first] = paradigms;
+  if (first === undefined) {
+    throw new ConjugationError('GENERATION_FAILURE', `classify returned no paradigm for ${String(query.infinitive)}: it must return one outcome per paradigm, or throw a ConjugationError for a verb it cannot conjugate.`);
+  }
 
   const lexemes = new Map<string, X>();
   function lexemeNamed(lemma: string): X {
@@ -221,7 +247,8 @@ export function stagedEngine<X extends LexemeBase>(
     return result;
   }
 
-  function verbOf(ref: VerbRef, auxiliary: string | null): X {
+  /** The verb `ref` names in a construction of the paradigm whose lexeme is `lexeme`. */
+  function verbOf(ref: VerbRef, lexeme: X, auxiliary: string | null): X {
     if (ref === 'main') return lexeme;
     if (ref === 'perfectAuxiliary') {
       if (auxiliary === null) throw new ConjugationError('GENERATION_FAILURE', 'A perfect auxiliary element ran without an auxiliary.');
@@ -230,10 +257,10 @@ export function stagedEngine<X extends LexemeBase>(
     return lexemeNamed(ref.lemma);
   }
 
-  function slotFor(periphrasis: Periphrasis, element: ChainElement, target: ResolvedTarget, auxiliary: string | null): Slot<X> {
+  function slotFor(periphrasis: Periphrasis, element: ChainElement, target: ResolvedTarget, lexeme: X, auxiliary: string | null): Slot<X> {
     if ('word' in element) return { kind: 'word', role: element.role, text: element.word };
     const role = element.verb === 'main' ? 'lexicalVerb' : 'auxiliary';
-    const verb = verbOf(element.verb, auxiliary);
+    const verb = verbOf(element.verb, lexeme, auxiliary);
     if ('nonFinite' in element) {
       return { kind: 'verb', role, lexeme: verb, cell: { kind: 'nonFinite', form: element.nonFinite }, agree: element.agree === true };
     }
@@ -251,7 +278,8 @@ export function stagedEngine<X extends LexemeBase>(
     return { kind: 'verb', role, lexeme: verb, cell, agree: false };
   }
 
-  function constructions(target: ResolvedTarget): Construction<X>[] {
+  /** The ways one paradigm, whose lexeme is `lexeme`, builds `target`: with its own perfect auxiliaries only. */
+  function constructions(target: ResolvedTarget, lexeme: X): Construction<X>[] {
     const cell = grammar.cellOf(target);
     if (cell !== null) {
       // A simple non-finite form asks the clause for agreement, as an `agree` chain element does; a finite one never does.
@@ -263,7 +291,7 @@ export function stagedEngine<X extends LexemeBase>(
       throw new ConjugationError('GENERATION_FAILURE', `No simple cell or periphrasis builds ${targetKey(target)}.`);
     }
     return periphrases.flatMap(periphrasis => (usesPerfectAuxiliary(periphrasis) ? lexeme.auxiliaries : [null]).map(auxiliary => ({
-      periphrasis, auxiliary, slots: periphrasis.chain.map(element => slotFor(periphrasis, element, target, auxiliary)),
+      periphrasis, auxiliary, slots: periphrasis.chain.map(element => slotFor(periphrasis, element, target, lexeme, auxiliary)),
     })));
   }
 
@@ -283,14 +311,16 @@ export function stagedEngine<X extends LexemeBase>(
   function build(
     target: ResolvedTarget,
     subject: SubjectSlot | null,
+    paradigm: Outcome<X>,
     construction: Construction<X>,
     noteEmpty: (stage: FormStage, lemma: string) => void,
   ): GeneratedForm[] {
     const { periphrasis, auxiliary, slots } = construction;
+    const lexeme = paradigm.value;
     const context: ClauseContext<X> = { query, lexeme, target, subject, auxiliary, rendering };
     const agreements = slots.some(slot => slot.kind === 'verb' && slot.agree) ? grammar.clause.agreements(context) : one(null);
-    // Classification tags apply to every form; the periphrasis step opens the form-level steps.
-    const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], classified.tags);
+    // The paradigm's tags apply to every form of it; the periphrasis step opens the form-level steps.
+    const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], paradigm.tags);
     const agreed = chain(opening, () => agreements);
     if (!agreed.length) noteEmpty('agreements', lexeme.lemma);
     const assembled = chain(agreed, agreement => {
@@ -302,6 +332,8 @@ export function stagedEngine<X extends LexemeBase>(
       if (!forms.length) noteEmpty('assemble', lexeme.lemma);
       return forms;
     });
+    // Words whose tags cannot combine with the paradigm's tags count against the assemble stage too.
+    if (agreed.length && !assembled.length) noteEmpty('assemble', lexeme.lemma);
     const built = periphrasis ? chain(assembled, form => one(form, [], periphrasisTags(periphrasis))) : assembled;
     const reported = periphrasis ? reportedAuxiliary(periphrasis, auxiliary) : null;
     return built.map(({ value: { target: resolved, parts }, steps, tags }) => ({
@@ -320,45 +352,58 @@ export function stagedEngine<X extends LexemeBase>(
     }));
   }
 
+  /** The forms of `target` in the paradigm at `index`, where it is available; GENERATION_FAILURE when it has none. */
+  function formsIn(paradigm: Outcome<X>, index: number, target: ResolvedTarget, subject: SubjectSlot | null): GeneratedForm[] {
+    const empty = emptyStages();
+    const forms = constructions(target, paradigm.value).flatMap(construction => build(target, subject, paradigm, construction, empty.note));
+    if (!forms.length) {
+      // With several paradigms, the failure names the one that came back empty: its position, and its pattern if it has one.
+      const name = paradigms.length > 1 ? `paradigm ${index + 1}${paradigm.tags.pattern === undefined ? '' : `, ${paradigm.tags.pattern}`}` : null;
+      throw new ConjugationError('GENERATION_FAILURE', noFormMessage(target, paradigm.value.lemma, name, empty.first()));
+    }
+    return forms;
+  }
+
+  const alternatives = paradigms.slice(1).map(analysisOf);
   return {
-    verbId: lexeme.verbId,
-    analysis: structuredClone({
-      lemma: lexeme.lemma,
-      classification: lexeme.classId,
-      classificationSource: lexeme.classSource,
-      reflexive: lexeme.reflexive,
-      auxiliaries: lexeme.auxiliaries,
-      // Rule ids; an engine with an English catalog replaces them with the rendered steps.
-      assumptions: [...new Set(classified.steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
-      steps: classified.steps,
-    }),
+    verbId: first.value.verbId,
+    analysis: structuredClone(alternatives.length ? { ...analysisOf(first), alternatives } : analysisOf(first)),
     generate(target, subject = null): GenerationResult {
       if (subject?.id !== target.subject) {
         const given = subject?.id ?? 'no subject slot';
         throw new ConjugationError('GENERATION_FAILURE', `${targetKey(target)} has the subject ${target.subject ?? '(none)'}, but generate was given ${given}.`);
       }
-      const absent = grammar.availability(lexeme, target);
-      if (absent) {
+      // A paradigm where the target is unavailable adds no form; the first such paradigm's reason is reported only when
+      // no paradigm has the target.
+      let absent: Unavailability | null = null;
+      const forms: GeneratedForm[] = [];
+      for (const [index, paradigm] of paradigms.entries()) {
+        const unavailable = grammar.availability(paradigm.value, target);
+        if (unavailable) absent ??= unavailable;
+        else forms.push(...formsIn(paradigm, index, target, subject));
+      }
+      if (absent && !forms.length) {
         return structuredClone({
           forms: [],
           // The rule id; an engine with an English catalog replaces it with the rendered step.
           unavailable: [{ target, reason: absent.reason, explanation: absent.step.rule, source: absent.source, step: absent.step }],
         });
       }
-      const empty = emptyStages();
-      const forms = constructions(target).flatMap(construction => build(target, subject, construction, empty.note));
-      if (!forms.length) throw new ConjugationError('GENERATION_FAILURE', noFormMessage(target, lexeme.lemma, empty.first()));
       return structuredClone({ forms, unavailable: [] });
     },
   };
 }
 
-/** Why an available target ended without a form, and where a pack declares a target that has none. */
-function noFormMessage(target: ResolvedTarget, lemma: string, empty: EmptyStage | null): string {
+/**
+ * Why an available target ended without a form, and where a pack declares a target that has none. `paradigm` names
+ * the paradigm that came back empty when the verb has several.
+ */
+function noFormMessage(target: ResolvedTarget, lemma: string, paradigm: string | null, empty: EmptyStage | null): string {
   const where = empty === null
     ? 'no periphrasis ran, because the verb lists no perfect auxiliary'
     : `the ${empty.stage} stage came back empty${empty.lemma === lemma ? '' : ` for ${empty.lemma}`}`;
-  return `No form for ${targetKey(target)} of ${lemma}: ${where}. A target without a form must be declared unavailable through availability.`;
+  const of = paradigm === null ? lemma : `${lemma} (${paradigm})`;
+  return `No form for ${targetKey(target)} of ${of}: ${where}. A target without a form must be declared unavailable through availability.`;
 }
 
 /** Distinct rule ids of a form's own steps and its parts' steps, in order. */

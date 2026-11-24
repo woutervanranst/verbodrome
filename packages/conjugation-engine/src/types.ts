@@ -123,6 +123,7 @@ export interface UnavailableTarget {
   readonly step?: DerivationStep;
 }
 
+/** The analysis of a verb; for a lemma with several paradigms, the first paradigm's, with the others in `alternatives`. */
 export interface VerbAnalysis {
   readonly lemma: string;
   readonly classification: string;
@@ -131,6 +132,11 @@ export interface VerbAnalysis {
   readonly auxiliaries: readonly string[];
   readonly assumptions: readonly string[];
   readonly steps?: readonly DerivationStep[];
+  /**
+   * The analyses of the lemma's other paradigms, in order, each without `alternatives` of its own. Absent when the
+   * lemma has one paradigm.
+   */
+  readonly alternatives?: readonly VerbAnalysis[];
 }
 
 export interface ConjugationResult {

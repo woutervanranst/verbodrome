@@ -141,12 +141,18 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     return pack.rules && Object.hasOwn(messages, 'en') ? { pack, catalog: catalogFor('en'), locale: 'en', mood } : null;
   }
 
-  /** A staged pack's assumptions as English text. Assumptions have no target, so their rules cannot name a tense. */
+  /**
+   * A staged pack's assumptions as English text, in the analysis and in each of its alternatives. Assumptions have no
+   * target, so their rules cannot name a tense.
+   */
   function analysisWithText(pack: LanguagePack, analysis: VerbAnalysis): VerbAnalysis {
     const ctx = englishContext(pack, null);
-    if (!ctx || !analysis.steps) return analysis;
-    const assumptions = analysis.steps.filter(s => s.kind === 'assumption').map(s => renderStep(s, ctx));
-    return { ...analysis, assumptions: [...new Set(assumptions)] };
+    if (!ctx) return analysis;
+    const withText = (paradigm: VerbAnalysis): VerbAnalysis => paradigm.steps ? {
+      ...paradigm, assumptions: [...new Set(paradigm.steps.filter(s => s.kind === 'assumption').map(s => renderStep(s, ctx)))],
+    } : paradigm;
+    const rendered = withText(analysis);
+    return analysis.alternatives ? { ...rendered, alternatives: analysis.alternatives.map(withText) } : rendered;
   }
 
   /** A staged pack's unavailable target with the English sentence of its step as the explanation. */

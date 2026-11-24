@@ -20,7 +20,11 @@ export interface ExplainedStep {
 
 export interface Explanation {
   readonly summary: string;
-  /** One per part that has steps (`part` is its index, `title` its text), then one with `part: null` for the form-level steps. */
+  /**
+   * A form: one per part that has steps (`part` is its index, `title` its text), then one with `part: null` for the
+   * form-level steps. An analysis: one per paradigm that has steps, in order (the analysis, then its alternatives),
+   * each with `part: null`. An unavailable target: one, with `part: null`.
+   */
   readonly sections: readonly { readonly part: number | null; readonly title: string; readonly steps: readonly ExplainedStep[] }[];
 }
 
@@ -145,7 +149,9 @@ export function explainSubject(pack: LanguagePack, catalog: Catalog, locale: str
     };
   } else if ('classification' in subject) {
     const c = ctx(null);
-    const sections = section(c, null, () => message(c, 'explain.section.classify', {}), subject.steps);
+    // One section per paradigm; each paradigm's classification steps say which one it is.
+    const sections = [subject, ...(subject.alternatives ?? [])]
+      .flatMap(paradigm => section(c, null, () => message(c, 'explain.section.classify', {}), paradigm.steps));
     explanation = { summary: message(c, 'explain.summary.analysis', { lemma: subject.lemma, classification: subject.classification }), sections };
   } else {
     throw invalid();

@@ -17,7 +17,7 @@ export interface ChainWord {
 
 export interface ClauseContext<X extends LexemeBase> {
   readonly query: Readonly<Record<string, unknown>>;
-  /** The queried verb. */
+  /** The queried verb, in the paradigm being built. */
   readonly lexeme: X;
   /** The target being built; in `assemble`, with the agreement chosen for this form. */
   readonly target: ResolvedTarget;

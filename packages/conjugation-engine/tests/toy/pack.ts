@@ -9,12 +9,19 @@
  * pronoun. The `auxiliary` option narrows a verb's perfect auxiliaries to the one it names: a lexical hint is read in
  * `classify`, never by the core.
  *
+ * A particle is separable (apzorpa: mi zorpo ap) unless the lexicon says otherwise; after an inseparable particle the
+ * past participle ends in -ido (-ida). apvena has two readings, so two paradigms: separable and intransitive with esta
+ * (il venat ap, il estat apvenado), or inseparable and transitive with haba (il apvenat, il habat apvenido); its forms
+ * carry the pattern `separable` or `inseparable` and the condition `intransitive` or `transitive`. The `prefix` option
+ * (separable or inseparable) keeps only the reading it names; the `auxiliary` option keeps the readings that take it.
+ *
  * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
  * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot.
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';
 import { defineRules, step } from '../../src/core/derivation.js';
+import type { DerivationStep } from '../../src/core/derivation.js';
 import { one } from '../../src/core/fork.js';
 import type { Fork } from '../../src/core/fork.js';
 import type { JunctureRule } from '../../src/core/juncture.js';
@@ -32,6 +39,8 @@ export const toyRules = defineRules({
   'xx.classify.listed': { stage: 'classify', kind: 'lexical' },
   'xx.classify.a-verb': { stage: 'classify' },
   'xx.assume.unlisted': { stage: 'classify', kind: 'assumption' },
+  'xx.classify.separable': { stage: 'classify', params: { particle: 'text' } },
+  'xx.classify.inseparable': { stage: 'classify', params: { particle: 'text' } },
   'xx.avail.no-participle': { stage: 'availability', kind: 'unavailable' },
   'xx.lex.present': { stage: 'stem', kind: 'lexical' },
   'xx.stem.drop-a': { stage: 'stem' },
@@ -44,6 +53,7 @@ export const toyRules = defineRules({
   'xx.end.infinitive': { stage: 'ending' },
   'xx.end.present-participle': { stage: 'ending' },
   'xx.end.participle': { stage: 'ending', params: { ending: 'text' } },
+  'xx.end.inseparable-participle': { stage: 'ending', params: { ending: 'text', particle: 'text' } },
   'xx.orth.c-qu': { stage: 'orthography', params: { vowel: 'text' } },
   'xx.orth.ph-f': { stage: 'orthography' },
   'xx.periphrasis.perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
@@ -69,6 +79,8 @@ export const toyCitations = {
   'xx.classify.listed': lexiconCitation('Entries'),
   'xx.classify.a-verb': grammarCitation('§1'),
   'xx.assume.unlisted': [grammarCitation('§1'), lexiconCitation('Entries')],
+  'xx.classify.separable': [grammarCitation('§7.3'), lexiconCitation('Readings')],
+  'xx.classify.inseparable': [grammarCitation('§7.3'), lexiconCitation('Readings')],
   'xx.avail.no-participle': grammarCitation('§4'),
   'xx.lex.present': lexiconCitation('Suppletive verbs'),
   'xx.stem.drop-a': grammarCitation('§1'),
@@ -81,6 +93,7 @@ export const toyCitations = {
   'xx.end.infinitive': grammarCitation('§2.1'),
   'xx.end.present-participle': grammarCitation('§2.4'),
   'xx.end.participle': grammarCitation('§2.5'),
+  'xx.end.inseparable-participle': grammarCitation('§2.5'),
   'xx.orth.c-qu': grammarCitation('§3.1'),
   'xx.orth.ph-f': grammarCitation('§3.2'),
   'xx.periphrasis.perfect': grammarCitation('§5.1'),
@@ -105,9 +118,19 @@ export interface ToyLexeme extends LexemeBase {
   readonly longPlural: boolean;
 }
 
+/** One reading of a particle verb whose particle is separable in one sense and inseparable in another. */
+interface Reading {
+  readonly separable: boolean;
+  readonly auxiliaries: readonly string[];
+  /** When the reading applies: the `condition` of its forms. */
+  readonly condition: string;
+}
+
 interface Entry {
   readonly auxiliaries?: readonly string[];
   readonly particle?: string;
+  /** One paradigm per reading, in this order; they replace `auxiliaries` and make the particle (in)separable. */
+  readonly readings?: readonly Reading[];
   readonly present?: readonly string[];
   readonly stems?: Readonly<Record<string, string>>;
   readonly noParticiple?: true;
@@ -128,19 +151,29 @@ const lexicon: Readonly<Record<string, Entry>> = {
   grapha: { auxiliaries: ['epha'] },
   epha: {},
   canta: { longPlural: true },
+  // Separable and intransitive in one sense, inseparable and transitive in the other: two paradigms, never mixed.
+  apvena: {
+    particle: 'ap',
+    readings: [
+      { separable: true, auxiliaries: ['esta'], condition: 'intransitive' },
+      { separable: false, auxiliaries: ['haba'], condition: 'transitive' },
+    ],
+  },
 };
 
-function lexemeOf(lemma: string): ToyLexeme {
+/** The lexeme of `lemma`; for an entry with readings, in `reading` (by default its first). */
+function lexemeOf(lemma: string, reading?: Reading): ToyLexeme {
   const listed = Object.hasOwn(lexicon, lemma);
   const entry: Entry = listed ? lexicon[lemma]! : {};
+  const chosen = reading ?? entry.readings?.[0];
   return {
     lemma,
     verbId: lemma,
     classId: entry.present ? 'suppletive' : 'a-verb',
     classSource: listed ? 'lexicon' : 'regularRule',
     reflexive: false,
-    auxiliaries: entry.auxiliaries ?? ['haba'],
-    particle: entry.particle ? { text: entry.particle, separable: true } : null,
+    auxiliaries: chosen?.auxiliaries ?? entry.auxiliaries ?? ['haba'],
+    particle: entry.particle ? { text: entry.particle, separable: chosen?.separable ?? true } : null,
     base: entry.particle ? lemma.slice(entry.particle.length) : lemma,
     present: entry.present ?? null,
     listedStems: entry.stems ?? {},
@@ -182,7 +215,13 @@ function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
     if (cell.form === 'infinitive') return one('a', [step(toyRules['xx.end.infinitive'], stem, `${stem}a`)]);
     if (cell.form === 'presentParticiple') return one('ante', [step(toyRules['xx.end.present-participle'], stem, `${stem}ante`)]);
     if (cell.form !== 'participle') throw new ConjugationError('GENERATION_FAILURE', `No toy form ${cell.form}.`);
-    const text = cell.agreement?.gender === 'feminine' ? 'ada' : 'ado';
+    const final = cell.agreement?.gender === 'feminine' ? 'a' : 'o';
+    const particle = lexeme.particle;
+    if (particle !== null && !particle.separable) {
+      const text = `id${final}`;
+      return one(text, [step(toyRules['xx.end.inseparable-participle'], stem, stem + text, { ending: text, particle: particle.text })]);
+    }
+    const text = `ad${final}`;
     return one(text, [step(toyRules['xx.end.participle'], stem, stem + text, { ending: text })]);
   }
   if (cell.mood === 'imperative') return one('e', [step(toyRules['xx.end.imperative'], stem, `${stem}e`)]);
@@ -280,27 +319,59 @@ const clause: ClauseGrammar<ToyLexeme> = {
   },
 };
 
+/** How a lexeme is classified: from the lexicon, or by its -a ending with the assumption that it is regular. */
+function classification(lexeme: ToyLexeme): DerivationStep[] {
+  return lexeme.classSource === 'lexicon'
+    ? [step(toyRules['xx.classify.listed'], lexeme.lemma, lexeme.classId)]
+    : [step(toyRules['xx.classify.a-verb'], lexeme.lemma, lexeme.classId), step(toyRules['xx.assume.unlisted'], null, null)];
+}
+
 /**
- * The lexeme with its perfect auxiliaries narrowed to the one the query's `auxiliary` hint names, so the analysis and
- * every compound form follow the hint. A verb that cannot take that auxiliary is an INVALID_HINT.
+ * One paradigm per reading of `lemma`, or the one paradigm of a verb without readings. A reading adds the step that
+ * says whether its particle separates, and tags its forms with that (`pattern`) and with when it applies (`condition`).
  */
-function withAuxiliaryHint(lexeme: ToyLexeme, hint: unknown): ToyLexeme {
-  if (hint === undefined) return lexeme;
-  if (typeof hint !== 'string' || !lexeme.auxiliaries.includes(hint)) {
-    throw new ConjugationError('INVALID_HINT', `${lexeme.lemma} does not take the auxiliary ${String(hint)}.`);
+function paradigmsOf(lemma: string): Fork<ToyLexeme> {
+  const readings = Object.hasOwn(lexicon, lemma) ? lexicon[lemma]!.readings : undefined;
+  if (readings === undefined) {
+    const lexeme = lexemeOf(lemma);
+    return one(lexeme, classification(lexeme));
   }
-  return { ...lexeme, auxiliaries: [hint] };
+  return readings.map(reading => {
+    const lexeme = lexemeOf(lemma, reading);
+    const rule = reading.separable ? toyRules['xx.classify.separable'] : toyRules['xx.classify.inseparable'];
+    return {
+      value: lexeme,
+      steps: [...classification(lexeme), step(rule, lemma, null, { particle: lexeme.particle!.text })],
+      tags: { pattern: reading.separable ? 'separable' : 'inseparable', condition: reading.condition },
+    };
+  });
+}
+
+/** The paradigms whose particle is of the kind the `prefix` hint names; a verb with no such paradigm is an INVALID_HINT. */
+function withPrefixHint(lemma: string, paradigms: Fork<ToyLexeme>, hint: unknown): Fork<ToyLexeme> {
+  if (hint === undefined) return paradigms;
+  const kept = paradigms.filter(({ value: { particle } }) => particle !== null && particle.separable === (hint === 'separable'));
+  if (!kept.length) throw new ConjugationError('INVALID_HINT', `${lemma} has no ${String(hint)} particle.`);
+  return kept;
+}
+
+/**
+ * The paradigms that can take the auxiliary the `auxiliary` hint names, each narrowed to it, so the analysis and every
+ * compound form follow the hint. A verb none of whose paradigms can take it is an INVALID_HINT.
+ */
+function withAuxiliaryHint(lemma: string, paradigms: Fork<ToyLexeme>, hint: unknown): Fork<ToyLexeme> {
+  if (hint === undefined) return paradigms;
+  const kept = paradigms.filter(({ value }) => typeof hint === 'string' && value.auxiliaries.includes(hint));
+  if (typeof hint !== 'string' || !kept.length) throw new ConjugationError('INVALID_HINT', `${lemma} does not take the auxiliary ${String(hint)}.`);
+  return kept.map(paradigm => ({ ...paradigm, value: { ...paradigm.value, auxiliaries: [hint] } }));
 }
 
 export const toyGrammar: StagedGrammar<ToyLexeme> = {
+  /** The paradigms of the verb, narrowed by the `prefix` hint and then by the `auxiliary` hint. */
   classify(query) {
     const lemma = String(query.infinitive);
     if (!/^\p{L}+a$/u.test(lemma)) throw new ConjugationError('INVALID_INFINITIVE', 'A toy infinitive is one word ending in -a.');
-    const lexeme = withAuxiliaryHint(lexemeOf(lemma), query.auxiliary);
-    const steps = lexeme.classSource === 'lexicon'
-      ? [step(toyRules['xx.classify.listed'], lemma, lexeme.classId)]
-      : [step(toyRules['xx.classify.a-verb'], lemma, lexeme.classId), step(toyRules['xx.assume.unlisted'], null, null)];
-    return { value: lexeme, steps, tags: {} };
+    return withAuxiliaryHint(lemma, withPrefixHint(lemma, paradigmsOf(lemma), query.prefix), query.auxiliary);
   },
   lexemeOf,
   cellOf(target) {
@@ -373,6 +444,7 @@ export const toyPack: LanguagePack<'xx'> = {
     fields: {
       voice: { kind: 'enum', values: ['active', 'passive'] },
       auxiliary: { kind: 'enum', values: ['haba', 'esta', 'epha'] },
+      prefix: { kind: 'enum', values: ['separable', 'inseparable'] },
     },
   },
   rank: form => variantRank(form.variant, 'rectified'),

@@ -416,6 +416,10 @@ describe('a target that is available but left without a form', () => {
     ['agreements', { clause: { ...toyGrammar.clause, agreements: () => [] } }, participle, 'participle/past/-/-', 'agreements'],
     ['assemble', { clause: { ...toyGrammar.clause, assemble: () => [] } }, present, 'indicative/present/1/singular/active', 'assemble'],
     ['assemble, when no words combine', { stem: mismatched }, perfect, 'indicative/perfect/3/singular/active', 'assemble'],
+    ['assemble, when no words combine with the paradigm', {
+      classify: query => toyGrammar.classify(query).map(paradigm => ({ ...paradigm, tags: { region: 'north' } })),
+      stem: (lexeme, cell) => toyGrammar.stem(lexeme, cell).map(outcome => ({ ...outcome, tags: { region: 'south' } })),
+    }, present, 'indicative/present/1/singular/active', 'assemble'],
   ])('is a generation failure naming the target, the lemma and the %s stage', (_, hooks, query, key, stage) => {
     const engine = toyWith({ ...toyGrammar, ...hooks });
     const failure = (text: string) => expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining(text) });
@@ -429,10 +433,7 @@ describe('a target that is available but left without a form', () => {
     }));
     const withoutAuxiliary = toyWith({
       ...toyGrammar,
-      classify: query => {
-        const classified = toyGrammar.classify(query);
-        return { ...classified, value: { ...classified.value, auxiliaries: [] } };
-      },
+      classify: query => toyGrammar.classify(query).map(paradigm => ({ ...paradigm, value: { ...paradigm.value, auxiliaries: [] } })),
     });
     expect(() => withoutAuxiliary.conjugate(perfect)).toThrow(expect.objectContaining({
       code: 'GENERATION_FAILURE', message: expect.stringContaining('of zorpa: no periphrasis ran, because the verb lists no perfect auxiliary'),
@@ -443,6 +444,151 @@ describe('a target that is available but left without a form', () => {
     // roca's listed stem roqu- gets no ending; the derived stem still makes the form.
     const engine = toyWith({ ...toyGrammar, ending: (lexeme, cell, stem) => stem === 'roqu' ? [] : toyGrammar.ending(lexeme, cell, stem) });
     expect(engine.conjugate({ ...present, infinitive: 'roca', person: 2, number: 'plural' }).forms.map(f => f.text)).toEqual(['vos roquetes']);
+  });
+});
+
+describe('several paradigms for one lemma', () => {
+  // apvena is separable, intransitive and conjugated with esta in one reading; inseparable, transitive and with haba in the other.
+  const perfect = { language: 'xx', infinitive: 'apvena', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular', voice: 'active' };
+  const present = { ...perfect, tense: 'present' };
+  const variantOf = (form: ConjugatedForm) => [form.text, form.variant.pattern, form.variant.condition, form.variant.auxiliary];
+  const readingOf = (lexeme: ToyLexeme) => lexeme.particle?.separable === false ? 'inseparable' : 'separable';
+
+  it('returns the forms of each paradigm, first paradigm first, each tagged with its paradigm', () => {
+    expect(toy.conjugate(perfect).forms.map(variantOf)).toEqual([
+      ['il estat apvenado', 'separable', 'intransitive', 'esta'],
+      ['il estat apvenada', 'separable', 'intransitive', 'esta'],
+      ['il habat apvenido', 'inseparable', 'transitive', 'haba'],
+    ]);
+    // When ranks tie, the first paradigm's form is preferred.
+    expect(toy.conjugate(present).forms.map(f => [f.text, f.variant.pattern, f.preferred])).toEqual([
+      ['il venat ap', 'separable', true],
+      ['il apvenat', 'inseparable', false],
+    ]);
+    // Ranking runs across both paradigms; the paradigm's pattern comes before the periphrasis's.
+    const future = { language: 'xx', infinitive: 'apvena', mood: 'indicative', tense: 'future', person: 3, number: 'singular' };
+    expect(toy.conjugate(future).forms.map(f => [f.text, f.variant.pattern, f.variant.usage, f.variant.condition])).toEqual([
+      ['il vadat a apvena', 'separable', 'standard', 'intransitive'],
+      ['il vadat a apvena', 'inseparable', 'standard', 'transitive'],
+      ['il apvena habat', 'separable.inverted', 'literary', 'intransitive'],
+      ['il apvena habat', 'inseparable.inverted', 'literary', 'transitive'],
+    ]);
+  });
+
+  it('never crosses one paradigm\'s auxiliaries or participles with another\'s', () => {
+    // The participle cell is the same in both paradigms: words are cached per lexeme, never per lemma.
+    const forms = toy.conjugate({ language: 'xx', infinitive: 'apvena' }).forms;
+    const reading = (form: ConjugatedForm) => form.variant.pattern!.split('.')[0];
+    const participles = (name: string) => new Set(forms.filter(f => reading(f) === name).flatMap(f => f.parts)
+      .filter(part => part.features.verbForm === 'pastParticiple').map(part => part.text));
+    expect(participles('separable')).toEqual(new Set(['apvenado', 'apvenada']));
+    expect(participles('inseparable')).toEqual(new Set(['apvenido', 'apvenida']));
+    const perfects = forms.filter(f => f.target.tense === 'perfect' && f.target.voice === 'active');
+    expect(new Set(perfects.map(f => `${reading(f)} ${f.variant.auxiliary}`))).toEqual(new Set(['separable esta', 'inseparable haba']));
+    expect(perfects).toHaveLength(6 * 3);
+  });
+
+  it('returns only the paradigm a prefix hint names', () => {
+    const inseparable = toy.conjugate({ ...perfect, prefix: 'inseparable' });
+    expect(inseparable.forms.map(variantOf)).toEqual([['il habat apvenido', 'inseparable', 'transitive', 'haba']]);
+    expect(Object.hasOwn(inseparable.analysis, 'alternatives')).toBe(false);
+    expect([inseparable.analysis.auxiliaries, rules(inseparable.analysis.steps)]).toEqual([['haba'], ['xx.classify.listed', 'xx.classify.inseparable']]);
+    expect(toy.conjugate({ ...present, prefix: 'separable' }).forms.map(variantOf)).toEqual([['il venat ap', 'separable', 'intransitive', null]]);
+    // The auxiliary hint keeps the paradigms that take the auxiliary.
+    expect(toy.conjugate({ ...perfect, auxiliary: 'esta' }).forms.map(f => f.text)).toEqual(['il estat apvenado', 'il estat apvenada']);
+    expect(() => toy.conjugate({ ...perfect, auxiliary: 'epha' }))
+      .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'apvena does not take the auxiliary epha.' }));
+    expect(() => toy.conjugate({ ...perfect, prefix: 'separable', auxiliary: 'haba' }))
+      .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'apvena does not take the auxiliary haba.' }));
+    // A verb with one reading accepts the hint that matches it and rejects the other.
+    expect(texts({ ...present, infinitive: 'apzorpa', prefix: 'separable' })).toEqual(['il zorpat ap']);
+    expect(() => toy.conjugate({ ...present, infinitive: 'apzorpa', prefix: 'inseparable' }))
+      .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'apzorpa has no inseparable particle.' }));
+    expect(() => toy.conjugate({ ...present, infinitive: 'zorpa', prefix: 'separable' }))
+      .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'zorpa has no separable particle.' }));
+  });
+
+  it('analyses the first paradigm and lists the others as alternatives', () => {
+    const result = toy.conjugate(perfect);
+    const listed = { rule: 'xx.classify.listed', stage: 'classify', kind: 'lexical', before: 'apvena', after: 'a-verb', params: {} };
+    const verb = { lemma: 'apvena', classification: 'a-verb', classificationSource: 'lexicon', reflexive: false, assumptions: [] };
+    expect(result.verbId).toBe('apvena');
+    expect(result.analysis).toEqual({
+      ...verb,
+      auxiliaries: ['esta'],
+      steps: [listed, { rule: 'xx.classify.separable', stage: 'classify', kind: 'rule', before: 'apvena', after: null, params: { particle: 'ap' } }],
+      alternatives: [{
+        ...verb,
+        auxiliaries: ['haba'],
+        steps: [listed, { rule: 'xx.classify.inseparable', stage: 'classify', kind: 'rule', before: 'apvena', after: null, params: { particle: 'ap' } }],
+      }],
+    });
+    expect(result.analysis.alternatives).toHaveLength(1);
+    expect(Object.hasOwn(result.analysis.alternatives![0]!, 'alternatives')).toBe(false);
+    expect(Object.isFrozen(result.analysis.alternatives![0]!.steps)).toBe(true);
+    for (const infinitive of ['placa', 'apzorpa', 'esa']) {
+      expect(Object.hasOwn(toy.conjugate({ language: 'xx', infinitive, mood: 'infinitive' }).analysis, 'alternatives')).toBe(false);
+    }
+  });
+
+  it('merges a paradigm\'s tags into each form: labels join, constraints keep only the forms that agree', () => {
+    const traditional = toyWith({
+      ...toyGrammar,
+      classify: query => toyGrammar.classify(query).map(paradigm => ({ ...paradigm, tags: { orthography: 'traditional', condition: 'old' } })),
+    });
+    const query = { language: 'xx', infinitive: 'grapha', mood: 'indicative', tense: 'present', person: 1, number: 'singular', voice: 'active' };
+    expect(traditional.conjugate(query).forms.map(f => [f.text, f.variant.orthography, f.variant.condition]))
+      .toEqual([['mi grapho', 'traditional', 'old']]);
+  });
+
+  it('asks availability per paradigm and reports a target unavailable in every paradigm once, as the first paradigm does', () => {
+    const asked: string[] = [];
+    const unavailableIn = (readings: readonly string[]) => toyWith({
+      ...toyGrammar,
+      availability: (lexeme, target) => {
+        asked.push(readingOf(lexeme));
+        if (target.tense !== 'perfect' || !readings.includes(readingOf(lexeme))) return toyGrammar.availability(lexeme, target);
+        const reason = readingOf(lexeme) === 'separable' ? 'defective' : 'impersonal';
+        return { reason, step: step(toyRules['xx.avail.no-participle'], null, null), source: `the ${readingOf(lexeme)} reading` };
+      },
+    });
+    const partly = unavailableIn(['separable']).conjugate(perfect);
+    expect([partly.status, partly.unavailableTargets, partly.forms.map(variantOf)])
+      .toEqual(['available', [], [['il habat apvenido', 'inseparable', 'transitive', 'haba']]]);
+    expect(asked).toEqual(['separable', 'inseparable']);
+    expect(unavailableIn(['inseparable']).conjugate(perfect).forms.map(f => f.text)).toEqual(['il estat apvenado', 'il estat apvenada']);
+    const neither = unavailableIn(['inseparable', 'separable']).conjugate(perfect);
+    expect(neither.status).toBe('unavailable');
+    expect(neither.unavailableTargets.map(u => [u.reason, u.source, u.step!.rule]))
+      .toEqual([['defective', 'the separable reading', 'xx.avail.no-participle']]);
+  });
+
+  it('collapses a form two paradigms share into the first paradigm\'s', () => {
+    // A second paradigm of zorpa that lists its present whole: the same words by other steps, with the same tags.
+    const engine = toyWith({
+      ...toyGrammar,
+      classify: query => toyGrammar.classify(query).flatMap(paradigm => [paradigm, {
+        ...paradigm, value: { ...paradigm.value, present: ['zorpo', 'zorpas', 'zorpat', 'zorpamos', 'zorpetes', 'zorpant'] },
+      }]),
+    });
+    const result = engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'indicative', tense: 'present', voice: 'active' });
+    expect(result.forms.map(f => f.text)).toEqual(['mi zorpo', 'tu zorpas', 'il zorpat', 'nos zorpamos', 'vos zorpetes', 'ils zorpant']);
+    for (const form of result.forms) expect(rules(form.parts.at(-1)!.steps)).toEqual(['xx.stem.drop-a', 'xx.end.present']);
+    expect(result.analysis.alternatives).toHaveLength(1);
+  });
+
+  it('fails when classify returns no paradigm, naming the lemma', () => {
+    const engine = toyWith({ ...toyGrammar, classify: () => [] });
+    expect(() => engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'infinitive' }))
+      .toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining('no paradigm for zorpa') }));
+  });
+
+  it('names the paradigm that left an available target without a form', () => {
+    const engine = toyWith({ ...toyGrammar, stem: (lexeme, cell) => readingOf(lexeme) === 'inseparable' ? [] : toyGrammar.stem(lexeme, cell) });
+    expect(() => engine.conjugate(present)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE',
+      message: expect.stringContaining('indicative/present/3/singular/active/3sg of apvena (paradigm 2, inseparable): the stem stage came back empty.'),
+    }));
   });
 });
 

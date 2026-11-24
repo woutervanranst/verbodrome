@@ -2,11 +2,12 @@ import { describe, expect, it } from 'vitest';
 import { createEngine } from '../../src/core/engine.js';
 import { defineRules, step } from '../../src/core/derivation.js';
 import { conjugate, explain } from '../../src/index.js';
+import { stagedEngine } from '../../src/core/staged.js';
 import { explanationLines } from '../../src/i18n/explain.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import type { ConjugatedForm, UnavailableTarget, VerbAnalysis } from '../../src/types.js';
 import { en as toyEn, nl as toyNl } from '../toy/messages.js';
-import { toyCatalogue, toyPack } from '../toy/pack.js';
+import { toyCatalogue, toyGrammar, toyPack, toyRendering } from '../toy/pack.js';
 
 const catalogs = { en: { ...locales.en, ...toyEn }, nl: { ...locales.nl, ...toyNl } };
 const toy = createEngine({ xx: toyPack }, catalogs);
@@ -81,6 +82,32 @@ describe('explain', () => {
     expect(explained.sections[0]!.steps.map(s => s.text)).toEqual(['placa ends in -a: class a-verb.', 'Assuming the verb is regular: it is not in the lexicon.']);
   });
 
+  it('explains each paradigm of an analysis in its own section, in order', () => {
+    const analysis = toy.conjugate({ language: 'xx', infinitive: 'apvena' }).analysis;
+    const english = toy.explain('xx', analysis, 'en');
+    expect(english.summary).toBe('apvena: a-verb');
+    expect(english.sections.map(s => [s.part, s.title, s.steps.map(x => x.text)])).toEqual([
+      [null, 'The verb', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has a separable particle, ap: it splits off from the conjugated verb.']],
+      [null, 'The verb', ['apvena is listed in the lexicon as a-verb.', 'In this meaning apvena has an inseparable particle, ap: it always stays on the verb.']],
+    ]);
+    expect(toy.explain('xx', analysis, 'nl').sections.map(s => s.steps[1]!.text)).toEqual([
+      'In deze betekenis heeft apvena een scheidbaar partikel, ap: het komt los van het vervoegde werkwoord.',
+      'In deze betekenis heeft apvena een onscheidbaar partikel, ap: het blijft altijd aan het werkwoord vast.',
+    ]);
+    // An alternative is an analysis of its own.
+    expect(toy.explain('xx', analysis.alternatives![0]!, 'en').sections).toEqual([english.sections[1]]);
+
+    const inseparable = toy.conjugate({ ...perfectFeminine, infinitive: 'apvena', prefix: 'inseparable' }).forms[0]!;
+    expect(toy.explain('xx', inseparable, 'en').sections.map(s => [s.part, s.title, s.steps.map(x => x.text)])).toEqual([
+      [1, 'habat', ['Drop -a from haba: hab-.', 'Present, 3rd person singular: add -at.']],
+      [2, 'apvenido', [
+        'Drop -a from vena: ven-.', 'Past participle after the inseparable particle ap: add -ido to ven-.',
+        'The particle ap attaches to the verb: venido becomes apvenido.',
+      ]],
+      [null, 'The whole form', ['Perfect: the present of haba plus the past participle.']],
+    ]);
+  });
+
   it('renders the explanation of an unavailable target in English when the engine has an English catalog', () => {
     const query = { language: 'xx', infinitive: 'solea', mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', voice: 'active' };
     const [unavailable] = toy.conjugate(query).unavailableTargets;
@@ -96,6 +123,10 @@ describe('explain', () => {
     expect(createEngine({ xx: toyPack }, { nl: catalogs.nl }).conjugate(query).analysis.assumptions).toEqual(['xx.assume.unlisted']);
     expect(createEngine({ xx: toyPack }).conjugate(query).analysis.assumptions).toEqual(['xx.assume.unlisted']);
     expect(toy.conjugate({ language: 'xx', infinitive: 'vena' }).analysis.assumptions).toEqual([]);
+    // Every paradigm's assumptions, not only the first's.
+    const twice = { ...toyGrammar, classify: (q: Query) => [...toyGrammar.classify(q), ...toyGrammar.classify(q)] };
+    const engine = createEngine({ xx: { ...toyPack, engine: q => stagedEngine(twice, toyRendering, q) } }, catalogs);
+    expect(engine.conjugate(query).analysis.alternatives!.map(a => a.assumptions)).toEqual([['Assuming the verb is regular: it is not in the lexicon.']]);
   });
 
   it('fails loudly on a rule without text', () => {
