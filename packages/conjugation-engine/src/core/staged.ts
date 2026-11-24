@@ -1,17 +1,17 @@
 import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
 import type {
-  ConjugationPart, FormVariant, GeneratedForm, GenerationResult, Mood, ResolvedTarget, Tense, UnavailableTarget, VerbAnalysis,
+  ConjugationPart, GeneratedForm, GenerationResult, Mood, ResolvedTarget, Tense, UnavailableTarget, VerbAnalysis,
 } from '../types.js';
 import type { ChainWord, ClauseContext, ClauseGrammar } from './clause.js';
 import type { DerivationStep } from './derivation.js';
 import { chain, combine, one } from './fork.js';
-import type { Fork, Outcome } from './fork.js';
+import type { Fork, Outcome, VariantTags } from './fork.js';
 import type { Agreement, GrammaticalNumber, Person, Voice } from './grammar.js';
 import { applyJunctureRules } from './juncture.js';
 import type { JunctureRule } from './juncture.js';
 import type { PackRendering } from './pack.js';
-import { periphrasesFor, periphrasisStep, usesPerfectAuxiliary } from './periphrasis.js';
+import { periphrasesFor, periphrasisStep, reportedAuxiliary, usesPerfectAuxiliary } from './periphrasis.js';
 import type { ChainElement, Periphrasis, VerbRef } from './periphrasis.js';
 import { targetKey } from './target.js';
 
@@ -54,15 +54,46 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
    * are periphrastic (periphrases do not nest).
    */
   cellOf(target: ResolvedTarget): Cell | null;
+  /**
+   * Why `target` has no form for `lexeme` (defective, impersonal, no imperative), with the rule and source that say so;
+   * null when it has forms. This is the only place a pack declares that a target has no form: when an available target
+   * ends with no form (a stage returned [], or every branch was dropped), generation fails with GENERATION_FAILURE
+   * naming the target, the lemma and the stage that came back empty.
+   */
   availability(lexeme: X, target: ResolvedTarget): Unavailability | null;
-  /** Whole-word lexical override (suppletive cells); null = derive by stages. */
+  /**
+   * Whole-word lexical override (suppletive cells); null = derive by stages. [] is no word at all: a missing form is
+   * declared through `availability`, not here.
+   */
   cell?(lexeme: X, cell: Cell): Fork<string> | null;
+  /** The stems of a cell. [] leaves the cell without a word: a missing form is declared through `availability`. */
   stem(lexeme: X, cell: Cell): Fork<string>;
-  /** The ending to add to `stem`; its steps record the stem and the stem plus ending. */
+  /**
+   * The ending to add to `stem`; its steps record the stem and the stem plus ending. [] drops this stem's branch; when
+   * no stem has an ending, the cell has no word, and a missing form is declared through `availability` instead.
+   */
   ending(lexeme: X, cell: Cell, stem: string): Fork<string>;
   readonly orthography: readonly JunctureRule<{ readonly lexeme: X; readonly cell: Cell }>[];
   readonly periphrases: readonly Periphrasis[];
   readonly clause: ClauseGrammar<X>;
+}
+
+/** The stages whose hooks can leave an available target without a form. */
+type FormStage = 'cell' | 'stem' | 'ending' | 'orthography' | 'agreements' | 'assemble';
+
+/** One word's outcomes, and the stage that left it none when there are none. */
+interface Synthesis { readonly words: Fork<string>; readonly emptyAt: FormStage | null }
+
+function synthesis<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Synthesis {
+  const lexical = grammar.cell?.(lexeme, cell) ?? null;
+  if (lexical !== null) return { words: lexical, emptyAt: lexical.length ? null : 'cell' };
+  const stems = grammar.stem(lexeme, cell);
+  if (!stems.length) return { words: [], emptyAt: 'stem' };
+  const junctures = chain(stems, stem => chain(grammar.ending(lexeme, cell, stem), ending => one({ stem, ending })));
+  if (!junctures.length) return { words: [], emptyAt: 'ending' };
+  const words = chain(junctures, juncture =>
+    chain(applyJunctureRules(grammar.orthography, juncture, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending)));
+  return { words, emptyAt: words.length ? null : 'orthography' };
 }
 
 /**
@@ -70,19 +101,18 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
  * the product of their forks. Each outcome's steps are the word-level steps. Not cached; `stagedEngine` memoises it.
  */
 export function synthesize<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Fork<string> {
-  const lexical = grammar.cell?.(lexeme, cell) ?? null;
-  if (lexical !== null) return lexical;
-  return chain(grammar.stem(lexeme, cell), stem =>
-    chain(grammar.ending(lexeme, cell, stem), ending =>
-      chain(applyJunctureRules(grammar.orthography, { stem, ending }, { lexeme, cell }), juncture =>
-        one(juncture.stem + juncture.ending))));
+  return synthesis(grammar, lexeme, cell).words;
 }
 
+/** Grammars that passed `validateGrammar`; `stagedEngine` validates any other grammar the first time it is given it. */
+const validated = new WeakSet<object>();
+
 /**
- * Checks a grammar's periphrasis declarations; a pack calls it once at module load. Throws GENERATION_FAILURE naming
- * the periphrasis when its rule is not of stage 'periphrasis'; when its chain uses `perfectAuxiliary` but its rule does
- * not declare exactly one param, `auxiliary` of kind text, or its chain does not use it and the rule declares params;
- * or when its chain has no verb. Nesting depends on `cellOf`, so generation checks it.
+ * Checks a grammar's periphrasis declarations. `stagedEngine` runs it the first time it is given a grammar; a pack may
+ * also call it at module load to fail there. Throws GENERATION_FAILURE naming the periphrasis when its rule is not of
+ * stage 'periphrasis'; when its chain uses `perfectAuxiliary` but its rule does not declare exactly one param,
+ * `auxiliary` of kind text, or its chain does not use it and the rule declares params; when its chain has no verb; or
+ * when it `reports` a perfect auxiliary its chain does not use. Nesting depends on `cellOf`, so generation checks it.
  */
 export function validateGrammar<X extends LexemeBase>(grammar: StagedGrammar<X>): void {
   for (const periphrasis of grammar.periphrases) {
@@ -100,7 +130,11 @@ export function validateGrammar<X extends LexemeBase>(grammar: StagedGrammar<X>)
       fail('has a chain without perfectAuxiliary, so its rule must declare no params');
     }
     if (!periphrasis.chain.some(element => 'verb' in element)) fail('has no verb in its chain');
+    if (periphrasis.reports === 'perfectAuxiliary' && !usesPerfectAuxiliary(periphrasis)) {
+      fail('reports perfectAuxiliary, which its chain does not use');
+    }
   }
+  validated.add(grammar);
 }
 
 /** A stable key for a cell, independent of property order. */
@@ -121,29 +155,43 @@ type Slot<X extends LexemeBase> =
 /** How one target is built: a simple cell (no periphrasis), or one run of a periphrasis with one auxiliary. */
 interface Construction<X extends LexemeBase> {
   readonly periphrasis: Periphrasis | null;
+  /** The perfect auxiliary this run uses, if any; the form may report another verb (`reportedAuxiliary`). */
   readonly auxiliary: string | null;
   readonly slots: readonly Slot<X>[];
 }
 
-/** How marked each usage is; a new usage value does not compile until it is ranked here. */
-const usageRank: Readonly<Record<FormVariant['usage'], number>> = { standard: 0, literary: 1, dated: 2 };
+/** The first stage that left a branch of a target without a form, and the verb it was building. */
+interface EmptyStage { readonly stage: FormStage; readonly lemma: string }
 
-/** The most marked of the usages given: dated over literary over standard. */
-function markedUsage(...usages: readonly (FormVariant['usage'] | undefined)[]): FormVariant['usage'] {
-  return usages.reduce<FormVariant['usage']>(
-    (marked, usage) => usage !== undefined && usageRank[usage] > usageRank[marked] ? usage : marked, 'standard');
+/** Notes where a target's branches come back empty; only the first is kept. */
+function emptyStages(): { note(stage: FormStage, lemma: string): void; first(): EmptyStage | null } {
+  let first: EmptyStage | null = null;
+  return {
+    note(stage, lemma) {
+      first ??= { stage, lemma };
+    },
+    first: () => first,
+  };
+}
+
+/** The pattern and usage a periphrasis adds to its forms, after the labels of their words. */
+function periphrasisTags({ pattern, usage }: Periphrasis): VariantTags {
+  return { ...(pattern === undefined ? {} : { pattern }), ...(usage === undefined ? {} : { usage }) };
 }
 
 /**
  * A LanguageEngine for one query: classifies the verb once, then builds each target from a simple cell or from the
  * periphrases that match it, synthesising every verb in the chain through the same grammar and letting the clause
  * grammar order the words. Synthesis and lexemes named by periphrases are memoised for this engine instance only.
+ * Validates the grammar the first time it is given it. The analysis and every generated form are copies, so freezing
+ * a result never freezes data the pack keeps (its lexicon, or forks and steps it reuses).
  */
 export function stagedEngine<X extends LexemeBase>(
   grammar: StagedGrammar<X>,
   rendering: PackRendering,
   query: Readonly<Record<string, unknown>>,
 ): LanguageEngine {
+  if (!validated.has(grammar)) validateGrammar(grammar);
   const classified = grammar.classify(query);
   const lexeme = classified.value;
 
@@ -157,20 +205,20 @@ export function stagedEngine<X extends LexemeBase>(
     return named;
   }
 
-  const synthesized = new Map<X, Map<string, Fork<string>>>();
-  function synth(of: X, cell: Cell): Fork<string> {
+  const synthesized = new Map<X, Map<string, Synthesis>>();
+  function synth(of: X, cell: Cell): Synthesis {
     let cells = synthesized.get(of);
     if (!cells) {
       cells = new Map();
       synthesized.set(of, cells);
     }
     const key = cellKey(cell);
-    let fork = cells.get(key);
-    if (!fork) {
-      fork = synthesize(grammar, of, cell);
-      cells.set(key, fork);
+    let result = cells.get(key);
+    if (!result) {
+      result = synthesis(grammar, of, cell);
+      cells.set(key, result);
     }
-    return fork;
+    return result;
   }
 
   function verbOf(ref: VerbRef, auxiliary: string | null): X {
@@ -220,36 +268,45 @@ export function stagedEngine<X extends LexemeBase>(
   }
 
   /** The words a slot can be; a verb's synthesis steps move into the word, so the fork's own steps stay form-level. */
-  function wordsFor(slot: Slot<X>, agreement: Agreement | null): Fork<ChainWord> {
+  function wordsFor(slot: Slot<X>, agreement: Agreement | null, noteEmpty: (stage: FormStage, lemma: string) => void): Fork<ChainWord> {
     if (slot.kind === 'word') return one({ role: slot.role, text: slot.text, lemma: null, cell: null, steps: [] });
     const cell: Cell = slot.agree && agreement !== null && slot.cell.kind === 'nonFinite' ? { ...slot.cell, agreement } : slot.cell;
-    return synth(slot.lexeme, cell).map(outcome => ({
+    const { words, emptyAt } = synth(slot.lexeme, cell);
+    if (emptyAt !== null) noteEmpty(emptyAt, slot.lexeme.lemma);
+    return words.map(outcome => ({
       value: { role: slot.role, text: outcome.value, lemma: slot.lexeme.lemma, cell, steps: outcome.steps },
       steps: [],
       tags: outcome.tags,
     }));
   }
 
-  function build(target: ResolvedTarget, construction: Construction<X>): GeneratedForm[] {
+  function build(target: ResolvedTarget, construction: Construction<X>, noteEmpty: (stage: FormStage, lemma: string) => void): GeneratedForm[] {
     const { periphrasis, auxiliary, slots } = construction;
     const context: ClauseContext<X> = { query, lexeme, target, auxiliary, rendering };
     const agreements = slots.some(slot => slot.kind === 'verb' && slot.agree) ? grammar.clause.agreements(context) : one(null);
     // Classification tags apply to every form; the periphrasis step opens the form-level steps.
     const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], classified.tags);
-    const built = chain(opening, () => chain(agreements, agreement => {
+    const agreed = chain(opening, () => agreements);
+    if (!agreed.length) noteEmpty('agreements', lexeme.lemma);
+    const assembled = chain(agreed, agreement => {
       const resolved: ResolvedTarget = agreement === null ? target : { ...target, agreement };
-      const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement)));
-      return chain(words, chainWords => chain(grammar.clause.assemble(chainWords, { ...context, target: resolved }), parts =>
+      const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement, noteEmpty)));
+      // Words whose tags cannot combine leave nothing to assemble, which counts against the assemble stage.
+      const forms = chain(words, chainWords => chain(grammar.clause.assemble(chainWords, { ...context, target: resolved }), parts =>
         one({ target: resolved, parts })));
-    }));
+      if (!forms.length) noteEmpty('assemble', lexeme.lemma);
+      return forms;
+    });
+    const built = periphrasis ? chain(assembled, form => one(form, [], periphrasisTags(periphrasis))) : assembled;
+    const reported = periphrasis ? reportedAuxiliary(periphrasis, auxiliary) : null;
     return built.map(({ value: { target: resolved, parts }, steps, tags }) => ({
       target: resolved,
       parts,
       variant: {
         orthography: tags.orthography ?? 'both',
-        auxiliary,
-        pattern: [tags.pattern, periphrasis?.pattern].filter(Boolean).join('.') || null,
-        usage: markedUsage(tags.usage, periphrasis?.usage),
+        auxiliary: reported,
+        pattern: tags.pattern ?? null,
+        usage: tags.usage ?? 'standard',
         condition: tags.condition ?? null,
         region: tags.region ?? null,
       },
@@ -260,7 +317,7 @@ export function stagedEngine<X extends LexemeBase>(
 
   return {
     verbId: lexeme.verbId,
-    analysis: {
+    analysis: structuredClone({
       lemma: lexeme.lemma,
       classification: lexeme.classId,
       classificationSource: lexeme.classSource,
@@ -269,19 +326,30 @@ export function stagedEngine<X extends LexemeBase>(
       // Rule ids; an engine with an English catalog replaces them with the rendered steps.
       assumptions: [...new Set(classified.steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
       steps: classified.steps,
-    },
+    }),
     generate(target): GenerationResult {
       const absent = grammar.availability(lexeme, target);
       if (absent) {
-        return {
+        return structuredClone({
           forms: [],
           // The rule id; an engine with an English catalog replaces it with the rendered step.
           unavailable: [{ target, reason: absent.reason, explanation: absent.step.rule, source: absent.source, step: absent.step }],
-        };
+        });
       }
-      return { forms: constructions(target).flatMap(construction => build(target, construction)), unavailable: [] };
+      const empty = emptyStages();
+      const forms = constructions(target).flatMap(construction => build(target, construction, empty.note));
+      if (!forms.length) throw new ConjugationError('GENERATION_FAILURE', noFormMessage(target, lexeme.lemma, empty.first()));
+      return structuredClone({ forms, unavailable: [] });
     },
   };
+}
+
+/** Why an available target ended without a form, and where a pack declares a target that has none. */
+function noFormMessage(target: ResolvedTarget, lemma: string, empty: EmptyStage | null): string {
+  const where = empty === null
+    ? 'no periphrasis ran, because the verb lists no perfect auxiliary'
+    : `the ${empty.stage} stage came back empty${empty.lemma === lemma ? '' : ` for ${empty.lemma}`}`;
+  return `No form for ${targetKey(target)} of ${lemma}: ${where}. A target without a form must be declared unavailable through availability.`;
 }
 
 /** Distinct rule ids of a form's own steps and its parts' steps, in order. */

@@ -1,9 +1,12 @@
 /**
  * An invented language (`xx`) that exercises every hook of the staged engine. It is not a model of any language and is
  * never imported from `src/`. Infinitives end in -a; the present takes -o -as -at -amos -etes -ant (passive: -ur- before
- * them); the present participle ends in -ante; the perfect is haba (or esta) + a past participle in -ado, which agrees
- * in gender (-ada) standing alone, in the passive and after esta. Stems in -ph have a traditional and a rectified
- * (-f) spelling; canta has a literary long 1pl ending.
+ * them) and the past -i -is -it -imos -ites -int; the present participle ends in -ante; the perfect is haba (or esta) +
+ * a past participle in -ado, which agrees in gender (-ada) standing alone, in the passive and after esta. The future is
+ * the present of vada + a + the infinitive (literary: the infinitive + the present of haba); the conditional's future in
+ * the past is the past of vada + the infinitive. Stems in -ph have a traditional and a rectified (-f) spelling; canta
+ * has a literary long 1pl ending. The `auxiliary` option narrows a verb's perfect auxiliaries to the one it names: a
+ * lexical hint is read in `classify`, never by the core.
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';
@@ -30,6 +33,7 @@ export const toyRules = defineRules({
   'xx.stem.drop-a': { stage: 'stem' },
   'xx.stem.listed': { stage: 'stem', kind: 'lexical' },
   'xx.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
+  'xx.end.past': { stage: 'ending', params: { ending: 'text', tense: 'term' } },
   'xx.end.long': { stage: 'ending', params: { ending: 'text' } },
   'xx.end.passive': { stage: 'ending' },
   'xx.end.infinitive': { stage: 'ending' },
@@ -41,6 +45,7 @@ export const toyRules = defineRules({
   'xx.periphrasis.passive-perfect': { stage: 'periphrasis' },
   'xx.periphrasis.future': { stage: 'periphrasis' },
   'xx.periphrasis.future-inverted': { stage: 'periphrasis' },
+  'xx.periphrasis.conditional': { stage: 'periphrasis' },
   'xx.agree.gender': { stage: 'clause', params: { gender: 'term' } },
   'xx.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
   'xx.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
@@ -64,6 +69,7 @@ export const toyCitations = {
   'xx.stem.drop-a': grammarCitation('§1'),
   'xx.stem.listed': lexiconCitation('Stems'),
   'xx.end.present': grammarCitation('§2'),
+  'xx.end.past': grammarCitation('§2.6'),
   'xx.end.long': grammarCitation('§2.3'),
   'xx.end.passive': grammarCitation('§2.2'),
   'xx.end.infinitive': grammarCitation('§2.1'),
@@ -75,6 +81,7 @@ export const toyCitations = {
   'xx.periphrasis.passive-perfect': grammarCitation('§5.2'),
   'xx.periphrasis.future': grammarCitation('§5.3'),
   'xx.periphrasis.future-inverted': grammarCitation('§5.4'),
+  'xx.periphrasis.conditional': grammarCitation('§5.5'),
   'xx.agree.gender': grammarCitation('§6'),
   'xx.clause.particle-final': grammarCitation('§7.1'),
   'xx.clause.particle-attached': grammarCitation('§7.2'),
@@ -139,6 +146,7 @@ function lexemeOf(lemma: string): ToyLexeme {
 type FiniteCell = Extract<Cell, { kind: 'finite' }>;
 
 const presentEndings = ['o', 'as', 'at', 'amos', 'etes', 'ant'] as const;
+const pastEndings = ['i', 'is', 'it', 'imos', 'ites', 'int'] as const;
 const subjectPronouns = ['mi', 'tu', 'il', 'nos', 'vos', 'ils'] as const;
 const genders = ['masculine', 'feminine'] as const;
 
@@ -172,6 +180,11 @@ function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
     const text = cell.agreement?.gender === 'feminine' ? 'ada' : 'ado';
     return one(text, [step(toyRules['xx.end.participle'], stem, stem + text, { ending: text })]);
   }
+  if (cell.tense === 'past') {
+    // The past has no passive. Its rule names the tense, which `explain` labels in the word's own mood.
+    const personal = itemAt(pastEndings, slot(cell));
+    return one(personal, [step(toyRules['xx.end.past'], stem, stem + personal, { ending: personal, tense: { term: 'tense', id: cell.tense } })]);
+  }
   if (cell.tense !== 'present') throw new ConjugationError('GENERATION_FAILURE', `No toy simple tense ${cell.tense}.`);
   const personal = itemAt(presentEndings, slot(cell));
   const marker = cell.voice === 'passive' ? 'ur' : '';
@@ -204,6 +217,11 @@ const periphrases: readonly Periphrasis[] = [
   {
     mood: 'indicative', tense: 'future', rule: toyRules['xx.periphrasis.future-inverted'], pattern: 'inverted', usage: 'literary',
     chain: [{ verb: 'main', nonFinite: 'infinitive' }, { verb: { lemma: 'haba' }, finite: present }],
+  },
+  {
+    // The auxiliary is conjugated in another mood than the target's: the indicative past inside a conditional.
+    mood: 'conditional', tense: 'past', rule: toyRules['xx.periphrasis.conditional'],
+    chain: [{ verb: { lemma: 'vada' }, finite: { mood: 'indicative', tense: 'past' } }, { verb: 'main', nonFinite: 'infinitive' }],
   },
 ];
 
@@ -253,11 +271,23 @@ const clause: ClauseGrammar<ToyLexeme> = {
   },
 };
 
+/**
+ * The lexeme with its perfect auxiliaries narrowed to the one the query's `auxiliary` hint names, so the analysis and
+ * every compound form follow the hint. A verb that cannot take that auxiliary is an INVALID_HINT.
+ */
+function withAuxiliaryHint(lexeme: ToyLexeme, hint: unknown): ToyLexeme {
+  if (hint === undefined) return lexeme;
+  if (typeof hint !== 'string' || !lexeme.auxiliaries.includes(hint)) {
+    throw new ConjugationError('INVALID_HINT', `${lexeme.lemma} does not take the auxiliary ${String(hint)}.`);
+  }
+  return { ...lexeme, auxiliaries: [hint] };
+}
+
 export const toyGrammar: StagedGrammar<ToyLexeme> = {
   classify(query) {
     const lemma = String(query.infinitive);
     if (!/^\p{L}+a$/u.test(lemma)) throw new ConjugationError('INVALID_INFINITIVE', 'A toy infinitive is one word ending in -a.');
-    const lexeme = lexemeOf(lemma);
+    const lexeme = withAuxiliaryHint(lexemeOf(lemma), query.auxiliary);
     const steps = lexeme.classSource === 'lexicon'
       ? [step(toyRules['xx.classify.listed'], lemma, lexeme.classId)]
       : [step(toyRules['xx.classify.a-verb'], lemma, lexeme.classId), step(toyRules['xx.assume.unlisted'], null, null)];
@@ -267,10 +297,11 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
   cellOf(target) {
     if (target.mood === 'infinitive') return { kind: 'nonFinite', form: 'infinitive' };
     if (target.mood === 'participle') return { kind: 'nonFinite', form: target.tense === 'present' ? 'presentParticiple' : 'participle' };
-    if (target.mood !== 'indicative' || target.tense !== 'present' || target.person === null || target.number === null) return null;
+    const simple = target.tense === 'present' || target.tense === 'past';
+    if (target.mood !== 'indicative' || !simple || target.person === null || target.number === null) return null;
     // Active is the unmarked voice, so an active cell is the same cell a periphrasis asks for.
     return {
-      kind: 'finite', mood: 'indicative', tense: 'present', person: target.person, number: target.number,
+      kind: 'finite', mood: 'indicative', tense: target.tense, person: target.person, number: target.number,
       ...(target.voice === 'passive' ? { voice: 'passive' as const } : {}),
     };
   },
@@ -301,7 +332,9 @@ const voiced = (entry: CatalogueEntry): CatalogueEntry =>
   entry.tense === 'present' || entry.tense === 'perfect' ? Object.freeze({ ...entry, voices: Object.freeze(['active', 'passive'] as const) }) : entry;
 
 export const toyCatalogue: readonly CatalogueEntry[] = [
-  ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['perfect', 'Perfect'], ['future', 'Future']]).map(voiced),
+  ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future']]).map(voiced),
+  // The conditional's past has another label than the indicative's.
+  ...moodEntries('conditional', 'Conditional', allPersons, [['past', 'Future in the past']]),
   ...moodEntries('infinitive', 'Infinitive', noPersons, [['present', 'Present']]),
   ...moodEntries('participle', 'Participle', noPersons, [['present', 'Present'], ['past', 'Past']]),
 ];
@@ -311,7 +344,12 @@ export const toyPack: LanguagePack<'xx'> = {
   label: 'Toy',
   catalogue: toyCatalogue,
   rendering: toyRendering,
-  options: { fields: { voice: { kind: 'enum', values: ['active', 'passive'] } } },
+  options: {
+    fields: {
+      voice: { kind: 'enum', values: ['active', 'passive'] },
+      auxiliary: { kind: 'enum', values: ['haba', 'esta', 'epha'] },
+    },
+  },
   rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(toyGrammar, toyRendering, query),
   rules: toyRules,

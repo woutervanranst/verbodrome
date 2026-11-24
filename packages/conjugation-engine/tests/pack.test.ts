@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate, createEngine, getCatalogue, languages, renderParts } from '../src/index.js';
+import { variantRank } from '../src/core/pack.js';
 import { packs } from '../src/languages/index.js';
+import type { FormVariant, Orthography } from '../src/types.js';
 
 describe('language packs', () => {
   it('lists registered languages and rejects others by name', () => {
@@ -31,6 +33,15 @@ describe('language packs', () => {
     expect(() => engine.getCatalogue('nl')).toThrow(unsupported);
     expect(() => engine.expandTargets({ language: 'nl', infinitive: 'werken' })).toThrow(unsupported);
     expect(() => engine.renderParts('nl', [])).toThrow(unsupported);
+  });
+
+  it('ranks standard before literary before dated usage, then the preferred spelling first', () => {
+    const variant = (usage: FormVariant['usage'], orthography: Orthography): FormVariant =>
+      ({ orthography, auxiliary: null, pattern: null, usage, condition: null });
+    const ranks = (['standard', 'literary', 'dated'] as const).flatMap(usage =>
+      (['both', 'rectified', 'traditional'] as const).map(orthography => variantRank(variant(usage, orthography), 'rectified')));
+    expect(ranks).toEqual([0, 0, 1, 10, 10, 11, 20, 20, 21]);
+    expect(variantRank(variant('standard', 'rectified'), 'traditional')).toBe(1);
   });
 
   it('rejects a pack registered under another language code', () => {

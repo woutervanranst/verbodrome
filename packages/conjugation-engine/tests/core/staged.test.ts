@@ -2,7 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { createEngine } from '../../src/core/engine.js';
 import { resolvedTargetKey, targetKey } from '../../src/core/target.js';
 import * as catalogue from '../../src/catalogue.js';
+import { step } from '../../src/core/derivation.js';
 import type { DerivationStep } from '../../src/core/derivation.js';
+import { one } from '../../src/core/fork.js';
+import type { Fork } from '../../src/core/fork.js';
 import type { Periphrasis } from '../../src/core/periphrasis.js';
 import { stagedEngine, synthesize, validateGrammar } from '../../src/core/staged.js';
 import type { Cell } from '../../src/core/staged.js';
@@ -183,7 +186,7 @@ describe('staged engine', () => {
     expect(texts({ ...query, voice: 'passive' })).toEqual(['nos placuramos']);
     expect(texts({ ...query, tense: 'perfect', person: 3, number: 'singular', voice: 'passive' })).toEqual(['il estat placado', 'il estat placada']);
     const passivePerfect = toy.conjugate({ ...query, tense: 'perfect', voice: 'passive' }).forms[0]!;
-    expect(passivePerfect.variant.auxiliary).toBeNull();
+    expect(passivePerfect.variant.auxiliary).toBe('esta');
     expect(rules(passivePerfect.steps)).toEqual(['xx.periphrasis.passive-perfect', 'xx.agree.gender']);
 
     const targets = toy.expandTargets({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present' });
@@ -259,8 +262,107 @@ describe('staged engine', () => {
       ['subject', 'il'], ['auxiliary', 'vadat'], ['linker', 'a'], ['lexicalVerb', 'apzorpa'],
     ]);
     expect(forms[0]!.parts[2]!.steps).toEqual([]);
-    expect(forms[0]!.variant.auxiliary).toBeNull();
+    expect(forms.map(f => f.variant.auxiliary)).toEqual(['vada', 'haba']);
     expect('voice' in forms[0]!.target).toBe(false);
+  });
+
+  it('reports the perfect auxiliary, else the first named verb of the periphrasis, else none', () => {
+    const reported = (query: Query) => toy.conjugate({ language: 'xx', infinitive: 'zorpa', person: 3, number: 'singular', ...query }).forms
+      .map(form => [form.text, form.variant.auxiliary]);
+    expect(reported({ mood: 'indicative', tense: 'perfect', voice: 'active' })).toEqual([['il habat zorpado', 'haba']]);
+    expect(reported({ mood: 'indicative', tense: 'perfect', voice: 'passive' })).toEqual([['il estat zorpado', 'esta'], ['il estat zorpada', 'esta']]);
+    expect(reported({ mood: 'indicative', tense: 'future' })).toEqual([['il vadat a zorpa', 'vada'], ['il zorpa habat', 'haba']]);
+    expect(reported({ mood: 'conditional', tense: 'past' })).toEqual([['il vadit zorpa', 'vada']]);
+    expect(reported({ mood: 'indicative', tense: 'present', voice: 'active' })).toEqual([['il zorpat', null]]);
+    expect(reported({ mood: 'indicative', tense: 'past' })).toEqual([['il zorpit', null]]);
+    for (const mood of ['infinitive', 'participle']) {
+      expect(toy.conjugate({ language: 'xx', infinitive: 'zorpa', mood }).forms.map(form => form.variant.auxiliary).every(a => a === null)).toBe(true);
+    }
+  });
+
+  it('reports the verb a periphrasis names in `reports` instead', () => {
+    const [, , future] = toyGrammar.periphrases as [Periphrasis, Periphrasis, Periphrasis];
+    const twoNamed: Periphrasis = {
+      mood: 'indicative', tense: 'future', rule: toyRules['xx.periphrasis.future'], pattern: 'two', reports: { lemma: 'haba' },
+      chain: [{ verb: { lemma: 'vada' }, finite: { mood: 'indicative', tense: 'present' } }, { verb: { lemma: 'haba' }, nonFinite: 'infinitive' }, { verb: 'main', nonFinite: 'participle' }],
+    };
+    const engine = toyWith({ ...toyGrammar, periphrases: [{ ...future, reports: 'main' }, twoNamed] });
+    expect(engine.conjugate({ language: 'xx', infinitive: 'zorpa', mood: 'indicative', tense: 'future', person: 3, number: 'singular' }).forms
+      .map(form => [form.text, form.variant.auxiliary])).toEqual([['il vadat a zorpa', null], ['il vadat haba zorpado', 'haba']]);
+  });
+
+  it('keeps a stem pattern and an ending pattern on one form', () => {
+    const engine = toyWith({
+      ...toyGrammar,
+      stem: (lexeme, cell) => toyGrammar.stem(lexeme, cell).map(outcome => ({ ...outcome, tags: { ...outcome.tags, pattern: 'A' } })),
+    });
+    const forms = engine.conjugate({ language: 'xx', infinitive: 'canta', mood: 'indicative', tense: 'present', person: 1, number: 'plural', voice: 'active' }).forms;
+    expect(forms.map(f => [f.text, f.variant.pattern, f.variant.usage])).toEqual([
+      ['nos cantamos', 'A', 'standard'],
+      ['nos cantamusse', 'A.long', 'literary'],
+    ]);
+    // A word's pattern comes before the periphrasis's, and the most marked usage of either wins.
+    const inverted = engine.conjugate({ language: 'xx', infinitive: 'canta', mood: 'indicative', tense: 'future', person: 3, number: 'singular' }).forms;
+    expect(inverted.map(f => [f.text, f.variant.pattern, f.variant.usage])).toEqual([
+      ['il vadat a canta', 'A', 'standard'],
+      ['il canta habat', 'A.inverted', 'literary'],
+    ]);
+  });
+
+  it('narrows the perfect auxiliaries to the one the query names', () => {
+    const query = { language: 'xx', infinitive: 'vena', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular', voice: 'active' };
+    const esta = toy.conjugate({ ...query, auxiliary: 'esta' });
+    expect(esta.analysis.auxiliaries).toEqual(['esta']);
+    expect(esta.forms.map(f => [f.text, f.variant.auxiliary])).toEqual([['il estat venado', 'esta'], ['il estat venada', 'esta']]);
+    const haba = toy.conjugate({ ...query, auxiliary: 'haba' });
+    expect([haba.analysis.auxiliaries, haba.forms.map(f => f.text)]).toEqual([['haba'], ['il habat venado']]);
+    expect(toy.conjugate(query).analysis.auxiliaries).toEqual(['haba', 'esta']);
+    expect(() => toy.conjugate({ ...query, infinitive: 'zorpa', auxiliary: 'esta' }))
+      .toThrow(expect.objectContaining({ code: 'INVALID_HINT', message: 'zorpa does not take the auxiliary esta.' }));
+    expect(() => toy.conjugate({ ...query, auxiliary: 'vada' })).toThrow(expect.objectContaining({ code: 'INVALID_REQUEST' }));
+  });
+
+  it('freezes its results without freezing data the pack owns', () => {
+    const lexiconAuxiliaries = toyGrammar.lexemeOf('vena').auxiliaries;
+    const result = toy.conjugate({ language: 'xx', infinitive: 'vena', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular' });
+    expect(Object.isFrozen(result.analysis.auxiliaries)).toBe(true);
+    expect(Object.isFrozen(lexiconAuxiliaries)).toBe(false);
+    expect(Object.isFrozen(result.analysis.steps)).toBe(true);
+
+    // A whole-word fork the pack keeps between calls, and a step it keeps for its unavailable targets.
+    const kept: Fork<string> = one('so', [step(toyRules['xx.lex.present'], 'esa', 'so')]);
+    const keptStep = step(toyRules['xx.avail.no-participle'], null, null);
+    const engine = toyWith({
+      ...toyGrammar,
+      cell: (lexeme, cell) => lexeme.lemma === 'esa' && cell.kind === 'finite' ? kept : null,
+      availability: lexeme => lexeme.hasParticiple ? null : { reason: 'defective', step: keptStep, source: 'Toy grammar §4' },
+    });
+    const form = engine.conjugate({ language: 'xx', infinitive: 'esa', mood: 'indicative', tense: 'present', person: 1, number: 'singular', voice: 'active' }).forms[0]!;
+    expect(form.text).toBe('mi so');
+    expect(Object.isFrozen(form.parts.at(-1)!.steps)).toBe(true);
+    expect([Object.isFrozen(kept), Object.isFrozen(kept[0]), Object.isFrozen(kept[0]!.steps), Object.isFrozen(kept[0]!.steps[0])])
+      .toEqual([false, false, false, false]);
+    const unavailable = engine.conjugate({ language: 'xx', infinitive: 'solea', mood: 'infinitive' }).unavailableTargets[0]!;
+    expect(Object.isFrozen(unavailable.step)).toBe(true);
+    expect(Object.isFrozen(keptStep)).toBe(false);
+  });
+
+  it('validates a grammar the first time an engine is built from it', () => {
+    const [perfect] = toyGrammar.periphrases as [Periphrasis];
+    const broken: StagedGrammar<ToyLexeme> = { ...toyGrammar, periphrases: [{ ...perfect, rule: toyRules['xx.periphrasis.future'] }] };
+    let expected = '';
+    try {
+      validateGrammar(broken);
+    } catch (error) {
+      expected = (error as Error).message;
+    }
+    expect(expected).toContain('perfectAuxiliary');
+    // The infinitive does not use the broken periphrasis: only the validation on first use can fail it.
+    const engine = toyWith(broken);
+    for (let use = 0; use < 2; use++) {
+      expect(() => engine.conjugate({ language: 'xx', infinitive: 'placa', mood: 'infinitive' }))
+        .toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expected }));
+    }
   });
 
   it('records classification steps and assumptions in the analysis', () => {
@@ -298,6 +400,52 @@ describe('staged engine', () => {
   });
 });
 
+describe('a target that is available but left without a form', () => {
+  const present = { language: 'xx', infinitive: 'zorpa', mood: 'indicative', tense: 'present', person: 1, number: 'singular', voice: 'active' };
+  const perfect = { ...present, tense: 'perfect', person: 3 };
+  const participle = { language: 'xx', infinitive: 'zorpa', mood: 'participle', tense: 'past' };
+  // Tags the haba auxiliary traditional and every other word rectified, so no perfect has a consistent spelling.
+  const mismatched = (lexeme: ToyLexeme, cell: Cell) => toyGrammar.stem(lexeme, cell)
+    .map(outcome => ({ ...outcome, tags: { orthography: lexeme.lemma === 'haba' ? 'traditional' as const : 'rectified' as const } }));
+
+  it.each<[string, Partial<StagedGrammar<ToyLexeme>>, Query, string, string]>([
+    ['cell', { cell: () => [] }, present, 'indicative/present/1/singular/active', 'cell'],
+    ['stem', { stem: () => [] }, present, 'indicative/present/1/singular/active', 'stem'],
+    ['ending', { ending: () => [] }, present, 'indicative/present/1/singular/active', 'ending'],
+    ['orthography', { orthography: [{ info: toyRules['xx.orth.c-qu'], apply: () => [] }] }, present, 'indicative/present/1/singular/active', 'orthography'],
+    ['agreements', { clause: { ...toyGrammar.clause, agreements: () => [] } }, participle, 'participle/past/-/-', 'agreements'],
+    ['assemble', { clause: { ...toyGrammar.clause, assemble: () => [] } }, present, 'indicative/present/1/singular/active', 'assemble'],
+    ['assemble, when no words combine', { stem: mismatched }, perfect, 'indicative/perfect/3/singular/active', 'assemble'],
+  ])('is a generation failure naming the target, the lemma and the %s stage', (_, hooks, query, key, stage) => {
+    const engine = toyWith({ ...toyGrammar, ...hooks });
+    const failure = (text: string) => expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining(text) });
+    for (const text of [key, 'zorpa', `the ${stage} stage`, 'availability']) expect(() => engine.conjugate(query)).toThrow(failure(text));
+  });
+
+  it('names the word whose synthesis came back empty', () => {
+    const engine = toyWith({ ...toyGrammar, stem: (lexeme, cell) => lexeme.lemma === 'haba' ? [] : toyGrammar.stem(lexeme, cell) });
+    expect(() => engine.conjugate(perfect)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE', message: expect.stringMatching(/indicative\/perfect\/3\/singular\/active of zorpa: the stem stage came back empty for haba\b/u),
+    }));
+    const withoutAuxiliary = toyWith({
+      ...toyGrammar,
+      classify: query => {
+        const classified = toyGrammar.classify(query);
+        return { ...classified, value: { ...classified.value, auxiliaries: [] } };
+      },
+    });
+    expect(() => withoutAuxiliary.conjugate(perfect)).toThrow(expect.objectContaining({
+      code: 'GENERATION_FAILURE', message: expect.stringContaining('of zorpa: no periphrasis ran, because the verb lists no perfect auxiliary'),
+    }));
+  });
+
+  it('keeps the forms of a target when only some branches come back empty', () => {
+    // roca's listed stem roqu- gets no ending; the derived stem still makes the form.
+    const engine = toyWith({ ...toyGrammar, ending: (lexeme, cell, stem) => stem === 'roqu' ? [] : toyGrammar.ending(lexeme, cell, stem) });
+    expect(engine.conjugate({ ...present, infinitive: 'roca', person: 2, number: 'plural' }).forms.map(f => f.text)).toEqual(['vos roquetes']);
+  });
+});
+
 describe('validateGrammar', () => {
   const [perfect, , future] = toyGrammar.periphrases as [Periphrasis, Periphrasis, Periphrasis];
   const auxiliaryRule = toyRules['xx.periphrasis.perfect'];
@@ -314,6 +462,7 @@ describe('validateGrammar', () => {
     ['an auxiliary param without a perfect auxiliary', { ...future, rule: auxiliaryRule }, 'indicative/future', 'without perfectAuxiliary'],
     ['an empty chain', { ...future, chain: [] }, 'indicative/future', 'no verb'],
     ['a chain without a verb', { ...future, chain: [{ word: 'a', role: 'linker' }] }, 'indicative/future', 'no verb'],
+    ['reporting a perfect auxiliary the chain does not use', { ...future, reports: 'perfectAuxiliary' }, 'indicative/future', 'reports perfectAuxiliary'],
   ])('rejects %s, naming the periphrasis', (_, periphrasis, name, reason) => {
     const broken = { ...toyGrammar, periphrases: [toyGrammar.periphrases[1]!, periphrasis] };
     expect(() => validateGrammar(broken)).toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining(name) }));

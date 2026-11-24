@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate, conjugationOptions, ConjugationError, parseConjugationOptions, renderParts } from '../src/index.js';
 import { expandTargets, targetKey } from '../src/catalogue.js';
+import { deepFreeze } from '../src/parts.js';
 import type { ConjugationOptions, ConjugatedForm, PartRole } from '../src/types.js';
 
 function component(form: ConjugatedForm, role: PartRole) {
@@ -127,6 +128,19 @@ describe('public wildcard engine', () => {
     expect(result.analysis.lemma).toBe('aimer');
     expect(Object.isFrozen(result.forms[0]?.parts[0]?.features)).toBe(true);
     expect(JSON.parse(JSON.stringify(result))).toEqual(result);
+  });
+
+  it('deep-freezes through containers that are already frozen, and through cycles', () => {
+    const nested = { list: [1, 2], record: { key: 'value' } };
+    const value = { shallow: Object.freeze(nested), items: [Object.freeze({ inner: [3] })] };
+    expect(deepFreeze(value)).toBe(value);
+    for (const item of [value, value.shallow, nested.list, nested.record, value.items, value.items[0], value.items[0]!.inner]) {
+      expect(Object.isFrozen(item)).toBe(true);
+    }
+    const cyclic: { self?: unknown; list: number[] } = { list: [] };
+    cyclic.self = Object.freeze({ back: cyclic });
+    deepFreeze(cyclic);
+    expect([Object.isFrozen(cyclic), Object.isFrozen(cyclic.list)]).toEqual([true, true]);
   });
 });
 

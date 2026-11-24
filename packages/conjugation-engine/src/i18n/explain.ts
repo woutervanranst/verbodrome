@@ -26,12 +26,16 @@ export interface Explanation {
 
 export type Explainable = ConjugatedForm | UnavailableTarget | VerbAnalysis;
 
-/** What rendering a step needs: the pack (catalogue, works, citations), one locale's merged catalog, and the target the step belongs to if it has one. */
+/** What rendering a step needs: the pack (catalogue, works, citations), one locale's merged catalog, and the mood a tense term is looked up in. */
 export interface StepContext {
   readonly pack: LanguagePack;
   readonly catalog: Catalog;
   readonly locale: string;
-  readonly target: ResolvedTarget | null;
+  /**
+   * The mood of what the step describes: for a part's steps the word's own mood (its `features.mood`), for form-level
+   * steps and an unavailable target the target's mood; null when there is none (an analysis, a word without a mood).
+   */
+  readonly mood: string | null;
 }
 
 function failure(message: string): never {
@@ -55,8 +59,8 @@ function entryOf(pack: LanguagePack, predicate: (entry: CatalogueEntry) => boole
 
 /**
  * A term as text. A mood or tense is the native label from the catalogue; every other kind is the catalog message
- * `term.<kind>.<id>`. A tense is looked up in the target's own mood; without a target (or when that mood has no such
- * tense) it resolves only if every catalogue entry with that tense id has the same label.
+ * `term.<kind>.<id>`. A tense is looked up in the context's mood; without one (or when that mood has no such tense) it
+ * resolves only if every catalogue entry with that tense id has the same label.
  */
 function termText(ref: TermRef, ctx: StepContext): string {
   const { term, id } = ref;
@@ -66,7 +70,7 @@ function termText(ref: TermRef, ctx: StepContext): string {
     return entry!.moodLabel;
   }
   if (term === 'tense') {
-    const own = ctx.target ? entryOf(ctx.pack, e => e.mood === ctx.target!.mood && e.tense === id) : undefined;
+    const own = ctx.mood === null ? undefined : entryOf(ctx.pack, e => e.mood === ctx.mood && e.tense === id);
     if (own) return own.tenseLabel;
     const labels = new Set(ctx.pack.catalogue.filter(e => e.tense === id).map(e => e.tenseLabel));
     if (labels.size === 1) return [...labels][0]!;
@@ -121,19 +125,20 @@ function labelsOf(pack: LanguagePack, target: ResolvedTarget): { mood: string; t
 
 /** Explains a form, an unavailable target or a verb analysis, told apart by shape. Throws GENERATION_FAILURE for a rule or term without text. */
 export function explainSubject(pack: LanguagePack, catalog: Catalog, locale: string, subject: Explainable): Explanation {
-  const ctx = (target: ResolvedTarget | null): StepContext => ({ pack, catalog, locale, target });
+  const ctx = (mood: string | null): StepContext => ({ pack, catalog, locale, mood });
   const invalid = (): ConjugationError => new ConjugationError('INVALID_REQUEST', 'Only a form, an unavailable target or a verb analysis can be explained.');
   if (typeof subject !== 'object' || subject === null) throw invalid();
   let explanation: Explanation;
   if ('parts' in subject) {
-    const c = ctx(subject.target);
+    const c = ctx(subject.target.mood);
     const sections = [
-      ...subject.parts.flatMap((part, index) => section(c, index, () => part.text, part.steps)),
+      // A word's steps name its own tenses: an auxiliary in the indicative past inside a conditional is in the indicative.
+      ...subject.parts.flatMap((part, index) => section(ctx(part.features.mood), index, () => part.text, part.steps)),
       ...section(c, null, () => message(c, 'explain.section.form', {}), subject.steps),
     ];
     explanation = { summary: message(c, 'explain.summary.form', { text: subject.text, ...subject.labels }), sections };
   } else if ('reason' in subject) {
-    const c = ctx(subject.target);
+    const c = ctx(subject.target.mood);
     const sections = section(c, null, () => message(c, 'explain.section.availability', {}), subject.step ? [subject.step] : undefined);
     explanation = {
       summary: message(c, 'explain.summary.unavailable', { ...labelsOf(pack, subject.target), reason: subject.reason }), sections,

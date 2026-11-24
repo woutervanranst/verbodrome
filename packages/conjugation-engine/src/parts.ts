@@ -41,10 +41,15 @@ export function itemAt<T>(items: readonly T[], index: number): T {
   return value;
 }
 
+/** Freezes `value` and everything reachable from it, also inside containers that are already frozen; cycles are fine. */
 export function deepFreeze<T>(value: T): T {
-  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
-    Object.freeze(value);
-    for (const child of Object.values(value)) deepFreeze(child);
-  }
+  const visited = new WeakSet<object>();
+  const freeze = (item: unknown): void => {
+    if (item === null || typeof item !== 'object' || visited.has(item)) return;
+    visited.add(item);
+    Object.freeze(item);
+    for (const child of Object.values(item)) freeze(child);
+  };
+  freeze(value);
   return value;
 }

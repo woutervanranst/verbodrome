@@ -1,6 +1,7 @@
 import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
 import type { RuleInfo } from './derivation.js';
+import { usageRank } from './fork.js';
 import type { OptionSchema } from './options.js';
 import type { Citation, Work } from './sources.js';
 import type {
@@ -76,8 +77,7 @@ export function moodEntries(
   }));
 }
 
-/** Sort key for a variant: standard before literary before dated usage, then the preferred spelling first. */
+/** Sort key for a variant: standard before literary before dated usage (`usageRank`), then the preferred spelling first. */
 export function variantRank(variant: FormVariant, preferred: Orthography): number {
-  return (variant.usage === 'standard' ? 0 : variant.usage === 'literary' ? 10 : 20)
-    + (variant.orthography === 'both' || variant.orthography === preferred ? 0 : 1);
+  return usageRank[variant.usage] * 10 + (variant.orthography === 'both' || variant.orthography === preferred ? 0 : 1);
 }

@@ -96,9 +96,12 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     return catalog;
   }
 
-  /** The English context for a staged pack's steps once the engine has an English catalog; otherwise null (the packs' own strings stay). */
-  function englishContext(pack: LanguagePack, target: ResolvedTarget | null): StepContext | null {
-    return pack.rules && Object.hasOwn(messages, 'en') ? { pack, catalog: catalogFor('en'), locale: 'en', target } : null;
+  /**
+   * The English context for a staged pack's steps once the engine has an English catalog; otherwise null (the packs' own
+   * strings stay). `mood` is the mood a tense term is looked up in.
+   */
+  function englishContext(pack: LanguagePack, mood: string | null): StepContext | null {
+    return pack.rules && Object.hasOwn(messages, 'en') ? { pack, catalog: catalogFor('en'), locale: 'en', mood } : null;
   }
 
   /** A staged pack's assumptions as English text. Assumptions have no target, so their rules cannot name a tense. */
@@ -111,7 +114,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
 
   /** A staged pack's unavailable target with the English sentence of its step as the explanation. */
   function unavailableWithText(pack: LanguagePack, unavailable: UnavailableTarget): UnavailableTarget {
-    const ctx = englishContext(pack, unavailable.target);
+    const ctx = englishContext(pack, unavailable.target.mood);
     return ctx && unavailable.step ? { ...unavailable, explanation: renderStep(unavailable.step, ctx) } : unavailable;
   }
 

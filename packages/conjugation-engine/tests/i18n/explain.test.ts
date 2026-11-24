@@ -167,6 +167,23 @@ describe('explain terms and arguments', () => {
     expect(engine.explain('xx', infinitive, 'en').sections.at(-1)!.steps[0]!.text).toContain('tense=Infinitive present');
   });
 
+  it('names a word\'s tense in that word\'s own mood and a form-level tense in the form\'s mood', () => {
+    // The auxiliary vadit is the indicative past inside the conditional's past, which has another label.
+    const conditional = only({ language: 'xx', infinitive: 'placa', mood: 'conditional', tense: 'past', person: 3, number: 'singular' });
+    expect(conditional.parts[1]!.features).toMatchObject({ mood: 'indicative', tense: 'past' });
+    const explained = engine.explain('xx', withSteps(conditional, ...conditional.steps!, terms('past')), 'en');
+    expect(explained.sections.map(s => [s.part, s.title, s.steps.map(x => x.text)])).toEqual([
+      [1, 'vadit', ['Drop -a from vada: vad-.', 'Past: add -it to vad-.']],
+      [2, 'placa', ['Drop -a from placa: plac-.', 'Infinitive: add -a to plac-.']],
+      [null, 'The whole form', [
+        'Future in the past: the past of vada, then the infinitive.',
+        'mood=Indicative tense=Future in the past person=1st person gender=feminine voice=passive',
+      ]],
+    ]);
+    expect(engine.explain('xx', conditional, 'nl').sections[0]!.steps[1]!.text).toBe('Past: voeg -it toe aan vad-.');
+    expect(explained.summary).toBe('il vadit placa: Conditional, Future in the past');
+  });
+
   it('fails on a term without a label, naming it', () => {
     const fail = (subject: ConjugatedForm | VerbAnalysis, text: string) =>
       expect(() => engine.explain('xx', subject, 'en')).toThrow(expect.objectContaining({ code: 'GENERATION_FAILURE', message: expect.stringContaining(text) }));

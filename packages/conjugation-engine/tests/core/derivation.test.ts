@@ -48,16 +48,46 @@ describe('derivation steps', () => {
 });
 
 describe('forks', () => {
-  it('drops conflicting branches', () => {
+  it('drops branches whose orthography or region conflict', () => {
     const a = [...one('x', [], { orthography: 'traditional' }), ...one('y', [], { orthography: 'rectified' })];
     expect(chain(a, v => one(v + '!', [], { orthography: 'rectified' })).map(o => o.value)).toEqual(['y!']);
-    expect(mergeTags({ pattern: 'a' }, { pattern: 'b' })).toBeNull();
+    expect(mergeTags({ orthography: 'traditional' }, { orthography: 'rectified' })).toBeNull();
+    expect(mergeTags({ region: 'be' }, { region: 'nl' })).toBeNull();
+    expect(mergeTags({ region: 'be', pattern: 'a' }, { region: 'be', pattern: 'b' })).toEqual({ region: 'be', pattern: 'a.b' });
   });
 
   it('treats absent or undefined tags as compatible and merges them', () => {
     expect(mergeTags({ pattern: 'a' }, { usage: 'literary' })).toEqual({ pattern: 'a', usage: 'literary' });
     expect(mergeTags({ pattern: 'a' }, { pattern: 'a', region: 'be' })).toEqual({ pattern: 'a', region: 'be' });
     expect(mergeTags({ pattern: undefined } as never, { pattern: 'b' })).toEqual({ pattern: 'b' });
+  });
+
+  it('joins distinct patterns in order and does not repeat one', () => {
+    expect(mergeTags({ pattern: 'A' }, { pattern: 'ra' })).toEqual({ pattern: 'A.ra' });
+    expect(mergeTags({ pattern: 'ra' }, { pattern: 'A' })).toEqual({ pattern: 'ra.A' });
+    expect(mergeTags({ pattern: 'A' }, { pattern: 'A' })).toEqual({ pattern: 'A' });
+    // A joined pattern is a list of labels, so merging is the same whichever way the merges are grouped.
+    expect(mergeTags({ pattern: 'A.ra' }, { pattern: 'ra' })).toEqual({ pattern: 'A.ra' });
+    expect(chain(chain(one(1, [], { pattern: 'A' }), () => one(2, [], { pattern: 'ra' })), () => one(3, [], { pattern: 'A' }))[0]!.tags)
+      .toEqual({ pattern: 'A.ra' });
+  });
+
+  it('keeps the most marked usage', () => {
+    expect(mergeTags({ usage: 'dated' }, { usage: 'literary' })).toEqual({ usage: 'dated' });
+    expect(mergeTags({ usage: 'literary' }, { usage: 'dated' })).toEqual({ usage: 'dated' });
+    expect(mergeTags({ usage: 'standard' }, { usage: 'literary' })).toEqual({ usage: 'literary' });
+    expect(mergeTags({ usage: 'standard' }, { usage: 'standard' })).toEqual({ usage: 'standard' });
+  });
+
+  it('joins distinct conditions with a semicolon', () => {
+    expect(mergeTags({ condition: 'before a vowel' }, { condition: 'in Belgium' })).toEqual({ condition: 'before a vowel; in Belgium' });
+    expect(mergeTags({ condition: 'in Belgium' }, { condition: 'in Belgium' })).toEqual({ condition: 'in Belgium' });
+  });
+
+  it('keeps labels apart from constraints when chaining', () => {
+    const stem = [...one('graph', [], { orthography: 'traditional', pattern: 'A' }), ...one('graf', [], { orthography: 'rectified', pattern: 'A' })];
+    const ending = (s: string) => one(`${s}ra`, [], { orthography: 'rectified', pattern: 'ra', usage: 'dated' });
+    expect(chain(stem, ending).map(o => [o.value, o.tags])).toEqual([['grafra', { orthography: 'rectified', pattern: 'A.ra', usage: 'dated' }]]);
   });
 
   it('concatenates steps and merges tags when chaining', () => {
@@ -69,9 +99,11 @@ describe('forks', () => {
   });
 
   it('combines forks as an ordered product, dropping conflicts', () => {
-    const left = [...one('a', [], { pattern: 'p' }), ...one('b', [], { pattern: 'q' })];
-    const right = [...one(1, [], { pattern: 'p' }), ...one(2)];
+    const left = [...one('a', [], { orthography: 'rectified' }), ...one('b', [], { orthography: 'traditional' })];
+    const right = [...one(1, [], { orthography: 'rectified' }), ...one(2)];
     expect(combine<[string, number]>([left, right]).map(o => o.value)).toEqual([['a', 1], ['a', 2], ['b', 2]]);
+    const labelled = combine<[string, number]>([one('a', [], { pattern: 'p' }), one(1, [], { pattern: 'q', condition: 'c' })]);
+    expect(labelled.map(o => o.tags)).toEqual([{ pattern: 'p.q', condition: 'c' }]);
     expect(combine<[]>([])).toEqual(one([]));
     expect(combine<[string, number]>([left, []])).toEqual([]);
   });
@@ -96,6 +128,22 @@ describe('applyJunctureRules', () => {
     const result = applyJunctureRules([variants, restrict], { stem: 'ab', ending: '' }, null);
     expect(result.map(o => [o.value, o.tags])).toEqual([[{ stem: 'ab-', ending: 'es' }, { orthography: 'rectified' }]]);
     expect(result[0]!.steps.map(s => s.rule)).toEqual(['xx.orth.variant', 'xx.orth.c-cedilla']);
+  });
+
+  it('merges a rule outcome\'s labels into its branch and drops it only on a constraint conflict', () => {
+    const labelled: JunctureRule<null> = {
+      info: rules['xx.orth.variant'],
+      apply: j => [
+        ...one({ stem: j.stem, ending: 'ez' }, [], { pattern: 'z', orthography: 'traditional' }),
+        ...one({ stem: j.stem, ending: 'es' }, [], { pattern: 's', orthography: 'traditional' }),
+      ],
+    };
+    const relabel: JunctureRule<null> = { info: rules['xx.orth.variant'], apply: j => one(j, [], { pattern: 'x', usage: 'literary' }) };
+    expect(applyJunctureRules([labelled, relabel], { stem: 'ab', ending: '' }, null).map(o => [o.value.ending, o.tags])).toEqual([
+      ['ez', { orthography: 'traditional', pattern: 'z.x', usage: 'literary' }],
+      ['es', { orthography: 'traditional', pattern: 's.x', usage: 'literary' }],
+    ]);
+    expect(applyJunctureRules([labelled, restrict], { stem: 'ab', ending: '' }, null)).toEqual([]);
   });
 
   it('adds no step for an unchanged juncture and keeps a branch when a rule does not apply', () => {

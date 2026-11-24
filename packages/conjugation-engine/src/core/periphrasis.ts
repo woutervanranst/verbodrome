@@ -33,6 +33,11 @@ export interface Periphrasis {
   readonly chain: readonly ChainElement[];
   readonly pattern?: string;
   readonly usage?: FormVariant['usage'];
+  /**
+   * The verb a form reports as its `variant.auxiliary` (`'main'`: none). By default the perfect auxiliary when the chain
+   * uses one, otherwise the first verb the chain names by lemma, otherwise none.
+   */
+  readonly reports?: VerbRef;
 }
 
 /** The periphrases that build `target`: same mood and tense, and the same voice or both without one. */
@@ -42,6 +47,19 @@ export function periphrasesFor(periphrases: readonly Periphrasis[], target: Reso
 
 export function usesPerfectAuxiliary(periphrasis: Periphrasis): boolean {
   return periphrasis.chain.some(element => 'verb' in element && element.verb === 'perfectAuxiliary');
+}
+
+/** The lemma a form built by `periphrasis` reports as its auxiliary; `perfectAuxiliary` is the one this run uses, if any. */
+export function reportedAuxiliary(periphrasis: Periphrasis, perfectAuxiliary: string | null): string | null {
+  const reported = periphrasis.reports ?? (usesPerfectAuxiliary(periphrasis) ? 'perfectAuxiliary' : firstNamedVerb(periphrasis.chain));
+  if (reported === 'main') return null;
+  return reported === 'perfectAuxiliary' ? perfectAuxiliary : reported.lemma;
+}
+
+/** The first verb a chain names by lemma, or `'main'` when it names none. */
+function firstNamedVerb(chain: readonly ChainElement[]): VerbRef {
+  for (const element of chain) if ('verb' in element && typeof element.verb === 'object') return element.verb;
+  return 'main';
 }
 
 /** The form-level step that names the construction; `auxiliary` is the perfect auxiliary this run uses, if any. */

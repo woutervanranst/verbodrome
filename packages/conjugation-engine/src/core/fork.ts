@@ -1,14 +1,23 @@
 import type { FormVariant } from '../types.js';
 import type { DerivationStep } from './derivation.js';
 
-/** Labels a spelling variant. A key that is absent (or undefined) is compatible with any value on the other side. */
-export interface VariantTags {
-  readonly orthography?: 'rectified' | 'traditional';
-  readonly pattern?: string;
-  readonly usage?: FormVariant['usage'];
-  readonly region?: string;
-  readonly condition?: string;
+/** The value of each variant tag. */
+interface TagValues {
+  readonly orthography: 'rectified' | 'traditional';
+  /** One or more pattern labels, joined with `.`. */
+  readonly pattern: string;
+  readonly usage: FormVariant['usage'];
+  readonly region: string;
+  /** One or more conditions, joined with `; `. */
+  readonly condition: string;
 }
+
+/**
+ * Labels a spelling variant. A key that is absent (or undefined) is compatible with any value on the other side.
+ * `orthography` and `region` are constraints: an outcome tagged with one value cannot combine with an outcome tagged with
+ * another. `pattern`, `usage` and `condition` are labels, which combine (see `mergeTags`).
+ */
+export type VariantTags = { readonly [K in keyof TagValues]?: TagValues[K] };
 
 export interface Outcome<T> {
   readonly value: T;
@@ -16,26 +25,68 @@ export interface Outcome<T> {
   readonly tags: VariantTags;
 }
 
-/** Every way a rule can come out; [] = no form. */
+/**
+ * Every way a rule can come out. An empty fork drops the branch it continues; it is not how a staged grammar says that
+ * a form does not exist. `availability` declares that, with its rule and source, and an available target that ends with
+ * no form at all is a GENERATION_FAILURE naming the stage that came back empty.
+ */
 export type Fork<T> = readonly Outcome<T>[];
 
 export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T> {
   return [{ value, steps, tags }];
 }
 
-const TAG_KEYS = ['orthography', 'pattern', 'usage', 'region', 'condition'] as const;
+/** How marked each usage is, standard lowest; a new usage value does not compile until it is ranked here. */
+export const usageRank: Readonly<Record<FormVariant['usage'], number>> = { standard: 0, literary: 1, dated: 2 };
 
-/** Union of both tag sets; null when one key holds two different values. */
+/** Combines two defined values of one tag: the merged value, or null when they conflict. */
+type TagMerge<T> = (left: T, right: T) => T | null;
+
+/** A constraint: equal values agree, different values conflict. */
+const constraint = <T>(left: T, right: T): T | null => left === right ? left : null;
+
+/** A list of labels: the labels of both sides in order, each once. */
+const labels = (separator: string): TagMerge<string> => (left, right) => {
+  const joined = left.split(separator);
+  for (const label of right.split(separator)) if (!joined.includes(label)) joined.push(label);
+  return joined.join(separator);
+};
+
+/** The merge rule of every tag, in output order; a tag without a rule here does not compile. */
+const tagMerges: { readonly [K in keyof TagValues]: TagMerge<TagValues[K]> } = {
+  orthography: constraint,
+  pattern: labels('.'),
+  usage: (left, right) => usageRank[right] > usageRank[left] ? right : left,
+  region: constraint,
+  condition: labels('; '),
+};
+
+/** The tags, in output order: exactly the keys of `tagMerges`, whose type lists every tag. */
+const tagKeys = Object.keys(tagMerges) as readonly (keyof TagValues)[];
+
+type MutableTags = { -readonly [K in keyof TagValues]?: TagValues[K] };
+
+/** Merges one tag of `a` and `b` into `merged`; false on a conflict. */
+function mergeTag<K extends keyof TagValues>(key: K, a: VariantTags, b: VariantTags, merged: MutableTags): boolean {
+  const left: TagValues[K] | undefined = a[key];
+  const right: TagValues[K] | undefined = b[key];
+  const merge: TagMerge<TagValues[K]> = tagMerges[key];
+  const value = left === undefined ? right : right === undefined ? left : merge(left, right);
+  if (value === null) return false;
+  if (value !== undefined) merged[key] = value;
+  return true;
+}
+
+/**
+ * Both tag sets in one: constraints (orthography, region) must agree; patterns join with `.` and conditions with `; `,
+ * in order and each label once; the most marked usage wins. Null when a constraint has two different values.
+ */
 export function mergeTags(a: VariantTags, b: VariantTags): VariantTags | null {
-  const merged: Record<string, unknown> = {};
-  for (const key of TAG_KEYS) {
-    const left = a[key];
-    const right = b[key];
-    if (left !== undefined && right !== undefined && left !== right) return null;
-    const value = left ?? right;
-    if (value !== undefined) merged[key] = value;
+  const merged: MutableTags = {};
+  for (const key of tagKeys) {
+    if (!mergeTag(key, a, b, merged)) return null;
   }
-  return merged as VariantTags;
+  return merged;
 }
 
 /** Continues every outcome through `next`; steps are concatenated, tags merged, conflicting branches dropped. */
