@@ -5,8 +5,12 @@
  * a past participle in -ado, which agrees in gender (-ada) standing alone, in the passive and after esta. The future is
  * the present of vada + a + the infinitive (literary: the infinitive + the present of haba); the conditional's future in
  * the past is the past of vada + the infinitive. Stems in -ph have a traditional and a rectified (-f) spelling; canta
- * has a literary long 1pl ending. The `auxiliary` option narrows a verb's perfect auxiliaries to the one it names: a
- * lexical hint is read in `classify`, never by the core.
+ * has a literary long 1pl ending. The imperative exists only in the 2sg, adds -e to the stem and has no subject
+ * pronoun. The `auxiliary` option narrows a verb's perfect auxiliaries to the one it names: a lexical hint is read in
+ * `classify`, never by the core.
+ *
+ * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
+ * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot.
  */
 import { wordPart } from '../../src/core/clause.js';
 import type { ClauseGrammar } from '../../src/core/clause.js';
@@ -16,7 +20,7 @@ import type { Fork } from '../../src/core/fork.js';
 import type { JunctureRule } from '../../src/core/juncture.js';
 import { allPersons, moodEntries, noPersons, variantRank } from '../../src/core/pack.js';
 import type { Citation, Work } from '../../src/core/sources.js';
-import type { CatalogueEntry, LanguagePack, PackRendering } from '../../src/core/pack.js';
+import type { CatalogueEntry, LanguagePack, PackRendering, SubjectSlot } from '../../src/core/pack.js';
 import type { ChainElement, Periphrasis } from '../../src/core/periphrasis.js';
 import { stagedEngine, validateGrammar } from '../../src/core/staged.js';
 import type { Cell, LexemeBase, StagedGrammar } from '../../src/core/staged.js';
@@ -34,6 +38,7 @@ export const toyRules = defineRules({
   'xx.stem.listed': { stage: 'stem', kind: 'lexical' },
   'xx.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
   'xx.end.past': { stage: 'ending', params: { ending: 'text', tense: 'term' } },
+  'xx.end.imperative': { stage: 'ending' },
   'xx.end.long': { stage: 'ending', params: { ending: 'text' } },
   'xx.end.passive': { stage: 'ending' },
   'xx.end.infinitive': { stage: 'ending' },
@@ -70,6 +75,7 @@ export const toyCitations = {
   'xx.stem.listed': lexiconCitation('Stems'),
   'xx.end.present': grammarCitation('§2'),
   'xx.end.past': grammarCitation('§2.6'),
+  'xx.end.imperative': grammarCitation('§2.7'),
   'xx.end.long': grammarCitation('§2.3'),
   'xx.end.passive': grammarCitation('§2.2'),
   'xx.end.infinitive': grammarCitation('§2.1'),
@@ -147,7 +153,6 @@ type FiniteCell = Extract<Cell, { kind: 'finite' }>;
 
 const presentEndings = ['o', 'as', 'at', 'amos', 'etes', 'ant'] as const;
 const pastEndings = ['i', 'is', 'it', 'imos', 'ites', 'int'] as const;
-const subjectPronouns = ['mi', 'tu', 'il', 'nos', 'vos', 'ils'] as const;
 const genders = ['masculine', 'feminine'] as const;
 
 function slot(cell: FiniteCell): number {
@@ -180,6 +185,7 @@ function ending(lexeme: ToyLexeme, cell: Cell, stem: string): Fork<string> {
     const text = cell.agreement?.gender === 'feminine' ? 'ada' : 'ado';
     return one(text, [step(toyRules['xx.end.participle'], stem, stem + text, { ending: text })]);
   }
+  if (cell.mood === 'imperative') return one('e', [step(toyRules['xx.end.imperative'], stem, `${stem}e`)]);
   if (cell.tense === 'past') {
     // The past has no passive. Its rule names the tense, which `explain` labels in the word's own mood.
     const personal = itemAt(pastEndings, slot(cell));
@@ -247,8 +253,11 @@ const clause: ClauseGrammar<ToyLexeme> = {
     return genders.flatMap(gender =>
       one({ gender, number }, [step(toyRules['xx.agree.gender'], null, null, { gender: { term: 'gender', id: gender } })]));
   },
-  /** Subject, then the verbs in recipe order; a separable particle follows a finite main verb at the end of the clause. */
-  assemble(words, { lexeme, target, rendering }) {
+  /**
+   * The subject slot's pronoun (none in the imperative), then the verbs in recipe order; a separable particle follows a
+   * finite main verb at the end of the clause.
+   */
+  assemble(words, { lexeme, target, subject, rendering }) {
     const particle = lexeme.particle;
     const separated = particle !== null && particle.separable
       && words.some(word => word.role === 'lexicalVerb' && word.cell?.kind === 'finite');
@@ -259,13 +268,13 @@ const clause: ClauseGrammar<ToyLexeme> = {
       const attachStep = step(toyRules['xx.clause.particle-attached'], word.text, attached, { particle: particle.text });
       return wordPart(rendering, { ...word, text: attached, steps: [...word.steps, attachStep] }, features);
     });
-    const subject = target.person === null || target.number === null ? [] : [grammaticalPart(
-      rendering, 'subject', itemAt(subjectPronouns, (target.number === 'plural' ? 3 : 0) + target.person - 1), null,
-      { person: target.person, number: target.number },
+    const pronoun = target.mood === 'imperative' ? null : subject?.pronoun ?? null;
+    const subjectParts = subject === null || pronoun === null ? [] : [grammaticalPart(
+      rendering, 'subject', pronoun, null, { person: subject.person, number: subject.number, gender: subject.gender ?? null },
     )];
-    if (!separated) return one([...subject, ...verbs]);
+    if (!separated) return one([...subjectParts, ...verbs]);
     return one(
-      [...subject, ...verbs, grammaticalPart(rendering, 'particle', particle.text)],
+      [...subjectParts, ...verbs, grammaticalPart(rendering, 'particle', particle.text)],
       [step(toyRules['xx.clause.particle-final'], null, null, { particle: particle.text })],
     );
   },
@@ -297,8 +306,10 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
   cellOf(target) {
     if (target.mood === 'infinitive') return { kind: 'nonFinite', form: 'infinitive' };
     if (target.mood === 'participle') return { kind: 'nonFinite', form: target.tense === 'present' ? 'presentParticiple' : 'participle' };
+    if (target.person === null || target.number === null) return null;
+    if (target.mood === 'imperative') return { kind: 'finite', mood: 'imperative', tense: 'present', person: target.person, number: target.number };
     const simple = target.tense === 'present' || target.tense === 'past';
-    if (target.mood !== 'indicative' || !simple || target.person === null || target.number === null) return null;
+    if (target.mood !== 'indicative' || !simple) return null;
     // Active is the unmarked voice, so an active cell is the same cell a periphrasis asks for.
     return {
       kind: 'finite', mood: 'indicative', tense: target.tense, person: target.person, number: target.number,
@@ -311,7 +322,7 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
     return { reason: 'defective', step: step(toyRules['xx.avail.no-participle'], null, null), source: 'Toy grammar §4' };
   },
   cell(lexeme, cell) {
-    if (!lexeme.present || cell.kind !== 'finite' || cell.tense !== 'present' || cell.voice === 'passive') return null;
+    if (!lexeme.present || cell.kind !== 'finite' || cell.mood !== 'indicative' || cell.tense !== 'present' || cell.voice === 'passive') return null;
     const word = itemAt(lexeme.present, slot(cell));
     return one(word, [step(toyRules['xx.lex.present'], lexeme.lemma, word)]);
   },
@@ -335,8 +346,21 @@ export const toyCatalogue: readonly CatalogueEntry[] = [
   ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future']]).map(voiced),
   // The conditional's past has another label than the indicative's.
   ...moodEntries('conditional', 'Conditional', allPersons, [['past', 'Future in the past']]),
+  ...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]),
   ...moodEntries('infinitive', 'Infinitive', noPersons, [['present', 'Present']]),
   ...moodEntries('participle', 'Participle', noPersons, [['present', 'Present'], ['past', 'Past']]),
+];
+
+/** The default slots first in each person and number; ila and Vu only when a query names them. */
+export const toySubjects: readonly SubjectSlot[] = [
+  { id: '1sg', person: 1, number: 'singular', pronoun: 'mi', default: true },
+  { id: '2sg', person: 2, number: 'singular', pronoun: 'tu', default: true },
+  { id: '3sg', person: 3, number: 'singular', pronoun: 'il', gender: 'masculine', default: true },
+  { id: '3sg.f', person: 3, number: 'singular', pronoun: 'ila', gender: 'feminine', default: false },
+  { id: '2sg.formal', person: 3, number: 'singular', pronoun: 'Vu', register: 'formal', default: false },
+  { id: '1pl', person: 1, number: 'plural', pronoun: 'nos', default: true },
+  { id: '2pl', person: 2, number: 'plural', pronoun: 'vos', default: true },
+  { id: '3pl', person: 3, number: 'plural', pronoun: 'ils', default: true },
 ];
 
 export const toyPack: LanguagePack<'xx'> = {
@@ -344,6 +368,7 @@ export const toyPack: LanguagePack<'xx'> = {
   label: 'Toy',
   catalogue: toyCatalogue,
   rendering: toyRendering,
+  subjects: toySubjects,
   options: {
     fields: {
       voice: { kind: 'enum', values: ['active', 'passive'] },

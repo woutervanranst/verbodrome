@@ -8,14 +8,16 @@ import { explainSubject, renderStep } from '../i18n/explain.js';
 import type { Explainable, Explanation, StepContext } from '../i18n/explain.js';
 import type { Catalog } from '../i18n/catalog.js';
 import { parseOptions } from './options.js';
-import { packFor } from './pack.js';
-import type { CatalogueEntry, LanguagePack } from './pack.js';
+import { defaultSubjectsFor, packFor } from './pack.js';
+import type { CatalogueEntry, LanguagePack, SubjectSlot } from './pack.js';
 import { renderWith } from './render.js';
 import { resolvedTargetKey, targetKey } from './target.js';
 
 export interface Engine {
   conjugate(options: unknown): ConjugationResult;
   getCatalogue(language: string): readonly CatalogueEntry[];
+  /** The subject slots of `language`, in the pack's order; empty for a pack without slots. */
+  getSubjects(language: string): readonly SubjectSlot[];
   renderParts(language: string, parts: readonly ConjugationPart[], context?: RenderContext): string;
   /** Every grammatical target the query's filters select, in catalogue order. */
   expandTargets(options: Readonly<Record<string, unknown>>): ResolvedTarget[];
@@ -40,12 +42,39 @@ const nonFinite: readonly (readonly [null, null])[] = [[null, null]];
 /** The one "voice" of an entry without a voice dimension. */
 const noVoice: readonly (Voice | undefined)[] = [undefined];
 
-/** Targets in catalogue order: per entry, voice-major (the whole active paradigm, then the passive), then person/number. */
+/** The one "subject" of a target without a subject slot: a non-finite one, or any target of a pack without slots. */
+const noSubject: readonly (SubjectSlot | null)[] = [null];
+
+const noSubjects: readonly SubjectSlot[] = Object.freeze([]);
+
+/**
+ * The subject slots a query expands, in the order of the pack's `subjects` whatever order `subjectsFor` returns them
+ * in; null for a pack without slots.
+ */
+function selectedSubjects(pack: LanguagePack, options: Readonly<Record<string, unknown>>): readonly SubjectSlot[] | null {
+  const subjects = pack.subjects ?? noSubjects;
+  if (!subjects.length) return null;
+  const chosen = new Set((pack.subjectsFor?.(options) ?? defaultSubjectsFor(subjects, options)).map(slot => slot.id));
+  return subjects.filter(slot => chosen.has(slot.id));
+}
+
+/** The slot `target.subject` names, or null for a target without one. */
+function subjectOf(pack: LanguagePack, target: ResolvedTarget): SubjectSlot | null {
+  return target.subject === undefined ? null : pack.subjects?.find(slot => slot.id === target.subject) ?? null;
+}
+
+/**
+ * Targets in catalogue order: per entry, voice-major (the whole active paradigm, then the passive), then person/number,
+ * then, for a pack with subject slots, one target per selected slot of that person and number.
+ */
 function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unknown>>): ResolvedTarget[] {
+  const selected = selectedSubjects(pack, options);
   const targets: ResolvedTarget[] = [];
   for (const entry of pack.catalogue) {
     if (options.mood !== undefined && options.mood !== entry.mood) continue;
     if (options.tense !== undefined && options.tense !== entry.tense) continue;
+    // Like person on a non-finite entry: asking for a subject excludes entries without one.
+    if (options.subject !== undefined && !entry.finite) continue;
     const slots: readonly (readonly [Person | null, GrammaticalNumber | null])[] = entry.finite ? entry.persons : nonFinite;
     for (const voice of entry.voices?.length ? entry.voices : noVoice) {
       // Like person on a non-finite entry: asking for a voice excludes entries without one.
@@ -53,11 +82,16 @@ function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unkn
       for (const [person, number] of slots) {
         if (options.number !== undefined && options.number !== number) continue;
         if (options.person !== undefined && options.person !== person) continue;
-        const target: ResolvedTarget = {
-          mood: entry.mood, tense: entry.tense, person, number, gender: null, agreement: null, ...(voice ? { voice } : {}),
-        };
-        if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
-        targets.push(target);
+        const subjects = selected === null || person === null ? noSubject : selected.filter(slot => slot.person === person && slot.number === number);
+        for (const subject of subjects) {
+          const target: ResolvedTarget = {
+            mood: entry.mood, tense: entry.tense, person, number,
+            gender: subject !== null && pack.genderedTargets ? subject.gender ?? null : null,
+            agreement: null, ...(voice ? { voice } : {}), ...(subject ? { subject: subject.id } : {}),
+          };
+          if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
+          targets.push(target);
+        }
       }
     }
   }
@@ -77,13 +111,16 @@ function signature(form: GeneratedForm): string {
 /**
  * An engine over the given packs, keyed by language code; only those languages are accepted. `catalogs` are the message
  * catalogs by locale, each already merged from the core messages and the packs' messages for that locale.
- * Throws INVALID_REQUEST when a key differs from its pack's `language`.
+ * Throws INVALID_REQUEST when a key differs from its pack's `language` or a pack declares one subject slot id twice.
  */
 export function createEngine(packs: Readonly<Record<string, LanguagePack>>, catalogs: Readonly<Record<string, Catalog>> = {}): Engine {
   for (const [language, pack] of Object.entries(packs)) {
     if (pack.language !== language) {
       throw new ConjugationError('INVALID_REQUEST', `The pack registered as ${language} is the pack for ${pack.language}.`);
     }
+    const ids = (pack.subjects ?? noSubjects).map(slot => slot.id);
+    const repeated = ids.find((id, index) => ids.indexOf(id) !== index);
+    if (repeated !== undefined) throw new ConjugationError('INVALID_REQUEST', `The ${language} pack declares the subject ${repeated} twice.`);
   }
   const registry: Readonly<Record<string, LanguagePack>> = Object.freeze({ ...packs });
   const messages: Readonly<Record<string, Catalog>> = Object.freeze({ ...catalogs });
@@ -127,7 +164,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     const unavailableTargets: UnavailableTarget[] = [];
     let generatedCount = 0;
     for (const target of targets) {
-      const generation = engine.generate(target);
+      const generation = engine.generate(target, subjectOf(pack, target));
       if (!generation.forms.length && !generation.unavailable.length) {
         throw new ConjugationError('GENERATION_FAILURE', `No generation or availability decision for ${targetKey(target)}.`);
       }
@@ -175,6 +212,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
   return {
     conjugate,
     getCatalogue: language => packFor(registry, language).catalogue,
+    getSubjects: language => packFor(registry, language).subjects ?? noSubjects,
     renderParts: (language, parts, context) => renderWith(packFor(registry, language).rendering, parts, context),
     expandTargets: options => expandTargets(packFor(registry, options.language), options),
     explain: (language, subject, locale) => explainSubject(packFor(registry, language), catalogFor(locale), locale, subject),

@@ -1,0 +1,165 @@
+import { describe, expect, it } from 'vitest';
+import { createEngine } from '../../src/core/engine.js';
+import type { LanguagePack, SubjectSlot } from '../../src/core/pack.js';
+import { stagedEngine } from '../../src/core/staged.js';
+import { resolvedTargetKey, targetKey } from '../../src/core/target.js';
+import { getSubjects } from '../../src/index.js';
+import { packs } from '../../src/languages/index.js';
+import type { ConjugatedForm, ResolvedTarget } from '../../src/types.js';
+import { toyGrammar, toyPack, toyRendering, toySubjects } from '../toy/pack.js';
+
+const toy = createEngine({ xx: toyPack });
+const present = { language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', voice: 'active' } as const;
+
+function slot(id: string): SubjectSlot {
+  const found = toySubjects.find(subject => subject.id === id);
+  if (!found) throw new Error(`No toy slot ${id}.`);
+  return found;
+}
+
+const invalid = (code: string, message?: unknown) => expect.objectContaining({ code, ...(message === undefined ? {} : { message }) });
+const summary = (form: ConjugatedForm) => [form.text, form.target.subject, form.preferred];
+
+describe('subject slots', () => {
+  it('expands default slots only', () => {
+    const forms = toy.conjugate(present).forms;
+    expect(forms.map(form => form.text)).toEqual(['mi placo', 'tu placas', 'il placat', 'nos placamos', 'vos plaquetes', 'ils placant']);
+    expect(forms.map(form => form.target.subject)).toEqual(['1sg', '2sg', '3sg', '1pl', '2pl', '3pl']);
+    expect(forms.map(form => form.parts[0]!.text)).toEqual(['mi', 'tu', 'il', 'nos', 'vos', 'ils']);
+    // il is masculine, but without genderedTargets a slot's gender stays off the target.
+    expect(forms.every(form => form.target.gender === null)).toBe(true);
+    const { voice: _, ...bothVoices } = present;
+    expect(toy.expandTargets(bothVoices).map(target => `${target.voice} ${target.subject}`)).toEqual([
+      'active 1sg', 'active 2sg', 'active 3sg', 'active 1pl', 'active 2pl', 'active 3pl',
+      'passive 1sg', 'passive 2sg', 'passive 3sg', 'passive 1pl', 'passive 2pl', 'passive 3pl',
+    ]);
+  });
+
+  it('returns a non-default slot on request', () => {
+    const [form, ...rest] = toy.conjugate({ ...present, subject: '3sg.f' }).forms;
+    expect(rest).toEqual([]);
+    expect(form!.text).toBe('ila placat');
+    expect(form!.target).toEqual({ mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null, voice: 'active', subject: '3sg.f' });
+    expect(form!.parts[0]!.features).toMatchObject({ person: 3, number: 'singular', gender: 'feminine' });
+
+    const gendered = createEngine({ xx: { ...toyPack, genderedTargets: true } });
+    expect(gendered.conjugate({ ...present, subject: '3sg.f' }).forms.map(f => [f.text, f.target.gender])).toEqual([['ila placat', 'feminine']]);
+    // Default slots carry their gender too; a slot without one stays null.
+    expect(gendered.conjugate({ ...present, number: 'singular' }).forms.map(f => [f.text, f.target.gender])).toEqual([
+      ['mi placo', null], ['tu placas', null], ['il placat', 'masculine'],
+    ]);
+  });
+
+  it('conjugates a formal slot with the person it governs', () => {
+    const forms = toy.conjugate({ ...present, subject: '2sg.formal' }).forms;
+    expect(forms.map(form => [form.text, form.target.person, form.target.number, form.target.subject]))
+      .toEqual([['Vu placat', 3, 'singular', '2sg.formal']]);
+    // The person and number filters select the verb's person, not the one the slot addresses.
+    expect(toy.conjugate({ ...present, subject: '2sg.formal', person: 3 }).forms.map(form => form.text)).toEqual(['Vu placat']);
+    expect(() => toy.conjugate({ ...present, subject: '2sg.formal', person: 2 })).toThrow(invalid('INVALID_TARGET'));
+  });
+
+  it('rejects an unknown subject and a subject on a pack without slots', () => {
+    expect(() => toy.conjugate({ ...present, subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
+    const legacy = createEngine(packs);
+    expect(() => legacy.conjugate({ language: 'fr', infinitive: 'aimer', subject: '1sg' }))
+      .toThrow(invalid('INVALID_REQUEST', 'Unknown fr option: subject.'));
+    expect(() => legacy.conjugate({ language: 'nl', infinitive: 'werken', subject: '1sg' }))
+      .toThrow(invalid('INVALID_REQUEST', 'Unknown nl option: subject.'));
+  });
+
+  it('rejects a subject the tense does not have', () => {
+    const imperative = { language: 'xx', infinitive: 'placa', mood: 'imperative', tense: 'present' } as const;
+    // The toy imperative has only 2sg, and the toy clause gives it no subject pronoun.
+    const forms = toy.conjugate(imperative).forms;
+    expect(forms.map(form => [form.text, form.target.subject, form.parts.map(part => part.role)])).toEqual([['plaque', '2sg', ['lexicalVerb']]]);
+    expect(() => toy.conjugate({ ...imperative, subject: '2sg.formal' })).toThrow(invalid('INVALID_TARGET'));
+  });
+
+  it('keeps legacy targets structurally unchanged', () => {
+    const legacy = createEngine(packs);
+    for (const [language, infinitive] of [['fr', 'aimer'], ['nl', 'werken']] as const) {
+      const targets = legacy.expandTargets({ language, infinitive });
+      expect(targets.some(target => Object.hasOwn(target, 'subject'))).toBe(false);
+      const finite = targets.find(target => target.person !== null)!;
+      expect(Object.keys(finite)).toEqual(['mood', 'tense', 'person', 'number', 'gender', 'agreement']);
+      const query = { language, infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'singular' };
+      expect(Object.hasOwn(legacy.conjugate(query).forms[0]!.target, 'subject')).toBe(false);
+      expect(legacy.getSubjects(language)).toEqual([]);
+    }
+  });
+
+  it('asking for a subject excludes entries without one', () => {
+    const targets = toy.expandTargets({ language: 'xx', infinitive: 'placa', subject: '3sg.f' });
+    expect(targets.every(target => target.subject === '3sg.f' && target.person === 3)).toBe(true);
+    expect(targets.map(target => `${target.mood}/${target.tense}`)).toEqual([
+      'indicative/present', 'indicative/present', 'indicative/past', 'indicative/perfect', 'indicative/perfect',
+      'indicative/future', 'conditional/past',
+    ]);
+    const unfiltered = toy.expandTargets({ language: 'xx', infinitive: 'placa', mood: 'participle' });
+    expect(unfiltered.map(target => Object.hasOwn(target, 'subject'))).toEqual([false, false]);
+  });
+
+  it('orders the slots of one person by the pack\'s subjects and ranks each slot as its own target', () => {
+    const everyDefault = createEngine({ xx: { ...toyPack, subjects: toySubjects.map(subject => ({ ...subject, default: true })) } });
+    // grapha has a rectified and a traditional spelling: each slot keeps both and prefers its own rectified form.
+    const forms = everyDefault.conjugate({ ...present, infinitive: 'grapha', person: 3, number: 'singular' }).forms;
+    expect(forms.map(summary)).toEqual([
+      ['il grafat', '3sg', true], ['il graphat', '3sg', false],
+      ['ila grafat', '3sg.f', true], ['ila graphat', '3sg.f', false],
+      ['Vu grafat', '2sg.formal', true], ['Vu graphat', '2sg.formal', false],
+    ]);
+    expect(new Set(forms.map(form => resolvedTargetKey(form.target))).size).toBe(3);
+  });
+
+  it('lets a pack choose the slots through subjectsFor, then applies person and number', () => {
+    const queries: unknown[] = [];
+    const chosen: LanguagePack = {
+      ...toyPack,
+      subjectsFor(query) {
+        queries.push(query.infinitive);
+        return [slot('2sg.formal'), slot('3sg.f'), slot('1pl')];
+      },
+    };
+    const engine = createEngine({ xx: chosen });
+    expect(engine.conjugate(present).forms.map(form => form.text)).toEqual(['ila placat', 'Vu placat', 'nos placamos']);
+    expect(engine.conjugate({ ...present, person: 3 }).forms.map(form => form.text)).toEqual(['ila placat', 'Vu placat']);
+    expect(() => engine.conjugate({ ...present, number: 'plural', person: 3 })).toThrow(invalid('INVALID_TARGET'));
+    expect(queries.every(infinitive => infinitive === 'placa')).toBe(true);
+  });
+
+  it('gives the clause the slot the core resolved, and fails when generate is given another', () => {
+    const engine = stagedEngine(toyGrammar, toyRendering, present);
+    const target: ResolvedTarget = { mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null, voice: 'active', subject: '3sg.f' };
+    expect(engine.generate(target, slot('3sg.f')).forms.map(form => form.parts.map(part => part.text))).toEqual([['ila', 'placat']]);
+    for (const given of [undefined, null, slot('3sg')]) {
+      expect(() => engine.generate(target, given)).toThrow(invalid('GENERATION_FAILURE', expect.stringContaining('3sg.f')));
+    }
+  });
+
+  it('lists a language\'s slots', () => {
+    expect(toy.getSubjects('xx')).toBe(toySubjects);
+    expect(toySubjects.filter(subject => subject.default).map(subject => subject.pronoun)).toEqual(['mi', 'tu', 'il', 'nos', 'vos', 'ils']);
+    expect(getSubjects('fr')).toEqual([]);
+    expect(getSubjects('nl')).toEqual([]);
+    expect(() => toy.getSubjects('zz')).toThrow(invalid('UNSUPPORTED_LANGUAGE'));
+  });
+
+  it('rejects a pack that declares one slot id twice', () => {
+    expect(() => createEngine({ xx: { ...toyPack, subjects: [...toySubjects, { ...slot('3sg.f'), pronoun: 'ela' }] } }))
+      .toThrow(invalid('INVALID_REQUEST', 'The xx pack declares the subject 3sg.f twice.'));
+  });
+});
+
+describe('target keys with a subject', () => {
+  const base: ResolvedTarget = { mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null };
+
+  it('include the subject id when present and keep keys without it unchanged', () => {
+    expect(targetKey(base)).toBe('indicative/present/3/singular');
+    expect(targetKey({ ...base, subject: '3sg.f' })).toBe('indicative/present/3/singular/3sg.f');
+    expect(targetKey({ ...base, voice: 'active', subject: '3sg.f' })).toBe('indicative/present/3/singular/active/3sg.f');
+    expect(resolvedTargetKey(base)).toBe('["indicative","present",3,"singular",null,null,null]');
+    expect(resolvedTargetKey({ ...base, subject: '3sg.f' })).toBe('["indicative","present",3,"singular",null,null,null,{"subject":"3sg.f"}]');
+    expect(resolvedTargetKey({ ...base, subject: '3sg.f' })).not.toBe(resolvedTargetKey({ ...base, subject: '2sg.formal' }));
+  });
+});

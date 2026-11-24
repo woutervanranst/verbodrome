@@ -64,6 +64,8 @@ export interface ResolvedTarget {
   readonly agreement: Agreement | null;
   /** Present only for catalogue entries that have voices; `null` and absent both mean no voice dimension. */
   readonly voice?: Voice | null;
+  /** The id of the pack's subject slot; present only on finite targets of a pack that declares subjects. */
+  readonly subject?: string;
 }
 
 export type PartRole = 'moodMarker' | 'subject' | 'reflexivePronoun' | 'auxiliary' | 'lexicalVerb' | 'particle' | 'linker';

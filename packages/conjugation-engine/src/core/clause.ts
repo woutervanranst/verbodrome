@@ -3,7 +3,7 @@ import type { ConjugationPart, Mood, PartFeatures, ResolvedTarget, Tense } from 
 import type { DerivationStep } from './derivation.js';
 import type { Fork } from './fork.js';
 import type { Agreement } from './grammar.js';
-import type { PackRendering } from './pack.js';
+import type { PackRendering, SubjectSlot } from './pack.js';
 import type { Cell, LexemeBase } from './staged.js';
 
 /** One word of the verb chain as synthesised: `cell` and `lemma` are null for literal words, `steps` are word-level. */
@@ -21,6 +21,11 @@ export interface ClauseContext<X extends LexemeBase> {
   readonly lexeme: X;
   /** The target being built; in `assemble`, with the agreement chosen for this form. */
   readonly target: ResolvedTarget;
+  /**
+   * The slot `target.subject` names: its pronoun, and its gender even where the target has none (`genderedTargets`
+   * unset). Null for a target without a subject slot.
+   */
+  readonly subject: SubjectSlot | null;
   /** The perfect auxiliary this run uses, or null. */
   readonly auxiliary: string | null;
   /** The pack's rendering, for building parts. */

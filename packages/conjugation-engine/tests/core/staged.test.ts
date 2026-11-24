@@ -425,7 +425,7 @@ describe('a target that is available but left without a form', () => {
   it('names the word whose synthesis came back empty', () => {
     const engine = toyWith({ ...toyGrammar, stem: (lexeme, cell) => lexeme.lemma === 'haba' ? [] : toyGrammar.stem(lexeme, cell) });
     expect(() => engine.conjugate(perfect)).toThrow(expect.objectContaining({
-      code: 'GENERATION_FAILURE', message: expect.stringMatching(/indicative\/perfect\/3\/singular\/active of zorpa: the stem stage came back empty for haba\b/u),
+      code: 'GENERATION_FAILURE', message: expect.stringMatching(/indicative\/perfect\/3\/singular\/active\/3sg of zorpa: the stem stage came back empty for haba\b/u),
     }));
     const withoutAuxiliary = toyWith({
       ...toyGrammar,

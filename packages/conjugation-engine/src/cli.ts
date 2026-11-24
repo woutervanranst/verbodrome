@@ -18,6 +18,7 @@ const commonHelp = [
   ['--tense <id>', 'Tense (omit for all)'],
   ['--person <1|2|3>', 'Finite grammatical person'],
   ['--number <singular|plural>', ''],
+  ['--subject <id>', 'Subject slot, for a language that declares them'],
   ['--json', 'Complete structured result'],
   ['--bare', 'Omit the finite subject and any conjunction such as the French subjunctive que'],
   ['--explain', 'Print the rule behind each step of a form, indented under it (JSON: an explanation per form)'],
@@ -104,6 +105,7 @@ function flagValue(flag: Flag, raw: string): unknown {
 function targetLabel(target: ResolvedTarget, labels: { mood: string; tense: string }): string {
   return [
     labels.mood, labels.tense, ...(target.person ? [`${target.person} ${target.number}`] : []),
+    ...(target.subject ? [target.subject] : []),
     ...(target.gender ? [target.gender] : []),
     ...(target.agreement ? [`participle ${target.agreement.gender} ${target.agreement.number}`] : []),
   ].join(' / ');
@@ -123,7 +125,7 @@ try {
   const flags = unionFlags();
   const declared: ParseArgsOptionsConfig = {
     mood: { type: 'string' }, tense: { type: 'string' }, person: { type: 'string' }, number: { type: 'string' },
-    json: { type: 'boolean' }, bare: { type: 'boolean' }, help: { type: 'boolean' },
+    subject: { type: 'string' }, json: { type: 'boolean' }, bare: { type: 'boolean' }, help: { type: 'boolean' },
     explain: { type: 'boolean' }, locale: { type: 'string' },
   };
   for (const { name, shape } of flags) {
@@ -136,7 +138,7 @@ try {
   } else {
     if (positionals.length !== 2) throw new ConjugationError('INVALID_REQUEST', 'Expected language and infinitive. Use --help for usage.');
     const options: Record<string, unknown> = { language: positionals[0], infinitive: positionals[1] };
-    for (const key of ['mood', 'tense', 'number'] as const) if (values[key] !== undefined) options[key] = values[key];
+    for (const key of ['mood', 'tense', 'number', 'subject'] as const) if (values[key] !== undefined) options[key] = values[key];
     if (values.person !== undefined) options.person = Number(values.person);
     for (const flag of flags) {
       const given = values[flag.name];

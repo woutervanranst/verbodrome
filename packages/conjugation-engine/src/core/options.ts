@@ -125,17 +125,18 @@ function normalizeSpelling(normalized: Record<string, unknown>, schema: OptionSc
 
 /**
  * Normalizes spelling, validates against the registered packs and returns a clone without undefined values.
- * Every language's keys, values and cross-field rules come from its pack's option schema.
+ * Every language's keys, values and cross-field rules come from its pack's option schema; `subject` is a common key
+ * only for a pack that declares subject slots, and must be one of their ids.
  * Does not check that the grammatical filters match a target; the engine's target expansion does.
  */
 export function parseOptions(packs: Readonly<Record<string, LanguagePack>>, value: unknown): Record<string, unknown> {
   if (!isRecord(value)) throw new ConjugationError('INVALID_REQUEST', 'Conjugation options must be an object.');
-  const { catalogue, options: schema } = packFor(packs, value.language);
+  const { catalogue, options: schema, subjects = [] } = packFor(packs, value.language);
   const language = String(value.language);
   const normalized = { ...value };
   normalizeSpelling(normalized, schema);
 
-  const common = ['language', 'infinitive', 'mood', 'tense', 'person', 'number'];
+  const common = ['language', 'infinitive', 'mood', 'tense', 'person', 'number', ...(subjects.length ? ['subject'] : [])];
   for (const key of Object.keys(normalized)) {
     if (!common.includes(key) && !Object.hasOwn(schema.fields, key)) {
       throw new ConjugationError('INVALID_REQUEST', `Unknown ${language} option: ${key}.`);
@@ -148,6 +149,7 @@ export function parseOptions(packs: Readonly<Record<string, LanguagePack>>, valu
   member(normalized.tense, catalogue.map(e => e.tense), 'tense');
   member(normalized.person, [1, 2, 3], 'person');
   member(normalized.number, numbers, 'number');
+  if (subjects.length) member(normalized.subject, subjects.map(slot => slot.id), 'subject');
   for (const [key, spec] of Object.entries(schema.fields)) validateField(key, spec, normalized[key], language);
   schema.check?.(normalized);
 

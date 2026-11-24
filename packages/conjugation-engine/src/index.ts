@@ -1,7 +1,7 @@
 export { conjugate } from './conjugate.js';
 export { conjugationOptions, ConjugationOptionsBuilder, parseConjugationOptions } from './options.js';
 export { renderParts } from './render.js';
-export { getCatalogue } from './catalogue.js';
+export { getCatalogue, getSubjects } from './catalogue.js';
 export { explain } from './explain.js';
 export { languages } from './default-engine.js';
 export { createEngine } from './core/engine.js';
@@ -11,7 +11,7 @@ export { stagedEngine, validateGrammar } from './core/staged.js';
 export { one, chain, combine } from './core/fork.js';
 export type { ConjugationErrorCode } from './errors.js';
 export type * from './types.js';
-export type { CatalogueEntry, LanguagePack, PackRendering } from './core/pack.js';
+export type { CatalogueEntry, LanguagePack, PackRendering, SubjectSlot } from './core/pack.js';
 export type { Engine } from './core/engine.js';
 export type { LanguageEngine } from './core/pack.js';
 export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';

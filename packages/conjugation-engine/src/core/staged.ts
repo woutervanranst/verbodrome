@@ -9,7 +9,7 @@ import type { Fork, Outcome, VariantTags } from './fork.js';
 import type { Agreement, GrammaticalNumber, Person, Voice } from './grammar.js';
 import { applyJunctureRules } from './juncture.js';
 import type { JunctureRule } from './juncture.js';
-import type { LanguageEngine, PackRendering } from './pack.js';
+import type { LanguageEngine, PackRendering, SubjectSlot } from './pack.js';
 import { periphrasesFor, periphrasisStep, reportedAuxiliary, usesPerfectAuxiliary } from './periphrasis.js';
 import type { ChainElement, Periphrasis, VerbRef } from './periphrasis.js';
 import { targetKey } from './target.js';
@@ -181,7 +181,8 @@ function periphrasisTags({ pattern, usage }: Periphrasis): VariantTags {
 /**
  * A LanguageEngine for one query: classifies the verb once, then builds each target from a simple cell or from the
  * periphrases that match it, synthesising every verb in the chain through the same grammar and letting the clause
- * grammar order the words. Synthesis and lexemes named by periphrases are memoised for this engine instance only.
+ * grammar order the words; the clause sees the subject slot `generate` is given, which must be the slot `target.subject`
+ * names (GENERATION_FAILURE otherwise). Synthesis and lexemes named by periphrases are memoised for this engine instance only.
  * Validates the grammar the first time it is given it. The analysis and every generated form are copies, so freezing
  * a result never freezes data the pack keeps (its lexicon, or forks and steps it reuses).
  */
@@ -279,9 +280,14 @@ export function stagedEngine<X extends LexemeBase>(
     }));
   }
 
-  function build(target: ResolvedTarget, construction: Construction<X>, noteEmpty: (stage: FormStage, lemma: string) => void): GeneratedForm[] {
+  function build(
+    target: ResolvedTarget,
+    subject: SubjectSlot | null,
+    construction: Construction<X>,
+    noteEmpty: (stage: FormStage, lemma: string) => void,
+  ): GeneratedForm[] {
     const { periphrasis, auxiliary, slots } = construction;
-    const context: ClauseContext<X> = { query, lexeme, target, auxiliary, rendering };
+    const context: ClauseContext<X> = { query, lexeme, target, subject, auxiliary, rendering };
     const agreements = slots.some(slot => slot.kind === 'verb' && slot.agree) ? grammar.clause.agreements(context) : one(null);
     // Classification tags apply to every form; the periphrasis step opens the form-level steps.
     const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], classified.tags);
@@ -326,7 +332,11 @@ export function stagedEngine<X extends LexemeBase>(
       assumptions: [...new Set(classified.steps.filter(s => s.kind === 'assumption').map(s => s.rule))],
       steps: classified.steps,
     }),
-    generate(target): GenerationResult {
+    generate(target, subject = null): GenerationResult {
+      if (subject?.id !== target.subject) {
+        const given = subject?.id ?? 'no subject slot';
+        throw new ConjugationError('GENERATION_FAILURE', `${targetKey(target)} has the subject ${target.subject ?? '(none)'}, but generate was given ${given}.`);
+      }
       const absent = grammar.availability(lexeme, target);
       if (absent) {
         return structuredClone({
@@ -336,7 +346,7 @@ export function stagedEngine<X extends LexemeBase>(
         });
       }
       const empty = emptyStages();
-      const forms = constructions(target).flatMap(construction => build(target, construction, empty.note));
+      const forms = constructions(target).flatMap(construction => build(target, subject, construction, empty.note));
       if (!forms.length) throw new ConjugationError('GENERATION_FAILURE', noFormMessage(target, lexeme.lemma, empty.first()));
       return structuredClone({ forms, unavailable: [] });
     },

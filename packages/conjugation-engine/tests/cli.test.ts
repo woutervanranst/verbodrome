@@ -141,6 +141,15 @@ describe('compiled CLI', () => {
     expect(result.stderr).toBe('INVALID_REQUEST: Unknown nl option: gender.\n');
   });
 
+  it('passes --subject to the engine, which rejects it for a language without subject slots', () => {
+    const common = run(['--help']).stdout.split('\n\n').find(section => section.startsWith('Common options:'));
+    expect(common).toContain('--subject <id>');
+    const result = run(['fr', 'aimer', '--subject', '1sg']);
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toBe('INVALID_REQUEST: Unknown fr option: subject.\n');
+  });
+
   it('prints no step lines for a language that records no steps yet', () => {
     const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present'];
     const explained = run([...args, '--explain']);

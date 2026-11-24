@@ -4,7 +4,7 @@ import { usageRank } from './fork.js';
 import type { OptionSchema } from './options.js';
 import type { Citation, Work } from './sources.js';
 import type {
-  ConjugationPart, FormVariant, GeneratedForm, GenerationResult, GrammaticalNumber, Mood, Onset, Orthography, Person,
+  ConjugationPart, FormVariant, Gender, GeneratedForm, GenerationResult, GrammaticalNumber, Mood, Onset, Orthography, Person,
   ResolvedTarget, Tense, VerbAnalysis, Voice,
 } from '../types.js';
 
@@ -12,7 +12,29 @@ import type {
 export interface LanguageEngine {
   readonly verbId: string;
   readonly analysis: VerbAnalysis;
-  generate(target: ResolvedTarget): GenerationResult;
+  /**
+   * The forms of `target`, or why it has none. `subject` is the slot `target.subject` names; the orchestrator always
+   * passes it (null for a target without a subject), so an engine never looks a slot up itself.
+   */
+  generate(target: ResolvedTarget, subject?: SubjectSlot | null): GenerationResult;
+}
+
+/**
+ * One subject a finite form can have. The verb agrees with `person` and `number`, which need not be the person the
+ * subject addresses: a formal 'you' that conjugates as a third person is a slot with person 3.
+ */
+export interface SubjectSlot {
+  /** Unique within the pack, e.g. '3sg.f', '2sg.formal'; the value of the `subject` option and of `ResolvedTarget.subject`. */
+  readonly id: string;
+  readonly person: Person;
+  readonly number: GrammaticalNumber;
+  /** null for a pro-drop language's unmarked subject. */
+  readonly pronoun: string | null;
+  /** Becomes `target.gender` only for a pack with `genderedTargets`; otherwise it is for the clause to read. */
+  readonly gender?: Gender;
+  readonly register?: 'formal' | 'informal';
+  /** Part of a query that does not name a subject. */
+  readonly default: boolean;
 }
 
 export interface CatalogueEntry {
@@ -41,6 +63,19 @@ export interface LanguagePack<L extends string = string> {
   readonly rendering: PackRendering;
   /** The language's own option keys and how each is validated; the common keys are validated by the core. */
   readonly options: OptionSchema;
+  /**
+   * The subjects a finite target can have, in output order within one person and number. A pack that declares slots
+   * gets one target per selected slot and accepts the common `subject` option; without slots, a finite target is one
+   * person and number with no `subject`.
+   */
+  readonly subjects?: readonly SubjectSlot[];
+  /**
+   * Slots to expand for this query, out of `subjects`; the person and number filters apply afterwards. Default
+   * (`defaultSubjectsFor`): the slot named by the common `subject` option, else every default slot.
+   */
+  subjectsFor?(query: Readonly<Record<string, unknown>>): readonly SubjectSlot[];
+  /** The subject's gender changes the verb phrase (French, Italian, Latin), so a target carries its slot's gender. */
+  readonly genderedTargets?: boolean;
   /** Extra target filter from language-specific options (Dutch `pronoun`). */
   acceptsTarget?(query: Readonly<Record<string, unknown>>, target: ResolvedTarget): boolean;
   /** Extra form filter after generation (French `agreement`). */
@@ -61,6 +96,11 @@ export function packFor(packs: Readonly<Record<string, LanguagePack>>, language:
   const pack = typeof language === 'string' && Object.hasOwn(packs, language) ? packs[language] : undefined;
   if (!pack) throw new ConjugationError('UNSUPPORTED_LANGUAGE', `Language must be one of: ${Object.keys(packs).join(', ')}.`);
   return pack;
+}
+
+/** The default `subjectsFor`: the slot the common `subject` option names, else every default slot. */
+export function defaultSubjectsFor(subjects: readonly SubjectSlot[], query: Readonly<Record<string, unknown>>): readonly SubjectSlot[] {
+  return query.subject === undefined ? subjects.filter(slot => slot.default) : subjects.filter(slot => slot.id === query.subject);
 }
 
 /** Every person/number slot, number-major: singular 1-2-3, then plural 1-2-3. */
