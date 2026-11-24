@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { alternatives, normalizeText, parseDutch, parseFrench } from '../scripts/corpus.ts';
+import { alternatives, normalizeText } from '../scripts/corpus/model.ts';
+import { parseDutch } from '../scripts/corpus/parsers/nl.ts';
+import { parseFrench } from '../scripts/corpus/parsers/fr.ts';
 
 describe('corpus import safeguards', () => {
   it('preserves source alternatives and apostrophe prefixes', () => {

@@ -1,0 +1,6 @@
+import { french } from './fr.ts';
+import { dutch } from './nl.ts';
+import type { CorpusLanguage } from '../model.ts';
+
+/** Languages with corpus data, in fixture and manifest order. A new language is one module plus one entry here. */
+export const corpusLanguages: readonly CorpusLanguage[] = [french, dutch];

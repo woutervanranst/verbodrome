@@ -95,9 +95,9 @@ Reference repository: [woutervanranst/VerbodromeX](https://github.com/woutervanr
 - [French source facts](https://github.com/woutervanranst/VerbodromeX/tree/3a9a01de3982049f9267326b4a4bd94f468d9439/code/VerbodromeX.Database.Parsers/SourceFiles/Fran%C3%A7ais): Le Conjugueur / Le Figaro, decoded as Windows-1252.
 - [Dutch source facts](https://github.com/woutervanranst/VerbodromeX/tree/3a9a01de3982049f9267326b4a4bd94f468d9439/code/VerbodromeX.Database.Parsers/SourceFiles/Nederlands): Verbix, decoded as UTF-8.
 
-Only normalized grammatical facts, contextual metadata, checksums, and correction provenance are included in development fixtures. Original HTML, site prose, advertisements, and page layouts are not redistributed in the package. Source attribution remains with the respective sites; this project does not assign a new license to their original material.
+Only normalized grammatical facts, contextual metadata, fixture checksums, and correction provenance are included in development fixtures. Original HTML, site prose, advertisements, and page layouts are not redistributed in the package. Source attribution remains with the respective sites; this project does not assign a new license to their original material.
 
-`scripts/import-corpus.ts` parses actual DOM sections and headings, decodes entities with fatal encoding checks, preserves meaningful accents and correlated alternatives, and rejects missing/unaccounted cells. It does not import the legacy C# parser's fixed offsets or its misleading passive-participle classification.
+`scripts/corpus/import.ts` parses actual DOM sections and headings, decodes entities with fatal encoding checks, preserves meaningful accents and correlated alternatives, and rejects missing/unaccounted cells. It does not import the legacy C# parser's fixed offsets or its misleading passive-participle classification.
 
 | Language | Files | Cells | Contextual targets | Available cells | Unavailable cells | Form expectations | Ledger records | Structural placeholders |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -108,7 +108,7 @@ Targets in this report are distinct corrected grammatical identities **within ea
 
 French tables have 118 cells per file, including conditional second-form and participle agreement rows. Dutch tables have 52 grammatical cells per file; the extra modern plural imperative is independently tested. `span.notused` is an availability marker even when a disabled Dutch cell still displays a mechanically generated spelling. Five invalid slots in each six-slot imperative template are explicitly counted as structural placeholders; `zullen` has no such template, giving 1,030 rather than 1,035.
 
-`tests/fixtures/manifest.json` inventories all 429 files with original byte checksums, encodings, grammatical context, fixture hashes, and accounting. `corrections.json` records file, zero-based cell index, original target/text, corrected interpretation, reason, and authoritative URL. Corrections are reproduced independently of the engine.
+`tests/fixtures/manifest.json` inventories all 429 files with their neutral identity and grammatical context, and records the pinned revision, a checksum of each fixture file, and the accounting per language. It holds no source file names, encodings, or checksums of the original pages. `corrections.json` records file, zero-based cell index, original target/text, corrected interpretation, reason, and authoritative URL. Corrections are reproduced independently of the engine.
 
 Examples include restoring missing vergissen reflexives, correcting gegeten/gemogen/gebannen, using the right Dutch perfect auxiliary, and fixing historical figurative pleuvoir stems. Repeated invariant French participle headings normalize to one applicable target. Accepted modern spelling is not a source mistake merely because it differs from traditional spelling.
 
@@ -130,6 +130,6 @@ npm run corpus:import -- --source .cache/verbodromex-reference
 npm run corpus:check
 ```
 
-The importer requires the exact revision and rejects local source-corpus modifications. `--output <directory>` can select another fixture destination. Changing the reference pin is an intentional reviewed change, not an automatic update to the latest remote data.
+The importer requires the exact revision and rejects local source-corpus modifications. `--output <directory>` can select another fixture destination, and `--only <language>` re-imports one language while keeping the others as the previous import left them. Each language lives in `scripts/corpus/languages/<language>.ts` (page parser, sourced corrections, and the engine queries the corpus test uses); `scripts/corpus/languages/index.ts` lists them. Re-importing the pinned checkout must leave `tests/fixtures` byte-identical. Changing the reference pin is an intentional reviewed change, not an automatic update to the latest remote data.
 
 Ordinary tests and CI use checked-in fixtures and never fetch grammar/corpus pages. CI installs development tooling from the npm lockfile, type-checks, builds, and runs the offline suite, including compiled CLI, ESM/package, browser-boundary, and full corpus checks.
