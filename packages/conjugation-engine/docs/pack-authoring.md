@@ -327,7 +327,7 @@ Registering a language is one line or one import in each of these shared files. 
 | `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
 | `README.md`, `docs/api.md` | the list of languages the package conjugates |
 
-`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, `nl`, the packs not yet migrated to the staged engine) names languages, and a new pack is never added to it.
+`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, the pack that has not started migrating to the staged engine) names languages, and a new pack is never added to it.
 
 A registered pack's option schema is typed against its spec (section 3); the toy `xx` is not registered, so it uses the generic `OptionSchema`.
 
@@ -379,7 +379,7 @@ export const toyPack: LanguagePack<'xx'> = {
 };
 ```
 
-`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` and `nl` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
+`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
 
 ### Testing a pack
 
@@ -900,7 +900,7 @@ export interface Citation {
 const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator });
 ```
 
-`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr` and `nl`.
+`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr`.
 
 ## 9. The rules a pack must follow
 

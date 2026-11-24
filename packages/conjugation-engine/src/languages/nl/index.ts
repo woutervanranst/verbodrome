@@ -6,7 +6,8 @@ import type {
 } from '../../types.js';
 import type { LanguageEngine } from '../adapter.js';
 import {
-  dutchExceptions, dutchLoans, inseparableDerivatives, inseparableVerbs, separableVerbs,
+  ambiguousPrefixVerbs as ambiguousPrefixes, dutchExceptions, dutchLoans, inseparableDerivatives, inseparableVerbs,
+  separableVerbs,
 } from './exceptions.js';
 import type { DutchDerivative, DutchLexeme } from './exceptions.js';
 import { nativeStem } from './orthography.js';
@@ -15,7 +16,6 @@ import { imperativeForms, participles, pastForms, presentForms } from './rules.j
 
 const subjects = ['ik', 'jij', 'hij', 'wij', 'jullie', 'zij'] as const;
 const reflexives = ['me', 'je', 'zich', 'ons', 'jullie', 'zich'] as const;
-const ambiguousPrefixes = new Set(['voorkomen', 'overleggen', 'doorlopen', 'overlopen', 'ondergaan']);
 
 function availability(lemma: string, lexical: DutchLexeme, target: ResolvedTarget): UnavailableTarget | null {
   let reason: UnavailableTarget['reason'] | null = null;
