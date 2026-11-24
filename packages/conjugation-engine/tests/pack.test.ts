@@ -32,4 +32,10 @@ describe('language packs', () => {
     expect(() => engine.expandTargets({ language: 'nl', infinitive: 'werken' })).toThrow(unsupported);
     expect(() => engine.renderParts('nl', [])).toThrow(unsupported);
   });
+
+  it('rejects a pack registered under another language code', () => {
+    expect(() => createEngine({ fr: packs.fr, de: packs.nl })).toThrow(expect.objectContaining({
+      code: 'INVALID_REQUEST', message: 'The pack registered as de is the pack for nl.',
+    }));
+  });
 });

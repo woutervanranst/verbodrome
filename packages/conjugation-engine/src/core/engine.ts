@@ -2,7 +2,7 @@ import { ConjugationError } from '../errors.js';
 import { deepFreeze } from '../parts.js';
 import type {
   ConjugatedForm, ConjugationOptions, ConjugationPart, ConjugationResult, GeneratedForm, GrammaticalNumber, Language,
-  Person, RenderContext, ResolvedTarget, UnavailableTarget,
+  Person, RenderContext, ResolvedTarget, UnavailableTarget, Voice,
 } from '../types.js';
 import { parseOptions } from './options.js';
 import { packFor } from './pack.js';
@@ -18,15 +18,23 @@ export interface Engine {
   readonly languages: readonly string[];
 }
 
+/** Identifies a catalogue slot. The voice takes part only when the target has one, so voiceless keys keep their old form. */
 export function targetKey(target: ResolvedTarget): string {
-  return `${target.mood}/${target.tense}/${target.person ?? '-'}/${target.number ?? '-'}`;
+  const key = `${target.mood}/${target.tense}/${target.person ?? '-'}/${target.number ?? '-'}`;
+  return target.voice ? `${key}/${target.voice}` : key;
 }
 
+/** Identifies a resolved target. Voice and agreement case are appended only when present, so other keys keep their old form. */
 export function resolvedTargetKey(target: ResolvedTarget): string {
-  return JSON.stringify([
+  const key: unknown[] = [
     target.mood, target.tense, target.person, target.number, target.gender,
     target.agreement?.gender ?? null, target.agreement?.number ?? null,
-  ]);
+  ];
+  const extra: Record<string, string> = {};
+  if (target.voice) extra.voice = target.voice;
+  if (target.agreement?.case) extra.case = target.agreement.case;
+  if (Object.keys(extra).length) key.push(extra);
+  return JSON.stringify(key);
 }
 
 export function catalogueLabels(catalogue: readonly CatalogueEntry[], target: ResolvedTarget): { mood: string; tense: string } {
@@ -38,18 +46,28 @@ export function catalogueLabels(catalogue: readonly CatalogueEntry[], target: Re
 /** The single person/number slot of a non-finite entry. */
 const nonFinite: readonly (readonly [null, null])[] = [[null, null]];
 
+/** The one "voice" of an entry without a voice dimension. */
+const noVoice: readonly (Voice | undefined)[] = [undefined];
+
+/** Targets in catalogue order: per entry, voice-major (the whole active paradigm, then the passive), then person/number. */
 function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unknown>>): ResolvedTarget[] {
   const targets: ResolvedTarget[] = [];
   for (const entry of pack.catalogue) {
     if (options.mood !== undefined && options.mood !== entry.mood) continue;
     if (options.tense !== undefined && options.tense !== entry.tense) continue;
     const slots: readonly (readonly [Person | null, GrammaticalNumber | null])[] = entry.finite ? entry.persons : nonFinite;
-    for (const [person, number] of slots) {
-      if (options.number !== undefined && options.number !== number) continue;
-      if (options.person !== undefined && options.person !== person) continue;
-      const target: ResolvedTarget = { mood: entry.mood, tense: entry.tense, person, number, gender: null, agreement: null };
-      if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
-      targets.push(target);
+    for (const voice of entry.voices?.length ? entry.voices : noVoice) {
+      // Like person on a non-finite entry: asking for a voice excludes entries without one.
+      if (options.voice !== undefined && options.voice !== voice) continue;
+      for (const [person, number] of slots) {
+        if (options.number !== undefined && options.number !== number) continue;
+        if (options.person !== undefined && options.person !== person) continue;
+        const target: ResolvedTarget = {
+          mood: entry.mood, tense: entry.tense, person, number, gender: null, agreement: null, ...(voice ? { voice } : {}),
+        };
+        if (pack.acceptsTarget && !pack.acceptsTarget(options, target)) continue;
+        targets.push(target);
+      }
     }
   }
   if (!targets.length) {
@@ -58,13 +76,23 @@ function expandTargets(pack: LanguagePack, options: Readonly<Record<string, unkn
   return targets;
 }
 
+/** What makes two forms the same form: target, parts and variant, ignoring spelling system and derivation steps. */
 function signature(form: GeneratedForm): string {
   const { orthography: _, ...variant } = form.variant;
-  return JSON.stringify([resolvedTargetKey(form.target), form.parts, variant]);
+  const parts = form.parts.map(({ steps: _steps, ...part }) => part);
+  return JSON.stringify([resolvedTargetKey(form.target), parts, variant]);
 }
 
-/** An engine over the given packs, keyed by language code; only those languages are accepted. */
+/**
+ * An engine over the given packs, keyed by language code; only those languages are accepted.
+ * Throws INVALID_REQUEST when a key differs from its pack's `language`.
+ */
 export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Engine {
+  for (const [language, pack] of Object.entries(packs)) {
+    if (pack.language !== language) {
+      throw new ConjugationError('INVALID_REQUEST', `The pack registered as ${language} is the pack for ${pack.language}.`);
+    }
+  }
   const registry: Readonly<Record<string, LanguagePack>> = Object.freeze({ ...packs });
 
   function conjugate(options: unknown): ConjugationResult {
@@ -90,6 +118,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>): Eng
         const key = signature(form);
         const previous = unique.get(key);
         if (!previous) unique.set(key, form);
+        // The first form keeps its parts and steps; ruleIds collect the rules of every form that collapsed into it.
         else unique.set(key, {
           ...previous,
           variant: { ...previous.variant, orthography: previous.variant.orthography === form.variant.orthography ? form.variant.orthography : 'both' },

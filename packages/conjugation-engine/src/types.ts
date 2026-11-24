@@ -1,19 +1,18 @@
 import type { DerivationStep } from './core/derivation.js';
+import type { Agreement, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
 import type { Language, LanguageRegistry } from './languages/registry.js';
 
 export type { DerivationStep } from './core/derivation.js';
+export type { Agreement, AgreementQuery, Case, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
 
 export type { Language } from './languages/registry.js';
 export type {
-  FrenchClassHint, FrenchSpec, FrenchStemHints, FrenchTenses,
+  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchTenses,
 } from './languages/fr/spec.js';
 export type {
   DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchTenses,
 } from './languages/nl/spec.js';
 
-export type Person = 1 | 2 | 3;
-export type GrammaticalNumber = 'singular' | 'plural';
-export type Gender = 'masculine' | 'feminine';
 export type Orthography = 'rectified' | 'traditional' | 'both';
 
 export type TensesFor<L extends Language> = LanguageRegistry[L]['tenses'];
@@ -42,16 +41,6 @@ type TargetQuery<L extends Language> =
     } & (M extends LanguageRegistry[L]['nonFinite'] ? NonFiniteConstraints : FiniteConstraints);
   }[keyof TensesFor<L>];
 
-export interface Agreement {
-  readonly gender: Gender;
-  readonly number: GrammaticalNumber;
-}
-
-export interface AgreementQuery {
-  readonly gender?: Gender;
-  readonly number?: GrammaticalNumber;
-}
-
 export type ConjugationOptionsFor<L extends Language> = {
   readonly language: L;
   readonly infinitive: string;
@@ -72,6 +61,8 @@ export interface ResolvedTarget {
   readonly number: GrammaticalNumber | null;
   readonly gender: Gender | null;
   readonly agreement: Agreement | null;
+  /** Present only for catalogue entries that have voices; `null` and absent both mean no voice dimension. */
+  readonly voice?: Voice | null;
 }
 
 export type PartRole = 'moodMarker' | 'subject' | 'reflexivePronoun' | 'auxiliary' | 'lexicalVerb' | 'particle' | 'linker';

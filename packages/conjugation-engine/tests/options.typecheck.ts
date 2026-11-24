@@ -21,6 +21,10 @@ export const nonFiniteNumber: ConjugationOptions = { language: 'nl', infinitive:
 export const dutchSubjunctive: ConjugationOptions = { language: 'nl', infinitive: 'werken', mood: 'subjunctive' };
 // @ts-expect-error French stems do not have a Dutch pastSuffix hint.
 export const frenchStems: ConjugationOptions = { language: 'fr', infinitive: 'aimer', stems: { pastSuffix: 't' } };
+// @ts-expect-error French has no neuter subject gender.
+export const frenchNeuter: ConjugationOptions = { language: 'fr', infinitive: 'aimer', gender: 'neuter' };
+// @ts-expect-error French participles do not agree in the neuter.
+export const frenchNeuterAgreement: ConjugationOptions = { language: 'fr', infinitive: 'aimer', agreement: { gender: 'neuter' } };
 
 export function checkBuilderLanguageConstraints(): void {
   // @ts-expect-error Dutch builders cannot set French gender.

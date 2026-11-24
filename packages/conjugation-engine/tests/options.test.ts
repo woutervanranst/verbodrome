@@ -29,6 +29,9 @@ describe('grammatical options', () => {
     { language: 'fr', infinitive: 'aimer', mood: 'participle', person: 1 },
     { language: 'nl', infinitive: 'werken', gender: 'feminine' },
     { language: 'fr', infinitive: 'aimer', stems: { future: '' } },
+    { language: 'fr', infinitive: 'aimer', gender: 'neuter' },
+    { language: 'fr', infinitive: 'aimer', agreement: { gender: 'neuter' } },
+    { language: 'fr', infinitive: 'aimer', voice: 'passive' },
   ])('rejects an invalid request explicitly: %j', options => {
     expect(() => parseConjugationOptions(options)).toThrow(ConjugationError);
   });

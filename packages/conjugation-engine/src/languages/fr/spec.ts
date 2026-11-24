@@ -1,5 +1,5 @@
+import type { GrammaticalNumber } from '../../core/grammar.js';
 import type { LanguageSpec } from '../../core/spec.js';
-import type { Agreement, AgreementQuery, Gender } from '../../types.js';
 
 export type FrenchTenses = {
   indicative:
@@ -15,6 +15,14 @@ export type FrenchTenses = {
 };
 
 export type FrenchClassHint = 'er' | 'ir' | 're';
+
+/** French has no neuter: its gender and agreement options take only these two. */
+export type FrenchGender = 'masculine' | 'feminine';
+
+export interface FrenchAgreement {
+  readonly gender: FrenchGender;
+  readonly number: GrammaticalNumber;
+}
 
 export interface FrenchStemHints {
   readonly singular?: string;
@@ -33,9 +41,9 @@ export interface FrenchSpec extends LanguageSpec {
   classHint: FrenchClassHint;
   stems: FrenchStemHints;
   context: {
-    readonly gender?: Gender;
-    readonly agreement?: AgreementQuery;
-    readonly precedingDirectObject?: Agreement;
+    readonly gender?: FrenchGender;
+    readonly agreement?: Partial<FrenchAgreement>;
+    readonly precedingDirectObject?: FrenchAgreement;
     readonly reflexiveObject?: 'direct' | 'indirect';
     readonly model?: string;
     readonly aspiratedH?: boolean;

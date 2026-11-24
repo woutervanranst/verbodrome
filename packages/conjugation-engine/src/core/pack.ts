@@ -2,13 +2,18 @@ import { ConjugationError } from '../errors.js';
 import type { LanguageEngine } from '../languages/adapter.js';
 import type { OptionSchema } from './options.js';
 import type {
-  ConjugationPart, FormVariant, GeneratedForm, GrammaticalNumber, Mood, Onset, Orthography, Person, ResolvedTarget, Tense,
+  ConjugationPart, FormVariant, GeneratedForm, GrammaticalNumber, Mood, Onset, Orthography, Person, ResolvedTarget, Tense, Voice,
 } from '../types.js';
 
 export interface CatalogueEntry {
   readonly mood: Mood; readonly tense: Tense; readonly moodLabel: string; readonly tenseLabel: string; readonly finite: boolean;
   /** Finite entries: the person/number slots that exist, in output order. Empty for non-finite entries. */
   readonly persons: readonly (readonly [Person, GrammaticalNumber])[];
+  /**
+   * The voices the entry exists in, in output order; each slot becomes one target per voice. Absent: the entry has no
+   * voice dimension and its targets have no `voice`. A pack with voices declares a `voice` enum option to filter by.
+   */
+  readonly voices?: readonly Voice[];
 }
 
 export interface PackRendering {
