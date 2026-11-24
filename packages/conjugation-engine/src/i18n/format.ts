@@ -33,8 +33,11 @@ function parse(source: string): Branch {
 
 class Parser {
   private pos = 0;
+  private readonly src: string;
 
-  constructor(private readonly src: string) {}
+  constructor(src: string) {
+    this.src = src;
+  }
 
   parseMessage(): Branch {
     const nodes = this.parseNodes(false, false);

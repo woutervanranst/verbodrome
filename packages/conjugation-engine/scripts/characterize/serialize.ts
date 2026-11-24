@@ -11,6 +11,12 @@ export interface IntendedDiff {
   readonly was: string | null;
   /** The line that replaces it, or null when the line is removed. */
   readonly now: string | null;
+  /**
+   * Only for an added line (`was: null`): the existing line it goes directly after, or null for the start of the forms
+   * section (directly after the analysis line). Absent, the line goes at the end of the block. A reorder is a removal
+   * plus an insertion.
+   */
+  readonly after?: string | null;
   readonly reason: string;
   readonly source: string;
 }
