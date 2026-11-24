@@ -1,6 +1,6 @@
 # Writing a language pack
 
-This is the reference for adding a language to the engine. It documents the contract as the code has it: the signatures are copied from `src/core/`, and every worked example is lifted from `tests/toy/pack.ts`, the invented language `xx` that exercises every hook and is known to compile and pass. Read this guide and that file, and you can write a pack.
+This is the reference for adding a language to the engine. It documents the contract as the code has it: every `ts signature` block is a declaration copied from the source file named after it, and every `ts toy` block is lifted from `tests/toy/pack.ts` (or its messages), the invented language `xx` that exercises every hook and is known to compile and pass. `tests/docs.test.ts` fails when either drifts. Read this guide, the toy pack and your language's plan, and you can write a pack.
 
 Everything a pack is written with is exported from `conjugation-engine/core` (`src/core/index.ts`); inside this package, import the source files by path. The package root (`conjugation-engine`) is the consumer API (`conjugate`, `renderParts`, `getCatalogue`, ...), plus `createEngine`, `packs` and `locales` so a consumer can assemble an engine of its own.
 
@@ -8,15 +8,80 @@ A pack derives every form by recorded rules. A rule is a step (`rule`, `before`,
 
 ## 1. The stages and their hooks
 
-A language's grammar is a `StagedGrammar<X>` where `X` is the pack's lexeme type (an interface extending `LexemeBase`: lemma, verb id, class, auxiliaries, particle, plus whatever lexical data the pack needs). `stagedEngine(grammar, rendering, query)` turns it into the `LanguageEngine` a pack's `engine(query)` returns. For one query it runs `classify` once, then for each target builds the cell (a word) or the periphrasis (several words), orders the words with the clause grammar, and collects the steps.
+A language's grammar is a `StagedGrammar<X>` where `X` is the pack's lexeme type: an interface extending `LexemeBase` with whatever lexical data the pack needs (the toy's `ToyLexeme` adds `base`, `present`, `listedStems`, `hasParticiple`, `longPlural`, `deponent`). `stagedEngine(grammar, rendering, query)` turns it into the `LanguageEngine` a pack's `engine(query)` returns. For one query it runs `classify` once, then for each target builds the cell (a word) or the periphrasis (several words), orders the words with the clause grammar, and collects the steps.
+
+```ts signature src/core/staged.ts
+export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
+  classify(query: Readonly<Record<string, unknown>>): Fork<X>;
+  lexemeOf(lemma: string): X;
+  cellOf(target: ResolvedTarget, lexeme: X): Cell | null;
+  availability(lexeme: X, target: ResolvedTarget): Unavailability | null;
+  cell?(lexeme: X, cell: Cell): Fork<string> | null;
+  stem(lexeme: X, cell: Cell): Fork<string>;
+  ending(lexeme: X, cell: Cell, stem: string): Fork<string>;
+  readonly orthography: readonly JunctureRule<{ readonly lexeme: X; readonly cell: Cell }>[];
+  readonly periphrases: readonly Periphrasis<X>[];
+  readonly clause: ClauseGrammar<X>;
+}
+```
 
 The order for one target of one paradigm: `availability` (is there a form at all?), `cellOf` (is it one word, and which?), then per cell `cell` / `stem` -> `ending` -> `orthography`; for a periphrasis, the cells of its verbs the same way, then `clause.agreements` and `clause.assemble`. The hook names below are checked against the toy grammar by `tests/docs.test.ts`.
 
 A hook that has nothing to say returns `one(value)` (a one-outcome fork without steps), `null` where the type allows it, or `[]` where an empty fork is meaningful. An empty fork never means "this form does not exist" (see section 7).
 
+### The types the hooks are written against
+
+A target is what the engine asks a grammar to build. `mood` and `tense` are the pack's own ids (the registry's `Mood` and `Tense` once the pack is registered); `person` and `number` are `null` for a non-finite target; `gender` is the subject slot's gender in a pack with `genderedTargets`, otherwise `null`; `agreement` is `null` until `clause.agreements` has chosen one (it is set in `assemble`'s `target`); `voice` is present only for catalogue entries that have voices (active is `'active'` there); `subject` is the slot id, present only on finite targets of a pack with slots.
+
+```ts signature src/types.ts
+export interface ResolvedTarget {
+  readonly mood: Mood;
+  readonly tense: Tense;
+  readonly person: Person | null;
+  readonly number: GrammaticalNumber | null;
+  readonly gender: Gender | null;
+  readonly agreement: Agreement | null;
+  readonly voice?: Voice | null;
+  readonly subject?: string;
+}
+```
+
+A lexeme is what `classify` produces for a verb and the hooks read. A pack's own lexeme type extends it.
+
+```ts signature src/core/grammar.ts
+export interface LexemeBase {
+  readonly lemma: string;
+  readonly verbId: string;
+  readonly classId: string;
+  readonly classSource: VerbAnalysis['classificationSource'];
+  readonly reflexive: boolean;
+  readonly auxiliaries: readonly string[];
+  readonly particle: { readonly text: string; readonly separable: boolean } | null;
+}
+```
+
+`lemma` is the infinitive as queried (after normalisation); `verbId` identifies the verb in results; `classId` is the conjugation class or model the verb follows (`analysis.classification`), and `classSource` says where that came from (`lexicon`, `regularRule` for a productive default, `explicitHint` for an option); `reflexive` marks a reflexive verb (the clause adds the pronoun); `auxiliaries` are the perfect auxiliaries in output order, which a periphrasis using `perfectAuxiliary` runs once for each; `particle` is a verbal particle that the clause places (`separable` says whether it splits off), or `null`.
+
+The grammatical vocabulary that cells and agreements use:
+
+```ts signature src/core/grammar.ts
+export type Person = 1 | 2 | 3;
+export type GrammaticalNumber = 'singular' | 'plural';
+export type Gender = 'masculine' | 'feminine' | 'neuter';
+export type Voice = 'active' | 'passive';
+export type Case = 'nominative' | 'genitive' | 'dative' | 'accusative' | 'ablative' | 'vocative';
+```
+```ts signature src/core/grammar.ts
+export interface Agreement {
+  readonly gender: Gender;
+  readonly number: GrammaticalNumber;
+  readonly case?: Case;
+}
+```
+
 ### `classify`
 
-```ts signature
+```ts signature src/core/staged.ts
 classify(query: Readonly<Record<string, unknown>>): Fork<X>;
 ```
 
@@ -32,11 +97,11 @@ classify(query) {
 
 ### `lexemeOf`
 
-```ts signature
+```ts signature src/core/staged.ts
 lexemeOf(lemma: string): X;
 ```
 
-The lexeme of a verb a periphrasis names by lemma (an auxiliary such as `haba`). It has one paradigm, no hints; the engine memoises it per engine. The toy passes its function straight in (`lexemeOf,`):
+The lexeme of a verb a periphrasis names by lemma (an auxiliary such as `haba`). It has one paradigm and no hints; the engine memoises it per engine. The toy passes its function straight in (`lexemeOf,`):
 
 ```ts toy
 function lexemeOf(lemma: string, reading?: Reading): ToyLexeme {
@@ -47,19 +112,19 @@ function lexemeOf(lemma: string, reading?: Reading): ToyLexeme {
 
 ### `cellOf`
 
-```ts signature
+```ts signature src/core/staged.ts
 cellOf(target: ResolvedTarget, lexeme: X): Cell | null;
 ```
 
-Which simple cell the target maps to for this lexeme, or `null` when the target is periphrastic for it (a tense can be one word for one verb and a compound for another: a deponent's perfect). When it returns a cell, that cell builds the target and no periphrasis runs; when it returns `null`, the periphrases that match the target and apply to the lexeme build it, and none is a GENERATION_FAILURE. The engine also calls it for the finite elements of a periphrasis, with a voiceless target of the element's mood and tense (person, number and gender from the real target, no agreement) and the lexeme of the verb the element names; it then returns the active cell, or `null` if that mood and tense are periphrastic for that verb (periphrases never nest).
+Which simple cell the target maps to for this lexeme, or `null` when the target is periphrastic for it (a tense can be one word for one verb and a compound for another: a deponent's perfect). When it returns a cell, that cell builds the target and no periphrasis runs; when it returns `null`, the periphrases that match the target and apply to the lexeme build it, and none is a GENERATION_FAILURE. The engine also calls it for the finite elements of a periphrasis, with a voiceless target of the element's mood and tense (person, number and gender from the real target, no agreement) and the lexeme of the verb the element names; it then returns the active cell, or `null` if that mood and tense are periphrastic for that verb (periphrases never nest). A `nonFinite` chain element is not asked of `cellOf`: its cell is built directly from the element (section 6).
 
-```ts signature
+```ts signature src/core/staged.ts
 export type Cell =
-| {
-readonly kind: 'finite'; readonly mood: string; readonly tense: string;
-readonly person: Person; readonly number: GrammaticalNumber; readonly voice?: Voice;
-}
-| { readonly kind: 'nonFinite'; readonly form: string; readonly agreement?: Agreement; readonly voice?: Voice };
+  | {
+    readonly kind: 'finite'; readonly mood: string; readonly tense: string;
+    readonly person: Person; readonly number: GrammaticalNumber; readonly voice?: Voice;
+  }
+  | { readonly kind: 'nonFinite'; readonly form: string; readonly agreement?: Agreement; readonly voice?: Voice };
 ```
 
 A cell speaks the pack's own mood, tense and form ids. An absent `voice` means active: write `voice` only for a marked voice, so the cell of an active target and the cell a chain element asks for are one cell and share one synthesis. The toy's `cellOf`, end:
@@ -75,8 +140,10 @@ kind: 'finite', mood: 'indicative', tense: target.tense, person: target.person, 
 
 ### `availability`
 
-```ts signature
+```ts signature src/core/staged.ts
 availability(lexeme: X, target: ResolvedTarget): Unavailability | null;
+```
+```ts signature src/core/staged.ts
 export interface Unavailability { readonly reason: UnavailableTarget['reason']; readonly step: DerivationStep; readonly source: string }
 ```
 
@@ -92,7 +159,7 @@ availability(lexeme, target) {
 
 ### `cell`
 
-```ts signature
+```ts signature src/core/staged.ts
 cell?(lexeme: X, cell: Cell): Fork<string> | null;
 ```
 
@@ -108,7 +175,7 @@ cell(lexeme, cell) {
 
 ### `stem`
 
-```ts signature
+```ts signature src/core/staged.ts
 stem(lexeme: X, cell: Cell): Fork<string>;
 ```
 
@@ -125,7 +192,7 @@ stem(lexeme, cell) {
 
 ### `ending`
 
-```ts signature
+```ts signature src/core/staged.ts
 ending(lexeme: X, cell: Cell, stem: string): Fork<string>;
 ```
 
@@ -140,7 +207,7 @@ if (cell.tense === 'simple_past') {
 
 ### `orthography`
 
-```ts signature
+```ts signature src/core/staged.ts
 readonly orthography: readonly JunctureRule<{ readonly lexeme: X; readonly cell: Cell }>[];
 ```
 
@@ -152,7 +219,7 @@ orthography: [cQu, phF],
 
 ### `periphrases`
 
-```ts signature
+```ts signature src/core/staged.ts
 readonly periphrases: readonly Periphrasis<X>[];
 ```
 
@@ -164,7 +231,7 @@ periphrases,
 
 ### `clause.agreements`
 
-```ts signature
+```ts signature src/core/clause.ts
 agreements(context: ClauseContext<X>): Fork<Agreement | null>;
 ```
 
@@ -184,11 +251,11 @@ agreements({ target, agreeing, auxiliary }) {
 
 ### `clause.assemble`
 
-```ts signature
+```ts signature src/core/clause.ts
 assemble(words: readonly ChainWord[], context: ClauseContext<X>): Fork<readonly ConjugationPart[]>;
 ```
 
-Orders the verb chain (given in recipe order) and adds the subject, clitics and particles, returning the parts of the form. Its outcome steps are clause-level steps of the form; each part carries its own word's steps, which `wordPart` copies. The toy's (it builds the verbs, places a separable particle, adds the pronoun of the subject slot):
+Orders the verb chain (given in recipe order) and adds the subject, clitics and particles, returning the parts of the form. Its outcome steps are clause-level steps of the form; each part carries its own word's steps, which `wordPart` copies. The toy's (it builds the verbs, places a separable particle, and adds the pronoun of the subject slot):
 
 ```ts toy
 assemble(words, { lexeme, target, subject, rendering }) {
@@ -203,9 +270,13 @@ assemble(words, { lexeme, target, subject, rendering }) {
     return wordPart(rendering, { ...word, text: attached, steps: [...word.steps, attachStep] }, features);
   });
   const pronoun = target.mood === 'imperative' ? null : subject?.pronoun ?? null;
+  const subjectParts = subject === null || pronoun === null ? [] : [grammaticalPart(
+    rendering, 'subject', pronoun, null, { person: subject.person, number: subject.number, gender: subject.gender ?? null },
+  )];
+  if (!separated) return one([...subjectParts, ...verbs]);
 ```
 
-## 2. File layout, registration and testing
+## 2. File layout, registration, assembly and testing
 
 A pack for language `de` lives in `src/languages/de/`:
 
@@ -223,14 +294,94 @@ A pack for language `de` lives in `src/languages/de/`:
 
 The messages live in `src/i18n/locales/en/de.ts` and `src/i18n/locales/nl/de.ts`; tests in `tests/de/`; the language's grammar notes in `docs/grammar/de.md`.
 
-A pack touches the shared files in one line each:
+### The spec
 
-- `src/languages/registry.ts`: `de: GermanSpec;` in `LanguageRegistry` (this makes `Language`, `MoodFor<'de'>`, `ConjugationOptionsFor<'de'>` and the builder know the language).
-- `src/languages/index.ts`: `de: germanPack` in `packs`, which is checked `satisfies { [L in Language]: LanguagePack<L> }`.
-- `src/i18n/locales/en/index.ts` and `src/i18n/locales/nl/index.ts`: spread the language's messages into the catalog (`{ ...core, ...de }`).
-- `src/types.ts`: the line that re-exports the spec's types (`export type { ... } from './languages/de/spec.js'`).
+The spec is the language's entry in the type-level registry. It extends `LanguageSpec<Tenses>`, naming its own tenses so that `nonFinite` is checked against them:
+
+```ts signature src/core/spec.ts
+export interface LanguageSpec<Tenses extends Record<string, string> = Record<string, string>> {
+  tenses: Tenses;
+  nonFinite: keyof Tenses & string;
+  auxiliary: string;
+  classHint: string;
+  stems: object;
+  subject: string;
+  context: object;
+}
+```
+
+`tenses` maps each mood to the union of its tense ids; `nonFinite` is the union of the moods without person and number, and every member must be a key of `tenses` (a spec that names a mood it does not have does not compile); `auxiliary`, `classHint` and `stems` are the types of the shared options (`never` for an option the language does not have, an object type for `stems`); `subject` is the union of the pack's subject slot ids, and `never` for a pack without slots (the `subject` option and `.subject()` builder method then do not type-check); `context` is an object type of every other option of the language, optional members (`{ readonly voice?: 'active' | 'passive' }`). `FrenchSpec` and `DutchSpec` (`src/languages/{fr,nl}/spec.ts`) are the worked examples.
+
+### Registration
+
+Registering a language is one line or one import in each of these shared files. Nothing else in `src/` knows the language list (the CLI help, the builder and the default engine are built from `packs`).
+
+| File | What is added |
+|---|---|
+| `src/languages/registry.ts` | `import type { GermanSpec } from './de/spec.js';` and `de: GermanSpec;` in `LanguageRegistry`. This makes `Language`, `MoodFor<'de'>`, `ConjugationOptionsFor<'de'>` and the builder know the language. |
+| `src/languages/index.ts` | `import { germanPack } from './de/pack.js';` and `de: germanPack` in `packs`, which is checked `satisfies { [L in Language]: LanguagePack<L> }` |
+| `src/i18n/locales/en/index.ts`, `src/i18n/locales/nl/index.ts` | `import { de } from './de.js';` and `{ ...core, ...de }` in the catalog |
+| `src/types.ts` | `export type { ... } from './languages/de/spec.js';` for the spec's public types, and `export type GermanConjugationOptions = ConjugationOptionsFor<'de'>;` beside the French and Dutch ones |
+| `scripts/corpus/languages/index.ts` | the language's `CorpusLanguage` in the list, when it has corpus data (section 10) |
+| `tests/corpus.test.ts` | its row in the `pinned` table (a language in the list but not in the table fails) |
+| `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
+| `README.md`, `docs/api.md` | the list of languages the package conjugates |
+
+`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, `nl`, the packs not yet migrated to the staged engine) names languages, and a new pack is never added to it.
 
 A registered pack's option schema is typed against its spec (section 3); the toy `xx` is not registered, so it uses the generic `OptionSchema`.
+
+### Assembling the pack
+
+The pack object ties the parts together. The contract:
+
+```ts signature src/core/pack.ts
+export interface LanguagePack<L extends string = string> {
+  readonly language: L;
+  readonly label: string;
+  readonly catalogue: readonly CatalogueEntry[];
+  readonly rendering: PackRendering;
+  readonly options: OptionSchema<OptionFieldsFor<L>>;
+  readonly subjects?: readonly SubjectSlot[];
+  subjectsFor?(query: Readonly<Record<string, unknown>>): readonly SubjectSlot[];
+  readonly genderedTargets?: boolean;
+  acceptsTarget?(query: Readonly<Record<string, unknown>>, target: ResolvedTarget): boolean;
+  acceptsForm?(query: Readonly<Record<string, unknown>>, form: GeneratedForm): boolean;
+  rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
+  engine(query: Readonly<Record<string, unknown>>): LanguageEngine;
+  readonly rules?: Readonly<Record<string, RuleInfo>>;
+  readonly works?: Readonly<Record<string, Work>>;
+  readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
+}
+```
+
+For a staged pack, `engine` is `query => stagedEngine(grammar, rendering, query)`. The toy's:
+
+```ts toy
+export const toyPack: LanguagePack<'xx'> = {
+  language: 'xx',
+  label: 'Toy',
+  catalogue: toyCatalogue,
+  rendering: toyRendering,
+  subjects: toySubjects,
+  options: {
+    fields: {
+      voice: { kind: 'enum', values: ['active', 'passive'] },
+      auxiliary: { kind: 'enum', values: ['haba', 'esta', 'epha'] },
+      prefix: { kind: 'enum', values: ['separable', 'inseparable'] },
+    },
+  },
+  rank: form => variantRank(form.variant, 'rectified'),
+  engine: query => stagedEngine(toyGrammar, toyRendering, query),
+  rules: toyRules,
+  works: toyWorks,
+  citations: toyCitations,
+};
+```
+
+`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` and `nl` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
+
+### Testing a pack
 
 Every pack is tested through `createEngine`, never through a resolver: build an engine over the pack and the catalogs, then `conjugate`, `expandTargets` and `explain` through it. This is exactly how the toy is tested:
 
@@ -245,49 +396,61 @@ const toy = createEngine({ xx: toyPack }, catalogs);
 const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', voice: 'active' }).forms;
 ```
 
-`tests/i18n/completeness.test.ts` runs over every registered pack and needs no change. `createEngine` also checks the pack's declarations when it is built (section 3).
-
 ## 3. Catalogue, subjects, options, rendering and rank
 
 ### The catalogue
 
-```ts signature
+```ts signature src/core/pack.ts
 export interface CatalogueEntry {
-readonly mood: Mood; readonly tense: Tense; readonly moodLabel: string; readonly tenseLabel: string; readonly finite: boolean;
-readonly persons: readonly (readonly [Person, GrammaticalNumber])[];
-readonly voices?: readonly Voice[];
-readonly slots?: readonly string[];
+  readonly mood: Mood; readonly tense: Tense; readonly moodLabel: string; readonly tenseLabel: string; readonly finite: boolean;
+  readonly persons: readonly (readonly [Person, GrammaticalNumber])[];
+  readonly voices?: readonly Voice[];
+  readonly slots?: readonly string[];
+}
 ```
 
-An entry is a mood and tense with its native labels (these are what `explain` prints for a `mood` or `tense` term). A finite entry lists its `persons` (person and number slots in output order); a non-finite entry has none. `voices`, in output order, gives the entry a voice dimension (each slot becomes one target per voice, active first); a pack with voices declares a `voice` enum option to filter by. The helpers `moodEntries(mood, moodLabel, persons, tenses)`, `allPersons` (singular 1-2-3, then plural 1-2-3) and `noPersons` build entries; the toy:
+An entry is a mood and tense with its native labels (these are what `explain` prints for a `mood` or `tense` term). A finite entry lists its `persons` (person and number slots in output order); a non-finite entry has none. `voices`, in output order, gives the entry a voice dimension (each slot becomes one target per voice, active first); a pack with voices declares a `voice` enum option to filter by. The helper builds entries:
+
+```ts signature src/core/pack.ts
+export function moodEntries(
+  mood: Mood,
+  moodLabel: string,
+  persons: readonly (readonly [Person, GrammaticalNumber])[],
+  tenses: readonly (readonly [Tense, string])[],
+  options: { readonly slots?: readonly string[] } = {},
+): CatalogueEntry[]
+```
+
+`allPersons` (singular 1-2-3, then plural 1-2-3) and `noPersons` are the usual `persons`. An entry is finite when it has persons or when it has `slots`; an entry with neither is non-finite (infinitive, participle, gerund...) and has no `slots` key. The toy:
 
 ```ts toy
 ...moodEntries('indicative', 'Indicative', allPersons, [['present', 'Present'], ['past', 'Past'], ['perfect', 'Perfect'], ['future', 'Future'], ['simple_past', 'Simple past']]).map(voiced),
 ```
 
-`createEngine` rejects (INVALID_REQUEST, naming language, mood and tense) a non-finite entry that has `slots`, a finite entry whose `slots` is an empty array, and an entry that lists a slot the pack does not declare.
+`slots` lists the ids of the subject slots a finite entry has. They replace `persons` for expansion (`persons` is ignored when `slots` is present), so an entry with `slots` needs no persons: `moodEntries('imperative', 'Imperative', noPersons, [['present', 'Present']], { slots: ['2sg'] })` is a finite entry whose targets are exactly the listed slots, each at its own person and number. An entry known to be non-finite (`finite: false`) cannot have slots. `createEngine` rejects (INVALID_REQUEST, naming language, mood and tense) a non-finite entry that has `slots`, a finite entry whose `slots` is an empty array, and an entry that lists a slot the pack does not declare.
 
 ### Subject slots
 
-```ts signature
+```ts signature src/core/pack.ts
 export interface SubjectSlot {
-readonly id: string;
-readonly person: Person;
-readonly number: GrammaticalNumber;
-readonly pronoun: string | null;
-readonly gender?: Gender;
-readonly register?: 'formal' | 'informal';
-readonly default: boolean;
+  readonly id: string;
+  readonly person: Person;
+  readonly number: GrammaticalNumber;
+  readonly pronoun: string | null;
+  readonly gender?: Gender;
+  readonly register?: 'formal' | 'informal';
+  readonly default: boolean;
+}
 ```
 
 A pack with `subjects` gets one target per selected slot and accepts the common `subject` option (a slot id). The verb agrees with the slot's `person` and `number`, which need not be what the subject addresses: the toy's formal `Vu` is a slot with person 3. `pronoun` is `null` for a pro-drop language's unmarked subject. `register` is data for the clause and the app; the core does not read it. The slot's `gender` becomes `target.gender` only when the pack sets `genderedTargets: true` (French, Italian, Latin: the verb phrase changes with it); otherwise it is for the clause to read through `ClauseContext.subject`.
 
 - `default`: the slot is part of a query that names no subject. Within one person and number, slots expand in the order of `pack.subjects`.
 - `subjectsFor(query)` (optional): the slots to expand for this query, out of `subjects`; the person and number filters apply afterwards. The default is `defaultSubjectsFor(subjects, query)`: the slot the `subject` option names, else every default slot. Whatever order it returns, the core uses the pack's order, and a slot it returns that the pack did not declare is a GENERATION_FAILURE.
-- `CatalogueEntry.slots`: for a finite entry, the ids of the slots the entry has, which replace `persons`. The German imperative lists `du`, `wir`, `ihr` and `Sie` and never the third-person plural slot that shares the person and number of `Sie`. The toy's imperative:
+- `CatalogueEntry.slots`: described above. The German imperative lists `du`, `wir`, `ihr` and `Sie` and never the third-person plural slot that shares the person and number of `Sie`. The toy's imperative:
 
 ```ts toy
-...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]).map(entry => Object.freeze({ ...entry, slots: Object.freeze(['2sg']) })),
+...moodEntries('imperative', 'Imperative', noPersons, [['present', 'Present']], { slots: ['2sg'] }),
 ```
 
 - A slot id is unique, contains no `/` and is not a voice name (`active`, `passive`): it becomes a segment of the target key. `createEngine` rejects a pack that breaks this.
@@ -304,20 +467,22 @@ The toy declares:
 
 The common keys (`language`, `infinitive`, `mood`, `tense`, `person`, `number`, and `subject` for a pack with slots) are validated by the core. The pack's own keys are its schema:
 
-```ts signature
+```ts signature src/core/options.ts
 export interface OptionSchema<Fields extends string = string> {
-readonly fields: { readonly [K in Fields]: FieldSpec };
-check?(options: Readonly<Record<string, unknown>>): void;
+  readonly fields: { readonly [K in Fields]: FieldSpec };
+  check?(options: Readonly<Record<string, unknown>>): void;
+}
 ```
 
 `fields` are validated in declaration order; `check` runs after every field is valid and throws a `ConjugationError` for a combination (`INVALID_HINT`). An unknown key is `Unknown <language> option: <key>.`; options are cloned and `undefined` values dropped before the pack sees them. The `FieldSpec` kinds:
 
-```ts signature
-| { readonly kind: 'enum'; readonly values: readonly (string | number | boolean)[] }
-| { readonly kind: 'boolean' }
-| { readonly kind: 'word'; readonly pattern: RegExp; readonly code: ConjugationErrorCode; readonly message: string }
-| { readonly kind: 'agreement'; readonly required: boolean; readonly genders: readonly Gender[]; readonly cases?: readonly Case[] }
-| { readonly kind: 'stems'; readonly words: readonly string[]; readonly enums: Readonly<Record<string, readonly unknown[]>> };
+```ts signature src/core/options.ts
+export type FieldSpec =
+  | { readonly kind: 'enum'; readonly values: readonly (string | number | boolean)[] }
+  | { readonly kind: 'boolean' }
+  | { readonly kind: 'word'; readonly pattern: RegExp; readonly code: ConjugationErrorCode; readonly message: string }
+  | { readonly kind: 'agreement'; readonly required: boolean; readonly genders: readonly Gender[]; readonly cases?: readonly Case[] }
+  | { readonly kind: 'stems'; readonly words: readonly string[]; readonly enums: Readonly<Record<string, readonly unknown[]>> };
 ```
 
 `enum` is one of `values`; `boolean` is `true` or `false`; `word` is a string matching `pattern` (anything else throws `code` with `message`; the value is NFC-normalised and lower-cased like the infinitive); `agreement` is `{ gender?, number? }` (plus `case?` when `cases` is given), `required` demanding gender and number; `stems` is an object of grammatical stem words and enums, no other keys. The toy:
@@ -328,16 +493,24 @@ auxiliary: { kind: 'enum', values: ['haba', 'esta', 'epha'] },
 prefix: { kind: 'enum', values: ['separable', 'inseparable'] },
 ```
 
-For a registered language the schema is typed against its spec: `LanguagePack<L>['options']` is `OptionSchema<OptionFieldsOf<LanguageRegistry[L]>>`, the union of the keys of the spec's `context` and `'auxiliary' | 'classHint' | 'stems'`. A missing or an extra field is a compile error, so the options type and the validator cannot drift. The fields drive the CLI flags and the options builder too: the builder gets one method per mood and per field, and throws at construction (`INVALID_REQUEST`) when a field or mood is named like a builder method (`build`, `mood`, `tense`, `person`, `number`, `subject`...) or like another mood or field. The three shared fields keep the builder's own methods.
+For a registered language the schema is typed against its spec: `LanguagePack<L>['options']` is `OptionSchema<OptionFieldsOf<LanguageRegistry[L]>>`, the union of the keys of the spec's `context` and `'auxiliary' | 'classHint' | 'stems'`:
 
-Other optional pack members: `acceptsTarget(query, target)` (a target filter from the pack's options, such as Dutch `pronoun`) and `acceptsForm(query, form)` (a form filter after generation, such as French `agreement`). `label` is the English name used in CLI help.
+```ts signature src/core/spec.ts
+export type OptionFieldsOf<S extends LanguageSpec> = (keyof S['context'] & string) | 'auxiliary' | 'classHint' | 'stems';
+```
+
+A missing or an extra field is a compile error, so the options type and the validator cannot drift. The fields drive the CLI flags and the options builder too: the builder gets one method per mood and per field, and throws at construction (`INVALID_REQUEST`) when a field or mood is named like a builder method (`build`, `mood`, `tense`, `person`, `number`, `subject`...) or like another mood or field. The three shared fields keep the builder's own methods.
+
+Other optional pack members: `acceptsTarget(query, target)` (a target filter from the pack's options, such as Dutch `pronoun`) and `acceptsForm(query, form)` (a form filter after generation, such as French `agreement`).
 
 ### Rendering and rank
 
-```ts signature
-onset(text: string, flags: Readonly<Record<string, boolean>>): Onset;
-sandhi(left: ConjugationPart, right: ConjugationPart): string | null;
-bareOmits(part: ConjugationPart): boolean;
+```ts signature src/core/pack.ts
+export interface PackRendering {
+  onset(text: string, flags: Readonly<Record<string, boolean>>): Onset;
+  sandhi(left: ConjugationPart, right: ConjugationPart): string | null;
+  bareOmits(part: ConjugationPart): boolean;
+}
 ```
 
 `onset` classifies the first sound of `text` (`'vowel' | 'consonant' | 'muteH' | 'aspiratedH'`); `flags` are the pack's own phonological hints for the word (`wordPart` options `onsetFlags`; French reads `aspiratedH`), and a rendering ignores flags it does not know. `sandhi` is the text of `left` when it fuses with `right` (French elision: `je` + `aime` -> `j'`), or `null`; the renderer then joins without a space. `bareOmits` says which parts a bare form (`{ bare: true }`) drops besides subjects. The toy has none of these:
@@ -350,7 +523,7 @@ export const toyRendering: PackRendering = {
 };
 ```
 
-```ts signature
+```ts signature src/core/pack.ts
 rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
 ```
 
@@ -360,20 +533,47 @@ The sort key within one target; lower sorts first, and the first form of a targe
 
 ### Rules and steps
 
-```ts signature
+```ts signature src/core/derivation.ts
 export function defineRules<const T extends Record<string, { stage: Stage; kind?: StepKind; params?: Record<string, ParamKind> }>>(
+  defs: T,
+): { readonly [K in keyof T & string]: RuleInfo & { readonly id: K } }
+```
+```ts signature src/core/derivation.ts
 export function step(
+  rule: RuleInfo,
+  before: string | null,
+  after: string | null,
+  params: Readonly<Record<string, StepParam>> = {},
+): DerivationStep
 ```
 
-`defineRules` declares the pack's rules; the ids are the object keys, `kind` defaults to `'rule'` and `params` to `{}`:
+`defineRules` declares the pack's rules; the ids are the object keys, `kind` defaults to `'rule'` and `params` to `{}`. The result is what `pack.rules` is, and what `step` takes:
 
-```ts signature
+```ts signature src/core/derivation.ts
 export type Stage = 'classify' | 'stem' | 'ending' | 'orthography' | 'periphrasis' | 'clause' | 'availability';
 export type StepKind = 'rule' | 'lexical' | 'assumption' | 'unavailable';
+export type TermKind = 'mood' | 'tense' | 'person' | 'number' | 'gender' | 'voice' | 'case';
+export interface TermRef { readonly term: TermKind; readonly id: string }
 export type StepParam = string | number | TermRef;
 export type ParamKind = 'text' | 'number' | 'term';
-export interface TermRef { readonly term: TermKind; readonly id: string }
-export type TermKind = 'mood' | 'tense' | 'person' | 'number' | 'gender' | 'voice' | 'case';
+```
+```ts signature src/core/derivation.ts
+export interface RuleInfo {
+  readonly id: string;
+  readonly stage: Stage;
+  readonly kind: StepKind;
+  readonly params: Readonly<Record<string, ParamKind>>;
+}
+```
+```ts signature src/core/derivation.ts
+export interface DerivationStep {
+  readonly rule: string;
+  readonly stage: Stage;
+  readonly kind: StepKind;
+  readonly before: string | null;
+  readonly after: string | null;
+  readonly params: Readonly<Record<string, StepParam>>;
+}
 ```
 
 A rule has the stage it belongs to and a kind: `rule` (a grammatical rule), `lexical` (a fact read from the lexicon), `assumption` (a guess the pack made, listed in `analysis.assumptions`) or `unavailable` (the reason a form does not exist). `params` name the extra values the message may use: `text` (a string), `number`, or `term` (a `TermRef`, a grammatical term whose label the catalog supplies). The toy's:
@@ -395,24 +595,44 @@ A `mood` or `tense` term is labelled from the catalogue, a tense in the mood of 
 
 ### Forks and outcomes
 
-```ts signature
+```ts signature src/core/fork.ts
 export interface Outcome<T> {
-readonly value: T;
-readonly steps: readonly DerivationStep[];
-readonly tags: VariantTags;
+  readonly value: T;
+  readonly steps: readonly DerivationStep[];
+  readonly tags: VariantTags;
+}
+```
+```ts signature src/core/fork.ts
 export type Fork<T> = readonly Outcome<T>[];
-export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T> {
-export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B> {
-export function combine<T extends readonly unknown[]>(forks: { [K in keyof T]: Fork<T[K]> }): Fork<T> {
+```
+```ts signature src/core/fork.ts
+export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T>
+```
+```ts signature src/core/fork.ts
+export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B>
+```
+```ts signature src/core/fork.ts
+export function combine<T extends readonly unknown[]>(forks: { [K in keyof T]: Fork<T[K]> }): Fork<T>
 ```
 
 A `Fork` is every way a rule can come out; each outcome carries its value, the steps taken and its variant tags. `one(value, steps?, tags?)` is a single outcome. `chain(fork, next)` continues every outcome through `next`, concatenating steps and merging tags; `combine([forkA, forkB])` is the product of forks in order. Branches whose tags conflict are dropped. More than one outcome in a hook's fork means more than one accepted form (variants), and the engine removes forms that come out identical.
 
 ### Variant tags
 
-```ts signature
+```ts signature src/core/fork.ts
+interface TagValues {
+  readonly orthography: 'rectified' | 'traditional';
+  readonly pattern: string;
+  readonly usage: FormVariant['usage'];
+  readonly region: string;
+  readonly condition: string;
+}
+```
+```ts signature src/core/fork.ts
 export type VariantTags = { readonly [K in keyof TagValues]?: TagValues[K] };
-export function mergeTags(a: VariantTags, b: VariantTags): VariantTags | null {
+```
+```ts signature src/core/fork.ts
+export function mergeTags(a: VariantTags, b: VariantTags): VariantTags | null
 ```
 
 Tags label a variant and end up on the form as `variant.orthography`, `.pattern`, `.usage`, `.condition` and `.region` (`orthography` is `'both'` when no tag names one). They merge when outcomes combine, in two kinds:
@@ -428,13 +648,18 @@ return [...regular, ...one('amusse', [step(toyRules['xx.end.long'], stem, `${ste
 
 ### Juncture rules
 
-```ts signature
+```ts signature src/core/juncture.ts
 export interface Juncture { readonly stem: string; readonly ending: string }
+```
+```ts signature src/core/juncture.ts
 export interface JunctureRule<C> {
-readonly info: RuleInfo;
-apply(juncture: Juncture, context: C): Fork<Juncture> | null;
-describe?(before: Juncture, after: Juncture, context: C): Readonly<Record<string, StepParam>>;
-export function applyJunctureRules<C>(rules: readonly JunctureRule<C>[], start: Juncture, context: C): Fork<Juncture> {
+  readonly info: RuleInfo;
+  apply(juncture: Juncture, context: C): Fork<Juncture> | null;
+  describe?(before: Juncture, after: Juncture, context: C): Readonly<Record<string, StepParam>>;
+}
+```
+```ts signature src/core/juncture.ts
+export function applyJunctureRules<C>(rules: readonly JunctureRule<C>[], start: Juncture, context: C): Fork<Juncture>
 ```
 
 A spelling rule sees the stem and ending that meet. `apply` returns `null` when the rule does not apply, one outcome for a change, several outcomes (tagged) for spelling variants. `describe` returns the step's params. The engine applies the rules in order to every live branch and records one step per rule that changed `stem + ending`; a rule that changes nothing records none. The toy's:
@@ -479,27 +704,29 @@ return kept;
 
 ### Periphrasis
 
-```ts signature
+```ts signature src/core/periphrasis.ts
 export type VerbRef = 'main' | 'perfectAuxiliary' | { readonly lemma: string };
 export type ChainElement =
-| { readonly verb: VerbRef; readonly finite: { readonly mood: string; readonly tense: string } }
-| { readonly verb: VerbRef; readonly nonFinite: string; readonly agree?: true }
-| { readonly word: string; readonly role: 'linker' | 'particle' | 'moodMarker' };
+  | { readonly verb: VerbRef; readonly finite: { readonly mood: string; readonly tense: string } }
+  | { readonly verb: VerbRef; readonly nonFinite: string; readonly agree?: true }
+  | { readonly word: string; readonly role: 'linker' | 'particle' | 'moodMarker' };
 export interface Periphrasis<X extends LexemeBase = LexemeBase> {
-readonly mood: string;
-readonly tense: string;
-readonly voice?: Voice;
-readonly applies?: (lexeme: X) => boolean;
-readonly rule: RuleInfo;
-readonly chain: readonly ChainElement[];
-readonly pattern?: string;
-readonly usage?: FormVariant['usage'];
-readonly reports?: VerbRef;
+  readonly mood: string;
+  readonly tense: string;
+  readonly voice?: Voice;
+  readonly applies?: (lexeme: X) => boolean;
+  readonly rule: RuleInfo;
+  readonly chain: readonly ChainElement[];
+  readonly pattern?: string;
+  readonly usage?: FormVariant['usage'];
+  readonly reports?: VerbRef;
+}
 ```
 
 A compound tense is a recipe: the `chain` lists its words in order. A verb element names a simple cell of the same grammar: `finite` is a mood and tense (person and number come from the target; the mood may differ from the target's, as the toy's conditional uses the indicative past), `nonFinite` is a non-finite form (`'participle'`, `'infinitive'`, ... the pack's form ids as `cellOf` and `ending` know them). Periphrases never nest: a finite element must be a simple cell for the verb it names (`cellOf` returning `null` there is a GENERATION_FAILURE). A `word` element is literal text.
 
-- `verb`: `'main'` is the queried verb (in the paradigm being built), `'perfectAuxiliary'` its perfect auxiliary (the recipe runs once per entry of `lexeme.auxiliaries`), `{ lemma }` a verb named outright (conjugated through `lexemeOf`).
+- `verb`: `'main'` is the queried verb (in the paradigm being built), `'perfectAuxiliary'` its perfect auxiliary (the recipe runs once per entry of `lexeme.auxiliaries`), `{ lemma }` a verb named outright (conjugated through `lexemeOf`). The `'main'` verb's word gets the role `lexicalVerb`; any other verb reference (`perfectAuxiliary` or a named lemma) gets the role `auxiliary`.
+- `finite`: the engine asks `cellOf` for the active cell of that mood and tense for the verb the element names. `nonFinite`: the element's cell is built directly from it, `{ kind: 'nonFinite', form, agreement? }` with no voice (the agreement is added when the element is `agree` and the clause has chosen one); `cellOf` is not consulted.
 - `agree: true`: the element takes the agreement `clause.agreements` chooses.
 - `voice`: matched exactly. A periphrasis without `voice` builds only targets without a voice, so a pack whose catalogue has voices writes `voice: 'active'` on its active compound tenses (the toy's perfect does).
 - `applies(lexeme)`: whether the recipe builds the target for the verb being conjugated (never an auxiliary the chain names): a deponent verb's perfect is a compound where an ordinary verb's is one word. Absent: every verb. A target the verb's `cellOf` already maps to a cell is built from that cell, and no periphrasis runs for it.
@@ -507,7 +734,13 @@ A compound tense is a recipe: the `chain` lists its words in order. A verb eleme
 - `pattern`, `usage`: the tags of the forms this recipe builds. Several recipes for one target are named variants.
 - `reports`: see below.
 
-`validateGrammar(grammar)` checks the declarations once (the rule's stage and params, at least one verb in the chain, `reports` a perfect auxiliary only if the chain uses one); `stagedEngine` runs it the first time it sees a grammar, and a pack calls it at module load to fail early. The toy:
+`validateGrammar(grammar)` checks the declarations once (the rule's stage and params, at least one verb in the chain, `reports` a perfect auxiliary only if the chain uses one); `stagedEngine` runs it the first time it sees a grammar, and a pack calls it at module load to fail early:
+
+```ts signature src/core/staged.ts
+export function validateGrammar<X extends LexemeBase>(grammar: StagedGrammar<X>): void
+```
+
+The toy:
 
 ```ts toy
 {
@@ -527,15 +760,16 @@ A form's `variant.auxiliary` is the verb it reports: by default the perfect auxi
 
 ### The clause context
 
-```ts signature
+```ts signature src/core/clause.ts
 export interface ClauseContext<X extends LexemeBase> {
-readonly query: Readonly<Record<string, unknown>>;
-readonly lexeme: X;
-readonly target: ResolvedTarget;
-readonly subject: SubjectSlot | null;
-readonly agreeing: readonly Cell[];
-readonly auxiliary: string | null;
-readonly rendering: PackRendering;
+  readonly query: Readonly<Record<string, unknown>>;
+  readonly lexeme: X;
+  readonly target: ResolvedTarget;
+  readonly subject: SubjectSlot | null;
+  readonly agreeing: readonly Cell[];
+  readonly auxiliary: string | null;
+  readonly rendering: PackRendering;
+}
 ```
 
 `query` is the parsed query; `lexeme` the queried verb in the paradigm being built; `target` the target being built (in `assemble`, with the `agreement` chosen for this form in `target.agreement`); `subject` the slot `target.subject` names, with its pronoun and its gender even where the target has none (`null` without slots); `agreeing` the cells that take the agreement: for a periphrasis the cells of its `agree` elements, for a simple non-finite target its own cell, empty otherwise (the cells carry no agreement yet, also in `assemble`); `auxiliary` the perfect auxiliary this run uses, or `null`; `rendering` the pack's rendering, for building parts.
@@ -544,29 +778,81 @@ readonly rendering: PackRendering;
 
 `assemble` receives the chain as `ChainWord`s:
 
-```ts signature
+```ts signature src/core/clause.ts
 export interface ChainWord {
-readonly role: 'auxiliary' | 'lexicalVerb' | 'linker' | 'particle' | 'moodMarker';
-readonly text: string;
-readonly lemma: string | null;
-readonly cell: Cell | null;
-readonly steps: readonly DerivationStep[];
-readonly voice?: Voice;
+  readonly role: 'auxiliary' | 'lexicalVerb' | 'linker' | 'particle' | 'moodMarker';
+  readonly text: string;
+  readonly lemma: string | null;
+  readonly cell: Cell | null;
+  readonly steps: readonly DerivationStep[];
+  readonly voice?: Voice;
+}
 ```
 
 `cell` and `lemma` are `null` for literal words; `steps` are the word's own (stem, ending, spelling). `voice` is set by the engine on the verb words of a periphrasis that declares a marked voice. `wordPart` builds the part of a word:
 
-```ts signature
+```ts signature src/core/clause.ts
 export function wordPart(rendering: PackRendering, word: ChainWord, features?: Partial<PartFeatures>, options?: WordPartOptions): ConjugationPart;
 export function wordPart(rendering: PackRendering, word: ChainWord, options: WordPartOptions): ConjugationPart;
+```
+```ts signature src/core/clause.ts
 export interface WordPartOptions {
-readonly joinBefore?: ConjugationPart['joinBefore'];
-readonly onsetFlags?: Readonly<Record<string, boolean>>;
+  readonly joinBefore?: ConjugationPart['joinBefore'];
+  readonly onsetFlags?: Readonly<Record<string, boolean>>;
+}
 ```
 
-The part carries the word's steps. Its features come from its cell (person, number, mood, tense, `verbForm: 'finite'` for a finite cell; agreement gender, number and case for a non-finite one), and `features` adds or overrides them: a non-finite word's mood, tense and `verbForm` are the pack's to name (the toy's `nonFiniteFeatures`), and so are `aspect` and a gerund's, gerundive's or supine's `verbForm`. A pack with no features to add passes the options as the third argument, `wordPart(rendering, word, { joinBefore: 'hyphen' })`; the two objects are told apart by their keys (`joinBefore`, `onsetFlags`), and an object that mixes them is a GENERATION_FAILURE. `joinBefore` is `'space'` (default), `'hyphen'` or `'attached'`; `onsetFlags` is what `rendering.onset` is asked with (default `{ aspiratedH: false }`). For parts that belong to no chain word (a subject pronoun, a literal particle) use `grammaticalPart(rendering, role, text, lemma?, features?, joinBefore?, aspiratedH?, onsetFlags?)`.
+The part carries the word's steps. Its features come from its cell (person, number, mood, tense, `verbForm: 'finite'` for a finite cell; agreement gender, number and case for a non-finite one), and `features` adds or overrides them: a non-finite word's mood, tense and `verbForm` are the pack's to name (the toy's `nonFiniteFeatures`), and so are `aspect` and a gerund's, gerundive's or supine's `verbForm`. A pack with no features to add passes the options as the third argument, `wordPart(rendering, word, { joinBefore: 'hyphen' })`; the two objects are told apart by their keys (`joinBefore`, `onsetFlags`), and an object that mixes them is a GENERATION_FAILURE. `joinBefore` is `'space'` (default), `'hyphen'` or `'attached'`; `onsetFlags` is what `rendering.onset` is asked with (default `{ aspiratedH: false }`). For parts that belong to no chain word (a subject pronoun, a literal particle) use `grammaticalPart`:
 
-Part features (`PartFeatures`): `mood`, `tense`, `person`, `number`, `gender`, `verbForm`, and optional `voice`, `case` and `aspect: 'progressive'`. The `voice` of a part is the voice of the construction it belongs to: for a simple target the cell's voice; for a periphrasis that declares a marked `voice`, every verb part of the chain. Active is never written: it is the absence of the field, whether the grammar wrote `voice: 'active'` or left it out. A literal word of a periphrasis and a subject pronoun have none.
+```ts signature src/parts.ts
+export function grammaticalPart(
+  rendering: PackRendering,
+  role: PartRole,
+  text: string,
+  lemma: string | null = null,
+  features: Partial<PartFeatures> = {},
+  joinBefore: ConjugationPart['joinBefore'] = 'space',
+  aspiratedH = false,
+  onsetFlags?: Readonly<Record<string, boolean>>,
+): ConjugationPart
+```
+
+The part and its features:
+
+```ts signature src/types.ts
+export type PartRole = 'moodMarker' | 'subject' | 'reflexivePronoun' | 'auxiliary' | 'lexicalVerb' | 'particle' | 'linker';
+export type VerbForm =
+  | 'finite' | 'infinitive' | 'presentParticiple' | 'pastParticiple' | 'gerund' | 'gerundive' | 'supine' | 'futureParticiple';
+export type Onset = 'vowel' | 'consonant' | 'muteH' | 'aspiratedH';
+```
+```ts signature src/types.ts
+export interface PartFeatures {
+  readonly mood: Mood | null;
+  readonly tense: Tense | null;
+  readonly person: Person | null;
+  readonly number: GrammaticalNumber | null;
+  readonly gender: Gender | null;
+  readonly verbForm: VerbForm | null;
+  readonly voice?: Voice | null;
+  readonly case?: Case | null;
+  readonly aspect?: 'progressive' | null;
+}
+```
+```ts signature src/types.ts
+export interface ConjugationPart {
+  readonly role: PartRole;
+  readonly text: string;
+  readonly lemma: string | null;
+  readonly features: PartFeatures;
+  readonly phonology: { readonly onset: Onset };
+  readonly joinBefore: 'space' | 'hyphen' | 'attached';
+  readonly steps?: readonly DerivationStep[];
+}
+```
+
+`PartRole`: `subject` is the pronoun the clause adds; `moodMarker` a word that marks the mood (French subjunctive `que`, a Latin `ut`); `reflexivePronoun` the reflexive pronoun of a reflexive verb; `auxiliary` any verb of a chain other than the queried one; `lexicalVerb` the queried verb; `particle` a detached verbal particle (a separable prefix at the end of the clause); `linker` a literal word between verbs (`a`, `en`, `to`). `VerbForm`, the `verbForm` feature: `finite` for a conjugated word; `infinitive`; `presentParticiple` and `pastParticiple` for the participles; `gerund` for a language's gerund (French gérondif, Spanish and Italian gerundio, English `-ing` form used as one); and the Latin forms `gerundive`, `supine` and `futureParticiple`. `Onset` is what `rendering.onset` returns. `phonology.onset` of a part is the `onset` of its text.
+
+Part features: `mood`, `tense`, `person`, `number`, `gender`, `verbForm`, and optional `voice`, `case` and `aspect: 'progressive'`. The `voice` of a part is the voice of the construction it belongs to: for a simple target the cell's voice; for a periphrasis that declares a marked `voice`, every verb part of the chain. Active is never written: it is the absence of the field, whether the grammar wrote `voice: 'active'` or left it out. A literal word of a periphrasis and a subject pronoun have none. A `case` is the case of a declined word (a Latin participle), from its agreement.
 
 ## 7. Availability
 
@@ -581,11 +867,11 @@ Every rule has a message in each locale (`en` and `nl`), whose key is the rule i
 'xx.end.past': '{tense}: add -{ending} to {before}-.',
 ```
 
-The text is the ICU subset of `src/i18n/format.ts`: `{name}`, `{n, plural, one {...} other {...}}` with `#`, `{x, select, a {...} other {...}}`, and nesting. An apostrophe directly before `{` quotes it, so write `''` (`l''{noun}`); the completeness gate fails a single one.
+The text is the ICU subset of `src/i18n/format.ts`: literal text, `{name}`, `{n, plural, =0 {...} one {...} other {...}}` with `#` for the number (exact matches `=N` and the categories `zero`, `one`, `two`, `few`, `many`, `other`), `{x, select, a {...} other {...}}`, and nesting; `other` is required. Anything else is a SyntaxError that the completeness gate reports: the `number`, `date` and `selectordinal` argument types and plural offsets are not supported. An apostrophe directly before `{` quotes it, so write `''` (`l''{noun}`); the completeness gate fails a single one.
 
 Terms: a `person`, `number`, `gender`, `voice` or `case` param is the core catalog's `term.<kind>.<id>` message. A `mood` or `tense` param is the catalogue's native label, and a tense is looked up in the mood of what the step describes: for a word's steps, the word's own mood (`part.features.mood`, which is why `assemble` must set it on every word whose steps name a tense, as `wordPart` does for a finite cell and `features` does for a non-finite one); for form-level steps and an unavailable target, the target's mood; an auxiliary in the indicative past inside a conditional is labelled as an indicative past. Assumption steps have no target, so an assumption rule takes no `tense` param (a `mood` term is fine).
 
-Pattern labels: where `explain` shows a paradigm's pattern (the title of a paradigm of an analysis with several), the catalog message `<language>.label.pattern.<label>` is used when it exists, and the raw label otherwise. The completeness gate does not require these keys, but a key defined in `en` must be defined in `nl` (the gate compares the key sets of the locales):
+Pattern labels: where `explain` shows a paradigm's pattern (the title of a paradigm of an analysis with several), the catalog message `<language>.label.pattern.<label>` is used when it exists, and the raw label otherwise. The key is looked up on the whole pattern string of the paradigm: a pattern joined across stages (`a.b`) is shown raw unless the pack defines a key for the joined string (`xx.label.pattern.a.b`). The completeness gate does not require these keys, but a key defined in `en` must be defined in `nl` (the gate compares the key sets of the locales):
 
 ```ts toy
 'xx.label.pattern.separable': 'separable particle',
@@ -593,29 +879,33 @@ Pattern labels: where `explain` shows a paradigm's pattern (the title of a parad
 
 Citations: a pack lists the works it cites once in `works` (keyed by `Work.id`) and cites each rule in `citations` (rule id to one `Citation` or several):
 
-```ts signature
+```ts signature src/core/sources.ts
 export interface Work {
-readonly id: string;
-readonly title: string;
-readonly author?: string;
-readonly year?: number;
-readonly url?: `https://${string}`;
+  readonly id: string;
+  readonly title: string;
+  readonly author?: string;
+  readonly year?: number;
+  readonly url?: `https://${string}`;
+}
+```
+```ts signature src/core/sources.ts
 export interface Citation {
-readonly work: string;
-readonly locator: string;
-readonly url?: `https://${string}`;
+  readonly work: string;
+  readonly locator: string;
+  readonly url?: `https://${string}`;
+}
 ```
 
 ```ts toy
 const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator });
 ```
 
-`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`.
+`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr` and `nl`.
 
 ## 9. The rules a pack must follow
 
 1. A pack declares "no form" only through `availability`. An empty fork for an available target is a GENERATION_FAILURE.
-2. Every rule id starts with the pack's language code and a dot (`de.stem.umlaut`), in kebab case: `<language>.<stage>.<name>`. `core.` is reserved.
+2. Every rule id starts with the pack's language code and a dot (`de.stem.umlaut`); `core.` is reserved. The second segment names the stage or kind by convention, as in the toy: `classify`, `assume` (assumptions), `avail` (availability), `lex` (whole-word lexical cells), `stem`, `end` (endings), `orth` (spelling), `periphrasis`, `agree`, `clause`; only the prefix is checked.
 3. A rule may not declare params named `before` or `after`; `defineRules` throws.
 4. An assumption rule takes no `tense` term param (assumptions have no target to look the mood up in).
 5. Variant labels are non-empty, and a `pattern` label contains no `.`, because pattern labels from different stages are joined with `.`.
@@ -625,8 +915,17 @@ const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator }
 9. A periphrasis whose chain uses `perfectAuxiliary` has a rule with exactly one text param `auxiliary`; one that does not has a rule with no params.
 10. A periphrasis built on a named auxiliary reports that auxiliary as `variant.auxiliary` unless it declares `reports`.
 11. A cell speaks the pack's own ids; an active cell has no `voice`; an active periphrasis in a pack with voices says `voice: 'active'`.
-12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. French and Dutch output does not change.
+12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`.
+13. A staged pack declares `rules`, `works` and `citations`.
 
 ## 10. Corpus
 
-The corpus is the reference data a pack's output is checked against: a table of conjugations per language, parsed from a pinned source into checked-in fixtures (`tests/fixtures/`), with corrections that cite authoritative sources, and a test (`tests/corpus.test.ts`) that checks every cell. A language is one module under `scripts/corpus/languages/<language>.ts` (the page parser, the sourced corrections, and the engine queries the corpus test uses) plus one entry in `scripts/corpus/languages/index.ts`, with its parser in `scripts/corpus/parsers/`. `npm run corpus:import` regenerates the fixtures from the pinned reference checkout and `npm run corpus:check` runs the test and prints the per-language report. See the corpus section of `docs/grammar.md` ("Corpus provenance and refresh") for the pin, the reproduction steps and the accounting rules; fixtures stay byte-identical unless the import is rerun on purpose.
+The corpus is the reference data a pack's output is checked against: a table of conjugations per language, parsed from a pinned source into checked-in fixtures (`tests/fixtures/`), with corrections that cite authoritative sources, and a test (`tests/corpus.test.ts`) that compares every cell with the engine. The corpus section of `docs/grammar.md` ("Corpus provenance and refresh") has the pin, the reproduction steps, the accounting rules and the exact comparison rule. To add a language `xx` that is registered in `src/languages/registry.ts`:
+
+1. `scripts/corpus/parsers/xx.ts`: `parseXx(html, name)` returns the language's cells with `corpusCell({ mood, tense, original, index, ... })` (cheerio, `normalizeText`, `alternatives` from `../model.ts`). Set `subject` (the slot id) on every finite cell of a language with slots, `voice` where the page has voices, `variant` for a page-labelled variant, `heading` on cells a remap corrects, `scope: 'unmodelled'` with a `reason` for cells the engine does not model, and `expected` when the page's rows are not in `a/b` notation. Throw on any missing, repeated or unaccounted section.
+2. `scripts/corpus/corrections/xx.ts`: corrections through `startCorrection(...)`; every reason has an `https://` source and more than 30 characters.
+3. `scripts/corpus/languages/xx.ts`: a `CorpusLanguage` with `language`, `directory`, `encoding`, `expectedFiles`, `cellsPerFile`, `parse`, `correction`, `context(name)` (neutral infinitive, gender, auxiliary and a `pattern`, `'default'` for an ordinary file), optional `remaps` (a mood/tense correction of cells under a page heading, with reason and `https://` source), `unmodelled` (reason codes) and `requireTaggedExtras`, `query(file)` (labelled queries `{ label, options }` that together cover every modelled cell) and `applicable(file, cell, forms, label)` (which of a query's forms answer a cell; language special cases live here, never in the test).
+4. Add it to `scripts/corpus/languages/index.ts` and its row to the `pinned` table of `tests/corpus.test.ts`.
+5. `npm run corpus:import -- --source <pinned checkout> --only xx` writes `tests/fixtures/xx.json` and updates the manifest, corrections and `remaps.json`, leaving the other languages byte-identical; then `npm run corpus:check`. Update the counts in `docs/grammar.md` and `README.md`.
+
+Scripts import only types from `src/` (erased at runtime). Fixtures hold no source file names, encodings or checksums of the original pages.

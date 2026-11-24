@@ -58,7 +58,9 @@ export interface CatalogueEntry {
    * selected slots (`subjectsFor`) whose id is listed, in the pack's order, each with its own person and number, so a
    * formal slot that governs another person is there and a default slot with the same person and number that is not
    * listed is not (the German imperative lists du, wir, ihr and Sie, never the third-person plural). Absent: the entry
-   * has every selected slot of each of its `persons`. `createEngine` rejects an id the pack does not declare.
+   * has every selected slot of each of its `persons`. `createEngine` rejects an id the pack does not declare, an empty
+   * list, and `slots` on an entry that is not finite. An entry with `slots` is finite whatever its `persons`:
+   * `moodEntries(..., { slots })` builds one, and its `persons` may be empty.
    */
   readonly slots?: readonly string[];
 }
@@ -136,16 +138,24 @@ export const allPersons: readonly (readonly [Person, GrammaticalNumber])[] = [
 /** The person/number slots of a non-finite mood. */
 export const noPersons: readonly (readonly [Person, GrammaticalNumber])[] = [];
 
-/** Frozen catalogue entries for the tenses of one mood; an entry is finite when it has person/number slots. */
+/**
+ * Frozen catalogue entries for the tenses of one mood. An entry is finite when it has person/number slots, or when it
+ * lists subject `slots` (the slots then replace `persons` for expansion, so `persons` may be `noPersons`); an entry with
+ * neither is non-finite and has no `slots` key. A non-finite mood is built with `noPersons`
+ * and no `slots`; `createEngine` rejects a hand-built entry that is not `finite` but has `slots`.
+ */
 export function moodEntries(
   mood: Mood,
   moodLabel: string,
   persons: readonly (readonly [Person, GrammaticalNumber])[],
   tenses: readonly (readonly [Tense, string])[],
+  options: { readonly slots?: readonly string[] } = {},
 ): CatalogueEntry[] {
-  const slots = Object.freeze(persons.map(slot => Object.freeze([...slot] as const)));
+  const frozenPersons = Object.freeze(persons.map(slot => Object.freeze([...slot] as const)));
+  const slots = options.slots === undefined ? undefined : Object.freeze([...options.slots]);
   return tenses.map(([tense, tenseLabel]) => Object.freeze({
-    mood, tense, moodLabel, tenseLabel, finite: slots.length > 0, persons: slots,
+    mood, tense, moodLabel, tenseLabel, finite: frozenPersons.length > 0 || slots !== undefined, persons: frozenPersons,
+    ...(slots === undefined ? {} : { slots }),
   }));
 }
 

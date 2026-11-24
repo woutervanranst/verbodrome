@@ -1,8 +1,35 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate, createEngine, getCatalogue, languages, renderParts } from '../src/index.js';
-import { variantRank } from '../src/core/pack.js';
+import { allPersons, moodEntries, noPersons, variantRank } from '../src/core/pack.js';
 import { packs } from '../src/languages/index.js';
 import type { FormVariant, Orthography } from '../src/types.js';
+
+describe('catalogue entries from moodEntries', () => {
+  const tenses = [['present', 'Present']] as const;
+
+  it('makes an entry finite when it has persons, and non-finite when it has none', () => {
+    expect(moodEntries('indicative', 'Indicative', allPersons, tenses)[0]).toMatchObject({ finite: true, persons: allPersons });
+    const infinitive = moodEntries('infinitive', 'Infinitive', noPersons, tenses)[0]!;
+    expect(infinitive).toMatchObject({ finite: false, persons: [] });
+    expect(infinitive).not.toHaveProperty('slots');
+  });
+
+  it('makes an entry with slots finite whatever its persons, and keeps the slots', () => {
+    const [entry] = moodEntries('imperative', 'Imperative', noPersons, tenses, { slots: ['2sg', '2pl'] });
+    expect(entry).toMatchObject({ finite: true, persons: [], slots: ['2sg', '2pl'] });
+    expect(Object.isFrozen(entry) && Object.isFrozen(entry!.slots)).toBe(true);
+    // Persons are ignored for expansion when slots are present, so they may be given or left out.
+    expect(moodEntries('imperative', 'Imperative', [[2, 'singular']], tenses, { slots: ['2sg'] })[0]).toMatchObject({ finite: true, slots: ['2sg'] });
+  });
+
+  it('leaves the French and Dutch catalogues as they were', () => {
+    for (const language of ['fr', 'nl'] as const) {
+      const catalogue = getCatalogue(language);
+      expect(catalogue.filter(entry => entry.finite === (entry.persons.length > 0))).toHaveLength(catalogue.length);
+      expect(catalogue.some(entry => 'slots' in entry)).toBe(false);
+    }
+  });
+});
 
 describe('language packs', () => {
   it('lists registered languages and rejects others by name', () => {

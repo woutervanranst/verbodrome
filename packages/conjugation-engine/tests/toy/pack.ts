@@ -451,7 +451,7 @@ export const toyCatalogue: readonly CatalogueEntry[] = [
   // The conditional's past has another label than the indicative's.
   ...moodEntries('conditional', 'Conditional', allPersons, [['past', 'Future in the past']]),
   // The slots are listed, not derived from the person: the imperative is the 2sg slot, whatever other slot is 2sg.
-  ...moodEntries('imperative', 'Imperative', [[2, 'singular']], [['present', 'Present']]).map(entry => Object.freeze({ ...entry, slots: Object.freeze(['2sg']) })),
+  ...moodEntries('imperative', 'Imperative', noPersons, [['present', 'Present']], { slots: ['2sg'] }),
   ...moodEntries('infinitive', 'Infinitive', noPersons, [['present', 'Present']]),
   ...moodEntries('participle', 'Participle', noPersons, [['present', 'Present'], ['past', 'Past']]),
 ];
