@@ -56,31 +56,8 @@ Reflexive past imperatives are marked unavailable in the current reference-parad
 
 ## Dutch
 
-[Taalunie's official spelling authority](https://taalunie.org/dossiers/45/spelling) and its Leidraad provide the normative spelling rules; [e-ANS](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic), maintained by the Instituut voor de Nederlandse Taal, provides grammar. The supplied [Dutch conjugation overview](https://nl.wikipedia.org/wiki/Werkwoordsvervoegingen_in_het_Nederlands) is supplementary.
-
-| Rule area | Authoritative source |
-|---|---|
-| Open/closed syllables, written stems, consonants, `v/f`, `z/s` | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
-| Present endings, final `t`, real `dt`, jij/je versus u inversion | [Leidraad 11.2](https://woordenlijst.org/zoeken/leidraad/11/2.html) |
-| Weak past `-de/-te`, underlying voicing | [Leidraad 11.3](https://woordenlijst.org/zoeken/leidraad/11/3.html) |
-| Weak participles and `ge-` | [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html) |
-| English loans, silent `e`, pronunciation-dependent alternatives | [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
-| Grammatical conjugation | [e-ANS chapter 2.3](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic) |
-| Modern imperative | [e-ANS 2.3.2.5](https://e-ans.ivdnt.org/topics/pid/ans02030205lingtopic) |
-| Perfect auxiliary choice | [e-ANS 2.3.2.8.iv](https://e-ans.ivdnt.org/topics/pid/ans0203020804lingtopic) |
-| Obligatory reflexivity, including zich vergissen | [e-ANS 2.2.4](https://e-ans.ivdnt.org/topics/pid/ans020204lingtopic) |
-
-Native stemming keeps underlying voicing separate from written devoicing: `leven` has written `leef` but takes `-de`, not `-te`. Rules handle vowel length, final consonants, `ge-` placement and diaeresis, weak endings, inversion, and compound auxiliaries. Strong/mixed verbs store principal parts rather than complete paradigms; their person endings and compounds remain generated.
-
-Prefix models separate particles only in constructions that actually detach them. For example, `opstaan` generates `ik sta op` but `ik ben opgestaan`. Inseparable derivatives retain their bound prefix and suppress inappropriate `ge-`. Personal `invriezen/bevriezen` models do not inherit the weather paradigm's impersonal restrictions.
-
-### Dutch defaults and limits
-
-An unlisted ordinary `-en` verb defaults to weak native conjugation and `hebben`. Ordinary open/closed syllables are inferred; an explicit written stem or stress hint handles spellings that do not determine pronunciation. Unknown strong verbs need principal parts, and unknown loans need a stem and, where necessary, a `d/t/both` suffix hint.
-
-Stress and lexical sense govern separability and sometimes auxiliary choice. Unknown prefixes are not guessed by stripping letters. Known ambiguous spellings require an explicit separable/inseparable prefix. Known lexical auxiliary choices are not freely replaced; passive-shaped or contradictory hints are errors.
-
-Dutch chart defaults use conventional subjects, not every pronoun/register variation. `u` uses formal singular context and retains present `t` under inversion. `gij/ge`, Dutch subjunctives, and archaic imperative paradigms are not initial public targets.
+Dutch runs on the staged core. Its rule inventory with sources, its defaults and assumptions, the two behaviour changes
+of the switch and its limits are in [grammar/nl.md](grammar/nl.md).
 
 ## Shared scope
 

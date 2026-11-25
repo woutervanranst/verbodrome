@@ -1,9 +1,12 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { formLabel, targetLabel } from '../src/cli-labels.js';
+import { formLabel, targetLabel, unavailableLine } from '../src/cli-labels.js';
 import { createEngine } from '../src/core/engine.js';
+import { locales } from '../src/i18n/locales/index.js';
+import { conjugate, explain } from '../src/index.js';
 import type { ConjugatedForm, ConjugationResult, ResolvedTarget } from '../src/index.js';
+import { en as toyEn, nl as toyNl } from './toy/messages.js';
 import { toyPack } from './toy/pack.js';
 
 const cli = fileURLToPath(new URL('../dist/cli.js', import.meta.url));
@@ -163,6 +166,37 @@ describe('compiled CLI', () => {
     expect(run([...args, '--explain', '--locale', 'nl']).stdout).toBe('aimer\n');
   });
 
+  it('prints the steps of a Dutch form under it, in the chosen locale', () => {
+    const args = ['nl', 'leven', '--mood', 'indicative', '--tense', 'past', '--person', '1', '--number', 'singular', '--explain'];
+    expect(run(args).stdout).toBe([
+      'ik leefde',
+      '    Take -en off leven: lev-.',
+      '    A long vowel in a closed syllable is written with two letters, so lev- becomes leev-.',
+      '    At the end of a word, v and z are written f and s, so leev- becomes leef-.',
+      '    Weak verb: the past tense is the stem + de: leefde.',
+      "    v is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: leefde.",
+      '    The subject is ik.',
+      '',
+    ].join('\n'));
+    const dutch = run([...args, '--locale', 'nl']).stdout.split('\n');
+    expect(dutch[0]).toBe('ik leefde');
+    expect(dutch).toContain("    v zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: leefde.");
+  });
+
+  it('words person and number in the chosen locale, and keeps the default labels in English', () => {
+    const args = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present', '--number', 'plural', '--person', '3'];
+    expect(run([...args, '--pronoun', 'zij', '--locale', 'nl']).stdout).toBe('zij werken\n');
+    const all = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present'];
+    expect(run([...all, '--locale', 'nl']).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: ik werk');
+    expect(run(all).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1 singular / 1sg: ik werk');
+  });
+
+  it('prints the reason a Dutch form does not exist in the chosen locale', () => {
+    const result = run(['nl', 'spijten', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular', '--locale', 'nl']);
+    expect(result.status).toBe(3);
+    expect(result.stdout).toBe('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: unavailable (spijten is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.)\n');
+  });
+
   it('adds an explanation to every form in JSON only when asked', () => {
     const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present', '--json'];
     const plain: ConjugationResult = JSON.parse(run(args).stdout);
@@ -217,6 +251,25 @@ describe('form and target labels', () => {
   it('labels the forms of a language with voices and subject slots', () => {
     const toy = createEngine({ xx: toyPack });
     const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' }).forms;
-    expect(forms.map(formLabel)).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+    expect(forms.map(form => formLabel(form))).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+  });
+});
+
+describe('unavailable target lines', () => {
+  const toy = createEngine({ xx: toyPack }, { en: { ...locales.en, ...toyEn }, nl: { ...locales.nl, ...toyNl } });
+  const [absent] = toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'participle', tense: 'past' }).unavailableTargets;
+  const labels = { mood: 'Participle', tense: 'Past' };
+
+  it('gives the reason of a target that records its rule in the chosen locale', () => {
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'en')))
+      .toBe('Participle / Past: unavailable (This verb has no participle, so the perfect and the past participle do not exist.)');
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'nl')))
+      .toBe('Participle / Past: unavailable (Dit werkwoord heeft geen deelwoord, dus het perfectum en het voltooid deelwoord bestaan niet.)');
+  });
+
+  it('keeps the pack\'s own sentence for a target that records no rule', () => {
+    const [legacy] = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).unavailableTargets;
+    const line = unavailableLine(legacy!, { mood: 'Indicatif', tense: 'Présent' }, explain('fr', legacy!, 'nl'));
+    expect(line).toBe(`Indicatif / Présent / 1 singular: unavailable (${legacy!.explanation})`);
   });
 });

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate } from '../src/index.js';
 import { isListedFrenchLemma } from '../src/languages/fr/index.js';
-import { dutchExceptions } from '../src/languages/nl/exceptions.js';
+import { dutchExceptions } from '../src/languages/nl/lexicon.js';
 
 describe('independent productive-rule goldens', () => {
   it.each([

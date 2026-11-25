@@ -9,6 +9,7 @@ export const french: CorpusLanguage = {
   encoding: 'windows-1252',
   expectedFiles: 222,
   cellsPerFile: frenchCellsPerFile,
+  fixturesWithoutSubjects: true,
   parse: parseFrench,
   context: name => ({
     infinitive: infinitiveFromFileName(name),

@@ -1,1 +1,918 @@
-[]
+[
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "sentence": {
+      "was": "Separability is not inferred by stripping an unknown written prefix.",
+      "now": "No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one."
+    },
+    "reason": "Final review N5: since the switch an unlisted verb is split at a known particle when the guards hold, so the old sentence is untrue; the new one says what happened to this verb: no particle or prefix was read in it.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  }
+]

@@ -20,6 +20,30 @@ function slot(id: string): SubjectSlot {
 const invalid = (code: string, message?: unknown) => expect.objectContaining({ code, ...(message === undefined ? {} : { message }) });
 const summary = (form: ConjugatedForm) => [form.text, form.target.subject, form.preferred];
 
+describe('word marks', () => {
+  it('lets the clause keep the word marked for its subject: Vu esu, il est', () => {
+    const esa = { language: 'xx', infinitive: 'esa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'active' } as const;
+    expect(toy.conjugate(esa).forms.map(form => form.text)).toEqual(['il est']);
+    const [formal] = toy.conjugate({ ...esa, subject: '2sg.formal' }).forms;
+    expect(formal!.text).toBe('Vu esu');
+    expect(formal!.parts.at(-1)!.steps!.map(s => s.rule)).toEqual(['xx.lex.formal']);
+    // Marks reach the clause on its words, and nothing of the form.
+    expect(formal!.variant).not.toHaveProperty('marks');
+    expect(JSON.stringify(formal)).not.toContain('"marks"');
+  });
+
+  it('gives the clause the marks of every word it assembles', () => {
+    const seen: (readonly string[] | undefined)[][] = [];
+    const grammar = { ...toyGrammar, clause: { ...toyGrammar.clause, assemble: ((words, context) => {
+      seen.push(words.map(word => word.marks));
+      return toyGrammar.clause.assemble(words, context);
+    }) satisfies typeof toyGrammar.clause.assemble } };
+    const engine = createEngine({ xx: { ...toyPack, engine: query => stagedEngine(grammar, toyRendering, query) } });
+    engine.conjugate({ language: 'xx', infinitive: 'esa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'active' });
+    expect(seen).toEqual([[['informal']], [['formal']]]);
+  });
+});
+
 describe('subject slots', () => {
   it('expands default slots only', () => {
     const forms = toy.conjugate(present).forms;
@@ -64,8 +88,10 @@ describe('subject slots', () => {
     const legacy = createEngine(packs);
     expect(() => legacy.conjugate({ language: 'fr', infinitive: 'aimer', subject: '1sg' }))
       .toThrow(invalid('INVALID_REQUEST', 'Unknown fr option: subject.'));
-    expect(() => legacy.conjugate({ language: 'nl', infinitive: 'werken', subject: '1sg' }))
-      .toThrow(invalid('INVALID_REQUEST', 'Unknown nl option: subject.'));
+    // Dutch has slots: an unknown one is invalid, a known one selects that subject.
+    expect(() => legacy.conjugate({ language: 'nl', infinitive: 'werken', subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
+    expect(legacy.conjugate({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', subject: '2sg.u' }).forms.map(form => form.text))
+      .toEqual(['u werkt']);
   });
 
   it('rejects a subject the tense does not have', () => {
@@ -76,17 +102,18 @@ describe('subject slots', () => {
     expect(() => toy.conjugate({ ...imperative, subject: '2sg.formal' })).toThrow(invalid('INVALID_TARGET'));
   });
 
-  it('keeps legacy targets structurally unchanged', () => {
-    const legacy = createEngine(packs);
-    for (const [language, infinitive] of [['fr', 'aimer'], ['nl', 'werken']] as const) {
-      const targets = legacy.expandTargets({ language, infinitive });
-      expect(targets.some(target => Object.hasOwn(target, 'subject'))).toBe(false);
-      const finite = targets.find(target => target.person !== null)!;
-      expect(Object.keys(finite)).toEqual(['mood', 'tense', 'person', 'number', 'gender', 'agreement']);
-      const query = { language, infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'singular' };
-      expect(Object.hasOwn(legacy.conjugate(query).forms[0]!.target, 'subject')).toBe(false);
-      expect(legacy.getSubjects(language)).toEqual([]);
-    }
+  it('keeps the targets of a pack without slots structurally unchanged, and gives a pack with slots their ids', () => {
+    const engine = createEngine(packs);
+    const targets = engine.expandTargets({ language: 'fr', infinitive: 'aimer' });
+    expect(targets.some(target => Object.hasOwn(target, 'subject'))).toBe(false);
+    const finite = targets.find(target => target.person !== null)!;
+    expect(Object.keys(finite)).toEqual(['mood', 'tense', 'person', 'number', 'gender', 'agreement']);
+    const query = { language: 'fr', infinitive: 'aimer', mood: 'indicative', tense: 'present', person: 1, number: 'singular' };
+    expect(Object.hasOwn(engine.conjugate(query).forms[0]!.target, 'subject')).toBe(false);
+    expect(engine.getSubjects('fr')).toEqual([]);
+    // Dutch has slots: a finite target names one, and the Dutch target keeps no gender.
+    const dutch = engine.expandTargets({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', person: 3, number: 'singular' });
+    expect(dutch).toEqual([{ mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null, subject: '3sg' }]);
   });
 
   it('asking for a subject excludes entries without one', () => {
@@ -141,7 +168,7 @@ describe('subject slots', () => {
     expect(toy.getSubjects('xx')).toBe(toySubjects);
     expect(toySubjects.filter(subject => subject.default).map(subject => subject.pronoun)).toEqual(['mi', 'tu', 'il', 'nos', 'vos', 'ils']);
     expect(getSubjects('fr')).toEqual([]);
-    expect(getSubjects('nl')).toEqual([]);
+    expect(getSubjects('nl').filter(subject => subject.default).map(subject => subject.pronoun)).toEqual(['ik', 'jij', 'hij', 'wij', 'jullie', 'zij']);
     expect(() => toy.getSubjects('zz')).toThrow(invalid('UNSUPPORTED_LANGUAGE'));
   });
 

@@ -1,0 +1,77 @@
+/**
+ * English messages of the Dutch rules, one per rule id. A message may use the rule's params and {before} / {after}.
+ * Three of the four `default-*` assumptions and the four `avail` reasons are the exact sentences the Dutch analysis and
+ * unavailable targets showed in English before the staged grammar; `default-unprefixed` was reworded when it stopped
+ * being true (a sentence-level entry of the characterization ledger).
+ */
+import type { dutchRules } from '../../../languages/nl/rules.js';
+
+/** The texts of the pattern labels of the two readings of a lemma such as voorkomen. */
+const labels = {
+  'nl.label.pattern.separable': 'separable',
+  'nl.label.pattern.inseparable': 'inseparable',
+} as const;
+
+export const dutch = {
+  ...labels,
+  'nl.classify.loan': '{before} is a verb borrowed from English, so its stem is the one given for it, not one formed by the Dutch stem rules.',
+  'nl.classify.irregular': '{before} is an irregular verb: its past tense, {after}, is in the verb list.',
+  'nl.classify.half-irregular': '{before} is half irregular: its past tense is regular, its past participle {after} is in the verb list.',
+  'nl.classify.listed-weak': '{before} is a weak verb; the verb list records {detail, select, auxiliary {which auxiliary it takes} reflexive {that it is reflexive} imperative {that it has no imperative} stress {where its stress falls} other {a detail of it}}.',
+  'nl.classify.separable': '{before} is a separable verb: {particle} carries the stress and can stand apart from the verb.',
+  'nl.classify.inseparable': '{before} starts with the unstressed prefix {prefix}-, which never splits off, so the past participle gets no ge-.',
+  'nl.classify.default-weak': 'An unlisted Dutch verb defaults to the weak native model.',
+  'nl.classify.default-syllables': 'Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
+  'nl.classify.default-hebben': 'An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+  'nl.classify.default-unprefixed': 'No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one.',
+  'nl.classify.assume-separable': '{before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb; if {particle}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-dual-separable': '{before} is not in the lexicon and starts with {prefix}, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if {prefix}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-inseparable': '{before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix, and it is taken as a prefix that stays on the verb because {why, select, most {most verbs with {prefix}- keep it} close {about as many verbs with {prefix}- are separable as keep it, and keeping the verb whole is the safer guess} other {what follows {prefix} here starts with a vowel and is not a verb in the lexicon, although most verbs with {prefix} are separable}}; if {prefix} is separable here, give it as the separable prefix, and if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-rest-prefix': '{before} is not in the lexicon and starts with {prefix}-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-.',
+  'nl.stem.drop-en': 'Take -en off {before}: {after}-.',
+  'nl.stem.undouble-consonant': 'A word does not end in a double consonant, so {before}- becomes {after}-.',
+  'nl.stem.lengthen-vowel': 'A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-.',
+  'nl.stem.unstressed-e': '{inferred, select, yes {The last syllable of {before}- is taken to be unstressed, so its vowel is not written double: the stem stays {after}-.} other {The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.}}',
+  'nl.stem.devoice': 'At the end of a word, v and z are written f and s, so {before}- becomes {after}-.',
+  'nl.stem.no-trema': 'After i no trema is written when three or more vowel letters follow one another, so {before}- becomes {after}-.',
+  'nl.stem.lexical': 'The stem of {before} is {after}-, as given for this verb.',
+  'nl.avail.impersonal': '{before} has no modern {form} form in this slot.',
+  'nl.avail.singular-only': '{before} has no modern {form} form in this slot.',
+  'nl.avail.no-imperative': '{before} has no modern {form} form in this slot.',
+  'nl.avail.no-compound': '{before} has no modern {form} form in this slot.',
+  'nl.cell.lexical': '{before} has the listed form {after} here.',
+  'nl.cell.d-dropped': 'After a vowel, the d at the end of the stem {before}- is often left out: {after}.',
+  'nl.cell.spoken-infinitive': 'In speech, {before} also has the infinitive {after}.',
+  'nl.cell.formal': 'With u, {before} also has the form {after}.',
+  'nl.end.present': '{person} {number} present: {ending, select, t {stem + t, {after}} en {the plural is the infinitive, {after}} other {the stem alone, {after}}}.',
+  'nl.end.present-t-drop': 'The stem {before}- already ends in t, so no t is added: {after}.',
+  'nl.end.inversion-t-drop': 'When jij or je comes after the verb, the -t of the 2nd person falls away: {after}.',
+  'nl.end.past-weak': 'Weak verb: the past tense is the stem + {ending}: {after}.',
+  'nl.end.past-strong': '{before} has an irregular past tense: {after}.',
+  'nl.end.past-plural-strong': 'The past tense {before} becomes {after} in the plural.',
+  'nl.imp.stem': 'Imperative: the stem alone, {after}.',
+  'nl.part.present': 'Present participle: the infinitive + d, {after}.',
+  'nl.part.weak': 'Weak verb: in the past participle a {ending} comes after the stem: {after}.',
+  'nl.part.weak-no-ending': 'The stem {before}- already ends in {dental}, so no extra {dental} is added: {after}.',
+  'nl.part.strong': '{before} has an irregular past participle: {after}.',
+  'nl.part.ge-blocked': 'After the prefix {prefix}- the past participle has no ge-: {after}.',
+  'nl.part.ge-prefix': 'The past participle starts with ge-: {after}.',
+  'nl.part.ge-diaeresis': 'The past participle starts with ge-, and the {vowel} after it gets a diaeresis: {after}.',
+  'nl.orth.dental-kofschip': "{sound} {dental, select, t {is} other {is not}} one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with {dental}: {after}.",
+  'nl.orth.dental-voiceless': "{sound, select, x {x is pronounced ks, and s is one of the sounds of 't kofschip} other {{sound} is pronounced without voice, like the sounds of 't kofschip}}, so the ending starts with t: {after}.",
+  'nl.orth.dental-given': 'For {before} the ending starts with {dental}, as given for this verb: {after}.',
+  'nl.orth.double-a': 'In the closed syllable the long a is written aa: {after}.',
+  'nl.periphrasis.perfect': 'Present perfect: the present tense of {auxiliary} + the past participle.',
+  'nl.periphrasis.pluperfect': 'Past perfect: the past tense of {auxiliary} + the past participle.',
+  'nl.periphrasis.future': 'Future: the present tense of zullen + the infinitive.',
+  'nl.periphrasis.future-perfect': 'Future perfect: the present tense of zullen + the past participle + {auxiliary}.',
+  'nl.periphrasis.conditional': 'Conditional: the past tense of zullen (zou, zouden) + the infinitive.',
+  'nl.periphrasis.conditional-perfect': 'Conditional perfect: the past tense of zullen (zou, zouden) + the past participle + {auxiliary}.',
+  'nl.clause.subject': 'The subject is {pronoun}.',
+  'nl.clause.impersonal-subject': '{before} is impersonal: its subject is het.',
+  'nl.clause.inversion': 'The finite verb comes before the subject {pronoun}.',
+  'nl.clause.reflexive': '{before} is a reflexive verb: the reflexive pronoun {pronoun} goes with it.',
+  'nl.clause.particle-final': 'The separable part {particle} goes to the end of the clause.',
+  'nl.clause.particle-attached': '{particle} is written together with the verb: {before} becomes {after}.',
+  'nl.clause.prefix-attached': '{prefix}- is an inseparable prefix and always stays in front of the verb: {before} becomes {after}.',
+} as const satisfies Record<keyof typeof dutchRules | keyof typeof labels, string>;

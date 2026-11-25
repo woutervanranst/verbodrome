@@ -20,7 +20,9 @@
  * grammar's `cellOf` says which, lexeme by lexeme, and the periphrasis `applies` only to deponents.
  *
  * Subjects are slots: mi tu il nos vos ils by default, and on request the feminine ila (3sg.f) and the formal Vu
- * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot. The
+ * (2sg.formal), which addresses the listener but conjugates as a 3sg. The clause takes its pronoun from the slot. esa
+ * has a formal 3sg present, esu, for Vu: its cell gives est and esu with the marks `informal` and `formal`, and the
+ * clause keeps the word marked for its subject (Vu esu, il est), since the cell cannot see the subject. The
  * imperative entry lists its slot (2sg) instead of deriving it from a person, so no other slot can join it. The clause
  * learns which cells agree from `agreeing`, not from the target's mood. The 1sg slot mi has no gender, but in a perfect
  * with esta the clause's `subjectGenders` forks it (mi esto apvenado, mi esto apvenada): each form's target then has
@@ -56,6 +58,7 @@ export const toyRules = defineRules({
   'xx.classify.inseparable': { stage: 'classify', params: { particle: 'text' } },
   'xx.avail.no-participle': { stage: 'availability', kind: 'unavailable' },
   'xx.lex.present': { stage: 'stem', kind: 'lexical' },
+  'xx.lex.formal': { stage: 'stem', kind: 'lexical' },
   'xx.stem.drop-a': { stage: 'stem' },
   'xx.stem.listed': { stage: 'stem', kind: 'lexical' },
   'xx.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
@@ -99,6 +102,7 @@ export const toyCitations = {
   'xx.classify.inseparable': [grammarCitation('§7.3'), lexiconCitation('Readings')],
   'xx.avail.no-participle': grammarCitation('§4'),
   'xx.lex.present': lexiconCitation('Suppletive verbs'),
+  'xx.lex.formal': lexiconCitation('Suppletive verbs'),
   'xx.stem.drop-a': grammarCitation('§1'),
   'xx.stem.listed': lexiconCitation('Stems'),
   'xx.end.present': grammarCitation('§2'),
@@ -130,6 +134,8 @@ export interface ToyLexeme extends LexemeBase {
   readonly base: string;
   /** Whole-word active present forms of a suppletive verb, singular 1-2-3 then plural 1-2-3. */
   readonly present: readonly string[] | null;
+  /** The formal 3sg present of a suppletive verb, for Vu. */
+  readonly formal: string | null;
   /** Stems the lexicon lists for single present cells, keyed `person.number`. */
   readonly listedStems: Readonly<Record<string, string>>;
   readonly hasParticiple: boolean;
@@ -153,6 +159,7 @@ interface Entry {
   /** One paradigm per reading, in this order; they replace `auxiliaries` and make the particle (in)separable. */
   readonly readings?: readonly Reading[];
   readonly present?: readonly string[];
+  readonly formal?: string;
   readonly stems?: Readonly<Record<string, string>>;
   readonly noParticiple?: true;
   readonly longPlural?: true;
@@ -164,7 +171,7 @@ const lexicon: Readonly<Record<string, Entry>> = {
   esta: {},
   vada: {},
   vena: { auxiliaries: ['haba', 'esta'] },
-  esa: { present: ['so', 'es', 'est', 'somos', 'estes', 'sont'] },
+  esa: { present: ['so', 'es', 'est', 'somos', 'estes', 'sont'], formal: 'esu' },
   apzorpa: { particle: 'ap' },
   solea: { noParticiple: true },
   // Lists the 2pl stem the c-qu spelling rule already derives: two derivations of one form.
@@ -200,6 +207,7 @@ function lexemeOf(lemma: string, reading?: Reading): ToyLexeme {
     particle: entry.particle ? { text: entry.particle, separable: chosen?.separable ?? true } : null,
     base: entry.particle ? lemma.slice(entry.particle.length) : lemma,
     present: entry.present ?? null,
+    formal: entry.formal ?? null,
     listedStems: entry.stems ?? {},
     hasParticiple: !entry.noParticiple,
     longPlural: entry.longPlural ?? false,
@@ -340,6 +348,9 @@ const clause: ClauseGrammar<ToyLexeme> = {
    * finite main verb at the end of the clause.
    */
   assemble(words, { lexeme, target, subject, rendering }) {
+    // A word marked for the other kind of subject is not this clause's: esu is Vu's, est is il's.
+    const unmarked = subject?.register === 'formal' ? 'informal' : 'formal';
+    if (words.some(word => word.marks?.includes(unmarked))) return [];
     const particle = lexeme.particle;
     const separated = particle !== null && particle.separable
       && words.some(word => word.role === 'lexicalVerb' && word.cell?.kind === 'finite');
@@ -439,7 +450,10 @@ export const toyGrammar: StagedGrammar<ToyLexeme> = {
   cell(lexeme, cell) {
     if (!lexeme.present || cell.kind !== 'finite' || cell.mood !== 'indicative' || cell.tense !== 'present' || cell.voice === 'passive') return null;
     const word = itemAt(lexeme.present, slot(cell));
-    return one(word, [step(toyRules['xx.lex.present'], lexeme.lemma, word)]);
+    const steps = [step(toyRules['xx.lex.present'], lexeme.lemma, word)];
+    if (lexeme.formal === null || slot(cell) !== 2) return one(word, steps);
+    // The cell cannot see whether il or Vu is the subject: it gives both words, marked, and the clause keeps one.
+    return [...one(word, steps, {}, ['informal']), ...one(lexeme.formal, [step(toyRules['xx.lex.formal'], lexeme.lemma, lexeme.formal)], {}, ['formal'])];
   },
   stem(lexeme, cell) {
     const stem = lexeme.base.slice(0, -1);
