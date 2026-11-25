@@ -5,11 +5,13 @@ import type { ConjugationResult, Engine, PartRole, ResolvedTarget } from '../../
 export type CharacterizationQuery = { readonly language: 'fr' | 'nl'; readonly infinitive: string } & Readonly<Record<string, unknown>>;
 
 /**
- * One recorded, sourced difference between the frozen output and the current engine output, in one of two forms:
+ * One recorded, sourced difference between the frozen output and the current engine output, in one of three forms:
  * a line-level entry (`LineDiff`) changes one line of a frozen block; a block-level entry (`BlockDiff`) supersedes the
- * whole frozen block by the block with the same header in `tests/characterization/<language>.accepted.tsv.gz`.
+ * whole frozen block by the block with the same header in `tests/characterization/<language>.accepted.tsv.gz`; a
+ * sentence-level entry (`SentenceDiff`) rewords or removes one assumption sentence in the analysis line of every frozen
+ * block that has it.
  */
-export type IntendedDiff = LineDiff | BlockDiff;
+export type IntendedDiff = LineDiff | BlockDiff | SentenceDiff;
 
 /** A line-level entry: one line of the frozen block of `query` replaced, removed or added. */
 export interface LineDiff {
@@ -41,9 +43,36 @@ export interface BlockDiff {
   readonly source: string;
 }
 
+/**
+ * A sentence-level entry: in the analysis (`A`) line of every frozen block that lists the assumption sentence `was`,
+ * that sentence becomes `now`, or is removed when `now` is null. For a sentence reworded throughout the snapshot; it must
+ * apply to at least one block.
+ */
+export interface SentenceDiff {
+  readonly sentence: { readonly was: string; readonly now: string | null };
+  readonly reason: string;
+  readonly source: string;
+}
+
 /** Whether a ledger entry is block-level. */
 export function isBlockDiff(entry: IntendedDiff): entry is BlockDiff {
   return 'block' in entry && entry.block === true;
+}
+
+/** Whether a ledger entry is sentence-level. */
+export function isSentenceDiff(entry: IntendedDiff): entry is SentenceDiff {
+  return 'sentence' in entry;
+}
+
+/** The analysis line `line` with the assumption sentence `was` replaced by `now` (removed when null), or null when it does not list `was`. */
+export function replaceSentence(line: string, was: string, now: string | null): string | null {
+  if (!line.startsWith('A\t')) return null;
+  const cells = line.split('\t');
+  const sentences = cells[6] === '-' || cells[6] === undefined ? [] : cells[6].split(' | ');
+  if (!sentences.includes(was)) return null;
+  const next = sentences.flatMap(sentence => (sentence === was ? (now === null ? [] : [now]) : [sentence]));
+  cells[6] = next.length ? next.join(' | ') : '-';
+  return cells.join('\t');
 }
 
 const ROLE_LETTER: Readonly<Record<PartRole, string>> = {

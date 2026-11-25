@@ -1,5 +1,33 @@
 [
   {
+    "query": "# {\"infinitive\":\"bedanken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedanken\",\"language\":\"nl\"}",
+    "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bedanken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104170) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bedanken"
+  },
+  {
     "query": "# {\"infinitive\":\"bedekken\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
@@ -48,6 +76,34 @@
     "source": "https://woordenlijst.org/zoeken/?q=behagen"
   },
   {
+    "query": "# {\"infinitive\":\"behandelen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behandelen\",\"language\":\"nl\"}",
+    "was": "A\tbehandelen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbehandelen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: behandelen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104236) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=behandelen"
+  },
+  {
     "query": "# {\"infinitive\":\"belegeren\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
@@ -70,6 +126,34 @@
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
     "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"beloven\",\"language\":\"nl\"}",
+    "was": "A\tbeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
   },
   {
     "query": "# {\"infinitive\":\"bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
@@ -120,6 +204,34 @@
     "source": "https://woordenlijst.org/zoeken/?q=besluiten"
   },
   {
+    "query": "# {\"infinitive\":\"bestellen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestellen\",\"language\":\"nl\"}",
+    "was": "A\tbestellen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbestellen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: bestellen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104472) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=bestellen"
+  },
+  {
     "query": "# {\"infinitive\":\"bestormen\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
@@ -142,6 +254,34 @@
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
     "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
+  },
+  {
+    "query": "# {\"infinitive\":\"betalen\",\"language\":\"nl\"}",
+    "was": "A\tbetalen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tbetalen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: betalen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104491) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=betalen"
   },
   {
     "query": "# {\"infinitive\":\"bewegen\",\"inversion\":true,\"language\":\"nl\"}",
@@ -190,6 +330,118 @@
     "block": true,
     "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
     "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"gebruiken\",\"language\":\"nl\"}",
+    "was": "A\tgebruiken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgebruiken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: gebruiken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105588) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=gebruiken"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"geloven\",\"language\":\"nl\"}",
+    "was": "A\tgeloven\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tgeloven\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: geloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105604) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=geloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herinneren\",\"language\":\"nl\"}",
+    "was": "A\therinneren\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therinneren\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herinneren is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105841) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herinneren"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
+  },
+  {
+    "query": "# {\"infinitive\":\"herkennen\",\"language\":\"nl\"}",
+    "was": "A\therkennen\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\therkennen\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: herkennen is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 105849) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=herkennen"
   },
   {
     "query": "# {\"infinitive\":\"misstaan\",\"inversion\":true,\"language\":\"nl\"}",
@@ -262,6 +514,34 @@
     "block": true,
     "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
     "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"ontdekken\",\"language\":\"nl\"}",
+    "was": "A\tontdekken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tontdekken\tweak\tlexicon\t0\thebben\t-",
+    "reason": "Final review N3: ontdekken is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 107088) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=ontdekken"
   },
   {
     "query": "# {\"infinitive\":\"opzorpen\",\"inversion\":true,\"language\":\"nl\"}",
@@ -576,6 +856,34 @@
     "source": "https://woordenlijst.org/zoeken/?q=voorzien"
   },
   {
+    "query": "# {\"infinitive\":\"zich beloven\",\"inversion\":true,\"language\":\"nl\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich beloven\",\"language\":\"nl\"}",
+    "was": "A\tzich beloven\tweak\tlexicon\t1\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
+    "now": "A\tzich beloven\tweak\tlexicon\t1\thebben\t-",
+    "reason": "Final review N3: beloven is in the lexicon with its unstressed prefix, and woordenlijst.org (lemma 104334) confirms its weak forms and the auxiliary hebben, so the analysis no longer records the three assumptions made for a verb the lexicon does not list.",
+    "source": "https://woordenlijst.org/zoeken/?q=beloven"
+  },
+  {
     "query": "# {\"infinitive\":\"zich bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
@@ -598,5 +906,13 @@
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
     "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "sentence": {
+      "was": "Separability is not inferred by stripping an unknown written prefix.",
+      "now": "No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one."
+    },
+    "reason": "Final review N5: since the switch an unlisted verb is split at a known particle when the guards hold, so the old sentence is untrue; the new one says what happened to this verb: no particle or prefix was read in it.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
   }
 ]

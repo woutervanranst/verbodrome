@@ -1,7 +1,8 @@
 /**
  * English messages of the Dutch rules, one per rule id. A message may use the rule's params and {before} / {after}.
- * The four `default-*` assumptions and the four `avail` reasons are the exact sentences the Dutch analysis and unavailable
- * targets have always shown in English.
+ * Three of the four `default-*` assumptions and the four `avail` reasons are the exact sentences the Dutch analysis and
+ * unavailable targets showed in English before the staged grammar; `default-unprefixed` was reworded when it stopped
+ * being true (a sentence-level entry of the characterization ledger).
  */
 import type { dutchRules } from '../../../languages/nl/rules.js';
 
@@ -22,15 +23,15 @@ export const dutch = {
   'nl.classify.default-weak': 'An unlisted Dutch verb defaults to the weak native model.',
   'nl.classify.default-syllables': 'Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
   'nl.classify.default-hebben': 'An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-  'nl.classify.default-unprefixed': 'Separability is not inferred by stripping an unknown written prefix.',
-  'nl.classify.assume-separable': '{before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb. If {particle}- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
-  'nl.classify.assume-dual-separable': '{before} is not in the lexicon and starts with {prefix}, which can be a separable particle or an unstressed prefix. Most verbs with {prefix} are separable, so it is conjugated as a separable verb. If {prefix}- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
-  'nl.classify.assume-inseparable': '{before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, {why, select, most {as most verbs with {prefix}- keep it} close {as about as many verbs with {prefix} are separable as keep it, and keeping the verb whole is the safer guess} other {as what follows {prefix} here starts with a vowel and is not a verb in the lexicon, although most verbs with {prefix} are separable}}. If {prefix} is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.default-unprefixed': 'No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one.',
+  'nl.classify.assume-separable': '{before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb; if {particle}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-dual-separable': '{before} is not in the lexicon and starts with {prefix}, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if {prefix}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-inseparable': '{before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix, and it is taken as a prefix that stays on the verb because {why, select, most {most verbs with {prefix}- keep it} close {about as many verbs with {prefix}- are separable as keep it, and keeping the verb whole is the safer guess} other {what follows {prefix} here starts with a vowel and is not a verb in the lexicon, although most verbs with {prefix} are separable}}; if {prefix} is separable here, give it as the separable prefix, and if the verb has no prefix, give its class (weak or strong).',
   'nl.classify.assume-rest-prefix': '{before} is not in the lexicon and starts with {prefix}-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-.',
   'nl.stem.drop-en': 'Take -en off {before}: {after}-.',
   'nl.stem.undouble-consonant': 'A word does not end in a double consonant, so {before}- becomes {after}-.',
   'nl.stem.lengthen-vowel': 'A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-.',
-  'nl.stem.unstressed-e': 'The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.',
+  'nl.stem.unstressed-e': '{inferred, select, yes {The last syllable of {before}- is taken to be unstressed, so its vowel is not written double: the stem stays {after}-.} other {The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.}}',
   'nl.stem.devoice': 'At the end of a word, v and z are written f and s, so {before}- becomes {after}-.',
   'nl.stem.no-trema': 'After i no trema is written when three or more vowel letters follow one another, so {before}- becomes {after}-.',
   'nl.stem.lexical': 'The stem of {before} is {after}-, as given for this verb.',

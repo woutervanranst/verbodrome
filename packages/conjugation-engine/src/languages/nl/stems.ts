@@ -73,7 +73,7 @@ export function presentStem({ infinitive, listed, unstressed, prefix }: StemSour
       const long = stem.replace(openSyllable, '$1$2$2$3').replace(/ë([bcdfghjklmnpqrstvwz])$/u, 'ëe$1')
         .replace(/((?:^|[^aeo])u)e([bcdfghjklmnpqrstvwz])$/u, '$1ee$2');
       // The unstressed e is recorded where it keeps the vowel from being written double.
-      if (long !== stem && unstressedE) steps.push(step(dutchRules['nl.stem.unstressed-e'], stem, stem));
+      if (long !== stem && unstressedE) steps.push(step(dutchRules['nl.stem.unstressed-e'], stem, stem, { inferred: unstressed === undefined ? 'yes' : 'no' }));
       else if (long !== stem) {
         steps.push(step(dutchRules['nl.stem.lengthen-vowel'], stem, long));
         stem = long;

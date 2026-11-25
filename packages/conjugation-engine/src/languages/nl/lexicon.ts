@@ -1074,24 +1074,27 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
       : listedBase || loan || derivative || listedInseparable ? 'lexicon' : 'regularRule';
 
   const steps: DerivationStep[] = [];
-  if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
+  // An assumed reading comes first and is not restated as a fact: the assumption says what is read, and why.
+  if (implied?.assumed) {
+    steps.push(implied.why === undefined ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
+      : implied.separable ? step(dutchRules['nl.classify.assume-dual-separable'], lemma, null, { prefix: implied.prefix })
+        : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix, why: implied.why }));
+  } else if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
   if (rest?.assumed) steps.push(step(dutchRules['nl.classify.assume-rest-prefix'], rest.verb, null, { prefix: rest.prefix }));
-  else if (inseparable) steps.push(step(dutchRules['nl.classify.inseparable'], rest?.verb ?? lemma, null, { prefix: inseparable }));
+  else if (inseparable && !(implied?.assumed && !rest)) {
+    steps.push(step(dutchRules['nl.classify.inseparable'], rest?.verb ?? lemma, null, { prefix: inseparable }));
+  }
   if (isLoan) steps.push(step(dutchRules['nl.classify.loan'], base, null));
   else if (listedBase) steps.push(listedClass(base, listedBase));
-  // A verb whose base is neither listed nor a loan: each guess the lexicon would otherwise answer, unless a hint does.
-  if (!listedBase && !loan) {
+  // A verb whose base is neither listed (as a whole, with its forms or its prefix) nor a loan: each guess the lexicon
+  // would otherwise answer, unless a hint does. A verb listed with its unstressed prefix is a checked weak verb.
+  if (!listedBase && !loan && lookup(inseparableVerbs, base) === undefined) {
     if (!classHint) steps.push(step(dutchRules['nl.classify.default-weak'], base, null));
     if (!hints.stem && hints.unstressedFinalSyllable === undefined) steps.push(step(dutchRules['nl.classify.default-syllables'], base, null));
     if (!auxiliary && !derivative?.auxiliary) steps.push(step(dutchRules['nl.classify.default-hebben'], lemma, null));
     if (!hintedPrefix && !implied && !knownSeparable && !knownInseparable && !listedInseparable) {
       steps.push(step(dutchRules['nl.classify.default-unprefixed'], lemma, null));
     }
-  }
-  if (implied?.assumed) {
-    steps.push(implied.why === undefined ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
-      : implied.separable ? step(dutchRules['nl.classify.assume-dual-separable'], lemma, null, { prefix: implied.prefix })
-        : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix, why: implied.why }));
   }
 
   const prefix = derivative?.prefix ?? '';

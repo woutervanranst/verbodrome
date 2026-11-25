@@ -38,7 +38,7 @@ const unlisted = {
   weak: 'An unlisted Dutch verb defaults to the weak native model.',
   syllables: 'Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
   hebben: 'An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-  prefix: 'Separability is not inferred by stripping an unknown written prefix.',
+  prefix: 'No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one.',
 };
 
 describe('Dutch present stem', () => {
@@ -103,7 +103,7 @@ describe('Dutch present stem', () => {
 });
 
 describe('Dutch classification', () => {
-  it('records the four legacy assumptions for an unlisted verb, in English exactly as the snapshot has them', () => {
+  it('records the four assumptions for an unlisted verb, in English as the snapshot has them (the last through its sentence-level ledger entry)', () => {
     expect(assumptions('zorpen')).toEqual([unlisted.weak, unlisted.syllables, unlisted.hebben, unlisted.prefix]);
     const { lexeme } = classified('zorpen');
     expect(lexeme).toMatchObject({ lemma: 'zorpen', verbId: 'zorpen', classId: 'weak', classSource: 'regularRule', auxiliaries: ['hebben'] });
@@ -117,6 +117,8 @@ describe('Dutch classification', () => {
     expect(assumptions('opzorpen', { separablePrefix: 'op' })).toEqual([unlisted.weak, unlisted.syllables, unlisted.hebben]);
     // A listed derivative of an unlisted base: the prefix is known, the base's class and auxiliary are assumed.
     expect(assumptions('verwerken')).toEqual([unlisted.weak, unlisted.syllables, unlisted.hebben]);
+    // A verb listed with its unstressed prefix is a checked weak verb: nothing is assumed (final review N3).
+    expect(assumptions('betalen')).toEqual([]);
     expect(assumptions('lopen')).toEqual([]);
     expect(assumptions('downloaden')).toEqual([]);
   });

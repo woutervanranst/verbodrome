@@ -28,13 +28,13 @@ const pinned: readonly Pinned[] = [
       'The verb: An unlisted Dutch verb defaults to the weak native model.',
       'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
       'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-      'The verb: Separability is not inferred by stripping an unknown written prefix.',
+      'The verb: No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one.',
     ],
     nl: [
-      'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: Voor zorpen geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat zorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: zorpen staat niet in de lijst en we lezen er geen scheidbaar deel of voorvoegsel in, dus behandelen we het als een werkwoord zonder voorvoegsel. Aan de spelling zie je niet altijd of een werkwoord scheidbaar is.',
+      'Het werkwoord: zorpen staat niet in de lijst en we lezen er geen scheidbaar deel of voorvoegsel in, dus we vervoegen het als een werkwoord zonder voorvoegsel.',
     ],
   },
   {
@@ -308,13 +308,13 @@ const pinned: readonly Pinned[] = [
     verb: 'wandelen', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik wandel',
     en: [
       'wandel: Take -en off wandelen: wandel-.',
-      'wandel: The last syllable of wandel- is unstressed, so its vowel is not written double: the stem stays wandel-.',
+      'wandel: The last syllable of wandel- is taken to be unstressed, so its vowel is not written double: the stem stays wandel-.',
       'wandel: 1st person singular present: the stem alone, wandel.',
       'The whole form: The subject is ik.',
     ],
     nl: [
       'wandel: Haal -en van wandelen af: wandel-.',
-      'wandel: De laatste lettergreep van wandel- heeft geen klemtoon, dus de klinker schrijf je niet dubbel: de stam blijft wandel-.',
+      'wandel: We nemen aan dat de laatste lettergreep van wandel- geen klemtoon heeft, dus de klinker schrijf je niet dubbel: de stam blijft wandel-.',
       'wandel: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, wandel.',
       'De hele vorm: Het onderwerp is ik.',
     ],
@@ -935,18 +935,16 @@ const pinned: readonly Pinned[] = [
     // an unknown verb split at a separable particle (change 1)
     verb: 'opzorpen', query: {}, analysis: true,
     en: [
-      'The verb: opzorpen is a separable verb: op carries the stress and can stand apart from the verb.',
+      'The verb: opzorpen is not in the lexicon and starts with the separable particle op, so it is conjugated as a separable verb; if op- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
       'The verb: An unlisted Dutch verb defaults to the weak native model.',
       'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
       'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-      'The verb: opzorpen is not in the lexicon and starts with the separable particle op, so it is conjugated as a separable verb. If op- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
     ],
     nl: [
-      'Het werkwoord: opzorpen is een scheidbaar werkwoord: op krijgt de klemtoon en kan los van het werkwoord staan.',
-      'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: opzorpen staat niet in de lijst en begint met het scheidbare deel op, dus we vervoegen het als scheidbaar werkwoord; blijft op- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+      'Het werkwoord: Voor zorpen geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat opzorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: opzorpen staat niet in de lijst en begint met het scheidbare deel op, dus we vervoegen het als scheidbaar werkwoord: op komt los van het werkwoord. Blijft op- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
     ],
   },
   {
@@ -969,52 +967,46 @@ const pinned: readonly Pinned[] = [
     // an unknown verb with a dual prefix whose readings are close to even, kept whole (change 1)
     verb: 'overwinnen', query: {}, analysis: true,
     en: [
-      'The verb: overwinnen starts with the unstressed prefix over-, which never splits off, so the past participle gets no ge-.',
+      'The verb: overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix, and it is taken as a prefix that stays on the verb because about as many verbs with over- are separable as keep it, and keeping the verb whole is the safer guess; if over is separable here, give it as the separable prefix, and if the verb has no prefix, give its class (weak or strong).',
       'The verb: winnen is an irregular verb: its past tense, won, is in the verb list.',
-      'The verb: overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
     ],
     nl: [
-      'Het werkwoord: overwinnen begint met het onbeklemtoonde voorvoegsel over-, dat nooit loskomt, dus het voltooid deelwoord krijgt geen ge-.',
+      'Het werkwoord: overwinnen staat niet in de lijst en begint met over-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn, en we nemen aan dat het vast aan het werkwoord blijft, want over is ongeveer even vaak scheidbaar als vast, en het werkwoord heel laten is de veiligste gok; is over hier scheidbaar, geef het dan op als scheidbaar deel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
       'Het werkwoord: winnen is een onregelmatig werkwoord: de verleden tijd, won, staat in de werkwoordenlijst.',
-      'Het werkwoord: overwinnen staat niet in de lijst en begint met over-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn: we nemen aan dat het een voorvoegsel is dat altijd aan het werkwoord vast blijft, want over is ongeveer even vaak scheidbaar als vast, en het werkwoord heel laten is de veiligste gok. Is over hier scheidbaar, geef het dan op als scheidbaar deel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
     ],
   },
   {
     // an unknown verb with a dual prefix whose verbs are mostly separable: split
     verb: 'aanzorpen', query: {}, analysis: true,
     en: [
-      'The verb: aanzorpen is a separable verb: aan carries the stress and can stand apart from the verb.',
+      'The verb: aanzorpen is not in the lexicon and starts with aan, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if aan- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
       'The verb: An unlisted Dutch verb defaults to the weak native model.',
       'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
       'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-      'The verb: aanzorpen is not in the lexicon and starts with aan, which can be a separable particle or an unstressed prefix. Most verbs with aan are separable, so it is conjugated as a separable verb. If aan- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
     ],
     nl: [
-      'Het werkwoord: aanzorpen is een scheidbaar werkwoord: aan krijgt de klemtoon en kan los van het werkwoord staan.',
-      'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: aanzorpen staat niet in de lijst en begint met aan, dat in de meeste werkwoorden een scheidbaar deel is maar in sommige een onbeklemtoond voorvoegsel, dus we vervoegen het als scheidbaar werkwoord; blijft aan- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+      'Het werkwoord: Voor zorpen geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat aanzorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: aanzorpen staat niet in de lijst en begint met aan, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn. De meeste werkwoorden met aan zijn scheidbaar, dus we vervoegen het als scheidbaar werkwoord: aan komt los van het werkwoord. Blijft aan- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
     ],
   },
   {
     // a separable verb whose rest has an unstressed prefix the lexicon does not know (N1)
     verb: 'voorbereiden', query: {}, analysis: true,
     en: [
-      'The verb: voorbereiden is a separable verb: voor carries the stress and can stand apart from the verb.',
+      'The verb: voorbereiden is not in the lexicon and starts with voor, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if voor- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
       'The verb: bereiden is not in the lexicon and starts with be-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-.',
       'The verb: An unlisted Dutch verb defaults to the weak native model.',
       'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
       'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
-      'The verb: voorbereiden is not in the lexicon and starts with voor, which can be a separable particle or an unstressed prefix. Most verbs with voor are separable, so it is conjugated as a separable verb. If voor- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
     ],
     nl: [
-      'Het werkwoord: voorbereiden is een scheidbaar werkwoord: voor krijgt de klemtoon en kan los van het werkwoord staan.',
+      'Het werkwoord: voorbereiden staat niet in de lijst en begint met voor, dat in de meeste werkwoorden een scheidbaar deel is maar in sommige een onbeklemtoond voorvoegsel, dus we vervoegen het als scheidbaar werkwoord; blijft voor- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
       'Het werkwoord: bereiden staat niet in de lijst en begint met be-, dat we als onbeklemtoond voorvoegsel nemen dat vast aan het werkwoord blijft, dus het voltooid deelwoord krijgt geen ge-.',
-      'Het werkwoord: bereiden staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: Voor bereiden geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van bereiden schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat voorbereiden in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: voorbereiden staat niet in de lijst en begint met voor, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn. De meeste werkwoorden met voor zijn scheidbaar, dus we vervoegen het als scheidbaar werkwoord: voor komt los van het werkwoord. Blijft voor- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
     ],
   },
   {

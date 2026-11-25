@@ -96,7 +96,7 @@ describe('Dutch grammatical generation', () => {
     expect(dutch({ language: 'nl', infinitive: 'opzorpen', ...present })).toEqual(['ik zorp op']);
     expect(dutch({ language: 'nl', infinitive: 'opzorpen', mood: 'participle', tense: 'past' })).toEqual(['opgezorpt']);
     expect(conjugate({ language: 'nl', infinitive: 'opzorpen' }).analysis.assumptions).toContain(
-      'opzorpen is not in the lexicon and starts with the separable particle op, so it is conjugated as a separable verb. If op- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
+      'opzorpen is not in the lexicon and starts with the separable particle op, so it is conjugated as a separable verb; if op- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
     );
     // A known base verb keeps its own forms: toe + geven.
     expect(dutch({ language: 'nl', infinitive: 'toegeven', ...present })).toEqual(['ik geef toe']);
@@ -137,10 +137,10 @@ describe('Dutch grammatical generation', () => {
         weer: { separable: false, why: 'most' },
       });
       const assumptions = (infinitive: string) => conjugate({ language: 'nl', infinitive }).analysis.assumptions.filter(text => text.includes('not in the lexicon and starts with'));
-      expect(assumptions('aanzorpen')).toEqual(['aanzorpen is not in the lexicon and starts with aan, which can be a separable particle or an unstressed prefix. Most verbs with aan are separable, so it is conjugated as a separable verb. If aan- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).']);
-      expect(assumptions('miszorpen')[0]).toContain('it is taken as a prefix that stays on the verb, as most verbs with mis- keep it.');
-      expect(assumptions('overzorpen')[0]).toContain('as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess.');
-      expect(assumptions('omelpen')[0]).toContain('as what follows om here starts with a vowel and is not a verb in the lexicon, although most verbs with om are separable.');
+      expect(assumptions('aanzorpen')).toEqual(['aanzorpen is not in the lexicon and starts with aan, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if aan- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).']);
+      expect(assumptions('miszorpen')[0]).toContain('it is taken as a prefix that stays on the verb because most verbs with mis- keep it;');
+      expect(assumptions('overzorpen')[0]).toContain('because about as many verbs with over- are separable as keep it, and keeping the verb whole is the safer guess;');
+      expect(assumptions('omelpen')[0]).toContain('because what follows om here starts with a vowel and is not a verb in the lexicon, although most verbs with om are separable;');
     });
 
     it('keeps the verbs woordenlijst.org lists with the other reading of a separable-default prefix inseparable', () => {
@@ -208,7 +208,7 @@ describe('Dutch grammatical generation', () => {
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', mood: 'indicative', tense: 'past', person: 1, number: 'singular' })).toEqual(['ik overwon']);
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', mood: 'participle', tense: 'past' })).toEqual(['overwonnen']);
     expect(conjugate({ language: 'nl', infinitive: 'overwinnen' }).analysis.assumptions).toContain(
-      'overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
+      'overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix, and it is taken as a prefix that stays on the verb because about as many verbs with over- are separable as keep it, and keeping the verb whole is the safer guess; if over is separable here, give it as the separable prefix, and if the verb has no prefix, give its class (weak or strong).',
     );
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', separablePrefix: 'over', mood: 'participle', tense: 'past' })).toEqual(['overgewonnen']);
   });

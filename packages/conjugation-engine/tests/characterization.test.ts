@@ -3,30 +3,40 @@
  * `characterization/<language>.queries.json`, frozen in `characterization/<language>.tsv.gz` (written once by
  * `npm run characterize:write`, never regenerated). The current engine must reproduce each frozen block, apart from the
  * intended differences recorded in `characterization/intended-diffs.json`, each with its reason and source, in one of
- * two forms:
+ * three forms:
  * - a line-level entry `{ query, was, now, after?, reason, source }` replaces, removes or adds one line of the frozen
  *   block of `query`;
  * - a block-level entry `{ query, block: true, reason, source }` supersedes the whole frozen block of `query` by the
  *   block with the same header in `characterization/<language>.accepted.tsv.gz` (same line format and gzip as the frozen
- *   file), written from the current engine by `npm run characterize:accept`.
+ *   file), written from the current engine by `npm run characterize:accept`;
+ * - a sentence-level entry `{ sentence: { was, now }, reason, source }` rewords the assumption sentence `was` into `now`
+ *   (or removes it when `now` is null) in the analysis line of every block that lists it, after the line-level entries
+ *   of the block and never in an accepted block: for a sentence reworded throughout the snapshot.
  * Every accepted block has exactly one block-level entry and every block-level entry one accepted block; a query has
- * either one block-level entry or only line-level ones; every entry is used exactly once. The number of entries of each
- * form is pinned, so a change to the ledger is deliberate. The ledger is sorted by query.
+ * either one block-level entry or only line-level ones; every line-level and block-level entry is used exactly once and
+ * every sentence-level entry at least once. The number of entries of each form is pinned, so a change to the ledger is
+ * deliberate. The ledger lists the line-level and block-level entries sorted by query, then the sentence-level entries
+ * sorted by the sentence they reword.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { characterize, isBlockDiff, queryHeader, snapshotBlocks, snapshotFile } from '../scripts/characterize/serialize.ts';
-import type { BlockDiff, CharacterizationQuery, IntendedDiff, LineDiff } from '../scripts/characterize/serialize.ts';
+import { characterize, isBlockDiff, isSentenceDiff, queryHeader, replaceSentence, snapshotBlocks, snapshotFile } from '../scripts/characterize/serialize.ts';
+import type { BlockDiff, CharacterizationQuery, IntendedDiff, LineDiff, SentenceDiff } from '../scripts/characterize/serialize.ts';
 
 const FR_QUERY_COUNT = 1003;
 const NL_QUERY_COUNT = 1478;
-/** Pinned: raised deliberately by the plan that adds entries. */
-const LINE_ENTRY_COUNT = 0;
+/**
+ * Pinned: the analysis lines of the 11 Dutch verbs the lexicon lists with an unstressed prefix, which no longer record
+ * the assumptions for an unlisted verb (final review fix wave), 4 queries each.
+ */
+const LINE_ENTRY_COUNT = 44;
 /**
  * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56) and of the lexicon
  * corrections of wrong Dutch that followed it (44).
  */
 const BLOCK_ENTRY_COUNT = 100;
+/** Pinned: the Dutch default-unprefixed sentence, reworded because it was no longer true (final review fix wave). */
+const SENTENCE_ENTRY_COUNT = 1;
 
 const directory = new URL('./characterization/', import.meta.url);
 const read = (name: string): string => readFileSync(new URL(name, directory), 'utf8');
@@ -62,7 +72,7 @@ function insertionIndex(lines: readonly string[], diff: LineDiff, header: string
 function applyEntries(entries: readonly IntendedDiff[], stored: readonly string[], accepted: ReadonlyMap<string, readonly string[]>,
   applied: Map<IntendedDiff, number>): string[] {
   const header = stored[0] ?? '';
-  const own = entries.filter(entry => entry.query === header);
+  const own = entries.filter(entry => !isSentenceDiff(entry) && entry.query === header);
   const whole = own.filter(isBlockDiff);
   if (whole.length) {
     if (own.length > 1) throw new Error(`Ledger has a block-level entry for ${header} and ${own.length - 1} other entries`);
@@ -84,6 +94,12 @@ function applyEntries(entries: readonly IntendedDiff[], stored: readonly string[
     if (diff.now === null) lines.splice(index, 1);
     else lines[index] = diff.now;
   }
+  for (const diff of entries.filter(isSentenceDiff)) {
+    const index = lines.findIndex(line => replaceSentence(line, diff.sentence.was, diff.sentence.now) !== null);
+    if (index < 0) continue;
+    lines[index] = replaceSentence(lines[index]!, diff.sentence.was, diff.sentence.now)!;
+    applied.set(diff, (applied.get(diff) ?? 0) + 1);
+  }
   return lines;
 }
 
@@ -94,10 +110,11 @@ function applyLedger(entries: readonly IntendedDiff[], blocks: readonly (readonl
   return { blocks: blocks.map(block => block && applyEntries(entries, block, accepted, applied)), applied };
 }
 
-/** Each entry applied other than exactly once, described. */
+/** Each line-level or block-level entry applied other than exactly once, and each sentence-level entry never applied, described. */
 function misapplied(entries: readonly IntendedDiff[], applied: ReadonlyMap<IntendedDiff, number>): string[] {
   return entries.flatMap(entry => {
     const count = applied.get(entry) ?? 0;
+    if (isSentenceDiff(entry)) return count > 0 ? [] : [`sentence-level entry applied to no block: ${entry.sentence.was}`];
     return count === 1 ? [] : [`${entry.query}: applied ${count} times, not once: ${isBlockDiff(entry) ? '(block)' : entry.was ?? entry.now}`];
   });
 }
@@ -116,7 +133,7 @@ function unpaired(entries: readonly IntendedDiff[], accepted: ReadonlyMap<string
     }),
     ...blockEntries.filter(entry => !accepted.has(entry.query)).map(entry => `${entry.query}: block-level entry without an accepted block`),
     ...[...new Set(blockEntries.map(entry => entry.query))].flatMap(header => {
-      const others = entries.filter(entry => entry.query === header).length - 1;
+      const others = entries.filter(entry => !isSentenceDiff(entry) && entry.query === header).length - 1;
       return others ? [`${header}: block-level entry with ${others} other entries`] : [];
     }),
   ];
@@ -183,14 +200,17 @@ describe('characterization helpers', () => {
 });
 
 describe('characterization ledger', () => {
-  it('keeps a sourced ledger, sorted by query, with pinned counts of each form', () => {
-    expect(ledger.filter(entry => !isBlockDiff(entry))).toHaveLength(LINE_ENTRY_COUNT);
+  it('keeps a sourced ledger, sorted, with pinned counts of each form', () => {
+    expect(ledger.filter(entry => !isBlockDiff(entry) && !isSentenceDiff(entry))).toHaveLength(LINE_ENTRY_COUNT);
     expect(ledger.filter(isBlockDiff)).toHaveLength(BLOCK_ENTRY_COUNT);
+    expect(ledger.filter(isSentenceDiff)).toHaveLength(SENTENCE_ENTRY_COUNT);
     for (const entry of ledger) {
-      expect(entry.reason.length, entry.query).toBeGreaterThan(30);
-      expect(entry.source.startsWith('https://'), entry.query).toBe(true);
+      const label = isSentenceDiff(entry) ? entry.sentence.was : entry.query;
+      expect(entry.reason.length, label).toBeGreaterThan(30);
+      expect(entry.source.startsWith('https://'), label).toBe(true);
     }
-    const order = ledger.map(entry => entry.query);
+    const key = (entry: IntendedDiff) => (isSentenceDiff(entry) ? `~${entry.sentence.was}` : entry.query);
+    const order = ledger.map(key);
     expect(order).toEqual([...order].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0)));
   });
 
@@ -285,6 +305,50 @@ describe('characterization ledger mechanics', () => {
       const elsewhere = whole('# {"infinitive":"elders","language":"nl"}');
       const { applied } = applyLedger([elsewhere], [block], accepted);
       expect(misapplied([elsewhere], applied)).toEqual(['# {"infinitive":"elders","language":"nl"}: applied 0 times, not once: (block)']);
+    });
+  });
+
+  describe('sentence-level entries', () => {
+    const analysis = 'A\tzorpen\tweak\tregularRule\t0\thebben\tOld one. | Kept.';
+    const withSentence = [header, analysis, 'F\tone'];
+    const reword = (was: string, now: string | null): SentenceDiff => ({ sentence: { was, now }, reason: 'synthetic', source: 'https://example.org/' });
+
+    it('reword or remove a sentence in the analysis line of every block that lists it', () => {
+      const other = ['# {"infinitive":"elders","language":"nl"}', 'A\telders\tweak\tregularRule\t0\thebben\tOld one.', 'F\ttwo'];
+      const entries = [reword('Old one.', 'New one.')];
+      const { blocks, applied } = applyLedger(entries, [withSentence, other, block]);
+      expect(blocks).toEqual([
+        [header, 'A\tzorpen\tweak\tregularRule\t0\thebben\tNew one. | Kept.', 'F\tone'],
+        ['# {"infinitive":"elders","language":"nl"}', 'A\telders\tweak\tregularRule\t0\thebben\tNew one.', 'F\ttwo'],
+        block,
+      ]);
+      expect(applied.get(entries[0]!)).toBe(2);
+      expect(misapplied(entries, applied)).toEqual([]);
+      expect(applyLedger([reword('Old one.', null)], [withSentence, other]).blocks).toEqual([
+        [header, 'A\tzorpen\tweak\tregularRule\t0\thebben\tKept.', 'F\tone'],
+        ['# {"infinitive":"elders","language":"nl"}', 'A\telders\tweak\tregularRule\t0\thebben\t-', 'F\ttwo'],
+      ]);
+    });
+
+    it('match whole sentences only, and fail when they match no block', () => {
+      const partial = reword('Old', 'New');
+      const { blocks, applied } = applyLedger([partial], [withSentence]);
+      expect(blocks).toEqual([withSentence]);
+      expect(misapplied([partial], applied)).toEqual(['sentence-level entry applied to no block: Old']);
+    });
+
+    it('apply after the line-level entries of a block, and never to an accepted block', () => {
+      const replaced = 'A\tzorpen\tweak\tregularRule\t0\thebben\tOld one.';
+      const line = entry({ was: analysis, now: replaced });
+      expect(applyLedger([line, reword('Old one.', 'New one.')], [withSentence]).blocks)
+        .toEqual([[header, 'A\tzorpen\tweak\tregularRule\t0\thebben\tNew one.', 'F\tone']]);
+      const acceptedBlock = [header, 'A\tzorpen\tweak\tregularRule\t0\thebben\tOld one.'];
+      expect(applyLedger([whole(), reword('Old one.', 'New one.')], [withSentence], new Map([[header, acceptedBlock]])).blocks).toEqual([acceptedBlock]);
+    });
+
+    it('leave lines other than the analysis line alone', () => {
+      expect(replaceSentence('F\tOld one.', 'Old one.', 'New.')).toBeNull();
+      expect(replaceSentence('A\tx\tweak\tlexicon\t0\thebben\t-', 'Old one.', 'New.')).toBeNull();
     });
   });
 

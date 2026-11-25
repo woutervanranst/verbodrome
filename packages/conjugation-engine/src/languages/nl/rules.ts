@@ -2,8 +2,8 @@
  * Every rule the Dutch staged grammar records, keyed by id (`nl.<stage>.<name>`). Messages live in
  * `src/i18n/locales/{en,nl}/nl.ts`, citations in `sources.ts`. The four `default-*` rules and the four `assume-*` rules
  * are the assumptions made for a verb the lexicon does not know, and the four `avail` rules say why a form does not
- * exist; the English messages of the `default-*` and `avail` rules are the sentences the analysis and the unavailable
- * targets showed before the staged grammar.
+ * exist; the English messages of the `avail` rules and of three `default-*` rules are the sentences the analysis and the
+ * unavailable targets showed before the staged grammar (`default-unprefixed` was reworded when it stopped being true).
  */
 import { defineRules } from '../../core/derivation.js';
 
@@ -40,7 +40,8 @@ export const dutchRules = defineRules({
   'nl.stem.drop-en': { stage: 'stem' },
   'nl.stem.undouble-consonant': { stage: 'stem' },
   'nl.stem.lengthen-vowel': { stage: 'stem' },
-  'nl.stem.unstressed-e': { stage: 'stem' },
+  // {inferred}: yes when the stress is taken from the spelling, not from the lexicon or a hint.
+  'nl.stem.unstressed-e': { stage: 'stem', params: { inferred: 'text' } },
   'nl.stem.devoice': { stage: 'stem' },
   'nl.stem.no-trema': { stage: 'stem' },
   'nl.stem.lexical': { stage: 'stem', kind: 'lexical' },
