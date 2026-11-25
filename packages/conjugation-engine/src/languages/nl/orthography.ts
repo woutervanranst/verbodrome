@@ -23,16 +23,19 @@ export interface Dental {
 
 /** The last sound of a pronounced stem: ch or sh, or the last letter. */
 const lastSound = /(?:ch|sh|.)$/u;
-/** The stem ends in a voiceless sound: the sounds of 't kofschip, and sh, x, c and h, which are voiceless too. */
-const voiceless = /(?:ch|sh|[tkfschpx])$/u;
+/**
+ * The stem ends in a voiceless sound: the sounds of 't kofschip, and sh, x and c (pronounced k), which are voiceless
+ * too. h alone is not: Dutch h is usually voiced, and it is not a sound of 't kofschip.
+ */
+const voiceless = /(?:ch|sh|[tkfscpx])$/u;
 /** The sounds of 't kofschip themselves. */
 const kofschip: ReadonlySet<string> = new Set(['t', 'k', 'f', 's', 'ch', 'p']);
 
 /**
  * The consonants a weak ending can start with, in output order. The loan table or a `pastSuffix` hint gives them (d, t,
  * or both for a stem pronounced either way: `nl.orth.dental-given`); otherwise the stem as pronounced decides, without
- * a final silent e: t after a sound of 't kofschip (`nl.orth.dental-kofschip`) or after another voiceless sound, sh, x,
- * c or h (`nl.orth.dental-voiceless`), d after anything else.
+ * a final silent e: t after a sound of 't kofschip (`nl.orth.dental-kofschip`) or after another voiceless sound, sh, x
+ * or c (`nl.orth.dental-voiceless`), d after anything else.
  */
 export function dentals(lexeme: DutchLexeme): readonly Dental[] {
   const given = lexeme.hints.pastSuffix ?? lexeme.loan?.pastSuffix;

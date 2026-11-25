@@ -75,6 +75,7 @@ describe('real verbs checked against woordenlijst.org', () => {
       ['overgaan', 112658, 'ga over', 'gaat over', 'ging over', 'overgegaan', 'hebben/zijn'],
       ['overblijven', 112646, 'blijf over', 'blijft over', 'bleef over', 'overgebleven', 'zijn'],
       ['onderbrengen', 112350, 'breng onder', 'brengt onder', 'bracht onder', 'ondergebracht', 'hebben'],
+      ['misgaan', 112052, 'ga mis', 'gaat mis', 'ging mis', 'misgegaan', 'zijn'],
       ['mislopen', 112056, 'loop mis', 'loopt mis', 'liep mis', 'misgelopen', 'hebben/zijn'],
       ['opeisen', 103945, 'eis op', 'eist op', 'eiste op', 'opgeëist', 'hebben'],
       ['inademen', 111524, 'adem in', 'ademt in', 'ademde in', 'ingeademd', 'hebben'],

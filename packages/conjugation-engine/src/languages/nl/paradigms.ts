@@ -51,8 +51,8 @@ export function dutchCellOf(target: ResolvedTarget): Cell | null {
 
 /**
  * Why a target has no form: an impersonal verb has only the 3rd person, a verb used only in the singular (vriezen) no
- * plural, some verbs no imperative, and zullen nothing beyond its present, past, infinitive and (as the legacy
- * resolver had it) present participle.
+ * plural, some verbs no imperative, and zullen nothing beyond its present, past, infinitive and present participle
+ * (zullend, which woordenlijst.org lists for zullen, lemma 109960, although e-ANS 2.3.6.6 gives zullen no participles).
  * When several apply, the last of these is the reason given.
  */
 export function dutchAvailability(lexeme: DutchLexeme, target: ResolvedTarget): Unavailability | null {

@@ -308,13 +308,13 @@ const pinned: readonly Pinned[] = [
     verb: 'wandelen', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik wandel',
     en: [
       'wandel: Take -en off wandelen: wandel-.',
-      'wandel: The last syllable of wandel- is taken to be unstressed, so its vowel is not written double: the stem stays wandel-.',
+      'wandel: The last syllable of wandel- is unstressed, so its vowel is not written double: the stem stays wandel-.',
       'wandel: 1st person singular present: the stem alone, wandel.',
       'The whole form: The subject is ik.',
     ],
     nl: [
       'wandel: Haal -en van wandelen af: wandel-.',
-      'wandel: We nemen aan dat de laatste lettergreep van wandel- geen klemtoon heeft, dus de klinker schrijf je niet dubbel: de stam blijft wandel-.',
+      'wandel: De laatste lettergreep van wandel- heeft geen klemtoon, dus de klinker schrijf je niet dubbel: de stam blijft wandel-.',
       'wandel: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, wandel.',
       'De hele vorm: Het onderwerp is ik.',
     ],
@@ -576,6 +576,22 @@ const pinned: readonly Pinned[] = [
       'relaxte: Haal -en van relaxen af: relax-.',
       'relaxte: Zwak werkwoord: de verleden tijd is de stam + te: relaxte.',
       "relaxte: x spreek je uit als ks, en s zit in 't kofschip, dus de uitgang begint met t: relaxte.",
+      'De hele vorm: Het onderwerp is ik.',
+    ],
+  },
+  {
+    // ik zorbel: an unlisted verb, whose unstressed last syllable is an assumption (N2)
+    verb: 'zorbelen', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik zorbel',
+    en: [
+      'zorbel: Take -en off zorbelen: zorbel-.',
+      'zorbel: The last syllable of zorbel- is taken to be unstressed, so its vowel is not written double: the stem stays zorbel-.',
+      'zorbel: 1st person singular present: the stem alone, zorbel.',
+      'The whole form: The subject is ik.',
+    ],
+    nl: [
+      'zorbel: Haal -en van zorbelen af: zorbel-.',
+      'zorbel: We nemen aan dat de laatste lettergreep van zorbel- geen klemtoon heeft, dus de klinker schrijf je niet dubbel: de stam blijft zorbel-.',
+      'zorbel: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, zorbel.',
       'De hele vorm: Het onderwerp is ik.',
     ],
   },

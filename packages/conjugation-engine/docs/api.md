@@ -134,7 +134,7 @@ conjugate({
 Each form contains:
 
 - `target`: resolved mood/tense, finite person/number or `null`, relevant subject gender or `null`, and separate participle agreement or `null`.
-- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds` (deprecated: use `steps`).
+- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds` (deprecated: use `steps`). For Dutch, `ruleIds` changed meaning with the staged grammar: they are now the ids of the rules recorded in the form's steps (`nl.stem.drop-en`, `nl.end.present`, …), no longer the legacy diagnostic ids (`nl.weak.indicative.perfect`, `nl.prefix.separable`).
 - `variant`: orthography (`rectified`, `traditional`, `both`), auxiliary, correlated pattern, usage (`standard`, `literary`, `dated`), and any construction/sense condition.
 
 There is one preferred form per fully resolved target, not one answer for an entire wildcard result. Standard usage is preferred to literary/dated variants, then the requested French spelling preference applies. Dutch orthography is `both` because that distinction is French-specific. Identical strings may remain distinct across targets or meaningful pattern/condition identities; callers must not deduplicate solely by `text`.
@@ -145,7 +145,7 @@ Invalid requests and failed generation throw `ConjugationError`, with a stable `
 
 ## Explanations
 
-A pack built on the staged engine records, for every form, the rule applied at each step: `form.steps` (periphrasis, agreement and clause rules) and `part.steps` (the stem, ending and spelling rules of one word); `analysis.steps` holds the classification steps and `unavailableTarget.step` the availability rule. French and Dutch record no steps yet.
+A pack built on the staged engine records, for every form, the rule applied at each step: `form.steps` (periphrasis, agreement and clause rules) and `part.steps` (the stem, ending and spelling rules of one word); `analysis.steps` holds the classification steps and `unavailableTarget.step` the availability rule. Dutch records steps; French records none yet.
 
 `explain(language, subject, locale)` turns those steps into text. The subject is a `ConjugatedForm`, an `UnavailableTarget` or a `VerbAnalysis`; the locale is `'en'` or `'nl'`. The result is `{ summary, sections }`. A form has one section per part that has steps (`part` is the part's index, `title` its text) followed by one with `part: null` for the form-level steps; an unavailable target has one section with `part: null`, and an analysis one per paradigm (its own, then one per alternative; with alternatives, a section's title also names its paradigm's `pattern` when it has one); a subject without steps has none. Each step is `{ text, rule, stage, kind, before, after, citations }`, where each citation is `{ work, locator, url?, title }` and `title` is the cited work's title. `explain` throws `INVALID_REQUEST` for an unknown locale and `GENERATION_FAILURE` for a rule or term that has no text.
 

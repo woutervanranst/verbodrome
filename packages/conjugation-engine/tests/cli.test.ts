@@ -183,10 +183,18 @@ describe('compiled CLI', () => {
     expect(dutch).toContain("    v zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: leefde.");
   });
 
+  it('words person and number in the chosen locale, and keeps the default labels in English', () => {
+    const args = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present', '--number', 'plural', '--person', '3'];
+    expect(run([...args, '--pronoun', 'zij', '--locale', 'nl']).stdout).toBe('zij werken\n');
+    const all = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present'];
+    expect(run([...all, '--locale', 'nl']).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: ik werk');
+    expect(run(all).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1 singular / 1sg: ik werk');
+  });
+
   it('prints the reason a Dutch form does not exist in the chosen locale', () => {
     const result = run(['nl', 'spijten', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular', '--locale', 'nl']);
     expect(result.status).toBe(3);
-    expect(result.stdout).toBe('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1 singular / 1sg: unavailable (spijten is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.)\n');
+    expect(result.stdout).toBe('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: unavailable (spijten is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.)\n');
   });
 
   it('adds an explanation to every form in JSON only when asked', () => {
@@ -243,7 +251,7 @@ describe('form and target labels', () => {
   it('labels the forms of a language with voices and subject slots', () => {
     const toy = createEngine({ xx: toyPack });
     const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' }).forms;
-    expect(forms.map(formLabel)).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+    expect(forms.map(form => formLabel(form))).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
   });
 });
 

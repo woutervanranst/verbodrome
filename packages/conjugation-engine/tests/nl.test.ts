@@ -249,6 +249,15 @@ describe('Dutch grammatical generation', () => {
       expect(forms('boksen')).toEqual(['ik boks', 'ik bokste', 'gebokst']);
     });
 
+    it('takes d after h, which is no sound of \'t kofschip and usually voiced', () => {
+      expect(dutch({ language: 'nl', infinitive: 'zorhen', mood: 'indicative', tense: 'past', person: 1, number: 'singular' })).toEqual(['ik zorhde']);
+      expect(pastRules('zorhen')).toContain('nl.orth.dental-kofschip');
+    });
+
+    it('gives zullen the present participle zullend, which woordenlijst.org lists (lemma 109960)', () => {
+      expect(dutch({ language: 'nl', infinitive: 'zullen', mood: 'participle', tense: 'present' })).toEqual(['zullend']);
+    });
+
     it('records no lengthened vowel before x, and the voiceless x for the t', () => {
       expect(pastRules('relaxen')).not.toContain('nl.stem.lengthen-vowel');
       expect(pastRules('relaxen')).toContain('nl.orth.dental-voiceless');

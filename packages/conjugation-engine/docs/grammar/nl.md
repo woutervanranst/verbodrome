@@ -112,8 +112,9 @@ A verb the lexicon does not know records each assumption it rests on (the Englis
 A verb listed with its unstressed prefix (`inseparableVerbs`: betalen, vertellen) is a checked weak verb: none of these
 assumptions is recorded for it. An assumed reading comes first in the analysis and is not restated as a fact: the
 assumption says what is read and why, and no "is a separable verb" step follows it. A stress taken from the spelling is
-worded as such in the stem step ("The last syllable of wandel- is taken to be unstressed …"); a stress from the lexicon,
-a hint or a recorded participle is stated as a fact.
+worded as such in the stem step of a verb the lexicon does not list ("The last syllable of zorbel- is taken to be
+unstressed …"); a stress from the lexicon, a hint, a recorded participle or the checked forms of a listed verb is
+stated as a fact.
 
 ### When an unknown verb is split
 
@@ -256,6 +257,30 @@ The switch has 56 block-level entries, the four queries of each verb below (no h
 | toegeven | 1 | split at toe: geef toe, gaf toe, toegegeven; frozen: ik toegeef, getoegeefd | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 | toekomen | 1 | split at toe: kom toe, kwam toe, ben toegekomen (the zijn of komen); frozen: ik toekoom, getoekoomd, hebben | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 | uitstellen | 1 | split at uit: stel uit, uitgesteld; frozen: ik uitstel, geüitsteld | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
+
+## What is certain and what is assumed
+
+For a consumer of the API (an app, a learner tool) that wants to know how far to trust a Dutch form:
+
+- **Certain, from the lexicon data.** A verb the lexicon lists (`dutchExceptions`, `inseparableVerbs`,
+  `separableVerbs`, `inseparableDerivatives`, `dualInseparableVerbs`, the loan table, the lemmas with two readings, the
+  no-split list) has its irregular forms, prefix or particle, stress where it matters and auxiliary from the lexicon,
+  checked against woordenlijst.org (lemma ids in `lexicon.ts`) and, for the corpus verbs, against the corpus.
+  `analysis.classificationSource` is `lexicon`.
+- **Certain, from the rules.** Stem, endings, spelling ('t kofschip, open and closed syllables, trema, ge-) follow from
+  the rules cited per step (e-ANS, Leidraad), for listed and unlisted verbs alike, once the class, prefix and stress are
+  known.
+- **Assumed, from the spelling.** For a verb the lexicon does not list: that it is weak, that its auxiliary is hebben,
+  whether its last syllable is stressed, and whether it has a separable particle or an unstressed prefix (and which
+  reading a dual prefix takes). These are educated guesses, right for most verbs and wrong for some (see Limits).
+  `analysis.classificationSource` is then `regularRule`.
+
+**How to tell from a result.** Every guess is an assumption step: `analysis.assumptions` lists their sentences (in
+English) and `analysis.steps` holds them with `kind: 'assumption'` (explained in English or Dutch by `explain`). A
+result whose analysis has no assumption steps rests on lexicon data and rules only; a result with assumptions should be
+shown as uncertain, or the user should be asked for the hint the assumption names (`separablePrefix`,
+`inseparablePrefix`, `classHint`, `stems`, `auxiliary`). A hint replaces the matching assumption, and
+`classificationSource` becomes `explicitHint`.
 
 ## Where the lexicon data comes from, and its licence
 

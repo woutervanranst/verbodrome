@@ -28,6 +28,11 @@ export interface StemSource {
   readonly unstressed: boolean | undefined;
   /** An unstressed prefix the inference does not count (her in herinneren); '' for none. */
   readonly prefix: string;
+  /**
+   * Whether the stress inferred from the spelling is an assumption the analysis records (a verb the lexicon does not
+   * list); for a listed verb, whose forms were checked, the inferred stress is stated as a fact.
+   */
+  readonly stressAssumed?: boolean;
 }
 
 /** A consonant written double at the end (bakk). */
@@ -47,7 +52,7 @@ const openSyllable = /(^|[^aeiouy])([aeou])([bcdfghjklmnpqrstvwz])$/u;
  * or -em (inferred when the root, without `prefix`, has more than one vowel group; Leidraad 2.2 lists -em with ademen);
  * finally write a final v or z as f or s. Throws AMBIGUOUS_CLASSIFICATION for an infinitive without -en and without a listed stem.
  */
-export function presentStem({ infinitive, listed, unstressed, prefix }: StemSource): PresentStem {
+export function presentStem({ infinitive, listed, unstressed, prefix, stressAssumed = false }: StemSource): PresentStem {
   if (!infinitive.endsWith('en') && !listed) {
     throw new ConjugationError('AMBIGUOUS_CLASSIFICATION', `No ordinary Dutch -en stem for ${infinitive}; provide a lexical model or stem.`);
   }
@@ -73,7 +78,7 @@ export function presentStem({ infinitive, listed, unstressed, prefix }: StemSour
       const long = stem.replace(openSyllable, '$1$2$2$3').replace(/ë([bcdfghjklmnpqrstvwz])$/u, 'ëe$1')
         .replace(/((?:^|[^aeo])u)e([bcdfghjklmnpqrstvwz])$/u, '$1ee$2');
       // The unstressed e is recorded where it keeps the vowel from being written double.
-      if (long !== stem && unstressedE) steps.push(step(dutchRules['nl.stem.unstressed-e'], stem, stem, { inferred: unstressed === undefined ? 'yes' : 'no' }));
+      if (long !== stem && unstressedE) steps.push(step(dutchRules['nl.stem.unstressed-e'], stem, stem, { inferred: unstressed === undefined && stressAssumed ? 'yes' : 'no' }));
       else if (long !== stem) {
         steps.push(step(dutchRules['nl.stem.lengthen-vowel'], stem, long));
         stem = long;

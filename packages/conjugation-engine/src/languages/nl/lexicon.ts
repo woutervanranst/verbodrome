@@ -1053,10 +1053,16 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   if (classHint === 'weak' && entry.pastSingular && !entry.alsoWeakPast) {
     throw new ConjugationError('INVALID_HINT', `${lemma} is not a weak verb in the verified lexical model.`);
   }
+  // Whether the analysis records that the syllables (and so the stress) are inferred from the spelling: only for a base
+  // the lexicon does not list, with no stem or stress hint and no recorded participle that shows the stress.
+  const unlistedBase = !listedBase && !loan && lookup(inseparableVerbs, base) === undefined;
+  const recorded = recordedStress(base);
+  const syllablesAssumed = unlistedBase && !hints.stem && hints.unstressedFinalSyllable === undefined && recorded === undefined;
   const stem = presentStem({
     infinitive: base,
     listed: hints.stem ?? loan?.stem ?? entry.stem,
-    unstressed: hints.unstressedFinalSyllable ?? entry.unstressedFinalSyllable ?? recordedStress(base),
+    unstressed: hints.unstressedFinalSyllable ?? entry.unstressedFinalSyllable ?? recorded,
+    stressAssumed: syllablesAssumed,
     prefix: rest && !rest.inner ? rest.prefix : derivative ? lookup(inseparableVerbs, base) ?? '' : inseparable,
   });
   const reflexive = expressedReflexive || options.reflexive === true || entry.reflexive === true;
@@ -1088,9 +1094,9 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   else if (listedBase) steps.push(listedClass(base, listedBase));
   // A verb whose base is neither listed (as a whole, with its forms or its prefix) nor a loan: each guess the lexicon
   // would otherwise answer, unless a hint does. A verb listed with its unstressed prefix is a checked weak verb.
-  if (!listedBase && !loan && lookup(inseparableVerbs, base) === undefined) {
+  if (unlistedBase) {
     if (!classHint) steps.push(step(dutchRules['nl.classify.default-weak'], base, null));
-    if (!hints.stem && hints.unstressedFinalSyllable === undefined) steps.push(step(dutchRules['nl.classify.default-syllables'], base, null));
+    if (syllablesAssumed) steps.push(step(dutchRules['nl.classify.default-syllables'], base, null));
     if (!auxiliary && !derivative?.auxiliary) steps.push(step(dutchRules['nl.classify.default-hebben'], lemma, null));
     if (!hintedPrefix && !implied && !knownSeparable && !knownInseparable && !listedInseparable) {
       steps.push(step(dutchRules['nl.classify.default-unprefixed'], lemma, null));
