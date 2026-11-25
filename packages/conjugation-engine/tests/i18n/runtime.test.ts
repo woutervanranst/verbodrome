@@ -13,6 +13,7 @@ import { locales } from '../../src/i18n/locales/index.js';
 import type { Explainable } from '../../src/i18n/explain.js';
 import type { ConjugationResult } from '../../src/types.js';
 import { engine } from '../../src/default-engine.js';
+import { shadow } from '../fr/shadow.js';
 
 interface Checked {
   readonly language: string;
@@ -26,6 +27,7 @@ const snapshotQueries = (language: string): Readonly<Record<string, unknown>>[] 
 
 const checked: readonly Checked[] = [
   { language: 'nl', engine, queries: snapshotQueries('nl') },
+  { language: 'fr', engine: shadow, queries: snapshotQueries('fr') },
 ];
 
 const leftover = /[{}]|undefined/u;
