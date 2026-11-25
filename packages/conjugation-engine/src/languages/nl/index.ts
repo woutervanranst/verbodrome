@@ -10,9 +10,8 @@ import {
   separableVerbs,
 } from './exceptions.js';
 import type { DutchDerivative, DutchLexeme } from './exceptions.js';
-import { nativeStem } from './orthography.js';
 import { dutchRendering } from './rendering.js';
-import { imperativeForms, participles, pastForms, presentForms } from './rules.js';
+import { imperativeForms, nativeStem, participles, pastForms, presentForms } from './rules.js';
 
 const subjects = ['ik', 'jij', 'hij', 'wij', 'jullie', 'zij'] as const;
 const reflexives = ['me', 'je', 'zich', 'ons', 'jullie', 'zich'] as const;

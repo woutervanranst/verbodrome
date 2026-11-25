@@ -1,47 +1,38 @@
 /**
- * The Dutch staged grammar, while it is being migrated from the legacy resolver (which still serves `conjugate`).
- * Classification (`classify`, `lexemeOf`) and the present stem are recorded rules; every other hook throws a
- * NotMigratedError naming its stage, so a query that needs one stops there and cannot be mistaken for a grammar that
- * produced a wrong form. The shadow test (`tests/nl/shadow.test.ts`) runs the frozen Dutch snapshot through it.
+ * The Dutch staged grammar. Classification (`lexicon.ts`) gives the verb's one paradigm; a simple cell (`paradigms.ts`)
+ * is the present stem (`stems.ts`) plus an ending, spelled by `orthography.ts`, or a cell with listed material built
+ * whole from the lexicon and the same derivation; the compound tenses are `periphrasis.ts`; `clause.ts` orders the
+ * words. The legacy resolver still serves `conjugate`; `tests/nl/shadow.test.ts` runs the frozen Dutch snapshot through
+ * this grammar.
  */
-import { one } from '../../core/fork.js';
+import { chain, one } from '../../core/fork.js';
+import type { Fork } from '../../core/fork.js';
+import { applyJunctureRules } from '../../core/juncture.js';
 import { validateGrammar } from '../../core/staged.js';
-import type { StagedGrammar } from '../../core/staged.js';
+import type { Cell, StagedGrammar } from '../../core/staged.js';
+import { dutchClause } from './clause.js';
 import { classifyDutch, dutchLexemeOf } from './lexicon.js';
 import type { DutchLexeme } from './lexicon.js';
+import { dutchOrthography } from './orthography.js';
+import { dutchAvailability, dutchCellOf, dutchEnding, dutchStem, listedCell } from './paradigms.js';
+import { dutchPeriphrases } from './periphrasis.js';
 
-/**
- * Thrown by a hook of the Dutch staged grammar that has not been migrated yet. It is not a ConjugationError on purpose:
- * it reports where the migration stands, never what the language allows, and nothing catches it as a conjugation result.
- */
-export class NotMigratedError extends Error {
-  /** The hook or stage that is missing: `availability`, `cellOf`, `ending` or `clause`. */
-  readonly stage: string;
-
-  constructor(stage: string) {
-    super(`The Dutch staged grammar has no ${stage} stage yet: it is not migrated from the legacy resolver.`);
-    this.name = 'NotMigratedError';
-    this.stage = stage;
-  }
-}
-
-function notMigrated(stage: string): never {
-  throw new NotMigratedError(stage);
+/** The regular word of a cell: stem, ending and spelling, exactly as the engine derives a cell without listed material. */
+function regular(lexeme: DutchLexeme, cell: Cell): Fork<string> {
+  return chain(dutchStem(lexeme), stem => chain(dutchEnding(lexeme, cell, stem), ending =>
+    chain(applyJunctureRules(dutchOrthography, { stem, ending }, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending))));
 }
 
 export const dutchGrammar: StagedGrammar<DutchLexeme> = {
   classify: classifyDutch,
   lexemeOf: dutchLexemeOf,
-  cellOf: () => notMigrated('cellOf'),
-  availability: () => notMigrated('availability'),
-  /** The present stem, which every regular cell starts from. */
-  stem: lexeme => one(lexeme.stem.written, lexeme.stem.steps),
-  ending: () => notMigrated('ending'),
-  orthography: [],
-  periphrases: [],
-  clause: {
-    agreements: () => notMigrated('clause'),
-    assemble: () => notMigrated('clause'),
-  },
+  cellOf: target => dutchCellOf(target),
+  availability: dutchAvailability,
+  cell: (lexeme, cell) => listedCell(lexeme, cell, () => regular(lexeme, cell)),
+  stem: lexeme => dutchStem(lexeme),
+  ending: dutchEnding,
+  orthography: dutchOrthography,
+  periphrases: dutchPeriphrases,
+  clause: dutchClause,
 };
 validateGrammar(dutchGrammar);

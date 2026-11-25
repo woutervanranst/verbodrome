@@ -1,6 +1,7 @@
 /**
  * English messages of the Dutch rules, one per rule id. A message may use the rule's params and {before} / {after}.
- * The four `default-*` assumptions are the exact sentences the Dutch analysis has always shown in English.
+ * The four `default-*` assumptions and the four `avail` reasons are the exact sentences the Dutch analysis and unavailable
+ * targets have always shown in English.
  */
 import type { dutchRules } from '../../../languages/nl/rule-table.js';
 
@@ -19,4 +20,36 @@ export const dutch = {
   'nl.stem.unstressed-e': 'The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.',
   'nl.stem.devoice': 'At the end of a word, v and z are written f and s, so {before}- becomes {after}-.',
   'nl.stem.lexical': 'The stem of {before} is {after}-, as given for this verb.',
+  'nl.avail.impersonal': '{before} has no modern {form} form in this slot.',
+  'nl.avail.singular-only': '{before} has no modern {form} form in this slot.',
+  'nl.avail.no-imperative': '{before} has no modern {form} form in this slot.',
+  'nl.avail.no-compound': '{before} has no modern {form} form in this slot.',
+  'nl.cell.lexical': '{before} has the listed form {after} here.',
+  'nl.cell.formal': 'With u, {before} also has the form {after}.',
+  'nl.end.present': '{person} {number} present: {ending, select, t {stem + t, {after}} en {the plural is the whole verb, {after}} other {the stem alone, {after}}}.',
+  'nl.end.present-t-drop': 'The stem {before}- already ends in t, so no t is added: {after}.',
+  'nl.end.inversion-t-drop': 'When jij or je comes after the verb, the -t falls away: {after}.',
+  'nl.end.past-weak': 'Weak verb: the past tense is the stem + {ending}: {after}.',
+  'nl.end.past-strong': '{before} has an irregular past tense: {after}.',
+  'nl.end.past-plural-strong': 'In the plural the past tense {before} becomes {after}.',
+  'nl.imp.stem': 'Imperative: the stem alone, {after}.',
+  'nl.part.present': 'Present participle: the whole verb + d, {after}.',
+  'nl.part.weak': 'Weak verb: the past participle is the stem {ending, select, d {+ d} t {+ t} other {without an ending, as it already ends in d or t}}: {after}.',
+  'nl.part.strong': '{before} has an irregular past participle: {after}.',
+  'nl.part.ge-blocked': 'After the prefix {prefix}- the past participle has no ge-: {after}.',
+  'nl.part.ge-prefix': 'The past participle starts with ge-: {after}.',
+  'nl.part.ge-diaeresis': 'After ge- the e, i or u gets a diaeresis: {after}.',
+  'nl.orth.dental-kofschip': "{sound} {dental, select, t {is} other {is not}} a sound of 't kofschip, so the ending starts with {dental}: {after}.",
+  'nl.orth.double-a': 'A long a at the end of a closed syllable is written aa: {before} becomes {after}.',
+  'nl.periphrasis.perfect': 'Present perfect: the present tense of {auxiliary} + the past participle.',
+  'nl.periphrasis.pluperfect': 'Past perfect: the past tense of {auxiliary} + the past participle.',
+  'nl.periphrasis.future': 'Future: the present tense of zullen + the whole verb.',
+  'nl.periphrasis.future-perfect': 'Future perfect: the present tense of zullen + the past participle + {auxiliary}.',
+  'nl.periphrasis.conditional': 'Conditional: the past tense of zullen (zou, zouden) + the whole verb.',
+  'nl.periphrasis.conditional-perfect': 'Conditional perfect: the past tense of zullen (zou, zouden) + the past participle + {auxiliary}.',
+  'nl.clause.subject': 'The subject is {pronoun}.',
+  'nl.clause.inversion': 'The finite verb comes before the subject {pronoun}.',
+  'nl.clause.reflexive': '{before} is a reflexive verb: the reflexive pronoun {pronoun} goes with it.',
+  'nl.clause.particle-final': 'The separable part {particle} goes to the end of the clause.',
+  'nl.clause.particle-attached': '{particle} is written together with the verb: {before} becomes {after}.',
 } as const satisfies Record<keyof typeof dutchRules, string>;

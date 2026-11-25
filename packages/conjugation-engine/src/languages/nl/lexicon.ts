@@ -371,7 +371,10 @@ export interface DutchLexeme extends LexemeBase {
   readonly stem: PresentStem;
   /** The perfect auxiliaries the verb takes before an `auxiliary` hint narrows them, in output order. */
   readonly defaultAuxiliaries: readonly DutchAuxiliary[];
-  /** The infinitives, in output order: zijn has the spoken alternative wezen. */
+  /**
+   * The infinitives of the base, in output order, before the clause attaches a particle (staan for opstaan): zijn has
+   * the spoken alternative wezen.
+   */
   readonly infinitives: readonly string[];
 }
 
@@ -486,7 +489,7 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
       hints,
       stem,
       defaultAuxiliaries,
-      infinitives: lemma === 'zijn' ? ['zijn', 'wezen'] : [lemma],
+      infinitives: lemma === 'zijn' ? ['zijn', 'wezen'] : [base],
     },
     steps,
   };
