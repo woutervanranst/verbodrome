@@ -3,8 +3,10 @@
  * the several paradigms of one lemma as tagged outcomes; and the place of a separable particle in a main clause. Nothing
  * here knows a language: the particle tables, the lexicon and the rules a pack records are the pack's own.
  */
+import type { ChainWord } from '../../core/clause.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import type { Fork, VariantTags } from '../../core/fork.js';
+import type { LexemeBase } from '../../core/grammar.js';
 
 /** A language's closed lists of verbal particles and prefixes, and what a plausible root looks like. */
 export interface ParticleTables {
@@ -83,4 +85,17 @@ export function paradigmFork<X>(choices: readonly ParadigmChoice<X>[]): Fork<X> 
     const tags: VariantTags = condition === undefined ? { pattern } : { pattern, condition };
     return { value: lexeme, steps, tags };
   });
+}
+
+/**
+ * Where a verbal particle goes in a verb-second main clause. A separable particle of a finite lexical verb stands apart
+ * at the end of the clause: the words are unchanged and `final` is the particle. Otherwise (the lexical verb is
+ * non-finite, or the particle does not separate) it is written together with the lexical verb's word and `final` is
+ * null. The words keep their steps; the pack records the step that explains the placement.
+ */
+export function placeParticle(words: readonly ChainWord[], particle: LexemeBase['particle']): { readonly words: readonly ChainWord[]; readonly final: string | null } {
+  if (particle === null) return { words, final: null };
+  const lexical = words.find(word => word.role === 'lexicalVerb');
+  if (particle.separable && lexical?.cell?.kind === 'finite') return { words, final: particle.text };
+  return { words: words.map(word => word === lexical ? { ...word, text: particle.text + word.text } : word), final: null };
 }

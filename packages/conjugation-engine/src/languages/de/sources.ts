@@ -45,6 +45,9 @@ const geWithParticle = cite('grammis-4071', 'Flexionsklassen der Verben: Partizi
 const particleVerbs = cite('f-109', 'Verbkomposita und Präverbfügungen: trennbare und untrennbare Verben');
 const perfectAuxiliary = cite('sg-1219', 'Bestimmung des Perfekthilfsverbs');
 const verbChapter = (section: string): Citation => cite('duden-grammatik', `Das Verb: Flexion, ${section}`);
+const tenses = cite('sg-232', 'Formenbestand des deutschen Tempussystems');
+const wuerde = cite('sg-312', 'Würde-Formen: Konjunktiv Präteritum von werden + Infinitiv vom Voll- oder Modalverb');
+const clauseOrder = cite('vg-2269', 'Satzklammer: linke und rechte Satzklammer, Verbpartikel');
 
 /** Every rule's source: the grammar section that states it, and the lexicon for the rules that read it. */
 export const germanCitations = {
@@ -98,6 +101,25 @@ export const germanCitations = {
   'de.orth.schwa-nasal': [cite('grammis-4073', 'Schwache Verben'), cite('grammis-4119', 'Schwa nach Obstruent und Nasal'), cite('sg-439', 'Indikativ Präsens: e-Einfügung')],
   'de.orth.t-merge': [cite('grammis-4119', 'Schwa bei den Flexionsmarkern'), verbChapter('Präsens starker Verben')],
   'de.orth.sibilant-2sg': [cite('regelwerk-2024', '§ 26'), cite('grammis-4119', 'Schwa bei den Flexionsmarkern')],
+  'de.periphrasis.perfect': [tenses, perfectAuxiliary],
+  'de.periphrasis.pluperfect': [tenses, perfectAuxiliary],
+  'de.periphrasis.future': tenses,
+  'de.periphrasis.future-perfect': [tenses, perfectAuxiliary],
+  'de.periphrasis.subjunctive-perfect': [tenses, cite('sg-439', 'Formenbestand: Konjunktiv'), perfectAuxiliary],
+  'de.periphrasis.subjunctive-pluperfect': [tenses, cite('sg-439', 'Formenbestand: Konjunktiv'), perfectAuxiliary],
+  'de.periphrasis.subjunctive-future': [tenses, cite('sg-439', 'Formenbestand: Konjunktiv')],
+  'de.periphrasis.subjunctive-future-perfect': [tenses, cite('sg-439', 'Formenbestand: Konjunktiv'), perfectAuxiliary],
+  'de.periphrasis.conditional': [wuerde, cite('f-162', 'Der Konjunktiv und die würde-Form')],
+  'de.periphrasis.conditional-perfect': [wuerde, perfectAuxiliary],
+  'de.periphrasis.infinitive-perfect': [tenses, perfectAuxiliary],
+  'de.clause.subject': clauseOrder,
+  'de.clause.particle-final': [clauseOrder, cite('regelwerk-2024', '§ 34')],
+  'de.clause.particle-attached': [cite('regelwerk-2024', '§ 34'), geWithParticle],
+  'de.clause.imperative-pronoun': cite('sg-290', 'Distanzform und Adhortativform'),
+  'de.clause.impersonal-es': cite('duden', 'Konjugationstabelle regnen (unpersönlich)'),
+  'de.avail.third-person-only': [cite('duden', 'Konjugationstabelle geschehen (1. und 2. Person: –)'), verbChapter('defektive Verben')],
+  'de.avail.no-imperative': [cite('grammis-4075', 'Flexion der Modalverben'), cite('sg-380', 'Modalverb: bilden keinen Imperativ'), cite('duden-sprachwissen', 'Modalverben und ihre Bedeutung')],
+  'de.avail.impersonal': cite('duden', 'Konjugationstabelle regnen (unpersönlich)'),
 } as const satisfies Record<GermanRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose claim no online authority states: they cite the Duden-Grammatik by chapter only (GD §1.2). */

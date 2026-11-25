@@ -56,6 +56,28 @@ export const germanRules = defineRules({
   'de.orth.schwa-nasal': { stage: 'orthography' },
   'de.orth.t-merge': { stage: 'orthography' },
   'de.orth.sibilant-2sg': { stage: 'orthography' },
+  // Compound tenses (GD §4.5, §6.1): one param, the perfect auxiliary, where the chain uses one.
+  'de.periphrasis.perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.pluperfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.future': { stage: 'periphrasis' },
+  'de.periphrasis.future-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.subjunctive-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.subjunctive-pluperfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.subjunctive-future': { stage: 'periphrasis' },
+  'de.periphrasis.subjunctive-future-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.conditional': { stage: 'periphrasis' },
+  'de.periphrasis.conditional-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'de.periphrasis.infinitive-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  // The main clause (GD §4.6).
+  'de.clause.subject': { stage: 'clause' },
+  'de.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
+  'de.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
+  'de.clause.imperative-pronoun': { stage: 'clause', params: { pronoun: 'text' } },
+  'de.clause.impersonal-es': { stage: 'clause' },
+  // Forms a verb does not have (GD §4.7).
+  'de.avail.third-person-only': { stage: 'availability', kind: 'unavailable' },
+  'de.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },
+  'de.avail.impersonal': { stage: 'availability', kind: 'unavailable' },
 });
 
 export type GermanRuleId = keyof typeof germanRules;

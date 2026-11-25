@@ -65,4 +65,26 @@ export const de = {
   'de.orth.schwa-nasal': 'Na een medeklinker met m of n erachter komt er een e voor de uitgang: {before} wordt {after}.',
   'de.orth.t-merge': 'Een veranderde stam op t krijgt in de er-vorm geen tweede t: {before} wordt {after}.',
   'de.orth.sibilant-2sg': 'Na s, ß, z of x verliest de du-uitgang -st zijn s: {before} wordt {after}.',
+  // Compound tenses.
+  'de.periphrasis.perfect': 'Perfekt: de Präsens van {auxiliary} plus het voltooid deelwoord (Partizip II).',
+  'de.periphrasis.pluperfect': 'Plusquamperfekt: de Präteritum van {auxiliary} plus het voltooid deelwoord (Partizip II).',
+  'de.periphrasis.future': 'Futur I: de Präsens van werden plus het hele werkwoord.',
+  'de.periphrasis.future-perfect': 'Futur II: de Präsens van werden, het voltooid deelwoord en het hele werkwoord {auxiliary}.',
+  'de.periphrasis.subjunctive-perfect': 'Konjunktiv I Perfekt: de Konjunktiv I van {auxiliary} plus het voltooid deelwoord (Partizip II).',
+  'de.periphrasis.subjunctive-pluperfect': 'Konjunktiv II Plusquamperfekt: de Konjunktiv II van {auxiliary} plus het voltooid deelwoord (Partizip II).',
+  'de.periphrasis.subjunctive-future': 'Konjunktiv I Futur I: de Konjunktiv I van werden plus het hele werkwoord.',
+  'de.periphrasis.subjunctive-future-perfect': 'Konjunktiv I Futur II: de Konjunktiv I van werden, het voltooid deelwoord en het hele werkwoord {auxiliary}.',
+  'de.periphrasis.conditional': 'würde-vorm: de Konjunktiv II van werden (würde) plus het hele werkwoord.',
+  'de.periphrasis.conditional-perfect': 'würde-vorm van het verleden: de Konjunktiv II van werden (würde), het voltooid deelwoord en het hele werkwoord {auxiliary}.',
+  'de.periphrasis.infinitive-perfect': 'Infinitiv Perfekt: het voltooid deelwoord plus het hele werkwoord {auxiliary}.',
+  // The main clause.
+  'de.clause.subject': 'Hoofdzin: eerst het onderwerp, dan de persoonsvorm; de andere werkwoordsvormen staan achteraan.',
+  'de.clause.particle-final': 'Het scheidbare voorvoegsel {particle} staat achteraan in de zin.',
+  'de.clause.particle-attached': 'Het voorvoegsel {particle} wordt aan {before} vastgeschreven: {after}.',
+  'de.clause.imperative-pronoun': 'In deze gebiedende wijs staat het persoonlijk voornaamwoord {pronoun} na het werkwoord, en het mag niet wegvallen.',
+  'de.clause.impersonal-es': 'Werkwoorden van het weer hebben es als onderwerp: {before} wordt {after}.',
+  // Missing forms.
+  'de.avail.third-person-only': 'Dit werkwoord wordt alleen in de derde persoon gebruikt.',
+  'de.avail.no-imperative': 'Dit werkwoord heeft geen gebiedende wijs.',
+  'de.avail.impersonal': 'Werkwoorden van het weer hebben alleen de vorm met es.',
 } as const satisfies Record<keyof typeof germanRules, string>;

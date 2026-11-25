@@ -64,4 +64,26 @@ export const de = {
   'de.orth.schwa-nasal': 'After a consonant followed by m or n an e is inserted before the ending: {before} becomes {after}.',
   'de.orth.t-merge': 'A changed stem that ends in t takes no second t in the er-form: {before} becomes {after}.',
   'de.orth.sibilant-2sg': 'After s, ß, z or x the du-ending -st loses its s: {before} becomes {after}.',
+  // Compound tenses.
+  'de.periphrasis.perfect': 'Perfekt: the Präsens of {auxiliary} plus Partizip II.',
+  'de.periphrasis.pluperfect': 'Plusquamperfekt: the Präteritum of {auxiliary} plus Partizip II.',
+  'de.periphrasis.future': 'Futur I: the Präsens of werden plus the infinitive.',
+  'de.periphrasis.future-perfect': 'Futur II: the Präsens of werden, Partizip II and the infinitive {auxiliary}.',
+  'de.periphrasis.subjunctive-perfect': 'Konjunktiv I Perfekt: the Konjunktiv I of {auxiliary} plus Partizip II.',
+  'de.periphrasis.subjunctive-pluperfect': 'Konjunktiv II Plusquamperfekt: the Konjunktiv II of {auxiliary} plus Partizip II.',
+  'de.periphrasis.subjunctive-future': 'Konjunktiv I Futur I: the Konjunktiv I of werden plus the infinitive.',
+  'de.periphrasis.subjunctive-future-perfect': 'Konjunktiv I Futur II: the Konjunktiv I of werden, Partizip II and the infinitive {auxiliary}.',
+  'de.periphrasis.conditional': 'würde-form: the Konjunktiv II of werden (würde) plus the infinitive.',
+  'de.periphrasis.conditional-perfect': 'würde-form of the past: the Konjunktiv II of werden (würde), Partizip II and the infinitive {auxiliary}.',
+  'de.periphrasis.infinitive-perfect': 'Infinitiv Perfekt: Partizip II plus the infinitive {auxiliary}.',
+  // The main clause.
+  'de.clause.subject': 'Main clause: the subject, then the conjugated verb; the other verb forms go to the end.',
+  'de.clause.particle-final': 'The separable particle {particle} goes to the end of the clause.',
+  'de.clause.particle-attached': 'The particle {particle} is written together with {before}: {after}.',
+  'de.clause.imperative-pronoun': 'In this imperative the pronoun {pronoun} follows the verb and cannot be left out.',
+  'de.clause.impersonal-es': 'Weather verbs have es as their subject: {before} becomes {after}.',
+  // Missing forms.
+  'de.avail.third-person-only': 'This verb is only used in the third person.',
+  'de.avail.no-imperative': 'This verb has no imperative.',
+  'de.avail.impersonal': 'Weather verbs have only the es-form.',
 } as const satisfies Record<keyof typeof germanRules, string>;
