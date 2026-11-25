@@ -137,7 +137,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
     },
   },
   fare: {
-    class: 'contracted', long: 'fac', auxiliaries: [avere], present: { '1pl': ['facc'] }, subjunctive: ['facc'], past: ['feci'],
+    class: 'contracted', long: 'fac', auxiliaries: [avere], present: { '1pl': ['facc'] }, subjunctive: ['facci'], past: ['feci'],
     participle: ['fatto'], presentParticiple: ['facente', 'faciente'],
     cells: {
       ...tense('indicative.present', [['faccio', { text: 'fo', usage: 'literary' }], 'fai', 'fa', null, 'fate', 'fanno']),
@@ -207,12 +207,12 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
     future: ['morir', 'morr'], participle: ['morto'],
   },
   sedere: { class: 'ere', present: stressed(['sied']), pastSeries: ['ei', 'etti'], future: ['seder', 'sieder'] },
-  cuocere: { class: 'ere', auxiliaries: [avere], present: stressed(['cuoc']), unstressed: ['cuoc', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
-  piacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['piacc'], '1pl': ['piacc'], '3pl': ['piacc'] }, past: ['piacqui'] },
-  tacere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['tacc'], '1pl': ['tacc'], '3pl': ['tacc'] }, past: ['tacqui'] },
-  giacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['giacc'], '1pl': ['giacc'], '3pl': ['giacc'] }, past: ['giacqui'] },
+  cuocere: { class: 'ere', auxiliaries: [avere], unstressed: ['cuoc', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
+  piacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['piacci'], '1pl': ['piacc'], '3pl': ['piacci'] }, past: ['piacqui'] },
+  tacere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['tacci'], '1pl': ['tacc'], '3pl': ['tacci'] }, past: ['tacqui'] },
+  giacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['giacci'], '1pl': ['giacc'], '3pl': ['giacci'] }, past: ['giacqui'] },
   nuocere: {
-    class: 'ere', auxiliaries: [avere], present: { '1sg': ['nocc', 'nuocc'], '2sg': ['nuoc'], '3sg': ['nuoc'], '3pl': ['nocc', 'nuocc'] },
+    class: 'ere', auxiliaries: [avere], present: { '1sg': ['nocci', 'nuocci'], '2sg': ['nuoc'], '3sg': ['nuoc'], '3pl': ['nocci', 'nuocci'] },
     unstressed: ['nuoc', 'noc'], past: ['nocqui'], participle: ['nociuto'],
   },
   scegliere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['scelg'], '3pl': ['scelg'] }, past: ['scelsi'], participle: ['scelto'] },
