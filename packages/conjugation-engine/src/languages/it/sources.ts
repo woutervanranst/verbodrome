@@ -194,3 +194,6 @@ export const lexiconVerification: Readonly<Record<string, LexiconVerification>> 
   status: notInVocabolario.has(lemma) ? 'unverified' : 'vocabolario',
   ...(Object.hasOwn(verificationNotes, lemma) ? { note: verificationNotes[lemma]! } : {}),
 } satisfies LexiconVerification]));
+
+/** The Vocabolario page of a lemma, with the entry number or search id where the plain URL is not the verb. */
+export const vocabolarioOf = (lemma: string): Url => vocabolario(vocabolarioPages[lemma] ?? lemma);

@@ -1,10 +1,12 @@
 import { validateGrammar } from '../../core/staged.js';
 import type { Cell, StagedGrammar } from '../../core/staged.js';
 import type { ResolvedTarget } from '../../types.js';
+import { availabilityOf } from './availability.js';
 import { classifyItalian, lexemeOfItalian } from './classify.js';
 import { italianClause } from './clause.js';
 import type { ItalianLexeme } from './lexicon.js';
 import { italianSpelling } from './orthography.js';
+import { italianPeriphrases } from './periphrasis.js';
 import { endingOf, stemOf, wholeCell } from './stems.js';
 
 /** The non-finite targets that are one word, and their cells. */
@@ -39,12 +41,12 @@ export const italianGrammar: StagedGrammar<ItalianLexeme> = {
   classify: classifyItalian,
   lexemeOf: lexemeOfItalian,
   cellOf: cellOfItalian,
-  availability: () => null,
+  availability: availabilityOf,
   cell: wholeCell,
   stem: stemOf,
   ending: endingOf,
   orthography: italianSpelling,
-  periphrases: [],
+  periphrases: italianPeriphrases,
   clause: italianClause,
 };
 validateGrammar(italianGrammar);
