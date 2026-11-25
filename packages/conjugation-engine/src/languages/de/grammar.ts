@@ -1,8 +1,9 @@
 import type { StagedGrammar } from '../../core/staged.js';
-import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
+import { classifyGerman, germanLexemeOf } from './classify.js';
+import type { GermanLexeme } from './classify.js';
 
-export type GermanLexeme = LexemeBase;
+export type { GermanLexeme } from './classify.js';
 
 function notBuilt(hook: string): never {
   throw new ConjugationError('GENERATION_FAILURE', `German ${hook} is not built yet.`);
@@ -10,8 +11,8 @@ function notBuilt(hook: string): never {
 
 /** The German grammar: classification, then stems, endings and spelling rules, compound tenses and the main clause. */
 export const germanGrammar: StagedGrammar<GermanLexeme> = {
-  classify: () => notBuilt('classify'),
-  lexemeOf: () => notBuilt('lexemeOf'),
+  classify: classifyGerman,
+  lexemeOf: germanLexemeOf,
   cellOf: () => notBuilt('cellOf'),
   availability: () => notBuilt('availability'),
   stem: () => notBuilt('stem'),
