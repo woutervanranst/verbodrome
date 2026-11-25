@@ -1,14 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { expandTargets } from '../src/catalogue.js';
-import { isListedFrenchLemma, resolveFrench } from '../src/languages/fr/index.js';
+import { isListedLemma as isListedFrenchLemma } from '../src/languages/fr/classify.js';
 import { ConjugationError } from '../src/errors.js';
-import { renderParts } from '../src/render.js';
 import { conjugate } from '../src/conjugate.js';
 import type { FrenchConjugationOptions } from '../src/types.js';
 
+/** The distinct texts of a query's forms, in output order. */
 function french(options: FrenchConjugationOptions): string[] {
-  const engine = resolveFrench(options);
-  return [...new Set(expandTargets(options).flatMap(target => engine.generate(target).forms.map(form => renderParts('fr', form.parts))))];
+  return [...new Set(conjugate(options).forms.map(form => form.text))];
 }
 
 describe('French grammatical generation', () => {

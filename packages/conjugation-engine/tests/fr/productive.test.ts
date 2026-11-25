@@ -1,6 +1,7 @@
 /**
- * The productive classes (GD §3.1, §4.3, §4.4): three ending sets and the spelling rules reproduce every legacy
- * productive model table, word by word, with the rules recorded in order.
+ * The productive classes (GD §3.1, §4.3, §4.4): three ending sets and the spelling rules, word by word, with the rules
+ * recorded in order. (Before the switch this file also checked every legacy productive table; the characterization
+ * snapshot keeps covering every productive model.)
  */
 import { describe, expect, it } from 'vitest';
 import type { Outcome } from '../../src/core/fork.js';
@@ -8,12 +9,7 @@ import { synthesize } from '../../src/core/staged.js';
 import { classifyFrench } from '../../src/languages/fr/classify.js';
 import { cellNames } from '../../src/languages/fr/family.js';
 import { frenchGrammar } from '../../src/languages/fr/grammar.js';
-import { frenchModels, selectModel } from '../../src/languages/fr/models.js';
 import { cellOfName } from '../../src/languages/fr/stems.js';
-import { canonicalLemma } from '../../src/languages/fr/lexicon.js';
-import { cellTexts } from '../../src/languages/fr/table.js';
-import type { Spelling } from '../../src/languages/fr/table.js';
-import { frenchQueries } from './shadow.js';
 
 /** The words of one cell of `infinitive` (paradigm `paradigm`), each with its spelling tag and the rules that made it. */
 function words(infinitive: string, name: (typeof cellNames)[number], query: Readonly<Record<string, unknown>> = {}, paradigm = 0) {
@@ -82,35 +78,6 @@ describe('French productive classes', () => {
     expect(texts('interviewer', 'pres.1s')).toEqual(['interviewe']);
     expect(texts('speeder', 'pres.1s')).toEqual(['speede']);
     expect(texts('annexer', 'pres.1s')).toEqual(['annexe']);
-  });
-
-  it('reproduces every productive model table for every productive snapshot lemma', () => {
-    const productive = new Map(frenchModels.filter(model => model.productive).map(model => [model.id, model]));
-    const lemmas = new Set<string>(productive.keys());
-    for (const query of frenchQueries) {
-      const lemma = canonicalLemma(query.infinitive.replace(/^(se |s')/u, ''));
-      if (productive.has(selectModel(lemma)?.model.id ?? '')) lemmas.add(lemma);
-    }
-    expect(lemmas.size).toBeGreaterThanOrEqual(158);
-    const differing = new Map<string, number>();
-    for (const lemma of lemmas) {
-      const model = selectModel(lemma)!.model;
-      const stem = lemma.slice(0, lemma.length - model.strip);
-      const paradigms = classifyFrench({ language: 'fr', infinitive: lemma });
-      expect(paradigms).toHaveLength(model.paradigms.length);
-      model.paradigms.forEach((paradigm, p) => {
-        cellNames.forEach((name, cell) => {
-          const derived = synthesize(frenchGrammar, paradigms[p]!.value, cellOfName(name));
-          const same = (['rectified', 'traditional'] as const).every((spelling: Spelling) => {
-            const expected = cellTexts(stem, paradigm.cells[cell]!, spelling, model.kind === 'er');
-            const actual = derived.filter(outcome => (outcome.tags.orthography ?? spelling) === spelling).map(outcome => outcome.value);
-            return JSON.stringify(actual) === JSON.stringify(expected);
-          });
-          if (!same) differing.set(lemma, (differing.get(lemma) ?? 0) + 1);
-        });
-      });
-    }
-    expect(Object.fromEntries(differing)).toEqual({ bleder: 21, crebler: 21, pequer: 21, blettre: 4 });
   });
 
   it('passes hinted stems through spelling rules', () => {

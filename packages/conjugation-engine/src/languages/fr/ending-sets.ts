@@ -5,7 +5,7 @@
  * endings (lev + erai), so the er spelling rules share one trigger.
  *
  * Generated once from the aimer, finir and rompre tables of `models.ts` at commit 1e3c0a6 by
- * `scripts/fr/bootstrap-families.ts`, and maintained by hand from now on.
+ * the one-off `scripts/fr/bootstrap-families.ts` (deleted at the switch), and maintained by hand from now on.
  */
 
 export const erEndings: readonly string[] = [

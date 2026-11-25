@@ -13,7 +13,10 @@ export const frenchCatalogue: readonly CatalogueEntry[] = Object.freeze([
     ['present', 'Présent'], ['past', 'Passé'], ['imperfect', 'Imparfait'], ['pluperfect', 'Plus-que-parfait'],
   ]),
   ...moodEntries('conditional', 'Conditionnel', allPersons, [['present', 'Présent'], ['past', 'Passé']]),
-  ...moodEntries('imperative', 'Impératif', [[2, 'singular'], [1, 'plural'], [2, 'plural']], [['present', 'Présent'], ['past', 'Passé']]),
+  // The imperative has the tu, nous and vous slots (its persons stay listed for consumers that read them).
+  ...moodEntries('imperative', 'Impératif', [[2, 'singular'], [1, 'plural'], [2, 'plural']], [['present', 'Présent'], ['past', 'Passé']], {
+    slots: ['2sg', '1pl', '2pl'],
+  }),
   ...moodEntries('infinitive', 'Infinitif', noPersons, [['present', 'Présent'], ['past', 'Passé']]),
   ...moodEntries('participle', 'Participe', noPersons, [
     ['present', 'Présent'], ['past', 'Passé'], ['perfect', 'Passé (forme composée)'],
@@ -23,8 +26,7 @@ export const frenchCatalogue: readonly CatalogueEntry[] = Object.freeze([
 
 /**
  * The six French subject slots (GD §2), all default and all without a gender: a form shows the subject's gender itself
- * (il/elle, je suis allé/allée) through the clause's `subjectGenders`. The registered pack declares them when it moves to
- * the staged engine.
+ * (il/elle, je suis allé/allée) through the clause's `subjectGenders`.
  */
 export const frenchSubjects: readonly (SubjectSlot & { readonly id: FrenchSubject })[] = Object.freeze([
   { id: '1sg', person: 1, number: 'singular', pronoun: 'je', default: true },
@@ -35,6 +37,3 @@ export const frenchSubjects: readonly (SubjectSlot & { readonly id: FrenchSubjec
   { id: '3pl', person: 3, number: 'plural', pronoun: 'ils', default: true },
 ] as const);
 
-/** The catalogue for a pack with the subject slots: the imperative entries list theirs (tu, nous, vous). */
-export const frenchCatalogueWithSlots: readonly CatalogueEntry[] = Object.freeze(frenchCatalogue.map(entry =>
-  entry.mood === 'imperative' ? Object.freeze({ ...entry, slots: Object.freeze(['2sg', '1pl', '2pl']) }) : entry));

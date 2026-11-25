@@ -32,7 +32,6 @@
     "cli": "node dist/cli.js",
     "corpus:import": "node --experimental-strip-types scripts/corpus/import.ts",
     "corpus:check": "vitest run tests/corpus.test.ts tests/corpus-parser.test.ts && node --experimental-strip-types scripts/corpus/report.ts",
-    "characterize:queries": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/build-queries.ts",
     "characterize:accept": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/accept.ts",
     "characterize:write": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/write.ts"
   },

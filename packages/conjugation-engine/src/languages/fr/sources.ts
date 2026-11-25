@@ -2,8 +2,6 @@
  * The works the French rules cite, and the citation of each rule (GD §1). Every page cited here was opened when the
  * rule was implemented. *Le Bon Usage* is listed but cited nowhere: its § numbers were not checked in a copy.
  *
- * `frenchCitations` grows task by task while the grammar runs in shadow mode: a rule is cited in the task that
- * implements it, together with its messages, and never with a placeholder.
  */
 import type { Citation, Work } from '../../core/sources.js';
 import type { FrenchRuleId } from './rules.js';
@@ -78,7 +76,7 @@ const jo1990 = (locator: string): Citation => ({ work: 'jo1990', locator, url: f
 /** The Académie's article and conjugation table of each verb, without a fixed address (the rule cites the verb's own). */
 const verbArticle: Citation = { work: 'academie', locator: 'article et tableau de conjugaison du verbe' };
 
-export const frenchCitations: Partial<Record<FrenchRuleId, Citation | readonly Citation[]>> = {
+export const frenchCitations = {
   'fr.classify.reflexive': oqlf(22942, 'Verbes occasionnellement pronominaux'),
   'fr.classify.essentially-pronominal': oqlf(22940, 'Verbes essentiellement pronominaux'),
   'fr.classify.canonical-spelling': [jo1990('III, Liste H : assoir, interpeler ; II.4 : connaitre'), oqlf(23838, 'ASSEOIR et ASSOIR')],
@@ -174,7 +172,7 @@ export const frenchCitations: Partial<Record<FrenchRuleId, Citation | readonly C
   'fr.clause.reflexive-imperative': [oqlf(24206, 'Trait d’union'), conjugation('A9A2823', 'asseoir (voix pronominale)')],
   'fr.clause.participle-forms': conjugation('A9C1222', 'céder'),
   'fr.clause.invariable-participle': [conjugation('A9D3072', 'dormir'), conjugation('A9F0145', 'falloir')],
-};
+} as const satisfies Record<FrenchRuleId, Citation | readonly Citation[]>;
 
 /**
  * Data the French pack keeps although no checked authority supports it, so the frozen output is reproduced; each is an

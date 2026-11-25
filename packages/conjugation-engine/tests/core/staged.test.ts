@@ -964,7 +964,7 @@ describe('target identity', () => {
     expect(targetKey(base)).toBe('indicative/present/1/plural');
     expect(resolvedTargetKey({ ...base, agreement: { gender: 'feminine', number: 'plural' } }))
       .toBe('["indicative","present",1,"plural",null,"feminine","plural"]');
-    expect(Object.keys(createEngine(packs).expandTargets({ language: 'fr', infinitive: 'aimer' })[0]!))
+    expect(Object.keys(createEngine(packs).expandTargets({ language: 'fr', infinitive: 'aimer', mood: 'infinitive' })[0]!))
       .toEqual(['mood', 'tense', 'person', 'number', 'gender', 'agreement']);
   });
 

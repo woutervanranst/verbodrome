@@ -3,7 +3,7 @@
  * the listed words that stand in for formation.
  */
 import { describe, expect, it } from 'vitest';
-import { shadow } from './shadow.js';
+import { engine as shadow } from '../../src/default-engine.js';
 
 type Query = Readonly<Record<string, unknown>>;
 const conjugate = (infinitive: string, query: Query = {}) => shadow.conjugate({ language: 'fr', infinitive, ...query });

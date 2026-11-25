@@ -4,7 +4,10 @@
  */
 import { describe, expect, it } from 'vitest';
 import { classifyFrench } from '../../src/languages/fr/classify.js';
-import { shadow, shadowFrench } from './shadow.js';
+import { characterize } from '../../scripts/characterize/serialize.ts';
+import { engine as shadow } from '../../src/default-engine.js';
+
+const shadowFrench = (query: { readonly language: 'fr'; readonly infinitive: string }) => characterize(query);
 
 const analysis = (infinitive: string, options: Readonly<Record<string, unknown>> = {}) =>
   shadow.conjugate({ language: 'fr', infinitive, mood: 'indicative', tense: 'present', ...options }).analysis;

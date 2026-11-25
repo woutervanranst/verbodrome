@@ -1,6 +1,6 @@
 /**
- * The French grammar on the staged core (GD). It runs in shadow mode until plan 3 Task 8: the registered pack keeps the
- * legacy engine, and `tests/fr/shadow.test.ts` compares this grammar with the frozen snapshot section by section.
+ * The French grammar on the staged core (GD, `docs/grammar/fr.md`): classification into paradigms, stems from the
+ * productive groups or a family's principal parts, endings, spelling rules, availability, compound tenses and the clause.
  */
 import type { LexemeBase } from '../../core/grammar.js';
 import { validateGrammar } from '../../core/staged.js';

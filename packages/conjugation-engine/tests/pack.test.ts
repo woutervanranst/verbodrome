@@ -22,12 +22,15 @@ describe('catalogue entries from moodEntries', () => {
     expect(moodEntries('imperative', 'Imperative', [[2, 'singular']], tenses, { slots: ['2sg'] })[0]).toMatchObject({ finite: true, slots: ['2sg'] });
   });
 
-  it('leaves the French and Dutch catalogues as they were', () => {
+  it('leaves the French and Dutch catalogues as they were, apart from the French imperative slots', () => {
     for (const language of ['fr', 'nl'] as const) {
       const catalogue = getCatalogue(language);
       expect(catalogue.filter(entry => entry.finite === (entry.persons.length > 0))).toHaveLength(catalogue.length);
-      expect(catalogue.some(entry => 'slots' in entry)).toBe(false);
     }
+    expect(getCatalogue('nl').some(entry => 'slots' in entry)).toBe(false);
+    expect(getCatalogue('fr').filter(entry => 'slots' in entry).map(entry => [entry.mood, entry.tense, entry.slots])).toEqual([
+      ['imperative', 'present', ['2sg', '1pl', '2pl']], ['imperative', 'past', ['2sg', '1pl', '2pl']],
+    ]);
   });
 });
 

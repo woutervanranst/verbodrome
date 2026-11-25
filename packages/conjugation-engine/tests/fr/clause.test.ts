@@ -9,7 +9,7 @@ import { frenchFamilies } from '../../src/languages/fr/families.js';
 import type { FrenchLexeme } from '../../src/languages/fr/grammar.js';
 import { frenchRendering } from '../../src/languages/fr/rendering.js';
 import type { ResolvedTarget } from '../../src/types.js';
-import { shadow } from './shadow.js';
+import { engine as shadow } from '../../src/default-engine.js';
 
 /** A lexeme for these tests: aimer, or a verb of the family `family`. */
 function lexeme(lemma: string, family?: string): FrenchLexeme {

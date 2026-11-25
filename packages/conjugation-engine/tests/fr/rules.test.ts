@@ -1,7 +1,6 @@
 /**
- * The French rules in shadow mode. `tests/i18n/completeness.test.ts` checks a pack's messages and citations only once
- * the registered pack declares `rules` (plan 3 Task 8); until then this test holds the rules that are implemented to the
- * same standard: each has a message in both locales and a citation, and a rule without one has neither.
+ * The French rules: the 94 rules of the grammar design by stage, each with a message in both locales and a citation
+ * (`tests/i18n/completeness.test.ts` checks the same for every registered pack; this pins the French inventory).
  */
 import { describe, expect, it } from 'vitest';
 import type { Citation } from '../../src/core/sources.js';
@@ -22,8 +21,9 @@ describe('French rules', () => {
     expect(ids.every(id => /^fr\.[a-z]+\.[a-z0-9]+(-[a-z0-9]+)*$/u.test(id))).toBe(true);
   });
 
-  it('gives every implemented rule a message in both locales and a citation, and no other rule either', () => {
+  it('gives every rule a message in both locales and a citation', () => {
     const cited = Object.keys(frenchCitations).sort();
+    expect(cited).toEqual([...ids].sort());
     expect(Object.keys(en).sort()).toEqual(cited);
     expect(Object.keys(nl).sort()).toEqual(cited);
     for (const id of cited) expect(ids).toContain(id);

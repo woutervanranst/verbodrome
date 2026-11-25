@@ -1,5 +1,495 @@
 [
   {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "A\tbleder\taimer\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tbleder\tlever\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje blede\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje blède\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu bledes\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu blèdes\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til blede\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til blède\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils bledent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils blèdent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje blederai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje blèderai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu blederas\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu blèderas\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til bledera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til blèdera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous blederons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous blèderons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous blederez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous blèderez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils blederont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils blèderont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je blede\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je blède\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu bledes\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu blèdes\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il blede\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il blède\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils bledent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils blèdent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje blederais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje blèderais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu blederais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu blèderais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til blederait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til blèderait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous blederions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous blèderions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous blederiez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous blèderiez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils blederaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils blèderaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tblede\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tblède\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje bletts\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje blets\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu bletts\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu blets\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til blett\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til blet\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tbletts\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tblets\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "A\tcrebler\taimer\tregularRule\t0\tavoir\tcrebler uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tcrebler\tlever\tregularRule\t0\tavoir\tcrebler uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje creble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje crèble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu crebles\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu crèbles\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til creble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til crèble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils creblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils crèblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje creblerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje crèblerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu crebleras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu crèbleras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til creblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til crèblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous creblerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous crèblerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous creblerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous crèblerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils crebleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils crèbleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je creble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je crèble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu crebles\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu crèbles\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il creble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il crèble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils creblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils crèblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje creblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje crèblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu creblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu crèblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til creblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til crèblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous creblerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous crèblerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous crebleriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous crèbleriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils crebleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils crèbleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tcreble\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tcrèble\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "A\tpequer\taimer\tregularRule\t0\tavoir\tpequer uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tpequer\tlever\tregularRule\t0\tavoir\tpequer uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje peque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje pèque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu peques\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu pèques\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til peque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til pèque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils pequent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils pèquent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje pequerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje pèquerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu pequeras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu pèqueras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til pequera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til pèquera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous pequerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous pèquerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous pequerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous pèquerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils pequeront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils pèqueront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je peque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je pèque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu peques\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu pèques\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il peque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il pèque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils pequent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils pèquent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje pequerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje pèquerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu pequerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu pèquerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til pequerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til pèquerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous pequerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous pèquerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous pequeriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous pèqueriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils pequeraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils pèqueraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"gender\":\"masculine\",\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tpeque\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tpèque\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
     "query": "# {\"infinitive\":\"bedanken\",\"inversion\":true,\"language\":\"nl\"}",
     "was": "A\tbedanken\tweak\tlexicon\t0\thebben\tAn unlisted Dutch verb defaults to the weak native model. | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | An unlisted verb defaults to hebben; lexical meaning may require zijn.",
     "now": "A\tbedanken\tweak\tlexicon\t0\thebben\t-",
@@ -306,6 +796,461 @@
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
     "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "A\tbleder\taimer\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tbleder\tlever\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje blede\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje blède\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu bledes\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu blèdes\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til blede\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til blède\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/feminine/-\telle blede\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/feminine/-\telle blède\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils bledent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils blèdent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/feminine/-\telles bledent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/feminine/-\telles blèdent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje blederai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje blèderai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu blederas\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu blèderas\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til bledera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til blèdera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/feminine/-\telle bledera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/feminine/-\telle blèdera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous blederons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous blèderons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous blederez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous blèderez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils blederont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils blèderont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/feminine/-\telles blederont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/feminine/-\telles blèderont\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je blede\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je blède\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu bledes\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu blèdes\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il blede\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il blède\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle blede\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle blède\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils bledent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils blèdent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles bledent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles blèdent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje blederais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje blèderais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu blederais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu blèderais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til blederait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til blèderait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/feminine/-\telle blederait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/feminine/-\telle blèderait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous blederions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous blèderions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous blederiez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous blèderiez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils blederaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils blèderaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/feminine/-\telles blederaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/feminine/-\telles blèderaient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tblede\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tblède\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje bletts\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje blets\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu bletts\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu blets\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til blett\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til blet\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/feminine/-\telle blett\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/feminine/-\telle blet\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"infinitive\":\"blettre\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tbletts\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tblets\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: -ttre verbs keep one t in the singular present and imperative (bats, mets); the legacy engine wrote bletts.",
+    "source": "https://www.dictionnaire-academie.fr/conjuguer/A9M1992"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "A\tcrebler\taimer\tregularRule\t0\tavoir\tcrebler uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tcrebler\tlever\tregularRule\t0\tavoir\tcrebler uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje creble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje crèble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu crebles\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu crèbles\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til creble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til crèble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/feminine/-\telle creble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/feminine/-\telle crèble\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils creblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils crèblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/feminine/-\telles creblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/feminine/-\telles crèblent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje creblerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje crèblerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu crebleras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu crèbleras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til creblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til crèblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/feminine/-\telle creblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/feminine/-\telle crèblera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous creblerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous crèblerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous creblerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous crèblerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils crebleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils crèbleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/feminine/-\telles crebleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/feminine/-\telles crèbleront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je creble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je crèble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu crebles\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu crèbles\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il creble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il crèble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle creble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle crèble\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils creblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils crèblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles creblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles crèblent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje creblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje crèblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu creblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu crèblerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til creblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til crèblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/feminine/-\telle creblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/feminine/-\telle crèblerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous creblerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous crèblerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous crebleriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous crèbleriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils crebleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils crèbleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/feminine/-\telles crebleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/feminine/-\telles crèbleraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"crebler\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tcreble\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tcrèble\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
   },
   {
     "query": "# {\"infinitive\":\"doorlopen\",\"inversion\":true,\"language\":\"nl\"}",
@@ -638,6 +1583,216 @@
     "block": true,
     "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "A\tpequer\taimer\tregularRule\t0\tavoir\tpequer uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "now": "A\tpequer\tlever\tregularRule\t0\tavoir\tpequer uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/1/singular/-/-\tje peque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/1/singular/-/-\tje pèque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/2/singular/-/-\ttu peques\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/2/singular/-/-\ttu pèques\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/masculine/-\til peque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/masculine/-\til pèque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/singular/feminine/-\telle peque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/singular/feminine/-\telle pèque\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/masculine/-\tils pequent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/masculine/-\tils pèquent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/present/3/plural/feminine/-\telles pequent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/present/3/plural/feminine/-\telles pèquent\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/singular/-/-\tje pequerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/singular/-/-\tje pèquerai\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/singular/-/-\ttu pequeras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/singular/-/-\ttu pèqueras\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/masculine/-\til pequera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/masculine/-\til pèquera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/singular/feminine/-\telle pequera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/singular/feminine/-\telle pèquera\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/1/plural/-/-\tnous pequerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/1/plural/-/-\tnous pèquerons\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/2/plural/-/-\tvous pequerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/2/plural/-/-\tvous pèquerez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/masculine/-\tils pequeront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/masculine/-\tils pèqueront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tindicative/future/3/plural/feminine/-\telles pequeront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tindicative/future/3/plural/feminine/-\telles pèqueront\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/1/singular/-/-\tque je peque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/1/singular/-/-\tque je pèque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/2/singular/-/-\tque tu peques\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/2/singular/-/-\tque tu pèques\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il peque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/masculine/-\tqu'il pèque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle peque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/singular/feminine/-\tqu'elle pèque\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils pequent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/masculine/-\tqu'ils pèquent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles pequent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tsubjunctive/present/3/plural/feminine/-\tqu'elles pèquent\tmsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/singular/-/-\tje pequerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/singular/-/-\tje pèquerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/singular/-/-\ttu pequerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/singular/-/-\ttu pèquerais\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/masculine/-\til pequerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/masculine/-\til pèquerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/singular/feminine/-\telle pequerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/singular/feminine/-\telle pèquerait\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/1/plural/-/-\tnous pequerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/1/plural/-/-\tnous pèquerions\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/2/plural/-/-\tvous pequeriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/2/plural/-/-\tvous pèqueriez\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/masculine/-\tils pequeraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/masculine/-\tils pèqueraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\tconditional/present/3/plural/feminine/-\telles pequeraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\tconditional/present/3/plural/feminine/-\telles pèqueraient\tsv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
+  },
+  {
+    "query": "# {\"infinitive\":\"pequer\",\"language\":\"fr\"}",
+    "was": "F\timperative/present/2/singular/-/-\tpeque\tv\tboth\t-\t-\tstandard\t-\t1",
+    "now": "F\timperative/present/2/singular/-/-\tpèque\tv\tboth\t-\t-\tstandard\t-\t1",
+    "reason": "Rule-first: the mute e of the last stem syllable becomes è before a mute ending whatever consonant follows; the legacy engine only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer.",
+    "source": "https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif"
   },
   {
     "query": "# {\"infinitive\":\"teruggeven\",\"inversion\":true,\"language\":\"nl\"}",

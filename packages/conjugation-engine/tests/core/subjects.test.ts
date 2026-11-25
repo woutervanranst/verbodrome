@@ -44,6 +44,10 @@ describe('word marks', () => {
   });
 });
 
+/** The toy without subject slots (and without the imperative entry that lists one): a pack without slots. */
+const { subjects: _slots, ...slotlessToy } = toyPack;
+const slotless = createEngine({ xx: { ...slotlessToy, catalogue: toyCatalogue.filter(entry => entry.slots === undefined) } as LanguagePack });
+
 describe('subject slots', () => {
   it('expands default slots only', () => {
     const forms = toy.conjugate(present).forms;
@@ -85,13 +89,15 @@ describe('subject slots', () => {
 
   it('rejects an unknown subject and a subject on a pack without slots', () => {
     expect(() => toy.conjugate({ ...present, subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
-    const legacy = createEngine(packs);
-    expect(() => legacy.conjugate({ language: 'fr', infinitive: 'aimer', subject: '1sg' }))
-      .toThrow(invalid('INVALID_REQUEST', 'Unknown fr option: subject.'));
-    // Dutch has slots: an unknown one is invalid, a known one selects that subject.
-    expect(() => legacy.conjugate({ language: 'nl', infinitive: 'werken', subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
-    expect(legacy.conjugate({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', subject: '2sg.u' }).forms.map(form => form.text))
+    expect(() => slotless.conjugate({ language: 'xx', infinitive: 'placa', subject: '1sg' }))
+      .toThrow(invalid('INVALID_REQUEST', 'Unknown xx option: subject.'));
+    // French and Dutch have slots: an unknown one is invalid, a known one selects that subject.
+    const registered = createEngine(packs);
+    expect(() => registered.conjugate({ language: 'nl', infinitive: 'werken', subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
+    expect(registered.conjugate({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', subject: '2sg.u' }).forms.map(form => form.text))
       .toEqual(['u werkt']);
+    expect(registered.conjugate({ language: 'fr', infinitive: 'aimer', mood: 'indicative', tense: 'present', subject: '1sg' }).forms.map(form => form.text))
+      .toEqual(['j\'aime']);
   });
 
   it('rejects a subject the tense does not have', () => {
@@ -103,14 +109,17 @@ describe('subject slots', () => {
   });
 
   it('keeps the targets of a pack without slots structurally unchanged, and gives a pack with slots their ids', () => {
-    const engine = createEngine(packs);
-    const targets = engine.expandTargets({ language: 'fr', infinitive: 'aimer' });
+    const targets = slotless.expandTargets({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'past' });
     expect(targets.some(target => Object.hasOwn(target, 'subject'))).toBe(false);
     const finite = targets.find(target => target.person !== null)!;
     expect(Object.keys(finite)).toEqual(['mood', 'tense', 'person', 'number', 'gender', 'agreement']);
-    const query = { language: 'fr', infinitive: 'aimer', mood: 'indicative', tense: 'present', person: 1, number: 'singular' };
-    expect(Object.hasOwn(engine.conjugate(query).forms[0]!.target, 'subject')).toBe(false);
-    expect(engine.getSubjects('fr')).toEqual([]);
+    const query = { language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'past', person: 1, number: 'singular' };
+    expect(Object.hasOwn(slotless.conjugate(query).forms[0]!.target, 'subject')).toBe(false);
+    expect(slotless.getSubjects('xx')).toEqual([]);
+    const engine = createEngine(packs);
+    // French has slots without a gender: its targets name the slot, and the clause shows the gender form by form.
+    expect(engine.expandTargets({ language: 'fr', infinitive: 'aimer', mood: 'indicative', tense: 'present', person: 3, number: 'singular' }))
+      .toEqual([{ mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null, subject: '3sg' }]);
     // Dutch has slots: a finite target names one, and the Dutch target keeps no gender.
     const dutch = engine.expandTargets({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', person: 3, number: 'singular' });
     expect(dutch).toEqual([{ mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: null, agreement: null, subject: '3sg' }]);
@@ -167,7 +176,9 @@ describe('subject slots', () => {
   it('lists a language\'s slots', () => {
     expect(toy.getSubjects('xx')).toBe(toySubjects);
     expect(toySubjects.filter(subject => subject.default).map(subject => subject.pronoun)).toEqual(['mi', 'tu', 'il', 'nos', 'vos', 'ils']);
-    expect(getSubjects('fr')).toEqual([]);
+    expect(getSubjects('fr').map(subject => [subject.id, subject.pronoun, subject.gender ?? null])).toEqual([
+      ['1sg', 'je', null], ['2sg', 'tu', null], ['3sg', 'il', null], ['1pl', 'nous', null], ['2pl', 'vous', null], ['3pl', 'ils', null],
+    ]);
     expect(getSubjects('nl').filter(subject => subject.default).map(subject => subject.pronoun)).toEqual(['ik', 'jij', 'hij', 'wij', 'jullie', 'zij']);
     expect(() => toy.getSubjects('zz')).toThrow(invalid('UNSUPPORTED_LANGUAGE'));
   });

@@ -33,9 +33,10 @@ describe('compiled CLI', () => {
     expect(result.status).toBe(0);
     expect(result.stderr).toBe('');
     expect(result.stdout.trim().split('\n')).toHaveLength(12);
-    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / y-to-i: je paie');
-    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / keep-y: je paye');
-    expect(result.stdout).toContain('Indicatif / Présent / 1 plural / y-to-i: nous payons');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / y-to-i / 1sg: je paie');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / keep-y / 1sg: je paye');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 plural / y-to-i / 1pl: nous payons');
+    expect(result.stdout).toContain('Indicatif / Présent / 3 singular / masculine / y-to-i / 3sg: il paie');
   });
 
   it('returns the complete JSON result without diagnostic noise', () => {
@@ -147,23 +148,35 @@ describe('compiled CLI', () => {
     expect(result.stderr).toBe('INVALID_REQUEST: Unknown nl option: gender.\n');
   });
 
-  it('passes --subject to the engine, which rejects it for a language without subject slots', () => {
+  it('passes --subject to the engine, which selects that slot or rejects an unknown one', () => {
     const common = run(['--help']).stdout.split('\n\n').find(section => section.startsWith('Common options:'));
     expect(common).toContain('--subject <id>');
-    const result = run(['fr', 'aimer', '--subject', '1sg']);
+    expect(run(['fr', 'aimer', '--mood', 'indicative', '--tense', 'present', '--subject', '1sg']).stdout).toBe('j\'aime\n');
+    const result = run(['fr', 'aimer', '--subject', '4sg']);
     expect(result.status).toBe(1);
     expect(result.stdout).toBe('');
-    expect(result.stderr).toBe('INVALID_REQUEST: Unknown fr option: subject.\n');
+    expect(result.stderr).toBe('INVALID_REQUEST: Invalid subject: 4sg.\n');
   });
 
-  it('prints no step lines for a language that records no steps yet', () => {
-    const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present'];
+  it('prints no step lines for a form that records no steps', () => {
+    const args = ['nl', 'werken', '--mood', 'infinitive', '--tense', 'present'];
     const explained = run([...args, '--explain']);
     expect(explained.status).toBe(0);
     expect(explained.stdout).toBe(run(args).stdout);
-    expect(explained.stdout).toBe('aimer\n');
+    expect(explained.stdout).toBe('werken\n');
     expect(explained.stderr).toBe('');
-    expect(run([...args, '--explain', '--locale', 'nl']).stdout).toBe('aimer\n');
+  });
+
+  it('prints the steps of a French form under it, in the chosen locale', () => {
+    const args = ['fr', 'placer', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'plural', '--explain'];
+    expect(run([...args, '--locale', 'nl']).stdout).toBe([
+      'nous plaçons',
+      '    Haal de uitgang van het hele werkwoord placer weg: de stam is plac-.',
+      '    Présent meervoud: zet -ons achter plac-.',
+      '    De c krijgt een cedille vóór a, o of u, zodat hij als s blijft klinken: placons wordt plaçons.',
+      '    Het onderwerp nous staat vóór het werkwoord.',
+      '',
+    ].join('\n'));
   });
 
   it('prints the steps of a Dutch form under it, in the chosen locale', () => {
@@ -203,7 +216,8 @@ describe('compiled CLI', () => {
     expect(plain.forms[0]).not.toHaveProperty('explanation');
     const explained: { forms: { text: string; explanation: { summary: string; sections: unknown[] } }[] } = JSON.parse(run([...args, '--explain']).stdout);
     expect(explained.forms[0]?.text).toBe('aimer');
-    expect(explained.forms[0]?.explanation).toEqual({ summary: 'aimer: Infinitif, Présent', sections: [] });
+    expect(explained.forms[0]?.explanation.summary).toBe('aimer: Infinitif, Présent');
+    expect(explained.forms[0]?.explanation.sections).toHaveLength(1);
   });
 
   it('rejects an unknown locale and lists the flags in the help', () => {
@@ -268,8 +282,14 @@ describe('unavailable target lines', () => {
   });
 
   it('keeps the pack\'s own sentence for a target that records no rule', () => {
-    const [legacy] = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).unavailableTargets;
-    const line = unavailableLine(legacy!, { mood: 'Indicatif', tense: 'Présent' }, explain('fr', legacy!, 'nl'));
-    expect(line).toBe(`Indicatif / Présent / 1 singular: unavailable (${legacy!.explanation})`);
+    const { step: _rule, ...withoutRule } = absent!;
+    const own = { ...withoutRule, explanation: 'The pack says why.' };
+    expect(unavailableLine(own, labels, toy.explain('xx', own, 'nl'))).toBe('Participle / Past: unavailable (The pack says why.)');
+  });
+
+  it('gives the reason of a French target in the chosen locale', () => {
+    const [impersonal] = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).unavailableTargets;
+    expect(unavailableLine(impersonal!, { mood: 'Indicatif', tense: 'Présent' }, explain('fr', impersonal!, 'nl')))
+      .toBe('Indicatif / Présent / 1 singular / 1sg: unavailable (Dit werkwoord is onpersoonlijk: het bestaat alleen met il, dus deze persoon heeft geen vorm.)');
   });
 });

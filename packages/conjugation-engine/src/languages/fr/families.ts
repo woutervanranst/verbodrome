@@ -6,7 +6,7 @@
  * `flags.verified` names the Académie conjugation table each family was checked against (plan 3 Task 4); a family without it
  * disagrees with that table or has no 9th-edition entry, and is listed in `frenchSecondaryOnly` (`sources.ts`).
  *
- * Generated once from `models.ts` at commit 1e3c0a6 by `scripts/fr/bootstrap-families.ts`, and maintained by hand from
+ * Generated once from `models.ts` at commit 1e3c0a6 by the one-off `scripts/fr/bootstrap-families.ts` (deleted at the switch), and maintained by hand from
  * now on.
  */
 import type { FamilyEntry } from './family.js';

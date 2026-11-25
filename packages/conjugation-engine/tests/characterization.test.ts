@@ -27,9 +27,10 @@ const FR_QUERY_COUNT = 1003;
 const NL_QUERY_COUNT = 1478;
 /**
  * Pinned: the analysis lines of the 11 Dutch verbs the lexicon lists with an unstressed prefix, which no longer record
- * the assumptions for an unlisted verb (final review fix wave), 4 queries each.
+ * the assumptions for an unlisted verb (final review fix wave), 4 queries each; and the 165 French lines of the
+ * whitelist probes of GD §9.3 (bleder, crebler, pequer: è before a mute ending; blettre: one t in the singular).
  */
-const LINE_ENTRY_COUNT = 44;
+const LINE_ENTRY_COUNT = 44 + 165;
 /**
  * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56) and of the lexicon
  * corrections of wrong Dutch that followed it (44).
