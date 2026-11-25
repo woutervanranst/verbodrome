@@ -798,6 +798,30 @@
     "source": "https://woordenlijst.org/zoeken/?q=bewegen"
   },
   {
+    "query": "# {\"infinitive\":\"bezorpelen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Final residual fix: bezorpelen is not in the lexicon and starts with the unstressed prefix be-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (gebezorpeld). bezorpelen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"bezorpelen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Final residual fix: bezorpelen is not in the lexicon and starts with the unstressed prefix be-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (gebezorpeld). bezorpelen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"bezorpelen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Final residual fix: bezorpelen is not in the lexicon and starts with the unstressed prefix be-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (gebezorpeld). bezorpelen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"bezorpelen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Final residual fix: bezorpelen is not in the lexicon and starts with the unstressed prefix be-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (gebezorpeld). bezorpelen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
     "query": "# {\"infinitive\":\"bleder\",\"language\":\"fr\"}",
     "was": "A\tbleder\taimer\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
     "now": "A\tbleder\tlever\tregularRule\t0\tavoir\tbleder uses the regular er model; lexical meaning and nonproductive classes cannot be inferred from spelling. | An unlisted non-reflexive verb defaults to avoir.",
@@ -1961,6 +1985,30 @@
     "block": true,
     "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
     "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verzorpen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Final residual fix: verzorpen is not in the lexicon and starts with the unstressed prefix ver-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (geverzorpt). verzorpen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"verzorpen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Final residual fix: verzorpen is not in the lexicon and starts with the unstressed prefix ver-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (geverzorpt). verzorpen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"verzorpen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Final residual fix: verzorpen is not in the lexicon and starts with the unstressed prefix ver-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (geverzorpt). verzorpen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
+  },
+  {
+    "query": "# {\"infinitive\":\"verzorpen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Final residual fix: verzorpen is not in the lexicon and starts with the unstressed prefix ver-, followed by a consonant and a root with a vowel, so it is read with the prefix and its past participle has no ge- (e-ANS 2.3.2.7). The frozen output wrote ge- before the whole word (geverzorpt). verzorpen is an invented verb, so the rule is the authority; the analysis line now records the assumption.",
+    "source": "https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic"
   },
   {
     "query": "# {\"infinitive\":\"voorkomen\",\"inversion\":true,\"language\":\"nl\"}",

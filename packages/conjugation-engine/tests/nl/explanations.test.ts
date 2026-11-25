@@ -34,7 +34,7 @@ const pinned: readonly Pinned[] = [
       'Het werkwoord: Voor zorpen geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat zorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: zorpen staat niet in de lijst en we lezen er geen scheidbaar deel of voorvoegsel in, dus we vervoegen het als een werkwoord zonder voorvoegsel.',
+      'Het werkwoord: In zorpen lezen we geen scheidbaar deel of voorvoegsel, dus we vervoegen het als een werkwoord zonder voorvoegsel.',
     ],
   },
   {
@@ -1012,14 +1012,14 @@ const pinned: readonly Pinned[] = [
     verb: 'voorbereiden', query: {}, analysis: true,
     en: [
       'The verb: voorbereiden is not in the lexicon and starts with voor, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if voor- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
-      'The verb: bereiden is not in the lexicon and starts with be-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-.',
+      "The verb: bereiden is not in the lexicon and starts with be-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-; if be- is part of the root here, give the verb's class (weak or strong), together with the separable prefix.",
       'The verb: An unlisted Dutch verb defaults to the weak native model.',
       'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
       'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
     ],
     nl: [
       'Het werkwoord: voorbereiden staat niet in de lijst en begint met voor, dat in de meeste werkwoorden een scheidbaar deel is maar in sommige een onbeklemtoond voorvoegsel, dus we vervoegen het als scheidbaar werkwoord; blijft voor- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
-      'Het werkwoord: bereiden staat niet in de lijst en begint met be-, dat we als onbeklemtoond voorvoegsel nemen dat vast aan het werkwoord blijft, dus het voltooid deelwoord krijgt geen ge-.',
+      'Het werkwoord: bereiden staat niet in de lijst en begint met be-, dat we als onbeklemtoond voorvoegsel nemen dat vast aan het werkwoord blijft, dus het voltooid deelwoord krijgt geen ge-; is be- hier geen voorvoegsel maar deel van de stam, geef dan op of het werkwoord zwak of sterk is en wat het scheidbare voorvoegsel is.',
       'Het werkwoord: Voor bereiden geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van bereiden schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat voorbereiden in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
@@ -1030,11 +1030,13 @@ const pinned: readonly Pinned[] = [
     verb: 'uitverkopen', query: { mood: 'participle', tense: 'past' }, form: 'uitverkocht',
     en: [
       'uitverkocht: kopen has an irregular past participle: gekocht.',
-      'uitverkocht: After the prefix ver- the past participle has no ge-: uitverkocht.',
+      'uitverkocht: After the prefix ver- the past participle has no ge-: verkocht.',
+      'uitverkocht: uit is written together with the verb: verkocht becomes uitverkocht.',
     ],
     nl: [
       'uitverkocht: kopen heeft een onregelmatig voltooid deelwoord: gekocht.',
-      'uitverkocht: Na het voorvoegsel ver- krijgt het voltooid deelwoord geen ge-: uitverkocht.',
+      'uitverkocht: Na het voorvoegsel ver- krijgt het voltooid deelwoord geen ge-: verkocht.',
+      'uitverkocht: uit wordt aan het werkwoord vastgeschreven: verkocht wordt uitverkocht.',
     ],
   },
   {
@@ -1079,6 +1081,80 @@ const pinned: readonly Pinned[] = [
       'voorkomt: Tegenwoordige tijd, 3e persoon enkelvoud: stam + t, komt.',
       'voorkomt: voor- is een onscheidbaar voorvoegsel en staat altijd vast vóór het werkwoord: komt wordt voorkomt.',
       'De hele vorm: Het onderwerp is hij.',
+    ],
+  },
+  {
+    // wezen is the other infinitive of zijn: a lexical step says so
+    verb: 'wezen', query: {}, analysis: true,
+    en: [
+      'The verb: wezen is another infinitive of zijn, so it is conjugated like zijn.',
+      'The verb: zijn is an irregular verb: its past tense, was, is in the verb list.',
+    ],
+    nl: [
+      'Het werkwoord: wezen is een andere infinitief van zijn, dus we vervoegen het zoals zijn.',
+      'Het werkwoord: zijn is een onregelmatig werkwoord: de verleden tijd, was, staat in de werkwoordenlijst.',
+    ],
+  },
+  {
+    // an unlisted verb with an unstressed prefix and a listed base: the prefix is read, the base gives the auxiliary
+    verb: 'ontkomen', query: {}, analysis: true,
+    en: [
+      "The verb: ontkomen is not in the lexicon and starts with ont-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-; if ont- is part of the root here, give the verb's class (weak or strong).",
+      'The verb: komen is an irregular verb: its past tense, kwam, is in the verb list.',
+      "The verb: ontkomen is not in the lexicon, so it is taken to have the perfect auxiliary of komen, zijn; if it takes another, give the auxiliary.",
+    ],
+    nl: [
+      'Het werkwoord: ontkomen staat niet in de lijst en begint met ont-, dat we als onbeklemtoond voorvoegsel nemen dat vast aan het werkwoord blijft, dus het voltooid deelwoord krijgt geen ge-; is ont- hier geen voorvoegsel maar deel van de stam, geef dan op of het werkwoord zwak of sterk is.',
+      'Het werkwoord: komen is een onregelmatig werkwoord: de verleden tijd, kwam, staat in de werkwoordenlijst.',
+      'Het werkwoord: ontkomen staat niet in de lijst, dus we nemen aan dat het in de voltooide tijden hetzelfde hulpwerkwoord krijgt als komen: zijn; neemt het een ander, geef dan het hulpwerkwoord op.',
+    ],
+  },
+  {
+    // a derivative of a checked verb with an unstressed prefix: its own auxiliary is still assumed
+    verb: 'terugbetalen', query: {}, analysis: true,
+    en: [
+      'The verb: terugbetalen is not in the lexicon and starts with the separable particle terug, so it is conjugated as a separable verb; if terug- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong).',
+      'The verb: betalen starts with the unstressed prefix be-, which never splits off, so the past participle gets no ge-.',
+      'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+    ],
+    nl: [
+      'Het werkwoord: terugbetalen staat niet in de lijst en begint met het scheidbare deel terug, dus we vervoegen het als scheidbaar werkwoord; blijft terug- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel, en heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+      'Het werkwoord: betalen begint met het onbeklemtoonde voorvoegsel be-, dat nooit loskomt, dus het voltooid deelwoord krijgt geen ge-.',
+      "Het werkwoord: We nemen aan dat terugbetalen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
+    ],
+  },
+  {
+    // a verb on the no-split list is in the lexicon: the Dutch sentence does not say it is not
+    verb: 'informeren', query: {}, analysis: true,
+    en: [
+      'The verb: An unlisted Dutch verb defaults to the weak native model.',
+      'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+      'The verb: No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one.',
+    ],
+    nl: [
+      'Het werkwoord: Voor informeren geeft de werkwoordenlijst geen onregelmatige vormen, dus we nemen aan dat het een zwak werkwoord is.',
+      "Het werkwoord: We nemen aan dat informeren in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
+      'Het werkwoord: In informeren lezen we geen scheidbaar deel of voorvoegsel, dus we vervoegen het als een werkwoord zonder voorvoegsel.',
+    ],
+  },
+  {
+    // a separable verb whose rest has an unstressed prefix: the ge-blocked step shows the word without the particle, which a step of its own attaches
+    verb: 'terugbetalen', query: { mood: 'participle', tense: 'past' }, form: 'terugbetaald',
+    en: [
+      'terugbetaald: Take -en off betalen: betal-.',
+      'terugbetaald: A long vowel in a closed syllable is written with two letters, so betal- becomes betaal-.',
+      'terugbetaald: Weak verb: in the past participle a d comes after the stem: betaald.',
+      "terugbetaald: l is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: betaald.",
+      'terugbetaald: After the prefix be- the past participle has no ge-: betaald.',
+      'terugbetaald: terug is written together with the verb: betaald becomes terugbetaald.',
+    ],
+    nl: [
+      'terugbetaald: Haal -en van betalen af: betal-.',
+      'terugbetaald: Een lange klank in een gesloten lettergreep schrijf je met twee klinkers, dus betal- wordt betaal-.',
+      'terugbetaald: Zwak werkwoord: in het voltooid deelwoord komt er een d achter de stam: betaald.',
+      "terugbetaald: l zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: betaald.",
+      'terugbetaald: Na het voorvoegsel be- krijgt het voltooid deelwoord geen ge-: betaald.',
+      'terugbetaald: terug wordt aan het werkwoord vastgeschreven: betaald wordt terugbetaald.',
     ],
   },
 ];

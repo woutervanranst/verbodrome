@@ -43,14 +43,16 @@ English and Dutch explanation of 67 everyday forms, analyses and unavailable tar
 | `nl.classify.loan` | rule | {before} is a verb borrowed from English, so its stem is the one given for it, not one formed by the Dutch stem rules. | [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
 | `nl.classify.separable` | rule | {before} is a separable verb: {particle} carries the stress and can stand apart from the verb. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
 | `nl.classify.inseparable` | rule | {before} starts with the unstressed prefix {prefix}-, which never splits off, so the past participle gets no ge-. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
+| `nl.classify.alternative-infinitive` | lexical | {before} is another infinitive of {after}, so it is conjugated like {after}. | [e-ANS 2.3.6.5](https://e-ans.ivdnt.org/topics/pid/ans02030605lingtopic), [woordenlijst.org](https://woordenlijst.org/zoeken/?q=wezen) |
 | `nl.classify.default-weak` | assumption | An unlisted Dutch verb defaults to the weak native model. | [e-ANS 2.3.3](https://e-ans.ivdnt.org/topics/pid/ans020303lingtopic), [e-ANS 2.3.5.1](https://e-ans.ivdnt.org/topics/pid/ans02030501lingtopic) |
 | `nl.classify.default-syllables` | assumption | Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [Leidraad 2.1](https://woordenlijst.org/zoeken/leidraad/2/1.html) |
 | `nl.classify.default-hebben` | assumption | An unlisted verb defaults to hebben; lexical meaning may require zijn. | [e-ANS 2.3.2.8.iv](https://e-ans.ivdnt.org/topics/pid/ans0203020804lingtopic) |
+| `nl.classify.auxiliary-inherited` | assumption | {before} is not in the lexicon, so it is taken to have the perfect auxiliary of {base}, {auxiliary}; if it takes another, give the auxiliary. | [e-ANS 2.3.2.8.iv](https://e-ans.ivdnt.org/topics/pid/ans0203020804lingtopic) |
 | `nl.classify.default-unprefixed` | assumption | No separable particle or unstressed prefix is read in this verb, so it is conjugated as a verb without one. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
 | `nl.classify.assume-separable` | assumption | {before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb; if {particle}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304), [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710), [Leidraad 7.2](https://woordenlijst.org/zoeken/leidraad/7/2.html) |
 | `nl.classify.assume-dual-separable` | assumption | {before} is not in the lexicon and starts with {prefix}, a separable particle in most verbs with it but an unstressed prefix in some, so it is conjugated as a separable verb; if {prefix}- stays on the verb here, give it as the inseparable prefix, and if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.2.1.5](https://e-ans.ivdnt.org/topics/pid/topic-16131019751135534), [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082), [e-ANS 12.3.2.1.7](https://e-ans.ivdnt.org/topics/pid/topic-19065733157797735), [e-ANS 12.3.2.1.8](https://e-ans.ivdnt.org/topics/pid/topic-15955547301744486), [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955), [e-ANS 12.3.4.1.1](https://e-ans.ivdnt.org/topics/pid/topic-14781130780092856), [e-ANS 12.3.4.1.2](https://e-ans.ivdnt.org/topics/pid/topic-12837118759979596), [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594), [e-ANS 12.3.4.2.8](https://e-ans.ivdnt.org/topics/pid/topic-17227872050078844), [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [woordenlijst.org](https://woordenlijst.org/), [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304), [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710) |
 | `nl.classify.assume-inseparable` | assumption | {before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix, and it is taken as a prefix that stays on the verb because {why, select, most {most verbs with {prefix}- keep it} close {about as many verbs with {prefix}- are separable as keep it, and keeping the verb whole is the safer guess} other {what follows {prefix} here starts with a vowel and is not a verb in the lexicon, although most verbs with {prefix} are separable}}; if {prefix} is separable here, give it as the separable prefix, and if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.2.1.5](https://e-ans.ivdnt.org/topics/pid/topic-16131019751135534), [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082), [e-ANS 12.3.2.1.7](https://e-ans.ivdnt.org/topics/pid/topic-19065733157797735), [e-ANS 12.3.2.1.8](https://e-ans.ivdnt.org/topics/pid/topic-15955547301744486), [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955), [e-ANS 12.3.4.1.1](https://e-ans.ivdnt.org/topics/pid/topic-14781130780092856), [e-ANS 12.3.4.1.2](https://e-ans.ivdnt.org/topics/pid/topic-12837118759979596), [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594), [e-ANS 12.3.4.2.8](https://e-ans.ivdnt.org/topics/pid/topic-17227872050078844), [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [woordenlijst.org](https://woordenlijst.org/), [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
-| `nl.classify.assume-rest-prefix` | assumption | {before} is not in the lexicon and starts with {prefix}-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-. | [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
+| `nl.classify.assume-rest-prefix` | assumption | {before} is not in the lexicon and starts with {prefix}-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-; if {prefix}- is part of the root here, give the verb's class (weak or strong){split, select, yes {, together with the separable prefix} other {}}. | [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
 | `nl.avail.impersonal` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.2.5](https://e-ans.ivdnt.org/topics/pid/ans020205lingtopic) |
 | `nl.avail.singular-only` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.2.5](https://e-ans.ivdnt.org/topics/pid/ans020205lingtopic) |
 | `nl.avail.no-imperative` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.3.2.5](https://e-ans.ivdnt.org/topics/pid/ans02030205lingtopic) |
@@ -152,6 +154,20 @@ not know is read with an unstressed prefix it starts with when a consonant follo
 follows that (`nl.classify.assume-rest-prefix`: voorbereiden, voorbereid; uitvergroten, uitvergroot); bellen in
 opbellen and beelden in uitbeelden are not (opgebeld, uitgebeeld). The same holds with a `separablePrefix` hint.
 
+**A verb that starts with an unstressed prefix** and is not split (not on the no-split list, no particle) is read with the
+prefix when it starts with be-, ge-, er-, her-, ver- or ont-, followed by a consonant and a root with a vowel (a vowel
+may follow ver-, ont- and her-: verademen, ontaarden; after be- unless the e and the vowel are one sound, eu, ei, ee:
+beuken, beitelen, beieren stay unprefixed, beamen, beoogen, beïnvloeden do not), or followed by a verb of the lexicon (bezitten). The verb is then
+the derivative of what follows the prefix (`nl.classify.assume-rest-prefix`): vermoeien is ver + moeien, so its participle
+has no ge- (vermoeid), verbreken takes the forms of breken (verbrak, verbroken), and the stress of a last syllable in -el,
+-er, -en or -em is judged on the root without the prefix: del is one syllable, so verdelen has verdeel, while adem has
+two, so verademen has veradem. A `classHint` keeps the verb whole (bedelen, to beg: gebedeld). Verbs that only look
+prefixed are listed without a prefix (ergeren, herbergen, bezemen, geselen, genereren); bedelen and beteren, which
+woordenlijst.org lists as two lemmas each, give both readings (`pattern` unprefixed and inseparable, like voorkomen).
+verwelkomen and oordelen have their stem listed (verwelkom, oordeel). A verb read this way also records the perfect auxiliary: hebben by default, or that of its base
+(`nl.classify.auxiliary-inherited`: ontkomen takes zijn from komen). `wezen` is conjugated as `zijn`
+(`nl.classify.alternative-infinitive`).
+
 A verb that guard 2, 3 or 4 keeps whole gets no assumed prefix: its analysis records `nl.classify.default-unprefixed`
 instead. Every assumed reading tells the learner how to override it: an `inseparablePrefix` or `separablePrefix` hint
 decides, and a `classHint` keeps the verb one word. A verb listed in the lexicon, or whose base is, takes what the
@@ -228,8 +244,8 @@ forms (`tests/characterization.test.ts` and `docs/pack-authoring.md` document th
 - a sentence-level entry rewords or removes one assumption sentence in the analysis line of every frozen block that lists
   it.
 
-The ledger has 100 block-level entries (the switch and the lexicon corrections, below), 44 line-level entries and 1
-sentence-level entry (the final review fix wave):
+The ledger has 108 block-level entries (the switch, the lexicon corrections and the unstressed prefix read from the
+spelling, below), 44 line-level entries and 1 sentence-level entry (the final review fix wave):
 
 - 44 line-level entries: the analysis lines of bedanken, behandelen, beloven (also as zich beloven), bestellen, betalen,
   gebruiken, geloven, herinneren, herkennen and ontdekken, four queries each, which no longer record the assumptions for
@@ -299,7 +315,7 @@ an open decision for the maintainers. Attribution: "Woordenlijst Nederlandse Taa
 ## Lexicon corrections
 
 After the switch, the lexicon was corrected where the frozen output, or a common verb, was wrong Dutch, each entry
-checked on woordenlijst.org (by data only: no prefix is inferred for an unknown verb with be-, ver- and the like):
+checked on woordenlijst.org (by data for the verbs listed below; since the residual fix wave an unknown verb that starts with be-, ge-, er-, her-, ver- or ont- is also read with it, as an assumption, see "A verb that starts with an unstressed prefix" above):
 
 - 61 common verbs with an unstressed prefix: weak ones in `inseparableVerbs` (verhuizen, bedekken, veranderen,
   vertellen, gebeuren, ontmoeten …; the auxiliary woordenlijst.org gives in `dutchExceptions` when it is not hebben

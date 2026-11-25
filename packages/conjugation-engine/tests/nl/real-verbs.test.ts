@@ -117,6 +117,143 @@ describe('real verbs checked against woordenlijst.org', () => {
     ]);
   });
 
+  describe('G1: a stem-final -el/-er/-en/-em is unstressed only when the root, without particle and prefix, has two syllables', () => {
+    // Derivatives of nemen take its forms: the root nem is one syllable, so it follows the open-syllable rule.
+    check([
+      ['ontnemen', 107160, 'ontneem', 'ontneemt', 'ontnam', 'ontnomen', 'hebben'],
+      ['vernemen', 109261, 'verneem', 'verneemt', 'vernam', 'vernomen', 'hebben'],
+      ['benemen', 104357, 'beneem', 'beneemt', 'benam', 'benomen', 'hebben'],
+      ['deelnemen', 111187, 'neem deel', 'neemt deel', 'nam deel', 'deelgenomen', 'hebben'],
+      ['waarnemen', 113859, 'neem waar', 'neemt waar', 'nam waar', 'waargenomen', 'hebben'],
+      ['kennisnemen', 111839, 'neem kennis', 'neemt kennis', 'nam kennis', 'kennisgenomen', 'hebben'],
+    ]);
+
+    // Unlisted verbs with an unstressed prefix: the prefix is read, so the root is one syllable (lengthening) and there is no ge-.
+    check([
+      ['verdelen', 108966, 'verdeel', 'verdeelt', 'verdeelde', 'verdeeld', 'hebben'],
+      ['bespelen', 104454, 'bespeel', 'bespeelt', 'bespeelde', 'bespeeld', 'hebben'],
+      ['verspelen', 109407, 'verspeel', 'verspeelt', 'verspeelde', 'verspeeld', 'hebben'],
+      ['beheren', 104242, 'beheer', 'beheert', 'beheerde', 'beheerd', 'hebben'],
+      ['bezeren', 104584, 'bezeer', 'bezeert', 'bezeerde', 'bezeerd', 'hebben'],
+    ]);
+
+    // A root of two syllables keeps its unstressed ending, with the prefix, the particle or neither.
+    check([
+      ['verademen', 108902, 'veradem', 'verademt', 'verademde', 'verademd', 'hebben'],
+      ['ademen', 103997, 'adem', 'ademt', 'ademde', 'geademd', 'hebben'],
+      ['wandelen', 109755, 'wandel', 'wandelt', 'wandelde', 'gewandeld', 'hebben/zijn'],
+      ['herinneren', 105841, 'herinner', 'herinnert', 'herinnerde', 'herinnerd', 'hebben'],
+      ['veranderen', 108909, 'verander', 'verandert', 'veranderde', 'veranderd', 'hebben/zijn'],
+      ['ondertekenen', 107062, 'onderteken', 'ondertekent', 'ondertekende', 'ondertekend', 'hebben'],
+      ['tekenen', 108669, 'teken', 'tekent', 'tekende', 'getekend', 'hebben'],
+      ['regenen', 107820, 'regen', 'regent', 'regende', 'geregend', 'hebben'],
+      ['openen', 107261, 'open', 'opent', 'opende', 'geopend', 'hebben'],
+      ['zegenen', 109904, 'zegen', 'zegent', 'zegende', 'gezegend', 'hebben'],
+      ['ergeren', 105358, 'erger', 'ergert', 'ergerde', 'geërgerd', 'hebben'],
+    ]);
+
+    it('keeps a monosyllabic root without a prefix on the open-syllable rule (spelen: speel)', () => {
+      expect(engineRow('spelen')).toMatchObject({ present1: ['ik speel'], participle: ['gespeeld'] });
+    });
+
+    it('states a lengthening step only where the vowel was lengthened', () => {
+      const stemRules = (infinitive: string): string[] => {
+        const [form] = conjugate({ language: 'nl', infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms;
+        const verb = form!.parts.find(part => part.role === 'lexicalVerb')!;
+        return (verb.steps ?? []).map(s => s.rule).filter(rule => rule.startsWith('nl.stem.'));
+      };
+      expect(stemRules('ontnemen')).toContain('nl.stem.lengthen-vowel');
+      expect(stemRules('ontnemen')).not.toContain('nl.stem.unstressed-e');
+      expect(stemRules('verademen')).toContain('nl.stem.unstressed-e');
+      expect(stemRules('verademen')).not.toContain('nl.stem.lengthen-vowel');
+    });
+  });
+
+  describe('an unstressed prefix of an unlisted verb keeps ge- out of the participle', () => {
+    check([
+      ['vermoeien', 109247, 'vermoei', 'vermoeit', 'vermoeide', 'vermoeid', 'hebben/zijn'],
+      ['verfoeien', 109037, 'verfoei', 'verfoeit', 'verfoeide', 'verfoeid', 'hebben'],
+      ['vernieuwen', 109266, 'vernieuw', 'vernieuwt', 'vernieuwde', 'vernieuwd', 'hebben'],
+      ['ontdooien', 107090, 'ontdooi', 'ontdooit', 'ontdooide', 'ontdooid', 'hebben/zijn'],
+    ]);
+
+    it('reads an unlisted verb with a prefix and a listed strong base as its derivative (verbreken: verbrak, verbroken)', () => {
+      expect(engineRow('verbreken')).toMatchObject({ present1: ['ik verbreek'], past1: ['ik verbrak'], participle: ['verbroken'] });
+    });
+
+    it('lets a class hint keep the prefix-like start as part of the root (an invented verb)', () => {
+      const participle = (query: object) => texts({ infinitive: 'bezorpelen', mood: 'participle', tense: 'past', ...query });
+      expect(participle({})).toEqual(['bezorpeld']);
+      expect(participle({ classHint: 'weak' })).toEqual(['gebezorpeld']);
+    });
+
+    it('lets a class hint with the separable prefix keep the rest of a separable verb whole', () => {
+      const participle = (query: object) => texts({ infinitive: 'voorbereiden', separablePrefix: 'voor', mood: 'participle', tense: 'past', ...query });
+      expect(participle({})).toEqual(['voorbereid']);
+      expect(participle({ classHint: 'weak' })).toEqual(['voorgebereid']);
+    });
+  });
+
+  describe('be- before a vowel is a prefix, unless e and the vowel are one sound (eu, ei, ee)', () => {
+    check([
+      ['beoefenen', 104366, 'beoefen', 'beoefent', 'beoefende', 'beoefend', 'hebben'],
+      ['beamen', 104156, 'beaam', 'beaamt', 'beaamde', 'beaamd', 'hebben'],
+      ['beogen', 104367, 'beoog', 'beoogt', 'beoogde', 'beoogd', 'hebben'],
+      ['beoordelen', 104369, 'beoordeel', 'beoordeelt', 'beoordeelde', 'beoordeeld', 'hebben'],
+      ['veroordelen', 109281, 'veroordeel', 'veroordeelt', 'veroordeelde', 'veroordeeld', 'hebben'],
+      ['oordelen', 107256, 'oordeel', 'oordeelt', 'oordeelde', 'geoordeeld', 'hebben'],
+      ['beëindigen', 104205, 'beëindig', 'beëindigt', 'beëindigde', 'beëindigd', 'hebben'],
+      ['beïnvloeden', 104251, 'beïnvloed', 'beïnvloedt', 'beïnvloedde', 'beïnvloed', 'hebben'],
+      ['beantwoorden', 104158, 'beantwoord', 'beantwoordt', 'beantwoordde', 'beantwoord', 'hebben'],
+      ['beërven', 104209, 'beërf', 'beërft', 'beërfde', 'beërfd', 'hebben'],
+      ['beuken', 104517, 'beuk', 'beukt', 'beukte', 'gebeukt', 'hebben'],
+      ['beitelen', 104252, 'beitel', 'beitelt', 'beitelde', 'gebeiteld', 'hebben'],
+      ['beieren', 104249, 'beier', 'beiert', 'beierde', 'gebeierd', 'hebben'],
+    ]);
+  });
+
+  describe('verbs where be-/ge- is not a prefix: first syllable stressed, listed without a prefix', () => {
+    check([
+      ['bezemen', 104583, 'bezem', 'bezemt', 'bezemde', 'gebezemd', 'hebben'],
+      ['geselen', 105620, 'gesel', 'geselt', 'geselde', 'gegeseld', 'hebben'],
+      ['verbeteren', 108922, 'verbeter', 'verbetert', 'verbeterde', 'verbeterd', 'hebben/zijn'],
+      ['genereren', 105609, 'genereer', 'genereert', 'genereerde', 'gegenereerd', 'hebben'],
+      ['verwelkomen', 109539, 'verwelkom', 'verwelkomt', 'verwelkomde', 'verwelkomd', 'hebben'],
+    ]);
+
+    it('gives verwelkomen its stem from the lexicon, with a lexical step', () => {
+      const [form] = conjugate({ language: 'nl', infinitive: 'verwelkomen', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms;
+      const verb = form!.parts.find(part => part.role === 'lexicalVerb')!;
+      expect((verb.steps ?? []).map(s => s.rule)).toContain('nl.stem.lexical');
+    });
+
+    // bedelen and beteren are two lemmas each on woordenlijst.org, one with be- and one without.
+    it.each([
+      ['bedelen', 'ik bedel', 'gebedeld', 'ik heb gebedeld', 'ik bedeel', 'bedeeld', 'ik heb bedeeld'],
+      ['beteren', 'ik beter', 'gebeterd', 'ik ben gebeterd', 'ik beteer', 'beteerd', 'ik heb beteerd'],
+    ])('%s has two readings', (infinitive, present, participle, perfect, presentPrefixed, participlePrefixed, perfectPrefixed) => {
+      const forms = (query: object) => conjugate({ language: 'nl', infinitive, ...query } as DutchConjugationOptions).forms.map(form => [form.text, form.variant.pattern]);
+      expect(forms({ mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual([[present, 'unprefixed'], [presentPrefixed, 'inseparable']]);
+      expect(forms({ mood: 'participle', tense: 'past' })).toEqual([[participle, 'unprefixed'], [participlePrefixed, 'inseparable']]);
+      expect(forms({ mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual([[perfect, 'unprefixed'], [perfectPrefixed, 'inseparable']]);
+    });
+
+    it('lets a prefix hint choose the reading of bedelen', () => {
+      expect(texts({ infinitive: 'bedelen', inseparablePrefix: 'be', mood: 'participle', tense: 'past' })).toEqual(['bedeeld']);
+    });
+  });
+
+  describe('wezen is the other infinitive of zijn', () => {
+    it('is conjugated like zijn, and the analysis says so', () => {
+      expect(engineRow('wezen')).toEqual({
+        present1: ['ik ben'], present3: ['hij is'], past1: ['ik was'], participle: ['geweest'], auxiliaries: 'zijn',
+      });
+      expect(texts({ infinitive: 'wezen', mood: 'imperative', tense: 'present', person: 2, number: 'singular' })).toEqual(['wees']);
+      const result = conjugate({ language: 'nl', infinitive: 'wezen' });
+      expect((result.analysis.steps ?? []).map(s => s.rule)).toContain('nl.classify.alternative-infinitive');
+    });
+  });
+
   describe('ge- and the trema', () => {
     check([
       ['uiten', 108858, 'uit', 'uit', 'uitte', 'geuit', 'hebben'],

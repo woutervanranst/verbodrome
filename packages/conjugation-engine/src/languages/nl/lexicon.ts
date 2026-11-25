@@ -283,6 +283,12 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   controleren: { unstressedFinalSyllable: false }, // 104936, gecontroleerd
   fotograferen: { unstressedFinalSyllable: false }, // 103881, gefotografeerd
   integreren: { unstressedFinalSyllable: false, auxiliary: 'both' }, // 106050, geïntegreerd, hebben/zijn
+  genereren: { unstressedFinalSyllable: false }, // 105609, gegenereerd
+  verwelkomen: { stem: 'verwelkom' }, // 109539, verwelkomd
+  // oordelen is written with ee (ik oordeel, beoordeel, veroordeel) although its last syllable has no stress; 107256, 109281.
+  oordelen: { stem: 'oordeel' },
+  vermoeien: { auxiliary: 'both' }, // 109247, vermoeid, hebben/zijn
+  ontdooien: { auxiliary: 'both' }, // 107090, ontdooid, hebben/zijn
   irriteren: { unstressedFinalSyllable: false }, // 106080, geïrriteerd
   opereren: { unstressedFinalSyllable: false }, // 107263, geopereerd
   organiseren: { unstressedFinalSyllable: false }, // 107275, georganiseerd
@@ -309,6 +315,16 @@ export const inseparableVerbs: Readonly<Record<string, string>> = {
   verdienen: 'ver', vergelijken: 'ver', verhuizen: 'ver', verklaren: 'ver', vermoeden: 'ver', verrassen: 'ver',
   versturen: 'ver', vertalen: 'ver', vertellen: 'ver', vertrouwen: 'ver', verwachten: 'ver', verzamelen: 'ver',
   beëindigen: 'be', // 104205, beëindigd
+  // woordenlijst.org: vermoeien 109247 (hebben/zijn, vermoeid), ontdooien 107090 (hebben/zijn, ontdooid).
+  vermoeien: 'ver', ontdooien: 'ont',
+  // Verbs that start like a prefixed verb but have none, stressed on their first syllable: ergeren 105358 (geërgerd),
+  // herbergen 105820 (geherbergd).
+  ergeren: '', herbergen: '',
+  // The same for be-/ge- that is part of the root, first syllable stressed (woordenlijst.org: bezemen 104583, geselen
+  // 105620; genereren 105609, stressed last syllable, gegenereerd). bedelen and beteren have two readings (below).
+  bezemen: '', geselen: '', genereren: '', bedelen: '', beteren: '',
+  // The root welkom ends in a syllable without stress that is not a schwa (109539, verwelkomd), so its stem is given.
+  verwelkomen: 'ver',
 };
 
 export interface DutchDerivative {
@@ -328,6 +344,10 @@ export const separableVerbs: Readonly<Record<string, DutchDerivative>> = {
   uitnodigen: { prefix: 'uit', base: 'nodigen' },
   terugkomen: { prefix: 'terug', base: 'komen' },
   meenemen: { prefix: 'mee', base: 'nemen' },
+  // Other compounds of nemen, each checked on woordenlijst.org (lemma id; hebben): deelgenomen, waargenomen, kennisgenomen.
+  deelnemen: { prefix: 'deel', base: 'nemen', auxiliary: 'hebben' }, // 111187
+  waarnemen: { prefix: 'waar', base: 'nemen', auxiliary: 'hebben' }, // 113859
+  kennisnemen: { prefix: 'kennis', base: 'nemen', auxiliary: 'hebben' }, // 111839
   weggaan: { prefix: 'weg', base: 'gaan' },
   invriezen: { prefix: 'in', base: 'vriezen', auxiliary: 'hebben', personal: true },
   // Separable verbs the spelling rules would read otherwise, each checked on woordenlijst.org (lemma id, participle,
@@ -356,6 +376,11 @@ export const inseparableDerivatives: Readonly<Record<string, DutchDerivative>> =
   behouden: { prefix: 'be', base: 'houden' },
   bezoeken: { prefix: 'be', base: 'zoeken' },
   verwerken: { prefix: 'ver', base: 'werken' },
+  // The compounds of nemen with an unstressed prefix: the root nem is one syllable, so ontneem, and the forms of nemen
+  // (ontnam, ontnomen); woordenlijst.org lemma ids, all hebben.
+  ontnemen: { prefix: 'ont', base: 'nemen', auxiliary: 'hebben' }, // 107160
+  vernemen: { prefix: 'ver', base: 'nemen', auxiliary: 'hebben' }, // 109261
+  benemen: { prefix: 'be', base: 'nemen', auxiliary: 'hebben' }, // 104357
   herlezen: { prefix: 'her', base: 'lezen' },
   vermijden: { prefix: 'ver', base: 'mijden' },
   verwijzen: { prefix: 'ver', base: 'wijzen' },
@@ -745,19 +770,36 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   wegwielrennen: { id: 805461, participle: null },
 };
 
-/** One reading of a lemma that is separable in one sense and inseparable in another: what it means, its auxiliary. */
+/** One reading of a lemma with two readings: what it means, its auxiliary. */
 interface Reading { readonly meaning: string; readonly auxiliary: 'hebben' | 'zijn' | 'both' }
 
-/** The prefix of such a lemma and its two readings. */
-interface Readings { readonly prefix: string; readonly separable: Reading; readonly inseparable: Reading }
+/**
+ * The prefix of such a lemma and its two readings: a separable one and an inseparable one (voorkomen), or one without the
+ * prefix, whose first syllable is stressed, and an inseparable one (bedelen: bédelen and bedélen).
+ */
+type Readings = { readonly prefix: string; readonly inseparable: Reading }
+  & ({ readonly separable: Reading; readonly unprefixed?: never } | { readonly unprefixed: Reading; readonly separable?: never });
 
 /**
- * Lemmas that are separable in one sense and inseparable in another: two paradigms, each with its meaning (its
+ * Lemmas that are separable in one sense and inseparable in another, or that have a prefix in one sense and none in
+ * another (bedelen, beteren): two paradigms, each with its meaning (its
  * `condition`) and its perfect auxiliary, unless a prefix hint names one, which then has that reading's auxiliary. The
  * stress mark shows where the stress falls. Meanings and auxiliaries as woordenlijst.org gives each reading
  * (https://woordenlijst.org/zoeken/?q=voorkomen and so on).
  */
 export const ambiguousPrefixVerbs: Readonly<Record<string, Readings>> = {
+  // woordenlijst.org lists each lemma twice: 104175 'aalmoezen vragen' and 104174 'toebedelen'; 104495 'beter worden'
+  // (zijn) and 104496 'teren'.
+  bedelen: {
+    prefix: 'be',
+    unprefixed: { meaning: 'bédelen: to ask for alms, to beg', auxiliary: 'hebben' },
+    inseparable: { meaning: 'bedélen: to allot, to assign', auxiliary: 'hebben' },
+  },
+  beteren: {
+    prefix: 'be',
+    unprefixed: { meaning: 'béteren: to get better', auxiliary: 'zijn' },
+    inseparable: { meaning: 'betéren: to consume (teren)', auxiliary: 'hebben' },
+  },
   voorkomen: {
     prefix: 'voor',
     separable: { meaning: 'vóórkomen: to occur, to appear, to seem', auxiliary: 'zijn' },
@@ -803,6 +845,13 @@ export const ambiguousPrefixVerbs: Readonly<Record<string, Readings>> = {
     inseparable: { meaning: 'omgéven: to surround', auxiliary: 'hebben' },
   },
 };
+
+/**
+ * Infinitives that are another infinitive of a verb the lexicon lists, and which verb: wezen is the other infinitive of
+ * zijn (ik ben, was, geweest; imperative wees). woordenlijst.org lists wezen as a lemma of its own (109827, with a note on
+ * when to write wezen or zijn) and zijn as 109930, whose forms are ben, was, geweest.
+ */
+export const alternativeInfinitives: Readonly<Record<string, string>> = { wezen: 'zijn' };
 
 export type DutchAuxiliary = 'hebben' | 'zijn';
 
@@ -875,9 +924,12 @@ export interface ImpliedPrefix {
   readonly assumed: boolean;
   /**
    * For a dual prefix, why it is read this way: the reading `most` verbs with it have, the safer reading when the two are
-   * `close`, or the inseparable reading because the `rest` cannot stand as a split-off verb.
+   * `close`, or the inseparable reading because the `rest` cannot stand as a split-off verb; `bound` for an unstressed
+   * prefix, which is never a separable particle.
    */
-  readonly why?: 'most' | 'close' | 'rest';
+  readonly why?: 'most' | 'close' | 'rest' | 'bound';
+  /** The perfect auxiliary of a reading that has no prefix to bring it (the unprefixed reading of bedelen). */
+  readonly auxiliary?: 'hebben' | 'zijn' | 'both';
 }
 
 /** Every separable particle and dual prefix, longest first, so voorbij is found before voor. */
@@ -941,9 +993,8 @@ const unstressedPrefixes = ['ver', 'ont', 'her', 'be', 'ge', 'er'];
 /**
  * How the rest of a separable verb is read, like any verb: as an inseparable derivative (verkopen in uitverkopen: ver +
  * kopen, whose forms it takes), as a verb listed with an unstressed prefix (betalen in terugbetalen), or, when the
- * lexicon does not know it, as a verb with an unstressed prefix it starts with (`assumed`: bereiden in voorbereiden),
- * provided a consonant follows the prefix and a root with a vowel follows that (not bellen in opbellen, beelden in
- * uitbeelden); otherwise as a plain verb.
+ * lexicon does not know it, as a verb with an unstressed prefix it starts with (`assumed`: bereiden in voorbereiden, see
+ * `unstressedPrefixOf`; not with a class hint); otherwise as a plain verb.
  */
 interface Rest {
   /** The rest as a word: betalen, verkopen. */
@@ -958,17 +1009,43 @@ interface Rest {
   readonly assumed: boolean;
 }
 
-function restOf(verb: string): Rest {
+/** The prefixes after which a vowel may follow: ver- (verademen), ont- (ontaarden) and her- (heropenen) are never the start of a root. */
+const prefixesBeforeVowel: readonly string[] = ['ver', 'ont', 'her'];
+
+/**
+ * Whether a vowel after `candidate` starts a root: after ver-, ont- and her- always; after be- unless the e and that vowel
+ * are one sound (beuken, beitelen, beieren; beeld), so beamen, beogen and beoordelen have a prefix, and so do beëindigen
+ * and beïnvloeden, whose diaeresis keeps the two letters apart.
+ */
+const rootMayStartWithVowel = (candidate: string, after: string): boolean =>
+  prefixesBeforeVowel.includes(candidate) || (candidate === 'be' && !/^[uie]/u.test(after));
+
+/**
+ * The unstressed prefix `verb` is read with: it starts with one of `unstressedPrefixes` and what follows is a verb of the
+ * lexicon (bezitten: be + zitten), or -en after a root of two letters or more with a vowel, which does not begin with a
+ * vowel unless the prefix is ver-, ont- or her-, or be- and e with that vowel is not one sound (`rootMayStartWithVowel`;
+ * not bellen in opbellen, beelden in uitbeelden, beuken). Undefined for
+ * none. The prefix is not part of the root: verdelen has the one-syllable root del, ademen's verademen the root adem.
+ */
+function unstressedPrefixOf(verb: string): string | undefined {
+  return unstressedPrefixes.find(candidate => {
+    if (!verb.startsWith(candidate)) return false;
+    const after = verb.slice(candidate.length);
+    if (inLexicon(after)) return true;
+    const root = after.endsWith('en') ? after.slice(0, -2) : '';
+    const vowelFirst = /^[aeiouyëï]/u.test(after);
+    return (!vowelFirst || rootMayStartWithVowel(candidate, after)) && root.length >= 2 && /[aeiouyëï]/u.test(root);
+  });
+}
+
+/** `assume`: whether a prefix the lexicon does not list is read from the spelling (not with a class hint). */
+function restOf(verb: string, assume: boolean): Rest {
   const derivative = inseparableDerivativeOf(verb);
   if (derivative) return { verb, prefix: derivative.prefix, inner: derivative.prefix, base: derivative.base, auxiliary: derivative.auxiliary, assumed: false };
   const listed = lookup(inseparableVerbs, verb);
   const plain: Rest = { verb, prefix: listed ?? '', inner: '', base: verb, assumed: false };
-  if (listed !== undefined || inLexicon(verb)) return plain;
-  const prefix = unstressedPrefixes.find(candidate => {
-    const after = verb.slice(candidate.length);
-    const root = after.endsWith('en') ? after.slice(0, -2) : '';
-    return verb.startsWith(candidate) && !/^[aeiouy]/u.test(after) && root.length >= 2 && /[aeiouyëï]/u.test(root);
-  });
+  if (listed !== undefined || inLexicon(verb) || !assume) return plain;
+  const prefix = unstressedPrefixOf(verb);
   return prefix === undefined ? plain : { ...plain, prefix, assumed: true };
 }
 
@@ -982,9 +1059,16 @@ function recordedStress(verb: string): boolean | undefined {
   return !/ee[lrnm][dt]$/u.test(participle);
 }
 
-/** The prefix an unlisted lemma is read with: the one it is spelled with, none for a verb on the no-split list. */
+/**
+ * The prefix an unlisted lemma is read with: the particle or dual prefix it is spelled with, else an unstressed prefix
+ * (`why: 'bound'`: vermoeien, ver + moeien); none for a verb on the no-split list.
+ */
 export function inferredPrefix(lemma: string): ImpliedPrefix | null {
-  return lookup(simplexVerbs, lemma) === undefined ? spelledPrefix(lemma) : null;
+  if (lookup(simplexVerbs, lemma) !== undefined) return null;
+  const spelled = spelledPrefix(lemma);
+  if (spelled) return spelled;
+  const bound = unstressedPrefixOf(lemma);
+  return bound === undefined ? null : { prefix: bound, separable: false, assumed: true, why: 'bound' };
 }
 
 /**
@@ -998,8 +1082,11 @@ export function inferredPrefix(lemma: string): ImpliedPrefix | null {
 function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonly lexeme: DutchLexeme; readonly steps: readonly DerivationStep[] } {
   const { classHint, auxiliary, stems: hints = {} } = options;
   const expressedReflexive = options.infinitive.startsWith('zich ');
-  const lemma = options.infinitive.replace(/^zich /u, '');
-  if (!/^[\p{L}][\p{L}\p{M}'-]*$/u.test(lemma)) throw new ConjugationError('INVALID_INFINITIVE', 'Expected a Dutch infinitive, optionally prefixed with zich.');
+  const written = options.infinitive.replace(/^zich /u, '');
+  if (!/^[\p{L}][\p{L}\p{M}'-]*$/u.test(written)) throw new ConjugationError('INVALID_INFINITIVE', 'Expected a Dutch infinitive, optionally prefixed with zich.');
+  // An alternative infinitive is conjugated as the verb it stands for (wezen: zijn), with a step that says so.
+  const alternativeOf = lookup(alternativeInfinitives, written);
+  const lemma = alternativeOf ?? written;
   if (lookup(ambiguousPrefixVerbs, lemma) && !options.separablePrefix && !options.inseparablePrefix && reading === undefined) {
     throw new ConjugationError('GENERATION_FAILURE', `${lemma} has a separable and an inseparable reading: classify it once for each.`);
   }
@@ -1026,8 +1113,10 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   // A prefix hint makes the lemma a derivative of what follows the prefix; an inseparable hint on a listed verb only
   // marks its prefix. A reading of an ambiguous lemma brings its own auxiliary.
   const readings = lookup(ambiguousPrefixVerbs, lemma);
-  const readingOf = (prefix: string, separable: boolean): { readonly auxiliary?: Reading['auxiliary'] } =>
-    readings?.prefix === prefix ? { auxiliary: readings[separable ? 'separable' : 'inseparable'].auxiliary } : {};
+  const readingOf = (prefix: string, separable: boolean): { readonly auxiliary?: Reading['auxiliary'] } => {
+    const known = readings?.prefix === prefix ? (separable ? readings.separable : readings.inseparable) : undefined;
+    return known ? { auxiliary: known.auxiliary } : {};
+  };
   const derivative: DutchDerivative | undefined = separablePrefix
     ? { prefix: separablePrefix, base: lemma.slice(separablePrefix.length), ...readingOf(separablePrefix, true) }
     : inseparablePrefix && !lookup(dutchExceptions, lemma)
@@ -1036,7 +1125,7 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   const separable = separablePrefix ?? knownSeparable?.prefix ?? '';
   // The rest of a separable verb is classified like any verb: terugbetalen keeps the be- of betalen (terugbetaald),
   // uitverkopen takes the forms of verkopen (uitverkocht).
-  const rest = separable && derivative ? restOf(derivative.base) : null;
+  const rest = separable && derivative ? restOf(derivative.base, !classHint) : null;
   const inseparable = rest ? rest.prefix : inseparablePrefix ?? knownInseparable?.prefix ?? listedInseparable ?? '';
   const base = rest?.base ?? derivative?.base ?? lemma;
   const listedBase = lookup(dutchExceptions, base);
@@ -1069,9 +1158,9 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   if (options.reflexive === false && (expressedReflexive || entry.reflexive)) {
     throw new ConjugationError('INVALID_HINT', `${lemma} requires a reflexive pronoun.`);
   }
-  const defaultAuxiliary = derivative?.auxiliary ?? knownSeparable?.auxiliary ?? knownInseparable?.auxiliary ?? rest?.auxiliary ?? entry.auxiliary ?? 'hebben';
+  const defaultAuxiliary = derivative?.auxiliary ?? knownSeparable?.auxiliary ?? knownInseparable?.auxiliary ?? rest?.auxiliary ?? reading?.auxiliary ?? entry.auxiliary ?? 'hebben';
   const defaultAuxiliaries: readonly DutchAuxiliary[] = defaultAuxiliary === 'both' ? ['hebben', 'zijn'] : [defaultAuxiliary];
-  if (auxiliary && listedBase && !defaultAuxiliaries.includes(auxiliary)) {
+  if (auxiliary && listedBase && !implied?.assumed && !defaultAuxiliaries.includes(auxiliary)) {
     throw new ConjugationError('INVALID_HINT', `${lemma} does not accept auxiliary ${auxiliary} in this lexical model.`);
   }
   const classId = isLoan ? 'loan' : classHint === 'strong' || entry.pastSingular ? 'strong' : entry.participles ? 'mixed' : 'weak';
@@ -1080,13 +1169,15 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
       : listedBase || loan || derivative || listedInseparable ? 'lexicon' : 'regularRule';
 
   const steps: DerivationStep[] = [];
+  if (alternativeOf !== undefined) steps.push(step(dutchRules['nl.classify.alternative-infinitive'], written, alternativeOf));
   // An assumed reading comes first and is not restated as a fact: the assumption says what is read, and why.
   if (implied?.assumed) {
-    steps.push(implied.why === undefined ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
+    steps.push(implied.why === 'bound' ? step(dutchRules['nl.classify.assume-rest-prefix'], lemma, null, { prefix: implied.prefix, split: 'no' })
+      : implied.why === undefined ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
       : implied.separable ? step(dutchRules['nl.classify.assume-dual-separable'], lemma, null, { prefix: implied.prefix })
         : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix, why: implied.why }));
   } else if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
-  if (rest?.assumed) steps.push(step(dutchRules['nl.classify.assume-rest-prefix'], rest.verb, null, { prefix: rest.prefix }));
+  if (rest?.assumed) steps.push(step(dutchRules['nl.classify.assume-rest-prefix'], rest.verb, null, { prefix: rest.prefix, split: 'yes' }));
   else if (inseparable && !(implied?.assumed && !rest)) {
     steps.push(step(dutchRules['nl.classify.inseparable'], rest?.verb ?? lemma, null, { prefix: inseparable }));
   }
@@ -1097,10 +1188,21 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   if (unlistedBase) {
     if (!classHint) steps.push(step(dutchRules['nl.classify.default-weak'], base, null));
     if (syllablesAssumed) steps.push(step(dutchRules['nl.classify.default-syllables'], base, null));
-    if (!auxiliary && !derivative?.auxiliary) steps.push(step(dutchRules['nl.classify.default-hebben'], lemma, null));
-    if (!hintedPrefix && !implied && !knownSeparable && !knownInseparable && !listedInseparable) {
-      steps.push(step(dutchRules['nl.classify.default-unprefixed'], lemma, null));
+  }
+  // The perfect auxiliary of a verb the lexicon does not list is assumed, also when its base is a checked verb with an
+  // unstressed prefix (terugbetalen: betalen). A verb whose unstressed prefix is read from its spelling is the derivative
+  // of its base, takes the auxiliary the base gives, which is said so, or else hebben.
+  if (!auxiliary && !derivative?.auxiliary) {
+    const baseInPrefixTable = lookup(inseparableVerbs, base) !== undefined;
+    if (!listedBase && !loan && (!baseInPrefixTable || unlisted)) steps.push(step(dutchRules['nl.classify.default-hebben'], lemma, null));
+    else if (listedBase && implied?.why === 'bound') {
+      const inherited = rest?.auxiliary ?? entry.auxiliary;
+      steps.push(inherited === undefined ? step(dutchRules['nl.classify.default-hebben'], lemma, null)
+        : step(dutchRules['nl.classify.auxiliary-inherited'], lemma, null, { base: rest?.verb ?? base, auxiliary: inherited === 'both' ? 'hebben/zijn' : inherited }));
     }
+  }
+  if (unlistedBase && !hintedPrefix && !implied && !knownSeparable && !knownInseparable && !listedInseparable) {
+    steps.push(step(dutchRules['nl.classify.default-unprefixed'], lemma, null));
   }
 
   const prefix = derivative?.prefix ?? '';
@@ -1129,7 +1231,7 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
 
 /**
  * The paradigms of the verb a query names, with their classification steps: one, or for a lemma that is separable in
- * one sense and inseparable in another (`ambiguousPrefixVerbs`) one per reading, separable first, tagged with the
+ * one sense and inseparable in another, or has a prefix in one and none in the other (`ambiguousPrefixVerbs`), one per reading, separable or unprefixed first, tagged with the
  * reading (`pattern`) and its meaning (`condition`). A prefix hint keeps the one it names, untagged; a reading that
  * another hint rules out is left out, and none left is that hint's error.
  */
@@ -1142,10 +1244,15 @@ export function classifyDutch(query: Readonly<Record<string, unknown>>): Fork<Du
     return one(lexeme, steps);
   }
   const errors: ConjugationError[] = [];
-  const paradigms = [true, false].flatMap(separable => {
+  // The first reading is the separable one, or the one without the prefix; the second the inseparable one.
+  const first = readings.unprefixed === undefined
+    ? { pattern: 'separable', reading: readings.separable, implied: { prefix: readings.prefix, separable: true, assumed: false } }
+    : { pattern: 'unprefixed', reading: readings.unprefixed, implied: { prefix: '', separable: false, assumed: false, auxiliary: readings.unprefixed.auxiliary } };
+  const second = { pattern: 'inseparable', reading: readings.inseparable, implied: { prefix: readings.prefix, separable: false, assumed: false } };
+  const paradigms = [first, second].flatMap(({ pattern, reading, implied }) => {
     try {
-      const { lexeme, steps } = classification(options, { prefix: readings.prefix, separable, assumed: false });
-      return one(lexeme, steps, { pattern: separable ? 'separable' : 'inseparable', condition: readings[separable ? 'separable' : 'inseparable'].meaning });
+      const { lexeme, steps } = classification(options, implied);
+      return one(lexeme, steps, { pattern, condition: reading.meaning });
     } catch (error) {
       if (!(error instanceof ConjugationError)) throw error;
       errors.push(error);
