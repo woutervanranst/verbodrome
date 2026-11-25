@@ -2,7 +2,7 @@ import { ConjugationError } from '../errors.js';
 import { grammaticalPart } from '../parts.js';
 import type { ConjugationPart, Mood, PartFeatures, ResolvedTarget, Tense } from '../types.js';
 import type { DerivationStep } from './derivation.js';
-import type { Fork } from './fork.js';
+import type { Fork, Marks } from './fork.js';
 import type { Agreement, LexemeBase, Voice } from './grammar.js';
 import type { PackRendering, SubjectSlot } from './pack.js';
 import type { Cell } from './staged.js';
@@ -14,6 +14,12 @@ export interface ChainWord {
   readonly lemma: string | null;
   readonly cell: Cell | null;
   readonly steps: readonly DerivationStep[];
+  /**
+   * The marks of the outcome the word was synthesised as (`Marks`), for the clause to read: a grammar marks the words
+   * of a cell that suit only some clauses, and `assemble` keeps or drops a combination by them. Absent when there are
+   * none; never copied into the form.
+   */
+  readonly marks?: Marks;
   /**
    * The voice of the periphrasis this word belongs to, set by the engine on the verb words of a periphrasis that declares
    * a marked `voice` (the passive); absent otherwise, and for literal words. `wordPart` gives the part this voice, so

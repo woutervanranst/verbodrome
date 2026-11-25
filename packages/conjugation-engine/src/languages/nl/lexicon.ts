@@ -12,6 +12,7 @@ import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
 import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
+import { itemAt } from '../../parts.js';
 import type { DutchConjugationOptions } from '../../types.js';
 import { dutchRules } from './rule-table.js';
 import type { DutchStemHints } from './spec.js';
@@ -89,7 +90,7 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   genieten: strong('genoot', 'genoten'),
   geven: strong('gaf', 'gegeven'),
   gieten: strong('goot', 'gegoten'),
-  glijden: strong('gleed', 'gegleden', { presentAlternatives: { 0: ['glij'] }, imperative: 'glijd', auxiliary: 'zijn' }),
+  glijden: strong('gleed', 'gegleden', { presentAlternatives: { 0: ['glij'] }, auxiliary: 'zijn' }),
   glimmen: strong('glom', 'geglommen'),
   graven: strong('groef', 'gegraven'),
   grijpen: strong('greep', 'gegrepen'),
@@ -100,7 +101,7 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   heten: mixed('geheten'),
   hijsen: strong('hees', 'gehesen', { pastPlural: ['hesen'] }),
   hoeven: mixed('gehoefd/gehoeven', { noImperative: true }),
-  houden: strong('hield', 'gehouden', { presentAlternatives: { 0: ['hou'] }, imperative: 'houd' }),
+  houden: strong('hield', 'gehouden', { presentAlternatives: { 0: ['hou'] } }),
   houwen: strong('hieuw', 'gehouwen'),
   jagen: strong('joeg', null, { alsoWeakPast: true }),
   kiezen: strong('koos', 'gekozen'),
@@ -141,7 +142,7 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   pluizen: strong('ploos', 'geplozen'),
   prijzen: strong('prees', 'geprezen'),
   raden: strong('ried', 'geraden', { alsoWeakPast: true }),
-  rijden: strong('reed', 'gereden', { presentAlternatives: { 0: ['rij'] }, imperative: 'rijd', auxiliary: 'both' }),
+  rijden: strong('reed', 'gereden', { presentAlternatives: { 0: ['rij'] }, auxiliary: 'both' }),
   rijgen: strong('reeg', 'geregen'),
   rijten: strong('reet', 'gereten'),
   rijzen: strong('rees', 'gerezen', { auxiliary: 'zijn' }),
@@ -169,7 +170,7 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   sluiten: strong('sloot', 'gesloten'),
   smelten: strong('smolt', 'gesmolten', { alsoWeakPast: true, auxiliary: 'both' }),
   smijten: strong('smeet', 'gesmeten'),
-  snijden: strong('sneed', 'gesneden', { presentAlternatives: { 0: ['snij'] }, imperative: 'snijd' }),
+  snijden: strong('sneed', 'gesneden', { presentAlternatives: { 0: ['snij'] } }),
   snuiten: strong('snoot', 'gesnoten'),
   snuiven: strong('snoof', 'gesnoven'),
   spannen: mixed('gespannen'),
@@ -251,7 +252,7 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   willen: mixed('gewild', {
     stem: 'wil', pastSingular: ['wou'], pastPlural: ['wouden'], alsoWeakPast: true,
     presentCells: { 1: 'wilt', 2: 'wil' }, presentAlternatives: { 1: ['wil'] },
-    formalPresent: ['wilt', 'wil'], imperative: 'wil',
+    formalPresent: ['wilt', 'wil'],
   }),
   waaien: strong('woei', null, { alsoWeakPast: true }),
   wandelen: { auxiliary: 'both' },
@@ -378,6 +379,19 @@ export interface DutchLexeme extends LexemeBase {
   readonly infinitives: readonly string[];
 }
 
+/**
+ * What the lexicon says about a listed verb: an irregular past tense (liep), only an irregular past participle (bakken:
+ * gebakken), or, for a weak verb, the detail it is listed for (its auxiliary, reflexive pronoun, missing imperative or
+ * stress).
+ */
+function listedClass(base: string, entry: DutchEntry): DerivationStep {
+  if (entry.pastSingular) return step(dutchRules['nl.classify.irregular'], base, itemAt(entry.pastSingular, 0));
+  if (entry.participles) return step(dutchRules['nl.classify.half-irregular'], base, itemAt(entry.participles, 0));
+  const detail = entry.auxiliary ? 'auxiliary' : entry.reflexive ? 'reflexive' : entry.noImperative ? 'imperative'
+    : entry.unstressedFinalSyllable !== undefined ? 'stress' : 'other';
+  return step(dutchRules['nl.classify.listed-weak'], base, null, { detail });
+}
+
 /** The options classification reads. */
 type DutchQuery = Pick<DutchConjugationOptions, 'infinitive' | 'auxiliary' | 'classHint' | 'stems' | 'reflexive' | 'separablePrefix' | 'inseparablePrefix'>;
 
@@ -461,7 +475,7 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
   if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
   if (inseparable) steps.push(step(dutchRules['nl.classify.inseparable'], lemma, null, { prefix: inseparable }));
   if (isLoan) steps.push(step(dutchRules['nl.classify.loan'], base, null));
-  else if (listedBase) steps.push(step(dutchRules['nl.classify.lexicon'], base, classId));
+  else if (listedBase) steps.push(listedClass(base, listedBase));
   // A verb whose base is neither listed nor a loan: each guess the lexicon would otherwise answer, unless a hint does.
   if (!listedBase && !loan) {
     if (!classHint) steps.push(step(dutchRules['nl.classify.default-weak'], base, null));

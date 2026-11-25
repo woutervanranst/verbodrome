@@ -31,7 +31,7 @@ describe('Dutch endings and spelling', () => {
     const [form] = cell('werken', 'indicative', 'past', 1, 'singular');
     expect(form!.text).toBe('ik werkte');
     expect(explained(form!)).toEqual({ ik: [], werkte: ['nl.stem.drop-en', 'nl.end.past-weak', 'nl.orth.dental-kofschip'], form: ['nl.clause.subject'] });
-    expect(english(form!)).toContain("k is a sound of 't kofschip, so the ending starts with t: werkte.");
+    expect(english(form!)).toContain("k is one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with t: werkte.");
   });
 
   it('ik leefde: -de after the v of leven, although the stem is written leef', () => {
@@ -40,7 +40,7 @@ describe('Dutch endings and spelling', () => {
     expect(explained(form!).leefde).toEqual([
       'nl.stem.drop-en', 'nl.stem.lengthen-vowel', 'nl.stem.devoice', 'nl.end.past-weak', 'nl.orth.dental-kofschip',
     ]);
-    expect(english(form!)).toContain("v is not a sound of 't kofschip, so the ending starts with d: leefde.");
+    expect(english(form!)).toContain("v is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: leefde.");
   });
 
   it('gewerkt: ge-, the stem and the d or t of the past tense', () => {
@@ -52,10 +52,9 @@ describe('Dutch endings and spelling', () => {
   it('verhuisd: no ge- after an unstressed prefix', () => {
     const [form] = cell('verhuizen', 'participle', 'past', null, null, { inseparablePrefix: 'ver' });
     expect(form!.text).toBe('verhuisd');
-    expect(explained(form!).verhuisd).toEqual([
-      'nl.stem.drop-en', 'nl.stem.devoice', 'nl.part.weak', 'nl.orth.dental-kofschip', 'nl.part.ge-blocked', 'nl.clause.particle-attached',
-    ]);
-    expect(english(form!)).toContain('After the prefix ver- the past participle has no ge-: huisd.');
+    // ge-blocked shows the whole participle, so no separate step attaches the prefix.
+    expect(explained(form!).verhuisd).toEqual(['nl.stem.drop-en', 'nl.stem.devoice', 'nl.part.weak', 'nl.orth.dental-kofschip', 'nl.part.ge-blocked']);
+    expect(english(form!)).toContain('After the prefix ver- the past participle has no ge-: verhuisd.');
   });
 
   it('geëindigd: a diaeresis after ge- before e', () => {

@@ -163,14 +163,20 @@ availability(lexeme, target) {
 cell?(lexeme: X, cell: Cell): Fork<string> | null;
 ```
 
-Optional whole-word override (suppletive verbs): the form of the cell as a lexical fact, or `null` to derive it by the stages. `[]` is no word at all, not a missing form.
+Optional whole-word override (suppletive verbs): the form of the cell as a lexical fact, or `null` to derive it by the stages. `[]` is no word at all, not a missing form. The toy's (its formal 3sg form is marked, see Marks in section 4):
 
 ```ts toy
 cell(lexeme, cell) {
   if (!lexeme.present || cell.kind !== 'finite' || cell.mood !== 'indicative' || cell.tense !== 'present' || cell.voice === 'passive') return null;
   const word = itemAt(lexeme.present, slot(cell));
-  return one(word, [step(toyRules['xx.lex.present'], lexeme.lemma, word)]);
-},
+  const steps = [step(toyRules['xx.lex.present'], lexeme.lemma, word)];
+  if (lexeme.formal === null || slot(cell) !== 2) return one(word, steps);
+```
+
+A cell that mixes listed words with derived ones (a listed alternative beside the regular form, a strong past beside a weak one) returns them all from `cell`, and takes the derived ones from the same stem → ending → orthography path the engine runs for a cell without listed words:
+
+```ts signature src/core/staged.ts
+export function deriveWords<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Fork<string>
 ```
 
 ### `stem`
@@ -600,13 +606,14 @@ export interface Outcome<T> {
   readonly value: T;
   readonly steps: readonly DerivationStep[];
   readonly tags: VariantTags;
+  readonly marks?: Marks;
 }
 ```
 ```ts signature src/core/fork.ts
 export type Fork<T> = readonly Outcome<T>[];
 ```
 ```ts signature src/core/fork.ts
-export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T>
+export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}, marks: Marks = []): Fork<T>
 ```
 ```ts signature src/core/fork.ts
 export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B>
@@ -615,7 +622,26 @@ export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B>
 export function combine<T extends readonly unknown[]>(forks: { [K in keyof T]: Fork<T[K]> }): Fork<T>
 ```
 
-A `Fork` is every way a rule can come out; each outcome carries its value, the steps taken and its variant tags. `one(value, steps?, tags?)` is a single outcome. `chain(fork, next)` continues every outcome through `next`, concatenating steps and merging tags; `combine([forkA, forkB])` is the product of forks in order. Branches whose tags conflict are dropped. More than one outcome in a hook's fork means more than one accepted form (variants), and the engine removes forms that come out identical.
+A `Fork` is every way a rule can come out; each outcome carries its value, the steps taken, its variant tags and its marks. `one(value, steps?, tags?, marks?)` is a single outcome. `chain(fork, next)` continues every outcome through `next`, concatenating steps and merging tags and marks; `combine([forkA, forkB])` is the product of forks in order. Branches whose tags conflict are dropped. More than one outcome in a hook's fork means more than one accepted form (variants), and the engine removes forms that come out identical.
+
+### Marks
+
+```ts signature src/core/fork.ts
+export type Marks = readonly string[];
+```
+```ts signature src/core/fork.ts
+export function mergeMarks(a: Marks | undefined, b: Marks | undefined): Marks
+```
+
+A cell sometimes has words that only some clauses use, and the cell cannot tell which clause it is in: the cell of an auxiliary is not given the subject, and a word-order option is the clause's. Dutch gives the 2nd person singular present a form after the verb (werk jij) and an extra formal form (u heeft). Such a cell returns every word and marks each one; the clause reads the marks on its words (`ChainWord.marks`) and returns `[]` for a combination that is not its own. Because the filter only removes combinations, the forms keep the order of the words. Marks are names the pack chooses. They merge as a set (both sides' marks, the first side's first, each once: `mergeMarks`), they move from the word's outcome into the `ChainWord`, and they never reach a form, its variant or its steps. Never use a step or a variant tag to signal the clause: a step is an explanation and a tag is part of the form. The toy marks esa's 3sg present, whose formal form esu is Vu's, and its clause keeps the word marked for its subject:
+
+```ts toy
+return [...one(word, steps, {}, ['informal']), ...one(lexeme.formal, [step(toyRules['xx.lex.formal'], lexeme.lemma, lexeme.formal)], {}, ['formal'])];
+```
+```ts toy
+const unmarked = subject?.register === 'formal' ? 'informal' : 'formal';
+if (words.some(word => word.marks?.includes(unmarked))) return [];
+```
 
 ### Variant tags
 
@@ -785,11 +811,12 @@ export interface ChainWord {
   readonly lemma: string | null;
   readonly cell: Cell | null;
   readonly steps: readonly DerivationStep[];
+  readonly marks?: Marks;
   readonly voice?: Voice;
 }
 ```
 
-`cell` and `lemma` are `null` for literal words; `steps` are the word's own (stem, ending, spelling). `voice` is set by the engine on the verb words of a periphrasis that declares a marked voice. `wordPart` builds the part of a word:
+`cell` and `lemma` are `null` for literal words; `steps` are the word's own (stem, ending, spelling); `marks` are the marks of the outcome the word was synthesised as (section 4). `voice` is set by the engine on the verb words of a periphrasis that declares a marked voice. `wordPart` builds the part of a word:
 
 ```ts signature src/core/clause.ts
 export function wordPart(rendering: PackRendering, word: ChainWord, features?: Partial<PartFeatures>, options?: WordPartOptions): ConjugationPart;
@@ -917,6 +944,7 @@ const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator }
 11. A cell speaks the pack's own ids; an active cell has no `voice`; an active periphrasis in a pack with voices says `voice: 'active'`.
 12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`.
 13. A staged pack declares `rules`, `works` and `citations`.
+14. A step explains what a rule did to this form, and only that: a rule that changed nothing records no step, and a step is never a signal for another stage. A clause that must tell words of one cell apart reads their marks (section 4), never their steps or variant tags.
 
 ## 10. Corpus
 

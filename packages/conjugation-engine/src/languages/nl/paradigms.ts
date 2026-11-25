@@ -7,14 +7,15 @@
  * derivation, so the words come out in the order of the lexicon and the rules.
  *
  * The 2nd person singular present has three sets of forms, all built here: the plain forms (jij werkt), the forms after
- * the verb (werk jij, recorded with `nl.end.inversion-t-drop`) and the formal forms of u that are not plain forms (u
- * heeft, recorded with `nl.cell.formal`). The clause keeps the set its subject and word order need (`clause.ts`): the
- * cell of an auxiliary cannot see the subject, and building the sets here keeps the order of a compound tense's forms.
+ * the verb (werk jij, marked `afterVerb`) and the formal forms of u that are not plain forms (u heeft, marked `formal`).
+ * The clause keeps the set its subject and word order need (`clause.ts`): the cell of an auxiliary cannot see the
+ * subject, and building the sets here keeps the order of a compound tense's forms. The marks are not steps: a step is
+ * recorded only for what a rule did to the word.
  */
 import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
-import type { Fork, Outcome } from '../../core/fork.js';
+import type { Fork, Marks, Outcome } from '../../core/fork.js';
 import type { Cell, Unavailability } from '../../core/staged.js';
 import { ConjugationError } from '../../errors.js';
 import { itemAt } from '../../parts.js';
@@ -25,6 +26,13 @@ import { dentals } from './orthography.js';
 import { dutchRules } from './rule-table.js';
 
 export type FiniteCell = Extract<Cell, { kind: 'finite' }>;
+
+/** The mark of a 2nd person singular present form used when jij or je follows the verb (werk jij). */
+export const afterVerb = 'after-verb';
+/** The mark of a formal form of u that is not a plain 2nd person singular form (u heeft). */
+export const formal = 'formal';
+/** The mark of the spoken infinitive wezen, which the clause labels with its condition. */
+export const spoken = 'spoken';
 
 /** Where the e-ANS describes the conjugation as a whole: the source every unavailable target names. */
 const availabilitySource = 'https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic';
@@ -43,7 +51,8 @@ export function dutchCellOf(target: ResolvedTarget): Cell | null {
 
 /**
  * Why a target has no form: an impersonal verb has only the 3rd person, a verb used only in the singular (vriezen) no
- * plural, some verbs no imperative, and zullen nothing beyond its present, past, infinitive and present participle.
+ * plural, some verbs no imperative, and zullen nothing beyond its present, past, infinitive and (as the legacy
+ * resolver had it) present participle.
  * When several apply, the last of these is the reason given.
  */
 export function dutchAvailability(lexeme: DutchLexeme, target: ResolvedTarget): Unavailability | null {
@@ -78,13 +87,35 @@ function presentStep(cell: FiniteCell, before: string, after: string, ending: st
   });
 }
 
-/** The 2nd or 3rd person singular present: stem + t, or the stem alone when it already ends in t. */
+/**
+ * The 2nd or 3rd person singular present: stem + t, or the stem alone when it already ends in t. The step shows the word
+ * as it is written, ga + t as gaat, which `nl.orth.double-a` then explains.
+ */
 function presentT(cell: FiniteCell, stem: string): Fork<string> {
-  return stem.endsWith('t') ? one('', [step(dutchRules['nl.end.present-t-drop'], stem, stem)]) : one('t', [presentStep(cell, stem, `${stem}t`, 't')]);
+  if (stem.endsWith('t')) return one('', [step(dutchRules['nl.end.present-t-drop'], stem, stem)]);
+  return one('t', [presentStep(cell, stem, `${stem}${/(^|[^a])a$/u.test(stem) ? 'a' : ''}t`, 't')]);
 }
 
-const afterVerbStep = (form: string): DerivationStep => step(dutchRules['nl.end.inversion-t-drop'], null, form);
-const isAfterVerb = (outcome: Outcome<string>): boolean => outcome.steps.some(s => s.rule === 'nl.end.inversion-t-drop');
+const isMarked = (mark: string) => (outcome: Outcome<string>): boolean => outcome.marks?.includes(mark) ?? false;
+const isAfterVerb = isMarked(afterVerb);
+/** The same outcome with `marks` instead of its own. */
+const marked = (outcome: Outcome<string>, marks: Marks): Outcome<string> => ({ ...outcome, marks });
+
+/**
+ * The 2nd person singular after the verb (werk jij): the stem without the -t of the plain form, or, after a stem that
+ * already ends in t, the stem as it is (zet jij).
+ */
+function afterVerbEnding(stem: string): Fork<string> {
+  const ending = stem.endsWith('t') ? step(dutchRules['nl.end.present-t-drop'], stem, stem) : step(dutchRules['nl.end.inversion-t-drop'], null, stem);
+  return one('', [ending], {}, [afterVerb]);
+}
+
+/** The prefixed past participle a derivative with an inseparable prefix ends up with: ver + huisd. */
+const prefixed = (lexeme: DutchLexeme, word: string): string => (lexeme.particle?.text ?? '') + word;
+
+/** The step for the absent ge- after an unstressed prefix; {after} is the whole participle. */
+const geBlocked = (lexeme: DutchLexeme, before: string, word: string): DerivationStep =>
+  step(dutchRules['nl.part.ge-blocked'], before, prefixed(lexeme, word), { prefix: lexeme.inseparablePrefix });
 
 /**
  * The ending of a regular word: the present singular (with the form after the verb in the 2nd person), the weak past
@@ -95,10 +126,14 @@ export function dutchEnding(lexeme: DutchLexeme, cell: Cell, stem: string): Fork
   if (cell.kind === 'nonFinite') {
     if (cell.form !== 'participle') throw new ConjugationError('GENERATION_FAILURE', `The Dutch ${cell.form} is built whole, not from the stem.`);
     return dentals(lexeme).flatMap(({ dental, steps }) => {
+      // No second d or t: the stem zet makes gezet, and 't kofschip has nothing to decide.
       const ending = stem.endsWith(dental) ? '' : dental;
       const word = stem + ending;
-      const blocked = lexeme.inseparablePrefix ? [step(dutchRules['nl.part.ge-blocked'], word, word, { prefix: lexeme.inseparablePrefix })] : [];
-      return one(ending, [step(dutchRules['nl.part.weak'], stem, word, { ending }), ...steps(word), ...blocked]);
+      const blocked = lexeme.inseparablePrefix ? [geBlocked(lexeme, word, word)] : [];
+      const added = ending === ''
+        ? [step(dutchRules['nl.part.weak-no-ending'], stem, word, { dental })]
+        : [step(dutchRules['nl.part.weak'], stem, word, { ending }), ...steps(word)];
+      return one(ending, [...added, ...blocked]);
     });
   }
   if (cell.mood === 'imperative') return one('', [step(dutchRules['nl.imp.stem'], stem, stem)]);
@@ -110,16 +145,24 @@ export function dutchEnding(lexeme: DutchLexeme, cell: Cell, stem: string): Fork
   }
   const index = slot(cell);
   if (index === 0) return one('', [presentStep(cell, stem, stem, '')]);
-  if (index === 1) return [...presentT(cell, stem), ...one('', [afterVerbStep(stem)])];
+  if (index === 1) return [...presentT(cell, stem), ...afterVerbEnding(stem)];
   if (index === 2) return presentT(cell, stem);
   throw new ConjugationError('GENERATION_FAILURE', 'The Dutch plural present is the infinitive, built whole.');
 }
 
 const listed = (lexeme: DutchLexeme, form: string): Fork<string> => one(form, [step(dutchRules['nl.cell.lexical'], lexeme.base, form)]);
-const listedAll = (lexeme: DutchLexeme, forms: readonly string[] | undefined): Fork<string> => (forms ?? []).flatMap(form => listed(lexeme, form));
-/** `outcome` as the form after the verb, `form`. */
-const afterVerb = (outcome: Outcome<string>, form: string): Outcome<string> =>
-  ({ ...outcome, value: form, steps: [...outcome.steps, afterVerbStep(form)] });
+
+/**
+ * A listed alternative form: the stem without its final d after a vowel (hou, rij, glij, snij), or another form the
+ * lexicon lists (jij kan, jij zal).
+ */
+function alternative(lexeme: DutchLexeme, form: string): Fork<string> {
+  const stem = lexeme.stem.written;
+  return stem.endsWith('d') && form === stem.slice(0, -1)
+    ? one(form, [step(dutchRules['nl.cell.d-dropped'], stem, form)])
+    : listed(lexeme, form);
+}
+const alternatives = (lexeme: DutchLexeme, forms: readonly string[] | undefined): Fork<string> => (forms ?? []).flatMap(form => alternative(lexeme, form));
 
 /**
  * The present of a cell with listed material, or null when the stem and ending build it alone. The plural is the
@@ -133,19 +176,25 @@ function present(lexeme: DutchLexeme, cell: FiniteCell, regular: () => Fork<stri
   const { entry } = lexeme;
   if (index > 2) return one(lexeme.base, [presentStep(cell, lexeme.stem.written, lexeme.base, 'en')]);
   const whole = entry.presentCells?.[index];
-  const alternatives = entry.presentAlternatives?.[index];
+  const own = entry.presentAlternatives?.[index];
   const firstAlternatives = entry.presentAlternatives?.[0];
-  const formal = entry.formalPresent;
+  const formalForms = entry.formalPresent;
   const second = index === 1;
-  if (whole === undefined && alternatives === undefined && !(second && (formal !== undefined || firstAlternatives !== undefined))) return null;
+  if (whole === undefined && own === undefined && !(second && (formalForms !== undefined || firstAlternatives !== undefined))) return null;
   const derived = whole === undefined ? regular() : [];
-  const plain = [...(whole === undefined ? derived.filter(o => !isAfterVerb(o)) : listed(lexeme, whole)), ...listedAll(lexeme, alternatives)];
+  const plain = [...(whole === undefined ? derived.filter(o => !isAfterVerb(o)) : listed(lexeme, whole)), ...alternatives(lexeme, own)];
   if (!second) return plain;
+  // After the verb: each listed plain form without its -t (kunt → kun; kan stays kan, with no step), or else the stem
+  // and the alternatives of the 1st and 2nd person (houd, hou).
   const afterTheVerb = whole !== undefined
-    ? plain.map(o => afterVerb(o, o.value === 'bent' ? 'ben' : o.value.replace(/t$/u, '')))
-    : [...derived.filter(isAfterVerb), ...[...firstAlternatives ?? [], ...alternatives ?? []].flatMap(form => listed(lexeme, form).map(o => afterVerb(o, form)))];
+    ? plain.map(o => {
+      const form = o.value.replace(/t$/u, '');
+      return { ...o, value: form, steps: form === o.value ? o.steps : [...o.steps, step(dutchRules['nl.end.inversion-t-drop'], null, form)], marks: [afterVerb] };
+    })
+    : [...derived.filter(isAfterVerb), ...alternatives(lexeme, [...firstAlternatives ?? [], ...own ?? []]).map(o => marked(o, [afterVerb]))];
   const plainForms = new Set(plain.map(o => o.value));
-  const formalOnly = (formal ?? []).filter(form => !plainForms.has(form)).flatMap(form => one(form, [step(dutchRules['nl.cell.formal'], lexeme.base, form)]));
+  const formalOnly = (formalForms ?? []).filter(form => !plainForms.has(form))
+    .flatMap(form => one(form, [step(dutchRules['nl.cell.formal'], lexeme.base, form)], {}, [formal]));
   return [...plain, ...afterTheVerb, ...formalOnly];
 }
 
@@ -205,8 +254,7 @@ function participle(lexeme: DutchLexeme, regular: () => Fork<string>): Fork<stri
   return forms.map(outcome => {
     const without = outcome.value.replace(/^ge/u, '');
     if (without === outcome.value) return outcome;
-    const blocked = step(dutchRules['nl.part.ge-blocked'], outcome.value, without, { prefix: lexeme.inseparablePrefix });
-    return { ...outcome, value: without, steps: [...outcome.steps, blocked] };
+    return { ...outcome, value: without, steps: [...outcome.steps, geBlocked(lexeme, outcome.value, without)] };
   });
 }
 
@@ -216,15 +264,20 @@ function participle(lexeme: DutchLexeme, regular: () => Fork<string>): Fork<stri
  */
 export function listedCell(lexeme: DutchLexeme, cell: Cell, regular: () => Fork<string>): Fork<string> | null {
   if (cell.kind === 'nonFinite') {
-    if (cell.form === 'infinitive') return [...one(itemAt(lexeme.infinitives, 0)), ...listedAll(lexeme, lexeme.infinitives.slice(1))];
+    if (cell.form === 'infinitive') {
+      // zijn has the spoken infinitive wezen, marked for the clause to label.
+      const [first, ...spokenForms] = lexeme.infinitives;
+      return [...one(first ?? itemAt(lexeme.infinitives, 0)),
+        ...spokenForms.flatMap(form => one(form, [step(dutchRules['nl.cell.spoken-infinitive'], lexeme.base, form)], {}, [spoken]))];
+    }
     if (cell.form === 'presentParticiple') return one(`${lexeme.base}d`, [step(dutchRules['nl.part.present'], lexeme.base, `${lexeme.base}d`)]);
     return participle(lexeme, regular);
   }
   if (cell.mood === 'imperative') {
     const { imperative } = lexeme.entry;
-    const alternatives = lexeme.entry.presentAlternatives?.[0];
-    if (imperative === undefined && alternatives === undefined) return null;
-    return [...(imperative === undefined ? regular() : listed(lexeme, imperative)), ...listedAll(lexeme, alternatives)];
+    const short = lexeme.entry.presentAlternatives?.[0];
+    if (imperative === undefined && short === undefined) return null;
+    return [...(imperative === undefined ? regular() : listed(lexeme, imperative)), ...alternatives(lexeme, short)];
   }
   return cell.tense === 'past' ? past(lexeme, cell, regular) : present(lexeme, cell, regular);
 }

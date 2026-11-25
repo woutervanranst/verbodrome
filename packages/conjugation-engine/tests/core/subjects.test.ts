@@ -20,6 +20,30 @@ function slot(id: string): SubjectSlot {
 const invalid = (code: string, message?: unknown) => expect.objectContaining({ code, ...(message === undefined ? {} : { message }) });
 const summary = (form: ConjugatedForm) => [form.text, form.target.subject, form.preferred];
 
+describe('word marks', () => {
+  it('lets the clause keep the word marked for its subject: Vu esu, il est', () => {
+    const esa = { language: 'xx', infinitive: 'esa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'active' } as const;
+    expect(toy.conjugate(esa).forms.map(form => form.text)).toEqual(['il est']);
+    const [formal] = toy.conjugate({ ...esa, subject: '2sg.formal' }).forms;
+    expect(formal!.text).toBe('Vu esu');
+    expect(formal!.parts.at(-1)!.steps!.map(s => s.rule)).toEqual(['xx.lex.formal']);
+    // Marks reach the clause on its words, and nothing of the form.
+    expect(formal!.variant).not.toHaveProperty('marks');
+    expect(JSON.stringify(formal)).not.toContain('"marks"');
+  });
+
+  it('gives the clause the marks of every word it assembles', () => {
+    const seen: (readonly string[] | undefined)[][] = [];
+    const grammar = { ...toyGrammar, clause: { ...toyGrammar.clause, assemble: ((words, context) => {
+      seen.push(words.map(word => word.marks));
+      return toyGrammar.clause.assemble(words, context);
+    }) satisfies typeof toyGrammar.clause.assemble } };
+    const engine = createEngine({ xx: { ...toyPack, engine: query => stagedEngine(grammar, toyRendering, query) } });
+    engine.conjugate({ language: 'xx', infinitive: 'esa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'active' });
+    expect(seen).toEqual([[['informal']], [['formal']]]);
+  });
+});
+
 describe('subject slots', () => {
   it('expands default slots only', () => {
     const forms = toy.conjugate(present).forms;

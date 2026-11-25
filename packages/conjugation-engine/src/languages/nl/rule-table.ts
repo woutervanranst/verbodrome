@@ -13,7 +13,10 @@ const withAuxiliary = { stage: 'periphrasis', params: { auxiliary: 'text' } } as
 
 export const dutchRules = defineRules({
   // classify: {before} is the lemma, or the base verb of a derivative.
-  'nl.classify.lexicon': { stage: 'classify', kind: 'lexical' },
+  // {after}: the listed past tense or past participle; {detail}: what the list records about a weak verb.
+  'nl.classify.irregular': { stage: 'classify', kind: 'lexical' },
+  'nl.classify.half-irregular': { stage: 'classify', kind: 'lexical' },
+  'nl.classify.listed-weak': { stage: 'classify', kind: 'lexical', params: { detail: 'text' } },
   'nl.classify.loan': { stage: 'classify' },
   'nl.classify.separable': { stage: 'classify', params: { particle: 'text' } },
   'nl.classify.inseparable': { stage: 'classify', params: { prefix: 'text' } },
@@ -35,6 +38,8 @@ export const dutchRules = defineRules({
   'nl.stem.lexical': { stage: 'stem', kind: 'lexical' },
   // Whole forms the lexicon lists: {before} is the verb, {after} the form.
   'nl.cell.lexical': { stage: 'stem', kind: 'lexical' },
+  'nl.cell.d-dropped': { stage: 'stem', kind: 'lexical' },
+  'nl.cell.spoken-infinitive': { stage: 'stem', kind: 'lexical' },
   'nl.cell.formal': { stage: 'stem', kind: 'lexical' },
   // ending: {before} is the stem, {after} the word with its ending.
   'nl.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
@@ -46,11 +51,14 @@ export const dutchRules = defineRules({
   'nl.imp.stem': { stage: 'ending' },
   'nl.part.present': { stage: 'ending' },
   'nl.part.weak': { stage: 'ending', params: { ending: 'text' } },
+  'nl.part.weak-no-ending': { stage: 'ending', params: { dental: 'text' } },
   'nl.part.strong': { stage: 'ending', kind: 'lexical' },
   'nl.part.ge-blocked': { stage: 'ending', params: { prefix: 'text' } },
   'nl.part.ge-prefix': { stage: 'orthography' },
-  'nl.part.ge-diaeresis': { stage: 'orthography' },
+  'nl.part.ge-diaeresis': { stage: 'orthography', params: { vowel: 'text' } },
   'nl.orth.dental-kofschip': { stage: 'orthography', params: { sound: 'text', dental: 'text' } },
+  'nl.orth.dental-voiceless': { stage: 'orthography', params: { sound: 'text' } },
+  'nl.orth.dental-given': { stage: 'orthography', params: { dental: 'text' } },
   'nl.orth.double-a': { stage: 'orthography' },
   // periphrasis
   'nl.periphrasis.perfect': withAuxiliary,
@@ -61,8 +69,10 @@ export const dutchRules = defineRules({
   'nl.periphrasis.conditional-perfect': withAuxiliary,
   // clause
   'nl.clause.subject': { stage: 'clause', params: { pronoun: 'text' } },
+  'nl.clause.impersonal-subject': { stage: 'clause' },
   'nl.clause.inversion': { stage: 'clause', params: { pronoun: 'text' } },
   'nl.clause.reflexive': { stage: 'clause', params: { pronoun: 'text' } },
   'nl.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
   'nl.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
+  'nl.clause.prefix-attached': { stage: 'clause', params: { prefix: 'text' } },
 });

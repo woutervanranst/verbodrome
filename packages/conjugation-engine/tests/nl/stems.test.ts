@@ -121,21 +121,22 @@ describe('Dutch classification', () => {
 
   it('records what the lexicon says about a listed verb', () => {
     const { lexeme, steps } = classified('lopen');
-    expect(english(steps)).toEqual(['lopen has its own entry in the verb list: a strong verb.']);
+    expect(english(steps)).toEqual(['lopen is an irregular verb: its past tense, liep, is in the verb list.']);
     expect(lexeme).toMatchObject({ classId: 'strong', classSource: 'lexicon', auxiliaries: ['hebben', 'zijn'], defaultAuxiliaries: ['hebben', 'zijn'] });
     expect(lexeme.entry.pastSingular).toEqual(['liep']);
-    expect(english(classified('bakken').steps)).toEqual(['bakken has its own entry in the verb list: a mixed verb (weak past tense, strong past participle).']);
-    // wandelen is listed for its auxiliaries only: the sentence stays true.
-    expect(english(classified('wandelen').steps)).toEqual(['wandelen has its own entry in the verb list: a weak verb.']);
+    expect(english(classified('bakken').steps)).toEqual(['bakken is half irregular: its past tense is regular, its past participle gebakken is in the verb list.']);
+    // wandelen is listed for its auxiliaries only, kopen for its irregular past tense (not a strong one).
+    expect(english(classified('wandelen').steps)).toEqual(['wandelen is a weak verb; the verb list records which auxiliary it takes.']);
+    expect(english(classified('kopen').steps)).toEqual(['kopen is an irregular verb: its past tense, kocht, is in the verb list.']);
   });
 
   it('records a separable and an inseparable prefix, and the base the forms are built on', () => {
     const opstaan = classified('opstaan');
-    expect(opstaan.steps.map(s => s.rule)).toEqual(['nl.classify.separable', 'nl.classify.lexicon']);
+    expect(opstaan.steps.map(s => s.rule)).toEqual(['nl.classify.separable', 'nl.classify.irregular']);
     expect(english(opstaan.steps)[0]).toBe('opstaan is a separable verb: op carries the stress and can stand apart from the verb.');
     expect(opstaan.lexeme).toMatchObject({ base: 'staan', particle: { text: 'op', separable: true }, inseparablePrefix: '', auxiliaries: ['zijn'] });
     const begrijpen = classified('begrijpen');
-    expect(begrijpen.steps.map(s => s.rule)).toEqual(['nl.classify.inseparable', 'nl.classify.lexicon']);
+    expect(begrijpen.steps.map(s => s.rule)).toEqual(['nl.classify.inseparable', 'nl.classify.irregular']);
     expect(begrijpen.lexeme).toMatchObject({ base: 'grijpen', particle: { text: 'be', separable: false }, inseparablePrefix: 'be', classId: 'strong' });
     // beloven is listed with its unstressed prefix but is not a derivative: no particle, the stem keeps be-.
     expect(classified('beloven').lexeme).toMatchObject({ base: 'beloven', particle: null, inseparablePrefix: 'be' });
