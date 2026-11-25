@@ -148,9 +148,9 @@ function endingRule(index: number) {
   return frenchRules['fr.end.infinitive'];
 }
 
-/** The ending step: the stem, then the stem with its ending; none for an empty ending (the stem is the word). */
+/** The ending step: the stem, then the stem with its ending; none for an empty ending, which changes nothing. */
 function endingStep(index: number, stem: string, ending: string): DerivationStep[] {
-  if (ending === '' && index !== 50) return [];
+  if (ending === '') return [];
   const rule = endingRule(index);
   return [step(rule, stem, stem + ending, rule.id === 'fr.end.infinitive' ? {} : { ending })];
 }

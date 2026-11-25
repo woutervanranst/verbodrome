@@ -66,9 +66,10 @@ const invalidHint = (message: string) => new ConjugationError('INVALID_HINT', me
 /** A productive class: its group step, how it was chosen, and the model its spelling makes it follow. */
 function productive(lemma: string, group: Group, source: Source, how: readonly DerivationStep[]): ClassChoice {
   const label = productiveLabel(lemma, group);
-  const groupStep = step(frenchRules['fr.classify.group'], lemma, null, { group });
+  // An assumed regular verb is not restated as a fact: the assumption says which group is read, and why.
+  const groupStep = source === 'regularRule' ? [] : [step(frenchRules['fr.classify.group'], lemma, null, { group })];
   const model = ['aimer', 'finir', 'rompre'].includes(label) ? [] : [step(frenchRules['fr.classify.spelling-model'], lemma, null, { model: label })];
-  return { kind: 'productive', group, source, steps: [groupStep, ...how, ...model] };
+  return { kind: 'productive', group, source, steps: [...groupStep, ...how, ...model] };
 }
 
 /** The family or class a `model` hint names: a family whose selector ends the infinitive, or the infinitive's own label. */
@@ -133,6 +134,10 @@ function paradigmsOf(choice: ClassChoice, lemma: string): readonly Paradigm[] {
   }
   return [{ paradigm: { pattern: null }, tags: {} }];
 }
+
+/** The steps with the assumptions first, each part in its own order. */
+const assumptionsFirst = (steps: readonly DerivationStep[]): DerivationStep[] =>
+  [...steps.filter(s => s.kind === 'assumption'), ...steps.filter(s => s.kind !== 'assumption')];
 
 /**
  * One lexeme per paradigm of the queried verb (GD §3), in output order. Throws INVALID_INFINITIVE, INVALID_HINT and
@@ -206,11 +211,12 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
       particle: null, group: choice.kind === 'productive' ? choice.group : null, family, paradigm, label, hints,
       indirect: reflexive && indirect, aspiratedH: aspirated, auxiliaryChoice: possible.length > 1, restriction: restrictions[lemma] ?? {},
     },
-    steps: [
+    // The assumptions come first, in the order the analysis lists them; the facts follow.
+    steps: assumptionsFirst([
       ...opening, ...choice.steps,
       ...(paradigms.length > 1 ? [step(frenchRules['fr.classify.paradigm'], lemma, null, { pattern: paradigm.pattern! })] : []),
       ...auxiliarySteps, ...objectSteps, ...hSteps,
-    ],
+    ]),
     tags,
   }));
 }
