@@ -1,5 +1,5 @@
 import { ConjugationError, conjugate } from '../../src/index.js';
-import type { ConjugationOptions, ConjugationResult, Engine, PartRole, ResolvedTarget } from '../../src/index.js';
+import type { ConjugationResult, Engine, PartRole, ResolvedTarget } from '../../src/index.js';
 
 export type CharacterizationQuery = { readonly language: 'fr' | 'nl'; readonly infinitive: string } & Readonly<Record<string, unknown>>;
 
@@ -47,7 +47,7 @@ function targetCells(target: ResolvedTarget): string {
   return [target.mood, target.tense, target.person, target.number, target.gender, agreement].map(cell).join('/');
 }
 
-function analysisLine(result: ConjugationResult): string {
+export function analysisLine(result: ConjugationResult): string {
   const { analysis } = result;
   return ['A', result.verbId, analysis.classification, analysis.classificationSource, analysis.reflexive ? 1 : 0,
     list(analysis.auxiliaries, ','), list(analysis.assumptions, ' | ')].map(cell).join('\t');
@@ -65,11 +65,11 @@ function formLine(form: ConjugationResult['forms'][number]): string {
  * A `ConjugationError` becomes a single `E` line; any other exception propagates. `engine` is the default engine
  * unless another is given (a language pack being rebuilt in shadow mode).
  */
-export function characterize(query: CharacterizationQuery, engine?: Pick<Engine, 'conjugate'>): string[] {
+export function characterize(query: CharacterizationQuery, engine: Pick<Engine, 'conjugate'> = { conjugate }): string[] {
   const header = queryHeader(query);
   let result: ConjugationResult;
   try {
-    result = engine ? engine.conjugate(query) : conjugate(query as unknown as ConjugationOptions);
+    result = engine.conjugate(query);
   } catch (error) {
     if (error instanceof ConjugationError) return [header, `E\t${error.code}`];
     throw error;

@@ -6,11 +6,15 @@
 import type { LexemeBase } from '../../core/grammar.js';
 import { validateGrammar } from '../../core/staged.js';
 import type { Cell, StagedGrammar } from '../../core/staged.js';
-import { ConjugationError } from '../../errors.js';
 import type { FrenchStemHints, ResolvedTarget } from '../../types.js';
+import { classifyFrench, frenchLexemeOf } from './classify.js';
 import { frenchClause } from './clause.js';
 import type { FamilyEntry, FamilyParadigm } from './family.js';
 import type { LexicalRestriction } from './lexicon.js';
+import { frenchOrthography } from './orthography.js';
+import { frenchEnding, frenchStem, notMigrated } from './stems.js';
+
+export { notMigrated } from './stems.js';
 
 /** A productive verb's paradigm: payer-class verbs have two (`y-to-i`, `keep-y`), every other one has one. */
 export interface ProductiveParadigm { readonly pattern: 'y-to-i' | 'keep-y' | null }
@@ -31,11 +35,6 @@ export interface FrenchLexeme extends LexemeBase {
   readonly aspiratedH: boolean;
   /** Persons or moods the verb lacks although its family has them (advenir, ensuivre). */
   readonly restriction: LexicalRestriction;
-}
-
-/** The error a stage throws until it is migrated; the shadow harness reports the targets it hits as not migrated. */
-export function notMigrated(stage: string): ConjugationError {
-  return new ConjugationError('GENERATION_FAILURE', `fr.${stage} not migrated yet`);
 }
 
 const simpleFinite: Readonly<Record<string, readonly string[]>> = {
@@ -63,27 +62,24 @@ export function frenchCellOf(target: ResolvedTarget): Cell | null {
 }
 
 export const frenchGrammar: StagedGrammar<FrenchLexeme> = {
-  classify() {
-    throw notMigrated('classify');
-  },
-  lexemeOf() {
-    throw notMigrated('classify');
-  },
+  classify: classifyFrench,
+  lexemeOf: frenchLexemeOf,
   cellOf(target) {
     const cell = frenchCellOf(target);
     if (cell === null) throw notMigrated('periphrasis');
     return cell;
   },
-  availability() {
-    throw notMigrated('availability');
+  /** Not migrated yet (Task 5): a verb that can lack a form is reported as not migrated; any other has every form. */
+  availability(lexeme, target) {
+    const flags = lexeme.family?.flags;
+    if (flags?.impersonal || flags?.thirdPersonOnly || flags?.noImperative || flags?.compounds
+      || lexeme.restriction.thirdPersonOnly || lexeme.restriction.noImperative) throw notMigrated('availability');
+    if (lexeme.reflexive && target.mood === 'imperative' && target.tense === 'past') throw notMigrated('availability');
+    return null;
   },
-  stem() {
-    throw notMigrated('stem');
-  },
-  ending() {
-    throw notMigrated('ending');
-  },
-  orthography: [],
+  stem: frenchStem,
+  ending: frenchEnding,
+  orthography: frenchOrthography,
   periphrases: [],
   clause: frenchClause,
 };

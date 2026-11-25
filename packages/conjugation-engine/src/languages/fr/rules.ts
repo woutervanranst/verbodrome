@@ -52,7 +52,7 @@ export const frenchRules = defineRules({
   'fr.end.subjunctive': { stage: 'ending', params: { ending: 'text' } },
   'fr.end.subjunctive-imperfect': { stage: 'ending', params: { ending: 'text' } },
   'fr.end.imperative': { stage: 'ending', params: { ending: 'text' } },
-  'fr.end.present-participle': { stage: 'ending' },
+  'fr.end.present-participle': { stage: 'ending', params: { ending: 'text' } },
   'fr.end.past-participle': { stage: 'ending', params: { ending: 'text' } },
   'fr.end.infinitive': { stage: 'ending' },
   // §4.4 Orthography, in the order the rules apply
