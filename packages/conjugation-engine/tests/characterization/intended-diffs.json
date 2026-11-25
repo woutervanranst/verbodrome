@@ -1,5 +1,173 @@
 [
   {
+    "query": "# {\"infinitive\":\"bedekken\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"bedekken\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bedekken (lemma 104173) as not separable, with the participle bedekt. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bedekt (frozen: hij heeft gebedekt).",
+    "source": "https://woordenlijst.org/zoeken/?q=bedekken"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"behagen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists behagen (lemma 104234) as not separable, with the participle behaagd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft behaagd (frozen: hij heeft gebehaagd).",
+    "source": "https://woordenlijst.org/zoeken/?q=behagen"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"belegeren\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists belegeren (lemma 104316) as not separable, with the participle belegerd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft belegerd (frozen: hij heeft gebelegerd).",
+    "source": "https://woordenlijst.org/zoeken/?q=belegeren"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"bemoeien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"besluiten\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists besluiten (lemma 104442) as not separable, with the strong forms besloot, besloten. The lexicon now lists it with its unstressed prefix be- as a derivative of sluiten, so its past participle has no ge-: hij besloot, hij heeft besloten (frozen: hij besluitte, hij heeft gebesluit).",
+    "source": "https://woordenlijst.org/zoeken/?q=besluiten"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bestormen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bestormen (lemma 104480) as not separable, with the participle bestormd. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft bestormd (frozen: hij heeft gebestormd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bestormen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
+    "query": "# {\"infinitive\":\"bewegen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bewegen (lemma 104565) as not separable, with the strong forms bewoog, bewogen. The lexicon now lists it with its unstressed prefix be- as a derivative of wegen, so its past participle has no ge-: hij bewoog, hij heeft bewogen (frozen: hij beweegde, hij heeft gebeweegd).",
+    "source": "https://woordenlijst.org/zoeken/?q=bewegen"
+  },
+  {
     "query": "# {\"infinitive\":\"doorlopen\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
@@ -288,6 +456,78 @@
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
   },
   {
+    "query": "# {\"infinitive\":\"verbinden\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"verbinden\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verbinden (lemma 108930) as not separable, with the strong forms verbond, verbonden. The lexicon now lists it with its unstressed prefix ver- as a derivative of binden, so its past participle has no ge-: hij verbond, hij heeft verbonden (frozen: hij verbindde, hij heeft geverbind).",
+    "source": "https://woordenlijst.org/zoeken/?q=verbinden"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"vervallen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists vervallen (lemma 109486) as not separable, with the strong forms verviel, vervallen and the auxiliary zijn. The lexicon now lists it with its unstressed prefix ver- as a derivative of vallen with zijn, so its past participle has no ge-: hij verviel, hij is vervallen (frozen: hij vervalde, hij heeft gevervald).",
+    "source": "https://woordenlijst.org/zoeken/?q=vervallen"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
+    "query": "# {\"infinitive\":\"verwerven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists verwerven (lemma 109547) as not separable, with the strong forms verwierf, verworven. The lexicon now lists it with its unstressed prefix ver- as a derivative of werven, so its past participle has no ge-: hij verwierf, hij heeft verworven (frozen: hij verwerfde, hij heeft geverwerfd).",
+    "source": "https://woordenlijst.org/zoeken/?q=verwerven"
+  },
+  {
     "query": "# {\"infinitive\":\"voorkomen\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
     "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
@@ -334,5 +574,29 @@
     "block": true,
     "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
+  },
+  {
+    "query": "# {\"infinitive\":\"zich bemoeien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Correction of wrong Dutch, with an authority: woordenlijst.org lists bemoeien (lemma 104349) as not separable, with the participle bemoeid. The lexicon now lists it with its unstressed prefix be-, so its past participle has no ge-: hij heeft zich bemoeid (frozen: hij heeft zich gebemoeid).",
+    "source": "https://woordenlijst.org/zoeken/?q=bemoeien"
   }
 ]

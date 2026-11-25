@@ -168,6 +168,29 @@ describe('Dutch grammatical generation', () => {
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', separablePrefix: 'over', mood: 'participle', tense: 'past' })).toEqual(['overgewonnen']);
   });
 
+  it('conjugates common verbs with an unstressed prefix as woordenlijst.org gives them, without hints', () => {
+    const past = { mood: 'indicative', tense: 'past', person: 3, number: 'singular' } as const;
+    const participle = (infinitive: string) => dutch({ language: 'nl', infinitive, mood: 'participle', tense: 'past' });
+    expect(participle('verhuizen')).toEqual(['verhuisd']);
+    expect(conjugate({ language: 'nl', infinitive: 'verhuizen' }).analysis.auxiliaries).toEqual(['hebben', 'zijn']);
+    expect(participle('bedekken')).toEqual(['bedekt']);
+    expect(participle('zich bemoeien')).toEqual(['bemoeid']);
+    expect(dutch({ language: 'nl', infinitive: 'besluiten', ...past })).toEqual(['hij besloot']);
+    expect(participle('besluiten')).toEqual(['besloten']);
+    expect(dutch({ language: 'nl', infinitive: 'vervallen', mood: 'indicative', tense: 'perfect', person: 3, number: 'singular' })).toEqual(['hij is vervallen']);
+    expect(dutch({ language: 'nl', infinitive: 'vergelijken', ...past })).toEqual(['hij vergeleek']);
+    // ontmoeten is ont + the whole verb, not a derivative of moeten.
+    expect(dutch({ language: 'nl', infinitive: 'ontmoeten', ...past })).toEqual(['hij ontmoette']);
+    expect(dutch({ language: 'nl', infinitive: 'ervaren', ...past })).toEqual(['hij ervoer', 'hij ervaarde']);
+  });
+
+  it('writes the vowel before x once in the -xen verbs woordenlijst.org lists', () => {
+    const past = { mood: 'indicative', tense: 'past', person: 1, number: 'singular' } as const;
+    expect(dutch({ language: 'nl', infinitive: 'relaxen', ...past })).toEqual(['ik relaxte']);
+    expect(dutch({ language: 'nl', infinitive: 'unboxen', mood: 'participle', tense: 'past' })).toEqual(['geünboxt']);
+    expect(dutch({ language: 'nl', infinitive: 'tipp-exen', mood: 'participle', tense: 'past' })).toEqual(['getipp-ext']);
+  });
+
   it('gives a verb that is separable in one sense and inseparable in another both paradigms', () => {
     const result = conjugate({ language: 'nl', infinitive: 'voorkomen', mood: 'indicative', tense: 'present', person: 3, number: 'singular' });
     expect(result.forms.map(form => [form.text, form.variant.pattern, form.variant.condition])).toEqual([

@@ -548,20 +548,36 @@ const pinned: readonly Pinned[] = [
     ],
   },
   {
-    // verhuisd: a hinted prefix (I1)
-    verb: 'verhuizen', query: { mood: 'participle', tense: 'past', inseparablePrefix: 'ver' }, form: 'verhuisd',
+    // verbouwd: a hinted prefix on a verb the lexicon does not list (I1)
+    verb: 'verbouwen', query: { mood: 'participle', tense: 'past', inseparablePrefix: 'ver' }, form: 'verbouwd',
     en: [
-      'verhuisd: Take -en off huizen: huiz-.',
-      'verhuisd: At the end of a word, v and z are written f and s, so huiz- becomes huis-.',
-      'verhuisd: Weak verb: in the past participle a d comes after the stem: huisd.',
-      "verhuisd: z is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: huisd.",
+      'verbouwd: Take -en off bouwen: bouw-.',
+      'verbouwd: Weak verb: in the past participle a d comes after the stem: bouwd.',
+      "verbouwd: w is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: bouwd.",
+      'verbouwd: After the prefix ver- the past participle has no ge-: verbouwd.',
+    ],
+    nl: [
+      'verbouwd: Haal -en van bouwen af: bouw-.',
+      'verbouwd: Zwak werkwoord: in het voltooid deelwoord komt er een d achter de stam: bouwd.',
+      "verbouwd: w zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: bouwd.",
+      'verbouwd: Na het voorvoegsel ver- krijgt het voltooid deelwoord geen ge-: verbouwd.',
+    ],
+  },
+  {
+    // verhuisd: a verb the lexicon lists with its unstressed prefix
+    verb: 'verhuizen', query: { mood: 'participle', tense: 'past' }, form: 'verhuisd',
+    en: [
+      'verhuisd: Take -en off verhuizen: verhuiz-.',
+      'verhuisd: At the end of a word, v and z are written f and s, so verhuiz- becomes verhuis-.',
+      'verhuisd: Weak verb: in the past participle a d comes after the stem: verhuisd.',
+      "verhuisd: z is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: verhuisd.",
       'verhuisd: After the prefix ver- the past participle has no ge-: verhuisd.',
     ],
     nl: [
-      'verhuisd: Haal -en van huizen af: huiz-.',
-      'verhuisd: Aan het eind van een woord schrijf je geen v of z maar f of s, dus huiz- wordt huis-.',
-      'verhuisd: Zwak werkwoord: in het voltooid deelwoord komt er een d achter de stam: huisd.',
-      "verhuisd: z zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: huisd.",
+      'verhuisd: Haal -en van verhuizen af: verhuiz-.',
+      'verhuisd: Aan het eind van een woord schrijf je geen v of z maar f of s, dus verhuiz- wordt verhuis-.',
+      'verhuisd: Zwak werkwoord: in het voltooid deelwoord komt er een d achter de stam: verhuisd.',
+      "verhuisd: z zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: verhuisd.",
       'verhuisd: Na het voorvoegsel ver- krijgt het voltooid deelwoord geen ge-: verhuisd.',
     ],
   },

@@ -4,7 +4,7 @@ Dutch runs on the staged core (`src/languages/nl/`): every form is derived by re
 itself in English and Dutch with its source. Spelling follows the Taalunie's [Leidraad](https://woordenlijst.org/leidraad)
 on woordenlijst.org; grammar follows the [e-ANS](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic) of the Instituut
 voor de Nederlandse Taal. A rule is never cited to the scraped corpus. `tests/nl/explanations.test.ts` pins the full
-English and Dutch explanation of 64 everyday forms, analyses and unavailable targets, together using every rule below.
+English and Dutch explanation of 65 everyday forms, analyses and unavailable targets, together using every rule below.
 
 ## How a form is built
 
@@ -180,6 +180,37 @@ The switch has 56 block-level entries, the four queries of each verb below (no h
 | toekomen | 1 | split at toe: kom toe, kwam toe, ben toegekomen (the zijn of komen); frozen: ik toekoom, getoekoomd, hebben | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 | uitstellen | 1 | split at uit: stel uit, uitgesteld; frozen: ik uitstel, geüitsteld | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 
+## Lexicon corrections
+
+After the switch, the lexicon was corrected where the frozen output, or a common verb, was wrong Dutch, each entry
+checked on woordenlijst.org (by data only: no prefix is inferred for an unknown verb with be-, ver- and the like):
+
+- 61 common verbs with an unstressed prefix: weak ones in `inseparableVerbs` (verhuizen, bedekken, veranderen,
+  vertellen, gebeuren, ontmoeten …; the auxiliary woordenlijst.org gives in `dutchExceptions` when it is not hebben
+  alone), strong ones as derivatives of their base in `inseparableDerivatives` (besluiten of sluiten, verbinden of
+  binden, vervallen of vallen with zijn …), and vergelijken and ervaren with their own strong forms;
+- 16 verbs in -xen (relaxen, waxen, unboxen …): x is ks, so the vowel before it is written once (relaxte, not
+  relaaxte), in the loan table, and tipp-exen and texen with a listed stem.
+
+The snapshot queries it changes are 44 block-level entries, the four queries of each verb below:
+
+| Infinitive | Correction | Source |
+| --- | --- | --- |
+| bedekken | bedekt, not gebedekt | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=bedekken) |
+| behagen | behaagd, not gebehaagd | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=behagen) |
+| belegeren | belegerd, not gebelegerd | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=belegeren) |
+| bemoeien, zich bemoeien | zich bemoeid, not zich gebemoeid | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=bemoeien) |
+| besluiten | besloot, besloten, not besluitte, gebesluit | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=besluiten) |
+| bestormen | bestormd, not gebestormd | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=bestormen) |
+| bewegen | bewoog, bewogen, not beweegde, gebeweegd | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=bewegen) |
+| verbinden | verbond, verbonden, not verbindde, geverbind | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=verbinden) |
+| vervallen | verviel, is vervallen, not vervalde, heeft gevervald | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=vervallen) |
+| verwerven | verwierf, verworven, not verwerfde, geverwerfd | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=verwerven) |
+
+spijten keeps its forms: woordenlijst.org gives it only in the 3rd person, het spijt and zij spijten (lemma 108415),
+and e-ANS [20.5.2](https://e-ans.ivdnt.org/topics/pid/ans200502lingtopic) lists it among the verbs whose subject is
+what is regretted (die woorden spijten me), so the 3rd person plural stays.
+
 ## Limits
 
 - **Separability of a verb the lexicon does not list is inferred from its spelling, and can be wrong in both
@@ -199,6 +230,9 @@ The switch has 56 block-level entries, the four queries of each verb below (no h
     (ik opteer: to opt). A new simplex verb with a dual prefix's letters loses its ge-.
   The assumption in the analysis says which reading was taken and how to override it: an `inseparablePrefix` or
   `separablePrefix` hint, or a `classHint` to keep the verb one word.
+- x is written for ks, but the stem rules read it as one consonant, so a verb in -xen that the lexicon does not list
+  gets a long vowel written double: boxen gives ik boox, booxte (the verb woordenlijst.org lists is boksen: bokste).
+  The -xen verbs woordenlijst.org lists are in the lexicon.
 - Stress and meaning also decide the auxiliary, and the stress of a final syllable (informeren: ik informeer, not ik
   informer, needs a stress hint); spelling does not show them. Unknown strong verbs need their principal parts
   (`stems`), and unknown loans their stem and, where needed, their d/t.

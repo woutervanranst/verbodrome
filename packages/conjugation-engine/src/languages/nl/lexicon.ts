@@ -263,6 +263,24 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   bemoeien: { reflexive: true },
   proberen: { unstressedFinalSyllable: false },
   studeren: { unstressedFinalSyllable: false },
+  // Verbs with an unstressed prefix (`inseparableVerbs`) and what woordenlijst.org gives them beyond their prefix: the
+  // strong forms of vergelijken and ervaren, and the perfect auxiliary of the others (verb features "hebben/zijn" or
+  // "zijn"; https://woordenlijst.org/zoeken/?q=verhuizen and so on).
+  vergelijken: strong('vergeleek', 'vergeleken'),
+  ervaren: strong('ervoer', 'ervaren', { alsoWeakPast: true }),
+  verhuizen: { auxiliary: 'both' },
+  veranderen: { auxiliary: 'both' },
+  verbeteren: { auxiliary: 'both' },
+  verklaren: { auxiliary: 'both' },
+  verzamelen: { auxiliary: 'both' },
+  ontmoeten: { auxiliary: 'both' },
+  herstellen: { auxiliary: 'both' },
+  ontsnappen: { auxiliary: 'zijn' },
+  gebeuren: { auxiliary: 'zijn' },
+  // Not English loans, but in -xen like those in `dutchLoans`: x is ks, so the vowel before it is written once
+  // (https://woordenlijst.org/zoeken/?q=tipp-exen, https://woordenlijst.org/zoeken/?q=texen).
+  'tipp-exen': { stem: 'tipp-ex' },
+  texen: { stem: 'tex' },
 };
 
 export const inseparableVerbs: Readonly<Record<string, string>> = {
@@ -272,6 +290,14 @@ export const inseparableVerbs: Readonly<Record<string, string>> = {
   verdwijnen: 'ver', vergeten: 'ver', vergissen: 'ver', verliezen: 'ver',
   bestellen: 'be', behandelen: 'be', bedanken: 'be', gebruiken: 'ge',
   herkennen: 'her', herinneren: 'her', proberen: '', studeren: '',
+  // Common verbs with an unstressed prefix, each checked on woordenlijst.org: listed as not separable, with a past
+  // participle without ge- (verhuisd: https://woordenlijst.org/zoeken/?q=verhuizen and so on).
+  beantwoorden: 'be', bedekken: 'be', bedoelen: 'be', behagen: 'be', belegeren: 'be', beleven: 'be', bemoeien: 'be',
+  bepalen: 'be', bereiken: 'be', beschermen: 'be', beslissen: 'be', bestormen: 'be', betekenen: 'be', bewaren: 'be',
+  beweren: 'be', erkennen: 'er', ervaren: 'er', gebeuren: 'ge', gehoorzamen: 'ge', herhalen: 'her', herstellen: 'her',
+  ontmoeten: 'ont', ontsnappen: 'ont', ontwikkelen: 'ont', veranderen: 'ver', verbeteren: 'ver', verdedigen: 'ver',
+  verdienen: 'ver', vergelijken: 'ver', verhuizen: 'ver', verklaren: 'ver', vermoeden: 'ver', verrassen: 'ver',
+  versturen: 'ver', vertalen: 'ver', vertellen: 'ver', vertrouwen: 'ver', verwachten: 'ver', verzamelen: 'ver',
 };
 
 export interface DutchDerivative {
@@ -312,6 +338,31 @@ export const inseparableDerivatives: Readonly<Record<string, DutchDerivative>> =
   vergaan: { prefix: 'ver', base: 'gaan' },
   vertrekken: { prefix: 'ver', base: 'trekken', auxiliary: 'zijn' },
   bevriezen: { prefix: 'be', base: 'vriezen', auxiliary: 'both', personal: true },
+  // Common strong derivatives, each checked on woordenlijst.org: not separable, the forms of the base without ge- in
+  // the participle (besloot, besloten), and the auxiliary woordenlijst.org gives (https://woordenlijst.org/zoeken/?q=besluiten
+  // and so on).
+  bedenken: { prefix: 'be', base: 'denken', auxiliary: 'hebben' },
+  bekijken: { prefix: 'be', base: 'kijken', auxiliary: 'hebben' },
+  beschrijven: { prefix: 'be', base: 'schrijven', auxiliary: 'hebben' },
+  besluiten: { prefix: 'be', base: 'sluiten', auxiliary: 'hebben' },
+  bespreken: { prefix: 'be', base: 'spreken', auxiliary: 'hebben' },
+  bevallen: { prefix: 'be', base: 'vallen', auxiliary: 'both' },
+  bewegen: { prefix: 'be', base: 'wegen', auxiliary: 'hebben' },
+  bewijzen: { prefix: 'be', base: 'wijzen', auxiliary: 'hebben' },
+  bezitten: { prefix: 'be', base: 'zitten', auxiliary: 'hebben' },
+  ontbijten: { prefix: 'ont', base: 'bijten', auxiliary: 'hebben' },
+  ontbreken: { prefix: 'ont', base: 'breken', auxiliary: 'hebben' },
+  onthouden: { prefix: 'ont', base: 'houden', auxiliary: 'hebben' },
+  verbergen: { prefix: 'ver', base: 'bergen', auxiliary: 'hebben' },
+  verbieden: { prefix: 'ver', base: 'bieden', auxiliary: 'hebben' },
+  verbinden: { prefix: 'ver', base: 'binden', auxiliary: 'hebben' },
+  vergeven: { prefix: 'ver', base: 'geven', auxiliary: 'hebben' },
+  verlaten: { prefix: 'ver', base: 'laten', auxiliary: 'hebben' },
+  verschijnen: { prefix: 'ver', base: 'schijnen', auxiliary: 'zijn' },
+  verstaan: { prefix: 'ver', base: 'staan', auxiliary: 'hebben' },
+  vervallen: { prefix: 'ver', base: 'vallen', auxiliary: 'zijn' },
+  vervangen: { prefix: 'ver', base: 'vangen', auxiliary: 'hebben' },
+  verwerven: { prefix: 'ver', base: 'werven', auxiliary: 'hebben' },
 };
 
 export interface DutchLoan {
@@ -342,6 +393,22 @@ export const dutchLoans: Readonly<Record<string, DutchLoan>> = {
   scoren: { stem: 'scoor', pastSuffix: 'd' },
   promoten: { stem: 'promoot', pastSuffix: 't' },
   'e-mailen': { stem: 'e-mail', pastSuffix: 'd' },
+  // Loans in -xen: x is ks, so the vowel before it is short and written once (relax, relaxte, gerelaxt), each checked on
+  // woordenlijst.org (https://woordenlijst.org/zoeken/?q=relaxen and so on).
+  beatboxen: { stem: 'beatbox', pastSuffix: 't' },
+  botoxen: { stem: 'botox', pastSuffix: 't' },
+  chillaxen: { stem: 'chillax', pastSuffix: 't' },
+  detoxen: { stem: 'detox', pastSuffix: 't' },
+  doxen: { stem: 'dox', pastSuffix: 't' },
+  'e-toxen': { stem: 'e-tox', pastSuffix: 't' },
+  flexen: { stem: 'flex', pastSuffix: 't' },
+  relaxen: { stem: 'relax', pastSuffix: 't' },
+  telefaxen: { stem: 'telefax', pastSuffix: 't' },
+  telexen: { stem: 'telex', pastSuffix: 't' },
+  timeboxen: { stem: 'timebox', pastSuffix: 't' },
+  unboxen: { stem: 'unbox', pastSuffix: 't' },
+  waxen: { stem: 'wax', pastSuffix: 't' },
+  xeroxen: { stem: 'xerox', pastSuffix: 't' },
 };
 
 /**

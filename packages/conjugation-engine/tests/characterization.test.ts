@@ -22,8 +22,11 @@ const FR_QUERY_COUNT = 1003;
 const NL_QUERY_COUNT = 1478;
 /** Pinned: raised deliberately by the plan that adds entries. */
 const LINE_ENTRY_COUNT = 0;
-/** Pinned: the 56 Dutch queries of the two approved behaviour changes of the staged switch. */
-const BLOCK_ENTRY_COUNT = 56;
+/**
+ * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56) and of the lexicon
+ * corrections of wrong Dutch that followed it (44).
+ */
+const BLOCK_ENTRY_COUNT = 100;
 
 const directory = new URL('./characterization/', import.meta.url);
 const read = (name: string): string => readFileSync(new URL(name, directory), 'utf8');
