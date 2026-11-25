@@ -10,6 +10,7 @@ import type { dutchRules } from '../../../languages/nl/rules.js';
 const labels = {
   'nl.label.pattern.separable': 'separable',
   'nl.label.pattern.inseparable': 'inseparable',
+  'nl.label.pattern.unprefixed': 'without a prefix',
 } as const;
 
 export const dutch = {

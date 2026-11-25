@@ -156,13 +156,15 @@ opbellen and beelden in uitbeelden are not (opgebeld, uitgebeeld). The same hold
 
 **A verb that starts with an unstressed prefix** and is not split (not on the no-split list, no particle) is read with the
 prefix when it starts with be-, ge-, er-, her-, ver- or ont-, followed by a consonant and a root with a vowel (a vowel
-may follow ver-, ont- and her-: verademen, ontaarden), or followed by a verb of the lexicon (bezitten). The verb is then
+may follow ver-, ont- and her-: verademen, ontaarden; after be- unless the e and the vowel are one sound, eu, ei, ee:
+beuken, beitelen, beieren stay unprefixed, beamen, beoogen, beïnvloeden do not), or followed by a verb of the lexicon (bezitten). The verb is then
 the derivative of what follows the prefix (`nl.classify.assume-rest-prefix`): vermoeien is ver + moeien, so its participle
 has no ge- (vermoeid), verbreken takes the forms of breken (verbrak, verbroken), and the stress of a last syllable in -el,
 -er, -en or -em is judged on the root without the prefix: del is one syllable, so verdelen has verdeel, while adem has
 two, so verademen has veradem. A `classHint` keeps the verb whole (bedelen, to beg: gebedeld). Verbs that only look
-prefixed are listed (ergeren, herbergen); two readings that spelling cannot tell apart (bedelen, beteren) stay with
-the prefixed one. A verb read this way also records the perfect auxiliary: hebben by default, or that of its base
+prefixed are listed without a prefix (ergeren, herbergen, bezemen, geselen, genereren); bedelen and beteren, which
+woordenlijst.org lists as two lemmas each, give both readings (`pattern` unprefixed and inseparable, like voorkomen).
+verwelkomen and oordelen have their stem listed (verwelkom, oordeel). A verb read this way also records the perfect auxiliary: hebben by default, or that of its base
 (`nl.classify.auxiliary-inherited`: ontkomen takes zijn from komen). `wezen` is conjugated as `zijn`
 (`nl.classify.alternative-infinitive`).
 
