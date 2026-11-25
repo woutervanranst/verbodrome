@@ -234,7 +234,8 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
   }
 
   // Stress: the lexicon's class, the -uar rule, or the -iar / vowel-group default with its assumption.
-  let stress: Stress = reading.stress ?? 'diphthong';
+  // -eír / -oír: the i of the ending and of an e-i stem is stressed on its own (ríe, sonríe), like a hiatus verb's.
+  let stress: Stress = reading.stress ?? (/[eo]ír$/u.test(infinitive) ? 'hiatus' : 'diphthong');
   const assumptions: DerivationStep[] = [];
   if (stems.stress !== undefined) {
     stress = stems.stress;

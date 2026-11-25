@@ -58,6 +58,9 @@ const orto = (locator: string, path = 'reglas-de-acentuaci%C3%B3n'): Citation =>
 const dpd = (entry: string, path = entry): Citation => ({ work: 'dpd', locator: `«${entry}»`, url: `https://www.rae.es/dpd/${path}` });
 const dle = (locator: string): Citation => ({ work: 'dle', locator });
 const dpdTilde = (locator: string): Citation => ({ work: 'dpd-tilde', locator });
+const gtg = (term: string, path: string): Citation => ({ work: 'gtg', locator: `«${term}»`, url: `https://www.rae.es/gtg/${path}` });
+const letters = [{ work: 'orto', locator: 'the letters c, z, g and j' }, gtg('verbo regular', 'verbo-regular')] as const satisfies readonly Citation[];
+const endings = ngle('§4.4–4.6');
 
 /** The citation of each rule (grammar design §4, cite columns). */
 export const spanishCitations = {
@@ -74,10 +77,64 @@ export const spanishCitations = {
   'es.classify.assume-glide': ngle('§4.9'),
   'es.classify.assume-diphthong': ngle('§4.9'),
   'es.classify.assume-zc': ngle('§4.11'),
+  'es.stem.root': ngle('§4.3'),
+  'es.stem.diphthong': ngle('§4.10'),
+  'es.stem.e-i': ngle('§4.10'),
+  'es.stem.raising': ngle('§4.10'),
+  'es.stem.present-1sg': [ngle('§4.11'), dle('the verb\'s conjugation table')],
+  'es.stem.subjunctive-from-1sg': ngle('§4.11'),
+  'es.stem.zc': ngle('§4.11'),
+  'es.stem.y-insertion': ngle('§4.9'),
+  'es.stem.strong-preterite': ngle('§4.12'),
+  'es.stem.ducir-preterite': [ngle('§4.12'), dpd('conducir')],
+  'es.stem.future-infinitive': ngle('§4.5'),
+  'es.stem.future-lexical': [ngle('§4.15'), dle('the verb\'s conjugation table')],
+  'es.stem.preterite-3pl': ngle('§4.5'),
+  'es.stem.lexical': dle('the verb\'s conjugation table'),
+  'es.cell.lexical': [ngle('§4.13'), dle('the verb\'s conjugation table')],
+  'es.cell.imperative-short': [ngle('§4.15'), dle('the verb\'s conjugation table')],
+  'es.cell.participle': ngle('§4.12'),
+  'es.cell.gerund': [ngle('§4.15'), dle('the verb\'s conjugation table')],
+  'es.end.present': endings,
+  'es.end.imperfect': endings,
+  'es.end.preterite': endings,
+  'es.end.preterite-strong': ngle('§4.12'),
+  'es.end.future': endings,
+  'es.end.conditional': endings,
+  'es.end.subjunctive-present': endings,
+  'es.end.subjunctive-imperfect': ngle('§4.4–4.6, §24.2c'),
+  'es.end.subjunctive-future': [endings, gtg('futuro simple de subjuntivo', 'futuro-simple-de-subjuntivo')],
+  'es.end.imperative-tu': ngle('§4.6, §4.15'),
+  'es.end.imperative-vosotros': ngle('§4.6, §4.15'),
+  'es.end.imperative-subjunctive': ngle('§4.6, §4.15'),
+  'es.end.infinitive': ngle('§4.6'),
+  'es.end.gerund': ngle('§4.6'),
+  'es.end.participle': ngle('§4.6'),
+  'es.orth.c-qu': letters,
+  'es.orth.g-gu': letters,
+  'es.orth.gu-diaeresis': [{ work: 'orto', locator: 'the diaeresis' }, dpd('averiguar')],
+  'es.orth.z-c': letters,
+  'es.orth.c-z': letters,
+  'es.orth.g-j': letters,
+  'es.orth.gu-g': letters,
+  'es.orth.qu-c': letters,
+  'es.orth.u-diaeresis-y': [{ work: 'orto', locator: 'the diaeresis' }, ngle('§4.9')],
+  'es.orth.i-y': [ngle('§4.9'), dpd('leer')],
+  'es.orth.i-absorbed': ngle('§4.9'),
+  'es.orth.initial-diphthong': [{ work: 'orto', locator: 'the letters h and y' }, ngle('§4.10')],
+  'es.orth.g-diphthong': { work: 'orto', locator: 'the diaeresis' },
+  'es.orth.accent-hiatus': [orto('§3.4.2', 'palabras-con-hiato'), dpdTilde('§2.2.2')],
+  'es.orth.accent-general': [orto('§3.4.1'), dpdTilde('§1.1')],
+  'es.orth.monosyllable': [orto('§3.4.3'), { work: 'orto-novedades', locator: 'item 4' }],
+  'es.orth.diacritic': [orto('§3.4.3'), dpdTilde('§3.1')],
+  'es.clause.subject': ngle('§4.4'),
+  'es.clause.que': ngle('§4.5'),
 } as const satisfies Record<SpanishRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose only source the implementer could read is a secondary copy of an RAE text (see the header). */
-export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>(['es.classify.restore-accent']);
+export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>([
+  'es.classify.restore-accent', 'es.orth.accent-hiatus', 'es.orth.accent-general', 'es.orth.monosyllable', 'es.orth.diacritic',
+]);
 
 /** Lemmas whose forms were cross-checked against a secondary source (English Wiktionary), which does not verify them. */
 const secondaryChecks: Readonly<Record<string, Url>> = Object.fromEntries(
