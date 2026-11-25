@@ -101,6 +101,21 @@ function together(word: string, left: number, right: number, stressed: number): 
   return close !== stressed;
 }
 
+/**
+ * The stressed vowel of a correctly written word: its tilde, or else the syllable the general rules leave without one
+ * (the second-to-last when the word ends in a vowel, n or s, the last otherwise), on its open vowel.
+ */
+export function writtenStress(word: string): number {
+  const accented = [...word.normalize('NFC')].findIndex(letter => /[áéíóú]/u.test(letter));
+  if (accented >= 0) return accented;
+  const plainWord = stripAccents(word);
+  const groups = nuclei(plainWord, -1);
+  const vowelOrNs = /[aeiou]$/u.test(plainWord) || (/[ns]$/u.test(plainWord) && isVowelAt(plainWord, plainWord.length - 2));
+  const group = groups[groups.length - (vowelOrNs && groups.length > 1 ? 2 : 1)];
+  if (group === undefined) throw new RangeError(`${word} has no vowel.`);
+  return group.find(index => isOpenLetter(plainWord[index]!)) ?? group.at(-1)!;
+}
+
 export type Accent = {
   /** What decides the tilde: a stressed close vowel beside an open one, the general rules, one syllable, or nothing. */
   kind: 'hiatus' | 'general' | 'monosyllable' | 'none';

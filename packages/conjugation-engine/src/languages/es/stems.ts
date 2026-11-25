@@ -15,7 +15,7 @@ import type { Alternation, Variant } from './lexicon.js';
 import { spanishOrthography, withDiacritic } from './orthography.js';
 import { cellEnding, imperativeSource, isRaisingCell, isRootStressed, slotOf, themeVowel } from './paradigms.js';
 import { spanishRules as rules } from './rules.js';
-import { nuclei, stripAccents, writeAccent } from './syllables.js';
+import { stripAccents, writeAccent, writtenStress } from './syllables.js';
 
 type FiniteCell = Extract<Cell, { kind: 'finite' }>;
 
@@ -186,17 +186,6 @@ export function endingFork(lexeme: SpanishLexeme, cell: Cell, stem: string): For
   }));
 }
 
-/** The stressed vowel of a stored whole word: its tilde, or the default stress of its letters. */
-function storedStress(word: string): number {
-  const accented = [...word].findIndex(letter => /[áéíóú]/u.test(letter));
-  if (accented >= 0) return accented;
-  const plain = stripAccents(word);
-  const groups = nuclei(plain, -1);
-  const vowelOrNs = /[aeiou]$/u.test(plain) || /[aeiou][ns]$/u.test(plain);
-  const group = groups[groups.length - (vowelOrNs && groups.length > 1 ? 2 : 1)]!;
-  return group.find(index => /[aeo]/u.test(plain[index]!)) ?? group.at(-1)!;
-}
-
 /**
  * A stored whole word of the base with the derivative's prefix in front, written with the tilde its stress calls for
  * (compón, detén); the stress stays on the base's syllable.
@@ -204,7 +193,7 @@ function storedStress(word: string): number {
 function prefixed(lexeme: SpanishLexeme, word: string): { word: string; steps: DerivationStep[] } {
   if (lexeme.prefix === '') return { word, steps: [] };
   const whole = lexeme.prefix + stripAccents(word);
-  const accent = writeAccent(whole, lexeme.prefix.length + storedStress(word));
+  const accent = writeAccent(whole, lexeme.prefix.length + writtenStress(word));
   if (accent.written === whole) return { word: whole, steps: [] };
   const rule = accent.kind === 'hiatus' ? step(rules['es.orth.accent-hiatus'], whole, accent.written)
     : step(rules['es.orth.accent-general'], whole, accent.written, { stress: accent.stress });
@@ -236,6 +225,10 @@ export function lexicalCell(lexeme: SpanishLexeme, cell: Cell): Fork<string> | n
     return null;
   }
   if (cell.form === 'gerund' && entry.gerund !== undefined) return lexicalWords(lexeme, entry.gerund, 'es.cell.gerund');
+  // The -scribir family: escrito, descrito, suscrito.
+  if ((cell.form === 'participle' || cell.form === 'compound-participle') && lexeme.family === 'scribir') {
+    return lexicalWords(lexeme, `${lexeme.infinitive.slice(0, -3)}to`, 'es.cell.participle');
+  }
   if ((cell.form === 'participle' || cell.form === 'compound-participle') && entry.participle !== undefined) {
     const { participle } = entry;
     const kept = typeof participle === 'string' ? participle

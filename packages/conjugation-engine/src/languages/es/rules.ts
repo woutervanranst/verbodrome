@@ -76,9 +76,33 @@ export const spanishRules = defineRules({
   'es.orth.monosyllable': { stage: 'orthography' },
   'es.orth.diacritic': { stage: 'orthography', params: { word: 'text' } },
 
+  // Compound tenses and the negative imperative (§4.6)
+  'es.periphrasis.perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.pluperfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.past-anterior': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.future-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.conditional-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.subjunctive-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.subjunctive-pluperfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.subjunctive-future-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.infinitive-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.gerund-perfect': { stage: 'periphrasis', params: { auxiliary: 'text' } },
+  'es.periphrasis.negative-imperative': { stage: 'periphrasis' },
+
   // Clause (§4.7)
   'es.clause.subject': { stage: 'clause', params: { pronoun: 'text' } },
   'es.clause.que': { stage: 'clause' },
+  'es.clause.proclitic': { stage: 'clause', params: { pronoun: 'text' } },
+  'es.clause.enclitic': { stage: 'clause', params: { pronoun: 'text' } },
+  'es.clause.enclitic-d-drop': { stage: 'clause' },
+  'es.clause.enclitic-s-drop': { stage: 'clause' },
+  'es.clause.enclitic-accent': { stage: 'clause', params: { stress: 'text' } },
+  'es.clause.iros': { stage: 'clause' },
+
+  // Availability (§4.8)
+  'es.avail.impersonal': { stage: 'availability', kind: 'unavailable' },
+  'es.avail.defective': { stage: 'availability', kind: 'unavailable' },
+  'es.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },
 });
 
 export type SpanishRuleId = keyof typeof spanishRules;

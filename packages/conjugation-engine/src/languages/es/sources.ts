@@ -61,11 +61,14 @@ const dpdTilde = (locator: string): Citation => ({ work: 'dpd-tilde', locator })
 const gtg = (term: string, path: string): Citation => ({ work: 'gtg', locator: `«${term}»`, url: `https://www.rae.es/gtg/${path}` });
 const letters = [{ work: 'orto', locator: 'the letters c, z, g and j' }, gtg('verbo regular', 'verbo-regular')] as const satisfies readonly Citation[];
 const endings = ngle('§4.4–4.6');
+const models = ngle('§4.15 (model tables)');
+const clitics = dpd('pronombres personales átonos', 'pronombres%20personales%20%C3%A1tonos');
+const iros: Citation = { work: 'rae-iros', locator: 'paragraphs 1–2', url: 'https://www.rae.es/gram%C3%A1tica/docs/%C2%ABiros%C2%BB%20imperativo.pdf' };
 
 /** The citation of each rule (grammar design §4, cite columns). */
 export const spanishCitations = {
   'es.classify.conjugation': ngle('§4.3, §4.6'),
-  'es.classify.reflexive': dpd('pronombres personales átonos', 'pronombres%20personales%20%C3%A1tonos'),
+  'es.classify.reflexive': clitics,
   'es.classify.restore-accent': [orto('§3.4.2', 'palabras-con-hiato'), dpdTilde('§2.2.2')],
   'es.classify.lexicon': dle('the verb\'s entry and its conjugation table'),
   'es.classify.two-paradigms': [dle('the numbered homographs of the verb'), dpd('lemas con superíndice', 'ayuda/lemas-con-superindice')],
@@ -129,11 +132,32 @@ export const spanishCitations = {
   'es.orth.diacritic': [orto('§3.4.3'), dpdTilde('§3.1')],
   'es.clause.subject': ngle('§4.4'),
   'es.clause.que': ngle('§4.5'),
+  'es.periphrasis.perfect': models,
+  'es.periphrasis.pluperfect': models,
+  'es.periphrasis.past-anterior': models,
+  'es.periphrasis.future-perfect': models,
+  'es.periphrasis.conditional-perfect': models,
+  'es.periphrasis.subjunctive-perfect': models,
+  'es.periphrasis.subjunctive-pluperfect': models,
+  'es.periphrasis.subjunctive-future-perfect': [models, gtg('futuro compuesto de subjuntivo', 'futuro-compuesto-de-subjuntivo')],
+  'es.periphrasis.infinitive-perfect': models,
+  'es.periphrasis.gerund-perfect': models,
+  'es.periphrasis.negative-imperative': gtg('imperativo', 'imperativo'),
+  'es.clause.proclitic': clitics,
+  'es.clause.enclitic': clitics,
+  'es.clause.enclitic-d-drop': [clitics, iros],
+  'es.clause.enclitic-s-drop': clitics,
+  'es.clause.enclitic-accent': [orto('§3.4.5', 'formas-verbales-con-pronombres-cl%C3%ADticos'), dpdTilde('§4.3')],
+  'es.clause.iros': [iros, ngle('§4.13i')],
+  'es.avail.impersonal': [ngle('§4.14'), dpd('llover')],
+  'es.avail.defective': dpd('soler'),
+  'es.avail.no-imperative': dpd('haber'),
 } as const satisfies Record<SpanishRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose only source the implementer could read is a secondary copy of an RAE text (see the header). */
 export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>([
   'es.classify.restore-accent', 'es.orth.accent-hiatus', 'es.orth.accent-general', 'es.orth.monosyllable', 'es.orth.diacritic',
+  'es.clause.enclitic-accent',
 ]);
 
 /** Lemmas whose forms were cross-checked against a secondary source (English Wiktionary), which does not verify them. */
