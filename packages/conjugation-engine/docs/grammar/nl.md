@@ -57,9 +57,10 @@ English and Dutch explanation of 67 everyday forms, analyses and unavailable tar
 | `nl.avail.no-compound` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.3.6.6](https://e-ans.ivdnt.org/topics/pid/ans02030606lingtopic) |
 | `nl.stem.drop-en` | rule | Take -en off {before}: {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
 | `nl.stem.undouble-consonant` | rule | A word does not end in a double consonant, so {before}- becomes {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html) |
-| `nl.stem.lengthen-vowel` | rule | A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-. | [Leidraad 2.1](https://woordenlijst.org/zoeken/leidraad/2/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
-| `nl.stem.unstressed-e` | rule | The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
+| `nl.stem.lengthen-vowel` | rule | A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-. | [Leidraad 2.1](https://woordenlijst.org/zoeken/leidraad/2/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html), [Leidraad 7.1](https://woordenlijst.org/zoeken/leidraad/7/1.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
+| `nl.stem.unstressed-e` | rule | The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
 | `nl.stem.devoice` | rule | At the end of a word, v and z are written f and s, so {before}- becomes {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
+| `nl.stem.no-trema` | rule | After i no trema is written when three or more vowel letters follow one another, so {before}- becomes {after}-. | [Leidraad 7.4](https://woordenlijst.org/zoeken/leidraad/7/4.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
 | `nl.stem.lexical` | lexical | The stem of {before} is {after}-, as given for this verb. | [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic), [e-ANS 2.3.6](https://e-ans.ivdnt.org/topics/pid/ans020306lingtopic), [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
 | `nl.cell.lexical` | lexical | {before} has the listed form {after} here. | [e-ANS 2.3.6](https://e-ans.ivdnt.org/topics/pid/ans020306lingtopic), [e-ANS 2.3.5.1](https://e-ans.ivdnt.org/topics/pid/ans02030501lingtopic) |
 | `nl.cell.d-dropped` | lexical | After a vowel, the d at the end of the stem {before}- is often left out: {after}. | [e-ANS 2.3.2.8.ii](https://e-ans.ivdnt.org/topics/pid/ans0203020802lingtopic) |
@@ -77,8 +78,8 @@ English and Dutch explanation of 67 everyday forms, analyses and unavailable tar
 | `nl.part.weak-no-ending` | rule | The stem {before}- already ends in {dental}, so no extra {dental} is added: {after}. | [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
 | `nl.part.strong` | lexical | {before} has an irregular past participle: {after}. | [Leidraad 11.6](https://woordenlijst.org/zoeken/leidraad/11/6.html), [e-ANS 2.3.5.1](https://e-ans.ivdnt.org/topics/pid/ans02030501lingtopic) |
 | `nl.part.ge-blocked` | rule | After the prefix {prefix}- the past participle has no ge-: {after}. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
-| `nl.part.ge-prefix` | rule | The past participle starts with ge-: {after}. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic), [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html) |
-| `nl.part.ge-diaeresis` | rule | The past participle starts with ge-, and the {vowel} after it gets a diaeresis: {after}. | [Leidraad 7.2](https://woordenlijst.org/zoeken/leidraad/7/2.html) |
+| `nl.part.ge-prefix` | rule | The past participle starts with ge-: {after}. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic), [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html), [Leidraad 7.4](https://woordenlijst.org/zoeken/leidraad/7/4.html) |
+| `nl.part.ge-diaeresis` | rule | The past participle starts with ge-, and the {vowel} after it gets a diaeresis: {after}. | [Leidraad 7.2](https://woordenlijst.org/zoeken/leidraad/7/2.html), [Leidraad 7.4](https://woordenlijst.org/zoeken/leidraad/7/4.html) |
 | `nl.orth.dental-kofschip` | rule | {sound} {dental, select, t {is} other {is not}} one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with {dental}: {after}. | [Leidraad 11.3](https://woordenlijst.org/zoeken/leidraad/11/3.html), [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html) |
 | `nl.orth.dental-voiceless` | rule | {sound, select, x {x is pronounced ks, and s is one of the sounds of 't kofschip} other {{sound} is pronounced without voice, like the sounds of 't kofschip}}, so the ending starts with t: {after}. | [Leidraad 11.3](https://woordenlijst.org/zoeken/leidraad/11/3.html), [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
 | `nl.orth.dental-given` | rule | For {before} the ending starts with {dental}, as given for this verb: {after}. | [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
@@ -124,13 +125,16 @@ when all four guards hold:
    one letter or without a vowel is no verb: bijzen, opsten.
 3. **No vowel clash.** A particle that ends in a vowel does not meet a vowel, as that is written with a hyphen
    (na-apen): naaien is not na + aien.
-4. **Not on the no-split list.** The verb is not one of the 161 simplex verbs of `simplexVerbs` (`lexicon.ts`), whose
+4. **Not on the no-split list.** The verb is not one of the simplex verbs of `simplexVerbs` (`lexicon.ts`), whose
    spelling begins with a particle's letters: naderen, nagelen, informeren, installeren, opperen, toeteren,
    missioneren, voltigeren, weerlichten. The list was compiled from the woordenlijst.org lexicon service on 2026-11-25: for every
    particle and dual prefix, each verb listed with it that is not marked separable and that guards 1-3 would read
    with a prefix; for a dual prefix only those whose participle has ge- before the whole word (gemissioneerd). Each
    entry records its woordenlijst lemma id and participle; four whose participle shows the particle split off
-   (weggeweest, voorafgebeeld, voorafgeschaduwd, voorafgespiegeld) are left out.
+   (weggeweest, voorafgebeeld, voorafgeschaduwd, voorafgespiegeld) are left out. Six have since moved into the
+   lexicon proper (five English loans with their stem, and integreren with its stress and auxiliary), so the list has
+   155 entries. The stress of an entry in -eren, -elen, -enen or -emen is read from its recorded participle
+   (geïnformeerd: stressed), and a test checks that the engine gives every recorded participle.
 
 **The rest of a separable verb** is classified like any verb (e-ANS 2.3.2.7, punt 2: no ge- after be-, er-, ge-,
 her-, ont-, ver-, also inside a separable verb). A rest the lexicon lists with an unstressed prefix keeps it:
@@ -234,6 +238,20 @@ The switch has 56 block-level entries, the four queries of each verb below (no h
 | toekomen | 1 | split at toe: kom toe, kwam toe, ben toegekomen (the zijn of komen); frozen: ik toekoom, getoekoomd, hebben | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 | uitstellen | 1 | split at uit: stel uit, uitgesteld; frozen: ik uitstel, geüitsteld | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 
+## Where the lexicon data comes from, and its licence
+
+Grammar comes from the e-ANS and spelling from the Leidraad, both cited per rule. Facts about single verbs (an
+irregular past, an unstressed prefix, a separable particle, a stressed last syllable, an auxiliary, the meaning of each
+reading of a two-reading lemma) come from the Woordenlijst Nederlandse Taal on woordenlijst.org, © Nederlandse Taalunie,
+alle rechten voorbehouden. The INT terms of use (https://ivdnt.org/gebruiksvoorwaarden/, clauses 3 and 4, checked on
+2026-11-25) allow its content to be used for non-commercial or private purposes only, and not to be reproduced or made
+available to others without the INT's written permission. That does not clearly permit redistributing lists derived
+from it inside this package, so no further lists are imported: each verb added since was checked by hand and carries its
+lemma id and, where it matters, its participle, in a comment or in its entry. The no-split list, `dualInseparableVerbs`
+and the dual-prefix counts were compiled from the lexicon service by script before this check; whether they may stay is
+an open decision for the maintainers. Attribution: "Woordenlijst Nederlandse Taal, © Nederlandse Taalunie
+(woordenlijst.org)".
+
 ## Lexicon corrections
 
 After the switch, the lexicon was corrected where the frozen output, or a common verb, was wrong Dutch, each entry
@@ -243,6 +261,23 @@ checked on woordenlijst.org (by data only: no prefix is inferred for an unknown 
   vertellen, gebeuren, ontmoeten …; the auxiliary woordenlijst.org gives in `dutchExceptions` when it is not hebben
   alone), strong ones as derivatives of their base in `inseparableDerivatives` (besluiten of sluiten, verbinden of
   binden, vervallen of vallen with zijn …), and vergelijken and ervaren with their own strong forms;
+
+In the final review fix wave, more hand-checked entries followed, each with its woordenlijst.org lemma id:
+
+- 12 verbs in -eren with a stressed last syllable (reageren, controleren, organiseren, presenteren, repareren,
+  telefoneren, fotograferen, accepteren, irriteren, regeren, opereren, integreren), whose stress the rules cannot see;
+- 13 separable verbs the spelling would read otherwise: overstappen, overnemen, overslaan, overgaan, overblijven,
+  onderduiken, onderbrengen, misgaan, mislopen (a prefix whose default is inseparable), opeisen, inademen, uitoefenen (a
+  rest that begins with a vowel) and tegemoetkomen (a particle not on the list);
+- 3 more lemmas with two readings, from the two woordenlijst.org lemmas and their glosses: voorspellen, doorzoeken,
+  omgeven;
+- beëindigen with its prefix be-;
+- five English loans with their stem (influencen, inlineskaten, insourcen, interfacen, internetdaten).
+
+The rules gained what woordenlijst.org's forms showed they lacked: -em is an unstressed ending like -el, -er and -en
+(ademen, adem; Leidraad 2.2 lists it); a stressed ë before the last consonant is long, and after i it loses its trema
+(kopiëren, kopieer; creëren, creëer; Leidraad 7.4); the e after u is a vowel of its own (insinueren, insinueer;
+Leidraad 7.1); and ge- puts no trema on the u of ui or the i of ij (geuit, geijkt; Leidraad 7.4).
 
 The snapshot queries it changes are 44 block-level entries, the four queries of each verb below:
 
@@ -265,24 +300,22 @@ what is regretted (die woorden spijten me), so the 3rd person plural stays.
 
 ## Limits
 
-- **Separability of a verb the lexicon does not list is inferred from its spelling, and can be wrong in both
-  directions.** Stress and meaning decide it, and spelling shows neither. Checked against the verbs woordenlijst.org
-  listed on 2026-11-25, if the lexicon did not list them:
-  - *A separable verb kept whole or read as inseparable.* A verb with a prefix whose default is inseparable is read so
-    when it is separable: of the readings woordenlijst.org lists, the 129 separable ones with over-, 39 with onder-, 20
-    with mis- and 6 with weer- (an unlisted overstappen gives ik overstap, overstapt, not ik stap over, overgestapt).
-    The other way round, a lemma that woordenlijst.org lists with both readings of a separable-default prefix (69 with
-    door-, 29 with om-, 3 with voor-, 2 with vol-, 1 with aan-) gets the separable one only: doorzoeken gives ik zoek
-    door, doorgezocht, not also ik doorzoek, doorzocht. Guard 2 keeps 97 separable verbs with an unambiguous particle
-    whole, because their rest begins with a vowel and is not in the lexicon (opeisen, opofferen, uitoefenen, inademen,
-    inenten), or because their particle is not on the list (openmaken, opendoen, opzijgaan): ik opeis, geopeist.
-  - *A simplex verb split or read with a prefix.* The no-split list holds the simplex verbs woordenlijst.org lists; a
-    newer one, or one that is also the spelling of a particle verb, is still split: opteren is split as op + teren (ik
-    teer op, opgeteerd: to live off), which is right for one of its two woordenlijst.org lemmas and wrong for the other
-    (ik opteer: to opt). A new simplex verb with the letters of a dual prefix is split or loses its ge-, and a new
-    inseparable verb with a separable-default prefix is split.
-  The assumption in the analysis says which reading was taken and how to override it: an `inseparablePrefix` or
-  `separablePrefix` hint, or a `classHint` to keep the verb one word.
+- **What the lexicon does not list is inferred from spelling, and can be wrong.** Stress and meaning decide
+  separability and the stress of a last syllable, and spelling shows neither. The verbs the final review found wrong are
+  now listed (above), each checked on woordenlijst.org; the bulk lists that would cover every verb were not imported
+  (licence, above). What remains, for a verb the lexicon does not list:
+  - *Separability.* A verb with a prefix whose default is inseparable is kept whole when it is separable (an unlisted
+    overtikken gives ik overtik, not ik tik over); a lemma with both readings that is not one of the eight listed gets
+    only its prefix's default reading; a separable verb whose rest begins with a vowel and is not in the lexicon is kept
+    whole (an unlisted inenten gives ik inent, not ik ent in); a simplex verb not on the no-split list but spelled like a
+    particle verb is split (opteren: ik teer op, right for one of its two woordenlijst.org lemmas and wrong for the
+    other, ik opteer).
+  - *Stress.* A verb in -el, -er, -en or -em after a consonant, with more than one vowel group, is taken to have an
+    unstressed last syllable (wandelen: wandel; ademen: adem). That is wrong for French loans in -eren that are not
+    listed (an unlisted arresteren gives ik arrester, not ik arresteer); -iëren, -eëren and -ueren follow from the rules
+    (kopieer, creëer, evalueer).
+  The analysis records each such assumption, with how to override it: an `inseparablePrefix` or
+  `separablePrefix` hint, a `classHint` to keep the verb one word, or a stem or stress hint (`stems`).
 - Stress and meaning also decide the auxiliary, and the stress of a final syllable (informeren: ik informeer, not ik
   informer, needs a stress hint); spelling does not show them. Unknown strong verbs need their principal parts
   (`stems`), and unknown loans their stem and, where needed, their d/t.

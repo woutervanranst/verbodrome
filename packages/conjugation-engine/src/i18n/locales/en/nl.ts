@@ -32,6 +32,7 @@ export const dutch = {
   'nl.stem.lengthen-vowel': 'A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-.',
   'nl.stem.unstressed-e': 'The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-.',
   'nl.stem.devoice': 'At the end of a word, v and z are written f and s, so {before}- becomes {after}-.',
+  'nl.stem.no-trema': 'After i no trema is written when three or more vowel letters follow one another, so {before}- becomes {after}-.',
   'nl.stem.lexical': 'The stem of {before} is {after}-, as given for this verb.',
   'nl.avail.impersonal': '{before} has no modern {form} form in this slot.',
   'nl.avail.singular-only': '{before} has no modern {form} form in this slot.',

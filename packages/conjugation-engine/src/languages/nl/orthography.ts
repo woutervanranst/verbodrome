@@ -1,7 +1,7 @@
 /**
  * Dutch spelling at the stem/ending boundary: the d or t of a weak past tense and past participle ('t kofschip, decided
  * on the stem as pronounced, so leven takes -de although its stem is written leef), a long a written aa before -t
- * (gaat), and ge- before a weak past participle, with a diaeresis before e, i or u (geëindigd). A prefix that keeps
+ * (gaat), and ge- before a weak past participle, with a diaeresis before e, i or u (geëindigd) but not before ui or ij (geuit). A prefix that keeps
  * ge- out (verhuisd) is recorded by the participle's ending.
  */
 import { step } from '../../core/derivation.js';
@@ -55,6 +55,8 @@ const isParticiple = (cell: Cell): boolean => cell.kind === 'nonFinite' && cell.
 /** A word such as e-mail starts with a letter and a hyphen: ge- is joined with a hyphen. */
 const hyphenated = /^\p{L}-/u;
 const diaeresis: Readonly<Record<string, string>> = { e: 'ë', i: 'ï', u: 'ü' };
+/** The diaeresis ge- puts on the first letter of `stem`, if any: never on the first letter of ui or ij (geuit, geijkt; Leidraad 7.4). */
+const tremaOf = (stem: string): string | undefined => (/^(?:ui|ij)/u.test(stem) ? undefined : diaeresis[stem.charAt(0)]);
 
 /** A stem ending in a single long a writes it aa before -t, in the closed syllable: ga + t → gaat. */
 const doubleA: JunctureRule<SpellingContext> = {
@@ -66,7 +68,7 @@ const doubleA: JunctureRule<SpellingContext> = {
 /** A weak past participle starts with ge- (ge- before a word with a hyphen), unless an unstressed prefix keeps it out. */
 const gePrefix: JunctureRule<SpellingContext> = {
   info: dutchRules['nl.part.ge-prefix'],
-  apply: (j, { lexeme, cell }) => isParticiple(cell) && !lexeme.inseparablePrefix && (hyphenated.test(j.stem) || !diaeresis[j.stem.charAt(0)])
+  apply: (j, { lexeme, cell }) => isParticiple(cell) && !lexeme.inseparablePrefix && (hyphenated.test(j.stem) || !tremaOf(j.stem))
     ? one({ stem: `${hyphenated.test(j.stem) ? 'ge-' : 'ge'}${j.stem}`, ending: j.ending }) : null,
 };
 
@@ -74,7 +76,7 @@ const gePrefix: JunctureRule<SpellingContext> = {
 const geDiaeresis: JunctureRule<SpellingContext> = {
   info: dutchRules['nl.part.ge-diaeresis'],
   apply: (j, { lexeme, cell }) => {
-    const marked = diaeresis[j.stem.charAt(0)];
+    const marked = tremaOf(j.stem);
     if (!isParticiple(cell) || lexeme.inseparablePrefix || hyphenated.test(j.stem) || marked === undefined) return null;
     return one({ stem: `ge${marked}${j.stem.slice(1)}`, ending: j.ending });
   },

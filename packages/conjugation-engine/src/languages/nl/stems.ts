@@ -42,9 +42,10 @@ const openSyllable = /(^|[^aeiouy])([aeou])([bcdfghjklmnpqrstvwz])$/u;
 
 /**
  * The present stem of `infinitive`. Without a listed stem: drop -en; then either write a doubled final consonant once,
- * or write a long vowel double in the now closed syllable (not before x, which closes the syllable already), unless it is the unstressed e of a last syllable in -el, -er
- * or -en (inferred when the root, without `prefix`, has more than one vowel group); finally write a final v or z as f
- * or s. Throws AMBIGUOUS_CLASSIFICATION for an infinitive without -en and without a listed stem.
+ * or write a long vowel double in the now closed syllable (not before x, which closes the syllable already; a stressed
+ * ë too, with no trema after i: kopiëren, kopieer), unless it is the unstressed e of a last syllable in -el, -er, -en
+ * or -em (inferred when the root, without `prefix`, has more than one vowel group; Leidraad 2.2 lists -em with ademen);
+ * finally write a final v or z as f or s. Throws AMBIGUOUS_CLASSIFICATION for an infinitive without -en and without a listed stem.
  */
 export function presentStem({ infinitive, listed, unstressed, prefix }: StemSource): PresentStem {
   if (!infinitive.endsWith('en') && !listed) {
@@ -65,13 +66,22 @@ export function presentStem({ infinitive, listed, unstressed, prefix }: StemSour
     } else {
       const root = prefix ? raw.slice(prefix.length) : raw;
       const vowelGroups = root.match(/[aeiouy]+/gu)?.length ?? 0;
-      const unstressedE = unstressed ?? (vowelGroups > 1 && /e[lrn]$/u.test(root));
-      const long = stem.replace(openSyllable, '$1$2$2$3');
+      // The unstressed e follows a consonant: insinuer- (u + e) is two full vowels, not an unstressed last syllable.
+      const unstressedE = unstressed ?? (vowelGroups > 1 && /[^aeiouy]e[lrnm]$/u.test(root));
+      // A stressed ë before the last consonant is long too (creëren: creëer); after i the trema goes (kopieer).
+      // ue is two vowels, not one (Leidraad 7.1), so the e after it is long too: insinueren, insinueer.
+      const long = stem.replace(openSyllable, '$1$2$2$3').replace(/ë([bcdfghjklmnpqrstvwz])$/u, 'ëe$1')
+        .replace(/((?:^|[^aeo])u)e([bcdfghjklmnpqrstvwz])$/u, '$1ee$2');
       // The unstressed e is recorded where it keeps the vowel from being written double.
       if (long !== stem && unstressedE) steps.push(step(dutchRules['nl.stem.unstressed-e'], stem, stem));
       else if (long !== stem) {
         steps.push(step(dutchRules['nl.stem.lengthen-vowel'], stem, long));
         stem = long;
+        const plain = stem.replace(/iëe([bcdfghjklmnpqrstvwz])$/u, 'iee$1');
+        if (plain !== stem) {
+          steps.push(step(dutchRules['nl.stem.no-trema'], stem, plain));
+          stem = plain;
+        }
       }
     }
   }

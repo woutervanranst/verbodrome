@@ -32,6 +32,7 @@ export const dutch = {
   'nl.stem.lengthen-vowel': 'Een lange klank in een gesloten lettergreep schrijf je met twee klinkers, dus {before}- wordt {after}-.',
   'nl.stem.unstressed-e': 'De laatste lettergreep van {before}- heeft geen klemtoon, dus de klinker schrijf je niet dubbel: de stam blijft {after}-.',
   'nl.stem.devoice': 'Aan het eind van een woord schrijf je geen v of z maar f of s, dus {before}- wordt {after}-.',
+  'nl.stem.no-trema': 'Na een i schrijf je geen trema als er drie of meer klinkertekens na elkaar staan, dus {before}- wordt {after}-.',
   'nl.stem.lexical': 'De stam van {before} is {after}-, zoals die voor dit werkwoord is opgegeven.',
   'nl.avail.impersonal': '{before} is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.',
   'nl.avail.singular-only': '{before} heeft hier alleen vormen in het enkelvoud, met het als onderwerp.',

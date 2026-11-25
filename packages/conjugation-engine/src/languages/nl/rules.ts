@@ -42,6 +42,7 @@ export const dutchRules = defineRules({
   'nl.stem.lengthen-vowel': { stage: 'stem' },
   'nl.stem.unstressed-e': { stage: 'stem' },
   'nl.stem.devoice': { stage: 'stem' },
+  'nl.stem.no-trema': { stage: 'stem' },
   'nl.stem.lexical': { stage: 'stem', kind: 'lexical' },
   // Whole forms the lexicon lists: {before} is the verb, {after} the form.
   'nl.cell.lexical': { stage: 'stem', kind: 'lexical' },

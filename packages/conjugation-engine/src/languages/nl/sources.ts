@@ -12,7 +12,17 @@ export const dutchWorks = {
     url: 'https://e-ans.ivdnt.org/',
   },
   leidraad: { id: 'leidraad', title: 'Leidraad, Woordenlijst Nederlandse Taal', author: 'Taalunie', url: 'https://woordenlijst.org/leidraad' },
-  woordenlijst: { id: 'woordenlijst', title: 'Woordenlijst Nederlandse Taal', author: 'Taalunie', url: 'https://woordenlijst.org/' },
+  /**
+   * The Woordenlijst Nederlandse Taal on woordenlijst.org and its lexicon service (MolexServe), "© Nederlandse Taalunie,
+   * alle rechten voorbehouden"; the INT terms of use (https://ivdnt.org/gebruiksvoorwaarden/, clauses 3 and 4) allow its
+   * content to be used for non-commercial or private purposes only and not to be reproduced or made available to others
+   * without the INT's written permission. Checked on 2026-11-25. This package therefore cites it for facts about single
+   * verbs checked by hand (a lemma id, a participle, a gloss, an auxiliary) and imports no further lists from it. Two
+   * lists in `lexicon.ts` (`simplexVerbs`, `dualInseparableVerbs`) and the counts of `dualPrefixCounts` were compiled
+   * from it by script before this check; whether they may stay is an open decision for the maintainers. Attribution:
+   * "Woordenlijst Nederlandse Taal, © Nederlandse Taalunie (woordenlijst.org)".
+   */
+  woordenlijst: { id: 'woordenlijst', title: 'Woordenlijst Nederlandse Taal', author: 'Nederlandse Taalunie', url: 'https://woordenlijst.org/' },
 } as const satisfies Record<string, Work>;
 
 const eAns = (locator: string, pid: string): Citation => ({ work: 'e-ans', locator, url: `https://e-ans.ivdnt.org/topics/pid/${pid}` });
@@ -20,7 +30,9 @@ const eAns = (locator: string, pid: string): Citation => ({ work: 'e-ans', locat
 const leidraadSections = {
   '2.1': 'verenkeling van lange klinkers in een open lettergreep',
   '2.2': 'verdubbeling van medeklinkers op het eind van een gesloten lettergreep',
+  '7.1': 'welke klinkers botsen?',
   '7.2': 'hoe klinkerbotsing te vermijden?',
+  '7.4': 'drie of meer opeenvolgende klinkerletters in ongelede woorden en afleidingen',
   '11.1': 'zoek de stam',
   '11.2': 'tegenwoordige tijd',
   '11.3': 'verleden tijd van regelmatige werkwoorden',
@@ -91,9 +103,10 @@ export const dutchCitations = {
   'nl.classify.assume-rest-prefix': [eAns('12.3.2.1 Prefigering', 'topic-14428052248902267'), pastParticiple],
   'nl.stem.drop-en': [leidraad('11.1'), stem],
   'nl.stem.undouble-consonant': [leidraad('11.1'), leidraad('2.2')],
-  'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('2.2'), leidraad('11.1')],
-  'nl.stem.unstressed-e': [leidraad('11.1'), stem],
+  'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('2.2'), leidraad('7.1'), leidraad('11.1')],
+  'nl.stem.unstressed-e': [leidraad('11.1'), leidraad('2.2'), stem],
   'nl.stem.devoice': [leidraad('11.1'), stem],
+  'nl.stem.no-trema': [leidraad('7.4'), leidraad('11.1')],
   'nl.stem.lexical': [stem, irregularB, leidraad('12.2')],
   'nl.avail.impersonal': impersonal,
   'nl.avail.singular-only': impersonal,
@@ -115,8 +128,8 @@ export const dutchCitations = {
   'nl.part.weak-no-ending': [leidraad('11.4'), leidraad('11.1')],
   'nl.part.strong': [leidraad('11.6'), irregularVerbs],
   'nl.part.ge-blocked': pastParticiple,
-  'nl.part.ge-prefix': [pastParticiple, leidraad('11.4')],
-  'nl.part.ge-diaeresis': leidraad('7.2'),
+  'nl.part.ge-prefix': [pastParticiple, leidraad('11.4'), leidraad('7.4')],
+  'nl.part.ge-diaeresis': [leidraad('7.2'), leidraad('7.4')],
   'nl.orth.dental-kofschip': [leidraad('11.3'), leidraad('11.4')],
   'nl.orth.dental-voiceless': [leidraad('11.3'), leidraad('12.2')],
   'nl.orth.dental-given': leidraad('12.2'),

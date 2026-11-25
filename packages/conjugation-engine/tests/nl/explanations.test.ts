@@ -580,6 +580,54 @@ const pinned: readonly Pinned[] = [
     ],
   },
   {
+    // ik kopieer: a stressed ë is long, and after i it loses its trema (Leidraad 7.4)
+    verb: 'kopiëren', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik kopieer',
+    en: [
+      'kopieer: Take -en off kopiëren: kopiër-.',
+      'kopieer: A long vowel in a closed syllable is written with two letters, so kopiër- becomes kopiëer-.',
+      'kopieer: After i no trema is written when three or more vowel letters follow one another, so kopiëer- becomes kopieer-.',
+      'kopieer: 1st person singular present: the stem alone, kopieer.',
+      'The whole form: The subject is ik.',
+    ],
+    nl: [
+      'kopieer: Haal -en van kopiëren af: kopiër-.',
+      'kopieer: Een lange klank in een gesloten lettergreep schrijf je met twee klinkers, dus kopiër- wordt kopiëer-.',
+      'kopieer: Na een i schrijf je geen trema als er drie of meer klinkertekens na elkaar staan, dus kopiëer- wordt kopieer-.',
+      'kopieer: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, kopieer.',
+      'De hele vorm: Het onderwerp is ik.',
+    ],
+  },
+  {
+    // ik reageer: a listed stressed last syllable
+    verb: 'reageren', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik reageer',
+    en: [
+      'reageer: Take -en off reageren: reager-.',
+      'reageer: A long vowel in a closed syllable is written with two letters, so reager- becomes reageer-.',
+      'reageer: 1st person singular present: the stem alone, reageer.',
+      'The whole form: The subject is ik.',
+    ],
+    nl: [
+      'reageer: Haal -en van reageren af: reager-.',
+      'reageer: Een lange klank in een gesloten lettergreep schrijf je met twee klinkers, dus reager- wordt reageer-.',
+      'reageer: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, reageer.',
+      'De hele vorm: Het onderwerp is ik.',
+    ],
+  },
+  {
+    // geuit: no trema on the u of ui (Leidraad 7.4)
+    verb: 'uiten', query: { mood: 'participle', tense: 'past' }, form: 'geuit',
+    en: [
+      'geuit: Take -en off uiten: uit-.',
+      'geuit: The stem uit- already ends in t, so no extra t is added: uit.',
+      'geuit: The past participle starts with ge-: geuit.',
+    ],
+    nl: [
+      'geuit: Haal -en van uiten af: uit-.',
+      'geuit: De stam uit- eindigt al op t, dus er komt geen t meer bij: uit.',
+      'geuit: Het voltooid deelwoord begint met ge-: geuit.',
+    ],
+  },
+  {
     // verhuisd: a verb the lexicon lists with its unstressed prefix
     verb: 'verhuizen', query: { mood: 'participle', tense: 'past' }, form: 'verhuisd',
     en: [

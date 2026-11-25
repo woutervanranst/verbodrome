@@ -277,6 +277,20 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   herstellen: { auxiliary: 'both' },
   ontsnappen: { auxiliary: 'zijn' },
   gebeuren: { auxiliary: 'zijn' },
+  // Verbs in -eren whose last syllable is stressed (re-a-GE-ren: reageer, gereageerd), each checked on woordenlijst.org,
+  // whose pronunciation marks the stress and whose participle shows the long ee (lemma id, participle).
+  accepteren: { unstressedFinalSyllable: false }, // 103981, geaccepteerd
+  controleren: { unstressedFinalSyllable: false }, // 104936, gecontroleerd
+  fotograferen: { unstressedFinalSyllable: false }, // 103881, gefotografeerd
+  integreren: { unstressedFinalSyllable: false, auxiliary: 'both' }, // 106050, geïntegreerd, hebben/zijn
+  irriteren: { unstressedFinalSyllable: false }, // 106080, geïrriteerd
+  opereren: { unstressedFinalSyllable: false }, // 107263, geopereerd
+  organiseren: { unstressedFinalSyllable: false }, // 107275, georganiseerd
+  presenteren: { unstressedFinalSyllable: false }, // 107632, gepresenteerd
+  reageren: { unstressedFinalSyllable: false }, // 107776, gereageerd
+  regeren: { unstressedFinalSyllable: false }, // 103916, geregeerd
+  repareren: { unstressedFinalSyllable: false }, // 107866, gerepareerd
+  telefoneren: { unstressedFinalSyllable: false }, // 108672, getelefoneerd
 };
 
 export const inseparableVerbs: Readonly<Record<string, string>> = {
@@ -294,6 +308,7 @@ export const inseparableVerbs: Readonly<Record<string, string>> = {
   ontmoeten: 'ont', ontsnappen: 'ont', ontwikkelen: 'ont', veranderen: 'ver', verbeteren: 'ver', verdedigen: 'ver',
   verdienen: 'ver', vergelijken: 'ver', verhuizen: 'ver', verklaren: 'ver', vermoeden: 'ver', verrassen: 'ver',
   versturen: 'ver', vertalen: 'ver', vertellen: 'ver', vertrouwen: 'ver', verwachten: 'ver', verzamelen: 'ver',
+  beëindigen: 'be', // 104205, beëindigd
 };
 
 export interface DutchDerivative {
@@ -315,6 +330,22 @@ export const separableVerbs: Readonly<Record<string, DutchDerivative>> = {
   meenemen: { prefix: 'mee', base: 'nemen' },
   weggaan: { prefix: 'weg', base: 'gaan' },
   invriezen: { prefix: 'in', base: 'vriezen', auxiliary: 'hebben', personal: true },
+  // Separable verbs the spelling rules would read otherwise, each checked on woordenlijst.org (lemma id, participle,
+  // auxiliary): with a prefix whose default is inseparable (over, onder, mis), with a rest that begins with a vowel (op +
+  // eisen), or with a particle not on the list (tegemoet).
+  overblijven: { prefix: 'over', base: 'blijven', auxiliary: 'zijn' }, // 112646, overgebleven
+  overgaan: { prefix: 'over', base: 'gaan', auxiliary: 'both' }, // 112658, overgegaan
+  overnemen: { prefix: 'over', base: 'nemen', auxiliary: 'hebben' }, // 112686, overgenomen
+  overslaan: { prefix: 'over', base: 'slaan', auxiliary: 'both' }, // 112703, overgeslagen
+  overstappen: { prefix: 'over', base: 'stappen', auxiliary: 'both' }, // 112709, overgestapt
+  onderbrengen: { prefix: 'onder', base: 'brengen', auxiliary: 'hebben' }, // 112350, ondergebracht
+  onderduiken: { prefix: 'onder', base: 'duiken', auxiliary: 'both' }, // 112355, ondergedoken
+  misgaan: { prefix: 'mis', base: 'gaan', auxiliary: 'zijn' }, // 112052, misgegaan
+  mislopen: { prefix: 'mis', base: 'lopen', auxiliary: 'both' }, // 112056, misgelopen
+  opeisen: { prefix: 'op', base: 'eisen', auxiliary: 'hebben' }, // 103945, opgeëist
+  inademen: { prefix: 'in', base: 'ademen', auxiliary: 'hebben' }, // 111524, ingeademd
+  uitoefenen: { prefix: 'uit', base: 'oefenen', auxiliary: 'hebben' }, // 113400, uitgeoefend
+  tegemoetkomen: { prefix: 'tegemoet', base: 'komen', auxiliary: 'zijn' }, // 112973, tegemoetgekomen
 };
 
 export const inseparableDerivatives: Readonly<Record<string, DutchDerivative>> = {
@@ -389,6 +420,12 @@ export const dutchLoans: Readonly<Record<string, DutchLoan>> = {
   scoren: { stem: 'scoor', pastSuffix: 'd' },
   promoten: { stem: 'promoot', pastSuffix: 't' },
   'e-mailen': { stem: 'e-mail', pastSuffix: 'd' },
+  // English loans whose participle woordenlijst.org gives with the silent e of the English stem (lemma id, participle).
+  influencen: { stem: 'influence', pastSuffix: 't' }, // 937473, geïnfluencet
+  inlineskaten: { stem: 'inlineskate', pastSuffix: 't' }, // 110066, geïnlineskatet
+  insourcen: { stem: 'insource', pastSuffix: 't' }, // 152238, geïnsourcet
+  interfacen: { stem: 'interface', pastSuffix: 't' }, // 948341, geïnterfacet
+  internetdaten: { stem: 'internetdate', pastSuffix: 't' }, // 166364, geïnternetdatet
 };
 
 /**
@@ -586,7 +623,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   infecteren: { id: 106028, participle: 'geïnfecteerd' },
   infiltreren: { id: 106029, participle: 'geïnfiltreerd' },
   inflateren: { id: 167686, participle: 'geïnflateerd' },
-  influencen: { id: 937473, participle: 'geïnfluencet' },
   influenceren: { id: 106030, participle: 'geïnfluenceerd' },
   informatiseren: { id: 106031, participle: 'geïnformatiseerd' },
   informeren: { id: 106032, participle: 'geïnformeerd' },
@@ -595,7 +631,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   inhaleren: { id: 106034, participle: 'geïnhaleerd' },
   inhiberen: { id: 168929, participle: 'geïnhibeerd' },
   injecteren: { id: 106035, participle: 'geïnjecteerd' },
-  inlineskaten: { id: 110066, participle: 'geïnlineskatet' },
   innerveren: { id: 154730, participle: 'geïnnerveerd' },
   innoveren: { id: 106038, participle: 'geïnnoveerd' },
   inscriberen: { id: 901501, participle: 'geïnscribeerd' },
@@ -603,7 +638,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   insereren: { id: 159167, participle: 'geïnsereerd' },
   insinueren: { id: 106040, participle: 'geïnsinueerd' },
   insisteren: { id: 106041, participle: 'geïnsisteerd' },
-  insourcen: { id: 152238, participle: 'geïnsourcet' },
   inspecteren: { id: 106042, participle: 'geïnspecteerd' },
   inspireren: { id: 106043, participle: 'geïnspireerd' },
   instagrammen: { id: 179813, participle: 'geïnstagramd' },
@@ -617,7 +651,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   instrumenteren: { id: 106049, participle: 'geïnstrumenteerd' },
   instrumentvliegen: { id: 890736, participle: null },
   intaken: { id: 198825, participle: null },
-  integreren: { id: 106050, participle: 'geïntegreerd' },
   intenderen: { id: 106051, participle: 'geïntendeerd' },
   intensifiëren: { id: 110327, participle: 'geïntensifieerd' },
   intensiveren: { id: 106052, participle: 'geïntensiveerd' },
@@ -626,7 +659,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   intercepteren: { id: 106053, participle: 'geïntercepteerd' },
   interculturaliseren: { id: 162414, participle: 'geïnterculturaliseerd' },
   interesseren: { id: 106054, participle: 'geïnteresseerd' },
-  interfacen: { id: 948341, participle: 'geïnterfacet' },
   interfereren: { id: 106055, participle: 'geïnterfereerd' },
   interliniëren: { id: 110328, participle: 'geïnterlinieerd' },
   intermediëren: { id: 160134, participle: 'geïntermedieerd' },
@@ -636,7 +668,6 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   interneren: { id: 106059, participle: 'geïnterneerd' },
   internetbankieren: { id: 110261, participle: 'geïnternetbankierd' },
   internetbellen: { id: 179905, participle: 'geïnternetbeld' },
-  internetdaten: { id: 166364, participle: 'geïnternetdatet' },
   internetgokken: { id: 179953, participle: null },
   internetparkeren: { id: 180000, participle: null },
   internetsparen: { id: 180030, participle: null },
@@ -751,6 +782,25 @@ export const ambiguousPrefixVerbs: Readonly<Record<string, Readings>> = {
     prefix: 'onder',
     separable: { meaning: 'óndergaan: to go down, to perish', auxiliary: 'zijn' },
     inseparable: { meaning: 'ondergáán: to undergo, to endure', auxiliary: 'hebben' },
+  },
+  // Lemma ids, and the gloss woordenlijst.org gives each reading: 113755 'als voorbeeld spellen', 109704 'voorzeggen;
+  // beloven'.
+  voorspellen: {
+    prefix: 'voor',
+    separable: { meaning: 'vóórspellen: to spell out as an example', auxiliary: 'hebben' },
+    inseparable: { meaning: 'voorspéllen: to predict, to foretell', auxiliary: 'hebben' },
+  },
+  // 111412 'verder zoeken', 105220 'zoekend doorlopen'.
+  doorzoeken: {
+    prefix: 'door',
+    separable: { meaning: 'dóórzoeken: to go on searching', auxiliary: 'hebben' },
+    inseparable: { meaning: 'doorzóéken: to search through', auxiliary: 'hebben' },
+  },
+  // 112227 'rondgeven', 106982 'omringen'.
+  omgeven: {
+    prefix: 'om',
+    separable: { meaning: 'ómgeven: to hand round', auxiliary: 'hebben' },
+    inseparable: { meaning: 'omgéven: to surround', auxiliary: 'hebben' },
   },
 };
 
@@ -922,6 +972,16 @@ function restOf(verb: string): Rest {
   return prefix === undefined ? plain : { ...plain, prefix, assumed: true };
 }
 
+/**
+ * Whether the last syllable of a verb on the no-split list is unstressed, as its recorded participle shows: a long e
+ * written double before the last consonant (geïnformeerd) is stressed; undefined for no record (the rules decide).
+ */
+function recordedStress(verb: string): boolean | undefined {
+  const participle = lookup(simplexVerbs, verb)?.participle;
+  if (!participle || !/e[lrnm]en$/u.test(verb)) return undefined;
+  return !/ee[lrnm][dt]$/u.test(participle);
+}
+
 /** The prefix an unlisted lemma is read with: the one it is spelled with, none for a verb on the no-split list. */
 export function inferredPrefix(lemma: string): ImpliedPrefix | null {
   return lookup(simplexVerbs, lemma) === undefined ? spelledPrefix(lemma) : null;
@@ -996,7 +1056,7 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   const stem = presentStem({
     infinitive: base,
     listed: hints.stem ?? loan?.stem ?? entry.stem,
-    unstressed: hints.unstressedFinalSyllable ?? entry.unstressedFinalSyllable,
+    unstressed: hints.unstressedFinalSyllable ?? entry.unstressedFinalSyllable ?? recordedStress(base),
     prefix: rest && !rest.inner ? rest.prefix : derivative ? lookup(inseparableVerbs, base) ?? '' : inseparable,
   });
   const reflexive = expressedReflexive || options.reflexive === true || entry.reflexive === true;

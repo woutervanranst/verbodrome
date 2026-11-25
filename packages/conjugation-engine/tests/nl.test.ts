@@ -184,6 +184,17 @@ describe('Dutch grammatical generation', () => {
       for (const infinitive of ['naderen', 'informeren', 'missioneren']) expect(assumesPrefix(infinitive), infinitive).toBe(false);
     });
 
+    it('gives every participle the lexicon data records as its check (N4)', () => {
+      const recorded = [...Object.entries(simplexVerbs), ...Object.entries(dualInseparableVerbs)]
+        .flatMap(([lemma, { participle }]) => participle === null ? [] : [[lemma, participle] as const]);
+      expect(recorded.length).toBeGreaterThan(150);
+      const wrong = recorded.flatMap(([lemma, participle]) => {
+        const generated = conjugate({ language: 'nl', infinitive: lemma, mood: 'participle', tense: 'past' }).forms.map(form => form.text);
+        return generated.join() === participle ? [] : [`${lemma}: ${participle}, not ${generated.join()}`];
+      });
+      expect(wrong).toEqual([]);
+    });
+
     it('keeps the no-split list to verbs the other guards would read with a prefix, none of them in the lexicon', () => {
       const listed = Object.keys(simplexVerbs);
       expect(listed.length).toBeGreaterThan(100);
