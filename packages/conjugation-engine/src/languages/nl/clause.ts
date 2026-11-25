@@ -91,13 +91,14 @@ export const dutchClause: ClauseGrammar<DutchLexeme> = {
       const features = word.cell?.kind === 'nonFinite' ? nonFiniteFeatures[word.cell.form] ?? {} : {};
       if (word.role !== 'lexicalVerb' || (!inner && outer === null)) return wordPart(rendering, word, features);
       const attached = (outer?.text ?? '') + inner + word.text;
-      // A participle without ge- after an inseparable prefix already shows the whole word in its last step.
+      // A participle without ge- after an inseparable prefix and no separable particle already shows the whole word in its last step.
       if (word.steps.at(-1)?.after === attached) return wordPart(rendering, { ...word, text: attached }, features);
       // The unstressed prefix of the rest first (kocht → verkocht), then the particle (verkocht → uitverkocht).
       const steps = [...word.steps];
       let text = word.text;
       if (inner) {
-        steps.push(step(dutchRules['nl.clause.prefix-attached'], text, inner + text, { prefix: inner }));
+        // A participle's ge-blocked step already shows the prefix before the word (verkocht).
+        if (word.steps.at(-1)?.after !== inner + text) steps.push(step(dutchRules['nl.clause.prefix-attached'], text, inner + text, { prefix: inner }));
         text = inner + text;
       }
       if (outer) {

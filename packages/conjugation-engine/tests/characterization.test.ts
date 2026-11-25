@@ -31,10 +31,11 @@ const NL_QUERY_COUNT = 1478;
  */
 const LINE_ENTRY_COUNT = 44;
 /**
- * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56) and of the lexicon
- * corrections of wrong Dutch that followed it (44).
+ * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56), of the lexicon
+ * corrections of wrong Dutch that followed it (44), and of the unstressed prefix read from the spelling of an unlisted
+ * verb (bezorpelen, verzorpen: 8).
  */
-const BLOCK_ENTRY_COUNT = 100;
+const BLOCK_ENTRY_COUNT = 108;
 /** Pinned: the Dutch default-unprefixed sentence, reworded because it was no longer true (final review fix wave). */
 const SENTENCE_ENTRY_COUNT = 1;
 

@@ -21,16 +21,21 @@ export const dutchRules = defineRules({
   'nl.classify.loan': { stage: 'classify' },
   'nl.classify.separable': { stage: 'classify', params: { particle: 'text' } },
   'nl.classify.inseparable': { stage: 'classify', params: { prefix: 'text' } },
+  // An infinitive that is another infinitive of a listed verb (wezen: zijn): {before} is the written one, {after} the verb.
+  'nl.classify.alternative-infinitive': { stage: 'classify', kind: 'lexical' },
   'nl.classify.default-weak': { stage: 'classify', kind: 'assumption' },
   'nl.classify.default-syllables': { stage: 'classify', kind: 'assumption' },
   'nl.classify.default-hebben': { stage: 'classify', kind: 'assumption' },
+  // A verb read as the derivative of a listed base, which gives the perfect auxiliary: {base} is that verb.
+  'nl.classify.auxiliary-inherited': { stage: 'classify', kind: 'assumption', params: { base: 'text', auxiliary: 'text' } },
   'nl.classify.default-unprefixed': { stage: 'classify', kind: 'assumption' },
   'nl.classify.assume-separable': { stage: 'classify', kind: 'assumption', params: { particle: 'text' } },
   // A dual prefix read by its default (`dualPrefixCounts`): separable, or kept on the verb; {why} is most, close or rest.
   'nl.classify.assume-dual-separable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
   'nl.classify.assume-inseparable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', why: 'text' } },
-  // The rest of a separable verb, not in the lexicon, read with the unstressed prefix it starts with (bereiden).
-  'nl.classify.assume-rest-prefix': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
+  // A verb or the rest of a separable verb, not in the lexicon, read with the unstressed prefix it starts with (vermoeien,
+  // bereiden in voorbereiden); {split} is yes in a separable verb, whose override also needs the separable prefix.
+  'nl.classify.assume-rest-prefix': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', split: 'text' } },
   // availability: {before} is the lemma.
   'nl.avail.impersonal': unavailable,
   'nl.avail.singular-only': unavailable,
