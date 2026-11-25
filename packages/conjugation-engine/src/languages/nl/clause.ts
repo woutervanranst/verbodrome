@@ -23,7 +23,7 @@ import { grammaticalPart, itemAt } from '../../parts.js';
 import type { ConjugationPart, PartFeatures } from '../../types.js';
 import type { DutchLexeme } from './lexicon.js';
 import { afterVerb, formal, isSecondSingularPresent, spoken } from './paradigms.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 
 const reflexivePronouns = ['me', 'je', 'zich', 'ons', 'jullie', 'zich'] as const;
 const spokenInfinitive = 'Spoken infinitive alternative to zijn.';

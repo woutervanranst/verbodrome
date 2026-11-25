@@ -1,13 +1,13 @@
 /**
  * The truth of Dutch explanations: the full English and Dutch text of every step, in order and with the part it belongs
  * to, for everyday forms, analyses and unavailable targets. Together they use every Dutch rule, and they pin each case a
- * review found false (noted per case: C1-C6, I1-I4 and M1-M7 of the Task 8 review). A wording change is a visible diff
- * here. The characterization snapshot stores no steps, so nothing else compares explanations.
+ * review found false (noted per case: C1-C6, I1-I4 and M1-M7 of the Task 8 review), and the two behaviour changes of the
+ * switch (split particle verbs, verbs with two readings). A wording change is a visible diff here. The characterization snapshot stores no steps, so nothing else compares explanations.
  */
 import { describe, expect, it } from 'vitest';
 import type { Explainable } from '../../src/i18n/explain.js';
-import { dutchRules } from '../../src/languages/nl/rule-table.js';
-import { shadowDutch } from './shadow-engine.js';
+import { dutchRules } from '../../src/languages/nl/rules.js';
+import { engine } from '../../src/default-engine.js';
 
 interface Pinned {
   readonly verb: string;
@@ -34,7 +34,7 @@ const pinned: readonly Pinned[] = [
       'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
       'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
       "Het werkwoord: We nemen aan dat zorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-      'Het werkwoord: We zoeken in zorpen geen scheidbaar deel of voorvoegsel, want aan de spelling zie je niet of een werkwoord scheidbaar is, dus behandelen we het als een werkwoord zonder voorvoegsel.',
+      'Het werkwoord: zorpen staat niet in de lijst en we lezen er geen scheidbaar deel of voorvoegsel in, dus behandelen we het als een werkwoord zonder voorvoegsel. Aan de spelling zie je niet altijd of een werkwoord scheidbaar is.',
     ],
   },
   {
@@ -851,10 +851,102 @@ const pinned: readonly Pinned[] = [
       'Beschikbaarheid: zullen heeft geen voltooid deelwoord, geen gebiedende wijs en geen tijden die met zullen of een voltooid deelwoord gevormd worden.',
     ],
   },
+  {
+    // an unknown verb split at a separable particle (change 1)
+    verb: 'opzorpen', query: {}, analysis: true,
+    en: [
+      'The verb: opzorpen is a separable verb: op carries the stress and can stand apart from the verb.',
+      'The verb: An unlisted Dutch verb defaults to the weak native model.',
+      'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
+      'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+      'The verb: opzorpen is not in the lexicon and starts with the separable particle op, so it is conjugated as a separable verb. If op- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
+    ],
+    nl: [
+      'Het werkwoord: opzorpen is een scheidbaar werkwoord: op krijgt de klemtoon en kan los van het werkwoord staan.',
+      'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
+      "Het werkwoord: We nemen aan dat opzorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
+      'Het werkwoord: opzorpen staat niet in de lijst en begint met het scheidbare deel op, dus we vervoegen het als scheidbaar werkwoord: op komt los van het werkwoord. Blijft op- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+    ],
+  },
+  {
+    // ik zorp op: the split verb
+    verb: 'opzorpen', query: { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }, form: 'ik zorp op',
+    en: [
+      'zorp: Take -en off zorpen: zorp-.',
+      'zorp: 1st person singular present: the stem alone, zorp.',
+      'The whole form: The subject is ik.',
+      'The whole form: The separable part op goes to the end of the clause.',
+    ],
+    nl: [
+      'zorp: Haal -en van zorpen af: zorp-.',
+      'zorp: Tegenwoordige tijd, 1e persoon enkelvoud: alleen de stam, zorp.',
+      'De hele vorm: Het onderwerp is ik.',
+      'De hele vorm: Het scheidbare deel op komt achteraan in de zin.',
+    ],
+  },
+  {
+    // an unknown verb with a dual prefix, taken as inseparable (change 1)
+    verb: 'overwinnen', query: {}, analysis: true,
+    en: [
+      'The verb: overwinnen starts with the unstressed prefix over-, which never splits off, so the past participle gets no ge-.',
+      'The verb: winnen is an irregular verb: its past tense, won, is in the verb list.',
+      'The verb: overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
+    ],
+    nl: [
+      'Het werkwoord: overwinnen begint met het onbeklemtoonde voorvoegsel over-, dat nooit loskomt, dus het voltooid deelwoord krijgt geen ge-.',
+      'Het werkwoord: winnen is een onregelmatig werkwoord: de verleden tijd, won, staat in de werkwoordenlijst.',
+      'Het werkwoord: overwinnen staat niet in de lijst en begint met over-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn: we nemen aan dat het een voorvoegsel is dat altijd aan het werkwoord vast blijft. Is over hier scheidbaar, geef het dan op als scheidbaar deel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+    ],
+  },
+  {
+    // overwonnen
+    verb: 'overwinnen', query: { mood: 'participle', tense: 'past' }, form: 'overwonnen',
+    en: [
+      'overwonnen: winnen has an irregular past participle: gewonnen.',
+      'overwonnen: After the prefix over- the past participle has no ge-: overwonnen.',
+    ],
+    nl: [
+      'overwonnen: winnen heeft een onregelmatig voltooid deelwoord: gewonnen.',
+      'overwonnen: Na het voorvoegsel over- krijgt het voltooid deelwoord geen ge-: overwonnen.',
+    ],
+  },
+  {
+    // a lemma with a separable and an inseparable reading (change 2)
+    verb: 'voorkomen', query: {}, analysis: true,
+    en: [
+      'The verb (separable): voorkomen is a separable verb: voor carries the stress and can stand apart from the verb.',
+      'The verb (separable): komen is an irregular verb: its past tense, kwam, is in the verb list.',
+      'The verb (inseparable): voorkomen starts with the unstressed prefix voor-, which never splits off, so the past participle gets no ge-.',
+      'The verb (inseparable): komen is an irregular verb: its past tense, kwam, is in the verb list.',
+    ],
+    nl: [
+      'Het werkwoord (scheidbaar): voorkomen is een scheidbaar werkwoord: voor krijgt de klemtoon en kan los van het werkwoord staan.',
+      'Het werkwoord (scheidbaar): komen is een onregelmatig werkwoord: de verleden tijd, kwam, staat in de werkwoordenlijst.',
+      'Het werkwoord (onscheidbaar): voorkomen begint met het onbeklemtoonde voorvoegsel voor-, dat nooit loskomt, dus het voltooid deelwoord krijgt geen ge-.',
+      'Het werkwoord (onscheidbaar): komen is een onregelmatig werkwoord: de verleden tijd, kwam, staat in de werkwoordenlijst.',
+    ],
+  },
+  {
+    // hij voorkomt: the inseparable reading
+    verb: 'voorkomen', query: { mood: 'indicative', tense: 'present', person: 3, number: 'singular' }, form: 'hij voorkomt',
+    en: [
+      'voorkomt: The stem of komen is kom-, as given for this verb.',
+      'voorkomt: 3rd person singular present: stem + t, komt.',
+      'voorkomt: voor- is an inseparable prefix and always stays in front of the verb: komt becomes voorkomt.',
+      'The whole form: The subject is hij.',
+    ],
+    nl: [
+      'voorkomt: De stam van komen is kom-, zoals die voor dit werkwoord is opgegeven.',
+      'voorkomt: Tegenwoordige tijd, 3e persoon enkelvoud: stam + t, komt.',
+      'voorkomt: voor- is een onscheidbaar voorvoegsel en staat altijd vast vóór het werkwoord: komt wordt voorkomt.',
+      'De hele vorm: Het onderwerp is hij.',
+    ],
+  },
 ];
 
 function subjectOf({ verb, query, form, analysis }: Pinned): Explainable {
-  const result = shadowDutch.conjugate({ language: 'nl', infinitive: verb, ...query });
+  const result = engine.conjugate({ language: 'nl', infinitive: verb, ...query });
   const subject = form !== undefined ? result.forms.find(item => item.text === form) : analysis ? result.analysis : result.unavailableTargets[0];
   if (subject === undefined) throw new Error(`${verb} ${JSON.stringify(query)} has no ${form ?? 'unavailable target'}.`);
   return subject;
@@ -862,7 +954,7 @@ function subjectOf({ verb, query, form, analysis }: Pinned): Explainable {
 
 /** Each step as `<section title>: <text>`, in order. */
 const lines = (subject: Explainable, locale: string): string[] =>
-  shadowDutch.explain('nl', subject, locale).sections.flatMap(section => section.steps.map(s => `${section.title}: ${s.text}`));
+  engine.explain('nl', subject, locale).sections.flatMap(section => section.steps.map(s => `${section.title}: ${s.text}`));
 
 describe('Dutch explanations', () => {
   it.each(pinned.map(item => [item.form ?? `${item.verb} ${item.analysis ? 'analysis' : 'unavailable'}`, item] as const))('%s', (_, item) => {
@@ -872,7 +964,7 @@ describe('Dutch explanations', () => {
   });
 
   it('uses every Dutch rule', () => {
-    const used = new Set(pinned.flatMap(item => shadowDutch.explain('nl', subjectOf(item), 'en').sections.flatMap(section => section.steps.map(s => s.rule))));
+    const used = new Set(pinned.flatMap(item => engine.explain('nl', subjectOf(item), 'en').sections.flatMap(section => section.steps.map(s => s.rule))));
     expect(Object.keys(dutchRules).filter(rule => !used.has(rule))).toEqual([]);
     expect(pinned.length).toBeGreaterThanOrEqual(40);
   });

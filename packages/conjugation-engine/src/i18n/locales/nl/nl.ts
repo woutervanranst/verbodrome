@@ -3,9 +3,16 @@
  * grammar (stam, uitgang, zwak en sterk werkwoord, voltooid deelwoord). A message may use the rule's params and
  * {before} / {after}.
  */
-import type { dutchRules } from '../../../languages/nl/rule-table.js';
+import type { dutchRules } from '../../../languages/nl/rules.js';
+
+/** De teksten van de patroonlabels van de twee lezingen van een werkwoord als voorkomen. */
+const labels = {
+  'nl.label.pattern.separable': 'scheidbaar',
+  'nl.label.pattern.inseparable': 'onscheidbaar',
+} as const;
 
 export const dutch = {
+  ...labels,
   'nl.classify.loan': '{before} is een werkwoord dat uit het Engels geleend is, dus de stam is de stam die ervoor is opgegeven en wordt niet met de Nederlandse regels gevormd.',
   'nl.classify.irregular': '{before} is een onregelmatig werkwoord: de verleden tijd, {after}, staat in de werkwoordenlijst.',
   'nl.classify.half-irregular': '{before} is half onregelmatig: de verleden tijd is regelmatig, het voltooid deelwoord {after} staat in de werkwoordenlijst.',
@@ -15,7 +22,9 @@ export const dutch = {
   'nl.classify.default-weak': '{before} staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
   'nl.classify.default-syllables': 'De stam van {before} schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
   'nl.classify.default-hebben': "We nemen aan dat {before} in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
-  'nl.classify.default-unprefixed': 'We zoeken in {before} geen scheidbaar deel of voorvoegsel, want aan de spelling zie je niet of een werkwoord scheidbaar is, dus behandelen we het als een werkwoord zonder voorvoegsel.',
+  'nl.classify.assume-separable': '{before} staat niet in de lijst en begint met het scheidbare deel {particle}, dus we vervoegen het als scheidbaar werkwoord: {particle} komt los van het werkwoord. Blijft {particle}- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+  'nl.classify.assume-inseparable': '{before} staat niet in de lijst en begint met {prefix}-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn: we nemen aan dat het een voorvoegsel is dat altijd aan het werkwoord vast blijft. Is {prefix} hier scheidbaar, geef het dan op als scheidbaar deel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+  'nl.classify.default-unprefixed': '{before} staat niet in de lijst en we lezen er geen scheidbaar deel of voorvoegsel in, dus behandelen we het als een werkwoord zonder voorvoegsel. Aan de spelling zie je niet altijd of een werkwoord scheidbaar is.',
   'nl.stem.drop-en': 'Haal -en van {before} af: {after}-.',
   'nl.stem.undouble-consonant': 'Aan het eind van een woord schrijf je geen dubbele medeklinker, dus {before}- wordt {after}-.',
   'nl.stem.lengthen-vowel': 'Een lange klank in een gesloten lettergreep schrijf je met twee klinkers, dus {before}- wordt {after}-.',
@@ -61,4 +70,4 @@ export const dutch = {
   'nl.clause.particle-final': 'Het scheidbare deel {particle} komt achteraan in de zin.',
   'nl.clause.particle-attached': '{particle} wordt aan het werkwoord vastgeschreven: {before} wordt {after}.',
   'nl.clause.prefix-attached': '{prefix}- is een onscheidbaar voorvoegsel en staat altijd vast vóór het werkwoord: {before} wordt {after}.',
-} as const satisfies Record<keyof typeof dutchRules, string>;
+} as const satisfies Record<keyof typeof dutchRules | keyof typeof labels, string>;

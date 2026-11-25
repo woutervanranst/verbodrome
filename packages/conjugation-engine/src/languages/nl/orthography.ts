@@ -10,7 +10,7 @@ import { one } from '../../core/fork.js';
 import type { JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
 import type { DutchLexeme } from './lexicon.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 
 export type SpellingContext = { readonly lexeme: DutchLexeme; readonly cell: Cell };
 

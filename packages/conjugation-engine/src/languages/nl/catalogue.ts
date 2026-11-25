@@ -1,5 +1,6 @@
 import { allPersons, defaultSubjectsFor, moodEntries, noPersons } from '../../core/pack.js';
 import type { CatalogueEntry, SubjectSlot } from '../../core/pack.js';
+import type { DutchSubject } from './spec.js';
 
 export const dutchCatalogue: readonly CatalogueEntry[] = Object.freeze([
   ...moodEntries('indicative', 'Aantonende wijs', allPersons, [
@@ -35,7 +36,7 @@ export const dutchSubjects: readonly SubjectSlot[] = Object.freeze([
   { id: '2pl', person: 2, number: 'plural', pronoun: 'jullie', default: true },
   { id: '3pl', person: 3, number: 'plural', pronoun: 'zij', default: true },
   { id: '3pl.ze', person: 3, number: 'plural', pronoun: 'ze', default: false },
-] satisfies SubjectSlot[]);
+] satisfies (SubjectSlot & { readonly id: DutchSubject })[]);
 
 /**
  * The slots a query expands: with the `pronoun` option, every slot with that pronoun (`zij` and `ze` are a singular and

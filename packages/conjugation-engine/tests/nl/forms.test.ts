@@ -1,16 +1,17 @@
 /**
  * Dutch forms from the staged grammar, step by step: endings and 't kofschip, ge- and its exceptions, a compound tense,
  * the forms after the verb, particles, reflexive pronouns, the formal u, wezen, the hebben/zijn condition and the forms
- * that do not exist. The shadow test checks every snapshot query's output; this file pins how the forms are explained.
+ * that do not exist. The characterization test checks every snapshot query's output; this file pins how the forms are
+ * explained.
  */
 import { describe, expect, it } from 'vitest';
 import type { DerivationStep } from '../../src/core/derivation.js';
 import { dutchExceptions } from '../../src/languages/nl/lexicon.js';
+import { conjugate as conjugateAny, explain } from '../../src/index.js';
 import type { ConjugatedForm, ConjugationResult } from '../../src/types.js';
-import { shadowDutch } from './shadow-engine.js';
 
 function conjugate(infinitive: string, options: Readonly<Record<string, unknown>> = {}): ConjugationResult {
-  return shadowDutch.conjugate({ language: 'nl', infinitive, ...options });
+  return conjugateAny({ language: 'nl', infinitive, ...options } as Parameters<typeof conjugateAny>[0]);
 }
 
 /** The forms of one mood, tense, person and number. */
@@ -23,7 +24,7 @@ const rules = (steps: readonly DerivationStep[] | undefined): string[] => (steps
 const explained = (form: ConjugatedForm): Record<string, string[]> => ({
   ...Object.fromEntries(form.parts.map(part => [part.text, rules(part.steps)])), form: rules(form.steps),
 });
-const english = (form: ConjugatedForm): string[] => shadowDutch.explain('nl', form, 'en').sections.flatMap(section => section.steps.map(s => s.text));
+const english = (form: ConjugatedForm): string[] => explain('nl', form, 'en').sections.flatMap(section => section.steps.map(s => s.text));
 const texts = (forms: readonly ConjugatedForm[]): string[] => forms.map(form => form.text);
 
 describe('Dutch endings and spelling', () => {

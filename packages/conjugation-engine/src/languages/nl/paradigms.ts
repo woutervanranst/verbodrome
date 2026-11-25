@@ -23,7 +23,7 @@ import type { ResolvedTarget } from '../../types.js';
 import { inseparableVerbs } from './lexicon.js';
 import type { DutchLexeme } from './lexicon.js';
 import { dentals } from './orthography.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 
 export type FiniteCell = Extract<Cell, { kind: 'finite' }>;
 

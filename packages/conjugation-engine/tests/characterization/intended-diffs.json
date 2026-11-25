@@ -1,1 +1,338 @@
-[]
+[
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"doorlopen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): doorlopen has a separable reading, dóórlopen 'to walk on, to wear out by walking' (hij loopt door, heeft or is doorgelopen), and an inseparable one, doorlópen 'to pass through, to go through' (hij doorloopt, heeft or is doorlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=doorlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"neerzetten\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): neerzetten is not in the lexicon and starts with neer, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zetten is a verb with a consonant first and a root with a vowel; neerzetten is not on the no-split list), so it is conjugated as a separable verb: ik zet neer, neergezet (frozen: one weak word, ik neerzet, geneerzet).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"ondergaan\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): ondergaan has a separable reading, óndergaan 'to go down, to perish' (hij gaat onder, is ondergegaan), and an inseparable one, ondergáán 'to undergo, to endure' (hij ondergaat, heeft ondergaan). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=ondergaan"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"opzorpen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): opzorpen is not in the lexicon and starts with op, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (zorpen is an invented weak verb with a consonant first and a root with a vowel; opzorpen is not on the no-split list), so it is conjugated as a separable verb: ik zorp op, opgezorpt (frozen: one weak word, ik opzorp, geopzorpt).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overleggen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overleggen has a separable reading, óverleggen 'to hand over, to show' (hij legt over, heeft overgelegd), and an inseparable one, overléggen 'to discuss, to confer' (hij overlegt, heeft overlegd). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overleggen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overlopen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): overlopen has a separable reading, óverlopen 'to defect, to overflow' (hij loopt over, is overgelopen), and an inseparable one, overlópen 'to walk all over, to visit too often' (hij overloopt, heeft overlopen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=overlopen"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"teruggeven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): teruggeven is not in the lexicon and starts with terug, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; teruggeven is not on the no-split list), so it is conjugated as a separable verb: ik geef terug, gaf terug, teruggegeven (frozen: one weak word, ik teruggeef, geteruggeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toegeven\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toegeven is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (geven is a verb in the lexicon; toegeven is not on the no-split list), so it is conjugated as a separable verb: ik geef toe, gaf toe, toegegeven (frozen: one weak word, ik toegeef, getoegeefd).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"toekomen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): toekomen is not in the lexicon and starts with toe, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (komen is a verb in the lexicon; toekomen is not on the no-split list), so it is conjugated as a separable verb: ik kom toe, kwam toe, ben toegekomen, with the zijn of komen (frozen: one weak word, ik toekoom, getoekoomd, with hebben).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"uitstellen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (particle-verb split): uitstellen is not in the lexicon and starts with uit, a separable particle on the closed e-ANS list that is never an unstressed prefix, and the other guards hold (stellen is a verb with a consonant first and a root with a vowel; uitstellen is not on the no-split list), so it is conjugated as a separable verb: ik stel uit, uitgesteld (frozen: one weak word, ik uitstel, geüitsteld).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 2 (a lemma with two readings): voorkomen has a separable reading, vóórkomen 'to occur, to appear, to seem' (hij komt voor, is voorgekomen), and an inseparable one, voorkómen 'to prevent' (hij voorkomt, heeft voorkomen). Both paradigms are now given, tagged separable and inseparable, with the meaning as condition and the auxiliary woordenlijst.org gives each reading; the frozen output was an AMBIGUOUS_CLASSIFICATION error.",
+    "source": "https://woordenlijst.org/zoeken/?q=voorkomen"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"inversion\":true,\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+  },
+  {
+    "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\"}",
+    "block": true,
+    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+  }
+]

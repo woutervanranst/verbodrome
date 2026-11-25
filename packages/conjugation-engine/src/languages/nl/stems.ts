@@ -7,7 +7,7 @@
 import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import { ConjugationError } from '../../errors.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 
 export interface PresentStem {
   /** The stem as written: werk, loop, leef, reis. */

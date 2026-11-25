@@ -12,7 +12,7 @@ import { ConjugationError } from '../../src/errors.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import type { Explainable } from '../../src/i18n/explain.js';
 import type { ConjugationResult } from '../../src/types.js';
-import { shadowDutch } from '../nl/shadow-engine.js';
+import { engine } from '../../src/default-engine.js';
 
 interface Checked {
   readonly language: string;
@@ -25,7 +25,7 @@ const snapshotQueries = (language: string): Readonly<Record<string, unknown>>[] 
   JSON.parse(readFileSync(new URL(`../characterization/${language}.queries.json`, import.meta.url), 'utf8')) as Readonly<Record<string, unknown>>[];
 
 const checked: readonly Checked[] = [
-  { language: 'nl', engine: shadowDutch, queries: snapshotQueries('nl') },
+  { language: 'nl', engine, queries: snapshotQueries('nl') },
 ];
 
 const leftover = /[{}]|undefined/u;

@@ -7,7 +7,7 @@
  */
 import type { ChainElement, Periphrasis } from '../../core/periphrasis.js';
 import type { DutchLexeme } from './lexicon.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 
 const present = { mood: 'indicative', tense: 'present' } as const;
 const past = { mood: 'indicative', tense: 'past' } as const;

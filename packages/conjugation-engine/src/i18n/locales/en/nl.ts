@@ -3,9 +3,16 @@
  * The four `default-*` assumptions and the four `avail` reasons are the exact sentences the Dutch analysis and unavailable
  * targets have always shown in English.
  */
-import type { dutchRules } from '../../../languages/nl/rule-table.js';
+import type { dutchRules } from '../../../languages/nl/rules.js';
+
+/** The texts of the pattern labels of the two readings of a lemma such as voorkomen. */
+const labels = {
+  'nl.label.pattern.separable': 'separable',
+  'nl.label.pattern.inseparable': 'inseparable',
+} as const;
 
 export const dutch = {
+  ...labels,
   'nl.classify.loan': '{before} is a verb borrowed from English, so its stem is the one given for it, not one formed by the Dutch stem rules.',
   'nl.classify.irregular': '{before} is an irregular verb: its past tense, {after}, is in the verb list.',
   'nl.classify.half-irregular': '{before} is half irregular: its past tense is regular, its past participle {after} is in the verb list.',
@@ -16,6 +23,8 @@ export const dutch = {
   'nl.classify.default-syllables': 'Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
   'nl.classify.default-hebben': 'An unlisted verb defaults to hebben; lexical meaning may require zijn.',
   'nl.classify.default-unprefixed': 'Separability is not inferred by stripping an unknown written prefix.',
+  'nl.classify.assume-separable': '{before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb. If {particle}- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
+  'nl.classify.assume-inseparable': '{before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb. If {prefix} is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
   'nl.stem.drop-en': 'Take -en off {before}: {after}-.',
   'nl.stem.undouble-consonant': 'A word does not end in a double consonant, so {before}- becomes {after}-.',
   'nl.stem.lengthen-vowel': 'A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-.',
@@ -61,4 +70,4 @@ export const dutch = {
   'nl.clause.particle-final': 'The separable part {particle} goes to the end of the clause.',
   'nl.clause.particle-attached': '{particle} is written together with the verb: {before} becomes {after}.',
   'nl.clause.prefix-attached': '{prefix}- is an inseparable prefix and always stays in front of the verb: {before} becomes {after}.',
-} as const satisfies Record<keyof typeof dutchRules, string>;
+} as const satisfies Record<keyof typeof dutchRules | keyof typeof labels, string>;

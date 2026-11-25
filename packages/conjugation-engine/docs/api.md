@@ -112,11 +112,11 @@ French `stems` supports `singular`, `plural`, `thirdPlural`, `future`, `past`, `
 | `inseparablePrefix` | Verified or explicitly supplied inseparable prefix |
 | `stems` | Written stem, principal parts, stress, and suffix hints described below |
 
-Pronouns constrain compatible person/number slots. `u` means formal second-person singular chart context, not an implicit plural addressee. `zij` and `ze` can match third-person singular or plural; omission uses conventional chart pronouns. Impersonal weather verbs use `het`. Bare past participles remain lexical forms without an invented subject/reflexive pronoun.
+Dutch targets are subject slots: `1sg`, `2sg`, `3sg`, `1pl`, `2pl`, `3pl` by default, and `2sg.je`, `2sg.u`, `3sg.zij`, `3sg.ze`, `3sg.het`, `1pl.we`, `3pl.ze` on request through the common `subject` option. A `pronoun` selects every slot with that pronoun. `u` means formal second-person singular chart context, not an implicit plural addressee. `zij` and `ze` can match third-person singular or plural; omission uses conventional chart pronouns. Impersonal weather verbs use `het`. Bare past participles remain lexical forms without an invented subject/reflexive pronoun.
 
 Dutch `stems` supports `stem`, `pastSingular`, `pastPlural`, `pastParticiple`, `pastSuffix: 'd' | 't' | 'both'`, and `unstressedFinalSyllable`. An unknown `strong` verb requires past-singular and past-participle principal parts; a plural hint avoids unjustified inferred vowel/voicing alternation. An unknown `loan` requires an explicit written/pronounced stem, including any silent `e`. Prefix hints and lexical principal parts apply to the base verb when a derivative is composed.
 
-Unknown prefix strings are not stripped automatically. Ambiguous known spellings such as `voorkomen` require a separable/inseparable hint. Strong verbs and verified prefixed senses reject incompatible weak-class, prefix, or auxiliary hints.
+An unknown verb that starts with a separable particle is split (`opzorpen`: ik zorp op) and one that starts with a prefix that can also be unstressed is taken as inseparable (`overwinnen`), each recorded as an assumption; any other unknown prefix is not stripped. A prefix hint decides instead, and `classHint` keeps the verb one word. A lemma that is separable in one sense and inseparable in another (`voorkomen`) returns both paradigms, each with its `variant.pattern`, its meaning as `variant.condition` and its own auxiliary; a prefix hint keeps one. Strong verbs and verified prefixed senses reject incompatible weak-class, prefix, or auxiliary hints. See [grammar/nl.md](grammar/nl.md).
 
 ```ts
 conjugate({

@@ -4,7 +4,7 @@
  * below was opened and checked to be the section named in its locator.
  */
 import type { Citation, Work } from '../../core/sources.js';
-import type { dutchRules } from './rule-table.js';
+import type { dutchRules } from './rules.js';
 
 export const dutchWorks = {
   'e-ans': {
@@ -49,6 +49,23 @@ const tenses = eAns('2.3.2.8.i De hoofdvormen en de werkwoordstijden: inleiding'
 const auxiliaryChoice = eAns('2.3.2.8.iv De keuze tussen hebben en zijn', 'ans0203020804lingtopic');
 /** The regular paradigms, with the subject pronouns and the form before je. */
 const regularVerbs = eAns('2.3.3 Overzicht van de vervoeging van de regelmatige werkwoorden', 'ans020303lingtopic');
+/** The closed lists of separable particles. */
+const particles = [
+  eAns('12.3.4.1 Samenkoppelingen met een partikel corresponderend met een adpositie', 'topic-16531765141029304'),
+  eAns('12.3.4.2 Samenkoppelingen met andere partikels', 'topic-19059235502398710'),
+];
+/** The particles that e-ANS also names as unstressed prefixes. */
+const dualPrefixes = [
+  eAns('12.3.2.1.5 Het voorvoegsel door-', 'topic-16131019751135534'),
+  eAns('12.3.2.1.6 Het voorvoegsel mis-', 'topic-10736514965277082'),
+  eAns('12.3.2.1.7 Het voorvoegsel om-', 'topic-19065733157797735'),
+  eAns('12.3.2.1.8 Het voorvoegsel onder-', 'topic-15955547301744486'),
+  eAns('12.3.2.1.9 Het voorvoegsel over-', 'topic-12953722418251955'),
+  eAns('12.3.4.1.1 Samenkoppelingen met aan (aanbídden)', 'topic-14781130780092856'),
+  eAns('12.3.4.1.2 Samenkoppelingen met achter (achtervólgen)', 'topic-12837118759979596'),
+  eAns('12.3.4.1.22 Samenkoppelingen met voor (voorkómen)', 'topic-16418926026532594'),
+  eAns('12.3.4.2.8 Samenkoppelingen met weer (weerspréken)', 'topic-17227872050078844'),
+];
 
 export const dutchCitations = {
   'nl.classify.irregular': [irregularVerbs, irregularB],
@@ -61,6 +78,8 @@ export const dutchCitations = {
   'nl.classify.default-syllables': [leidraad('11.1'), leidraad('2.1')],
   'nl.classify.default-hebben': auxiliaryChoice,
   'nl.classify.default-unprefixed': pastParticiple,
+  'nl.classify.assume-separable': [...particles, leidraad('7.2')],
+  'nl.classify.assume-inseparable': [...dualPrefixes, pastParticiple],
   'nl.stem.drop-en': [leidraad('11.1'), stem],
   'nl.stem.undouble-consonant': [leidraad('11.1'), leidraad('2.2')],
   'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('11.1')],

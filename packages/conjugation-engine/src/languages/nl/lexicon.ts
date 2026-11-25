@@ -14,7 +14,7 @@ import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
 import { itemAt } from '../../parts.js';
 import type { DutchConjugationOptions } from '../../types.js';
-import { dutchRules } from './rule-table.js';
+import { dutchRules } from './rules.js';
 import type { DutchStemHints } from './spec.js';
 import { presentStem } from './stems.js';
 import type { PresentStem } from './stems.js';
@@ -344,8 +344,242 @@ export const dutchLoans: Readonly<Record<string, DutchLoan>> = {
   'e-mailen': { stem: 'e-mail', pastSuffix: 'd' },
 };
 
-/** Lemmas that are separable in one sense and inseparable in another: a prefix hint must say which one is meant. */
-export const ambiguousPrefixVerbs: ReadonlySet<string> = new Set(['voorkomen', 'overleggen', 'doorlopen', 'overlopen', 'ondergaan']);
+/**
+ * The separable particles that are never an unstressed prefix: the closed lists of e-ANS 12.3.4.1 (particles that are
+ * also adpositions) and 12.3.4.2 (other particles, single and compound), without those that e-ANS also names as a
+ * prefix (`dualPrefixes`). An unlisted verb that starts with one is split: opzorpen, ik zorp op.
+ */
+export const separableParticles: readonly string[] = [
+  'af', 'bij', 'binnen', 'boven', 'buiten', 'heen', 'in', 'langs', 'mee', 'na', 'op', 'rond', 'tegen', 'toe', 'uit', 'voorbij',
+  'neer', 'samen', 'terecht', 'terug', 'thuis', 'voort', 'weg',
+  'achteraan', 'achteraf', 'vooraf', 'voorop', 'achterna', 'achterom', 'achterop', 'achteruit', 'omhoog', 'omlaag', 'vooruit',
+  'achterover', 'omver', 'onderuit', 'voorover', 'aaneen', 'bijeen', 'dooreen', 'ineen', 'opeen', 'uiteen',
+];
+
+/**
+ * The particles that e-ANS also names as unstressed prefixes: door-, mis-, om-, onder-, over- (12.3.2.1.5-9), aan
+ * (aanbídden, 12.3.4.1.1), achter (achtervólgen, 12.3.4.1.2), voor (voorkómen, 12.3.4.1.22) and weer (weerspréken,
+ * 12.3.4.2.8). An unlisted verb that starts with one is taken as inseparable (overwinnen: ik overwin), unless a hint
+ * says otherwise.
+ */
+export const dualPrefixes: readonly string[] = ['aan', 'achter', 'door', 'mis', 'om', 'onder', 'over', 'voor', 'weer'];
+
+/** How a verb on the no-split list was checked on woordenlijst.org: its lemma id, and its past participle there. */
+interface SimplexCheck {
+  /** The lemma id in the woordenlijst.org lexicon service (database gig_pro_wrdlst). */
+  readonly id: number;
+  /** The past participle woordenlijst.org gives, with ge- before the whole word; null when it lists only the infinitive. */
+  readonly participle: string | null;
+}
+
+/**
+ * The no-split list: verbs whose spelling begins with a particle's or a dual prefix's letters but which have neither
+ * (naderen, informeren, missioneren), so the inference reads them whole. Compiled from the woordenlijst.org lexicon
+ * service (https://woordenlijst.org/MolexServe/lexicon/find_wordform, database gig_pro_wrdlst) on 2026-11-25: for each
+ * separable particle and dual prefix, every verb it lists that starts with it and is not marked separable (sep=yes),
+ * and that the other guards would split or read with a prefix; for a dual prefix, only those whose participle has ge-
+ * before the whole word (gemissioneerd), as the others are rightly read with an unstressed prefix (overwonnen). Left
+ * out are the four whose participle shows the particle split off after all (weggeweest, voorafgebeeld,
+ * voorafgeschaduwd, voorafgespiegeld). Each entry records the check: its lemma id and its participle there.
+ */
+export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
+  achterklappen: { id: 103990, participle: 'geachterklapt' },
+  affecteren: { id: 149757, participle: 'geaffecteerd' },
+  afficheren: { id: 104012, participle: 'geafficheerd' },
+  affiliëren: { id: 110287, participle: 'geaffilieerd' },
+  affineren: { id: 166925, participle: 'geaffineerd' },
+  affirmeren: { id: 104013, participle: 'geaffirmeerd' },
+  affronteren: { id: 104014, participle: 'geaffronteerd' },
+  afrikaniseren: { id: 104015, participle: 'geafrikaniseerd' },
+  afrokappen: { id: 170549, participle: null },
+  afstandshamen: { id: 920185, participle: null },
+  afvalscheiden: { id: 170615, participle: null },
+  bovengisten: { id: 952304, participle: null },
+  bovenwinkelwonen: { id: 172972, participle: null },
+  incarneren: { id: 106015, participle: 'geïncarneerd' },
+  incasseren: { id: 106016, participle: 'geïncasseerd' },
+  inclineren: { id: 106017, participle: 'geïnclineerd' },
+  includeren: { id: 155086, participle: 'geïncludeerd' },
+  incorporeren: { id: 106018, participle: 'geïncorporeerd' },
+  incrimineren: { id: 157071, participle: 'geïncrimineerd' },
+  incuberen: { id: 163879, participle: 'geïncubeerd' },
+  indexbeleggen: { id: 179650, participle: null },
+  indexeren: { id: 106019, participle: 'geïndexeerd' },
+  indiceren: { id: 106020, participle: 'geïndiceerd' },
+  individualiseren: { id: 106021, participle: 'geïndividualiseerd' },
+  indoctrineren: { id: 106022, participle: 'geïndoctrineerd' },
+  indoornachtvliegen: { id: 179667, participle: null },
+  indoorroeien: { id: 179669, participle: null },
+  indoorvliegeren: { id: 179673, participle: null },
+  indosseren: { id: 106023, participle: 'geïndosseerd' },
+  induceren: { id: 106024, participle: 'geïnduceerd' },
+  industrialiseren: { id: 106025, participle: 'geïndustrialiseerd' },
+  infantiliseren: { id: 106027, participle: 'geïnfantiliseerd' },
+  infecteren: { id: 106028, participle: 'geïnfecteerd' },
+  infiltreren: { id: 106029, participle: 'geïnfiltreerd' },
+  inflateren: { id: 167686, participle: 'geïnflateerd' },
+  influencen: { id: 937473, participle: 'geïnfluencet' },
+  influenceren: { id: 106030, participle: 'geïnfluenceerd' },
+  informatiseren: { id: 106031, participle: 'geïnformatiseerd' },
+  informeren: { id: 106032, participle: 'geïnformeerd' },
+  infunderen: { id: 159117, participle: 'geïnfundeerd' },
+  infuseren: { id: 149436, participle: 'geïnfuseerd' },
+  inhaleren: { id: 106034, participle: 'geïnhaleerd' },
+  inhiberen: { id: 168929, participle: 'geïnhibeerd' },
+  injecteren: { id: 106035, participle: 'geïnjecteerd' },
+  inlineskaten: { id: 110066, participle: 'geïnlineskatet' },
+  innerveren: { id: 154730, participle: 'geïnnerveerd' },
+  innoveren: { id: 106038, participle: 'geïnnoveerd' },
+  inscriberen: { id: 901501, participle: 'geïnscribeerd' },
+  insemineren: { id: 106039, participle: 'geïnsemineerd' },
+  insereren: { id: 159167, participle: 'geïnsereerd' },
+  insinueren: { id: 106040, participle: 'geïnsinueerd' },
+  insisteren: { id: 106041, participle: 'geïnsisteerd' },
+  insourcen: { id: 152238, participle: 'geïnsourcet' },
+  inspecteren: { id: 106042, participle: 'geïnspecteerd' },
+  inspireren: { id: 106043, participle: 'geïnspireerd' },
+  instagrammen: { id: 179813, participle: 'geïnstagramd' },
+  installeren: { id: 106044, participle: 'geïnstalleerd' },
+  instantiëren: { id: 153287, participle: 'geïnstantieerd' },
+  instigeren: { id: 106045, participle: 'geïnstigeerd' },
+  institueren: { id: 106046, participle: 'geïnstitueerd' },
+  institutionaliseren: { id: 106047, participle: 'geïnstitutionaliseerd' },
+  instrueren: { id: 106048, participle: 'geïnstrueerd' },
+  instrumentaliseren: { id: 165096, participle: 'geïnstrumentaliseerd' },
+  instrumenteren: { id: 106049, participle: 'geïnstrumenteerd' },
+  instrumentvliegen: { id: 890736, participle: null },
+  intaken: { id: 198825, participle: null },
+  integreren: { id: 106050, participle: 'geïntegreerd' },
+  intenderen: { id: 106051, participle: 'geïntendeerd' },
+  intensifiëren: { id: 110327, participle: 'geïntensifieerd' },
+  intensiveren: { id: 106052, participle: 'geïntensiveerd' },
+  interacteren: { id: 150637, participle: 'geïnteracteerd' },
+  interageren: { id: 150412, participle: 'geïnterageerd' },
+  intercepteren: { id: 106053, participle: 'geïntercepteerd' },
+  interculturaliseren: { id: 162414, participle: 'geïnterculturaliseerd' },
+  interesseren: { id: 106054, participle: 'geïnteresseerd' },
+  interfacen: { id: 948341, participle: 'geïnterfacet' },
+  interfereren: { id: 106055, participle: 'geïnterfereerd' },
+  interliniëren: { id: 110328, participle: 'geïnterlinieerd' },
+  intermediëren: { id: 160134, participle: 'geïntermedieerd' },
+  internaliseren: { id: 106057, participle: 'geïnternaliseerd' },
+  internationaliseren: { id: 106058, participle: 'geïnternationaliseerd' },
+  interneppen: { id: 950142, participle: 'geïnternept' },
+  interneren: { id: 106059, participle: 'geïnterneerd' },
+  internetbankieren: { id: 110261, participle: 'geïnternetbankierd' },
+  internetbellen: { id: 179905, participle: 'geïnternetbeld' },
+  internetdaten: { id: 166364, participle: 'geïnternetdatet' },
+  internetgokken: { id: 179953, participle: null },
+  internetparkeren: { id: 180000, participle: null },
+  internetsparen: { id: 180030, participle: null },
+  internetten: { id: 110061, participle: 'geïnternet' },
+  internetwinkelen: { id: 165845, participle: 'geïnternetwinkeld' },
+  interpelleren: { id: 106060, participle: 'geïnterpelleerd' },
+  interpoleren: { id: 106061, participle: 'geïnterpoleerd' },
+  interpreteren: { id: 106062, participle: 'geïnterpreteerd' },
+  interpungeren: { id: 106063, participle: 'geïnterpungeerd' },
+  interrumperen: { id: 106064, participle: 'geïnterrumpeerd' },
+  interveniëren: { id: 110329, participle: 'geïntervenieerd' },
+  interviewen: { id: 106065, participle: 'geïnterviewd' },
+  intimideren: { id: 106066, participle: 'geïntimideerd' },
+  intoneren: { id: 106067, participle: 'geïntoneerd' },
+  intoxiceren: { id: 170091, participle: 'geïntoxiceerd' },
+  intrigeren: { id: 106068, participle: 'geïntrigeerd' },
+  introduceren: { id: 106069, participle: 'geïntroduceerd' },
+  intuberen: { id: 152942, participle: 'geïntubeerd' },
+  invalideren: { id: 106071, participle: 'geïnvalideerd' },
+  inventariseren: { id: 106072, participle: 'geïnventariseerd' },
+  inverteren: { id: 159448, participle: 'geïnverteerd' },
+  investeren: { id: 106073, participle: 'geïnvesteerd' },
+  investigeren: { id: 149869, participle: 'geïnvestigeerd' },
+  inviteren: { id: 106074, participle: 'geïnviteerd' },
+  involveren: { id: 106075, participle: 'geïnvolveerd' },
+  langstuderen: { id: 181642, participle: null },
+  meegolven: { id: 106733, participle: null },
+  meerderen: { id: 106736, participle: 'gemeerderd' },
+  meergeneratiewonen: { id: 182675, participle: null },
+  meerkatten: { id: 903780, participle: 'gemeerkat' },
+  meesmuilen: { id: 106737, participle: 'gemeesmuild' },
+  meesteren: { id: 106738, participle: 'gemeesterd' },
+  misinterpreteren: { id: 153160, participle: 'gemisinterpreteerd' },
+  missioneren: { id: 106826, participle: 'gemissioneerd' },
+  nachtbraken: { id: 106901, participle: 'genachtbraakt' },
+  nachtvliegen: { id: 106902, participle: null },
+  nachtvliegeren: { id: 179668, participle: null },
+  nachtzweten: { id: 51163, participle: null },
+  naderen: { id: 106903, participle: 'genaderd' },
+  nagelbijten: { id: 106904, participle: null },
+  nagelen: { id: 106905, participle: 'genageld' },
+  napperen: { id: 160932, participle: 'genappeerd' },
+  narcotiseren: { id: 106907, participle: 'genarcotiseerd' },
+  nasaleren: { id: 106909, participle: 'genasaleerd' },
+  nationaliseren: { id: 106911, participle: 'genationaliseerd' },
+  naturaliseren: { id: 106913, participle: 'genaturaliseerd' },
+  navelstaren: { id: 106914, participle: null },
+  navetteren: { id: 183663, participle: 'genavetteerd' },
+  navigeren: { id: 106915, participle: 'genavigeerd' },
+  nazificeren: { id: 948138, participle: 'genazificeerd' },
+  omberen: { id: 106977, participle: 'geomberd' },
+  omitteren: { id: 156163, participle: 'geomitteerd' },
+  opperen: { id: 107264, participle: 'geopperd' },
+  oppervlaktesurfen: { id: 184564, participle: null },
+  opponeren: { id: 107265, participle: 'geopponeerd' },
+  optimaliseren: { id: 107268, participle: 'geoptimaliseerd' },
+  tegenwindfietsen: { id: 948366, participle: null },
+  terugkoken: { id: 190272, participle: null },
+  thuisbankieren: { id: 108700, participle: 'gethuisbankierd' },
+  thuisbranden: { id: 190361, participle: null },
+  thuiskopiëren: { id: 190379, participle: null },
+  thuistappen: { id: 190394, participle: null },
+  thuiswinkelen: { id: 190404, participle: null },
+  toekomstdenken: { id: 124557, participle: null },
+  toernooien: { id: 108728, participle: 'getoernooid' },
+  toerschaatsen: { id: 190512, participle: null },
+  toeteren: { id: 108729, participle: 'getoeterd' },
+  vooroverlijden: { id: 157107, participle: null },
+  weerlichten: { id: 109794, participle: 'geweerlicht' },
+  wegwielrennen: { id: 805461, participle: null },
+};
+
+/** One reading of a lemma that is separable in one sense and inseparable in another: what it means, its auxiliary. */
+interface Reading { readonly meaning: string; readonly auxiliary: 'hebben' | 'zijn' | 'both' }
+
+/** The prefix of such a lemma and its two readings. */
+interface Readings { readonly prefix: string; readonly separable: Reading; readonly inseparable: Reading }
+
+/**
+ * Lemmas that are separable in one sense and inseparable in another: two paradigms, each with its meaning (its
+ * `condition`) and its perfect auxiliary, unless a prefix hint names one, which then has that reading's auxiliary. The
+ * stress mark shows where the stress falls. Meanings and auxiliaries as woordenlijst.org gives each reading
+ * (https://woordenlijst.org/zoeken/?q=voorkomen and so on).
+ */
+export const ambiguousPrefixVerbs: Readonly<Record<string, Readings>> = {
+  voorkomen: {
+    prefix: 'voor',
+    separable: { meaning: 'vóórkomen: to occur, to appear, to seem', auxiliary: 'zijn' },
+    inseparable: { meaning: 'voorkómen: to prevent', auxiliary: 'hebben' },
+  },
+  overleggen: {
+    prefix: 'over',
+    separable: { meaning: 'óverleggen: to hand over, to show', auxiliary: 'hebben' },
+    inseparable: { meaning: 'overléggen: to discuss, to confer', auxiliary: 'hebben' },
+  },
+  doorlopen: {
+    prefix: 'door',
+    separable: { meaning: 'dóórlopen: to walk on, to wear out by walking', auxiliary: 'both' },
+    inseparable: { meaning: 'doorlópen: to pass through, to go through', auxiliary: 'both' },
+  },
+  overlopen: {
+    prefix: 'over',
+    separable: { meaning: 'óverlopen: to defect, to overflow', auxiliary: 'zijn' },
+    inseparable: { meaning: 'overlópen: to walk all over, to visit too often', auxiliary: 'hebben' },
+  },
+  ondergaan: {
+    prefix: 'onder',
+    separable: { meaning: 'óndergaan: to go down, to perish', auxiliary: 'zijn' },
+    inseparable: { meaning: 'ondergáán: to undergo, to endure', auxiliary: 'hebben' },
+  },
+};
 
 export type DutchAuxiliary = 'hebben' | 'zijn';
 
@@ -401,20 +635,68 @@ function lookup<T>(table: Readonly<Record<string, T>>, key: string): T | undefin
 }
 
 /**
- * The lexeme of a verb and the steps that classify it, or a ConjugationError for a query that cannot be conjugated
- * (checked in this order): a malformed infinitive; a lemma whose prefix is ambiguous without a prefix hint; a prefix hint
- * that is not a proper prefix, contradicts the lexicon, or names another separable prefix than the listed one; a class
- * hint without the principal parts it needs, or `weak` for a verb listed as strong only; no stem (no -en and nothing
- * listed); `reflexive: false` for a reflexive verb; and an `auxiliary` hint that a listed verb does not take.
+ * A prefix a lemma is read with although no hint names it: one reading of an ambiguous lemma, or one inferred from the
+ * spelling of an unlisted verb (`assumed`, recorded as an assumption).
  */
-function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; readonly steps: readonly DerivationStep[] } {
-  const { separablePrefix, inseparablePrefix, classHint, auxiliary, stems: hints = {} } = options;
+export interface ImpliedPrefix { readonly prefix: string; readonly separable: boolean; readonly assumed: boolean }
+
+/** Every separable particle and dual prefix, longest first, so voorbij is found before voor. */
+const knownPrefixes = [
+  ...separableParticles.map(prefix => ({ prefix, separable: true })), ...dualPrefixes.map(prefix => ({ prefix, separable: false })),
+].sort((a, b) => b.prefix.length - a.prefix.length);
+
+/** Whether `verb` is in the lexicon: listed, a loan, or a listed derivative or prefixed verb. */
+function inLexicon(verb: string): boolean {
+  return Boolean(lookup(dutchExceptions, verb) || lookup(dutchLoans, verb) || lookup(separableVerbs, verb)
+    || lookup(inseparableDerivatives, verb) || lookup(inseparableVerbs, verb) !== undefined);
+}
+
+/**
+ * Whether `rest`, after `prefix`, can be a verb of its own:
+ * - never when a particle that ends in a vowel meets a vowel: that would be written with a hyphen (na-apen), so naaien
+ *   is not na + aien;
+ * - always when it is a verb in the lexicon (opeten: eten);
+ * - for a split (`separable`), never when it begins with a vowel and is not in the lexicon (openen is not op + enen,
+ *   opereren not op + ereren);
+ * - otherwise when it is -en after a root of two letters or more with a vowel.
+ */
+function plausibleBase(prefix: string, rest: string, separable: boolean): boolean {
+  if (/[aeiouy]$/u.test(prefix) && /^[aeiouy]/u.test(rest)) return false;
+  if (inLexicon(rest)) return true;
+  if (separable && /^[aeiouy]/u.test(rest)) return false;
+  const root = rest.endsWith('en') ? rest.slice(0, -2) : '';
+  return root.length >= 2 && /[aeiouy]/u.test(root);
+}
+
+/** The particle or dual prefix `lemma` is spelled with, the longest that leaves a plausible base verb, or null. */
+export function spelledPrefix(lemma: string): ImpliedPrefix | null {
+  const found = knownPrefixes.find(({ prefix, separable }) => lemma.startsWith(prefix) && plausibleBase(prefix, lemma.slice(prefix.length), separable));
+  return found === undefined ? null : { ...found, assumed: true };
+}
+
+/** The prefix an unlisted lemma is read with: the one it is spelled with, none for a verb on the no-split list. */
+export function inferredPrefix(lemma: string): ImpliedPrefix | null {
+  return lookup(simplexVerbs, lemma) === undefined ? spelledPrefix(lemma) : null;
+}
+
+/**
+ * The lexeme of a verb and the steps that classify it, or a ConjugationError for a query that cannot be conjugated
+ * (checked in this order): a malformed infinitive; a prefix hint that is not a proper prefix, contradicts the lexicon,
+ * or names another separable prefix than the listed one; a class hint without the principal parts it needs, or `weak`
+ * for a verb listed as strong only; no stem (no -en and nothing listed); `reflexive: false` for a reflexive verb; and an
+ * `auxiliary` hint that a listed verb does not take. `reading` is the reading of an ambiguous lemma to classify. Without
+ * a prefix hint or a class hint, an unlisted lemma that starts with a known particle is read as its derivative.
+ */
+function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonly lexeme: DutchLexeme; readonly steps: readonly DerivationStep[] } {
+  const { classHint, auxiliary, stems: hints = {} } = options;
   const expressedReflexive = options.infinitive.startsWith('zich ');
   const lemma = options.infinitive.replace(/^zich /u, '');
   if (!/^[\p{L}][\p{L}\p{M}'-]*$/u.test(lemma)) throw new ConjugationError('INVALID_INFINITIVE', 'Expected a Dutch infinitive, optionally prefixed with zich.');
-  if (ambiguousPrefixVerbs.has(lemma) && !separablePrefix && !inseparablePrefix) {
-    throw new ConjugationError('AMBIGUOUS_CLASSIFICATION', `${lemma} has separable and inseparable senses; supply a prefix hint.`);
+  if (lookup(ambiguousPrefixVerbs, lemma) && !options.separablePrefix && !options.inseparablePrefix && reading === undefined) {
+    throw new ConjugationError('GENERATION_FAILURE', `${lemma} has a separable and an inseparable reading: classify it once for each.`);
   }
+  // The prefixes the user gives; a reading or an inferred prefix is filled in below.
+  let { separablePrefix, inseparablePrefix } = options;
   if (separablePrefix && inseparablePrefix) throw new ConjugationError('INVALID_HINT', 'A Dutch prefix cannot be both separable and inseparable.');
   const hintedPrefix = separablePrefix ?? inseparablePrefix;
   if (hintedPrefix && (!lemma.startsWith(hintedPrefix) || lemma === hintedPrefix)) {
@@ -428,12 +710,20 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
   if (separablePrefix && knownSeparable && separablePrefix !== knownSeparable.prefix) {
     throw new ConjugationError('INVALID_HINT', `The verified separable prefix of ${lemma} is ${knownSeparable.prefix}.`);
   }
+  const unlisted = !lookup(dutchExceptions, lemma) && !lookup(dutchLoans, lemma) && !knownSeparable && !knownInseparable
+    && listedInseparable === undefined && !lookup(ambiguousPrefixVerbs, lemma);
+  const implied = hintedPrefix ? null : reading ?? (unlisted && !classHint ? inferredPrefix(lemma) : null);
+  if (implied?.separable) separablePrefix = implied.prefix;
+  else if (implied) inseparablePrefix = implied.prefix;
   // A prefix hint makes the lemma a derivative of what follows the prefix; an inseparable hint on a listed verb only
-  // marks its prefix.
+  // marks its prefix. A reading of an ambiguous lemma brings its own auxiliary.
+  const readings = lookup(ambiguousPrefixVerbs, lemma);
+  const readingOf = (prefix: string, separable: boolean): { readonly auxiliary?: Reading['auxiliary'] } =>
+    readings?.prefix === prefix ? { auxiliary: readings[separable ? 'separable' : 'inseparable'].auxiliary } : {};
   const derivative: DutchDerivative | undefined = separablePrefix
-    ? { prefix: separablePrefix, base: lemma.slice(separablePrefix.length) }
+    ? { prefix: separablePrefix, base: lemma.slice(separablePrefix.length), ...readingOf(separablePrefix, true) }
     : inseparablePrefix && !lookup(dutchExceptions, lemma)
-      ? { prefix: inseparablePrefix, base: lemma.slice(inseparablePrefix.length) }
+      ? { prefix: inseparablePrefix, base: lemma.slice(inseparablePrefix.length), ...readingOf(inseparablePrefix, false) }
       : knownSeparable ?? knownInseparable;
   const separable = separablePrefix ?? knownSeparable?.prefix ?? '';
   const inseparable = inseparablePrefix ?? knownInseparable?.prefix ?? listedInseparable ?? '';
@@ -469,7 +759,8 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
   }
   const classId = isLoan ? 'loan' : classHint === 'strong' || entry.pastSingular ? 'strong' : entry.participles ? 'mixed' : 'weak';
   const classSource = classHint || Object.keys(hints).length || hintedPrefix ? 'explicitHint'
-    : listedBase || loan || derivative || listedInseparable ? 'lexicon' : 'regularRule';
+    : implied?.assumed ? 'regularRule'
+      : listedBase || loan || derivative || listedInseparable ? 'lexicon' : 'regularRule';
 
   const steps: DerivationStep[] = [];
   if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
@@ -481,9 +772,14 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
     if (!classHint) steps.push(step(dutchRules['nl.classify.default-weak'], base, null));
     if (!hints.stem && hints.unstressedFinalSyllable === undefined) steps.push(step(dutchRules['nl.classify.default-syllables'], base, null));
     if (!auxiliary && !derivative?.auxiliary) steps.push(step(dutchRules['nl.classify.default-hebben'], lemma, null));
-    if (!hintedPrefix && !knownSeparable && !knownInseparable && !listedInseparable) {
+    if (!hintedPrefix && !implied && !knownSeparable && !knownInseparable && !listedInseparable) {
       steps.push(step(dutchRules['nl.classify.default-unprefixed'], lemma, null));
     }
+  }
+  if (implied?.assumed) {
+    steps.push(implied.separable
+      ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
+      : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix }));
   }
 
   const prefix = derivative?.prefix ?? '';
@@ -509,11 +805,33 @@ function classification(options: DutchQuery): { readonly lexeme: DutchLexeme; re
   };
 }
 
-/** The one paradigm of the verb a query names, with its classification steps. */
+/**
+ * The paradigms of the verb a query names, with their classification steps: one, or for a lemma that is separable in
+ * one sense and inseparable in another (`ambiguousPrefixVerbs`) one per reading, separable first, tagged with the
+ * reading (`pattern`) and its meaning (`condition`). A prefix hint keeps the one it names, untagged; a reading that
+ * another hint rules out is left out, and none left is that hint's error.
+ */
 export function classifyDutch(query: Readonly<Record<string, unknown>>): Fork<DutchLexeme> {
   // The core has parsed the query against the Dutch option schema (`dutchOptions`), so these keys have these types.
-  const { lexeme, steps } = classification(query as DutchQuery);
-  return one(lexeme, steps);
+  const options = query as DutchQuery;
+  const readings = lookup(ambiguousPrefixVerbs, options.infinitive.replace(/^zich /u, ''));
+  if (readings === undefined || options.separablePrefix || options.inseparablePrefix) {
+    const { lexeme, steps } = classification(options);
+    return one(lexeme, steps);
+  }
+  const errors: ConjugationError[] = [];
+  const paradigms = [true, false].flatMap(separable => {
+    try {
+      const { lexeme, steps } = classification(options, { prefix: readings.prefix, separable, assumed: false });
+      return one(lexeme, steps, { pattern: separable ? 'separable' : 'inseparable', condition: readings[separable ? 'separable' : 'inseparable'].meaning });
+    } catch (error) {
+      if (!(error instanceof ConjugationError)) throw error;
+      errors.push(error);
+      return [];
+    }
+  });
+  if (!paradigms.length) throw errors[0]!;
+  return paradigms;
 }
 
 /** The lexeme of a verb a periphrasis names (hebben, zijn, zullen): the lemma alone, without hints. */

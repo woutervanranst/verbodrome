@@ -166,6 +166,29 @@ describe('compiled CLI', () => {
     expect(run([...args, '--explain', '--locale', 'nl']).stdout).toBe('aimer\n');
   });
 
+  it('prints the steps of a Dutch form under it, in the chosen locale', () => {
+    const args = ['nl', 'leven', '--mood', 'indicative', '--tense', 'past', '--person', '1', '--number', 'singular', '--explain'];
+    expect(run(args).stdout).toBe([
+      'ik leefde',
+      '    Take -en off leven: lev-.',
+      '    A long vowel in a closed syllable is written with two letters, so lev- becomes leev-.',
+      '    At the end of a word, v and z are written f and s, so leev- becomes leef-.',
+      '    Weak verb: the past tense is the stem + de: leefde.',
+      "    v is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: leefde.",
+      '    The subject is ik.',
+      '',
+    ].join('\n'));
+    const dutch = run([...args, '--locale', 'nl']).stdout.split('\n');
+    expect(dutch[0]).toBe('ik leefde');
+    expect(dutch).toContain("    v zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: leefde.");
+  });
+
+  it('prints the reason a Dutch form does not exist in the chosen locale', () => {
+    const result = run(['nl', 'spijten', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular', '--locale', 'nl']);
+    expect(result.status).toBe(3);
+    expect(result.stdout).toBe('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1 singular / 1sg: unavailable (spijten is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.)\n');
+  });
+
   it('adds an explanation to every form in JSON only when asked', () => {
     const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present', '--json'];
     const plain: ConjugationResult = JSON.parse(run(args).stdout);

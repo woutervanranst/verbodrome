@@ -1,10 +1,18 @@
+import { gunzipSync, gzipSync } from 'node:zlib';
 import { ConjugationError, conjugate } from '../../src/index.js';
 import type { ConjugationResult, Engine, PartRole, ResolvedTarget } from '../../src/index.js';
 
 export type CharacterizationQuery = { readonly language: 'fr' | 'nl'; readonly infinitive: string } & Readonly<Record<string, unknown>>;
 
-/** One recorded, sourced difference between the frozen output and the current engine output. */
-export interface IntendedDiff {
+/**
+ * One recorded, sourced difference between the frozen output and the current engine output, in one of two forms:
+ * a line-level entry (`LineDiff`) changes one line of a frozen block; a block-level entry (`BlockDiff`) supersedes the
+ * whole frozen block by the block with the same header in `tests/characterization/<language>.accepted.tsv.gz`.
+ */
+export type IntendedDiff = LineDiff | BlockDiff;
+
+/** A line-level entry: one line of the frozen block of `query` replaced, removed or added. */
+export interface LineDiff {
   /** The header line of the query the difference belongs to. */
   readonly query: string;
   /** The frozen line, or null when the line is new. */
@@ -19,6 +27,23 @@ export interface IntendedDiff {
   readonly after?: string | null;
   readonly reason: string;
   readonly source: string;
+}
+
+/**
+ * A block-level entry: the whole frozen block of `query` is superseded by the accepted block with the same header,
+ * written by `npm run characterize:accept` from the current engine. For a change that touches most lines of a block.
+ */
+export interface BlockDiff {
+  /** The header line of the query whose block is superseded. */
+  readonly query: string;
+  readonly block: true;
+  readonly reason: string;
+  readonly source: string;
+}
+
+/** Whether a ledger entry is block-level. */
+export function isBlockDiff(entry: IntendedDiff): entry is BlockDiff {
+  return 'block' in entry && entry.block === true;
 }
 
 const ROLE_LETTER: Readonly<Record<PartRole, string>> = {
@@ -64,7 +89,7 @@ function formLine(form: ConjugationResult['forms'][number]): string {
  * Serializes the complete output of `conjugate` for one query as the lines of one block:
  * the header, the analysis, every form in engine order, every unavailable target.
  * A `ConjugationError` becomes a single `E` line; any other exception propagates.
- * `engine` is the package's default engine unless another is given (the Dutch shadow test passes its own).
+ * `engine` is the package's default engine unless another is given (a test may pass one of its own).
  */
 export function characterize(query: CharacterizationQuery, engine: Pick<Engine, 'conjugate'> = { conjugate }): string[] {
   const header = queryHeader(query);
@@ -81,4 +106,21 @@ export function characterize(query: CharacterizationQuery, engine: Pick<Engine, 
     ...result.forms.map(formLine),
     ...result.unavailableTargets.map(item => ['U', targetCells(item.target).split('/').slice(0, 4).join('/'), item.reason].join('\t')),
   ];
+}
+
+/** The bytes of a snapshot file: its blocks, separated by a blank line, gzipped at level 9 (the same bytes for the same blocks). */
+export function snapshotFile(blocks: readonly (readonly string[])[]): Buffer {
+  return gzipSync(`${blocks.map(lines => lines.join('\n')).join('\n\n')}\n`, { level: 9 });
+}
+
+/** The blocks of a snapshot file, keyed by header line; a header that occurs twice is an error. */
+export function snapshotBlocks(file: Uint8Array): Map<string, string[]> {
+  const blocks = new Map<string, string[]>();
+  for (const block of gunzipSync(file).toString('utf8').split('\n\n')) {
+    const lines = block.replace(/\n$/u, '').split('\n');
+    const header = lines[0] ?? '';
+    if (blocks.has(header)) throw new Error(`Snapshot has two blocks for ${header}`);
+    blocks.set(header, lines);
+  }
+  return blocks;
 }

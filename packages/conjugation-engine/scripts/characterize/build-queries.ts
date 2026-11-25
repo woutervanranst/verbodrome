@@ -6,7 +6,7 @@ import { conjugate } from '../../src/index.js';
 import type { ConjugationOptions } from '../../src/index.js';
 import { aspiratedH, dualAuxiliary, essentialReflexives, etreVerbs, indirectReflexives, knownAvoirVerbs, restrictions } from '../../src/languages/fr/lexicon.js';
 import { frenchModels } from '../../src/languages/fr/models.js';
-import { dutchExceptions, dutchLoans, inseparableDerivatives, inseparableVerbs, separableVerbs } from '../../src/languages/nl/exceptions.js';
+import { dutchExceptions, dutchLoans, inseparableDerivatives, inseparableVerbs, separableVerbs } from '../../src/languages/nl/lexicon.js';
 import { queryHeader } from './serialize.ts';
 import type { CharacterizationQuery } from './serialize.ts';
 

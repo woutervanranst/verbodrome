@@ -95,8 +95,10 @@ describe('Dutch present stem', () => {
   });
 
   it('cannot form a stem without -en and without a listed stem', () => {
-    expect(() => classified('misstaan')).toThrow(expect.objectContaining({ code: 'AMBIGUOUS_CLASSIFICATION' }));
-    expect(stemOf('misstaan', { stems: { stem: 'missta' } }).stem).toBe('missta');
+    expect(() => classified('blaan')).toThrow(expect.objectContaining({ code: 'AMBIGUOUS_CLASSIFICATION' }));
+    expect(stemOf('blaan', { stems: { stem: 'bla' } }).stem).toBe('bla');
+    // misstaan is mis- + staan, whose stem is listed.
+    expect(stemOf('misstaan')).toEqual({ stem: 'sta', steps: ['nl.stem.lexical: staan -> sta'] });
   });
 });
 
@@ -157,7 +159,6 @@ describe('Dutch classification', () => {
   });
 
   it.each([
-    ['voorkomen', {}, 'AMBIGUOUS_CLASSIFICATION'],
     ['zorp', {}, 'AMBIGUOUS_CLASSIFICATION'],
     ['zorpen', { classHint: 'loan' }, 'AMBIGUOUS_CLASSIFICATION'],
     ['zorpen', { classHint: 'strong' }, 'AMBIGUOUS_CLASSIFICATION'],
