@@ -7,6 +7,7 @@ import type { LexemeBase } from '../../core/grammar.js';
 import { validateGrammar } from '../../core/staged.js';
 import type { Cell, StagedGrammar } from '../../core/staged.js';
 import type { FrenchStemHints, ResolvedTarget } from '../../types.js';
+import { frenchAvailability } from './availability.js';
 import { classifyFrench, frenchLexemeOf } from './classify.js';
 import { frenchClause } from './clause.js';
 import type { FamilyEntry, FamilyParadigm } from './family.js';
@@ -69,14 +70,7 @@ export const frenchGrammar: StagedGrammar<FrenchLexeme> = {
     if (cell === null) throw notMigrated('periphrasis');
     return cell;
   },
-  /** Not migrated yet (Task 5): a verb that can lack a form is reported as not migrated; any other has every form. */
-  availability(lexeme, target) {
-    const flags = lexeme.family?.flags;
-    if (flags?.impersonal || flags?.thirdPersonOnly || flags?.noImperative || flags?.compounds
-      || lexeme.restriction.thirdPersonOnly || lexeme.restriction.noImperative) throw notMigrated('availability');
-    if (lexeme.reflexive && target.mood === 'imperative' && target.tense === 'past') throw notMigrated('availability');
-    return null;
-  },
+  availability: frenchAvailability,
   cell: frenchCell,
   stem: frenchStem,
   ending: frenchEnding,

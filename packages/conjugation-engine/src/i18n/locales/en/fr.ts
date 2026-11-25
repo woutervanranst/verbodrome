@@ -5,6 +5,11 @@
 import type { FrenchRuleId } from '../../../languages/fr/rules.js';
 
 export const fr = {
+  'fr.avail.defective': 'This verb is defective: this form is not used.',
+  'fr.avail.third-person-only': 'This verb is only used in the third person (il, elle, ils, elles).',
+  'fr.avail.impersonal': 'This verb is impersonal: it only exists with il, so this person has no form.',
+  'fr.avail.no-imperative': 'This verb has no imperative.',
+  'fr.avail.pronominal-imperative-past': 'A pronominal verb is not given a past imperative.',
   'fr.stem.present-singular': 'The stem of the present singular of {before} is {after}-.',
   'fr.stem.nous': 'The stem of nous in the present of {before} is {after}-; the imparfait and the present participle use it too.',
   'fr.stem.ils': 'The stem of ils in the present of {before} is {after}-; the present subjunctive uses it too.',

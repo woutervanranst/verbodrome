@@ -243,7 +243,8 @@ function familyStems(lexeme: FrenchLexeme, index: number): Fork<string> {
   const family = lexeme.family!;
   const paradigm = lexeme.paradigm as FamilyParadigm;
   const { parts } = paradigm;
-  if (paradigm.gaps.includes(cellNames[index]!) || masked(family.flags, index)) throw notMigrated('availability');
+  // A cell the family lacks has no stem; `availability` declares such targets, so this is never reached for one.
+  if (paradigm.gaps.includes(cellNames[index]!) || masked(family.flags, index)) return [];
   if (index === 50) return one(lexeme.lemma);
   let stems: Fork<string>;
   if (index >= 42 && index <= 44) {
@@ -265,7 +266,6 @@ function familyStems(lexeme: FrenchLexeme, index: number): Fork<string> {
     const name = feedingPart(index)!;
     stems = partStems(lexeme, partValues(parts, name), partRule(parts, name, index), parts.theme);
   }
-  if (!stems.length) throw notMigrated('availability');
   return stems;
 }
 
@@ -288,8 +288,7 @@ export function frenchStem(lexeme: FrenchLexeme, cell: Cell): Fork<string> {
   }
   if (lexeme.family !== null) return familyStems(lexeme, index);
   // A verb defined by its principal parts has no form the parts do not give, except its infinitive.
-  if (index === 50) return one(lexeme.lemma);
-  throw notMigrated('availability');
+  return index === 50 ? one(lexeme.lemma) : [];
 }
 
 /** Whether `stem` is a subjunctive stem the imperative 2sg of a family borrows (sache, aie, veuille). */
@@ -317,7 +316,7 @@ export function frenchEnding(lexeme: FrenchLexeme, cell: Cell, stem: string): Fo
     // The subjunctive 2sg without its s after e: sache, aie, veuille.
     ending = index === 42 && subjunctiveImperative(lexeme, stem) ? 'e' : formationEnding(index, stem, parts.set, parts.theme);
   } else {
-    throw notMigrated('availability');
+    return [];
   }
   // The passé simple and the imperfect subjunctive are literary tenses (GD §4.5).
   const literary = (index >= 12 && index < 18) || (index >= 30 && index < 36);

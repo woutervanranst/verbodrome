@@ -114,7 +114,9 @@ function assemble(words: readonly ChainWord[], { lexeme, target, subject, render
   if (reflexive) {
     steps.push(step(frenchRules[imperative ? 'fr.clause.reflexive-imperative' : 'fr.clause.reflexive-pronoun'], null, null, { pronoun }));
   }
-  if (imperative) return one([verb, ...clitic], steps);
+  // The plural of a verb that is impersonal in the singular is figurative (ils pleuvent).
+  const tags = lexeme.family?.flags.impersonal === 'figurativePlural' && target.number === 'plural' ? { condition: 'figurative' } : {};
+  if (imperative) return one([verb, ...clitic], steps, tags);
   const before: ConjugationPart[] = [];
   if (target.mood === 'subjunctive') {
     before.push(grammaticalPart(rendering, 'moodMarker', 'que'));
@@ -129,7 +131,7 @@ function assemble(words: readonly ChainWord[], { lexeme, target, subject, render
     before.push(grammaticalPart(rendering, 'moodMarker', 'en'));
     steps.unshift(step(frenchRules['fr.clause.gerund-en'], null, null));
   }
-  return one([...before, ...clitic, verb], steps);
+  return one([...before, ...clitic, verb], steps, tags);
 }
 
 export const frenchClause: ClauseGrammar<FrenchLexeme> = { subjectGenders, agreements, assemble };

@@ -6,6 +6,11 @@ import type { FrenchRuleId } from '../../../languages/fr/rules.js';
 import type { fr as en } from '../en/fr.js';
 
 export const fr = {
+  'fr.avail.defective': 'Dit werkwoord is onvolledig: deze vorm wordt niet gebruikt.',
+  'fr.avail.third-person-only': 'Dit werkwoord wordt alleen in de derde persoon gebruikt (il, elle, ils, elles).',
+  'fr.avail.impersonal': 'Dit werkwoord is onpersoonlijk: het bestaat alleen met il, dus deze persoon heeft geen vorm.',
+  'fr.avail.no-imperative': 'Dit werkwoord heeft geen gebiedende wijs.',
+  'fr.avail.pronominal-imperative-past': 'Een wederkerend werkwoord krijgt geen voltooide gebiedende wijs.',
   'fr.stem.present-singular': 'De stam van het enkelvoud van de présent van {before} is {after}-.',
   'fr.stem.nous': 'De stam van nous in de présent van {before} is {after}-; de imparfait en het onvoltooid deelwoord gebruiken hem ook.',
   'fr.stem.ils': 'De stam van ils in de présent van {before} is {after}-; de subjonctif présent gebruikt hem ook.',

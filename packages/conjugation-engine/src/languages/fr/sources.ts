@@ -139,6 +139,12 @@ export const frenchCitations: Partial<Record<FrenchRuleId, Citation | readonly C
   'fr.orth.1990-assoir': [jo1990('III, Liste H : assoir, rassoir, sursoir'), conjugation('A9A2823', 'asseoir'), oqlf(23838, 'ASSEOIR et ASSOIR')],
   'fr.orth.1990-interpeler': [jo1990('III, Anomalies : interpeler'), oqlf(23169, 'Appeler, jeter et leurs dérivés, y compris interpeler')],
   'fr.orth.1990-absout': [jo1990('III, Liste : absout, absoute'), conjugation('A9A0175', 'absoudre')],
+  'fr.avail.defective': [entry('A9C2658', 'clore (verbe défectif)'), entry('A9G0655', 'gésir (verbe défectif)')],
+  'fr.avail.third-person-only': entry('A9S1259', 'seoir (uniquement à la 3e personne)'),
+  'fr.avail.impersonal': [entry('A9F0145', 'falloir (verbe impersonnel)'), oqlf(24584, 'Verbes essentiellement impersonnels')],
+  'fr.avail.no-imperative': [conjugation('A9P3829', 'pouvoir (sans impératif)'), conjugation('A9F0145', 'falloir (sans impératif)')],
+  // No checked authority states this rule; the Académie prints sois-toi assis (open question in the report).
+  'fr.avail.pronominal-imperative-past': oqlf(24203, 'Impératif passé : formes du subjonctif passé, aucune forme pronominale donnée'),
   'fr.clause.subject': [conjugation('A9C1222', 'céder'), oqlf(24203, 'Formes de l’impératif, introduction')],
   'fr.clause.subject-gender': [oqlf(24222, 'Synthèse des règles d’accord'), conjugation('A9C1222', 'céder')],
   'fr.clause.impersonal-subject': entry('A9F0145', 'falloir'),
