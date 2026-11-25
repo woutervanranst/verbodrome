@@ -6,6 +6,22 @@ import type { FrenchRuleId } from '../../../languages/fr/rules.js';
 import type { fr as en } from '../en/fr.js';
 
 export const fr = {
+  'fr.stem.present-singular': 'De stam van het enkelvoud van de présent van {before} is {after}-.',
+  'fr.stem.nous': 'De stam van nous in de présent van {before} is {after}-; de imparfait en het onvoltooid deelwoord gebruiken hem ook.',
+  'fr.stem.ils': 'De stam van ils in de présent van {before} is {after}-; de subjonctif présent gebruikt hem ook.',
+  'fr.stem.future': 'De stam van de futur simple van {before} is {after}-; de conditionnel gebruikt hem ook.',
+  'fr.stem.past': 'De stam van de passé simple van {before} is {after}-, met de klinker {theme}.',
+  'fr.stem.participle': 'Het voltooid deelwoord van {before} wordt gemaakt met {after}.',
+  'fr.stem.subjunctive': 'De subjonctif présent van {before} heeft een eigen stam: {after}-.',
+  'fr.stem.imperative-from-subjunctive': 'De gebiedende wijs van {before} komt van de subjonctif: {after}-.',
+  'fr.stem.participle-from-subjunctive': 'Het onvoltooid deelwoord van {before} wordt gemaakt met de stam van de subjonctif: {after}-.',
+  'fr.stem.suppletive': '{after} is een onregelmatige vorm van {before}: leer hem uit je hoofd.',
+  'fr.stem.listed-spelling': 'In de spelling van 1990 staat deze vorm als {after} in plaats van {before}.',
+  'fr.orth.circumflex-before-t': 'Vóór de t van il krijgt de klinker van de stam een accent circonflexe: {before} wordt {after}.',
+  'fr.orth.croitre-homograph': 'croître houdt hier een accent circonflexe, zodat je het niet schrijft zoals croire: {before} wordt {after}.',
+  'fr.orth.1990-assoir': 'In de spelling van 1990 valt de e van -eoi- weg: {before} wordt {after}.',
+  'fr.orth.1990-interpeler': 'In de spelling van 1990 schrijf je interpeler met één l, die alleen vóór een stomme e verdubbelt: {before} wordt {after}.',
+  'fr.orth.1990-absout': 'In de spelling van 1990 eindigt het mannelijk op een t, net als het vrouwelijke absoute: {before} wordt {after}.',
   'fr.classify.reflexive': 'Het se vóór {before} laat zien dat het een wederkerend werkwoord is: {after} krijgt een wederkerend voornaamwoord.',
   'fr.classify.essentially-pronominal': '{before} bestaat alleen als wederkerend werkwoord en krijgt dus altijd een wederkerend voornaamwoord.',
   'fr.classify.canonical-spelling': '{before} is de spelling van 1990 van {after}; het is hetzelfde werkwoord.',

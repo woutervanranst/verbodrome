@@ -123,6 +123,22 @@ export const frenchCitations: Partial<Record<FrenchRuleId, Citation | readonly C
   'fr.orth.t-after-dental': oqlf(24213, 'Radical en d, t ou c à la 3e personne du singulier'),
   'fr.orth.tt-singular': [conjugation('A9B0652', 'battre'), conjugation('A9M1992', 'mettre')],
   'fr.orth.1990-circumflex': [jo1990('II.4'), oqlf(23166, 'Accent circonflexe : rectifications')],
+  'fr.stem.present-singular': [oqlf(24214, 'Radical des verbes irréguliers au présent'), oqlf(24213, 'Terminaisons -s, -s, -t ; -x, -x, -t ; -e, -es, -e')],
+  'fr.stem.nous': [oqlf(24195, 'Radical de l’imparfait : celui de la 1re personne du pluriel'), oqlf(24214, 'Radical des verbes irréguliers au présent')],
+  'fr.stem.ils': [oqlf(24237, 'Modification du radical au subjonctif présent'), oqlf(24214, 'Radical des verbes irréguliers au présent')],
+  'fr.stem.future': [oqlf(24655, 'Formes du futur simple'), oqlf(24137, 'Formes du conditionnel')],
+  'fr.stem.past': oqlf(24207, 'Terminaisons en -is, -us, -ins'),
+  'fr.stem.participle': [verbArticle, oqlf(24222, 'Synthèse des règles d’accord')],
+  'fr.stem.subjunctive': oqlf(24237, 'Modification du radical pour plusieurs verbes irréguliers'),
+  'fr.stem.imperative-from-subjunctive': [oqlf(24203, 'Avoir, être, savoir et vouloir'), conjugation('A9S0657', 'savoir')],
+  'fr.stem.participle-from-subjunctive': [conjugation('A9S0657', 'savoir (sachant)'), conjugation('A9A3461', 'avoir (ayant)')],
+  'fr.stem.suppletive': [oqlf(24213, 'Avoir, être et aller ; dites, faites'), verbArticle],
+  'fr.stem.listed-spelling': jo1990('II.4 : les formes listées n’y figurent pas (voir frenchSecondaryOnly)'),
+  'fr.orth.circumflex-before-t': [oqlf(23701, 'Il clôt, il gît, il plaît'), jo1990('II.4 : plait'), conjugation('A9G0655', 'gésir'), conjugation('A9C2658', 'clore')],
+  'fr.orth.croitre-homograph': [jo1990('II.4 b : le verbe croître'), oqlf(23166, 'Exceptions : croître'), conjugation('A9C5057', 'croître')],
+  'fr.orth.1990-assoir': [jo1990('III, Liste H : assoir, rassoir, sursoir'), conjugation('A9A2823', 'asseoir'), oqlf(23838, 'ASSEOIR et ASSOIR')],
+  'fr.orth.1990-interpeler': [jo1990('III, Anomalies : interpeler'), oqlf(23169, 'Appeler, jeter et leurs dérivés, y compris interpeler')],
+  'fr.orth.1990-absout': [jo1990('III, Liste : absout, absoute'), conjugation('A9A0175', 'absoudre')],
   'fr.clause.subject': [conjugation('A9C1222', 'céder'), oqlf(24203, 'Formes de l’impératif, introduction')],
   'fr.clause.subject-gender': [oqlf(24222, 'Synthèse des règles d’accord'), conjugation('A9C1222', 'céder')],
   'fr.clause.impersonal-subject': entry('A9F0145', 'falloir'),
@@ -133,3 +149,56 @@ export const frenchCitations: Partial<Record<FrenchRuleId, Citation | readonly C
   'fr.clause.participle-forms': conjugation('A9C1222', 'céder'),
   'fr.clause.invariable-participle': [conjugation('A9D3072', 'dormir'), conjugation('A9F0145', 'falloir')],
 };
+
+/**
+ * Data the French pack keeps although no checked authority supports it, so the frozen output is reproduced; each is an
+ * open question for the user (plan 3 report). `cells` are the cells concerned (all of the family's when absent), and
+ * `spelling` the spelling they concern.
+ */
+export interface SecondaryOnly {
+  readonly family: string;
+  readonly cells?: readonly string[];
+  readonly spelling?: 'rectified' | 'traditional';
+  readonly reason: string;
+  readonly source: `https://${string}`;
+}
+
+const futureAndConditional = ['fut', 'cond'].flatMap(row => ['1s', '2s', '3s', '1p', '2p', '3p'].map(slot => `${row}.${slot}`));
+
+export const frenchSecondaryOnly: readonly SecondaryOnly[] = [
+  {
+    family: 'croître', cells: ['pp.fs', 'pp.mp', 'pp.fp'], spelling: 'rectified',
+    reason: 'Listed rectified crûe, crûs, crûes: the Académie writes crû (invariable) and JO 1990 II.4 only keeps or removes circumflexes (GD O1).',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9C5057',
+  },
+  {
+    family: 'clore', cells: ['pres.3s'], spelling: 'rectified',
+    reason: 'Listed rectified il clot: the 1990 rule concerns i and u only, and the Académie writes il clôt without a 1990 variant (GD O2).',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9C2658',
+  },
+  {
+    family: 'surseoir', cells: futureAndConditional, spelling: 'rectified',
+    reason: 'Rule 13 writes sursoirai, but JO 1990 note (a) to Liste H reads “j’assoirai (mais je surseoirai)” and the Académie prints only surseoirai.',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9S3721',
+  },
+  {
+    family: 'asseoir', cells: futureAndConditional, spelling: 'traditional',
+    reason: 'The assois paradigm keeps asseoirai as its traditional future; the Académie table prints assiérai ou assoirai and no asseoirai.',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9A2823',
+  },
+  {
+    family: 'bruire', cells: ['pp.ms'],
+    reason: 'The family gives the past participle bruit; the Académie gives brui (invariable).',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9B2326',
+  },
+  {
+    family: 'rassir',
+    reason: 'The family keeps only the infinitive and the participle rassis; the Académie conjugates rassir in full like finir, participle rassi.',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9R0556',
+  },
+  {
+    family: 'issir',
+    reason: 'issir has no entry in the 9th edition of the Académie dictionary (only the 8th edition entry A8I1568-A), so its participle issu could not be checked there.',
+    source: 'https://www.dictionnaire-academie.fr/article/A8I1568-A',
+  },
+];

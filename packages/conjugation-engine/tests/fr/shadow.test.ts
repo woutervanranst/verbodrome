@@ -9,7 +9,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { expect, it } from 'vitest';
 import { frenchQueries, frozenBlocks, queryHeader, sections, shadowFrench } from './shadow.js';
 
-const PINNED = 19_221;
+const PINNED = 13_451;
 
 const pendingFile = new URL('./shadow-pending.txt', import.meta.url);
 const pending = readFileSync(pendingFile, 'utf8').split('\n').filter(line => line !== '');

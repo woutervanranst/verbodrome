@@ -25,8 +25,11 @@ describe('bootstrapped French families', () => {
     expect(frenchFamilies).toHaveLength(94);
   });
 
-  it('is what the script extracts from the model tables', () => {
-    for (const model of families) expect(entryOf(model)).toEqual(extract(model));
+  it('is what the script extracts from the model tables, apart from the Académie checks added by hand', () => {
+    for (const model of families) {
+      const { verified: _, ...flags } = entryOf(model).flags;
+      expect({ ...entryOf(model), flags }).toEqual(extract(model));
+    }
   });
 
   it('derives every traditional cell of every family exactly, apart from its listed cells', () => {

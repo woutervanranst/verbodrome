@@ -4,14 +4,14 @@
  * its step; the spelling rules (`orthography.ts`) apply afterwards.
  */
 import { step } from '../../core/derivation.js';
-import type { DerivationStep } from '../../core/derivation.js';
+import type { DerivationStep, RuleInfo } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
 import type { Cell } from '../../core/staged.js';
 import { ConjugationError } from '../../errors.js';
 import type { FrenchStemHints } from '../../types.js';
 import { cellNames, values } from './family.js';
-import type { CellName, PrincipalParts, SingularSet, Theme } from './family.js';
+import type { CellName, FamilyFlags, FamilyParadigm, PrincipalParts, SingularSet, Theme } from './family.js';
 import type { FrenchLexeme } from './grammar.js';
 import {
   future, groupEndings, imperfect, presentPlural, presentSingular, simplePast, subjunctive, subjunctiveImperfect,
@@ -63,7 +63,7 @@ export function cellOfName(name: CellName): Cell {
 }
 
 /** A principal part's name, as GD §4.2 writes it. */
-export type PartName = 'P1' | 'P2' | 'P3' | 'F' | 'PS' | 'PP' | 'SJ1' | 'SJ2';
+export type PartName = 'P1' | 'P2' | 'P3' | 'F' | 'PS' | 'PP' | 'PPF' | 'SJ1' | 'SJ2';
 
 /** The part that feeds a cell (GD §4.2), with the default parts written out. */
 export function feedingPart(index: number): PartName | null {
@@ -189,9 +189,89 @@ export function formationEnding(index: number, stem: string, set: SingularSet | 
   return 'es';
 }
 
+/** Cells a family's flags rule out (GD §4.7): persons an impersonal or third-person verb lacks, its imperative, and the
+ * agreeing forms of an invariable participle. */
+export function masked(flags: FamilyFlags, index: number): boolean {
+  if (index < 42) {
+    const slot = index % 6;
+    if (flags.impersonal === 'singular') return slot !== 2;
+    if (flags.impersonal === 'figurativePlural' || flags.thirdPersonOnly) return slot !== 2 && slot !== 5;
+    return false;
+  }
+  if (index <= 44) return Boolean(flags.noImperative || flags.impersonal || flags.thirdPersonOnly);
+  return index >= 47 && index <= 49 && flags.invariableParticiple === true;
+}
+
+/** The infinitive without the letters a family's parts replace: what every part is added to. */
+export function familyPrefix(lexeme: FrenchLexeme): string {
+  return lexeme.lemma.slice(0, lexeme.lemma.length - lexeme.family!.strip);
+}
+
+/** The step a family part records, by the part and whether the family writes it out or takes its default. */
+function partRule(parts: PrincipalParts, name: PartName, index: number): RuleInfo {
+  switch (name) {
+    case 'P1': return frenchRules['fr.stem.present-singular'];
+    case 'P2': return frenchRules['fr.stem.nous'];
+    case 'P3': return frenchRules['fr.stem.ils'];
+    case 'F': return frenchRules['fr.stem.future'];
+    case 'PS': return frenchRules['fr.stem.past'];
+    case 'PP': return frenchRules['fr.stem.participle'];
+    case 'SJ1': return parts.SJ1 !== undefined ? frenchRules['fr.stem.subjunctive'] : frenchRules['fr.stem.ils'];
+    default: return parts.SJ2 !== undefined ? frenchRules[index === 45 ? 'fr.stem.participle-from-subjunctive' : 'fr.stem.subjunctive'] : frenchRules['fr.stem.nous'];
+  }
+}
+
+/** The stems of `values` with the family's prefix, each with the step of the part they come from. */
+function partStems(lexeme: FrenchLexeme, stems: readonly string[], rule: RuleInfo, theme?: string): Fork<string> {
+  const prefix = familyPrefix(lexeme);
+  return stems.flatMap(value => one(prefix + value, [step(rule, lexeme.lemma, prefix + value, rule.id === 'fr.stem.past' ? { theme: theme ?? 'i' } : {})]));
+}
+
 /**
- * The stems of a cell (GD §4.2): a hinted part where a `stems` hint gives one, otherwise the group stem of a productive
- * verb. Families are migrated in Task 4.
+ * The imperative series of a family: the ordinary one (present 2sg without its s after e or a, nous and vous of the
+ * present), or, for être, avoir, savoir and vouloir, the subjunctive's; with several SJ2 values one series each.
+ */
+function imperativeSeries(lexeme: FrenchLexeme, index: number): readonly ('regular' | string)[] {
+  const { parts } = lexeme.paradigm as FamilyParadigm;
+  if (!lexeme.family!.flags.imperativeFromSubjunctive) return ['regular'];
+  const nous = partValues(parts, 'P2')[0];
+  return partValues(parts, 'SJ2').map(value => value === nous ? 'regular' : index === 42 ? 'subjunctive' : value);
+}
+
+/** The stems of a family cell from its principal parts (GD §4.2). A cell the family lacks is not migrated yet (Task 5). */
+function familyStems(lexeme: FrenchLexeme, index: number): Fork<string> {
+  const family = lexeme.family!;
+  const paradigm = lexeme.paradigm as FamilyParadigm;
+  const { parts } = paradigm;
+  if (paradigm.gaps.includes(cellNames[index]!) || masked(family.flags, index)) throw notMigrated('availability');
+  if (index === 50) return one(lexeme.lemma);
+  let stems: Fork<string>;
+  if (index >= 42 && index <= 44) {
+    stems = imperativeSeries(lexeme, index).flatMap(series => {
+      if (series === 'regular') {
+        const name: PartName = index === 42 ? 'P1' : 'P2';
+        return partStems(lexeme, partValues(parts, name), partRule(parts, name, index));
+      }
+      const values = series === 'subjunctive' ? partValues(parts, 'SJ1') : [series];
+      return partStems(lexeme, values, frenchRules['fr.stem.imperative-from-subjunctive']);
+    });
+  } else if (index === 45 && family.flags.presentParticipleFromSubjunctive) {
+    stems = partStems(lexeme, partValues(parts, 'SJ2'), frenchRules['fr.stem.participle-from-subjunctive']);
+  } else if (index >= 47 && index <= 49) {
+    const feminine = index !== 48 && parts.PPF !== undefined;
+    const values = feminine ? partValues(parts, 'PPF') : partValues(parts, 'PP').map(value => value.replace(/û$/u, 'u'));
+    stems = partStems(lexeme, values, frenchRules['fr.stem.participle']);
+  } else {
+    const name = feedingPart(index)!;
+    stems = partStems(lexeme, partValues(parts, name), partRule(parts, name, index), parts.theme);
+  }
+  if (!stems.length) throw notMigrated('availability');
+  return stems;
+}
+
+/**
+ * The stems of a cell (GD §4.2): a hinted part where a `stems` hint gives one, the group stem of a productive verb, or
+ * the principal part of a family that feeds the cell.
  */
 export function frenchStem(lexeme: FrenchLexeme, cell: Cell): Fork<string> {
   const index = cellIndex(cell);
@@ -206,12 +286,18 @@ export function frenchStem(lexeme: FrenchLexeme, cell: Cell): Fork<string> {
     const stem = groupStem(lexeme.lemma);
     return one(stem, [step(frenchRules['fr.stem.group-stem'], lexeme.lemma, stem)]);
   }
-  if (lexeme.family === null) {
-    // A verb defined by its principal parts has no form the parts do not give, except its infinitive.
-    if (index === 50) return one(lexeme.lemma);
-    throw notMigrated('availability');
-  }
-  throw notMigrated('stem');
+  if (lexeme.family !== null) return familyStems(lexeme, index);
+  // A verb defined by its principal parts has no form the parts do not give, except its infinitive.
+  if (index === 50) return one(lexeme.lemma);
+  throw notMigrated('availability');
+}
+
+/** Whether `stem` is a subjunctive stem the imperative 2sg of a family borrows (sache, aie, veuille). */
+function subjunctiveImperative(lexeme: FrenchLexeme, stem: string): boolean {
+  if (!lexeme.family?.flags.imperativeFromSubjunctive) return false;
+  const prefix = familyPrefix(lexeme);
+  const { parts } = lexeme.paradigm as FamilyParadigm;
+  return partValues(parts, 'SJ1').some(value => prefix + value === stem) && !partValues(parts, 'P1').some(value => prefix + value === stem);
 }
 
 /** The ending of a cell on `stem` (GD §4.3): the group's set for a productive stem, the formation endings for a part. */
@@ -224,12 +310,39 @@ export function frenchEnding(lexeme: FrenchLexeme, cell: Cell, stem: string): Fo
     ending = formationEnding(index, stem, parts.set, parts.theme);
   } else if (lexeme.group !== null) {
     ending = groupEndings[lexeme.group][index]!;
-  } else if (lexeme.family === null && index === 50) {
+  } else if (index === 50) {
     ending = '';
+  } else if (lexeme.family !== null) {
+    const { parts } = lexeme.paradigm as FamilyParadigm;
+    // The subjunctive 2sg without its s after e: sache, aie, veuille.
+    ending = index === 42 && subjunctiveImperative(lexeme, stem) ? 'e' : formationEnding(index, stem, parts.set, parts.theme);
   } else {
-    throw notMigrated('ending');
+    throw notMigrated('availability');
   }
   // The passé simple and the imperfect subjunctive are literary tenses (GD §4.5).
   const literary = (index >= 12 && index < 18) || (index >= 30 && index < 36);
   return one(ending, endingStep(index, stem, ending), literary ? { usage: 'literary' } : {});
+}
+
+/**
+ * The words of a family cell that no formation rule makes (GD §5.2): its suppletive cells, and the imperative cells
+ * that follow a listed present (va, faites, dites) or a listed subjunctive (sois). Null for every other cell.
+ */
+export function frenchCell(lexeme: FrenchLexeme, cell: Cell): Fork<string> | null {
+  if (lexeme.family === null) return null;
+  const index = cellIndex(cell);
+  if (hintedPart(lexeme, index) !== null) return null;
+  const { cells } = lexeme.paradigm as FamilyParadigm;
+  const prefix = familyPrefix(lexeme);
+  const listed = (words: readonly string[], drop: boolean) => words.flatMap(word => {
+    const whole = prefix + (drop && /[ea]s$/u.test(word) ? word.slice(0, -1) : word);
+    return one(whole, [step(frenchRules['fr.stem.suppletive'], lexeme.lemma, whole)]);
+  });
+  const own = cells[cellNames[index]!];
+  if (own) return listed(own, false);
+  if (index < 42 || index > 44) return null;
+  const series = imperativeSeries(lexeme, index);
+  const source = cells[(series.every(value => value === 'subjunctive') ? 'subj.2s' : ['pres.2s', 'pres.1p', 'pres.2p'][index - 42]) as CellName];
+  if (!source || (series.some(value => value !== 'regular') && !series.every(value => value === 'subjunctive'))) return null;
+  return listed(source, index === 42);
 }

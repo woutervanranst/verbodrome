@@ -12,7 +12,7 @@ import { frenchClause } from './clause.js';
 import type { FamilyEntry, FamilyParadigm } from './family.js';
 import type { LexicalRestriction } from './lexicon.js';
 import { frenchOrthography } from './orthography.js';
-import { frenchEnding, frenchStem, notMigrated } from './stems.js';
+import { frenchCell, frenchEnding, frenchStem, notMigrated } from './stems.js';
 
 export { notMigrated } from './stems.js';
 
@@ -77,6 +77,7 @@ export const frenchGrammar: StagedGrammar<FrenchLexeme> = {
     if (lexeme.reflexive && target.mood === 'imperative' && target.tense === 'past') throw notMigrated('availability');
     return null;
   },
+  cell: frenchCell,
   stem: frenchStem,
   ending: frenchEnding,
   orthography: frenchOrthography,

@@ -5,6 +5,22 @@
 import type { FrenchRuleId } from '../../../languages/fr/rules.js';
 
 export const fr = {
+  'fr.stem.present-singular': 'The stem of the present singular of {before} is {after}-.',
+  'fr.stem.nous': 'The stem of nous in the present of {before} is {after}-; the imparfait and the present participle use it too.',
+  'fr.stem.ils': 'The stem of ils in the present of {before} is {after}-; the present subjunctive uses it too.',
+  'fr.stem.future': 'The future stem of {before} is {after}-; the conditionnel uses it too.',
+  'fr.stem.past': 'The passé simple stem of {before} is {after}-, with the vowel {theme}.',
+  'fr.stem.participle': 'The past participle of {before} is built on {after}.',
+  'fr.stem.subjunctive': 'The present subjunctive of {before} has a stem of its own: {after}-.',
+  'fr.stem.imperative-from-subjunctive': 'The imperative of {before} is taken from its subjunctive: {after}-.',
+  'fr.stem.participle-from-subjunctive': 'The present participle of {before} is built on its subjunctive stem {after}-.',
+  'fr.stem.suppletive': '{after} is an irregular form of {before}: learn it by heart.',
+  'fr.stem.listed-spelling': 'In the 1990 spelling this form is listed as {after} instead of {before}.',
+  'fr.orth.circumflex-before-t': 'Before the t of il the stem vowel takes a circumflex: {before} becomes {after}.',
+  'fr.orth.croitre-homograph': 'croître keeps a circumflex here so that it is not spelt like croire: {before} becomes {after}.',
+  'fr.orth.1990-assoir': 'The 1990 spelling drops the e of -eoi-: {before} becomes {after}.',
+  'fr.orth.1990-interpeler': 'The 1990 spelling writes interpeler with one l, doubled only before a silent e: {before} becomes {after}.',
+  'fr.orth.1990-absout': 'The 1990 spelling ends the masculine in t, like the feminine absoute: {before} becomes {after}.',
   'fr.classify.reflexive': 'The se in front of {before} marks a pronominal verb: {after} is conjugated with a reflexive pronoun.',
   'fr.classify.essentially-pronominal': '{before} only exists as a pronominal verb, so it always takes a reflexive pronoun.',
   'fr.classify.canonical-spelling': '{before} is the 1990 spelling of {after}, which names the same verb.',

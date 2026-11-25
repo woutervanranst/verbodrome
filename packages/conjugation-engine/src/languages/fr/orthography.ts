@@ -9,7 +9,7 @@ import type { Cell } from '../../core/staged.js';
 import type { FrenchLexeme } from './grammar.js';
 import { closedEStem, elerEterClass, mute, muteEStem } from './paradigms.js';
 import { frenchRules } from './rules.js';
-import { cellIndex } from './stems.js';
+import { cellIndex, cellNameOf, familyPrefix } from './stems.js';
 
 export type SpellingContext = { readonly lexeme: FrenchLexeme; readonly cell: Cell };
 type Rule = JunctureRule<SpellingContext>;
@@ -94,15 +94,40 @@ const ttSingular: Rule = {
     ? one({ stem: j.stem.slice(0, -1), ending: j.ending }) : null,
 };
 
+/**
+ * 10. The stem vowel before the 3sg t takes a circumflex: i in -aître and -oître verbs, plaire and gésir (connaît,
+ * plaît, gît), only in traditional spelling (JO 1990 II.4: il plait); o in clore and its derivatives (clôt), which the
+ * 1990 rules leave alone.
+ */
+const circumflexBeforeT: Rule = {
+  info: frenchRules['fr.orth.circumflex-before-t'],
+  apply(j, { lexeme, cell }) {
+    if (!lexeme.family?.flags.circumflexBeforeT || j.ending !== 't' || cellIndex(cell) !== 2) return null;
+    if (j.stem.endsWith('o')) return one({ stem: `${j.stem.slice(0, -1)}ô`, ending: j.ending });
+    if (!j.stem.endsWith('i')) return null;
+    return [...traditional({ stem: `${j.stem.slice(0, -1)}î`, ending: j.ending }), ...rectified(j)];
+  },
+};
+
+/** 11. croître writes û in the endings of its passé simple and imperfect subjunctive, unlike croire (crûs, crûsse). */
+const croitreHomograph: Rule = {
+  info: frenchRules['fr.orth.croitre-homograph'],
+  apply(j, { lexeme, cell }) {
+    const index = cellIndex(cell);
+    const past = (index >= 12 && index < 18) || (index >= 30 && index < 36);
+    return lexeme.family?.id === 'croître' && past && j.ending.startsWith('u') ? one({ stem: j.stem, ending: `û${j.ending.slice(1)}` }) : null;
+  },
+};
+
 /** The cells of croître whose circumflex tells it from croire (rule 11): present singular, imperative, passé simple, subj. imperfect, crû. */
-function croitreHomograph(index: number): boolean {
+function croitreHomographCell(index: number): boolean {
   return [0, 1, 2, 42, 46].includes(index) || (index >= 12 && index < 18) || (index >= 30 && index < 36);
 }
 
 /** Where the 1990 spelling keeps the circumflex (JO 1990 II.4 b): croître's homographs of croire, dû, jeûne(s). */
 function protectedCircumflex(lexeme: FrenchLexeme, cell: Cell, j: Juncture): boolean {
   const index = cellIndex(cell);
-  if (lexeme.family?.id === 'croître' && croitreHomograph(index)) return true;
+  if (lexeme.family?.id === 'croître' && croitreHomographCell(index)) return true;
   if (lexeme.family?.id === 'devoir' && index === 46) return true;
   return j.stem.endsWith('jeûn') && (j.ending === 'e' || j.ending === 'es');
 }
@@ -116,7 +141,54 @@ const circumflex1990: Rule = {
   },
 };
 
-/** The spelling rules, in the order of GD §4.4 (rules 10, 11 and 13-15 come with the families). */
+/** 13. The 1990 spelling writes assoir and sursoir: the e of -eoi- goes (assoirai, assoir). */
+const assoir1990: Rule = {
+  info: frenchRules['fr.orth.1990-assoir'],
+  apply(j, { lexeme }) {
+    const id = lexeme.family?.id;
+    if ((id !== 'asseoir' && id !== 'surseoir') || !j.stem.includes('seoi')) return null;
+    return [...traditional(j), ...rectified({ stem: j.stem.replace('seoi', 'soi'), ending: j.ending })];
+  },
+};
+
+/** 14. The 1990 spelling writes interpeler, conjugated like appeler: ll only before a silent e (interpelle, interpelons). */
+const interpeler1990: Rule = {
+  info: frenchRules['fr.orth.1990-interpeler'],
+  apply(j, { lexeme }) {
+    if (lexeme.family?.id !== 'interpeller') return null;
+    const at = j.stem.lastIndexOf('ll');
+    if (at < 0 || mute((j.stem + j.ending).slice(at + 2))) return null;
+    return [...traditional(j), ...rectified({ stem: j.stem.slice(0, at) + j.stem.slice(at + 1), ending: j.ending })];
+  },
+};
+
+/** 15. The 1990 spelling writes absout, dissout like their feminine absoute (masculine singular and plural). */
+const absout1990: Rule = {
+  info: frenchRules['fr.orth.1990-absout'],
+  apply(j, { lexeme, cell }) {
+    const index = cellIndex(cell);
+    if (lexeme.family?.id !== 'absoudre' || (index !== 46 && index !== 48) || !j.stem.endsWith('sous')) return null;
+    return [...traditional(j), ...rectified({ stem: `${j.stem.slice(0, -1)}t`, ending: index === 48 ? 's' : '' })];
+  },
+};
+
+/**
+ * A spelling the family lists for the 1990 spelling, with no rule behind it (GD O1, O2: il clot, crûe): the derived
+ * word stays the traditional one. Secondary-only (`sources.ts`).
+ */
+const listedSpelling: Rule = {
+  info: frenchRules['fr.stem.listed-spelling'],
+  apply(j, { lexeme, cell }) {
+    if (lexeme.family === null || !('spellings' in lexeme.paradigm)) return null;
+    const listed = lexeme.paradigm.spellings[cellNameOf(cell)];
+    if (!listed) return null;
+    const prefix = familyPrefix(lexeme);
+    return [...traditional(j), ...listed.rectified.flatMap(word => rectified({ stem: prefix + word, ending: '' }))];
+  },
+};
+
+/** The spelling rules, in the order of GD §4.4, then the listed spellings. */
 export const frenchOrthography: readonly Rule[] = [
-  elerEter, muteEGrave, closedEGrave, cCedilla, gE, yToI, diaeresis, tAfterDental, ttSingular, circumflex1990,
+  elerEter, muteEGrave, closedEGrave, cCedilla, gE, yToI, diaeresis, tAfterDental, ttSingular, circumflexBeforeT, croitreHomograph,
+  circumflex1990, assoir1990, interpeler1990, absout1990, listedSpelling,
 ];
