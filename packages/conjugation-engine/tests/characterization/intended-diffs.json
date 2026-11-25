@@ -194,25 +194,25 @@
   {
     "query": "# {\"infinitive\":\"misstaan\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
   },
   {
     "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"het\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
   },
   {
     "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\",\"pronoun\":\"u\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
   },
   {
     "query": "# {\"infinitive\":\"misstaan\",\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: het misstaat, misstond, misstaan (read as inseparable, as approved) (frozen: an AMBIGUOUS_CLASSIFICATION error).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: misstaan is not in the lexicon and starts with mis-, which e-ANS names both a separable particle and an unstressed prefix; most verbs with mis- keep it (40 of the 60 readings woordenlijst.org lists), so without a hint it is taken as an unstressed prefix that stays on the verb, and the assumption says so: het misstaat, misstond, misstaan (frozen: an AMBIGUOUS_CLASSIFICATION error).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082"
   },
   {
@@ -338,25 +338,25 @@
   {
     "query": "# {\"infinitive\":\"overwinnen\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
   },
   {
     "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"het\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
   },
   {
     "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\",\"pronoun\":\"u\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
   },
   {
     "query": "# {\"infinitive\":\"overwinnen\",\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
+    "reason": "Approved change 1, with the dual-prefix default by prefix: overwinnen is not in the lexicon and starts with over-, which e-ANS names both a separable particle and an unstressed prefix; its two readings are close to even (129 separable, 109 inseparable on woordenlijst.org), so without a hint the verb is kept whole, the safer guess, and the assumption says so: ik overwin, overwon, overwonnen, the strong forms of winnen (frozen: weak, geoverwind).",
     "source": "https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955"
   },
   {
@@ -554,26 +554,26 @@
   {
     "query": "# {\"infinitive\":\"voorzien\",\"inversion\":true,\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
-    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
   },
   {
     "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"het\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
-    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
   },
   {
     "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\",\"pronoun\":\"u\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
-    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
   },
   {
     "query": "# {\"infinitive\":\"voorzien\",\"language\":\"nl\"}",
     "block": true,
-    "reason": "Approved change 1 (a dual prefix taken as inseparable): voorzien is not in the lexicon and starts with voor-, which e-ANS names both a separable particle and an unstressed prefix; without a hint it is taken as an unstressed prefix that stays on the verb: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
-    "source": "https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594"
+    "reason": "Approved change 1, with the dual-prefix default by prefix: most verbs with voor are separable (80 of the 90 readings woordenlijst.org lists), so the lexicon lists the verbs woordenlijst.org gives only as inseparable, voorzien among them (lemma 109709), as inseparable derivatives: ik voorzie, voorzag, voorzien, the strong forms of zien (frozen: weak, ik voorzi, gevoorzid).",
+    "source": "https://woordenlijst.org/zoeken/?q=voorzien"
   },
   {
     "query": "# {\"infinitive\":\"zich bemoeien\",\"inversion\":true,\"language\":\"nl\"}",

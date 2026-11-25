@@ -277,10 +277,6 @@ export const dutchExceptions: Readonly<Record<string, DutchEntry>> = {
   herstellen: { auxiliary: 'both' },
   ontsnappen: { auxiliary: 'zijn' },
   gebeuren: { auxiliary: 'zijn' },
-  // Not English loans, but in -xen like those in `dutchLoans`: x is ks, so the vowel before it is written once
-  // (https://woordenlijst.org/zoeken/?q=tipp-exen, https://woordenlijst.org/zoeken/?q=texen).
-  'tipp-exen': { stem: 'tipp-ex' },
-  texen: { stem: 'tex' },
 };
 
 export const inseparableVerbs: Readonly<Record<string, string>> = {
@@ -393,22 +389,6 @@ export const dutchLoans: Readonly<Record<string, DutchLoan>> = {
   scoren: { stem: 'scoor', pastSuffix: 'd' },
   promoten: { stem: 'promoot', pastSuffix: 't' },
   'e-mailen': { stem: 'e-mail', pastSuffix: 'd' },
-  // Loans in -xen: x is ks, so the vowel before it is short and written once (relax, relaxte, gerelaxt), each checked on
-  // woordenlijst.org (https://woordenlijst.org/zoeken/?q=relaxen and so on).
-  beatboxen: { stem: 'beatbox', pastSuffix: 't' },
-  botoxen: { stem: 'botox', pastSuffix: 't' },
-  chillaxen: { stem: 'chillax', pastSuffix: 't' },
-  detoxen: { stem: 'detox', pastSuffix: 't' },
-  doxen: { stem: 'dox', pastSuffix: 't' },
-  'e-toxen': { stem: 'e-tox', pastSuffix: 't' },
-  flexen: { stem: 'flex', pastSuffix: 't' },
-  relaxen: { stem: 'relax', pastSuffix: 't' },
-  telefaxen: { stem: 'telefax', pastSuffix: 't' },
-  telexen: { stem: 'telex', pastSuffix: 't' },
-  timeboxen: { stem: 'timebox', pastSuffix: 't' },
-  unboxen: { stem: 'unbox', pastSuffix: 't' },
-  waxen: { stem: 'wax', pastSuffix: 't' },
-  xeroxen: { stem: 'xerox', pastSuffix: 't' },
 };
 
 /**
@@ -423,13 +403,134 @@ export const separableParticles: readonly string[] = [
   'achterover', 'omver', 'onderuit', 'voorover', 'aaneen', 'bijeen', 'dooreen', 'ineen', 'opeen', 'uiteen',
 ];
 
+/** How many of the verbs woordenlijst.org lists with a dual prefix read it as a separable particle, and how many keep it. */
+interface DualCount { readonly separable: number; readonly inseparable: number }
+
 /**
  * The particles that e-ANS also names as unstressed prefixes: door-, mis-, om-, onder-, over- (12.3.2.1.5-9), aan
- * (aanbídden, 12.3.4.1.1), achter (achtervólgen, 12.3.4.1.2), voor (voorkómen, 12.3.4.1.22) and weer (weerspréken,
- * 12.3.4.2.8). An unlisted verb that starts with one is taken as inseparable (overwinnen: ik overwin), unless a hint
- * says otherwise.
+ * (aanbídden, 12.3.4.1.1), achter (achtervólgen, 12.3.4.1.2), voor (voorkómen, 12.3.4.1.22), weer (weerspréken,
+ * 12.3.4.2.8) and vol (vol-dóen, 12.3.2.1, table 2), with how the verbs woordenlijst.org lists with each read it,
+ * counted on 2026-11-25 with its lexicon service (https://woordenlijst.org/MolexServe/lexicon/find_wordform, database
+ * gig_pro_wrdlst; every verb starting with the prefix and with no longer particle): `separable` is marked separable, or
+ * has ge- after the prefix in its participle (aangehold); `inseparable` has the prefix and no ge- in its participle
+ * (aanbeden); a lemma with both readings counts once for each, and verbs with ge- before the whole word (achterklappen)
+ * are left out. An unlisted verb with the prefix gets its default reading (`dualReading`).
  */
-export const dualPrefixes: readonly string[] = ['aan', 'achter', 'door', 'mis', 'om', 'onder', 'over', 'voor', 'weer'];
+export const dualPrefixCounts: Readonly<Record<string, DualCount>> = {
+  aan: { separable: 295, inseparable: 4 },
+  achter: { separable: 9, inseparable: 3 },
+  door: { separable: 228, inseparable: 79 },
+  mis: { separable: 20, inseparable: 40 },
+  om: { separable: 134, inseparable: 67 },
+  onder: { separable: 39, inseparable: 54 },
+  over: { separable: 129, inseparable: 109 },
+  vol: { separable: 37, inseparable: 13 },
+  voor: { separable: 80, inseparable: 10 },
+  weer: { separable: 6, inseparable: 9 },
+};
+
+export const dualPrefixes: readonly string[] = Object.keys(dualPrefixCounts);
+
+/** The share of separable readings from which an unlisted verb with a dual prefix is read as separable. */
+const separableShare = 0.6;
+
+/**
+ * The default reading of an unlisted verb with dual prefix `prefix`, and why: separable when at least 60% of the verbs
+ * woordenlijst.org lists with it are separable (aan, achter, door, om, vol, voor: `most`); otherwise inseparable, because
+ * most keep it (mis, onder, weer: `most`) or because the two readings are close to even (over, 54% separable: `close`),
+ * where keeping the verb whole is the safer guess: its forms keep the spelling of the infinitive.
+ */
+export function dualReading(prefix: string): { readonly separable: boolean; readonly why: 'most' | 'close' } {
+  const { separable, inseparable } = dualPrefixCounts[prefix]!;
+  const share = separable / (separable + inseparable);
+  return share >= separableShare ? { separable: true, why: 'most' } : { separable: false, why: share >= 0.5 ? 'close' : 'most' };
+}
+
+/** A verb with a dual prefix that keeps it, checked on woordenlijst.org: the prefix, its auxiliary, its lemma id and participle there. */
+interface DualInseparable {
+  readonly prefix: string;
+  readonly auxiliary: 'hebben' | 'zijn' | 'both';
+  readonly id: number;
+  readonly participle: string;
+}
+
+/**
+ * The verbs woordenlijst.org lists only with the inseparable reading of a dual prefix whose default is separable
+ * (aanbidden, achtervolgen, doorgronden, omhelzen, voldoen, voorzien): read as inseparable derivatives of what follows
+ * the prefix, with the auxiliary woordenlijst.org gives. Compiled with the counts above, each checked: the forms the
+ * engine gives it as a derivative are the present, past and participle woordenlijst.org lists. Left out: doordesemen
+ * (its base desemen has an unstressed last syllable the rules cannot see) and four verbs with a second particle inside
+ * (vooraanmelden, voorinvullen, voorinschrijven, voorintekenen).
+ */
+export const dualInseparableVerbs: Readonly<Record<string, DualInseparable>> = {
+  aanbidden: { prefix: 'aan', auxiliary: 'hebben', id: 110371, participle: 'aanbeden' },
+  aanschouwen: { prefix: 'aan', auxiliary: 'hebben', id: 103957, participle: 'aanschouwd' },
+  aanvaarden: { prefix: 'aan', auxiliary: 'hebben', id: 103965, participle: 'aanvaard' },
+  achterhalen: { prefix: 'achter', auxiliary: 'hebben', id: 103989, participle: 'achterhaald' },
+  achtervolgen: { prefix: 'achter', auxiliary: 'hebben', id: 103991, participle: 'achtervolgd' },
+  achterwaren: { prefix: 'achter', auxiliary: 'hebben', id: 103992, participle: 'achterwaard' },
+  dooraderen: { prefix: 'door', auxiliary: 'hebben', id: 949467, participle: 'dooraderd' },
+  doordrenken: { prefix: 'door', auxiliary: 'hebben', id: 105179, participle: 'doordrenkt' },
+  doorgronden: { prefix: 'door', auxiliary: 'hebben', id: 105182, participle: 'doorgrond' },
+  doorlijden: { prefix: 'door', auxiliary: 'hebben', id: 944757, participle: 'doorleden' },
+  doorschouwen: { prefix: 'door', auxiliary: 'hebben', id: 105195, participle: 'doorschouwd' },
+  doorspekken: { prefix: 'door', auxiliary: 'hebben', id: 105198, participle: 'doorspekt' },
+  doorvorsen: { prefix: 'door', auxiliary: 'hebben', id: 105209, participle: 'doorvorst' },
+  doorweken: { prefix: 'door', auxiliary: 'hebben', id: 105214, participle: 'doorweekt' },
+  doorzeven: { prefix: 'door', auxiliary: 'hebben', id: 105218, participle: 'doorzeefd' },
+  omarmen: { prefix: 'om', auxiliary: 'hebben', id: 106976, participle: 'omarmd' },
+  omboorden: { prefix: 'om', auxiliary: 'hebben', id: 106978, participle: 'omboord' },
+  omcirkelen: { prefix: 'om', auxiliary: 'hebben', id: 106979, participle: 'omcirkeld' },
+  omdijken: { prefix: 'om', auxiliary: 'hebben', id: 106980, participle: 'omdijkt' },
+  omfloersen: { prefix: 'om', auxiliary: 'hebben', id: 106981, participle: 'omfloerst' },
+  omgrachten: { prefix: 'om', auxiliary: 'hebben', id: 153678, participle: 'omgracht' },
+  omgrenzen: { prefix: 'om', auxiliary: 'hebben', id: 106984, participle: 'omgrensd' },
+  omheinen: { prefix: 'om', auxiliary: 'hebben', id: 106986, participle: 'omheind' },
+  omhelzen: { prefix: 'om', auxiliary: 'hebben', id: 106987, participle: 'omhelsd' },
+  omhullen: { prefix: 'om', auxiliary: 'hebben', id: 106988, participle: 'omhuld' },
+  omhulzen: { prefix: 'om', auxiliary: 'hebben', id: 154337, participle: 'omhulsd' },
+  omkaderen: { prefix: 'om', auxiliary: 'hebben', id: 106989, participle: 'omkaderd' },
+  omkasten: { prefix: 'om', auxiliary: 'hebben', id: 152272, participle: 'omkast' },
+  omklemmen: { prefix: 'om', auxiliary: 'hebben', id: 106991, participle: 'omklemd' },
+  omknellen: { prefix: 'om', auxiliary: 'hebben', id: 106992, participle: 'omkneld' },
+  omkransen: { prefix: 'om', auxiliary: 'hebben', id: 106993, participle: 'omkranst' },
+  omkringen: { prefix: 'om', auxiliary: 'hebben', id: 165529, participle: 'omkringd' },
+  omlijnen: { prefix: 'om', auxiliary: 'hebben', id: 106995, participle: 'omlijnd' },
+  omlijsten: { prefix: 'om', auxiliary: 'hebben', id: 106996, participle: 'omlijst' },
+  ommantelen: { prefix: 'om', auxiliary: 'hebben', id: 160685, participle: 'ommanteld' },
+  ommuren: { prefix: 'om', auxiliary: 'hebben', id: 106997, participle: 'ommuurd' },
+  ompalen: { prefix: 'om', auxiliary: 'hebben', id: 106998, participle: 'ompaald' },
+  omranden: { prefix: 'om', auxiliary: 'hebben', id: 106999, participle: 'omrand' },
+  omrasteren: { prefix: 'om', auxiliary: 'hebben', id: 107000, participle: 'omrasterd' },
+  omringen: { prefix: 'om', auxiliary: 'hebben', id: 107001, participle: 'omringd' },
+  omschrijven: { prefix: 'om', auxiliary: 'hebben', id: 107002, participle: 'omschreven' },
+  omsingelen: { prefix: 'om', auxiliary: 'hebben', id: 107003, participle: 'omsingeld' },
+  omsluieren: { prefix: 'om', auxiliary: 'hebben', id: 107005, participle: 'omsluierd' },
+  omsluiten: { prefix: 'om', auxiliary: 'hebben', id: 107006, participle: 'omsloten' },
+  omspinnen: { prefix: 'om', auxiliary: 'hebben', id: 107011, participle: 'omsponnen' },
+  omstralen: { prefix: 'om', auxiliary: 'hebben', id: 107013, participle: 'omstraald' },
+  omstrengelen: { prefix: 'om', auxiliary: 'hebben', id: 107014, participle: 'omstrengeld' },
+  omtuinen: { prefix: 'om', auxiliary: 'hebben', id: 168450, participle: 'omtuind' },
+  omvangen: { prefix: 'om', auxiliary: 'hebben', id: 107017, participle: 'omvangen' },
+  omvatten: { prefix: 'om', auxiliary: 'hebben', id: 107018, participle: 'omvat' },
+  omwallen: { prefix: 'om', auxiliary: 'hebben', id: 107020, participle: 'omwald' },
+  omwolken: { prefix: 'om', auxiliary: 'hebben', id: 107024, participle: 'omwolkt' },
+  omzwachtelen: { prefix: 'om', auxiliary: 'hebben', id: 107029, participle: 'omzwachteld' },
+  volbrengen: { prefix: 'vol', auxiliary: 'hebben', id: 109681, participle: 'volbracht' },
+  voldingen: { prefix: 'vol', auxiliary: 'hebben', id: 153929, participle: 'voldongen' },
+  voldoen: { prefix: 'vol', auxiliary: 'hebben', id: 109682, participle: 'voldaan' },
+  voleinden: { prefix: 'vol', auxiliary: 'hebben', id: 109683, participle: 'voleind' },
+  voleindigen: { prefix: 'vol', auxiliary: 'hebben', id: 109684, participle: 'voleindigd' },
+  volgroeien: { prefix: 'vol', auxiliary: 'zijn', id: 109686, participle: 'volgroeid' },
+  volharden: { prefix: 'vol', auxiliary: 'hebben', id: 109687, participle: 'volhard' },
+  volstaan: { prefix: 'vol', auxiliary: 'hebben', id: 109693, participle: 'volstaan' },
+  voltooien: { prefix: 'vol', auxiliary: 'hebben', id: 109695, participle: 'voltooid' },
+  voltrekken: { prefix: 'vol', auxiliary: 'hebben', id: 109696, participle: 'voltrokken' },
+  volvoeren: { prefix: 'vol', auxiliary: 'hebben', id: 109697, participle: 'volvoerd' },
+  vooronderstellen: { prefix: 'voor', auxiliary: 'hebben', id: 109703, participle: 'voorondersteld' },
+  voorvoelen: { prefix: 'voor', auxiliary: 'hebben', id: 109707, participle: 'voorvoeld' },
+  voorzien: { prefix: 'voor', auxiliary: 'hebben', id: 109709, participle: 'voorzien' },
+};
 
 /** How a verb on the no-split list was checked on woordenlijst.org: its lemma id, and its past participle there. */
 interface SimplexCheck {
@@ -444,8 +545,8 @@ interface SimplexCheck {
  * (naderen, informeren, missioneren), so the inference reads them whole. Compiled from the woordenlijst.org lexicon
  * service (https://woordenlijst.org/MolexServe/lexicon/find_wordform, database gig_pro_wrdlst) on 2026-11-25: for each
  * separable particle and dual prefix, every verb it lists that starts with it and is not marked separable (sep=yes),
- * and that the other guards would split or read with a prefix; for a dual prefix, only those whose participle has ge-
- * before the whole word (gemissioneerd), as the others are rightly read with an unstressed prefix (overwonnen). Left
+ * and that the other guards would split or read with a prefix; for a dual prefix (vol included), only those whose
+ * participle has ge- before the whole word (gemissioneerd, gevoltigeerd), as the others have a reading of the prefix. Left
  * out are the four whose participle shows the particle split off after all (weggeweest, voorafgebeeld,
  * voorafgeschaduwd, voorafgespiegeld). Each entry records the check: its lemma id and its participle there.
  */
@@ -603,6 +704,11 @@ export const simplexVerbs: Readonly<Record<string, SimplexCheck>> = {
   toernooien: { id: 108728, participle: 'getoernooid' },
   toerschaatsen: { id: 190512, participle: null },
   toeteren: { id: 108729, participle: 'getoeterd' },
+  volksdansen: { id: 109688, participle: 'gevolksdanst' },
+  volleren: { id: 109689, participle: 'gevolleerd' },
+  volleyen: { id: 109691, participle: 'gevolleyd' },
+  volmachtigen: { id: 150856, participle: 'gevolmachtigd' },
+  voltigeren: { id: 109694, participle: 'gevoltigeerd' },
   vooroverlijden: { id: 157107, participle: null },
   weerlichten: { id: 109794, participle: 'geweerlicht' },
   wegwielrennen: { id: 805461, participle: null },
@@ -705,17 +811,26 @@ function lookup<T>(table: Readonly<Record<string, T>>, key: string): T | undefin
  * A prefix a lemma is read with although no hint names it: one reading of an ambiguous lemma, or one inferred from the
  * spelling of an unlisted verb (`assumed`, recorded as an assumption).
  */
-export interface ImpliedPrefix { readonly prefix: string; readonly separable: boolean; readonly assumed: boolean }
+export interface ImpliedPrefix {
+  readonly prefix: string;
+  readonly separable: boolean;
+  readonly assumed: boolean;
+  /**
+   * For a dual prefix, why it is read this way: the reading `most` verbs with it have, the safer reading when the two are
+   * `close`, or the inseparable reading because the `rest` cannot stand as a split-off verb.
+   */
+  readonly why?: 'most' | 'close' | 'rest';
+}
 
 /** Every separable particle and dual prefix, longest first, so voorbij is found before voor. */
 const knownPrefixes = [
-  ...separableParticles.map(prefix => ({ prefix, separable: true })), ...dualPrefixes.map(prefix => ({ prefix, separable: false })),
+  ...separableParticles.map(prefix => ({ prefix, dual: false })), ...dualPrefixes.map(prefix => ({ prefix, dual: true })),
 ].sort((a, b) => b.prefix.length - a.prefix.length);
 
 /** Whether `verb` is in the lexicon: listed, a loan, or a listed derivative or prefixed verb. */
 function inLexicon(verb: string): boolean {
   return Boolean(lookup(dutchExceptions, verb) || lookup(dutchLoans, verb) || lookup(separableVerbs, verb)
-    || lookup(inseparableDerivatives, verb) || lookup(inseparableVerbs, verb) !== undefined);
+    || lookup(inseparableDerivatives, verb) || lookup(dualInseparableVerbs, verb) || lookup(inseparableVerbs, verb) !== undefined);
 }
 
 /**
@@ -735,10 +850,24 @@ function plausibleBase(prefix: string, rest: string, separable: boolean): boolea
   return root.length >= 2 && /[aeiouy]/u.test(root);
 }
 
-/** The particle or dual prefix `lemma` is spelled with, the longest that leaves a plausible base verb, or null. */
+/**
+ * The particle or dual prefix `lemma` is spelled with, the longest that leaves a plausible base verb, and how it is read,
+ * or null. A particle is split. A dual prefix gets its default reading (`dualReading`); when that is separable but the
+ * rest cannot be split off (it begins with a vowel and is not a verb in the lexicon: omarmen), it is read as inseparable.
+ */
 export function spelledPrefix(lemma: string): ImpliedPrefix | null {
-  const found = knownPrefixes.find(({ prefix, separable }) => lemma.startsWith(prefix) && plausibleBase(prefix, lemma.slice(prefix.length), separable));
-  return found === undefined ? null : { ...found, assumed: true };
+  for (const { prefix, dual } of knownPrefixes) {
+    if (!lemma.startsWith(prefix)) continue;
+    const rest = lemma.slice(prefix.length);
+    if (!dual) {
+      if (plausibleBase(prefix, rest, true)) return { prefix, separable: true, assumed: true };
+      continue;
+    }
+    const reading = dualReading(prefix);
+    if (reading.separable && plausibleBase(prefix, rest, true)) return { prefix, separable: true, assumed: true, why: 'most' };
+    if (plausibleBase(prefix, rest, false)) return { prefix, separable: false, assumed: true, why: reading.separable ? 'rest' : reading.why };
+  }
+  return null;
 }
 
 /** The prefix an unlisted lemma is read with: the one it is spelled with, none for a verb on the no-split list. */
@@ -773,7 +902,10 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   if (separablePrefix && listedInseparable) throw new ConjugationError('INVALID_HINT', `${lemma} has a lexical inseparable prefix.`);
   const knownSeparable = lookup(separableVerbs, lemma);
   if (inseparablePrefix && knownSeparable) throw new ConjugationError('INVALID_HINT', `${lemma} has a lexical separable prefix.`);
-  const knownInseparable = lookup(inseparableDerivatives, lemma);
+  const dualInseparable = lookup(dualInseparableVerbs, lemma);
+  const knownInseparable = lookup(inseparableDerivatives, lemma) ?? (dualInseparable
+    ? { prefix: dualInseparable.prefix, base: lemma.slice(dualInseparable.prefix.length), auxiliary: dualInseparable.auxiliary }
+    : undefined);
   if (separablePrefix && knownSeparable && separablePrefix !== knownSeparable.prefix) {
     throw new ConjugationError('INVALID_HINT', `The verified separable prefix of ${lemma} is ${knownSeparable.prefix}.`);
   }
@@ -844,9 +976,9 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
     }
   }
   if (implied?.assumed) {
-    steps.push(implied.separable
-      ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
-      : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix }));
+    steps.push(implied.why === undefined ? step(dutchRules['nl.classify.assume-separable'], lemma, null, { particle: implied.prefix })
+      : implied.separable ? step(dutchRules['nl.classify.assume-dual-separable'], lemma, null, { prefix: implied.prefix })
+        : step(dutchRules['nl.classify.assume-inseparable'], lemma, null, { prefix: implied.prefix, why: implied.why }));
   }
 
   const prefix = derivative?.prefix ?? '';

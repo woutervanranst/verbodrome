@@ -564,6 +564,22 @@ const pinned: readonly Pinned[] = [
     ],
   },
   {
+    // ik relaxte: x is /ks/, so the vowel before it stays short and the ending starts with t
+    verb: 'relaxen', query: { mood: 'indicative', tense: 'past', person: 1, number: 'singular' }, form: 'ik relaxte',
+    en: [
+      'relaxte: Take -en off relaxen: relax-.',
+      'relaxte: Weak verb: the past tense is the stem + te: relaxte.',
+      "relaxte: x is pronounced ks, and s is one of the sounds of 't kofschip, so the ending starts with t: relaxte.",
+      'The whole form: The subject is ik.',
+    ],
+    nl: [
+      'relaxte: Haal -en van relaxen af: relax-.',
+      'relaxte: Zwak werkwoord: de verleden tijd is de stam + te: relaxte.',
+      "relaxte: x spreek je uit als ks, en s zit in 't kofschip, dus de uitgang begint met t: relaxte.",
+      'De hele vorm: Het onderwerp is ik.',
+    ],
+  },
+  {
     // verhuisd: a verb the lexicon lists with its unstressed prefix
     verb: 'verhuizen', query: { mood: 'participle', tense: 'past' }, form: 'verhuisd',
     en: [
@@ -902,17 +918,35 @@ const pinned: readonly Pinned[] = [
     ],
   },
   {
-    // an unknown verb with a dual prefix, taken as inseparable (change 1)
+    // an unknown verb with a dual prefix whose readings are close to even, kept whole (change 1)
     verb: 'overwinnen', query: {}, analysis: true,
     en: [
       'The verb: overwinnen starts with the unstressed prefix over-, which never splits off, so the past participle gets no ge-.',
       'The verb: winnen is an irregular verb: its past tense, won, is in the verb list.',
-      'The verb: overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
+      'The verb: overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
     ],
     nl: [
       'Het werkwoord: overwinnen begint met het onbeklemtoonde voorvoegsel over-, dat nooit loskomt, dus het voltooid deelwoord krijgt geen ge-.',
       'Het werkwoord: winnen is een onregelmatig werkwoord: de verleden tijd, won, staat in de werkwoordenlijst.',
-      'Het werkwoord: overwinnen staat niet in de lijst en begint met over-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn: we nemen aan dat het een voorvoegsel is dat altijd aan het werkwoord vast blijft. Is over hier scheidbaar, geef het dan op als scheidbaar deel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+      'Het werkwoord: overwinnen staat niet in de lijst en begint met over-, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn: we nemen aan dat het een voorvoegsel is dat altijd aan het werkwoord vast blijft, want over is ongeveer even vaak scheidbaar als vast, en het werkwoord heel laten is de veiligste gok. Is over hier scheidbaar, geef het dan op als scheidbaar deel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+    ],
+  },
+  {
+    // an unknown verb with a dual prefix whose verbs are mostly separable: split
+    verb: 'aanzorpen', query: {}, analysis: true,
+    en: [
+      'The verb: aanzorpen is a separable verb: aan carries the stress and can stand apart from the verb.',
+      'The verb: An unlisted Dutch verb defaults to the weak native model.',
+      'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
+      'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+      'The verb: aanzorpen is not in the lexicon and starts with aan, which can be a separable particle or an unstressed prefix. Most verbs with aan are separable, so it is conjugated as a separable verb. If aan- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
+    ],
+    nl: [
+      'Het werkwoord: aanzorpen is een scheidbaar werkwoord: aan krijgt de klemtoon en kan los van het werkwoord staan.',
+      'Het werkwoord: zorpen staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: De stam van zorpen schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
+      "Het werkwoord: We nemen aan dat aanzorpen in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
+      'Het werkwoord: aanzorpen staat niet in de lijst en begint met aan, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn. De meeste werkwoorden met aan zijn scheidbaar, dus we vervoegen het als scheidbaar werkwoord: aan komt los van het werkwoord. Blijft aan- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
     ],
   },
   {

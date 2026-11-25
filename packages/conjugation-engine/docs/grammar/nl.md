@@ -4,7 +4,7 @@ Dutch runs on the staged core (`src/languages/nl/`): every form is derived by re
 itself in English and Dutch with its source. Spelling follows the Taalunie's [Leidraad](https://woordenlijst.org/leidraad)
 on woordenlijst.org; grammar follows the [e-ANS](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic) of the Instituut
 voor de Nederlandse Taal. A rule is never cited to the scraped corpus. `tests/nl/explanations.test.ts` pins the full
-English and Dutch explanation of 65 everyday forms, analyses and unavailable targets, together using every rule below.
+English and Dutch explanation of 67 everyday forms, analyses and unavailable targets, together using every rule below.
 
 ## How a form is built
 
@@ -13,7 +13,10 @@ English and Dutch explanation of 65 everyday forms, analyses and unavailable tar
   verb is listed for), a loan, a separable or inseparable prefix, and every assumption made for a verb the lexicon does
   not know.
 - **Present stem** (`stems.ts`): the infinitive without -en, a single final consonant, a long vowel written double in
-  the closed syllable unless the last syllable is unstressed, f and s for a final v and z, or a listed stem. The
+  the closed syllable unless the last syllable is unstressed, f and s for a final v and z, or a listed stem. x stands
+  for two sounds, /ks/, so the vowel before it is short and is never written double, and for 't kofschip the stem ends
+  in a voiceless sound (relaxen: relax, relaxte, gerelaxt; mixen: mix, mixte; [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html),
+  [2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html), and faxen in [12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html)). The
   pronounced stem (leev, reiz) is kept for 't kofschip.
 - **Cells** (`paradigms.ts`): a regular word is stem + ending, spelled by `orthography.ts`; a cell with listed material
   (ben, kunt, a strong past, a listed participle, the dropped d of hou) is built whole, its regular members taken from
@@ -45,14 +48,15 @@ English and Dutch explanation of 65 everyday forms, analyses and unavailable tar
 | `nl.classify.default-hebben` | assumption | An unlisted verb defaults to hebben; lexical meaning may require zijn. | [e-ANS 2.3.2.8.iv](https://e-ans.ivdnt.org/topics/pid/ans0203020804lingtopic) |
 | `nl.classify.default-unprefixed` | assumption | Separability is not inferred by stripping an unknown written prefix. | [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
 | `nl.classify.assume-separable` | assumption | {before} is not in the lexicon and starts with the separable particle {particle}, so it is conjugated as a separable verb. If {particle}- is a prefix that stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304), [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710), [Leidraad 7.2](https://woordenlijst.org/zoeken/leidraad/7/2.html) |
-| `nl.classify.assume-inseparable` | assumption | {before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb. If {prefix} is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.2.1.5](https://e-ans.ivdnt.org/topics/pid/topic-16131019751135534), [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082), [e-ANS 12.3.2.1.7](https://e-ans.ivdnt.org/topics/pid/topic-19065733157797735), [e-ANS 12.3.2.1.8](https://e-ans.ivdnt.org/topics/pid/topic-15955547301744486), [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955), [e-ANS 12.3.4.1.1](https://e-ans.ivdnt.org/topics/pid/topic-14781130780092856), [e-ANS 12.3.4.1.2](https://e-ans.ivdnt.org/topics/pid/topic-12837118759979596), [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594), [e-ANS 12.3.4.2.8](https://e-ans.ivdnt.org/topics/pid/topic-17227872050078844), [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
+| `nl.classify.assume-dual-separable` | assumption | {before} is not in the lexicon and starts with {prefix}, which can be a separable particle or an unstressed prefix. Most verbs with {prefix} are separable, so it is conjugated as a separable verb. If {prefix}- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.2.1.5](https://e-ans.ivdnt.org/topics/pid/topic-16131019751135534), [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082), [e-ANS 12.3.2.1.7](https://e-ans.ivdnt.org/topics/pid/topic-19065733157797735), [e-ANS 12.3.2.1.8](https://e-ans.ivdnt.org/topics/pid/topic-15955547301744486), [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955), [e-ANS 12.3.4.1.1](https://e-ans.ivdnt.org/topics/pid/topic-14781130780092856), [e-ANS 12.3.4.1.2](https://e-ans.ivdnt.org/topics/pid/topic-12837118759979596), [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594), [e-ANS 12.3.4.2.8](https://e-ans.ivdnt.org/topics/pid/topic-17227872050078844), [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [woordenlijst.org](https://woordenlijst.org/), [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304), [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710) |
+| `nl.classify.assume-inseparable` | assumption | {before} is not in the lexicon and starts with {prefix}-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, {why, select, most {as most verbs with {prefix}- keep it} close {as about as many verbs with {prefix} are separable as keep it, and keeping the verb whole is the safer guess} other {as what follows {prefix} here starts with a vowel and is not a verb in the lexicon, although most verbs with {prefix} are separable}}. If {prefix} is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong). | [e-ANS 12.3.2.1.5](https://e-ans.ivdnt.org/topics/pid/topic-16131019751135534), [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082), [e-ANS 12.3.2.1.7](https://e-ans.ivdnt.org/topics/pid/topic-19065733157797735), [e-ANS 12.3.2.1.8](https://e-ans.ivdnt.org/topics/pid/topic-15955547301744486), [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955), [e-ANS 12.3.4.1.1](https://e-ans.ivdnt.org/topics/pid/topic-14781130780092856), [e-ANS 12.3.4.1.2](https://e-ans.ivdnt.org/topics/pid/topic-12837118759979596), [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594), [e-ANS 12.3.4.2.8](https://e-ans.ivdnt.org/topics/pid/topic-17227872050078844), [e-ANS 12.3.2.1](https://e-ans.ivdnt.org/topics/pid/topic-14428052248902267), [woordenlijst.org](https://woordenlijst.org/), [e-ANS 2.3.2.7](https://e-ans.ivdnt.org/topics/pid/ans02030207lingtopic) |
 | `nl.avail.impersonal` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.2.5](https://e-ans.ivdnt.org/topics/pid/ans020205lingtopic) |
 | `nl.avail.singular-only` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.2.5](https://e-ans.ivdnt.org/topics/pid/ans020205lingtopic) |
 | `nl.avail.no-imperative` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.3.2.5](https://e-ans.ivdnt.org/topics/pid/ans02030205lingtopic) |
 | `nl.avail.no-compound` | unavailable | {before} has no modern {form} form in this slot. | [e-ANS 2.3.6.6](https://e-ans.ivdnt.org/topics/pid/ans02030606lingtopic) |
 | `nl.stem.drop-en` | rule | Take -en off {before}: {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
 | `nl.stem.undouble-consonant` | rule | A word does not end in a double consonant, so {before}- becomes {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html) |
-| `nl.stem.lengthen-vowel` | rule | A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-. | [Leidraad 2.1](https://woordenlijst.org/zoeken/leidraad/2/1.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
+| `nl.stem.lengthen-vowel` | rule | A long vowel in a closed syllable is written with two letters, so {before}- becomes {after}-. | [Leidraad 2.1](https://woordenlijst.org/zoeken/leidraad/2/1.html), [Leidraad 2.2](https://woordenlijst.org/zoeken/leidraad/2/2.html), [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
 | `nl.stem.unstressed-e` | rule | The last syllable of {before}- is unstressed, so its vowel is not written double: the stem stays {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
 | `nl.stem.devoice` | rule | At the end of a word, v and z are written f and s, so {before}- becomes {after}-. | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html), [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic) |
 | `nl.stem.lexical` | lexical | The stem of {before} is {after}-, as given for this verb. | [e-ANS 2.3.2.3](https://e-ans.ivdnt.org/topics/pid/ans02030203lingtopic), [e-ANS 2.3.6](https://e-ans.ivdnt.org/topics/pid/ans020306lingtopic), [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
@@ -112,39 +116,80 @@ when all four guards hold:
    [12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710) that e-ANS never names as an unstressed
    prefix (`separableParticles`: af, bij, binnen, boven, buiten, heen, in, langs, mee, na, op, rond, tegen, toe, uit,
    voorbij, neer, samen, terecht, terug, thuis, voort, weg, and the compound particles such as achteruit, omhoog,
-   uiteen), the longest that fits. A particle that e-ANS also names as an unstressed prefix (`dualPrefixes`: aan,
-   achter, door, mis, om, onder, over, voor, weer: 12.3.2.1.5-9, 12.3.4.1.1, 12.3.4.1.2, 12.3.4.1.22, 12.3.4.2.8) is
-   never split without a hint: the verb is taken as inseparable (`nl.classify.assume-inseparable`: overwinnen, ik
-   overwon, overwonnen; aanzorpen, ik aanzorp).
+   uiteen), the longest that fits; or it starts with a dual prefix whose default reading is separable (below).
 2. **The rest.** What follows the particle is a verb in the lexicon (opeten: op + eten, ik eet op), or it begins with a
    consonant and is -en after a root of two letters or more with a vowel (opzorpen: zorp). A rest that begins with a
    vowel is split only when it is a verb in the lexicon: openen is not op + enen, opereren not op + ereren. A rest of
    one letter or without a vowel is no verb: bijzen, opsten.
 3. **No vowel clash.** A particle that ends in a vowel does not meet a vowel, as that is written with a hyphen
    (na-apen): naaien is not na + aien.
-4. **Not on the no-split list.** The verb is not one of the 156 simplex verbs of `simplexVerbs` (`lexicon.ts`), whose
+4. **Not on the no-split list.** The verb is not one of the 161 simplex verbs of `simplexVerbs` (`lexicon.ts`), whose
    spelling begins with a particle's letters: naderen, nagelen, informeren, installeren, opperen, toeteren,
-   missioneren, weerlichten. The list was compiled from the woordenlijst.org lexicon service on 2026-11-25: for every
+   missioneren, voltigeren, weerlichten. The list was compiled from the woordenlijst.org lexicon service on 2026-11-25: for every
    particle and dual prefix, each verb listed with it that is not marked separable and that guards 1-3 would read
    with a prefix; for a dual prefix only those whose participle has ge- before the whole word (gemissioneerd). Each
    entry records its woordenlijst lemma id and participle; four whose participle shows the particle split off
    (weggeweest, voorafgebeeld, voorafgeschaduwd, voorafgespiegeld) are left out.
 
-Guards 2 to 4 also decide whether a dual prefix is read at all, except that its rest may begin with a vowel (omarmen:
-ik omarm, omarmd); a dual prefix never meets a vowel clash, as none ends in a vowel.
-
 A verb that guard 2, 3 or 4 keeps whole gets no assumed prefix: its analysis records `nl.classify.default-unprefixed`
-instead. The assumption of a split (or of an inseparable dual prefix) tells the learner how to override it: an
-`inseparablePrefix` or `separablePrefix` hint decides, and a `classHint` keeps the verb one word. A verb listed in the
-lexicon, or whose base is, takes what the lexicon says.
+instead. Every assumed reading tells the learner how to override it: an `inseparablePrefix` or `separablePrefix` hint
+decides, and a `classHint` keeps the verb one word. A verb listed in the lexicon, or whose base is, takes what the
+lexicon says.
+
+### Dual prefixes: the reading most verbs with the prefix have
+
+e-ANS names ten particles that are also unstressed prefixes (`dualPrefixes`): door-, mis-, om-, onder-, over-
+(12.3.2.1.5-9), aan (12.3.4.1.1), achter (12.3.4.1.2), voor (12.3.4.1.22), weer (12.3.4.2.8) and vol (12.3.2.1, table
+2: vol-dóen). An unlisted verb with one gets the reading most verbs with that prefix have, counted on 2026-11-25 with
+the woordenlijst.org lexicon service over every verb it lists that starts with the prefix (and with no longer
+particle such as aaneen or omhoog). A reading counts as separable when the verb is marked separable or its participle
+has ge- after the prefix (aangehold), as inseparable when its participle has the prefix and no ge- (aanbeden); a lemma
+with both readings counts once for each; verbs with ge- before the whole word (achterklappen: geachterklapt) are
+simplex and left out (they are on the no-split list). The counts are in `dualPrefixCounts` (`lexicon.ts`):
+
+| Prefix | Separable | Inseparable | Separable share | Default |
+| --- | ---: | ---: | ---: | --- |
+| aan | 295 | 4 | 98.7% | separable |
+| voor | 80 | 10 | 88.9% | separable |
+| achter | 9 | 3 | 75.0% | separable |
+| door | 228 | 79 | 74.3% | separable |
+| vol | 37 | 13 | 74.0% | separable |
+| om | 134 | 67 | 66.7% | separable |
+| over | 129 | 109 | 54.2% | inseparable (close to even) |
+| onder | 39 | 54 | 41.9% | inseparable |
+| weer | 6 | 9 | 40.0% | inseparable |
+| mis | 20 | 40 | 33.3% | inseparable |
+
+The default is separable when at least 60% of the readings are (`dualReading`). Below that the verb keeps the prefix:
+mis, onder and weer because most of their verbs do, and over, whose readings are close to even (54% separable),
+because keeping the verb whole is the safer error for a learner: its forms keep the spelling of the infinitive (ik
+overzorp, overzorpt), where a wrong split invents a word order and a ge- (ik zorp over, overgezorpt).
+
+- A separable default splits the verb when the guards above hold (`nl.classify.assume-dual-separable`: aanzorpen, ik
+  zorp aan, aangezorpt; volzorpen, ik zorp vol). When the rest begins with a vowel and is not a verb in the lexicon, the
+  verb keeps the prefix instead, which a dual prefix allows (om + elpen: omelpt).
+- An inseparable default keeps the prefix on the verb (`nl.classify.assume-inseparable`: overwinnen, ik overwin,
+  overwonnen; miszorpen, ik miszorp). Guards 2 and 4 decide here too whether the prefix is read at all, except that the
+  rest may begin with a vowel; no dual prefix ends in a vowel, so guard 3 never applies.
+- The assumption names the prefix, the reading taken and why (most verbs with it; close to even; a rest that cannot be
+  split off), and how to give the other reading.
+- So that a verb that was right before is not made wrong, the verbs woordenlijst.org lists only with the inseparable
+  reading of a prefix whose default is separable are in the lexicon (`dualInseparableVerbs`, 67: aanbidden,
+  aanvaarden, achtervolgen, doorgronden, omhelzen, omringen, omschrijven, voldoen, voltooien, voorzien …), each with
+  its lemma id and participle and checked: the engine's present, past and participle for it equal woordenlijst.org's.
+  Left out: doordesemen (its base has an unstressed last syllable the rules cannot see) and four verbs with a second
+  particle inside (vooraanmelden …). A lemma woordenlijst.org lists with both readings (doorzoeken, omgeven) gets the
+  prefix's default unless it is one of the lemmas with two paradigms (change 2).
 
 ## The two behaviour changes of the switch
 
 Decided with the user:
 
 1. An unknown verb that starts with a separable particle is split when the four guards hold, and one that starts with
-   a dual prefix is taken as inseparable (above). Snapshot verbs: neerzetten, opzorpen, teruggeven, toegeven, toekomen,
-   uitstellen (split); misstaan, overwinnen, voorzien (inseparable).
+   a dual prefix gets the reading most verbs with that prefix have (above; at first every dual prefix was read as
+   inseparable, and the per-prefix default followed after the lexicon corrections). Snapshot verbs: neerzetten,
+   opzorpen, teruggeven, toegeven, toekomen, uitstellen (split); misstaan, overwinnen (inseparable); voorzien
+   (inseparable, listed).
 2. A lemma that is separable in one sense and inseparable in another (voorkomen, overleggen, doorlopen, overlopen,
    ondergaan) returns both paradigms, separable first, with `variant.pattern` `separable` / `inseparable`, its meaning
    as `variant.condition`, and its own perfect auxiliary (woordenlijst.org: het is voorgekomen, ik heb het voorkomen).
@@ -170,9 +215,9 @@ The switch has 56 block-level entries, the four queries of each verb below (no h
 | overleggen | 2 | two readings: óverleggen (to hand over; legt over, heeft overgelegd) and overléggen (to discuss; overlegt, heeft overlegd); frozen: AMBIGUOUS_CLASSIFICATION | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=overleggen) |
 | overlopen | 2 | two readings: óverlopen (to defect, to overflow; loopt over, is overgelopen) and overlópen (to walk all over; overloopt, heeft overlopen); frozen: AMBIGUOUS_CLASSIFICATION | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=overlopen) |
 | voorkomen | 2 | two readings: vóórkomen (to occur; komt voor, is voorgekomen) and voorkómen (to prevent; voorkomt, heeft voorkomen); frozen: AMBIGUOUS_CLASSIFICATION | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=voorkomen) |
-| misstaan | 1 | dual prefix mis- taken as inseparable: misstaat, misstond, misstaan; frozen: AMBIGUOUS_CLASSIFICATION | [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082) |
-| overwinnen | 1 | dual prefix over- taken as inseparable: overwin, overwon, overwonnen; frozen: weak, geoverwind | [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955) |
-| voorzien | 1 | dual prefix voor taken as inseparable: voorzie, voorzag, voorzien; frozen: weak, ik voorzi, gevoorzid | [e-ANS 12.3.4.1.22](https://e-ans.ivdnt.org/topics/pid/topic-16418926026532594) |
+| misstaan | 1 | dual prefix mis- taken as inseparable, as most verbs with mis- keep it: misstaat, misstond, misstaan; frozen: AMBIGUOUS_CLASSIFICATION | [e-ANS 12.3.2.1.6](https://e-ans.ivdnt.org/topics/pid/topic-10736514965277082) |
+| overwinnen | 1 | dual prefix over- taken as inseparable, its readings being close to even: overwin, overwon, overwonnen; frozen: weak, geoverwind | [e-ANS 12.3.2.1.9](https://e-ans.ivdnt.org/topics/pid/topic-12953722418251955) |
+| voorzien | 1 | listed with the inseparable prefix voor- (voor defaults to separable): voorzie, voorzag, voorzien; frozen: weak, ik voorzi, gevoorzid | [woordenlijst.org](https://woordenlijst.org/zoeken/?q=voorzien) |
 | neerzetten | 1 | split at neer: zet neer, neergezet; frozen: ik neerzet, geneerzet | [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710) |
 | opzorpen | 1 | split at op: zorp op, opgezorpt; frozen: ik opzorp, geopzorpt | [e-ANS 12.3.4.1](https://e-ans.ivdnt.org/topics/pid/topic-16531765141029304) |
 | teruggeven | 1 | split at terug: geef terug, gaf terug, teruggegeven; frozen: ik teruggeef, geteruggeefd | [e-ANS 12.3.4.2](https://e-ans.ivdnt.org/topics/pid/topic-19059235502398710) |
@@ -189,8 +234,6 @@ checked on woordenlijst.org (by data only: no prefix is inferred for an unknown 
   vertellen, gebeuren, ontmoeten …; the auxiliary woordenlijst.org gives in `dutchExceptions` when it is not hebben
   alone), strong ones as derivatives of their base in `inseparableDerivatives` (besluiten of sluiten, verbinden of
   binden, vervallen of vallen with zijn …), and vergelijken and ervaren with their own strong forms;
-- 16 verbs in -xen (relaxen, waxen, unboxen …): x is ks, so the vowel before it is written once (relaxte, not
-  relaaxte), in the loan table, and tipp-exen and texen with a listed stem.
 
 The snapshot queries it changes are 44 block-level entries, the four queries of each verb below:
 
@@ -216,23 +259,21 @@ what is regretted (die woorden spijten me), so the 3rd person plural stays.
 - **Separability of a verb the lexicon does not list is inferred from its spelling, and can be wrong in both
   directions.** Stress and meaning decide it, and spelling shows neither. Checked against the verbs woordenlijst.org
   listed on 2026-11-25, if the lexicon did not list them:
-  - *A separable verb kept whole or read as inseparable.* A verb with a dual prefix is read as inseparable, although
-    most such verbs are separable: of the separable verbs woordenlijst.org lists, 286 of the 297 with aan-, 228 of the
-    230 with door-, 132 of the 208 with om-, 122 of the 122 with over- and 82 of the 203 with voor- would be read as
-    inseparable (most of the others start with a longer particle such as aaneen, omhoog or vooruit and are split
-    there). An unlisted aanklikken comes out as ik aanklik, aanklikt, not ik klik aan, aangeklikt. Guard 2 keeps 97
-    separable verbs with an unambiguous particle whole, because their rest begins with a vowel and is not in the lexicon
-    (opeisen, opofferen, uitoefenen, inademen, inenten), or because their particle is not on the list (openmaken,
-    opendoen, opzijgaan): ik opeis, geopeist.
+  - *A separable verb kept whole or read as inseparable.* A verb with a prefix whose default is inseparable is read so
+    when it is separable: of the readings woordenlijst.org lists, the 129 separable ones with over-, 39 with onder-, 20
+    with mis- and 6 with weer- (an unlisted overstappen gives ik overstap, overstapt, not ik stap over, overgestapt).
+    The other way round, a lemma that woordenlijst.org lists with both readings of a separable-default prefix (69 with
+    door-, 29 with om-, 3 with voor-, 2 with vol-, 1 with aan-) gets the separable one only: doorzoeken gives ik zoek
+    door, doorgezocht, not also ik doorzoek, doorzocht. Guard 2 keeps 97 separable verbs with an unambiguous particle
+    whole, because their rest begins with a vowel and is not in the lexicon (opeisen, opofferen, uitoefenen, inademen,
+    inenten), or because their particle is not on the list (openmaken, opendoen, opzijgaan): ik opeis, geopeist.
   - *A simplex verb split or read with a prefix.* The no-split list holds the simplex verbs woordenlijst.org lists; a
     newer one, or one that is also the spelling of a particle verb, is still split: opteren is split as op + teren (ik
     teer op, opgeteerd: to live off), which is right for one of its two woordenlijst.org lemmas and wrong for the other
-    (ik opteer: to opt). A new simplex verb with a dual prefix's letters loses its ge-.
+    (ik opteer: to opt). A new simplex verb with the letters of a dual prefix is split or loses its ge-, and a new
+    inseparable verb with a separable-default prefix is split.
   The assumption in the analysis says which reading was taken and how to override it: an `inseparablePrefix` or
   `separablePrefix` hint, or a `classHint` to keep the verb one word.
-- x is written for ks, but the stem rules read it as one consonant, so a verb in -xen that the lexicon does not list
-  gets a long vowel written double: boxen gives ik boox, booxte (the verb woordenlijst.org lists is boksen: bokste).
-  The -xen verbs woordenlijst.org lists are in the lexicon.
 - Stress and meaning also decide the auxiliary, and the stress of a final syllable (informeren: ik informeer, not ik
   informer, needs a stress hint); spelling does not show them. Unknown strong verbs need their principal parts
   (`stems`), and unknown loans their stem and, where needed, their d/t.

@@ -12,6 +12,7 @@ export const dutchWorks = {
     url: 'https://e-ans.ivdnt.org/',
   },
   leidraad: { id: 'leidraad', title: 'Leidraad, Woordenlijst Nederlandse Taal', author: 'Taalunie', url: 'https://woordenlijst.org/leidraad' },
+  woordenlijst: { id: 'woordenlijst', title: 'Woordenlijst Nederlandse Taal', author: 'Taalunie', url: 'https://woordenlijst.org/' },
 } as const satisfies Record<string, Work>;
 
 const eAns = (locator: string, pid: string): Citation => ({ work: 'e-ans', locator, url: `https://e-ans.ivdnt.org/topics/pid/${pid}` });
@@ -65,7 +66,13 @@ const dualPrefixes = [
   eAns('12.3.4.1.2 Samenkoppelingen met achter (achtervólgen)', 'topic-12837118759979596'),
   eAns('12.3.4.1.22 Samenkoppelingen met voor (voorkómen)', 'topic-16418926026532594'),
   eAns('12.3.4.2.8 Samenkoppelingen met weer (weerspréken)', 'topic-17227872050078844'),
+  eAns('12.3.2.1 Prefigering, tabel 2 (vol-dóen)', 'topic-14428052248902267'),
 ];
+/** The counts behind the default reading of each dual prefix (`dualPrefixCounts` in `lexicon.ts`). */
+const dualCounts: Citation = {
+  work: 'woordenlijst', locator: 'lexicon service, verbs listed per prefix, separable or not (counted 2026-11-25)',
+  url: 'https://woordenlijst.org/',
+};
 
 export const dutchCitations = {
   'nl.classify.irregular': [irregularVerbs, irregularB],
@@ -79,10 +86,11 @@ export const dutchCitations = {
   'nl.classify.default-hebben': auxiliaryChoice,
   'nl.classify.default-unprefixed': pastParticiple,
   'nl.classify.assume-separable': [...particles, leidraad('7.2')],
-  'nl.classify.assume-inseparable': [...dualPrefixes, pastParticiple],
+  'nl.classify.assume-dual-separable': [...dualPrefixes, dualCounts, ...particles],
+  'nl.classify.assume-inseparable': [...dualPrefixes, dualCounts, pastParticiple],
   'nl.stem.drop-en': [leidraad('11.1'), stem],
   'nl.stem.undouble-consonant': [leidraad('11.1'), leidraad('2.2')],
-  'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('11.1')],
+  'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('2.2'), leidraad('11.1')],
   'nl.stem.unstressed-e': [leidraad('11.1'), stem],
   'nl.stem.devoice': [leidraad('11.1'), stem],
   'nl.stem.lexical': [stem, irregularB, leidraad('12.2')],

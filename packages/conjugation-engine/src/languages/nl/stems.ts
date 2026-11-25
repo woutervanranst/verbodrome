@@ -32,12 +32,17 @@ export interface StemSource {
 
 /** A consonant written double at the end (bakk). */
 const doubleConsonant = /([bcdfghjklmnpqrstvwxz])\1$/u;
-/** A single a, e, o or u before one final consonant, not after another vowel: a long vowel in an open syllable (lop). */
-const openSyllable = /(^|[^aeiouy])([aeou])([bcdfghjklmnpqrstvwxz])$/u;
+/**
+ * A single a, e, o or u before one final consonant, not after another vowel: a long vowel in an open syllable (lop).
+ * x is not such a consonant: it stands for two sounds, /ks/, so the vowel before it is in a closed syllable and short
+ * (faxen: fax, relaxen: relax). The Leidraad never writes x double after a short vowel (2.2) and spells the stem by the
+ * rules for open and closed syllables (11.1).
+ */
+const openSyllable = /(^|[^aeiouy])([aeou])([bcdfghjklmnpqrstvwz])$/u;
 
 /**
  * The present stem of `infinitive`. Without a listed stem: drop -en; then either write a doubled final consonant once,
- * or write a long vowel double in the now closed syllable, unless it is the unstressed e of a last syllable in -el, -er
+ * or write a long vowel double in the now closed syllable (not before x, which closes the syllable already), unless it is the unstressed e of a last syllable in -el, -er
  * or -en (inferred when the root, without `prefix`, has more than one vowel group); finally write a final v or z as f
  * or s. Throws AMBIGUOUS_CLASSIFICATION for an infinitive without -en and without a listed stem.
  */

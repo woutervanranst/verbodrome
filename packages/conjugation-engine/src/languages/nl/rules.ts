@@ -1,6 +1,6 @@
 /**
  * Every rule the Dutch staged grammar records, keyed by id (`nl.<stage>.<name>`). Messages live in
- * `src/i18n/locales/{en,nl}/nl.ts`, citations in `sources.ts`. The four `default-*` rules and the two `assume-*` rules
+ * `src/i18n/locales/{en,nl}/nl.ts`, citations in `sources.ts`. The four `default-*` rules and the three `assume-*` rules
  * are the assumptions made for a verb the lexicon does not know, and the four `avail` rules say why a form does not
  * exist; the English messages of the `default-*` and `avail` rules are the sentences the analysis and the unavailable
  * targets showed before the staged grammar.
@@ -26,7 +26,9 @@ export const dutchRules = defineRules({
   'nl.classify.default-hebben': { stage: 'classify', kind: 'assumption' },
   'nl.classify.default-unprefixed': { stage: 'classify', kind: 'assumption' },
   'nl.classify.assume-separable': { stage: 'classify', kind: 'assumption', params: { particle: 'text' } },
-  'nl.classify.assume-inseparable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
+  // A dual prefix read by its default (`dualPrefixCounts`): separable, or kept on the verb; {why} is most, close or rest.
+  'nl.classify.assume-dual-separable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
+  'nl.classify.assume-inseparable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', why: 'text' } },
   // availability: {before} is the lemma.
   'nl.avail.impersonal': unavailable,
   'nl.avail.singular-only': unavailable,

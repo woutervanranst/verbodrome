@@ -402,6 +402,24 @@ const toy = createEngine({ xx: toyPack }, catalogs);
 const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', voice: 'active' }).forms;
 ```
 
+### The characterization ledger
+
+A language that existed before the staged core has a frozen snapshot of its old output: `tests/characterization/<language>.queries.json` (the queries) and `<language>.tsv.gz` (the complete output of `conjugate` for each, written once by `npm run characterize:write`, never regenerated and never edited). To inspect it: `gunzip -c tests/characterization/<language>.tsv.gz | less`. Each query is a block: the header line `# {query as JSON, keys sorted}`, then an `A` line (analysis), `F` lines (forms, in engine order) and `U` lines (unavailable targets), or a single `E` line with the error code. `tests/characterization.test.ts` requires the current engine to reproduce every block exactly, apart from the intended differences in `tests/characterization/intended-diffs.json`. Each entry has a `reason` of more than 30 characters, saying which approved change or which correction it records and why, and an `https://` `source` (the authority: e-ANS, the Leidraad, woordenlijst.org, ...). The file is sorted by `query`. An entry takes one of two forms:
+
+- **Line-level**, for a block that changes in a few lines: `was` is the frozen line and `now` the line that replaces it; `was: null` adds `now` (after the line given in `after`, directly after the `A` line when `after` is `null`, at the end of the block when `after` is absent); `now: null` removes `was`. A reorder is a removal plus an insertion.
+
+```json
+{ "query": "# {\"infinitive\":\"zorpen\",\"language\":\"nl\"}", "was": "F\t...\tgezorpt\t...", "now": "F\t...\tgezorpd\t...", "reason": "...", "source": "https://..." }
+```
+
+- **Block-level**, for a block that changes throughout (most of its lines, or an `E` block that becomes a paradigm): the whole frozen block of `query` is superseded by the block with the same header in `tests/characterization/<language>.accepted.tsv.gz`, which has the line format and gzip of the frozen file.
+
+```json
+{ "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\"}", "block": true, "reason": "...", "source": "https://..." }
+```
+
+After adding or removing a block-level entry, or after an intended change to the output of a query that has one, run `npm run characterize:accept`: it writes each language's accepted file from the current engine for exactly the block-level entries' queries (and removes the file of a language without any), so read the accepted blocks it wrote before you commit them. The test enforces: a query has one block-level entry or only line-level ones; every accepted block has exactly one block-level entry and every block-level entry an accepted block; every entry is applied exactly once (an unused entry fails). The number of entries of each form is pinned (`LINE_ENTRY_COUNT`, `BLOCK_ENTRY_COUNT`); raise them in the commit that adds the entries. A language with no frozen snapshot has no ledger; its tests are its own.
+
 ## 3. Catalogue, subjects, options, rendering and rank
 
 ### The catalogue
@@ -642,6 +660,15 @@ return [...one(word, steps, {}, ['informal']), ...one(lexeme.formal, [step(toyRu
 const unmarked = subject?.register === 'formal' ? 'informal' : 'formal';
 if (words.some(word => word.marks?.includes(unmarked))) return [];
 ```
+
+How to use marks, step by step:
+
+1. Name the marks as constants the cell and the clause share (Dutch: `afterVerb = 'after-verb'`, `formal = 'formal'` and `spoken = 'spoken'` in `src/languages/nl/paradigms.ts`).
+2. Set them where the word is made: the fourth argument of `one(value, steps, tags, marks)`, or `marks` on an `Outcome` you build yourself, in `cell`, `stem`, `ending` or a juncture rule. A word made by `deriveWords` or the engine's stem → ending → orthography carries the marks of every outcome it was made from (`chain`, `combine` and the juncture rules merge them with `mergeMarks`), so a mark set on an ending reaches the finished word.
+3. Read them in `clause.assemble`, from `ChainWord.marks` of each word, and return `[]` for a combination the clause does not use, or set the variant condition a mark stands for (Dutch: the clause keeps the forms marked `after-verb` only after inversion with jij or je, the forms marked `formal` only for u, and labels the infinitive marked `spoken` with its condition: `src/languages/nl/clause.ts`).
+4. Leave the steps alone: a marked word records the steps of the rules that made it, as any other word. A mark is never shown, never reaches a form, its variant or its explanation, and never replaces a step: if a learner should see why a word is used, that is a rule with a message.
+
+An outcome without marks has no `marks` key, so existing deep-equal tests do not change. `tests/core/derivation.test.ts` (merging) and `tests/core/subjects.test.ts` (the toy's clause filtering by marks) show the behaviour.
 
 ### Variant tags
 
@@ -942,7 +969,7 @@ const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator }
 9. A periphrasis whose chain uses `perfectAuxiliary` has a rule with exactly one text param `auxiliary`; one that does not has a rule with no params.
 10. A periphrasis built on a named auxiliary reports that auxiliary as `variant.auxiliary` unless it declares `reports`.
 11. A cell speaks the pack's own ids; an active cell has no `voice`; an active periphrasis in a pack with voices says `voice: 'active'`.
-12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`: line-level entries for a few changed lines, block-level entries (with the block accepted in `<language>.accepted.tsv.gz` by `npm run characterize:accept`) for a block that changes throughout; `tests/characterization.test.ts` documents both.
+12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`, line-level or block-level, each with its reason and source (section 2, "The characterization ledger").
 13. A staged pack declares `rules`, `works` and `citations`.
 14. A step explains what a rule did to this form, and only that: a rule that changed nothing records no step, and a step is never a signal for another stage. A clause that must tell words of one cell apart reads their marks (section 4), never their steps or variant tags.
 

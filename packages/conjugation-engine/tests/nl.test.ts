@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { expandTargets, getSubjects } from '../src/catalogue.js';
 import { conjugate } from '../src/index.js';
-import { dutchExceptions, inferredPrefix, simplexVerbs, spelledPrefix } from '../src/languages/nl/lexicon.js';
+import { dualInseparableVerbs, dualPrefixes, dualReading, dutchExceptions, inferredPrefix, simplexVerbs, spelledPrefix } from '../src/languages/nl/lexicon.js';
 import { dutchPack } from '../src/languages/nl/pack.js';
 import { renderParts } from '../src/render.js';
 import type { DutchConjugationOptions, ResolvedTarget } from '../src/types.js';
@@ -111,12 +111,46 @@ describe('Dutch grammatical generation', () => {
     /** Whether the analysis records an assumed prefix (assume-separable or assume-inseparable). */
     const assumesPrefix = (infinitive: string) => conjugate({ language: 'nl', infinitive }).analysis.assumptions.some(text => text.startsWith(`${infinitive} is not in the lexicon and starts with`));
 
-    it('1: only a particle on the unambiguous list is split; a dual prefix (aan, over) is read as inseparable', () => {
+    it('1: a particle on the unambiguous list is split; a dual prefix gets the reading most verbs with it have', () => {
       expect(dutch({ language: 'nl', infinitive: 'uitzorpen', ...present })).toEqual(['ik zorp uit']);
-      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', ...present })).toEqual(['ik aanzorp']);
-      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', mood: 'participle', tense: 'past' })).toEqual(['aanzorpt']);
+      // aan, door, om, vol, voor, achter: most verbs with them are separable.
+      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', ...present })).toEqual(['ik zorp aan']);
+      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', mood: 'participle', tense: 'past' })).toEqual(['aangezorpt']);
+      expect(dutch({ language: 'nl', infinitive: 'volzorpen', ...present })).toEqual(['ik zorp vol']);
+      // mis, onder, weer: most keep the prefix; over: close to even, so the verb is kept whole.
+      expect(dutch({ language: 'nl', infinitive: 'miszorpen', ...present })).toEqual(['ik miszorp']);
       expect(dutch({ language: 'nl', infinitive: 'overzorpen', ...present })).toEqual(['ik overzorp']);
-      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', separablePrefix: 'aan', ...present })).toEqual(['ik zorp aan']);
+      expect(dutch({ language: 'nl', infinitive: 'overzorpen', mood: 'participle', tense: 'past' })).toEqual(['overzorpt']);
+      // The hint gives the other reading.
+      expect(dutch({ language: 'nl', infinitive: 'aanzorpen', inseparablePrefix: 'aan', ...present })).toEqual(['ik aanzorp']);
+      expect(dutch({ language: 'nl', infinitive: 'overzorpen', separablePrefix: 'over', ...present })).toEqual(['ik zorp over']);
+      // A separable default whose rest begins with a vowel and is not a lexicon verb keeps the prefix (om + elpen).
+      expect(dutch({ language: 'nl', infinitive: 'omelpen', mood: 'participle', tense: 'past' })).toEqual(['omelpt']);
+    });
+
+    it('records the counts behind each default reading, and why', () => {
+      const readings = Object.fromEntries(dualPrefixes.map(prefix => [prefix, dualReading(prefix)]));
+      expect(readings).toEqual({
+        aan: { separable: true, why: 'most' }, achter: { separable: true, why: 'most' }, door: { separable: true, why: 'most' },
+        mis: { separable: false, why: 'most' }, om: { separable: true, why: 'most' }, onder: { separable: false, why: 'most' },
+        over: { separable: false, why: 'close' }, vol: { separable: true, why: 'most' }, voor: { separable: true, why: 'most' },
+        weer: { separable: false, why: 'most' },
+      });
+      const assumptions = (infinitive: string) => conjugate({ language: 'nl', infinitive }).analysis.assumptions.filter(text => text.includes('not in the lexicon and starts with'));
+      expect(assumptions('aanzorpen')).toEqual(['aanzorpen is not in the lexicon and starts with aan, which can be a separable particle or an unstressed prefix. Most verbs with aan are separable, so it is conjugated as a separable verb. If aan- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).']);
+      expect(assumptions('miszorpen')[0]).toContain('it is taken as a prefix that stays on the verb, as most verbs with mis- keep it.');
+      expect(assumptions('overzorpen')[0]).toContain('as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess.');
+      expect(assumptions('omelpen')[0]).toContain('as what follows om here starts with a vowel and is not a verb in the lexicon, although most verbs with om are separable.');
+    });
+
+    it('keeps the verbs woordenlijst.org lists with the other reading of a separable-default prefix inseparable', () => {
+      const past = { mood: 'indicative', tense: 'past', person: 3, number: 'singular' } as const;
+      expect(dutch({ language: 'nl', infinitive: 'voorzien', ...past })).toEqual(['hij voorzag']);
+      expect(dutch({ language: 'nl', infinitive: 'omhelzen', mood: 'participle', tense: 'past' })).toEqual(['omhelsd']);
+      expect(dutch({ language: 'nl', infinitive: 'aanbidden', mood: 'participle', tense: 'past' })).toEqual(['aanbeden']);
+      expect(dutch({ language: 'nl', infinitive: 'voldoen', ...past })).toEqual(['hij voldeed']);
+      expect(conjugate({ language: 'nl', infinitive: 'voorzien' }).analysis.classificationSource).toBe('lexicon');
+      for (const [lemma, { prefix }] of Object.entries(dualInseparableVerbs)) expect(dualReading(prefix).separable, lemma).toBe(true);
     });
 
     it('2: the rest is a verb in the lexicon, or starts with a consonant and has a root with a vowel before -en', () => {
@@ -163,7 +197,7 @@ describe('Dutch grammatical generation', () => {
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', mood: 'indicative', tense: 'past', person: 1, number: 'singular' })).toEqual(['ik overwon']);
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', mood: 'participle', tense: 'past' })).toEqual(['overwonnen']);
     expect(conjugate({ language: 'nl', infinitive: 'overwinnen' }).analysis.assumptions).toContain(
-      'overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
+      'overwinnen is not in the lexicon and starts with over-, which can be a separable particle or an unstressed prefix: it is taken as a prefix that stays on the verb, as about as many verbs with over are separable as keep it, and keeping the verb whole is the safer guess. If over is separable here, give it as the separable prefix; if the verb has no prefix, give its class (weak or strong).',
     );
     expect(dutch({ language: 'nl', infinitive: 'overwinnen', separablePrefix: 'over', mood: 'participle', tense: 'past' })).toEqual(['overgewonnen']);
   });
@@ -184,11 +218,33 @@ describe('Dutch grammatical generation', () => {
     expect(dutch({ language: 'nl', infinitive: 'ervaren', ...past })).toEqual(['hij ervoer', 'hij ervaarde']);
   });
 
-  it('writes the vowel before x once in the -xen verbs woordenlijst.org lists', () => {
-    const past = { mood: 'indicative', tense: 'past', person: 1, number: 'singular' } as const;
-    expect(dutch({ language: 'nl', infinitive: 'relaxen', ...past })).toEqual(['ik relaxte']);
-    expect(dutch({ language: 'nl', infinitive: 'unboxen', mood: 'participle', tense: 'past' })).toEqual(['geünboxt']);
-    expect(dutch({ language: 'nl', infinitive: 'tipp-exen', mood: 'participle', tense: 'past' })).toEqual(['getipp-ext']);
+  describe('x stands for /ks/: it closes the syllable and is voiceless', () => {
+    const forms = (infinitive: string) => [
+      ...dutch({ language: 'nl', infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'singular' }),
+      ...dutch({ language: 'nl', infinitive, mood: 'indicative', tense: 'past', person: 1, number: 'singular' }),
+      ...dutch({ language: 'nl', infinitive, mood: 'participle', tense: 'past' }),
+    ];
+    /** The rule ids of the past tense form, in order. */
+    const pastRules = (infinitive: string) => conjugate({ language: 'nl', infinitive, mood: 'indicative', tense: 'past', person: 1, number: 'singular' }).forms[0]!.ruleIds;
+
+    it('keeps the vowel before x short and takes t, in real verbs and an invented one', () => {
+      // woordenlijst.org: faxen, mixen, relaxen; faxen is in the loan table, the others follow from the rules.
+      expect(forms('faxen')).toEqual(['ik fax', 'ik faxte', 'gefaxt']);
+      expect(forms('mixen')).toEqual(['ik mix', 'ik mixte', 'gemixt']);
+      expect(forms('relaxen')).toEqual(['ik relax', 'ik relaxte', 'gerelaxt']);
+      expect(forms('unboxen')).toEqual(['ik unbox', 'ik unboxte', 'geünboxt']);
+      expect(forms('zoxen')).toEqual(['ik zox', 'ik zoxte', 'gezoxt']);
+      // Contrast: boksen writes the same sounds as ks, a closed syllable too.
+      expect(forms('boksen')).toEqual(['ik boks', 'ik bokste', 'gebokst']);
+    });
+
+    it('records no lengthened vowel before x, and the voiceless x for the t', () => {
+      expect(pastRules('relaxen')).not.toContain('nl.stem.lengthen-vowel');
+      expect(pastRules('relaxen')).toContain('nl.orth.dental-voiceless');
+      expect(pastRules('zoxen')).toEqual(pastRules('relaxen'));
+      // A single consonant other than x still opens the syllable: lopen, loop.
+      expect(pastRules('zoken')).toContain('nl.stem.lengthen-vowel');
+    });
   });
 
   it('gives a verb that is separable in one sense and inseparable in another both paradigms', () => {
