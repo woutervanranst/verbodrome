@@ -88,6 +88,7 @@ export const dutchCitations = {
   'nl.classify.assume-separable': [...particles, leidraad('7.2')],
   'nl.classify.assume-dual-separable': [...dualPrefixes, dualCounts, ...particles],
   'nl.classify.assume-inseparable': [...dualPrefixes, dualCounts, pastParticiple],
+  'nl.classify.assume-rest-prefix': [eAns('12.3.2.1 Prefigering', 'topic-14428052248902267'), pastParticiple],
   'nl.stem.drop-en': [leidraad('11.1'), stem],
   'nl.stem.undouble-consonant': [leidraad('11.1'), leidraad('2.2')],
   'nl.stem.lengthen-vowel': [leidraad('2.1'), leidraad('2.2'), leidraad('11.1')],

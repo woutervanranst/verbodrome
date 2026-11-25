@@ -764,8 +764,16 @@ export type DutchAuxiliary = 'hebben' | 'zijn';
 export interface DutchLexeme extends LexemeBase {
   /** The verb the forms are built on: the lemma without a derivative's prefix (werken for verwerken, staan for opstaan). */
   readonly base: string;
-  /** The unstressed prefix that keeps ge- out of the past participle (be in beloven and begrijpen); '' when there is none. */
+  /**
+   * The unstressed prefix that keeps ge- out of the past participle (be in beloven and begrijpen, and in terugbetalen);
+   * '' when there is none.
+   */
   readonly inseparablePrefix: string;
+  /**
+   * The unstressed prefix of the rest of a separable verb that is an inseparable derivative, written before every word
+   * of the base, inside the separable particle (ver in uitverkopen: kocht → verkocht → uitverkocht); '' for none.
+   */
+  readonly innerPrefix: string;
   /**
    * The lexicon's entry for the base, {} when it has none: principal parts and flags. A derivative listed as personal
    * (bevriezen) does not take over the impersonal flags of its base.
@@ -870,6 +878,50 @@ export function spelledPrefix(lemma: string): ImpliedPrefix | null {
   return null;
 }
 
+/** The inseparable derivative `verb` is listed as: an entry of `inseparableDerivatives` or `dualInseparableVerbs`. */
+function inseparableDerivativeOf(verb: string): DutchDerivative | undefined {
+  const dual = lookup(dualInseparableVerbs, verb);
+  return lookup(inseparableDerivatives, verb)
+    ?? (dual ? { prefix: dual.prefix, base: verb.slice(dual.prefix.length), auxiliary: dual.auxiliary } : undefined);
+}
+
+/** The unstressed prefixes of e-ANS 12.3.2.1 that never split off, longest first. */
+const unstressedPrefixes = ['ver', 'ont', 'her', 'be', 'ge', 'er'];
+
+/**
+ * How the rest of a separable verb is read, like any verb: as an inseparable derivative (verkopen in uitverkopen: ver +
+ * kopen, whose forms it takes), as a verb listed with an unstressed prefix (betalen in terugbetalen), or, when the
+ * lexicon does not know it, as a verb with an unstressed prefix it starts with (`assumed`: bereiden in voorbereiden),
+ * provided a consonant follows the prefix and a root with a vowel follows that (not bellen in opbellen, beelden in
+ * uitbeelden); otherwise as a plain verb.
+ */
+interface Rest {
+  /** The rest as a word: betalen, verkopen. */
+  readonly verb: string;
+  /** Its unstressed prefix, which keeps ge- out of the participle; '' for none. */
+  readonly prefix: string;
+  /** The prefix written before every word of `base` (ver for verkopen: kocht → verkocht); '' when the base is the rest. */
+  readonly inner: string;
+  /** The verb the forms are built on: kopen for verkopen, betalen for betalen. */
+  readonly base: string;
+  readonly auxiliary?: DutchDerivative['auxiliary'];
+  readonly assumed: boolean;
+}
+
+function restOf(verb: string): Rest {
+  const derivative = inseparableDerivativeOf(verb);
+  if (derivative) return { verb, prefix: derivative.prefix, inner: derivative.prefix, base: derivative.base, auxiliary: derivative.auxiliary, assumed: false };
+  const listed = lookup(inseparableVerbs, verb);
+  const plain: Rest = { verb, prefix: listed ?? '', inner: '', base: verb, assumed: false };
+  if (listed !== undefined || inLexicon(verb)) return plain;
+  const prefix = unstressedPrefixes.find(candidate => {
+    const after = verb.slice(candidate.length);
+    const root = after.endsWith('en') ? after.slice(0, -2) : '';
+    return verb.startsWith(candidate) && !/^[aeiouy]/u.test(after) && root.length >= 2 && /[aeiouyëï]/u.test(root);
+  });
+  return prefix === undefined ? plain : { ...plain, prefix, assumed: true };
+}
+
 /** The prefix an unlisted lemma is read with: the one it is spelled with, none for a verb on the no-split list. */
 export function inferredPrefix(lemma: string): ImpliedPrefix | null {
   return lookup(simplexVerbs, lemma) === undefined ? spelledPrefix(lemma) : null;
@@ -902,10 +954,7 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
   if (separablePrefix && listedInseparable) throw new ConjugationError('INVALID_HINT', `${lemma} has a lexical inseparable prefix.`);
   const knownSeparable = lookup(separableVerbs, lemma);
   if (inseparablePrefix && knownSeparable) throw new ConjugationError('INVALID_HINT', `${lemma} has a lexical separable prefix.`);
-  const dualInseparable = lookup(dualInseparableVerbs, lemma);
-  const knownInseparable = lookup(inseparableDerivatives, lemma) ?? (dualInseparable
-    ? { prefix: dualInseparable.prefix, base: lemma.slice(dualInseparable.prefix.length), auxiliary: dualInseparable.auxiliary }
-    : undefined);
+  const knownInseparable = inseparableDerivativeOf(lemma);
   if (separablePrefix && knownSeparable && separablePrefix !== knownSeparable.prefix) {
     throw new ConjugationError('INVALID_HINT', `The verified separable prefix of ${lemma} is ${knownSeparable.prefix}.`);
   }
@@ -925,8 +974,11 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
       ? { prefix: inseparablePrefix, base: lemma.slice(inseparablePrefix.length), ...readingOf(inseparablePrefix, false) }
       : knownSeparable ?? knownInseparable;
   const separable = separablePrefix ?? knownSeparable?.prefix ?? '';
-  const inseparable = inseparablePrefix ?? knownInseparable?.prefix ?? listedInseparable ?? '';
-  const base = derivative?.base ?? lemma;
+  // The rest of a separable verb is classified like any verb: terugbetalen keeps the be- of betalen (terugbetaald),
+  // uitverkopen takes the forms of verkopen (uitverkocht).
+  const rest = separable && derivative ? restOf(derivative.base) : null;
+  const inseparable = rest ? rest.prefix : inseparablePrefix ?? knownInseparable?.prefix ?? listedInseparable ?? '';
+  const base = rest?.base ?? derivative?.base ?? lemma;
   const listedBase = lookup(dutchExceptions, base);
   const personal = derivative?.personal ?? knownSeparable?.personal ?? knownInseparable?.personal;
   const entry: DutchEntry = personal ? { ...listedBase, impersonal: false, singularOnly: false, noImperative: false } : listedBase ?? {};
@@ -945,13 +997,13 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
     infinitive: base,
     listed: hints.stem ?? loan?.stem ?? entry.stem,
     unstressed: hints.unstressedFinalSyllable ?? entry.unstressedFinalSyllable,
-    prefix: derivative ? lookup(inseparableVerbs, base) ?? '' : inseparable,
+    prefix: rest && !rest.inner ? rest.prefix : derivative ? lookup(inseparableVerbs, base) ?? '' : inseparable,
   });
   const reflexive = expressedReflexive || options.reflexive === true || entry.reflexive === true;
   if (options.reflexive === false && (expressedReflexive || entry.reflexive)) {
     throw new ConjugationError('INVALID_HINT', `${lemma} requires a reflexive pronoun.`);
   }
-  const defaultAuxiliary = derivative?.auxiliary ?? knownSeparable?.auxiliary ?? knownInseparable?.auxiliary ?? entry.auxiliary ?? 'hebben';
+  const defaultAuxiliary = derivative?.auxiliary ?? knownSeparable?.auxiliary ?? knownInseparable?.auxiliary ?? rest?.auxiliary ?? entry.auxiliary ?? 'hebben';
   const defaultAuxiliaries: readonly DutchAuxiliary[] = defaultAuxiliary === 'both' ? ['hebben', 'zijn'] : [defaultAuxiliary];
   if (auxiliary && listedBase && !defaultAuxiliaries.includes(auxiliary)) {
     throw new ConjugationError('INVALID_HINT', `${lemma} does not accept auxiliary ${auxiliary} in this lexical model.`);
@@ -963,7 +1015,8 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
 
   const steps: DerivationStep[] = [];
   if (separable) steps.push(step(dutchRules['nl.classify.separable'], lemma, null, { particle: separable }));
-  if (inseparable) steps.push(step(dutchRules['nl.classify.inseparable'], lemma, null, { prefix: inseparable }));
+  if (rest?.assumed) steps.push(step(dutchRules['nl.classify.assume-rest-prefix'], rest.verb, null, { prefix: rest.prefix }));
+  else if (inseparable) steps.push(step(dutchRules['nl.classify.inseparable'], rest?.verb ?? lemma, null, { prefix: inseparable }));
   if (isLoan) steps.push(step(dutchRules['nl.classify.loan'], base, null));
   else if (listedBase) steps.push(listedClass(base, listedBase));
   // A verb whose base is neither listed nor a loan: each guess the lexicon would otherwise answer, unless a hint does.
@@ -993,6 +1046,7 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
       particle: prefix ? { text: prefix, separable: separable !== '' } : null,
       base,
       inseparablePrefix: inseparable,
+      innerPrefix: rest?.inner ?? '',
       entry,
       loan,
       hints,

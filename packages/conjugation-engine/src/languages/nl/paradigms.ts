@@ -110,8 +110,8 @@ function afterVerbEnding(stem: string): Fork<string> {
   return one('', [ending], {}, [afterVerb]);
 }
 
-/** The prefixed past participle a derivative with an inseparable prefix ends up with: ver + huisd. */
-const prefixed = (lexeme: DutchLexeme, word: string): string => (lexeme.particle?.text ?? '') + word;
+/** The prefixed past participle a derivative with an inseparable prefix ends up with: ver + huisd, uit + ver + kocht. */
+const prefixed = (lexeme: DutchLexeme, word: string): string => (lexeme.particle?.text ?? '') + lexeme.innerPrefix + word;
 
 /** The step for the absent ge- after an unstressed prefix; {after} is the whole participle. */
 const geBlocked = (lexeme: DutchLexeme, before: string, word: string): DerivationStep =>

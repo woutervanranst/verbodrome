@@ -950,6 +950,38 @@ const pinned: readonly Pinned[] = [
     ],
   },
   {
+    // a separable verb whose rest has an unstressed prefix the lexicon does not know (N1)
+    verb: 'voorbereiden', query: {}, analysis: true,
+    en: [
+      'The verb: voorbereiden is a separable verb: voor carries the stress and can stand apart from the verb.',
+      'The verb: bereiden is not in the lexicon and starts with be-, which is taken as an unstressed prefix that stays on the verb, so the past participle gets no ge-.',
+      'The verb: An unlisted Dutch verb defaults to the weak native model.',
+      'The verb: Ordinary open/closed syllables are inferred; use a stem or stress hint when pronunciation differs.',
+      'The verb: An unlisted verb defaults to hebben; lexical meaning may require zijn.',
+      'The verb: voorbereiden is not in the lexicon and starts with voor, which can be a separable particle or an unstressed prefix. Most verbs with voor are separable, so it is conjugated as a separable verb. If voor- stays on the verb here, give it as the inseparable prefix; if the verb has no prefix, give its class (weak or strong).',
+    ],
+    nl: [
+      'Het werkwoord: voorbereiden is een scheidbaar werkwoord: voor krijgt de klemtoon en kan los van het werkwoord staan.',
+      'Het werkwoord: bereiden staat niet in de lijst en begint met be-, dat we als onbeklemtoond voorvoegsel nemen dat vast aan het werkwoord blijft, dus het voltooid deelwoord krijgt geen ge-.',
+      'Het werkwoord: bereiden staat niet in de lijst met werkwoorden, dus we nemen aan dat het een zwak werkwoord is.',
+      'Het werkwoord: De stam van bereiden schrijven we volgens de regels voor open en gesloten lettergrepen; spreek je het anders uit, geef dan zelf de stam of de klemtoon op.',
+      "Het werkwoord: We nemen aan dat voorbereiden in de voltooide tijden het hulpwerkwoord 'hebben' krijgt, al vraagt de betekenis soms om 'zijn'.",
+      'Het werkwoord: voorbereiden staat niet in de lijst en begint met voor, dat een scheidbaar deel of een onbeklemtoond voorvoegsel kan zijn. De meeste werkwoorden met voor zijn scheidbaar, dus we vervoegen het als scheidbaar werkwoord: voor komt los van het werkwoord. Blijft voor- hier vast aan het werkwoord, geef het dan op als onscheidbaar voorvoegsel; heeft het werkwoord geen voorvoegsel, geef dan op of het zwak of sterk is.',
+    ],
+  },
+  {
+    // uitverkocht: the rest verkopen is an inseparable derivative of kopen (N1)
+    verb: 'uitverkopen', query: { mood: 'participle', tense: 'past' }, form: 'uitverkocht',
+    en: [
+      'uitverkocht: kopen has an irregular past participle: gekocht.',
+      'uitverkocht: After the prefix ver- the past participle has no ge-: uitverkocht.',
+    ],
+    nl: [
+      'uitverkocht: kopen heeft een onregelmatig voltooid deelwoord: gekocht.',
+      'uitverkocht: Na het voorvoegsel ver- krijgt het voltooid deelwoord geen ge-: uitverkocht.',
+    ],
+  },
+  {
     // overwonnen
     verb: 'overwinnen', query: { mood: 'participle', tense: 'past' }, form: 'overwonnen',
     en: [
