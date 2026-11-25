@@ -204,7 +204,7 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
     value: {
       lemma, verbId, classId: label, classSource: hints ? 'explicitHint' : source, reflexive, auxiliaries: auxiliary ? [auxiliary] : possible,
       particle: null, group: choice.kind === 'productive' ? choice.group : null, family, paradigm, label, hints,
-      indirect: reflexive && indirect, aspiratedH: aspirated, restriction: restrictions[lemma] ?? {},
+      indirect: reflexive && indirect, aspiratedH: aspirated, auxiliaryChoice: possible.length > 1, restriction: restrictions[lemma] ?? {},
     },
     steps: [
       ...opening, ...choice.steps,

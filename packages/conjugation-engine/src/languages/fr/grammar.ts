@@ -1,7 +1,6 @@
 /**
  * The French grammar on the staged core (GD). It runs in shadow mode until plan 3 Task 8: the registered pack keeps the
- * legacy engine, and `tests/fr/shadow.test.ts` compares this grammar with the frozen snapshot section by section. A
- * stage that is not migrated yet throws GENERATION_FAILURE `fr.<stage> not migrated yet`.
+ * legacy engine, and `tests/fr/shadow.test.ts` compares this grammar with the frozen snapshot section by section.
  */
 import type { LexemeBase } from '../../core/grammar.js';
 import { validateGrammar } from '../../core/staged.js';
@@ -13,9 +12,8 @@ import { frenchClause } from './clause.js';
 import type { FamilyEntry, FamilyParadigm } from './family.js';
 import type { LexicalRestriction } from './lexicon.js';
 import { frenchOrthography } from './orthography.js';
-import { frenchCell, frenchEnding, frenchStem, notMigrated } from './stems.js';
-
-export { notMigrated } from './stems.js';
+import { frenchPeriphrases } from './periphrasis.js';
+import { frenchCell, frenchEnding, frenchStem } from './stems.js';
 
 /** A productive verb's paradigm: payer-class verbs have two (`y-to-i`, `keep-y`), every other one has one. */
 export interface ProductiveParadigm { readonly pattern: 'y-to-i' | 'keep-y' | null }
@@ -34,6 +32,8 @@ export interface FrenchLexeme extends LexemeBase {
   readonly indirect: boolean;
   /** The initial h is aspirated: no elision before the verb. */
   readonly aspiratedH: boolean;
+  /** The verb takes avoir or être by construction or sense (monter), even where an `auxiliary` hint picks one. */
+  readonly auxiliaryChoice: boolean;
   /** Persons or moods the verb lacks although its family has them (advenir, ensuivre). */
   readonly restriction: LexicalRestriction;
 }
@@ -65,17 +65,13 @@ export function frenchCellOf(target: ResolvedTarget): Cell | null {
 export const frenchGrammar: StagedGrammar<FrenchLexeme> = {
   classify: classifyFrench,
   lexemeOf: frenchLexemeOf,
-  cellOf(target) {
-    const cell = frenchCellOf(target);
-    if (cell === null) throw notMigrated('periphrasis');
-    return cell;
-  },
+  cellOf: frenchCellOf,
   availability: frenchAvailability,
   cell: frenchCell,
   stem: frenchStem,
   ending: frenchEnding,
   orthography: frenchOrthography,
-  periphrases: [],
+  periphrases: frenchPeriphrases,
   clause: frenchClause,
 };
 validateGrammar(frenchGrammar);

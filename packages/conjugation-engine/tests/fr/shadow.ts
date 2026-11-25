@@ -15,6 +15,7 @@ import { ConjugationError } from '../../src/errors.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import { frenchCatalogueWithSlots, frenchSubjects } from '../../src/languages/fr/catalogue.js';
 import { frenchGrammar } from '../../src/languages/fr/grammar.js';
+import { frenchRank } from '../../src/languages/fr/rank.js';
 import { frenchPack } from '../../src/languages/fr/pack.js';
 import { frenchRules } from '../../src/languages/fr/rules.js';
 import { frenchCitations, frenchWorks } from '../../src/languages/fr/sources.js';
@@ -42,6 +43,7 @@ function shadowEngine(query: Readonly<Record<string, unknown>>): LanguageEngine 
 export const shadowPack: LanguagePack = {
   ...frenchPack,
   catalogue: frenchCatalogueWithSlots,
+  rank: frenchRank,
   subjects: frenchSubjects,
   genderedTargets: true,
   engine: shadowEngine,

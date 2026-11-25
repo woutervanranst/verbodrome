@@ -18,11 +18,6 @@ import {
 } from './paradigms.js';
 import { frenchRules } from './rules.js';
 
-/** The error a stage throws until it is migrated; the shadow harness reports the targets it hits as not migrated. */
-export function notMigrated(stage: string): ConjugationError {
-  return new ConjugationError('GENERATION_FAILURE', `fr.${stage} not migrated yet`);
-}
-
 const finiteRows: Readonly<Record<string, number>> = {
   'indicative.present': 0, 'indicative.imperfect': 1, 'indicative.simple_past': 2, 'indicative.future': 3,
   'subjunctive.present': 4, 'subjunctive.imperfect': 5, 'conditional.present': 6,
