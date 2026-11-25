@@ -9,7 +9,8 @@ import type { Fork } from '../../core/fork.js';
 import type { Cell } from '../../core/staged.js';
 import { ConjugationError } from '../../errors.js';
 import type { LatinLexeme } from './lexicon.js';
-import { endingsFor, isPerfectTense, optativeEndings, passiveReVariant, perfectEndings } from './paradigms.js';
+import { citation, declineNs, declineUs, usEnding } from './declension.js';
+import { endingsFor, infinitiveEnding, isPerfectTense, optativeEndings, passiveReVariant, perfectEndings } from './paradigms.js';
 import type { EndingColumn } from './paradigms.js';
 import { latinRules } from './rules.js';
 
@@ -112,6 +113,67 @@ export function finiteEnding(lexeme: LatinLexeme, cell: FiniteCell, stem: string
   return isPerfectTense(cell.mood, cell.tense) ? perfectEnding(cell, stem) : presentEnding(lexeme, cell, stem);
 }
 
-export function unbuilt(what: string): never {
-  throw new ConjugationError('GENERATION_FAILURE', `Latin ${what} is not built yet.`);
+type NonFiniteCell = Extract<Cell, { kind: 'nonFinite' }>;
+
+const gerundCases: Readonly<Record<string, string>> = { genitive: 'ī', dative: 'ō', accusative: 'um', ablative: 'ō' };
+
+/** -und- beside -end- in the gerund and gerundive of the third and fourth conjugations, dated (A&G §179 fn. 2). */
+function withUndus(main: Fork<string>, undus: Fork<string>): Fork<string> {
+  return [...main, ...undus.map(outcome => ({ ...outcome, tags: { ...outcome.tags, usage: 'dated' as const, pattern: 'undus' } }))];
+}
+
+/** The `ending` hook for non-finite cells: infinitives, participles (declined by their agreement), gerund and supine. */
+export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: string): Fork<string> {
+  const column = columnOf(lexeme, 'infinitive', 'present');
+  const vowel = column === 'a' || column === 'e' ? '' : 'e';
+  const agreement = cell.agreement;
+  switch (cell.form) {
+    case 'presentInfinitive': case 'presentInfinitivePassive': {
+      const passive = cell.form === 'presentInfinitivePassive';
+      if (lexeme.flags.has('athematic')) {
+        const long = infinitiveEnding('i', passive);
+        return one(long, [step(latinRules['la.end.athematic'], stem, stem + long)]);
+      }
+      const ending = infinitiveEnding(column, passive);
+      return one(ending, [step(latinRules['la.end.infinitive'], stem, stem + ending, { ending, tense: { term: 'tense', id: 'present' } })]);
+    }
+    case 'perfectInfinitive':
+      return one('isse', [step(latinRules['la.end.infinitive'], stem, `${stem}isse`, { ending: 'isse', tense: { term: 'tense', id: 'perfect' } })]);
+    case 'presentParticiple': {
+      const oblique = stem === lexeme.stems.presentParticipleOblique;
+      return declineNs(stem, vowel, agreement, oblique);
+    }
+    case 'perfectParticiple':
+      return declineUs(stem, '', agreement, [step(latinRules['la.end.perfect-participle'], stem, `${stem}us`)]);
+    case 'futureParticiple':
+      return declineUs(stem, 'ūr', agreement, [step(latinRules['la.end.future-participle'], stem, `${stem}ūrus`)]);
+    case 'gerundive': {
+      if (stem === lexeme.stems.gerund) {
+        const ending = usEnding(agreement ?? citation);
+        return one(ending, [step(latinRules['la.end.gerundive'], stem, stem + ending, { ending })]);
+      }
+      const nd = `${vowel}nd`;
+      const main = declineUs(stem, nd, agreement, [step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` })]);
+      if (vowel === '') return main;
+      return withUndus(main, declineUs(stem, 'und', agreement, [
+        step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` }), step(latinRules['la.end.undus'], `${stem}${nd}us`, `${stem}undus`),
+      ]));
+    }
+    case 'gerund': {
+      const caseEnding = gerundCases[agreement?.case ?? 'genitive'] ?? 'ī';
+      if (stem === lexeme.stems.gerund) return one(caseEnding, [step(latinRules['la.end.gerund'], stem, stem + caseEnding, { ending: caseEnding })]);
+      const ending = `${vowel}nd${caseEnding}`;
+      const main = one(ending, [step(latinRules['la.end.gerund'], stem, stem + ending, { ending })]);
+      if (vowel === '') return main;
+      return withUndus(main, one(`und${caseEnding}`, [
+        step(latinRules['la.end.gerund'], stem, stem + ending, { ending }), step(latinRules['la.end.undus'], stem + ending, `${stem}und${caseEnding}`),
+      ]));
+    }
+    case 'supine': {
+      const ending = agreement?.case === 'ablative' ? 'ū' : 'um';
+      return one(ending, [step(latinRules['la.end.supine'], stem, stem + ending, { ending })]);
+    }
+    default:
+      throw new ConjugationError('GENERATION_FAILURE', `Latin has no non-finite form ${cell.form} to derive; it must be a listed cell.`);
+  }
 }

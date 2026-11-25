@@ -10,7 +10,8 @@
 
 export type LatinConjugation = 'first' | 'second' | 'third' | 'thirdIo' | 'fourth' | 'irregular';
 export type LatinStemClass = 'a' | 'e' | 'consonant' | 'io' | 'i';
-export type LatinLack = 'present' | 'perfect' | 'supineStem' | 'imperative' | 'presentParticiple' | 'futureParticiple' | 'gerund';
+/** What a verb lacks; `supine` is the supine itself where the stem exists for the participle (fīō: factus, factum īrī). */
+export type LatinLack = 'present' | 'perfect' | 'supineStem' | 'supine' | 'imperative' | 'presentParticiple' | 'futureParticiple' | 'gerund';
 export type LatinFlag = 'shortImperative' | 'athematic' | 'eoRoot' | 'longBeforeVowel' | 'fore' | 'passiveIsFio';
 
 export interface LexicalForm {
@@ -315,7 +316,7 @@ const deponents191: LatinEntry[] = [
     ['gradior', '', 'gressus', { ...dep, ...io, compound: { present: 'gredior', supine: ['gressum'] } }], ['īrāscor', '', 'īrātus', dep],
     ['lābor', '', 'lāpsus', dep], ['loquor', '', 'locūtus', dep], ['minīscor', '', 'mentus', { ...dep, familyOnly: true }],
     ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus' }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', dep],
-    ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī' }],
+    ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī', cells: { presentInfinitivePassive: [{ text: 'orīrī' }] } }],
     ['pacīscor', '', 'pactus', dep], ['patior', '', 'passus', { ...dep, ...io, compound: { present: 'petior', supine: ['pessum'] } }],
     ['plector', '', 'plexus', { ...dep, familyOnly: true }], ['proficīscor', '', 'profectus', dep], ['queror', '', 'questus', dep],
     ['revertor', '', 'reversus', dep], ['ringor', '', 'rictus', dep], ['sequor', '', 'secūtus', dep], ['ulcīscor', '', 'ultus', dep],

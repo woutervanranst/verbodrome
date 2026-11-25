@@ -282,7 +282,7 @@ const queo: LatinEntry[] = (['qu', 'nequ'] as const).map(stem => ({
 const dated = (): Omit<LexicalForm, 'text'> => ({ usage: 'dated' });
 const fio: LatinEntry = {
   present: 'fīō', infinitive: 'fierī', supine: ['factum'], conjugation: 'irregular', stemClass: 'i', passive: 'none',
-  flags: ['longBeforeVowel'], lacks: ['presentParticiple', 'futureParticiple', 'gerund'], stems: { present: 'fī', gerund: 'faciend' },
+  flags: ['longBeforeVowel'], lacks: ['presentParticiple', 'futureParticiple', 'gerund', 'supine'], stems: { present: 'fī', gerund: 'faciend' },
   cells: {
     ...tense('indicative.present', 'fīō fīs fit ~fīmus ~fītis fīunt', dated),
     ...tense('subjunctive.imperfect', 'fierem fierēs fieret fierēmus fierētis fierent'),
