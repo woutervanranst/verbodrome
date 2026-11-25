@@ -9,7 +9,7 @@ import { isLocale, locales } from './i18n/locales/index.js';
 import { packs } from './languages/index.js';
 import type { ConjugatedForm } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
-import { formLabel, targetLabel } from './cli-labels.js';
+import { formLabel, unavailableLine } from './cli-labels.js';
 
 /** Short flag names for fields whose kebab-case spelling is not the one users know. */
 const aliases: Readonly<Record<string, string>> = { classHint: 'class', preferredOrthography: 'orthography' };
@@ -23,7 +23,7 @@ const commonHelp = [
   ['--json', 'Complete structured result'],
   ['--bare', 'Omit the finite subject and any conjunction such as the French subjunctive que'],
   ['--explain', 'Print the rule behind each step of a form, indented under it (JSON: an explanation per form)'],
-  [`--locale <${Object.keys(locales).join('|')}>`, 'Language of --explain (default en)'],
+  [`--locale <${Object.keys(locales).join('|')}>`, 'Language of --explain and of the reason a form is unavailable (default en)'],
   ['--help', ''],
 ] as const;
 
@@ -157,7 +157,8 @@ try {
         }
       }
       for (const unavailable of result.unavailableTargets) {
-        console.log(`${targetLabel(unavailable.target, labelsFor(result.language, unavailable.target))}: unavailable (${unavailable.explanation})`);
+        // The reason in the chosen locale, from the rule the target records.
+        console.log(unavailableLine(unavailable, labelsFor(result.language, unavailable.target), explain(result.language, unavailable, locale)));
       }
     }
     if (result.status === 'unavailable') process.exitCode = 3;

@@ -1,9 +1,12 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { formLabel, targetLabel } from '../src/cli-labels.js';
+import { formLabel, targetLabel, unavailableLine } from '../src/cli-labels.js';
 import { createEngine } from '../src/core/engine.js';
+import { locales } from '../src/i18n/locales/index.js';
+import { conjugate, explain } from '../src/index.js';
 import type { ConjugatedForm, ConjugationResult, ResolvedTarget } from '../src/index.js';
+import { en as toyEn, nl as toyNl } from './toy/messages.js';
 import { toyPack } from './toy/pack.js';
 
 const cli = fileURLToPath(new URL('../dist/cli.js', import.meta.url));
@@ -218,5 +221,24 @@ describe('form and target labels', () => {
     const toy = createEngine({ xx: toyPack });
     const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' }).forms;
     expect(forms.map(formLabel)).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+  });
+});
+
+describe('unavailable target lines', () => {
+  const toy = createEngine({ xx: toyPack }, { en: { ...locales.en, ...toyEn }, nl: { ...locales.nl, ...toyNl } });
+  const [absent] = toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'participle', tense: 'past' }).unavailableTargets;
+  const labels = { mood: 'Participle', tense: 'Past' };
+
+  it('gives the reason of a target that records its rule in the chosen locale', () => {
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'en')))
+      .toBe('Participle / Past: unavailable (This verb has no participle, so the perfect and the past participle do not exist.)');
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'nl')))
+      .toBe('Participle / Past: unavailable (Dit werkwoord heeft geen deelwoord, dus het perfectum en het voltooid deelwoord bestaan niet.)');
+  });
+
+  it('keeps the pack\'s own sentence for a target that records no rule', () => {
+    const [legacy] = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).unavailableTargets;
+    const line = unavailableLine(legacy!, { mood: 'Indicatif', tense: 'Présent' }, explain('fr', legacy!, 'nl'));
+    expect(line).toBe(`Indicatif / Présent / 1 singular: unavailable (${legacy!.explanation})`);
   });
 });

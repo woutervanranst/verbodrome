@@ -187,7 +187,7 @@ Quote multiword reflexive infinitives, for example `conjugation-engine fr "se la
 
 Common flags: `--mood`, `--tense`, `--person`, `--number`, `--json`, `--bare`, `--explain`, `--locale`, `--help`.
 
-`--explain` prints, under each form line, one line per derivation step indented by four spaces: each part's steps in part order, then the form-level steps. A language that records no steps prints none. `--locale <en|nl>` (default `en`) chooses the language of those lines; an unknown locale is `INVALID_REQUEST`. With `--json`, `--explain` adds an `explanation` field to every form.
+`--explain` prints, under each form line, one line per derivation step indented by four spaces: each part's steps in part order, then the form-level steps. A language that records no steps prints none. `--locale <en|nl>` (default `en`) chooses the language of those lines and of the reason printed for an unavailable target (the text of the rule it records; a language that records none prints its own sentence); an unknown locale is `INVALID_REQUEST`. With `--json`, `--explain` adds an `explanation` field to every form.
 
 Every other flag is derived from the option schema of the registered language packs, so a new language needs no CLI changes. A flag is the kebab-case of an option field (`aspiratedH` becomes `--aspirated-h`); a boolean field accepts `--x` and `--no-x` (giving both is an error); `agreement` and `stems` fields take JSON; an enum field lists its allowed values. `--help` prints one section per language, headed by the pack's `label` (for example `Dutch (nl):`), with that language's flags and values. A flag the chosen language does not declare is rejected by the engine as `Unknown <language> option: <key>.`.
 

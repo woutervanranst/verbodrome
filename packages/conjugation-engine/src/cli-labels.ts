@@ -1,4 +1,5 @@
-import type { ConjugatedForm, ResolvedTarget } from './types.js';
+import type { Explanation } from './i18n/explain.js';
+import type { ConjugatedForm, ResolvedTarget, UnavailableTarget } from './types.js';
 
 /** What a target says about itself, as today's labels print it: person and number, gender, participle agreement. */
 function targetParts(target: ResolvedTarget, labels: { mood: string; tense: string }): string[] {
@@ -37,4 +38,14 @@ export function formLabel(form: ConjugatedForm): string {
     ...(form.variant.condition ? [form.variant.condition] : []),
     ...extraParts(form.target, form.variant.region),
   ].join(' / ');
+}
+
+/**
+ * The line for a target that has no form: its label and, in brackets, the reason as `explanation` words it (the text of
+ * its steps, in the locale it was explained in). A target that records no step (a pack without rules) keeps the pack's
+ * own sentence, `unavailable.explanation`.
+ */
+export function unavailableLine(unavailable: UnavailableTarget, labels: { mood: string; tense: string }, explanation: Explanation): string {
+  const steps = explanation.sections.flatMap(section => section.steps.map(s => s.text));
+  return `${targetLabel(unavailable.target, labels)}: unavailable (${steps.length ? steps.join(' ') : unavailable.explanation})`;
 }
