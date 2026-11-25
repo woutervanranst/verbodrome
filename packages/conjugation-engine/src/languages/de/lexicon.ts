@@ -531,7 +531,7 @@ export const lookalikes: readonly string[] = [
 
 /** Weak verbs that look like derivatives of a listed root but are conjugated on their own, with that root. */
 export const noInherit: Readonly<Record<string, string>> = {
-  bedingen: 'dingen', bereiten: 'reiten', handhaben: 'haben', willfahren: 'fahren',
+  bedingen: 'dingen', bereiten: 'reiten', handhaben: 'haben', willfahren: 'fahren', umringen: 'ringen',
 };
 
 /** The inseparable prefixes that make a verb from a noun with a separable particle in it (be-antrag-en, ver-anlass-en). */

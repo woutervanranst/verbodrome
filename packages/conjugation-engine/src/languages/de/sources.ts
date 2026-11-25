@@ -62,10 +62,46 @@ export const germanCitations = {
   'de.classify.assume-root-auxiliary': perfectAuxiliary,
   'de.classify.transliteration': cite('regelwerk-2024', '§ 25 E2 (ss für ß)'),
   'de.classify.hint': verbClasses,
+  'de.stem.present': cite('grammis-4071', 'Verbale Stammparadigmen'),
+  'de.stem.present2': [cite('grammis-4074', 'Starke Verben: Vokalwechsel im Präsens'), ...lexicon],
+  'de.stem.present-singular': [cite('grammis-4075', 'Flexion der Modalverben'), ...lexicon],
+  'de.stem.preterite': [cite('grammis-4074', 'Starke Verben: Ablaut'), ...lexicon],
+  'de.stem.subjunctive-umlaut': [cite('sg-439', 'Konjunktiv Präteritum'), cite('regelwerk-2024', '§ 13 (ä), § 16 (äu)')],
+  'de.stem.subjunctive-plain': cite('sg-439', 'Konjunktiv Präteritum'),
+  'de.stem.subjunctive-lexical': lexicon,
+  'de.stem.subjunctive-weak': [cite('grammis-4073', 'Schwache Verben'), cite('sg-439', 'Konjunktiv Präteritum')],
+  'de.stem.imperative-i': [cite('sg-1275', 'Imperativ Singular: mit Vokalwechsel und ohne auslautendes e'), cite('grammis-4074', 'Starke Verben')],
+  'de.stem.participle': [cite('grammis-4074', 'Starke Verben: Stammformen'), ...lexicon],
+  'de.stem.ge-prefix': [cite('grammis-4071', 'Bildung des Partizip II'), cite('sg-1283', 'Partizip II')],
+  'de.stem.ge-blocked-prefix': [geWithParticle, cite('sg-1283', 'Partizip II')],
+  'de.stem.ge-blocked-stress': cite('sg-1283', 'Partizip II'),
+  'de.stem.lexical-cell': [cite('grammis-4076', 'Flexion der Hilfsverben'), cite('grammis-4075', 'Flexion der Modalverben'), ...lexicon],
+  'de.end.present': [cite('sg-439', 'Indikativ Präsens'), cite('grammis-4070', 'Verbflexion nach Person und Numerus')],
+  'de.end.preterite-present': cite('grammis-4075', 'Flexion der Modalverben: endungslose 1. und 3. Person Singular'),
+  'de.end.preterite-weak': [cite('sg-439', 'Indikativ Präteritum: schwache Verben'), cite('grammis-4073', 'Schwache Verben')],
+  'de.end.preterite-strong': cite('sg-439', 'Indikativ Präteritum: starke Verben'),
+  'de.end.preterite-2sg': [cite('sg-439', 'e-Einfügung in der 2. Person Singular Präteritum'), ...lexicon],
+  'de.end.subjunctive-i': cite('sg-439', 'Konjunktiv Präsens'),
+  'de.end.subjunctive-ii': cite('sg-439', 'Konjunktiv Präteritum'),
+  'de.end.subjunctive-ii-short': [cite('grammis-4119', 'Schwa im Konjunktiv'), cite('duden', 'Konjugationstabelle kommen: kämest, kämst')],
+  'de.end.imperative-singular': [cite('sg-1275', 'Imperativ Singular'), cite('duden-sprachwissen', 'Bildung des Imperativs')],
+  'de.end.imperative-plural': cite('sg-1275', 'Imperativ Plural'),
+  'de.end.imperative-polite': cite('sg-290', 'Distanzform und Adhortativform'),
+  'de.end.infinitive': cite('grammis-4071', 'Verbale Stammparadigmen'),
+  'de.end.participle-weak': cite('sg-1283', 'Partizip II'),
+  'de.end.participle-strong': cite('sg-1283', 'Partizip II'),
+  'de.end.present-participle': verbChapter('Partizip I'),
+  'de.orth.ie-contraction': cite('regelwerk-2024', '§ 19'),
+  'de.orth.el-er-schwa': [cite('grammis-4119', 'Verbstämme auf -el und -er'), ...lexicon],
+  'de.orth.el-elision': [cite('grammis-4119', 'Verbstämme auf -el und -er: sammele, sammle'), ...lexicon],
+  'de.orth.schwa-dental': [cite('grammis-4073', 'Schwache Verben'), cite('grammis-4119', 'Schwa nach Dentalen'), cite('sg-439', 'Indikativ Präsens: e-Einfügung')],
+  'de.orth.schwa-nasal': [cite('grammis-4073', 'Schwache Verben'), cite('grammis-4119', 'Schwa nach Obstruent und Nasal'), cite('sg-439', 'Indikativ Präsens: e-Einfügung')],
+  'de.orth.t-merge': [cite('grammis-4119', 'Schwa bei den Flexionsmarkern'), verbChapter('Präsens starker Verben')],
+  'de.orth.sibilant-2sg': [cite('regelwerk-2024', '§ 26'), cite('grammis-4119', 'Schwa bei den Flexionsmarkern')],
 } as const satisfies Record<GermanRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose claim no online authority states: they cite the Duden-Grammatik by chapter only (GD §1.2). */
-export const printOnly: ReadonlySet<GermanRuleId> = new Set<GermanRuleId>(['de.classify.denominal']);
+export const printOnly: ReadonlySet<GermanRuleId> = new Set<GermanRuleId>(['de.classify.denominal', 'de.end.present-participle']);
 
 /** What the lexicon notes per lemma, before the DWDS-only lemmas are marked. */
 const notes: Readonly<Record<string, string>> = {
@@ -127,6 +163,9 @@ const notes: Readonly<Record<string, string>> = {
   hinterlassen: 'DWDS also prints a separable reading (lässt hinter, hintergelassen); only the inseparable reading is modelled.',
   hintergehen: 'DWDS also prints a separable reading (geht hinter, ist hintergegangen); only the inseparable reading is modelled.',
   umfassen: 'DWDS also prints a separable reading (fasst um, umgefasst); only the inseparable reading is modelled.',
+  bedingen: 'DWDS also prints a strong table (bedang, bedungen), the old derivative of dingen; only the weak bedingen is modelled (design §3.4).',
+  bereiten: 'DWDS also prints the strong bereiten (beritt, beritten: break in a horse); only the weak bereiten (prepare) is modelled (design §3.4).',
+  umringen: 'Formed from Ring, not from ringen: DWDS umringte, umringt. Listed as not derived (not in the design lists).',
   lassen: 'The Partizip II lassen (Ersatzinfinitiv) DWDS prints beside gelassen is not modelled; the same holds for the modal verbs.',
   werden: 'The Partizip II worden (passive) is not modelled; the dated Präteritum ward, wardst is.',
 };

@@ -147,7 +147,7 @@ function analyseBase(word: string): BaseAnalysis {
     return { prefix, root: word, known: true, kind: 'notDerived', lead: [], trail: [step(rules['de.classify.not-derived'], word, null, { root: noInherit[word]! })], word };
   }
   if (listedWeak(word)) {
-    const prefix = lookalikes.includes(word) ? null : splitDerivative(word, germanParticles).find(split => split.particle === null)?.prefix ?? null;
+    const prefix = lookalikes.includes(word) || Object.hasOwn(nonInitialStress, word) ? null : splitDerivative(word, germanParticles).find(split => split.particle === null)?.prefix ?? null;
     return { prefix, root: word, known: true, kind: 'weak', lead: [], trail: [step(rules['de.classify.lexicon'], word, 'weak')], word };
   }
   const read = isListed(word) ? null : transliterated(word, isListed);
@@ -248,9 +248,13 @@ function dualPrefixSegmentations(lemma: string): Segmentation[] {
 /** A lemma whose dual particle is listed as an inseparable prefix. */
 function inseparableSegmentation(lemma: string): Segmentation {
   const prefix = particleOf(lemma, dual)!;
-  const root = analyseBase(lemma.slice(prefix.length));
-  const base: BaseAnalysis = { ...root, prefix, kind: root.known ? 'derived' : 'weak', word: lemma, trail: [] };
-  const lexical = root.known ? [] : [step(rules['de.classify.lexicon'], lemma, 'weak')];
+  // umringen is formed from Ring, not from ringen: weak, with its prefix.
+  const root: BaseAnalysis = Object.hasOwn(noInherit, lemma)
+    ? { prefix: null, root: lemma, known: true, kind: 'notDerived', lead: [], trail: [step(rules['de.classify.not-derived'], lemma, null, { root: noInherit[lemma]! })], word: lemma }
+    : analyseBase(lemma.slice(prefix.length));
+  const derived = root.known && root.kind !== 'notDerived';
+  const base: BaseAnalysis = { ...root, prefix, kind: derived ? 'derived' : root.kind === 'notDerived' ? 'notDerived' : 'weak', word: lemma, trail: [] };
+  const lexical = root.known ? root.kind === 'notDerived' ? root.trail : [] : [step(rules['de.classify.lexicon'], lemma, 'weak')];
   return segment(lemma, null, { ...base, known: true }, [...lexical, step(rules['de.classify.inseparable'], lemma, null, { prefix })]);
 }
 
