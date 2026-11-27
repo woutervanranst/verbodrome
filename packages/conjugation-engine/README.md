@@ -13,8 +13,8 @@ about them is reported. It has no runtime dependencies, runs in the browser (ESM
 | German | `de` | 80 | 184 | 139 | 12,788 | 416 |
 | Spanish | `es` | 94 | 72 | 89 | 11,036 | 116 |
 | Italian | `it` | 82 | 177 | 20 | 1,920 | 67 |
-| Latin | `la` | 100 | 500 | 18 | 3,330 | 254 |
-| **Total** |  | 583 | 1,454 | 840 | 84,304 | 2,199 |
+| Latin | `la` | 101 | 500 | 18 | 3,330 | 254 |
+| **Total** |  | 584 | 1,454 | 840 | 84,304 | 2,199 |
 
 Rules: the rules a pack records (each with a message in both locales and a citation). Lexicon entries: the pack's main
 lexicon (French verb families, Dutch listed verbs, English irregular verbs, German roots, Spanish irregular bases,
@@ -113,7 +113,6 @@ The grammar page of each language lists its limits in full. In short:
   - The perfect forms triī and triit are not checked against an attestation.
   - The imperative of nescīre is not checked against a source.
   - The authority cells cover part of the grammar sections, each transcribed once without a second check.
-  - The Dutch explanations use the core Dutch grammar terms for Latin categories, which differ from Latin school usage.
 - **Tense equivalence**
   - A few lookups return no match where a trainer has to compose the prompt itself; the result's notes say why.
   - The Spanish, Italian and Latin imperfect subjunctive into French ranks the indicative imparfait first (right after si; after que French uses the subjonctif présent, which only a note says).

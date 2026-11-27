@@ -51,6 +51,7 @@ export const la = {
   'la.end.perfect-subjunctive': 'Perfect subjunctive: add -{ending} to the perfect stem.',
   'la.end.pluperfect-subjunctive': 'Pluperfect subjunctive: add -{ending} to the perfect stem.',
   'la.end.imperative': 'Imperativus {tense}: add -{ending}.',
+  'la.end.imperative-bare': 'Imperativus {tense}: the bare present stem, {after}.',
   'la.end.infinitive': 'Infinitivus {tense}: add -{ending}.',
   'la.end.ere': 'Literary alternative: -ēre for -ērunt.',
   'la.end.re': 'Literary alternative: -re for -ris in the second person singular.',

@@ -128,7 +128,7 @@ describe('explain', () => {
     const [unavailable] = noPassive.conjugate({ ...presentPlural, voice: 'passive' }).unavailableTargets;
     expect(unavailable!.reason).toBe('noPassive');
     expect(noPassive.explain('xx', unavailable!, 'en').summary).toBe('Indicative, Present: unavailable (no passive)');
-    expect(noPassive.explain('xx', unavailable!, 'nl').summary).toBe('Indicative, Present: niet beschikbaar (geen lijdende vorm)');
+    expect(noPassive.explain('xx', unavailable!, 'nl').summary).toBe('Indicative, Present: niet beschikbaar (geen passief)');
     expect([locales.en['term.case.vocative'], locales.nl['term.case.vocative']]).toEqual(['vocative', 'vocatief']);
   });
 
@@ -217,7 +217,7 @@ describe('explain terms and arguments', () => {
     expect(engine.explain('xx', indicative, 'en').sections.at(-1)!.steps[0]!.text)
       .toBe('mood=Indicative tense=Present person=1st person gender=feminine voice=passive');
     expect(engine.explain('xx', indicative, 'nl').sections.at(-1)!.steps[0]!.text)
-      .toBe('mood=Indicative tense=Present person=1e persoon gender=vrouwelijk voice=lijdend');
+      .toBe('mood=Indicative tense=Present person=1e persoon gender=vrouwelijk voice=passief');
     // A tense with several labels follows the form's own mood.
     const infinitive = withSteps(only({ language: 'xx', infinitive: 'placa', mood: 'infinitive', tense: 'present' }), terms('present'));
     expect(engine.explain('xx', infinitive, 'en').sections.at(-1)!.steps[0]!.text).toContain('tense=Infinitive present');

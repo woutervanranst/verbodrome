@@ -2,6 +2,9 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate, ConjugationError, explain } from '../../src/index.js';
 import type { ConjugatedForm, VerbAnalysis } from '../../src/types.js';
+import { createEngine } from '../../src/core/engine.js';
+import { locales } from '../../src/i18n/locales/index.js';
+import { packs } from '../../src/languages/index.js';
 import { explainIds, forms } from './helpers.js';
 
 const one = (infinitive: string, mood: string, tense: string, voice: string, subject: string, extra: Record<string, unknown> = {}): ConjugatedForm[] =>
@@ -244,5 +247,25 @@ describe('found by the en.wiktionary oracle (Task 9)', () => {
   it('syncopates queō like any -īvī perfect, and gives an impersonal verb its gerund (A&G §§181.b, 207)', () => {
     expect(forms('quīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['quīvī', 'quiī']);
     expect(forms('pluere', 'gerund', undefined, undefined, { agreement: {} })).toEqual(expect.arrayContaining(['pluendī', 'pluendō', 'pluendum']));
+  });
+});
+
+describe('the bare-stem imperative explains itself (final review I3)', () => {
+  it('names the bare present stem instead of adding an empty ending', () => {
+    const engine = createEngine(packs, locales);
+    for (const [verb, word] of [['amāre', 'amā'], ['monēre', 'monē'], ['audīre', 'audī']] as const) {
+      const [imperative] = engine.conjugate({ language: 'la', infinitive: verb, mood: 'imperative', tense: 'present', person: 2, number: 'singular', voice: 'active' }).forms;
+      expect(imperative!.text).toBe(word);
+      const steps = imperative!.parts.flatMap(part => part.steps ?? []);
+      expect(steps.map(item => item.rule)).toContain('la.end.imperative-bare');
+      for (const locale of ['en', 'nl']) {
+        const text = engine.explain('la', imperative!, locale).sections.flatMap(section => section.steps.map(item => item.text)).join(' ');
+        expect(text, `${verb} ${locale}`).not.toContain('--');
+        expect(text, `${verb} ${locale}`).toContain(word);
+      }
+    }
+    // An imperative with an ending keeps the ending rule (regite).
+    const [plural] = engine.conjugate({ language: 'la', infinitive: 'regere', mood: 'imperative', tense: 'present', person: 2, number: 'plural', voice: 'active' }).forms;
+    expect(plural!.parts.flatMap(part => part.steps ?? []).map(item => item.rule)).toContain('la.end.imperative');
   });
 });

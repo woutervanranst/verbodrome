@@ -60,7 +60,10 @@ function presentStep(cell: FiniteCell, column: EndingColumn, stem: string, endin
     case 'indicative.future': return step(latinRules[column === 'a' || column === 'e' ? 'la.end.future-b' : 'la.end.future-e'], stem, after, text);
     case 'subjunctive.present': return step(latinRules['la.end.subjunctive'], stem, after, text);
     case 'subjunctive.imperfect': return step(latinRules['la.end.imperfect-subjunctive'], stem, after, text);
-    default: return step(latinRules['la.end.imperative'], stem, after, { ending: ending || '-', tense: { term: 'tense', id: cell.tense } });
+    // The 2nd singular present active imperative is the bare present stem (amā, monē, audī): no ending to add.
+    default: return ending === ''
+      ? step(latinRules['la.end.imperative-bare'], stem, after, { tense: { term: 'tense', id: cell.tense } })
+      : step(latinRules['la.end.imperative'], stem, after, { ending, tense: { term: 'tense', id: cell.tense } });
   }
 }
 

@@ -54,6 +54,7 @@ export const latinRules = defineRules({
   'la.end.perfect-subjunctive': { stage: 'ending', params: { ending: 'text' } },
   'la.end.pluperfect-subjunctive': { stage: 'ending', params: { ending: 'text' } },
   'la.end.imperative': { stage: 'ending', params: { ending: 'text', tense: 'term' } },
+  'la.end.imperative-bare': { stage: 'ending', params: { tense: 'term' } },
   'la.end.infinitive': { stage: 'ending', params: { ending: 'text', tense: 'term' } },
   'la.end.ere': { stage: 'ending' },
   'la.end.re': { stage: 'ending' },

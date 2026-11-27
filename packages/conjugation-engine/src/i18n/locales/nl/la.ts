@@ -51,6 +51,7 @@ export const la = {
   'la.end.perfect-subjunctive': 'Coniunctivus perfectum: voeg -{ending} toe aan de perfectumstam.',
   'la.end.pluperfect-subjunctive': 'Coniunctivus plusquamperfectum: voeg -{ending} toe aan de perfectumstam.',
   'la.end.imperative': 'Imperativus {tense}: voeg -{ending} toe.',
+  'la.end.imperative-bare': 'Imperativus {tense}: de kale stam van het praesens, {after}.',
   'la.end.infinitive': 'Infinitivus {tense}: voeg -{ending} toe.',
   'la.end.ere': 'Nevenvorm, vooral in literair Latijn: -ēre in plaats van -ērunt.',
   'la.end.re': 'Nevenvorm, vooral in literair Latijn: -re in plaats van -ris in de tweede persoon enkelvoud.',

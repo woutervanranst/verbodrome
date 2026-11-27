@@ -102,6 +102,7 @@ export const latinCitations = {
   'la.end.perfect-subjunctive': [bennett(101), ag('perfect-system', '§169.d Note')],
   'la.end.pluperfect-subjunctive': ag('perfect-system', '§169.e'),
   'la.end.imperative': [ag('personal-endings', '§163.b'), ag('forms-conjugation', '§179.e'), agPage(93)],
+  'la.end.imperative-bare': [ag('personal-endings', '§163.b'), agPage(93)],
   'la.end.infinitive': [ag('verb-endings', '§166'), ag('present-stem', '§175')],
   'la.end.ere': [ag('personal-endings', '§163.a'), agPage(93), bennett(101)],
   'la.end.re': [agPage(94), agPage(104), bennett(96)],
