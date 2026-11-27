@@ -44,6 +44,10 @@ describe('German forms the review found wrong', () => {
     }
     expect(result('umziehen', 'indicative', 'present', 1, 'singular').forms.map(f => f.variant.condition)).toEqual(['move house; change clothes', 'surround, cover']);
     expect(result('schleifen', 'indicative', 'perfect', 1, 'singular').forms.map(f => f.variant.condition).join(' ')).not.toMatch(/Duden/u);
+    // Duden (rechtschreibung/schleifen_wetzen, sense 4, regional): auf einer Schleife schlittern, Perfekt with ist.
+    const slid = formOf('ich bin geschliffen', 'schleifen', 'indicative', 'perfect', 1, 'singular');
+    expect(slid.variant).toMatchObject({ pattern: 'strong', condition: 'slide on an ice track (regional)' });
+    expect(explained(slid).map(s => s.rule)).toContain('de.clause.duden-only');
   });
 });
 

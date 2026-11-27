@@ -138,7 +138,7 @@ const notes: Readonly<Record<string, string>> = {
   tun: 'The du-imperative tue is printed by Duden only (DWDS: tu); it is kept, tagged long.',
   stehlen: 'Konjunktiv II stöhle is printed by Duden only (DWDS: stähle); it is kept, tagged alternate.',
   verderben: 'Konjunktiv II: DWDS verdärbe, Duden verdürbe; DWDS first, verdürbe tagged alternate.',
-  schleifen: 'Strong paradigm: DWDS "hat geschliffen" only; the Duden table also prints bin geschliffen, without a sense that could be glossed, so it is not modelled. Weak paradigm: "hat / ist geschleift" (DWDS).',
+  schleifen: 'Strong paradigm: DWDS "hat geschliffen" only; Duden also prints ist geschliffen for its sense 4 "auf einer Schleife schlittern" (landschaftlich), emitted with that condition and marked Duden only. Weak paradigm: "hat / ist geschleift" (DWDS).',
   liegen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gelegen); DWDS gives hat gelegen.',
   sitzen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gesessen); DWDS gives hat gesessen.',
   stehen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gestanden); DWDS gives hat gestanden.',

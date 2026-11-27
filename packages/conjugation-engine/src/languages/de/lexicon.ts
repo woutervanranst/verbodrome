@@ -158,7 +158,11 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   schleichen: strong('schleichen', 'schlich', 'geschlichen', MOTION),
   schleifen: {
     paradigms: [
-      { pattern: 'strong', condition: 'sharpen, polish', entry: strong('schleifen', 'schliff', 'geschliffen', H) },
+      {
+        pattern: 'strong', condition: 'sharpen, polish',
+        entry: strong('schleifen', 'schliff', 'geschliffen', [
+          { verb: 'haben', condition: 'sharpen, polish' }, { verb: 'sein', condition: 'slide on an ice track (regional)', source: 'duden' }]),
+      },
       { pattern: 'weak', condition: 'drag; raze', entry: weak('schleifen', [{ verb: 'haben', condition: transitive }, { verb: 'sein', condition: 'drag along the ground' }]) },
     ],
   },
