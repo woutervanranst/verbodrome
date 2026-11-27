@@ -61,10 +61,10 @@ describe('Italian classification', () => {
   });
 
   it('inherits through families safely', () => {
-    expect(ruleIds(analysis('comporre').steps)).toEqual(['it.classify.family', 'it.classify.contracted', 'it.classify.assume-avere']);
+    expect(ruleIds(analysis('comporre').steps)).toEqual(['it.classify.suffix-family', 'it.classify.contracted', 'it.classify.assume-avere']);
     expect(ruleIds(analysis('sbradurre').steps)).toEqual(expect.arrayContaining(['it.classify.contracted', 'it.classify.assume-family']));
     expect(analysis('sbradurre').assumptions).toEqual(['it.classify.assume-family', 'it.classify.assume-avere']);
-    expect(ruleIds(analysis('stramettere').steps)).toEqual(expect.arrayContaining(['it.classify.family', 'it.classify.assume-avere']));
+    expect(ruleIds(analysis('stramettere').steps)).toEqual(['it.classify.family', 'it.classify.assume-family', 'it.classify.assume-avere']);
     expect(ruleIds(analysis('blomettere').steps)).toContain('it.classify.assume-regular');
     expect(ruleIds(analysis('restare').steps)).toContain('it.classify.no-inherit');
     expect(analysis('restare').auxiliaries).toEqual(['essere']);
@@ -73,10 +73,10 @@ describe('Italian classification', () => {
   });
 
   it('finds the base of a derived verb', () => {
-    expect(resolveFamily('produrre')).toMatchObject({ prefix: 'pro', base: 'durre', assumed: false, entry: { long: 'produc', past: ['produssi'], participle: ['prodotto'] } });
-    expect(resolveFamily('attendere')).toMatchObject({ prefix: 'at', base: 'tendere', entry: { past: ['attesi'], participle: ['atteso'] } });
-    expect(resolveFamily('sopravvivere')).toMatchObject({ prefix: 'soprav', base: 'vivere', entry: { participle: ['sopravvissuto'] } });
-    expect(resolveFamily('riscoprire')).toMatchObject({ prefix: 'ri', base: 'scoprire', entry: { participle: ['riscoperto'] } });
+    expect(resolveFamily('produrre')).toMatchObject({ prefix: 'pro', base: 'condurre', suffix: 'durre', assumed: false, entry: { long: 'produc', past: ['produssi'], participle: ['prodotto'] } });
+    expect(resolveFamily('attendere')).toMatchObject({ prefix: 'a', base: 'tendere', doubled: true, entry: { past: ['attesi'], participle: ['atteso'] } });
+    expect(resolveFamily('sopravvivere')).toMatchObject({ prefix: 'sopra', base: 'vivere', doubled: true, entry: { participle: ['sopravvissuto'] } });
+    expect(resolveFamily('riscoprire')).toMatchObject({ prefix: 'ris', base: 'coprire', entry: { participle: ['riscoperto'] } });
     expect(resolveFamily('ottenere')).toMatchObject({ base: 'tenere', entry: { future: ['otterr'] } });
     expect(resolveFamily('rifare')).toMatchObject({ prefix: 'ri', base: 'fare', entry: { long: 'rifac', participle: ['rifatto'] } });
     expect(resolveFamily('rifare')!.entry.auxiliaries).toBeUndefined();

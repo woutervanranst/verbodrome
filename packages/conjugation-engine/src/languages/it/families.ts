@@ -18,32 +18,74 @@ const suffixFamilies: Readonly<Record<string, { readonly model: string; readonly
   porre: { model: 'porre', members: ['comporre', 'deporre', 'disporre', 'esporre', 'imporre', 'opporre', 'proporre', 'riporre', 'supporre'] },
   trarre: { model: 'trarre', members: ['attrarre', 'contrarre', 'distrarre', 'estrarre', 'ritrarre', 'sottrarre'] },
   cludere: { model: 'concludere', members: ['accludere', 'escludere', 'includere', 'precludere'] },
+  // Vocabolario: "coniug. come accludere / assumere / annettere / distruggere / emergere"; the headers of the -sistere,
+  // -primere, -ludere and -cidere verbs print the same strong forms as their model.
+  sistere: {
+    model: 'esistere',
+    members: ['assistere', 'coesistere', 'consistere', 'desistere', 'insistere', 'persistere', 'preesistere', 'resistere', 'sussistere'],
+  },
+  primere: { model: 'esprimere', members: ['comprimere', 'deprimere', 'imprimere', 'opprimere', 'reprimere', 'sopprimere'] },
+  ludere: { model: 'alludere', members: ['deludere', 'illudere'] },
+  cidere: { model: 'decidere', members: ['coincidere', 'incidere'] },
+  sumere: { model: 'assumere', members: ['presumere', 'riassumere'] },
+  nettere: { model: 'annettere', members: ['connettere'] },
+  struggere: { model: 'distruggere', members: ['struggere'] },
+  mergere: { model: 'emergere', members: ['sommergere'] },
 };
 
-/** Verbs built on fare, dire, dare and stare, which are too short to be found by their prefix. */
-const shortBases: Readonly<Record<string, string>> = {
+/**
+ * Derived verbs the prefix list does not find, each with its base: those of the short verbs fare, dire, dare, stare,
+ * sapere, andare (a prefix before them is not reliable) and two whose prefix is not a productive one.
+ */
+const listedBases: Readonly<Record<string, string>> = {
   rifare: 'fare', disfare: 'fare', soddisfare: 'fare', contraffare: 'fare', sopraffare: 'fare', strafare: 'fare', assuefare: 'fare',
   liquefare: 'fare', putrefare: 'fare', rarefare: 'fare', stupefare: 'fare', tumefare: 'fare',
   predire: 'dire', contraddire: 'dire', disdire: 'dire', ridire: 'dire', interdire: 'dire', benedire: 'dire', maledire: 'dire',
-  ridare: 'dare', sottostare: 'stare', soprastare: 'stare',
+  ridare: 'dare', sottostare: 'stare', soprastare: 'stare', ristare: 'stare', risapere: 'sapere', riandare: 'andare',
+  appartenere: 'tenere',
 };
 
-/** The derived verbs listed by name: the members of the suffix families and the short-base lists. */
-export const listedFamilyMembers: readonly string[] = [...Object.values(suffixFamilies).flatMap(family => family.members), ...Object.keys(shortBases)];
+/**
+ * Derived verbs whose Vocabolario header was read and says "coniug. come" their base (or prints its forms): found by
+ * prefix, they are listed facts, not assumptions.
+ */
+const listedDerivatives: ReadonlySet<string> = new Set([
+  'raccogliere', 'raggiungere', 'rimpiangere', 'sottintendere', 'equivalere', 'sostenere', 'soprassedere', 'scommettere', 'ottenere',
+  'mantenere', 'contenere', 'trattenere', 'attendere', 'sorprendere', 'comprendere', 'permettere', 'promettere', 'ammettere',
+  'descrivere', 'iscrivere', 'soccorrere', 'interrompere', 'convincere', 'coinvolgere', 'accogliere', 'aggiungere', 'possedere',
+  'intravedere', 'rinascere', 'ricadere', 'decadere', 'riapparire', 'rivenire', 'confondere', 'diffondere', 'infondere', 'riaprire',
+  'ricoprire', 'scoprire', 'riscoprire', 'risalire', 'riuscire', 'avvenire', 'divenire', 'intervenire', 'pervenire', 'provenire',
+  'svenire', 'sopravvenire', 'convenire', 'prevenire', 'accadere', 'scadere', 'dispiacere', 'occorrere', 'accorrere', 'percorrere',
+  'ricorrere', 'risorgere', 'decrescere', 'sopravvivere', 'convivere', 'scomparire', 'ricuocere', 'stracuocere',
+]);
 
-/** The closed prefix list, longest first. */
+/** The derived verbs listed by name: the members of the suffix families, the listed bases and derivatives. */
+export const listedFamilyMembers: readonly string[] = [
+  ...Object.values(suffixFamilies).flatMap(family => family.members), ...Object.keys(listedBases), ...listedDerivatives,
+];
+
+/**
+ * The closed prefix list. `sott` and `sopr` are sotto- and sopra- elided before a vowel (sott-intendere); a prefix that
+ * ends in a vowel may double the base's first consonant (a-t-tendere, ra-c-cogliere, sopra-v-vivere).
+ */
 export const prefixes: readonly string[] = [
   'a', 'ab', 'ac', 'ad', 'af', 'ag', 'al', 'am', 'an', 'ap', 'ar', 'as', 'at', 'av', 'co', 'com', 'con', 'cor', 'col', 'contra', 'contro', 'de',
-  'di', 'dis', 'e', 'es', 'ex', 'im', 'in', 'ir', 'inter', 'intra', 'intro', 'man', 'o', 'ob', 'oc', 'op', 'per', 'pos', 'pre', 'pro', 're',
-  'ri', 'rin', 's', 'sc', 'so', 'sop', 'sor', 'sot', 'sotto', 'sopra', 'sovra', 'sov', 'stra', 'sub', 'super', 'tra', 'tras',
-].sort((a, b) => b.length - a.length);
+  'di', 'dis', 'e', 'equi', 'es', 'ex', 'fra', 'i', 'im', 'in', 'ir', 'inter', 'intra', 'intro', 'man', 'o', 'ob', 'oc', 'op', 'per', 'pos',
+  'pre', 'pro', 'ra', 're', 'ri', 'rim', 'rin', 's', 'sc', 'so', 'sop', 'sopr', 'sor', 'sos', 'sot', 'sott', 'sotto', 'sopra', 'sovra', 'sov',
+  'stra', 'sub', 'super', 'tra', 'tras',
+];
+const elided: ReadonlySet<string> = new Set(['sott', 'sopr']);
 
-/** Verbs that only look like a prefix and a known verb: they are conjugated on their own (the look-alike base). */
+/**
+ * Verbs that only look like a prefix and a known verb (`noInherit`), and verbs that come from a known verb but are
+ * conjugated differently (`derivedDifferently`): both are conjugated on their own.
+ */
 export const noInherit: ReadonlyMap<string, string> = new Map([
   ['restare', 'stare'], ['prestare', 'stare'], ['costare', 'stare'], ['contrastare', 'stare'],
   ['mandare', 'dare'], ['guardare', 'dare'], ['sudare', 'dare'], ['ricordare', 'dare'],
-  ['ardire', 'dire'], ['spedire', 'dire'], ['smentire', 'mentire'], ['sparire', 'apparire'],
+  ['ardire', 'dire'], ['spedire', 'dire'], ['trasalire', 'salire'],
 ]);
+export const derivedDifferently: ReadonlyMap<string, string> = new Map([['smentire', 'mentire'], ['sparire', 'apparire']]);
 
 /** A lexicon verb that a prefix can be put before. */
 function prefixBase(lemma: string): ItalianEntry | null {
@@ -52,10 +94,14 @@ function prefixBase(lemma: string): ItalianEntry | null {
 }
 
 export interface Family {
-  /** What is put before the base: com (comporre), ri (riscoprire), assue (assuefare). */
+  /** What is put before the base, without a doubled consonant: com (comporre), ris (riscoprire), so (sostenere). */
   readonly prefix: string;
-  /** The base named in explanations: porre, scoprire, durre (the -durre verbs). */
+  /** The verb whose forms are taken over: a lexicon verb (tenere), or the model of a suffix family (condurre). */
   readonly base: string;
+  /** For a suffix family, its ending (durre); null for a prefix family. */
+  readonly suffix: string | null;
+  /** The prefix doubles the base's first consonant (so-s-tenere). */
+  readonly doubled: boolean;
   /** The base's lexical data with every stem and form moved onto the derived verb, without its auxiliary. */
   readonly entry: ItalianEntry;
   /** Not a listed member of its family: conjugated like it by assumption. */
@@ -64,6 +110,8 @@ export interface Family {
 
 /** Replaces `from` at the start of `form` by `to`: condussi with con → pro is produssi. */
 function moved(form: string, from: string, to: string): string {
+  // `*` and `*isc` stand for the regular form, which the derived verb builds by rule on its own stem.
+  if (form.startsWith('*')) return form;
   return form.startsWith(from) ? to + form.slice(from.length) : form;
 }
 
@@ -96,44 +144,55 @@ export function rebase(entry: ItalianEntry, from: string, to: string): ItalianEn
 }
 
 function bySuffix(lemma: string): Family | null {
-  for (const [suffix, { model, members }] of Object.entries(suffixFamilies)) {
+  for (const suffix of Object.keys(suffixFamilies).sort((a, b) => b.length - a.length)) {
+    const { model, members } = suffixFamilies[suffix]!;
     if (!lemma.endsWith(suffix) || lemma === model) continue;
-    const modelPrefix = model.slice(0, -suffix.length);
     const prefix = lemma.slice(0, -suffix.length);
-    const base = modelPrefix === '' ? model : suffix;
-    return { prefix, base, entry: rebase(italianLexicon[model]!, modelPrefix, prefix), assumed: !members.includes(lemma) };
+    const entry = rebase(italianLexicon[model]!, model.slice(0, -suffix.length), prefix);
+    return { prefix, base: model, suffix, doubled: false, entry, assumed: !members.includes(lemma) };
   }
   return null;
 }
 
-function byShortBase(lemma: string): Family | null {
-  const base = Object.hasOwn(shortBases, lemma) ? shortBases[lemma]! : null;
+function byListedBase(lemma: string): Family | null {
+  const base = Object.hasOwn(listedBases, lemma) ? listedBases[lemma]! : null;
   if (base === null) return null;
   const prefix = lemma.slice(0, -base.length);
-  return { prefix, base, entry: rebase(italianLexicon[base]!, '', prefix), assumed: false };
+  return { prefix, base, suffix: null, doubled: false, entry: rebase(italianLexicon[base]!, '', prefix), assumed: false };
 }
 
-/** The verb a prefix leaves, and the prefix: a lexicon verb, or (recursively) a derived one. */
-function byPrefix(lemma: string, depth = 0): Family | null {
-  if (depth > 2) return null;
-  for (const prefix of prefixes) {
-    if (!lemma.startsWith(prefix) || lemma.length <= prefix.length) continue;
-    const rest = lemma.slice(prefix.length);
-    // Assimilation doubles the consonant after a prefix that ends in a vowel: a + t + tendere, sopra + v + vivere.
-    const candidates: [string, string][] = [[prefix, rest]];
-    if (/[aeiou]$/u.test(prefix) && rest.length > 2 && rest[0] === rest[1] && !/[aeiou]/u.test(rest[0]!)) candidates.push([prefix + rest[0], rest.slice(1)]);
-    for (const [before, base] of candidates) {
-      const entry = prefixBase(base);
-      if (entry !== null) return { prefix: before, base, entry: rebase(entry, '', before), assumed: false };
-      const inner = byPrefix(base, depth + 1);
-      if (inner !== null && prefixBase(base) === null) return { prefix: before, base, entry: rebase(inner.entry, '', before), assumed: false };
+/** The ways `text` is one or two prefixes of the list; an elided prefix only before a vowel. */
+function prefixSplits(text: string, next: string): boolean {
+  const fits = (prefix: string, after: string) => !elided.has(prefix) || /^[aeiou]/u.test(after);
+  if (prefixes.includes(text)) return fits(text, next);
+  return prefixes.some(first => text.startsWith(first) && text.length > first.length && prefixes.includes(text.slice(first.length))
+    && fits(first, text.slice(first.length)) && fits(text.slice(first.length), next));
+}
+
+/**
+ * A lexicon verb of at least six letters after one or two prefixes, possibly with the doubled consonant of
+ * assimilation; the longest base wins (ri + scoprire is ris + coprire: coprire is the lexicon verb).
+ */
+function byPrefix(lemma: string): Family | null {
+  for (let cut = 1; cut <= lemma.length - 6; cut++) {
+    const base = lemma.slice(cut);
+    const entry = prefixBase(base);
+    if (entry === null) continue;
+    const before = lemma.slice(0, cut);
+    const doubledBy = before.slice(0, -1);
+    // The doubled consonant of assimilation follows one prefix that ends in a vowel (a-m-mettere, sopra-s-sedere).
+    if (before.endsWith(base.charAt(0)) && /[aeiou]$/u.test(doubledBy) && !/[aeiou]/u.test(base.charAt(0)) && prefixes.includes(doubledBy)) {
+      return { prefix: doubledBy, base, suffix: null, doubled: true, entry: rebase(entry, '', before), assumed: false };
     }
+    if (prefixSplits(before, base)) return { prefix: before, base, suffix: null, doubled: false, entry: rebase(entry, '', before), assumed: false };
   }
   return null;
 }
 
 /** The family `base` (a lemma without -si) belongs to, or null. Listed lexicon verbs are not looked up here. */
 export function resolveFamily(base: string): Family | null {
-  if (noInherit.has(base)) return null;
-  return bySuffix(base) ?? byShortBase(base) ?? byPrefix(base);
+  if (noInherit.has(base) || derivedDifferently.has(base)) return null;
+  const family = bySuffix(base) ?? byListedBase(base) ?? byPrefix(base);
+  if (family === null || family.suffix !== null) return family;
+  return { ...family, assumed: !listedDerivatives.has(base) && !Object.hasOwn(listedBases, base) };
 }

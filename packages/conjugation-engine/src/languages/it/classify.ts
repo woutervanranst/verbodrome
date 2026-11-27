@@ -2,11 +2,11 @@ import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import type { Fork, Outcome } from '../../core/fork.js';
 import { ConjugationError } from '../../errors.js';
-import { resolveFamily, noInherit } from './families.js';
+import { derivedDifferently, noInherit, resolveFamily } from './families.js';
 import type { Family } from './families.js';
 import { italianLexicon } from './lexicon.js';
 import type { Auxiliary, ItalianEntry, ItalianLexeme } from './lexicon.js';
-import { dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
+import { avereVerbs, dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
 import { italianRules as R } from './rules.js';
 import type { ItalianStemHints } from './spec.js';
 
@@ -62,13 +62,21 @@ function lookUp(base: string, steps: DerivationStep[]): Known {
   const family = resolveFamily(base);
   if (family !== null) {
     const { entry } = family;
+    if (family.suffix !== null) {
+      steps.push(step(R['it.classify.suffix-family'], base, null, { suffix: family.suffix, model: family.base }));
+    } else {
+      steps.push(step(R['it.classify.family'], base, null, { prefix: family.prefix, base: family.base }));
+      if (family.doubled) steps.push(step(R['it.classify.prefix-doubling'], null, base, { prefix: family.prefix, base: family.base }));
+    }
+    // A derived verb whose header was not read is taken to follow its base: that inference is an assumption.
     if (family.assumed) steps.push(step(R['it.classify.assume-family'], base, null, { base: family.base }));
-    else steps.push(step(R['it.classify.family'], base, null, { prefix: family.prefix, base: family.base }));
     const conjugation = entry.class === 'contracted' ? 'ere' : entry.class === 'irregular' ? endingOf(base) : entry.class;
     return { entry, family, listed: !family.assumed, conjugation, root: entry.long ?? base.slice(0, -3), classLabel: entry.class };
   }
   const lookalike = noInherit.get(base);
   if (lookalike !== undefined) steps.push(step(R['it.classify.no-inherit'], base, null, { base: lookalike }));
+  const source = derivedDifferently.get(base);
+  if (source !== undefined) steps.push(step(R['it.classify.derived-differently'], base, null, { base: source }));
   const conjugation = endingOf(base);
   steps.push(step(R['it.classify.conjugation'], base, conjugation, { ending: conjugation }));
   steps.push(step(R['it.classify.assume-regular'], base, null));
@@ -128,7 +136,16 @@ function auxiliariesOf(base: string, known: Known, reflexive: boolean, hint: unk
     return [{ lemma: 'essere' }];
   }
   const listed = (known.family === null ? known.entry?.auxiliaries : undefined)
-    ?? (Object.hasOwn(dualVerbs, base) ? dualVerbs[base] : essereVerbs.has(base) ? [{ lemma: 'essere' as const }] : undefined);
+    ?? (Object.hasOwn(dualVerbs, base) ? dualVerbs[base] : essereVerbs.has(base) ? [{ lemma: 'essere' as const }]
+      : avereVerbs.has(base) ? [{ lemma: 'avere' as const }] : undefined);
+  // A verb derived by prefix from a verb that takes only essere takes essere too (rinascere: sono rinato).
+  const family = known.family;
+  const baseAuxiliaries = family !== null && family.suffix === null ? italianLexicon[family.base]?.auxiliaries : undefined;
+  if (listed === undefined && baseAuxiliaries !== undefined && baseAuxiliaries.every(auxiliary => auxiliary.lemma === 'essere')) {
+    steps.push(step(R['it.classify.inherit-auxiliary'], base, null, { auxiliary: 'essere', base: family!.base }));
+    if (hint !== undefined && hint !== 'essere') throw new ConjugationError('INVALID_HINT', `${base} forms its compound tenses with essere only.`);
+    return [{ lemma: 'essere' }];
+  }
   if (listed === undefined) {
     if (hint === 'essere' || hint === 'avere') {
       steps.push(step(R['it.classify.hint'], base, null, { hint: `auxiliary: ${hint}` }));
@@ -137,7 +154,11 @@ function auxiliariesOf(base: string, known: Known, reflexive: boolean, hint: unk
     steps.push(step(R['it.classify.assume-avere'], base, null));
     return [{ lemma: 'avere' }];
   }
-  for (const auxiliary of listed) steps.push(step(R['it.classify.auxiliary'], base, null, { auxiliary: auxiliary.lemma }));
+  if (listed.length === 2) {
+    steps.push(step(R['it.classify.auxiliaries'], base, null, { first: listed[0]!.lemma, second: listed[1]!.lemma }));
+  } else {
+    for (const auxiliary of listed) steps.push(step(R['it.classify.auxiliary'], base, null, { auxiliary: auxiliary.lemma }));
+  }
   if (hint === undefined) return listed;
   const kept = listed.filter(auxiliary => auxiliary.lemma === hint);
   if (!kept.length) throw new ConjugationError('INVALID_HINT', `${base} does not form its compound tenses with ${String(hint)}.`);

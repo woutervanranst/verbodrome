@@ -10,14 +10,14 @@ import type { Auxiliary } from './lexicon.js';
 export const nonIscVerbs: ReadonlySet<string> = new Set([
   'avvertire', 'convertire', 'divertire', 'invertire', 'pervertire', 'sovvertire', 'bollire', 'ribollire', 'cucire', 'scucire', 'ricucire',
   'dormire', 'fuggire', 'rifuggire', 'sfuggire', 'partire', 'pentire', 'seguire', 'conseguire', 'inseguire', 'perseguire', 'proseguire',
-  'sentire', 'acconsentire', 'assentire', 'consentire', 'dissentire', 'risentire', 'servire', 'vestire', 'investire', 'rivestire', 'travestire',
+  'riempire', 'sentire', 'acconsentire', 'assentire', 'consentire', 'dissentire', 'risentire', 'servire', 'vestire', 'investire', 'rivestire', 'travestire',
 ]);
 
 /** -ire verbs with -isc- (io finisco). */
 export const iscVerbs: ReadonlySet<string> = new Set([
   'finire', 'capire', 'preferire', 'contribuire', 'definire', 'favorire', 'obbedire', 'inserire', 'guarire', 'agire', 'reagire', 'impazzire',
   'arrossire', 'impallidire', 'dimagrire', 'svanire', 'appassire', 'diminuire', 'colpire', 'pulire', 'spedire', 'sparire', 'smentire',
-  'ardire', 'asservire', 'insignire', 'tradire', 'unire', 'suggerire', 'sostituire', 'stabilire', 'fornire', 'punire', 'restituire',
+  'ardire', 'asservire', 'insignire', 'trasalire', 'tradire', 'unire', 'suggerire', 'sostituire', 'stabilire', 'fornire', 'punire', 'restituire',
   'istruire', 'chiarire', 'tossire', 'muggire', 'ruggire', 'starnutire', 'sdrucire', 'ripartire',
 ]);
 
@@ -27,13 +27,17 @@ export const iscBothVerbs: Readonly<Record<string, 'isc' | 'plain'>> = {
   eseguire: 'isc', presentire: 'plain',
 };
 
+/** Verbs whose compound tenses take avere, where the Vocabolario says so and a base or model would suggest essere. */
+export const avereVerbs: ReadonlySet<string> = new Set(['insistere', 'resistere', 'persistere', 'desistere', 'soprassedere', 'alludere', 'incidere', 'coincidere']);
+
 /** Verbs whose compound tenses take essere. */
 export const essereVerbs: ReadonlySet<string> = new Set([
   'arrivare', 'entrare', 'tornare', 'ritornare', 'restare', 'diventare', 'accadere', 'scadere', 'capitare', 'sembrare', 'costare', 'bastare',
   'dispiacere', 'occorrere', 'accorrere', 'risorgere', 'scappare', 'ingrassare', 'invecchiare', 'esistere', 'consistere', 'sussistere',
   'derivare', 'risultare', 'decrescere', 'sbocciare', 'tramontare', 'avvenire', 'divenire', 'intervenire', 'pervenire', 'provenire', 'svenire',
   'sopravvenire', 'sopravvivere', 'rifuggire', 'impazzire', 'arrossire', 'impallidire', 'dimagrire', 'svanire', 'appassire', 'sparire',
-  'scomparire', 'riuscire', 'partire', 'fuggire', 'sfuggire', 'putrefare', 'sottostare', 'ammalare',
+  'scomparire', 'riuscire', 'partire', 'fuggire', 'sfuggire', 'putrefare', 'sottostare', 'ammalare', 'coesistere', 'preesistere',
+  'riandare', 'ristare',
 ]);
 
 const tr = { lemma: 'avere', condition: 'transitive use, with a direct object' } as const;
@@ -59,6 +63,8 @@ export const dualVerbs: Readonly<Record<string, readonly Auxiliary[]>> = {
   convivere: [{ lemma: 'avere', condition: 'the usual auxiliary' }, { lemma: 'essere', condition: 'rarely' }],
   ricorrere: [{ lemma: 'essere', condition: 'the usual auxiliary' }, { lemma: 'avere', condition: 'rarely' }],
   nevicare: weather, grandinare: weather, piovigginare: weather,
+  trasalire: [{ lemma: 'avere' }, { lemma: 'essere' }], appartenere: [{ lemma: 'essere' }, { lemma: 'avere' }],
+  equivalere: [{ lemma: 'avere' }, { lemma: 'essere' }], eccellere: [{ lemma: 'essere' }, { lemma: 'avere' }],
 };
 
 /** -iare verbs whose i is stressed (io invìo), so it is kept before the i of an ending. */

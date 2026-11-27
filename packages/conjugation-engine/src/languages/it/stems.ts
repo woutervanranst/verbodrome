@@ -42,7 +42,12 @@ function lexicalStems(lexeme: ItalianLexeme, stems: readonly string[]): Fork<str
 function unstressedStems(lexeme: ItalianLexeme): Fork<string> {
   const listed = lexeme.entry?.unstressed;
   if (listed === undefined) return rootStem(lexeme);
-  return listed.flatMap(stem => stem === lexeme.root ? rootStem(lexeme) : lexicalStems(lexeme, [stem]));
+  return listed.flatMap(stem => stem === '*' || stem === lexeme.root ? rootStem(lexeme) : lexicalStems(lexeme, [stem]));
+}
+
+/** A listed stem, or the regular stem a `*` (root) or `*isc` (-isc- stem) stands for. */
+function listedStem(lexeme: ItalianLexeme, stem: string): Fork<string> {
+  return stem === '*' ? rootStem(lexeme) : stem === '*isc' ? iscStem(lexeme) : lexicalStems(lexeme, [stem]);
 }
 
 function iscStem(lexeme: ItalianLexeme): Fork<string> {
@@ -52,7 +57,7 @@ function iscStem(lexeme: ItalianLexeme): Fork<string> {
 /** The present indicative stems of a person (also those of the imperative of tu and voi). */
 function presentStems(lexeme: ItalianLexeme, slot: Slot): Fork<string> {
   const listed = lexeme.entry?.present?.[slot];
-  if (listed !== undefined) return lexicalStems(lexeme, listed);
+  if (listed !== undefined) return listed.flatMap(stem => listedStem(lexeme, stem));
   if (!stemStressed(slot)) return unstressedStems(lexeme);
   return lexeme.isc === 'yes' ? iscStem(lexeme) : rootStem(lexeme);
 }
@@ -73,7 +78,8 @@ function subjunctiveStems(lexeme: ItalianLexeme, slot: Slot): Fork<string> {
   if (entry?.subjunctive !== undefined) return lexicalStems(lexeme, entry.subjunctive);
   const io = entry?.present?.['1sg'];
   if (io !== undefined) {
-    return io.flatMap(stem => one(stem, [step(R['it.stem.subjunctive-from-1sg'], ioForm(lexeme, stem), stem, { base: ioForm(lexeme, stem) })]));
+    return io.flatMap(stem => stem.startsWith('*') ? listedStem(lexeme, stem)
+      : one(stem, [step(R['it.stem.subjunctive-from-1sg'], ioForm(lexeme, stem), stem, { base: ioForm(lexeme, stem) })]));
   }
   return lexeme.isc === 'yes' ? iscStem(lexeme) : rootStem(lexeme);
 }
@@ -110,7 +116,7 @@ function futureStems(lexeme: ItalianLexeme): Fork<string> {
   const infinitive = lexeme.base.slice(0, -1);
   const listed = lexeme.entry?.future;
   if (listed !== undefined) {
-    return listed.flatMap(stem => stem === infinitive ? one(stem, [step(R['it.stem.future'], lexeme.base, stem)])
+    return listed.flatMap(stem => stem === infinitive || stem === '*' ? one(infinitive, [step(R['it.stem.future'], lexeme.base, infinitive)])
       : stem.length < infinitive.length ? one(stem, [step(R['it.stem.future-syncope'], lexeme.base, stem)])
         : lexicalStems(lexeme, [stem]));
   }
@@ -139,7 +145,8 @@ export function stemOf(lexeme: ItalianLexeme, cell: Cell): Fork<string> {
   if (cell.kind === 'nonFinite') {
     const participle = lexeme.entry?.participle;
     if (cell.form === 'participle' && participle !== undefined) {
-      return participle.flatMap(form => one(form.slice(0, -1), [step(R['it.stem.strong-participle'], lexeme.base, form.slice(0, -1))]));
+      return participle.flatMap(form => form === '*' ? unstressedStems(lexeme)
+        : one(form.slice(0, -1), [step(R['it.stem.strong-participle'], lexeme.base, form.slice(0, -1))]));
     }
     return unstressedStems(lexeme);
   }
@@ -177,7 +184,7 @@ export function endingOf(lexeme: ItalianLexeme, cell: Cell, stem: string): Fork<
     if (cell.form !== 'participle') throw new ConjugationError('GENERATION_FAILURE', `No Italian ending for the ${cell.form}.`);
     const agreement = cell.agreement;
     const vowel = agreement === undefined ? 'o' : agreementVowels[agreement.gender === 'feminine' ? 'feminine' : 'masculine'][agreement.number];
-    const lexical = lexeme.entry?.participle?.some(form => form.slice(0, -1) === stem) ?? false;
+    const lexical = lexeme.entry?.participle?.some(form => form !== '*' && form.slice(0, -1) === stem) ?? false;
     return ending(R['it.end.participle'], stem, lexical ? vowel : participleStems[conjugation] + vowel);
   }
   const slot = slotOf(cell);
@@ -253,6 +260,7 @@ export function wholeCell(lexeme: ItalianLexeme, cell: Cell): Fork<string> | nul
     if (cell.form === 'presentParticiple' && listed) {
       // A derived verb's list is already moved onto it (proveniente), so no prefix is added here.
       return listed.flatMap(text => {
+        if (text === '*') return chain(unstressedStems(lexeme), stem => chain(endingOf(lexeme, cell, stem), end => one(stem + end)));
         const usage = entry?.usage?.[text];
         return one(text, [step(R['it.cell.lexical'], null, text)], usage === undefined ? {} : { usage });
       });

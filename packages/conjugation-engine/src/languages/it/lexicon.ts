@@ -20,7 +20,9 @@ export interface Auxiliary { readonly lemma: 'avere' | 'essere'; readonly condit
 
 /**
  * What the lexicon knows of a verb (grammar design §5.1). Stems are given without their endings; every form is spelled
- * without the Vocabolario's pronunciation accents. Only what differs from the regular conjugation is stored.
+ * without the Vocabolario's pronunciation accents. Only what differs from the regular conjugation is stored. Where the
+ * Vocabolario prints a regular form beside an irregular one, a list holds `*` in its place (and `*isc` for the -isc- stem):
+ * the regular form is then derived by the rules, never stored (vedere: participle `['visto', '*']`, visto and veduto).
  */
 export interface ItalianEntry {
   readonly class: 'are' | 'ere' | 'ire' | 'contracted' | 'irregular';
@@ -138,7 +140,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   fare: {
     class: 'contracted', long: 'fac', auxiliaries: [avere], present: { '1pl': ['facc'] }, subjunctive: ['facci'], past: ['feci'],
-    participle: ['fatto'], presentParticiple: ['facente', 'faciente'],
+    participle: ['fatto'], presentParticiple: ['*', 'faciente'],
     cells: {
       ...tense('indicative.present', [['faccio', 'fo'], 'fai', 'fa', null, 'fate', 'fanno']),
       ...cell('imperative.present', '2sg', ['fai', "fa'"]),
@@ -183,7 +185,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   salire: {
     class: 'ire', isc: 'no', auxiliaries: [intransitive, transitive], present: { '1sg': ['salg'], '3pl': ['salg'] },
-    presentParticiple: ['salente', 'saliente'],
+    presentParticiple: ['*', 'saliente'],
   },
   valere: {
     class: 'ere', present: { '1sg': ['valg'], '3pl': ['valg'] }, past: ['valsi'], future: ['varr'], participle: ['valso'],
@@ -201,19 +203,19 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   condurre: { class: 'contracted', long: 'conduc', auxiliaries: [avere], past: ['condussi'], participle: ['condotto'] },
   tradurre: { class: 'contracted', long: 'traduc', auxiliaries: [avere], past: ['tradussi'], participle: ['tradotto'] },
   uscire: { class: 'ire', isc: 'no', auxiliaries: [essere], present: stressed(['esc']) },
-  udire: { class: 'ire', isc: 'no', auxiliaries: [avere], present: stressed(['od']), future: ['udir', 'udr'] },
+  udire: { class: 'ire', isc: 'no', auxiliaries: [avere], present: stressed(['od']), future: ['*', 'udr'] },
   morire: {
     class: 'ire', isc: 'no', auxiliaries: [essere], present: { '1sg': ['muoi'], '2sg': ['muor'], '3sg': ['muor'], '3pl': ['muoi'] },
-    future: ['morir', 'morr'], participle: ['morto'],
+    future: ['*', 'morr'], participle: ['morto'],
   },
-  sedere: { class: 'ere', present: stressed(['sied']), pastSeries: ['ei', 'etti'], future: ['seder', 'sieder'] },
-  cuocere: { class: 'ere', auxiliaries: [avere], unstressed: ['cuoc', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
+  sedere: { class: 'ere', present: stressed(['sied']), pastSeries: ['ei', 'etti'], future: ['*', 'sieder'] },
+  cuocere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
   piacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['piacci'], '1pl': ['piacc'], '3pl': ['piacci'] }, past: ['piacqui'] },
   tacere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['tacci'], '1pl': ['tacc'], '3pl': ['tacci'] }, past: ['tacqui'] },
   giacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['giacci'], '1pl': ['giacc'], '3pl': ['giacci'] }, past: ['giacqui'] },
   nuocere: {
     class: 'ere', auxiliaries: [avere], present: { '1sg': ['nocci', 'nuocci'], '2sg': ['nuoc'], '3sg': ['nuoc'], '3pl': ['nocci', 'nuocci'] },
-    unstressed: ['nuoc', 'noc'], past: ['nocqui'], participle: ['nociuto'],
+    unstressed: ['*', 'noc'], past: ['nocqui'], participle: ['nociuto'],
   },
   scegliere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['scelg'], '3pl': ['scelg'] }, past: ['scelsi'], participle: ['scelto'] },
   togliere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['tolg'], '3pl': ['tolg'] }, past: ['tolsi'], participle: ['tolto'] },
@@ -236,19 +238,19 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   apparire: {
     class: 'ire', isc: 'no', auxiliaries: [essere],
-    present: { '1sg': ['appai', 'apparisc'], '2sg': ['appar', 'apparisc'], '3sg': ['appar', 'apparisc'], '3pl': ['appai', 'apparisc'] },
+    present: { '1sg': ['appai', '*isc'], '2sg': ['*', '*isc'], '3sg': ['*', '*isc'], '3pl': ['appai', '*isc'] },
     pastSeries: ['=apparvi', 'weak', '=apparsi'], participle: ['apparso'],
   },
   comparire: {
     class: 'ire', isc: 'no', auxiliaries: [essere],
-    present: { '1sg': ['comparisc', 'compai'], '2sg': ['comparisc', 'compar'], '3sg': ['comparisc', 'compar'], '3pl': ['comparisc', 'compai'] },
+    present: { '1sg': ['*isc', 'compai'], '2sg': ['*isc', '*'], '3sg': ['*isc', '*'], '3pl': ['*isc', 'compai'] },
     pastSeries: ['=comparvi', 'weak', '=comparsi'], participle: ['comparso'],
   },
-  muovere: { class: 'ere', auxiliaries: [avere], unstressed: ['muov', 'mov'], past: ['mossi'], participle: ['mosso'] },
-  vedere: { class: 'ere', auxiliaries: [avere], past: ['vidi'], future: ['vedr'], participle: ['visto', 'veduto'] },
-  provvedere: { class: 'ere', auxiliaries: [avere], past: ['provvidi'], participle: ['provvisto', 'provveduto'] },
-  prevedere: { class: 'ere', auxiliaries: [avere], past: ['previdi'], future: ['prevedr', 'preveder'], participle: ['previsto', 'preveduto'] },
-  godere: { class: 'ere', auxiliaries: [avere], future: ['godr', 'goder'] },
+  muovere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'mov'], past: ['mossi'], participle: ['mosso'] },
+  vedere: { class: 'ere', auxiliaries: [avere], past: ['vidi'], future: ['vedr'], participle: ['visto', '*'] },
+  provvedere: { class: 'ere', auxiliaries: [avere], past: ['provvidi'], participle: ['provvisto', '*'] },
+  prevedere: { class: 'ere', auxiliaries: [avere], past: ['previdi'], future: ['prevedr', '*'], participle: ['previsto', '*'] },
+  godere: { class: 'ere', auxiliaries: [avere], future: ['godr', '*'] },
   cadere: { class: 'ere', auxiliaries: [essere], past: ['caddi'], future: ['cadr'] },
   bere: { class: 'contracted', long: 'bev', auxiliaries: [avere], pastSeries: ['=bevvi', 'etti'], future: ['berr'] },
   vivere: {
@@ -260,7 +262,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   aprire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=apersi'], participle: ['aperto'] },
   coprire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=copersi'], participle: ['coperto'] },
   offrire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=offersi'], participle: ['offerto'] },
-  costruire: { class: 'ire', isc: 'yes', auxiliaries: [avere], pastSeries: ['weak', '=costrussi'], participle: ['costruito', 'costrutto'] },
+  costruire: { class: 'ire', isc: 'yes', auxiliaries: [avere], pastSeries: ['weak', '=costrussi'], participle: ['*', 'costrutto'] },
   prendere: { class: 'ere', auxiliaries: [avere], past: ['presi'], participle: ['preso'] },
   chiudere: { class: 'ere', auxiliaries: [avere], past: ['chiusi'], participle: ['chiuso'] },
   rendere: { class: 'ere', auxiliaries: [avere], past: ['resi'], participle: ['reso'] },
@@ -285,7 +287,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   evadere: { class: 'ere', auxiliaries: [intransitive, transitive], past: ['evasi'], participle: ['evaso'] },
   persuadere: { class: 'ere', auxiliaries: [avere], past: ['persuasi'], participle: ['persuaso'] },
   mordere: { class: 'ere', auxiliaries: [avere], past: ['morsi'], participle: ['morso'] },
-  perdere: { class: 'ere', auxiliaries: [avere], pastSeries: ['=persi', 'etti'], participle: ['perso', 'perduto'] },
+  perdere: { class: 'ere', auxiliaries: [avere], pastSeries: ['=persi', 'etti'], participle: ['perso', '*'] },
   chiedere: { class: 'ere', auxiliaries: [avere], past: ['chiesi'], participle: ['chiesto'] },
   rispondere: { class: 'ere', auxiliaries: [avere], past: ['risposi'], participle: ['risposto'] },
   nascondere: { class: 'ere', auxiliaries: [avere], past: ['nascosi'], participle: ['nascosto'] },
@@ -311,8 +313,8 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   assolvere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', 'etti', '=assolsi'], participle: ['assolto'] },
   risolvere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', 'etti', '=risolsi'], participle: ['risoluto', 'risolto'] },
   esprimere: { class: 'ere', auxiliaries: [avere], past: ['espressi'], participle: ['espresso'] },
-  scuotere: { class: 'ere', auxiliaries: [avere], unstressed: ['scuot', 'scot'], past: ['scossi'], participle: ['scosso'] },
-  percuotere: { class: 'ere', auxiliaries: [avere], unstressed: ['percuot', 'percot'], past: ['percossi'], participle: ['percosso'] },
+  scuotere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'scot'], past: ['scossi'], participle: ['scosso'] },
+  percuotere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'percot'], past: ['percossi'], participle: ['percosso'] },
   discutere: { class: 'ere', auxiliaries: [avere], past: ['discussi'], participle: ['discusso'] },
   mettere: { class: 'ere', auxiliaries: [avere], past: ['misi'], participle: ['messo'] },
   leggere: { class: 'ere', auxiliaries: [avere], past: ['lessi'], participle: ['letto'] },
@@ -328,9 +330,42 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   nascere: { class: 'ere', auxiliaries: [essere], past: ['nacqui'], participle: ['nato'] },
   rompere: { class: 'ere', auxiliaries: [avere], past: ['ruppi'], participle: ['rotto'] },
-  concedere: { class: 'ere', auxiliaries: [avere], pastSeries: ['=concessi', 'ei', 'etti'], participle: ['concesso', 'conceduto'] },
-  succedere: { class: 'ere', auxiliaries: [essere], pastSeries: ['=successi', 'ei', 'etti'], participle: ['successo', 'succeduto'] },
+  concedere: { class: 'ere', auxiliaries: [avere], pastSeries: ['=concessi', 'ei', 'etti'], participle: ['concesso', '*'] },
+  succedere: { class: 'ere', auxiliaries: [essere], pastSeries: ['=successi', 'ei', 'etti'], participle: ['successo', '*'] },
   esistere: { class: 'ere', auxiliaries: [essere], participle: ['esistito'] },
+  // The stint-2 sweep of common irregular verbs (each header read in the Vocabolario).
+  soffrire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=soffersi'], participle: ['sofferto'] },
+  riavere: {
+    class: 'irregular', auxiliaries: [avere], present: { '1pl': ['riabb'] }, subjunctive: ['riabbi'], past: ['riebbi'], future: ['riavr'],
+    flags: ['imperative2plSubjunctive'],
+    cells: { ...tense('indicative.present', ['riò', 'riai', 'rià', null, null, 'rianno']), ...cell('imperative.present', '2sg', 'riabbi') },
+  },
+  dissolvere: { class: 'ere', auxiliaries: [avere], past: ['dissolsi'], participle: ['dissolto'] },
+  annettere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', '=annessi'], participle: ['annesso'] },
+  alludere: { class: 'ere', auxiliaries: [avere], past: ['allusi'], participle: ['alluso'] },
+  assumere: { class: 'ere', auxiliaries: [avere], past: ['assunsi'], participle: ['assunto'] },
+  distinguere: { class: 'ere', auxiliaries: [avere], past: ['distinsi'], participle: ['distinto'] },
+  estinguere: { class: 'ere', auxiliaries: [avere], past: ['estinsi'], participle: ['estinto'] },
+  fondere: { class: 'ere', auxiliaries: [avere], past: ['fusi'], participle: ['fuso'] },
+  spegnere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['speng'], '3pl': ['speng'] }, past: ['spensi'], participle: ['spento'] },
+  dirigere: { class: 'ere', auxiliaries: [avere], past: ['diressi'], participle: ['diretto'] },
+  redigere: { class: 'ere', auxiliaries: [avere], past: ['redassi'], participle: ['redatto'] },
+  erigere: { class: 'ere', auxiliaries: [avere], past: ['eressi'], participle: ['eretto'] },
+  esigere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', 'etti'], participle: ['esatto'] },
+  cingere: { class: 'ere', auxiliaries: [avere], past: ['cinsi'], participle: ['cinto'] },
+  ardere: { class: 'ere', past: ['arsi'], participle: ['arso'] },
+  radere: { class: 'ere', auxiliaries: [avere], past: ['rasi'], participle: ['raso'] },
+  ledere: { class: 'ere', auxiliaries: [avere], past: ['lesi'], participle: ['leso'] },
+  sconfiggere: { class: 'ere', auxiliaries: [avere], past: ['sconfissi'], participle: ['sconfitto'] },
+  affliggere: { class: 'ere', auxiliaries: [avere], past: ['afflissi'], participle: ['afflitto'] },
+  espellere: { class: 'ere', auxiliaries: [avere], past: ['espulsi'], participle: ['espulso'] },
+  eccellere: { class: 'ere', past: ['eccelsi'], participle: ['eccelso'] },
+  espandere: { class: 'ere', auxiliaries: [avere], past: ['espansi'], participle: ['espanso'] },
+  scindere: { class: 'ere', auxiliaries: [avere], past: ['scissi'], participle: ['scisso'] },
+  mungere: { class: 'ere', auxiliaries: [avere], past: ['munsi'], participle: ['munto'] },
+  frangere: { class: 'ere', auxiliaries: [avere], past: ['fransi'], participle: ['franto'] },
+  redimere: { class: 'ere', auxiliaries: [avere], past: ['redensi'], participle: ['redento'] },
+  seppellire: { class: 'ire', isc: 'yes', auxiliaries: [avere], participle: ['sepolto', '*'] },
   piovere: {
     class: 'ere', past: ['piovvi'], flags: ['impersonal'],
     auxiliaries: [{ lemma: 'essere', condition: 'the usual auxiliary' }, { lemma: 'avere', condition: 'to stress a longer duration' }],
