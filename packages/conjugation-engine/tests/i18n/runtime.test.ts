@@ -40,6 +40,14 @@ const checked: readonly Checked[] = [
     language: 'it', engine, queries: [...new Set([...(JSON.parse(readFileSync(new URL('../fixtures/it.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), ...readdirSync(new URL('../goldens/it/authority/', import.meta.url)).flatMap(name => (JSON.parse(readFileSync(new URL(`../goldens/it/authority/${name}`, import.meta.url), 'utf8')) as { cells: { lemma: string }[] }).cells.map(cell => cell.lemma)), 'blorpare', 'flugare', 'tricare', 'sbonciare', 'sbasciare', 'trongiare', 'trebiare', 'frogliare', 'strognare', 'blendere', 'flattere', 'flacere', 'tronire', 'sbradurre', 'stramettere', 'blomettere', 'blorparsi'])]
       .flatMap(infinitive => [{ language: 'it', infinitive }, { language: 'it', infinitive, subject: '3sg.formal' }]),
   },
+  {
+    language: 'la', engine, queries: [
+      ...(JSON.parse(readFileSync(new URL('../fixtures/la.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => ({ language: 'la', infinitive: file.infinitive, gender: 'masculine', agreement: {} })),
+      ...['blorpāre', 'flūdēre', 'tregere', 'plundīre', 'blorpārī', 'trapī', 'mundīrī', 'blorperi', 'dūcāre', 'recapere', 'flēscere', 'frolere', 'secāre', 'augēre', 'claudere', 'occidere', 'contingere', 'sepelīre', 'oblīvīscī', 'orīrī', 'audēre', 'fīdere', 'prōdesse', 'abesse', 'coepisse', 'meminisse', 'ōdisse', 'nōvisse', 'facere', 'calefacere', 'cōnficere', 'afferre', 'anteferre', 'adīre', 'exīre', 'dare', 'circumdare', 'edere', 'licēre', 'oportēre', 'paenitēre', 'pluere', 'tonāre', 'inquam', 'āiō', 'fārī', 'quaesō', 'cedo', 'salvēre', 'avēre', 'quīre', 'vēnīre', 'stāre', 'habere', 'possidēre']
+        .map(infinitive => ({ language: 'la', infinitive })),
+      { language: 'la', infinitive: 'blapere', stems: { present: 'blapiō' } }, { language: 'la', infinitive: 'tregere', stems: { present: 'tregeō' } },
+    ],
+  },
 ];
 
 const leftover = /[{}]|undefined/u;
