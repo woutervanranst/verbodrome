@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { defineRules, step } from '../../src/core/derivation.js';
-import { chain, combine, mergeTags, one } from '../../src/core/fork.js';
+import { chain, combine, mergeMarks, mergeTags, one } from '../../src/core/fork.js';
 import { applyJunctureRules } from '../../src/core/juncture.js';
 import type { JunctureRule } from '../../src/core/juncture.js';
 
@@ -44,6 +44,29 @@ describe('derivation steps', () => {
     expect(step(rules['xx.lex.irregular'], null, 'x', { n: 2, tense })).toEqual({
       rule: 'xx.lex.irregular', stage: 'stem', kind: 'lexical', before: null, after: 'x', params: { n: 2, tense },
     });
+  });
+});
+
+describe('marks', () => {
+  it('puts marks on an outcome only when it has some', () => {
+    expect(one('x')).toEqual([{ value: 'x', steps: [], tags: {} }]);
+    expect(one('x', [], {}, [])).toEqual([{ value: 'x', steps: [], tags: {} }]);
+    expect(one('x', [], {}, ['after-verb'])).toEqual([{ value: 'x', steps: [], tags: {}, marks: ['after-verb'] }]);
+  });
+
+  it('keeps the marks of both sides when outcomes chain or combine, in order and once each', () => {
+    expect(mergeMarks(['a', 'b'], ['b', 'c'])).toEqual(['a', 'b', 'c']);
+    expect(mergeMarks(undefined, undefined)).toEqual([]);
+    const marked = [...one('x', [], {}, ['a']), ...one('y')];
+    expect(chain(marked, value => one(`${value}!`, [], {}, ['b'])).map(o => o.marks)).toEqual([['a', 'b'], ['b']]);
+    expect(chain(marked, value => one(value)).map(o => o.marks)).toEqual([['a'], undefined]);
+    expect(combine<[string, string]>([marked, one('z', [], {}, ['a'])]).map(o => o.marks)).toEqual([['a'], ['a']]);
+  });
+
+  it('keeps marks through the spelling rules, which never record them as steps or tags', () => {
+    const [spelled] = chain(one({ stem: 'plac', ending: 'a' }, [], {}, ['formal']), j => applyJunctureRules([cedilla], j, null));
+    expect(spelled).toMatchObject({ value: { stem: 'plaç', ending: 'a' }, tags: {}, marks: ['formal'] });
+    expect(spelled!.steps.map(s => s.rule)).toEqual(['xx.orth.c-cedilla']);
   });
 });
 

@@ -3861,6 +3861,2562 @@
       "auxiliary": null,
       "pattern": "default",
       "templatePlaceholders": 5
+    },
+    {
+      "file": "en/arise",
+      "language": "en",
+      "infinitive": "arise",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/be",
+      "language": "en",
+      "infinitive": "be",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bear",
+      "language": "en",
+      "infinitive": "bear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/beat",
+      "language": "en",
+      "infinitive": "beat",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/become",
+      "language": "en",
+      "infinitive": "become",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/begin",
+      "language": "en",
+      "infinitive": "begin",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bend",
+      "language": "en",
+      "infinitive": "bend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bet",
+      "language": "en",
+      "infinitive": "bet",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bid",
+      "language": "en",
+      "infinitive": "bid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bind",
+      "language": "en",
+      "infinitive": "bind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bite",
+      "language": "en",
+      "infinitive": "bite",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bleed",
+      "language": "en",
+      "infinitive": "bleed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/blow",
+      "language": "en",
+      "infinitive": "blow",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/break",
+      "language": "en",
+      "infinitive": "break",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/breed",
+      "language": "en",
+      "infinitive": "breed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bring",
+      "language": "en",
+      "infinitive": "bring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/build",
+      "language": "en",
+      "infinitive": "build",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/burst",
+      "language": "en",
+      "infinitive": "burst",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/buy",
+      "language": "en",
+      "infinitive": "buy",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cast",
+      "language": "en",
+      "infinitive": "cast",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/catch",
+      "language": "en",
+      "infinitive": "catch",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/choose",
+      "language": "en",
+      "infinitive": "choose",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cling",
+      "language": "en",
+      "infinitive": "cling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/come",
+      "language": "en",
+      "infinitive": "come",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cost",
+      "language": "en",
+      "infinitive": "cost",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/creep",
+      "language": "en",
+      "infinitive": "creep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cut",
+      "language": "en",
+      "infinitive": "cut",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/deal",
+      "language": "en",
+      "infinitive": "deal",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/dig",
+      "language": "en",
+      "infinitive": "dig",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/do",
+      "language": "en",
+      "infinitive": "do",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/draw",
+      "language": "en",
+      "infinitive": "draw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/drink",
+      "language": "en",
+      "infinitive": "drink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/drive",
+      "language": "en",
+      "infinitive": "drive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/eat",
+      "language": "en",
+      "infinitive": "eat",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fall",
+      "language": "en",
+      "infinitive": "fall",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/feed",
+      "language": "en",
+      "infinitive": "feed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/feel",
+      "language": "en",
+      "infinitive": "feel",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fight",
+      "language": "en",
+      "infinitive": "fight",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/find",
+      "language": "en",
+      "infinitive": "find",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fit",
+      "language": "en",
+      "infinitive": "fit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/flee",
+      "language": "en",
+      "infinitive": "flee",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fling",
+      "language": "en",
+      "infinitive": "fling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fly",
+      "language": "en",
+      "infinitive": "fly",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forbid",
+      "language": "en",
+      "infinitive": "forbid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forecast",
+      "language": "en",
+      "infinitive": "forecast",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forget",
+      "language": "en",
+      "infinitive": "forget",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forgive",
+      "language": "en",
+      "infinitive": "forgive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forsake",
+      "language": "en",
+      "infinitive": "forsake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/freeze",
+      "language": "en",
+      "infinitive": "freeze",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/get",
+      "language": "en",
+      "infinitive": "get",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/give",
+      "language": "en",
+      "infinitive": "give",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/go",
+      "language": "en",
+      "infinitive": "go",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/grind",
+      "language": "en",
+      "infinitive": "grind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/grow",
+      "language": "en",
+      "infinitive": "grow",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hang",
+      "language": "en",
+      "infinitive": "hang",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/have",
+      "language": "en",
+      "infinitive": "have",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hear",
+      "language": "en",
+      "infinitive": "hear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hide",
+      "language": "en",
+      "infinitive": "hide",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hit",
+      "language": "en",
+      "infinitive": "hit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hold",
+      "language": "en",
+      "infinitive": "hold",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hurt",
+      "language": "en",
+      "infinitive": "hurt",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/keep",
+      "language": "en",
+      "infinitive": "keep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/kneel",
+      "language": "en",
+      "infinitive": "kneel",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/know",
+      "language": "en",
+      "infinitive": "know",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lay",
+      "language": "en",
+      "infinitive": "lay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lead",
+      "language": "en",
+      "infinitive": "lead",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/leave",
+      "language": "en",
+      "infinitive": "leave",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lend",
+      "language": "en",
+      "infinitive": "lend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/let",
+      "language": "en",
+      "infinitive": "let",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lie",
+      "language": "en",
+      "infinitive": "lie",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lose",
+      "language": "en",
+      "infinitive": "lose",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/make",
+      "language": "en",
+      "infinitive": "make",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mean",
+      "language": "en",
+      "infinitive": "mean",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/meet",
+      "language": "en",
+      "infinitive": "meet",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mislay",
+      "language": "en",
+      "infinitive": "mislay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mistake",
+      "language": "en",
+      "infinitive": "mistake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/overcome",
+      "language": "en",
+      "infinitive": "overcome",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/overtake",
+      "language": "en",
+      "infinitive": "overtake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/pay",
+      "language": "en",
+      "infinitive": "pay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/plead",
+      "language": "en",
+      "infinitive": "plead",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/put",
+      "language": "en",
+      "infinitive": "put",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/quit",
+      "language": "en",
+      "infinitive": "quit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/read",
+      "language": "en",
+      "infinitive": "read",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/rid",
+      "language": "en",
+      "infinitive": "rid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/ride",
+      "language": "en",
+      "infinitive": "ride",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/ring",
+      "language": "en",
+      "infinitive": "ring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/rise",
+      "language": "en",
+      "infinitive": "rise",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/run",
+      "language": "en",
+      "infinitive": "run",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/say",
+      "language": "en",
+      "infinitive": "say",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/see",
+      "language": "en",
+      "infinitive": "see",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/seek",
+      "language": "en",
+      "infinitive": "seek",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sell",
+      "language": "en",
+      "infinitive": "sell",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/send",
+      "language": "en",
+      "infinitive": "send",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/set",
+      "language": "en",
+      "infinitive": "set",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shake",
+      "language": "en",
+      "infinitive": "shake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shed",
+      "language": "en",
+      "infinitive": "shed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shine",
+      "language": "en",
+      "infinitive": "shine",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shoot",
+      "language": "en",
+      "infinitive": "shoot",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shrink",
+      "language": "en",
+      "infinitive": "shrink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shut",
+      "language": "en",
+      "infinitive": "shut",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sing",
+      "language": "en",
+      "infinitive": "sing",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sink",
+      "language": "en",
+      "infinitive": "sink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sit",
+      "language": "en",
+      "infinitive": "sit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sleep",
+      "language": "en",
+      "infinitive": "sleep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/slide",
+      "language": "en",
+      "infinitive": "slide",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sling",
+      "language": "en",
+      "infinitive": "sling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/slit",
+      "language": "en",
+      "infinitive": "slit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/speak",
+      "language": "en",
+      "infinitive": "speak",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/speed",
+      "language": "en",
+      "infinitive": "speed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spend",
+      "language": "en",
+      "infinitive": "spend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spin",
+      "language": "en",
+      "infinitive": "spin",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spit",
+      "language": "en",
+      "infinitive": "spit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/split",
+      "language": "en",
+      "infinitive": "split",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spread",
+      "language": "en",
+      "infinitive": "spread",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/stand",
+      "language": "en",
+      "infinitive": "stand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/steal",
+      "language": "en",
+      "infinitive": "steal",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/stink",
+      "language": "en",
+      "infinitive": "stink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/strike",
+      "language": "en",
+      "infinitive": "strike",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/string",
+      "language": "en",
+      "infinitive": "string",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/strive",
+      "language": "en",
+      "infinitive": "strive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swear",
+      "language": "en",
+      "infinitive": "swear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sweep",
+      "language": "en",
+      "infinitive": "sweep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swim",
+      "language": "en",
+      "infinitive": "swim",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swing",
+      "language": "en",
+      "infinitive": "swing",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/take",
+      "language": "en",
+      "infinitive": "take",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/teach",
+      "language": "en",
+      "infinitive": "teach",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tear",
+      "language": "en",
+      "infinitive": "tear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tell",
+      "language": "en",
+      "infinitive": "tell",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/think",
+      "language": "en",
+      "infinitive": "think",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/throw",
+      "language": "en",
+      "infinitive": "throw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/thrust",
+      "language": "en",
+      "infinitive": "thrust",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tread",
+      "language": "en",
+      "infinitive": "tread",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/understand",
+      "language": "en",
+      "infinitive": "understand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/undertake",
+      "language": "en",
+      "infinitive": "undertake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/upset",
+      "language": "en",
+      "infinitive": "upset",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wake",
+      "language": "en",
+      "infinitive": "wake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wear",
+      "language": "en",
+      "infinitive": "wear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/weave",
+      "language": "en",
+      "infinitive": "weave",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/weep",
+      "language": "en",
+      "infinitive": "weep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/win",
+      "language": "en",
+      "infinitive": "win",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wind",
+      "language": "en",
+      "infinitive": "wind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/withdraw",
+      "language": "en",
+      "infinitive": "withdraw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/withstand",
+      "language": "en",
+      "infinitive": "withstand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wring",
+      "language": "en",
+      "infinitive": "wring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/write",
+      "language": "en",
+      "infinitive": "write",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "de/abschreiben",
+      "language": "de",
+      "infinitive": "abschreiben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/ausladen",
+      "language": "de",
+      "infinitive": "ausladen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/backen",
+      "language": "de",
+      "infinitive": "backen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/befehlen",
+      "language": "de",
+      "infinitive": "befehlen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/beginnen",
+      "language": "de",
+      "infinitive": "beginnen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/beißen",
+      "language": "de",
+      "infinitive": "beißen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bekennen",
+      "language": "de",
+      "infinitive": "bekennen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/betrügen",
+      "language": "de",
+      "infinitive": "betrügen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bewegen",
+      "language": "de",
+      "infinitive": "bewegen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/biegen",
+      "language": "de",
+      "infinitive": "biegen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bieten",
+      "language": "de",
+      "infinitive": "bieten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/binden",
+      "language": "de",
+      "infinitive": "binden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bitten",
+      "language": "de",
+      "infinitive": "bitten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/blasen",
+      "language": "de",
+      "infinitive": "blasen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bleiben",
+      "language": "de",
+      "infinitive": "bleiben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/brechen",
+      "language": "de",
+      "infinitive": "brechen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/brennen",
+      "language": "de",
+      "infinitive": "brennen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/bringen",
+      "language": "de",
+      "infinitive": "bringen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/denken",
+      "language": "de",
+      "infinitive": "denken",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/dürfen",
+      "language": "de",
+      "infinitive": "dürfen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/einladen",
+      "language": "de",
+      "infinitive": "einladen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/empfehlen",
+      "language": "de",
+      "infinitive": "empfehlen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/empfinden",
+      "language": "de",
+      "infinitive": "empfinden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/ergreifen",
+      "language": "de",
+      "infinitive": "ergreifen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/erlöschen",
+      "language": "de",
+      "infinitive": "erlöschen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/erschrecken",
+      "language": "de",
+      "infinitive": "erschrecken",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/essen",
+      "language": "de",
+      "infinitive": "essen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fahren",
+      "language": "de",
+      "infinitive": "fahren",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fallen",
+      "language": "de",
+      "infinitive": "fallen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fangen",
+      "language": "de",
+      "infinitive": "fangen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fechten",
+      "language": "de",
+      "infinitive": "fechten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/finden",
+      "language": "de",
+      "infinitive": "finden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fliegen",
+      "language": "de",
+      "infinitive": "fliegen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fliehen",
+      "language": "de",
+      "infinitive": "fliehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/fließen",
+      "language": "de",
+      "infinitive": "fließen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/frieren",
+      "language": "de",
+      "infinitive": "frieren",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/geben",
+      "language": "de",
+      "infinitive": "geben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gehen",
+      "language": "de",
+      "infinitive": "gehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gelingen",
+      "language": "de",
+      "infinitive": "gelingen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gelten",
+      "language": "de",
+      "infinitive": "gelten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/genießen",
+      "language": "de",
+      "infinitive": "genießen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gerinnen",
+      "language": "de",
+      "infinitive": "gerinnen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/geschehen",
+      "language": "de",
+      "infinitive": "geschehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gewinnen",
+      "language": "de",
+      "infinitive": "gewinnen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gießen",
+      "language": "de",
+      "infinitive": "gießen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gleichen",
+      "language": "de",
+      "infinitive": "gleichen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/gleiten",
+      "language": "de",
+      "infinitive": "gleiten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/greifen",
+      "language": "de",
+      "infinitive": "greifen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/haben",
+      "language": "de",
+      "infinitive": "haben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/halten",
+      "language": "de",
+      "infinitive": "halten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/heben",
+      "language": "de",
+      "infinitive": "heben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/heißen",
+      "language": "de",
+      "infinitive": "heißen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/helfen",
+      "language": "de",
+      "infinitive": "helfen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/hängen",
+      "language": "de",
+      "infinitive": "hängen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/kennen",
+      "language": "de",
+      "infinitive": "kennen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/kommen",
+      "language": "de",
+      "infinitive": "kommen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/kriechen",
+      "language": "de",
+      "infinitive": "kriechen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/können",
+      "language": "de",
+      "infinitive": "können",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/laden",
+      "language": "de",
+      "infinitive": "laden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/lassen",
+      "language": "de",
+      "infinitive": "lassen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/laufen",
+      "language": "de",
+      "infinitive": "laufen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/leiden",
+      "language": "de",
+      "infinitive": "leiden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/leihen",
+      "language": "de",
+      "infinitive": "leihen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/lesen",
+      "language": "de",
+      "infinitive": "lesen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/liegen",
+      "language": "de",
+      "infinitive": "liegen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/löschen",
+      "language": "de",
+      "infinitive": "löschen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/lügen",
+      "language": "de",
+      "infinitive": "lügen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/meiden",
+      "language": "de",
+      "infinitive": "meiden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/messen",
+      "language": "de",
+      "infinitive": "messen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/mögen",
+      "language": "de",
+      "infinitive": "mögen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/müssen",
+      "language": "de",
+      "infinitive": "müssen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/nehmen",
+      "language": "de",
+      "infinitive": "nehmen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/nennen",
+      "language": "de",
+      "infinitive": "nennen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/pfeifen",
+      "language": "de",
+      "infinitive": "pfeifen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/raten",
+      "language": "de",
+      "infinitive": "raten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/reiben",
+      "language": "de",
+      "infinitive": "reiben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/reiten",
+      "language": "de",
+      "infinitive": "reiten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/reißen",
+      "language": "de",
+      "infinitive": "reißen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/rennen",
+      "language": "de",
+      "infinitive": "rennen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/riechen",
+      "language": "de",
+      "infinitive": "riechen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/rufen",
+      "language": "de",
+      "infinitive": "rufen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/scheiden",
+      "language": "de",
+      "infinitive": "scheiden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/scheinen",
+      "language": "de",
+      "infinitive": "scheinen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schellen",
+      "language": "de",
+      "infinitive": "schellen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schieben",
+      "language": "de",
+      "infinitive": "schieben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schießen",
+      "language": "de",
+      "infinitive": "schießen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schlafen",
+      "language": "de",
+      "infinitive": "schlafen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schlagen",
+      "language": "de",
+      "infinitive": "schlagen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schleifen",
+      "language": "de",
+      "infinitive": "schleifen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schließen",
+      "language": "de",
+      "infinitive": "schließen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schmelzen",
+      "language": "de",
+      "infinitive": "schmelzen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schneiden",
+      "language": "de",
+      "infinitive": "schneiden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schreiben",
+      "language": "de",
+      "infinitive": "schreiben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schreien",
+      "language": "de",
+      "infinitive": "schreien",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schreiten",
+      "language": "de",
+      "infinitive": "schreiten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schweigen",
+      "language": "de",
+      "infinitive": "schweigen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schwimmen",
+      "language": "de",
+      "infinitive": "schwimmen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schwinden",
+      "language": "de",
+      "infinitive": "schwinden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/schwören",
+      "language": "de",
+      "infinitive": "schwören",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sehen",
+      "language": "de",
+      "infinitive": "sehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sein",
+      "language": "de",
+      "infinitive": "sein",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/singen",
+      "language": "de",
+      "infinitive": "singen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sinken",
+      "language": "de",
+      "infinitive": "sinken",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sitzen",
+      "language": "de",
+      "infinitive": "sitzen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sollen",
+      "language": "de",
+      "infinitive": "sollen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sprechen",
+      "language": "de",
+      "infinitive": "sprechen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/springen",
+      "language": "de",
+      "infinitive": "springen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/stechen",
+      "language": "de",
+      "infinitive": "stechen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/stehen",
+      "language": "de",
+      "infinitive": "stehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/stehlen",
+      "language": "de",
+      "infinitive": "stehlen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/steigen",
+      "language": "de",
+      "infinitive": "steigen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/sterben",
+      "language": "de",
+      "infinitive": "sterben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/stoßen",
+      "language": "de",
+      "infinitive": "stoßen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/streichen",
+      "language": "de",
+      "infinitive": "streichen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/streiten",
+      "language": "de",
+      "infinitive": "streiten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/tragen",
+      "language": "de",
+      "infinitive": "tragen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/treffen",
+      "language": "de",
+      "infinitive": "treffen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/treiben",
+      "language": "de",
+      "infinitive": "treiben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/treten",
+      "language": "de",
+      "infinitive": "treten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/trinken",
+      "language": "de",
+      "infinitive": "trinken",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/tun",
+      "language": "de",
+      "infinitive": "tun",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/umziehen",
+      "language": "de",
+      "infinitive": "umziehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/verderben",
+      "language": "de",
+      "infinitive": "verderben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/verdrießen",
+      "language": "de",
+      "infinitive": "verdrießen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/vergelten",
+      "language": "de",
+      "infinitive": "vergelten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/vergessen",
+      "language": "de",
+      "infinitive": "vergessen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/verlieren",
+      "language": "de",
+      "infinitive": "verlieren",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/verschweigen",
+      "language": "de",
+      "infinitive": "verschweigen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/vertreten",
+      "language": "de",
+      "infinitive": "vertreten",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/verzeihen",
+      "language": "de",
+      "infinitive": "verzeihen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/wachsen",
+      "language": "de",
+      "infinitive": "wachsen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/werben",
+      "language": "de",
+      "infinitive": "werben",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/werden",
+      "language": "de",
+      "infinitive": "werden",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/werfen",
+      "language": "de",
+      "infinitive": "werfen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/wiegen",
+      "language": "de",
+      "infinitive": "wiegen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/wissen",
+      "language": "de",
+      "infinitive": "wissen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/wollen",
+      "language": "de",
+      "infinitive": "wollen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/ziehen",
+      "language": "de",
+      "infinitive": "ziehen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "de/zwingen",
+      "language": "de",
+      "infinitive": "zwingen",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
     }
   ],
   "fixtures": {
@@ -3868,11 +6424,11 @@
       "files": 222,
       "baseInfinitives": 84,
       "cells": 26196,
-      "targets": 24804,
-      "availableCells": 23963,
-      "unavailableCells": 2233,
-      "expectedForms": 23995,
-      "correctionCount": 125,
+      "targets": 24777,
+      "availableCells": 23759,
+      "unavailableCells": 2437,
+      "expectedForms": 23791,
+      "correctionCount": 460,
       "templatePlaceholders": 0,
       "checksum": "2a9fd8a573e77048e7993683035c8795326ed47eafff3a6717c0f981b392425d"
     },
@@ -3887,10 +6443,36 @@
       "correctionCount": 406,
       "templatePlaceholders": 1030,
       "checksum": "8c5414e89eaa923f54389cc2afe20ebbeb6a2ce019e7f28f994059ee829a82fd"
+    },
+    "en": {
+      "files": 145,
+      "baseInfinitives": 145,
+      "cells": 18270,
+      "targets": 18270,
+      "availableCells": 18270,
+      "unavailableCells": 0,
+      "expectedForms": 19005,
+      "correctionCount": 480,
+      "templatePlaceholders": 435,
+      "remaps": 3,
+      "checksum": "8abe93fff5530a83ba990c028bce433e09f8cf22f14db4f6f79d25c9f5496faf"
+    },
+    "de": {
+      "files": 139,
+      "baseInfinitives": 139,
+      "cells": 12788,
+      "targets": 12788,
+      "availableCells": 12704,
+      "unavailableCells": 84,
+      "expectedForms": 14031,
+      "correctionCount": 416,
+      "templatePlaceholders": 0,
+      "remaps": 5,
+      "checksum": "425c0b60de24598459f8b384ec7d58d64cf06adbf3c2d01bdb4ae6a722a4f981"
     }
   },
   "corrections": {
-    "count": 531,
-    "checksum": "b09799ea0f7646186f78953f7d059758c2afdb1a6bfd8166556b6a817c94177c"
+    "count": 1762,
+    "checksum": "665252c33bf70122b4e893b6cbf0e9e1a7edc1d5626743aa32959fa98669b956"
   }
 }

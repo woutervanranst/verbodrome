@@ -1,4 +1,4 @@
-import { frenchCorrection } from '../corrections/fr.ts';
+import { compound, frenchCorrection, withdrawnAuxiliaries } from '../corrections/fr.ts';
 import { frenchCellsPerFile, parseFrench } from '../parsers/fr.ts';
 import { infinitiveFromFileName } from '../model.ts';
 import type { CorpusLanguage } from '../model.ts';
@@ -9,6 +9,7 @@ export const french: CorpusLanguage = {
   encoding: 'windows-1252',
   expectedFiles: 222,
   cellsPerFile: frenchCellsPerFile,
+  fixturesWithoutSubjects: true,
   parse: parseFrench,
   context: name => ({
     infinitive: infinitiveFromFileName(name),
@@ -18,10 +19,12 @@ export const french: CorpusLanguage = {
   }),
   correction: frenchCorrection,
   query: file => {
+    // The engine refuses an auxiliary the verb does not take; that table's compound cells are unavailable (corrections).
+    const auxiliary = withdrawnAuxiliaries[file.infinitive]?.auxiliary === file.auxiliary ? null : file.auxiliary;
     const base = {
       language: 'fr', infinitive: file.infinitive,
       ...(file.gender ? { gender: file.gender } : {}),
-      ...(file.auxiliary ? { auxiliary: file.auxiliary } : {}),
+      ...(auxiliary ? { auxiliary } : {}),
     };
     return [
       { label: 'default', options: base },
@@ -35,6 +38,8 @@ export const french: CorpusLanguage = {
     // Agreeing past participles (every gender and number) come from the ungendered query alone.
     if (cell.target.mood === 'participle' && cell.target.agreement) return label === 'participle' ? forms : [];
     if (label === 'participle') return [];
+    // The compound cells of a withdrawn auxiliary's table are answered by no form of the other auxiliary.
+    if (withdrawnAuxiliaries[file.infinitive]?.auxiliary === file.auxiliary && compound(cell.target)) return [];
     // The figurative pleuvoir table answers only the figurative variants of the finite cells, the default table all others.
     if (file.infinitive !== 'pleuvoir' || cell.target.person === null) return forms;
     if (label === 'figurative') return forms.filter(form => form.variant.condition === 'figurative');

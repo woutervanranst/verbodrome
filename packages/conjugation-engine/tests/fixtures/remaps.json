@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "language": "en",
+    "heading": "Subjunctive › Present #2",
+    "occurrence": "all",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect"
+    },
+    "reason": "The second \"Present\" block of the subjunctive holds have + past participle for every person (have arisen): the perfect subjunctive.",
+    "source": "https://doi.org/10.1017/9781316423530"
+  },
+  {
+    "language": "en",
+    "heading": "Subjunctive › Imperfect",
+    "occurrence": "all",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past"
+    },
+    "reason": "English has no imperfect: this block is the past (irrealis) subjunctive, with were for every person of be.",
+    "source": "https://www.ahdictionary.com/word/search.html?q=were"
+  },
+  {
+    "language": "en",
+    "heading": "Nominal Forms › Gerund",
+    "occurrence": "all",
+    "target": {
+      "mood": "participle",
+      "tense": "present"
+    },
+    "reason": "The \"gerund\" is the -ing form (the gerund-participle), which the catalogue lists as the participle present.",
+    "source": "https://assets.publishing.service.gov.uk/media/5a7ccc06ed915d63cc65ce61/English_Appendix_1_-_Spelling.pdf"
+  },
+  {
+    "language": "de",
+    "heading": "Konjunktiv II/Präsens",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past"
+    },
+    "reason": "The simple Konjunktiv II (gäbe, führe) is built on the Präteritum stem: grammis calls it Konjunktiv Präteritum, the catalogue subjunctive past.",
+    "source": "https://grammis.ids-mannheim.de/systematische-grammatik/439"
+  },
+  {
+    "language": "de",
+    "heading": "Konjunktiv II/Futur I",
+    "occurrence": 0,
+    "target": {
+      "mood": "conditional",
+      "tense": "present"
+    },
+    "reason": "würde + Infinitiv (ich würde backen) is the würde-form of Konjunktiv II, which the catalogue lists as the conditional present.",
+    "source": "https://grammis.ids-mannheim.de/systematische-grammatik/312"
+  },
+  {
+    "language": "de",
+    "heading": "Konjunktiv I/Präteritum",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect"
+    },
+    "reason": "habe gebacken is the Konjunktiv I of the Perfekt (haben/sein in Konjunktiv I + Partizip II), not a Präteritum: the catalogue subjunctive perfect.",
+    "source": "https://grammis.ids-mannheim.de/systematische-grammatik/439"
+  },
+  {
+    "language": "de",
+    "heading": "Konjunktiv II/Präteritum",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect"
+    },
+    "reason": "hätte gebacken is the Konjunktiv II of the Plusquamperfekt (haben/sein in Konjunktiv II + Partizip II): the catalogue subjunctive pluperfect.",
+    "source": "https://grammis.ids-mannheim.de/systematische-grammatik/439"
+  },
+  {
+    "language": "de",
+    "heading": "Konjunktiv II/Futur II",
+    "occurrence": 0,
+    "target": {
+      "mood": "conditional",
+      "tense": "past"
+    },
+    "reason": "würde + Infinitiv Perfekt (ich würde gebacken haben) is the past würde-form of Konjunktiv II: the catalogue conditional past.",
+    "source": "https://grammis.ids-mannheim.de/systematische-grammatik/312"
+  }
+]
