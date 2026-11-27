@@ -51,8 +51,10 @@ export interface SpanishEntry {
   readonly gerund?: string;
   /** The imperfect stem (ver: ve-ía). */
   readonly imperfect?: string;
-  /** The stem of every form but the infinitive and the participle (podrir: pudr-). */
+  /** The stem of every form, where it is not the infinitive minus its ending (podrir: pudr-). */
   readonly root?: string;
+  /** Further infinitives of the same verb, with the tags of their forms (pudrir: podrir). */
+  readonly infinitiveVariants?: readonly Variant<string>[];
   /** The root-stressed forms are stressed on the ending (estar: estás, esté; dar: das). */
   readonly endingStress?: true;
   /** Adds y before an ending that does not begin with i, like the -uir verbs (oír: oyes). */
@@ -128,7 +130,9 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   roer: { present1: [{ value: 'ro', pattern: 'o' }, { value: 'roig', pattern: 'ig' }, { value: 'roy', pattern: 'y' }] },
   raer: { present1: [{ value: 'raig', pattern: 'ig' }, { value: 'ray', pattern: 'y' }] },
   erguir: { alternation: [{ value: 'e-ie', pattern: 'ye' }, { value: 'e-i', pattern: 'i' }] },
-  podrir: { root: 'pudr' },
+  // One verb with two infinitives (DPD «pudrir»): pudr- in every form except the participle podrido.
+  pudrir: { participle: 'podrido', infinitiveVariants: [{ value: 'podrir', pattern: 'podrir' }] },
+  podrir: { model: 'pudrir', root: 'pudr', participle: 'podrido', infinitiveVariants: [{ value: 'podrir', pattern: 'podrir' }] },
   freír: {
     model: 'reír', alternation: 'e-i',
     participle: [{ value: 'frito', pattern: 'irregular' }, { value: 'freído', pattern: 'regular' }],
@@ -144,20 +148,11 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   prender: { participle: [{ value: 'prendido', pattern: 'regular' }, { value: 'preso', pattern: 'irregular', compound: false }] },
   morir: { alternation: 'o-ue', participle: 'muerto' },
   abrir: { participle: 'abierto' },
-  entreabrir: { model: 'abrir', participle: 'entreabierto' },
-  reabrir: { model: 'abrir', participle: 'reabierto' },
   cubrir: { participle: 'cubierto' },
-  descubrir: { model: 'cubrir', participle: 'descubierto' },
-  encubrir: { model: 'cubrir', participle: 'encubierto' },
-  recubrir: { model: 'cubrir', participle: 'recubierto' },
   romper: { participle: 'roto' },
   imprimir: { participle: [{ value: 'impreso', pattern: 'irregular' }, { value: 'imprimido', pattern: 'regular' }] },
   proveer: { participle: [{ value: 'provisto', pattern: 'irregular' }, { value: 'proveído', pattern: 'regular' }] },
   volver: { alternation: 'o-ue', participle: 'vuelto' },
-  devolver: { model: 'volver', alternation: 'o-ue', participle: 'devuelto' },
-  envolver: { model: 'volver', alternation: 'o-ue', participle: 'envuelto' },
-  revolver: { model: 'volver', alternation: 'o-ue', participle: 'revuelto' },
-  desenvolver: { model: 'volver', alternation: 'o-ue', participle: 'desenvuelto' },
   resolver: { alternation: 'o-ue', participle: 'resuelto' },
   absolver: { model: 'resolver', alternation: 'o-ue', participle: 'absuelto' },
   disolver: { model: 'resolver', alternation: 'o-ue', participle: 'disuelto' },
@@ -214,8 +209,8 @@ export const alternations: Readonly<Record<string, Alternation>> = {
   ...listed('o-ue', 'cocer conmover doler escocer moler morder mover oler promover remover retorcer torcer'),
   ...listed('o-ue', 'dormir'),
   ...listed('e-i', `ceñir colegir competir concebir conseguir constreñir corregir derretir desteñir despedir embestir expedir
-    gemir henchir impedir investir medir pedir perseguir proseguir regir reír rendir reñir repetir revestir seguir servir
-    sonreír teñir travestir vestir desleír`),
+    gemir henchir impedir investir medir pedir perseguir proseguir regir rendir reñir repetir revestir seguir servir
+    teñir travestir vestir`),
   ...listed('u-ue', 'jugar'),
 };
 
@@ -256,21 +251,35 @@ export const prefixes: readonly string[] = words(`a ab abs ad ante bien circun c
  */
 export const noInherit: ReadonlySet<string> = new Set(words('decir satisfacer comandar'));
 
-/** Derivatives of bases shorter than five letters, listed one by one (§3.3). */
-export const shortBaseDerivatives: Readonly<Record<string, string>> = {
+/**
+ * Derivatives listed one by one with the verb they are conjugated like (§3.3): the short bases, which the closed prefix
+ * list does not reach, and derivatives whose stored participle or stem vowel come from their base (devuelto, recuezo).
+ * The derivative takes the base's lexical data with the part before the base as its prefix.
+ */
+export const listedDerivatives: Readonly<Record<string, string>> = {
   prever: 'ver', entrever: 'ver', rever: 'ver',
   decaer: 'caer', recaer: 'caer',
-  desoír: 'oír',
-  engreír: 'reír',
   releer: 'leer',
   descreer: 'creer',
   corroer: 'roer',
+  entreabrir: 'abrir', reabrir: 'abrir',
+  descubrir: 'cubrir', encubrir: 'cubrir', recubrir: 'cubrir',
+  devolver: 'volver', envolver: 'volver', revolver: 'volver', desenvolver: 'volver',
+  recocer: 'cocer',
+  sofreír: 'freír', refreír: 'freír',
+  reimprimir: 'imprimir',
+  desproveer: 'proveer',
 };
 
-/** Suffix families (§3.2 step 5): -ducir (zc and the preterite in -duj-), -scribir (participle in -scrito). */
-export const families: readonly { readonly suffix: string; readonly model: string }[] = [
+/**
+ * Suffix families (§3.2 step 5): -ducir (zc and the preterite in -duj-), -scribir (participle in -scrito), and the
+ * rule classes -eír (every one conjugated like reír) and -oír (every one like oír).
+ */
+export const families: readonly { readonly suffix: 'ducir' | 'scribir' | 'eír' | 'oír'; readonly model: string }[] = [
   { suffix: 'ducir', model: 'conducir' },
   { suffix: 'scribir', model: 'escribir' },
+  { suffix: 'eír', model: 'reír' },
+  { suffix: 'oír', model: 'oír' },
 ];
 
 /** The monosyllables that keep a diacritic tilde, by lemma: dé (dar), sé (saber, ser). */

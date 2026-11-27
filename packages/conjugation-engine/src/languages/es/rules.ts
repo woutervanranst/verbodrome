@@ -13,6 +13,8 @@ export const spanishRules = defineRules({
   'es.classify.two-paradigms': { stage: 'classify', kind: 'lexical', params: { model: 'text' } },
   'es.classify.prefixed': { stage: 'classify', kind: 'lexical', params: { prefix: 'text', base: 'text' } },
   'es.classify.family': { stage: 'classify', params: { suffix: 'text', model: 'text' } },
+  'es.classify.eir': { stage: 'classify' },
+  'es.classify.oir': { stage: 'classify' },
   'es.classify.uar-stress': { stage: 'classify' },
   'es.classify.hint': { stage: 'classify', params: { hint: 'text' } },
   'es.classify.assume-regular': { stage: 'classify', kind: 'assumption' },
@@ -39,6 +41,7 @@ export const spanishRules = defineRules({
   'es.cell.imperative-short': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
   'es.cell.participle': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
   'es.cell.gerund': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
+  'es.cell.infinitive-variant': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
 
   // Endings (§4.3)
   'es.end.present': { stage: 'ending', params: { ending: 'text' } },

@@ -41,13 +41,7 @@ function stored(lexeme: SpanishLexeme, value: string | readonly Variant<string>[
 /** The root of the derived forms: the infinitive minus -ar/-er/-ir, or the lexicon's root (podrir: pudr-). */
 export function rootOf(lexeme: SpanishLexeme): Fork<string> {
   if (lexeme.entry.root !== undefined) return one(lexeme.root, [step(rules['es.stem.lexical'], lexeme.infinitive, lexeme.root, { stem: lexeme.root })]);
-  return infinitiveRoot(lexeme);
-}
-
-/** The infinitive minus its ending, which the infinitive and the participle are built on. */
-function infinitiveRoot(lexeme: SpanishLexeme): Fork<string> {
-  const root = lexeme.infinitive.slice(0, -2);
-  return one(root, [step(rules['es.stem.root'], lexeme.infinitive, root, { ending: `-${lexeme.conjugation}` })]);
+  return one(lexeme.root, [step(rules['es.stem.root'], lexeme.infinitive, lexeme.root, { ending: `-${lexeme.conjugation}` })]);
 }
 
 const diphthongs: Readonly<Record<Exclude<Alternation, 'e-i'>, readonly [string, string]>> = {
@@ -138,7 +132,7 @@ export function stemFork(lexeme: SpanishLexeme, cell: Cell): Fork<string> {
   const { entry } = lexeme;
   if (cell.kind === 'nonFinite') {
     if (cell.form === 'gerund') return chain(rootOf(lexeme), root => alternated(lexeme, cell, root));
-    return infinitiveRoot(lexeme);
+    return rootOf(lexeme);
   }
   switch (`${cell.mood}.${cell.tense}`) {
     case 'indicative.present': return presentStem(lexeme, cell);
@@ -201,7 +195,7 @@ function prefixed(lexeme: SpanishLexeme, word: string): { word: string; steps: D
 }
 
 /** One lexical whole word: the prefix, the tilde, the diacritic tilde, each with its step after the lexical one. */
-function lexicalWords(lexeme: SpanishLexeme, value: string | readonly Variant<string>[], rule: 'es.cell.lexical' | 'es.cell.imperative-short' | 'es.cell.participle' | 'es.cell.gerund'): Fork<string> {
+function lexicalWords(lexeme: SpanishLexeme, value: string | readonly Variant<string>[], rule: 'es.cell.lexical' | 'es.cell.imperative-short' | 'es.cell.participle' | 'es.cell.gerund' | 'es.cell.infinitive-variant'): Fork<string> {
   return variantsOf(value).map(({ value: word, tags }) => {
     const form = lexeme.prefix === '' ? word : lexeme.prefix + stripAccents(word);
     const withPrefix = prefixed(lexeme, word);
@@ -213,9 +207,18 @@ function lexicalWords(lexeme: SpanishLexeme, value: string | readonly Variant<st
 /** The key of a finite cell in `entry.cells`. */
 const cellKey = (cell: FiniteCell): string => `${cell.mood}.${cell.tense}.${cell.person}${cell.number === 'singular' ? 'sg' : 'pl'}`;
 
-/** The whole word the lexicon stores for a cell (grammar design §4.2, `es.cell.*`), or null to derive it. */
-export function lexicalCell(lexeme: SpanishLexeme, cell: Cell): Fork<string> | null {
+/** The words of a cell by stem → ending → spelling, the path the engine takes for a cell without listed words. */
+type Derive = (cell: Cell) => Fork<string>;
+
+/**
+ * The whole words the lexicon stores for a cell (grammar design §4.2, `es.cell.*`), with the derived words beside them
+ * where the lexicon lists a word in addition to the regular one (`derive`); null to derive the cell.
+ */
+export function lexicalCell(lexeme: SpanishLexeme, cell: Cell, derive: Derive = other => derivedWords(lexeme, other)): Fork<string> | null {
   const { entry } = lexeme;
+  if (cell.kind === 'nonFinite' && cell.form === 'infinitive' && entry.infinitiveVariants !== undefined) {
+    return [...derive(cell), ...lexicalWords(lexeme, entry.infinitiveVariants, 'es.cell.infinitive-variant')];
+  }
   if (cell.kind === 'finite') {
     const listed = entry.cells?.[cellKey(cell)];
     if (listed !== undefined) return lexicalWords(lexeme, listed, 'es.cell.lexical');
@@ -240,10 +243,13 @@ export function lexicalCell(lexeme: SpanishLexeme, cell: Cell): Fork<string> | n
   return null;
 }
 
-/** One word of a cell as the grammar builds it: the lexical word, or stem + ending + spelling. */
-export function synthesizeWord(lexeme: SpanishLexeme, cell: Cell): Fork<string> {
-  const lexical = lexicalCell(lexeme, cell);
-  if (lexical !== null) return lexical;
+/** stem → ending → spelling, as the engine derives a cell (the core's `deriveWords`, without the grammar object). */
+function derivedWords(lexeme: SpanishLexeme, cell: Cell): Fork<string> {
   return chain(stemFork(lexeme, cell), stem => chain(endingFork(lexeme, cell, stem), ending =>
     chain(applyJunctureRules(spanishOrthography, { stem, ending }, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending))));
+}
+
+/** One word of a cell as the grammar builds it: the lexical words, or stem + ending + spelling. */
+export function synthesizeWord(lexeme: SpanishLexeme, cell: Cell): Fork<string> {
+  return lexicalCell(lexeme, cell) ?? derivedWords(lexeme, cell);
 }

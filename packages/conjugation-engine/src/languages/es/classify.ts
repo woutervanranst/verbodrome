@@ -9,7 +9,7 @@ import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
 import type { SpanishClassHint, SpanishStemHints } from './spec.js';
 import {
-  alternations, bothStressVerbs, entries, families, hiatusVerbs, noInherit, prefixes, shortBaseDerivatives, strongBases,
+  alternations, bothStressVerbs, entries, families, hiatusVerbs, listedDerivatives, noInherit, prefixes, strongBases,
   twoParadigms, zcExceptions,
 } from './lexicon.js';
 import type { Alternation, SpanishEntry, Variant } from './lexicon.js';
@@ -54,6 +54,8 @@ interface Reading {
   readonly family: 'ducir' | 'scribir' | null;
   readonly stress: Stress | null;
   readonly listed: boolean;
+  /** Where the class comes from: the lexicon, or a rule class (-eír, -oír) that needs no entry. */
+  readonly source: 'lexicon' | 'regularRule';
   readonly steps: readonly DerivationStep[];
   readonly tags: VariantTags;
 }
@@ -132,7 +134,7 @@ function closeOfLastGroup(infinitive: string): 'i' | 'u' | null {
 
 /** The readings the lexicon gives an infinitive: two for a two-paradigm lemma, one otherwise. */
 function readingsOf(infinitive: string): Reading[] {
-  const none = { prefix: '', base: infinitive, family: null } as const;
+  const none = { prefix: '', base: infinitive, family: null, source: 'lexicon' } as const;
   if (Object.hasOwn(twoParadigms, infinitive)) {
     return twoParadigms[infinitive]!.map(({ entry, pattern, condition }) => {
       const alternation = entry.alternation ?? null;
@@ -148,26 +150,45 @@ function readingsOf(infinitive: string): Reading[] {
     const model = modelOfListed(infinitive, listed);
     return [{ ...none, ...listed, model, listed: true, steps: [step(rules['es.classify.lexicon'], infinitive, model, { model })], tags: {} }];
   }
-  const derivation = strongDerivation(infinitive)
-    ?? (Object.hasOwn(shortBaseDerivatives, infinitive) ? { prefix: infinitive.slice(0, -shortBaseDerivatives[infinitive]!.length), base: shortBaseDerivatives[infinitive]! } : null);
+  // A strong base through the closed prefix list, or a derivative the lexicon lists with its base.
+  const strong = strongDerivation(infinitive);
+  const listedBase = Object.hasOwn(listedDerivatives, infinitive) ? listedDerivatives[infinitive]! : null;
+  const derivation = strong ?? (listedBase === null ? null : { prefix: infinitive.slice(0, -listedBase.length), base: listedBase });
   if (derivation !== null) {
     const [base] = readingsOf(derivation.base);
     const model = base?.model ?? derivation.base;
     return [{
-      entry: base?.entry ?? {}, alternation: base?.alternation ?? null, stress: base?.stress ?? null, family: null, model,
-      prefix: derivation.prefix, base: derivation.base, listed: true, tags: {},
-      steps: [step(rules['es.classify.prefixed'], infinitive, model, { prefix: derivation.prefix, base: derivation.base })],
+      entry: base?.entry ?? {}, alternation: base?.alternation ?? null, stress: base?.stress ?? null, family: base?.family ?? null, model,
+      prefix: derivation.prefix, base: derivation.base, listed: true, source: 'lexicon', tags: {},
+      steps: [strong === null
+        ? step(rules['es.classify.lexicon'], infinitive, model, { model })
+        : step(rules['es.classify.prefixed'], infinitive, model, { prefix: derivation.prefix, base: derivation.base })],
     }];
   }
   const family = families.find(({ suffix }) => infinitive.endsWith(suffix) && infinitive.length > suffix.length);
-  if (family !== undefined) {
-    const name = family.suffix === 'ducir' ? 'ducir' : 'scribir';
+  if (family?.suffix === 'eír') {
+    // Every -eír verb is conjugated like reír: e→i where the stem is stressed or the ending has no stressed i.
     return [{
-      ...none, entry: {}, alternation: null, stress: null, family: name, model: family.model, listed: true, tags: {},
+      ...none, entry: {}, alternation: 'e-i', stress: 'hiatus', model: 'reír', listed: true, source: 'regularRule', tags: {},
+      steps: [step(rules['es.classify.eir'], infinitive, 'reír')],
+    }];
+  }
+  if (family?.suffix === 'oír') {
+    // Every -oír verb is conjugated like oír (oigo, oyes), on its own prefix.
+    const prefix = infinitive.slice(0, -3);
+    const oir = listedData('oír')!;
+    return [{
+      ...none, entry: oir.entry, alternation: null, stress: 'hiatus', model: 'oír', prefix, base: 'oír', listed: true, source: 'regularRule', tags: {},
+      steps: [step(rules['es.classify.oir'], infinitive, 'oír')],
+    }];
+  }
+  if (family !== undefined) {
+    return [{
+      ...none, entry: {}, alternation: null, stress: null, family: family.suffix === 'ducir' ? 'ducir' : 'scribir', model: family.model, listed: true, tags: {},
       steps: [step(rules['es.classify.family'], infinitive, family.model, { suffix: `-${family.suffix}`, model: family.model })],
     }];
   }
-  return [{ ...none, entry: {}, alternation: null, stress: null, model: null, listed: false, steps: [], tags: {} }];
+  return [{ ...none, entry: {}, alternation: null, stress: null, model: null, listed: false, source: 'regularRule', steps: [], tags: {} }];
 }
 
 function modelOfListed(infinitive: string, listed: NonNullable<ReturnType<typeof listedData>>): string {
@@ -248,7 +269,7 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
       assumptions.push(step(rules['es.classify.assume-glide'], infinitive, null, { vowel: 'i' }));
     } else {
       const run = lastVowelRun(infinitive);
-      if (run.length === 2 && /[iuü]/u.test(run)) assumptions.push(step(rules['es.classify.assume-diphthong'], infinitive, null, { vowels: run }));
+      if (run.length === 2 && /[aeo]/u.test(run) && /[iuü]/u.test(run)) assumptions.push(step(rules['es.classify.assume-diphthong'], infinitive, null, { vowels: run }));
     }
   }
 
@@ -265,18 +286,20 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
   }
 
   const raising = conjugation === 'ir' && alternation !== null && entry.raising !== false;
+  const yInsertion = entry.yInsertion === true || (/[uü](?:ir|ír)$/u.test(infinitive) && !/[gq]u(?:ir|ír)$/u.test(infinitive));
   const hintChanged = classHint !== undefined && !reading.listed || stems.stress !== undefined || stems.zc !== undefined;
   const model = reading.listed && !(stems.stress !== undefined || stems.zc !== undefined)
     ? reading.model ?? infinitive
     : (typeof alternation === 'string' ? alternationModel(alternation, infinitive, raising) : null)
-      ?? stressModel(stress, infinitive) ?? (zc ? (conjugation === 'er' ? 'conocer' : 'lucir') : null) ?? regularModels[conjugation];
+      ?? stressModel(stress, infinitive) ?? (zc ? (conjugation === 'er' ? 'conocer' : 'lucir') : null)
+      ?? (yInsertion ? 'construir' : null) ?? regularModels[conjugation];
   const regularAssumption = !reading.listed && classHint === undefined ? [step(rules['es.classify.assume-regular'], infinitive, null)] : [];
 
   const lexeme: SpanishLexeme = {
     lemma: parsed.lemma,
     verbId: parsed.lemma,
     classId: model,
-    classSource: hintChanged ? 'explicitHint' : reading.listed ? 'lexicon' : 'regularRule',
+    classSource: hintChanged ? 'explicitHint' : reading.listed ? reading.source : 'regularRule',
     reflexive: parsed.reflexive,
     auxiliaries: ['haber'],
     particle: null,
@@ -289,7 +312,7 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
     raising,
     stress,
     zc,
-    yInsertion: entry.yInsertion === true || (/[uü](?:ir|ír)$/u.test(infinitive) && !/[gq]u(?:ir|ír)$/u.test(infinitive)),
+    yInsertion,
     family: reading.family,
     entry,
   };

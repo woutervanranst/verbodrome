@@ -1,6 +1,6 @@
 import { step } from '../../core/derivation.js';
 import type { Cell, StagedGrammar, Unavailability } from '../../core/staged.js';
-import { validateGrammar } from '../../core/staged.js';
+import { deriveWords, validateGrammar } from '../../core/staged.js';
 import type { ResolvedTarget } from '../../types.js';
 import { classifySpanish, spanishLexemeOf } from './classify.js';
 import type { SpanishLexeme } from './classify.js';
@@ -58,7 +58,7 @@ export const spanishGrammar: StagedGrammar<SpanishLexeme> = {
     return { kind: 'finite', mood: target.mood, tense: target.tense, person: target.person, number: target.number };
   },
   availability,
-  cell: lexicalCell,
+  cell: (lexeme, cell) => lexicalCell(lexeme, cell, other => deriveWords(spanishGrammar, lexeme, other)),
   stem: stemFork,
   ending: endingFork,
   orthography: spanishOrthography,
