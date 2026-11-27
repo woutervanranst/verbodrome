@@ -1,7 +1,7 @@
 {
   "name": "conjugation-engine",
   "version": "0.1.0",
-  "description": "Rule-based French and Dutch conjugation with reusable grammatical components",
+  "description": "Rule-based conjugation for French, Dutch, German, English, Spanish, Italian and Latin, with step-by-step explanations",
   "type": "module",
   "engines": {
     "node": ">=26"
@@ -14,6 +14,42 @@
     "./core": {
       "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.js"
+    },
+    "./languages/fr": {
+      "types": "./dist/languages/fr/index.d.ts",
+      "import": "./dist/languages/fr/index.js"
+    },
+    "./languages/nl": {
+      "types": "./dist/languages/nl/index.d.ts",
+      "import": "./dist/languages/nl/index.js"
+    },
+    "./languages/de": {
+      "types": "./dist/languages/de/index.d.ts",
+      "import": "./dist/languages/de/index.js"
+    },
+    "./languages/en": {
+      "types": "./dist/languages/en/index.d.ts",
+      "import": "./dist/languages/en/index.js"
+    },
+    "./languages/es": {
+      "types": "./dist/languages/es/index.d.ts",
+      "import": "./dist/languages/es/index.js"
+    },
+    "./languages/it": {
+      "types": "./dist/languages/it/index.d.ts",
+      "import": "./dist/languages/it/index.js"
+    },
+    "./languages/la": {
+      "types": "./dist/languages/la/index.d.ts",
+      "import": "./dist/languages/la/index.js"
+    },
+    "./locales/en": {
+      "types": "./dist/i18n/locales/en/index.d.ts",
+      "import": "./dist/i18n/locales/en/index.js"
+    },
+    "./locales/nl": {
+      "types": "./dist/i18n/locales/nl/index.d.ts",
+      "import": "./dist/i18n/locales/nl/index.js"
     },
     "./equivalence": {
       "types": "./dist/equivalence/index.d.ts",
@@ -29,7 +65,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "pretest": "npm run build",
     "test": "vitest run",

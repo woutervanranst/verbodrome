@@ -314,6 +314,7 @@ A pack for language `de` lives in `src/languages/de/`:
 | `lexicon.ts`, `stems.ts`, `paradigms.ts`, `orthography.ts`, `periphrasis.ts`, `clause.ts`, `classify.ts` | the grammar's parts, as large as the language needs |
 | `grammar.ts` | the `StagedGrammar`, ending with `validateGrammar(grammar)` |
 | `pack.ts` | the `LanguagePack` |
+| `index.ts` | the public entry of the `conjugation-engine/languages/de` subpath: the pack (`export { germanPack } from './pack.js';`) and the spec's types, nothing else |
 
 The messages live in `src/i18n/locales/en/de.ts` and `src/i18n/locales/nl/de.ts`; tests in `tests/de/`; the language's grammar notes in `docs/grammar/de.md`.
 
@@ -345,6 +346,7 @@ Registering a language is one line or one import in each of these shared files. 
 | `src/languages/index.ts` | `import { germanPack } from './de/pack.js';` and `de: germanPack` in `packs`, which is checked `satisfies { [L in Language]: LanguagePack<L> }` |
 | `src/i18n/locales/en/index.ts`, `src/i18n/locales/nl/index.ts` | `import { de } from './de.js';` and `{ ...core, ...de }` in the catalog |
 | `src/types.ts` | `export type { ... } from './languages/de/spec.js';` for the spec's public types, and `export type GermanConjugationOptions = ConjugationOptionsFor<'de'>;` beside the French and Dutch ones |
+| `package.json` | the `./languages/de` subpath in `exports` (`types` and `import` of `dist/languages/de/index`), and its row (subpath and named export) in the `subpaths` table of `tests/package.test.ts`, which fails for a subpath of the map that the table does not list |
 | `scripts/corpus/languages/index.ts` | the language's `CorpusLanguage` in the list, when it has corpus data (section 10) |
 | `tests/corpus.test.ts` | its row in the `pinned` table (a language in the list but not in the table fails) |
 | `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
