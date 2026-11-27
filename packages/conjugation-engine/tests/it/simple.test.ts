@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { explain } from '../../src/index.js';
 import { bare, bareOf, bareText, form, forms } from './helpers.js';
 
 describe('Italian simple tenses', () => {
@@ -81,6 +82,8 @@ describe('Italian simple tenses', () => {
   it('keeps two accepted spellings with their labels', () => {
     const vado = forms('andare', 'indicative', 'present', '1sg');
     expect(vado.map(f => [bareText(f), f.variant.usage, f.preferred])).toEqual([['vado', 'standard', true], ['vo', 'literary', false]]);
+    // fo: printed unlabelled beside faccio (controller ruling): a standard variant, never the preferred form.
+    expect(forms('fare', 'indicative', 'present', '1sg').map(f => [bareText(f), f.variant.usage, f.preferred])).toEqual([['faccio', 'standard', true], ['fo', 'standard', false]]);
     expect(bareOf('dovere', 'indicative', 'present', '1sg')).toBe('devo/debbo');
   });
 
@@ -92,6 +95,8 @@ describe('Italian simple tenses', () => {
     expect(bare('dire', 'imperative', 'present')).toEqual(["di'", 'diciamo', 'dite']);
     expect(bare('sapere', 'imperative', 'present')).toEqual(['sappi', 'sappiamo', 'sappiate']);
     expect(form('sapere', 'imperative', 'present', '2pl').rules).toEqual(['it.stem.subjunctive-from-1pl', 'it.end.subjunctive-present', 'it.end.imperative-subjunctive']);
+    expect(explain('it', form('essere', 'imperative', 'present', '2pl'), 'en').sections.flatMap(s => s.steps.map(t => t.text)))
+      .toContain('This imperative form is the present subjunctive: siate.');
     expect(bare('essere', 'imperative', 'present')).toEqual(['sii', 'siamo', 'siate']);
     expect(bare('venire', 'imperative', 'present')).toEqual(['vieni', 'veniamo', 'venite']);
     expect(bare('predire', 'imperative', 'present')[0]).toBe('predici');

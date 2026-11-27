@@ -140,7 +140,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
     class: 'contracted', long: 'fac', auxiliaries: [avere], present: { '1pl': ['facc'] }, subjunctive: ['facci'], past: ['feci'],
     participle: ['fatto'], presentParticiple: ['facente', 'faciente'],
     cells: {
-      ...tense('indicative.present', [['faccio', { text: 'fo', usage: 'literary' }], 'fai', 'fa', null, 'fate', 'fanno']),
+      ...tense('indicative.present', [['faccio', 'fo'], 'fai', 'fa', null, 'fate', 'fanno']),
       ...cell('imperative.present', '2sg', ['fai', "fa'"]),
     },
   },
@@ -225,7 +225,14 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   solere: {
     class: 'ere', present: { '1sg': ['sogli'], '2sg': ['suol'], '3sg': ['suol'], '1pl': ['sogl'], '3pl': ['sogli'] },
-    pastSeries: ['ei'], participle: ['solito'], flags: ['noImperative'], defective: ['indicative.future', 'conditional.present'],
+    pastSeries: ['ei'], participle: ['solito'], flags: ['noImperative'],
+    // Vocabolario: used in the simple tenses of the indicative (not the future), the subjunctive and the present infinitive;
+    // "negli altri tempi è sostituito dalla locuz. essere solito".
+    defective: [
+      'indicative.perfect', 'indicative.pluperfect', 'indicative.past_anterior', 'indicative.future', 'indicative.future_perfect',
+      'subjunctive.past', 'subjunctive.pluperfect', 'conditional.present', 'conditional.past', 'infinitive.past', 'participle.present',
+      'gerund.present', 'gerund.past',
+    ],
   },
   apparire: {
     class: 'ire', isc: 'no', auxiliaries: [essere],

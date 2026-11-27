@@ -60,6 +60,7 @@ describe('Italian compound tenses and clause', () => {
     expect(formWith('lavarsi', 'imperative', 'negative', '2sg').rules).toEqual(expect.arrayContaining(['it.clause.negative-infinitive', 'it.clause.reflexive-pronoun']));
     expect(bare('farsi', 'imperative', 'present')[0]).toBe('fatti');
     expect(formWith('farsi', 'imperative', 'present', '2sg').rules).toContain('it.clause.enclitic-doubling');
+    expect(formWith('farsi', 'imperative', 'present', '2sg').parts.map(p => [p.role, p.text])).toEqual([['lexicalVerb', 'fat'], ['reflexivePronoun', 'ti']]);
     expect(bare('lavarsi', 'infinitive', 'present')).toEqual(['lavarsi']);
     expect(bare('porsi', 'infinitive', 'present')).toEqual(['porsi']);
     expect(bare('lavarsi', 'gerund', 'present')).toEqual(['lavandosi']);
@@ -88,13 +89,26 @@ describe('Italian compound tenses and clause', () => {
     expectUnavailable('sapere', 'participle', 'present', 'defective');
     expectUnavailable('solere', 'indicative', 'future', 'defective');
     expectUnavailable('piovere', 'imperative', 'present', 'impersonal');
+    // Weather verbs (controller ruling): the third person singular only, both auxiliaries, a masculine singular participle.
     const piove = conjugate({ language: 'it', infinitive: 'piovere', mood: 'indicative', tense: 'present' });
-    expect(piove.forms.map(f => [f.text, f.target.subject])).toEqual([['piove', '3sg.m'], ['piovono', '3pl']]);
+    expect(piove.forms.map(f => [f.text, f.target.subject])).toEqual([['piove', '3sg.m']]);
     expect(piove.unavailableTargets.map(u => [u.target.subject, u.reason])).toEqual([
-      ['1sg', 'impersonal'], ['2sg', 'impersonal'], ['3sg.f', 'impersonal'], ['1pl', 'impersonal'], ['2pl', 'impersonal']]);
-    expect(texts('piovere', 'indicative', 'perfect')).toEqual(['è piovuto', 'ha piovuto', 'sono piovuti', 'sono piovute', 'hanno piovuto']);
+      ['1sg', 'impersonal'], ['2sg', 'impersonal'], ['3sg.f', 'impersonal'], ['1pl', 'impersonal'], ['2pl', 'impersonal'], ['3pl', 'impersonal']]);
+    expect(texts('piovere', 'indicative', 'perfect')).toEqual(['è piovuto', 'ha piovuto']);
+    expect(bare('nevicare', 'gerund', 'past')).toEqual(['essendo nevicato', 'avendo nevicato']);
+    expect(bare('piovere', 'participle', 'past')).toEqual(['piovuto']);
+    expect(bare('piovere', 'infinitive', 'past')).toEqual(['essere piovuto', 'avere piovuto']);
     expect(conjugate({ language: 'it', infinitive: 'sapere', mood: 'participle', tense: 'present' }).unavailableTargets[0]!.explanation)
-      .toBe('This verb has no Presente.');
+      .toBe('This verb has no Participio Presente.');
+    expect(explain('it', conjugate({ language: 'it', infinitive: 'sapere', mood: 'participle', tense: 'present' }).unavailableTargets[0]!, 'nl').sections[0]!.steps[0]!.text)
+      .toBe('Dit werkwoord heeft geen Participio Presente.');
+    // solere: only the simple indicative (not the future), the subjunctive, the present infinitive and solito (Vocabolario).
+    for (const [mood, tense] of [['indicative', 'perfect'], ['indicative', 'future'], ['conditional', 'present'], ['conditional', 'past'],
+      ['subjunctive', 'past'], ['infinitive', 'past'], ['gerund', 'past'], ['participle', 'present']] as const) {
+      expectUnavailable('solere', mood, tense, 'defective');
+    }
+    expect(bare('solere', 'indicative', 'present')).toEqual(['soglio', 'suoli', 'suole', 'suole', 'sogliamo', 'solete', 'sogliono']);
+    expect(bare('solere', 'participle', 'past')[0]).toBe('solito');
   });
 
   it('explains every form of a full query in both locales', () => {

@@ -5,8 +5,8 @@ import type { ItalianLexeme } from './lexicon.js';
 import { italianRules as R } from './rules.js';
 import { vocabolarioOf } from './sources.js';
 
-/** The subjects an impersonal verb keeps: the unmarked third persons (piove, piovono). */
-const impersonalSubjects: ReadonlySet<string> = new Set(['3sg.m', '3pl']);
+/** The subject an impersonal verb keeps: the unmarked third person singular (piove). */
+const impersonalSubjects: ReadonlySet<string> = new Set(['3sg.m']);
 
 /**
  * Why a target has no form (grammar design §4.1, §5.4): an impersonal verb outside the unmarked third persons and in the
@@ -24,7 +24,7 @@ export function availabilityOf(lexeme: ItalianLexeme, target: ResolvedTarget): U
   }
   const key = `${target.mood}.${target.tense}`;
   if (entry?.defective?.includes(key) || (key === 'participle.present' && entry?.presentParticiple === null)) {
-    return { reason: 'defective', step: step(R['it.avail.defective'], null, null, { tense: { term: 'tense', id: target.tense } }), source };
+    return { reason: 'defective', step: step(R['it.avail.defective'], null, null, { mood: { term: 'mood', id: target.mood }, tense: { term: 'tense', id: target.tense } }), source };
   }
   return null;
 }
