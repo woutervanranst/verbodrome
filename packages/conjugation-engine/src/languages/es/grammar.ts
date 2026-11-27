@@ -34,6 +34,14 @@ function balbucirGap(target: ResolvedTarget): boolean {
   return false;
 }
 
+/** The forms of a verb used only where the ending begins with i (embaír): every root-stressed form is missing. */
+function iEndingGap(target: ResolvedTarget): boolean {
+  if (target.mood === 'indicative' && target.tense === 'present') return !(target.person !== 3 && target.number === 'plural');
+  if (target.mood === 'subjunctive' && target.tense === 'present') return true;
+  if (target.mood === 'imperative') return target.tense === 'negative' || !(target.person === 2 && target.number === 'plural');
+  return false;
+}
+
 /** Why a target has no form for the lexeme (grammar design §4.8, NGLE §4.14), or null. */
 function availability(lexeme: SpanishLexeme, target: ResolvedTarget): Unavailability | null {
   const { entry } = lexeme;
@@ -48,10 +56,10 @@ function availability(lexeme: SpanishLexeme, target: ResolvedTarget): Unavailabi
   if (defective === undefined) return null;
   const gap = defective === 'soler' ? solerGaps.has(`${target.mood}.${target.tense}`)
     : defective === 'third-person' ? target.person !== null && (target.mood === 'imperative' || target.person !== 3 || target.subject?.endsWith('formal') === true)
-      : balbucirGap(target);
+      : defective === 'balbucir' ? balbucirGap(target) : iEndingGap(target);
   if (!gap) return null;
-  const kind = defective === 'third-person' ? 'third' : defective;
-  const source = `https://www.rae.es/dpd/${defective === 'third-person' ? 'concernir' : defective}`;
+  const kind = defective === 'third-person' ? 'third' : defective === 'i-endings' ? 'iendings' : defective;
+  const source = defective === 'i-endings' ? 'https://dle.rae.es/emba%C3%ADr' : `https://www.rae.es/dpd/${defective === 'third-person' ? 'concernir' : defective}`;
   return { reason: 'defective', step: step(rules['es.avail.defective'], null, null, { verb: lexeme.infinitive, kind }), source };
 }
 

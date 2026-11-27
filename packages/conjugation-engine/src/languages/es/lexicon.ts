@@ -80,7 +80,7 @@ export interface SpanishEntry {
    * Lacks some forms (NGLE §4.14): soler the future tenses, conditional and imperative (grammar design §5.6); concernir
    * and the like every form but the third persons; balbucir the forms with -zc-.
    */
-  readonly defective?: 'soler' | 'third-person' | 'balbucir';
+  readonly defective?: 'soler' | 'third-person' | 'balbucir' | 'i-endings';
   /** Has no imperative (haber as an auxiliary). */
   readonly noImperative?: true;
 }
@@ -178,6 +178,12 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   discernir: { alternation: 'e-ie', raising: false },
   concernir: { model: 'discernir', alternation: 'e-ie', raising: false, defective: 'third-person' },
   cernir: { model: 'discernir', alternation: 'e-ie', raising: false },
+  hendir: { model: 'discernir', alternation: 'e-ie', raising: false },
+  // Both conjugations in use, the regular one predominant (en.wiktionary, read; DPD unverified).
+  cimentar: { alternation: [{ value: null, pattern: 'regular' }, { value: 'e-ie', pattern: 'ie' }] },
+  emparentar: { alternation: [{ value: null, pattern: 'regular' }, { value: 'e-ie', pattern: 'ie' }] },
+  // Only the forms whose ending begins with i (NGLE §4.14; DLE embaír, unverified).
+  embaír: { defective: 'i-endings' },
   // des- + a base whose own forms begin with hue- (hueso, huevo): the h stays where the stem is stressed (DLE, unverified).
   desosar: { model: 'contar', alternation: 'o-ue', hueStem: 'deshues' },
   desovar: { model: 'contar', alternation: 'o-ue', hueStem: 'deshuev' },
@@ -207,7 +213,8 @@ export const twoParadigms: Readonly<Record<string, readonly { readonly entry: Sp
     { entry: {}, pattern: 'regular', condition: 'to terrify' },
   ],
   atestar: [
-    { entry: { alternation: 'e-ie' }, pattern: 'e-ie', condition: 'to cram' },
+    // 'to cram': atiesto, with the regular atesto in use too (DPD «atestar», unverified; controller ruling).
+    { entry: { alternation: [{ value: 'e-ie', pattern: 'ie' }, { value: null, pattern: 'regular' }] }, pattern: 'e-ie', condition: 'to cram' },
     { entry: {}, pattern: 'regular', condition: 'to testify' },
   ],
 };
@@ -224,21 +231,23 @@ export const alternations: Readonly<Record<string, Alternation>> = {
     concertar confesar decentar desconcertar desenterrar despertar desplegar empedrar empezar encerrar encomendar enmendar
     enterrar escarmentar fregar gobernar helar herrar invernar manifestar mentar merendar negar pensar plegar quebrar
     recomendar regar renegar reventar segar sembrar sentar serrar sosegar soterrar temblar tentar tropezar
-    denegar desterrar acrecentar recalentar desalentar replegar restregar remendar deshelar desmembrar ensangrentar`),
+    denegar desterrar acrecentar recalentar desalentar replegar restregar remendar deshelar desmembrar ensangrentar
+    entrecerrar recomenzar repensar desasosegar refregar desacertar requebrar subarrendar`),
   ...listed('e-ie', `ascender atender cerner condescender contender defender descender encender entender extender heder hender
     perder tender trascender verter desatender sobrentender sobreentender desentender malentender distender`),
   ...listed('e-ie', `adherir advertir arrepentir asentir consentir controvertir convertir desmentir diferir digerir divertir herir
     hervir inferir ingerir invertir mentir pervertir preferir presentir proferir referir requerir resentir revertir sentir
-    sugerir transferir zaherir interferir conferir deferir disentir subvertir reconvertir malherir`),
+    sugerir transferir zaherir interferir conferir deferir disentir subvertir reconvertir malherir rehervir`),
   ...listed('o-ue', `acordar acostar almorzar aprobar avergonzar colar colgar comprobar concordar consolar contar costar degollar
     demostrar descontar desollar encontrar esforzar forzar mostrar poblar probar recordar recostar reforzar
     renovar reprobar rodar rogar soldar soltar sonar soñar tostar trocar tronar volar volcar
-    holgar agorar descolgar desaprobar reencontrar recontar resonar desconsolar revolcar amolar desolar descollar`),
+    holgar agorar descolgar desaprobar reencontrar recontar resonar desconsolar revolcar amolar desolar descollar
+    sobrevolar despoblar repoblar trastrocar atronar discordar descornar`),
   ...listed('o-ue', 'cocer conmover doler escocer moler morder mover oler promover remover retorcer torcer demoler remorder condoler destorcer'),
   ...listed('o-ue', 'dormir'),
   ...listed('e-i', `ceñir colegir competir concebir conseguir constreñir corregir derretir desteñir despedir elegir embestir expedir
     gemir henchir impedir investir medir pedir perseguir proseguir reelegir regir rendir reñir repetir revestir seguir servir
-    teñir travestir vestir desvestir reexpedir`),
+    teñir travestir vestir desvestir reexpedir estreñir reteñir desceñir rehenchir comedir`),
   ...listed('u-ue', 'jugar'),
 };
 

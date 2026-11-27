@@ -61,14 +61,10 @@ export function rootStressIn(word: string, stemLength: number, base: { prefixLen
   const last = candidates[position]!;
   const glide = !hiatus && position > 0 && last === stemLength - 1 && /[iuü]/u.test(plainWord[last]!) && !isVowelAt(plainWord, last - 1);
   if (glide) position--;
-  let start = position;
-  let end = position;
-  // A group is one syllable's vowels: touching, and never two open vowels (acaec-: a-e are two syllables).
-  const joined = (left: number, right: number): boolean =>
-    adjacent(plainWord, left, right) && !(isOpenLetter(plainWord[left]!) && isOpenLetter(plainWord[right]!));
-  while (start > 0 && joined(candidates[start - 1]!, candidates[start]!)) start--;
-  while (end < candidates.length - 1 && joined(candidates[end]!, candidates[end + 1]!)) end++;
-  const group = candidates.slice(start, end + 1);
+  // The group is the stressed vowel's syllable nucleus among the stem's vowels (acaec-: a-e; rehierv-: re-hierv-).
+  const chosen = candidates[position]!;
+  const group = (nuclei(plainWord.slice(0, stemLength), -1).find(nucleus => nucleus.includes(chosen)) ?? [chosen])
+    .filter(index => candidates.includes(index));
   if (group.length === 1) return group[0]!;
   const close = group.filter(index => !isOpenLetter(plainWord[index]!));
   const open = group.filter(index => isOpenLetter(plainWord[index]!));
@@ -91,7 +87,11 @@ export function nuclei(word: string, stressed: number): number[][] {
     if (group !== undefined && previous !== undefined && adjacent(plainWord, previous, index) && together(plainWord, previous, index, stressed)) {
       // ui / iu after an open vowel: Spanish has no open + close + close nucleus, so the pair starts its own (re-huí).
       const closePair = !isOpenLetter(plainWord[previous]!) && !isOpenLetter(plainWord[index]!);
-      if (closePair && group.length > 1 && group.slice(0, -1).some(vowel => isOpenLetter(plainWord[vowel]!))) {
+      // A close vowel already joined to an open one before it does not also take an open one after it: it glides
+      // into the next syllable (sna-hió, a-huéis).
+      const openAfter = !isOpenLetter(plainWord[previous]!) && isOpenLetter(plainWord[index]!);
+      const openBefore = group.length > 1 && group.slice(0, -1).some(vowel => isOpenLetter(plainWord[vowel]!));
+      if ((closePair || openAfter) && openBefore) {
         group.pop();
         groups.push([previous, index]);
       } else {

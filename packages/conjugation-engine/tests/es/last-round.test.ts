@@ -155,4 +155,49 @@ describe('I7 and M4: the lexical step says whether the entry was checked, and na
   });
 });
 
+describe('I3: the reviewer\'s batch of real stem-changing derivatives', () => {
+  it.each([
+    ['sobrevolar', 3, 'sobrevuela'], ['entrecerrar', 3, 'entrecierra'], ['despoblar', 3, 'despuebla'], ['estreñir', 3, 'estriñe'],
+    ['repoblar', 1, 'repueblo'], ['recomenzar', 1, 'recomienzo'], ['repensar', 1, 'repienso'], ['desasosegar', 1, 'desasosiego'],
+    ['refregar', 1, 'refriego'], ['desacertar', 1, 'desacierto'], ['requebrar', 1, 'requiebro'], ['subarrendar', 1, 'subarriendo'],
+    ['trastrocar', 1, 'trastrueco'], ['atronar', 1, 'atrueno'], ['discordar', 1, 'discuerdo'], ['descornar', 1, 'descuerno'],
+    ['rehervir', 1, 'rehiervo'], ['hendir', 1, 'hiendo'], ['reteñir', 1, 'retiño'], ['desceñir', 1, 'desciño'], ['rehenchir', 1, 'rehincho'],
+    ['comedir', 1, 'comido'],
+  ] as const)('%s (%i sg) → %s', (verb, person, form) => expect(row(verb, 'indicative', 'present')[person - 1]).toBe(form));
+  it('raises rehervir and estreñir but not hendir', () => {
+    expect(row('rehervir', 'indicative', 'simple_past')[2]).toBe('rehirvió');
+    expect(row('estreñir', 'indicative', 'simple_past')[2]).toBe('estriñó');
+    expect(row('hendir', 'indicative', 'simple_past')[2]).toBe('hendió');
+    expect(row('comedirse', 'indicative', 'present')[0]).toBe('me comido');
+  });
+});
+
+describe('M1: a close vowel between two open ones across h glides into the next syllable', () => {
+  it('writes the invented snahió and ahuéis, and keeps the real verbs right', () => {
+    expect(row('snaher', 'indicative', 'simple_past')[2]).toBe('snahió');
+    expect(row('ahuer', 'indicative', 'present')[4]).toBe('ahuéis');
+    for (const [verb, first] of [['ahuecar', 'ahueco'], ['rehogar', 'rehogo'], ['desahuciar', 'desahucio'], ['ahuyentar', 'ahuyento'], ['rehuir', 'rehúyo'],
+      ['prohibir', 'prohíbo'], ['reunir', 'reúno'], ['ahijar', 'ahíjo'], ['rehusar', 'rehúso'], ['aullar', 'aúllo']]) {
+      expect(row(verb!, 'indicative', 'present')[0]).toBe(first);
+    }
+  });
+});
+
+describe('M7: embaír, atestar, cimentar, emparentar', () => {
+  it('keeps embaír only in the forms whose ending begins with i', () => {
+    expect(texts('embaír', { mood: 'indicative', tense: 'present' })).toEqual(['nosotros embaímos', 'vosotros embaís']);
+    expect(texts('embaír', { mood: 'subjunctive', tense: 'present' })).toEqual([]);
+    expect(texts('embaír', { mood: 'imperative', tense: 'present' })).toEqual(['embaíd']);
+    expect(row('embaír', 'indicative', 'simple_past')[2]).toBe('embayó');
+  });
+  it('gives atestar \'to cram\' the regular conjugation beside atiesto', () => {
+    const forms = conjugated('atestar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms;
+    expect(forms.map(form => `${form.text} ${form.variant.condition}`)).toEqual(['yo atiesto to cram', 'yo atesto to cram', 'yo atesto to testify']);
+  });
+  it('gives cimentar and emparentar a tagged e-ie variant (en.wiktionary, read)', () => {
+    expect(row('cimentar', 'indicative', 'present')[0]).toBe('cimento / cimiento');
+    expect(row('emparentar', 'indicative', 'present')[0]).toBe('emparento / empariento');
+  });
+});
+
 export { analysisOf, explained, ids, texts };
