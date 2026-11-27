@@ -20,7 +20,7 @@ describe('Spanish clause', () => {
     expect(texts('levantarse', { mood: 'gerund' })).toEqual(['levantándose', 'habiéndose levantado']);
     expect(texts('levantarse', { mood: 'infinitive' })).toEqual(['levantarse', 'haberse levantado']);
     expect(texts('levantarse', { mood: 'participle' })).toEqual(['levantado']);
-    expect(texts('irse', { mood: 'imperative', tense: 'present' })).toEqual(['vete', 'váyase', 'vámonos', 'vayámonos', 'idos', 'iros', 'váyanse']);   // iros: GD §11 row 3
+    expect(texts('irse', { mood: 'imperative', tense: 'present' })).toEqual(['vete', 'váyase', 'vámonos', 'vayámonos', 'iros', 'idos', 'váyanse']);   // iros: GD §11 row 3
     expect(texts('reírse', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' })).toEqual(['reíos']);
     expect(texts('reírse', { mood: 'imperative', tense: 'present', person: 2, number: 'singular' })).toEqual(['ríete']);
     expect(texts('vestirse', { mood: 'imperative', tense: 'present', person: 1, number: 'plural' })).toEqual(['vistámonos']);
@@ -33,8 +33,8 @@ describe('Spanish clause', () => {
 
   it('tags iros as a variant beside idos', () => {
     const plural = forms('irse', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' });
-    expect(plural.map(form => form.variant.pattern)).toEqual([null, 'iros']);
-    expect(plural[1]!.ruleIds).toContain('es.clause.iros');
+    expect(plural.map(form => form.variant.pattern)).toEqual(['iros', 'idos']);
+    expect(plural[0]!.ruleIds).toContain('es.clause.iros');
   });
 
   it('gives the formal subject its pronoun', () => {

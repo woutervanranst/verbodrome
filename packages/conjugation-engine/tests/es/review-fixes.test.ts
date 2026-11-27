@@ -99,4 +99,54 @@ describe('review C2 and E1: the regular participle of a doublet is derived, not 
   });
 });
 
+describe('review I1, I2 and rows 7, 9-14: missing stem-changing verbs and prefixes', () => {
+  it.each([
+    ['denegar', 'deniego'], ['desterrar', 'destierro'], ['acrecentar', 'acreciento'], ['recalentar', 'recaliento'], ['desalentar', 'desaliento'],
+    ['replegar', 'repliego'], ['restregar', 'restriego'], ['remendar', 'remiendo'], ['deshelar', 'deshielo'], ['desmembrar', 'desmiembro'],
+    ['ensangrentar', 'ensangriento'], ['desatender', 'desatiendo'], ['sobrentender', 'sobrentiendo'], ['sobreentender', 'sobreentiendo'],
+    ['desentender', 'desentiendo'], ['malentender', 'malentiendo'], ['distender', 'distiendo'], ['interferir', 'interfiero'],
+    ['conferir', 'confiero'], ['deferir', 'defiero'], ['disentir', 'disiento'], ['subvertir', 'subvierto'], ['reconvertir', 'reconvierto'],
+    ['malherir', 'malhiero'], ['demoler', 'demuelo'], ['remorder', 'remuerdo'], ['condoler', 'conduelo'], ['destorcer', 'destuerzo'],
+    ['holgar', 'huelgo'], ['agorar', 'agüero'], ['descolgar', 'descuelgo'], ['desaprobar', 'desapruebo'], ['reencontrar', 'reencuentro'],
+    ['recontar', 'recuento'], ['resonar', 'resueno'], ['desconsolar', 'desconsuelo'], ['revolcar', 'revuelco'], ['amolar', 'amuelo'],
+    ['desvestir', 'desvisto'], ['reexpedir', 'reexpido'], ['amnistiar', 'amnistío'], ['triar', 'trío'], ['retrotraer', 'retrotraigo'],
+  ])('%s → %s', (verb, first) => expect(row(verb, 'indicative', 'present')[0]).toBe(first));
+
+  it('raises the vowel of the new -ir verbs and inherits through retro-', () => {
+    expect(row('interferir', 'indicative', 'simple_past')[2]).toBe('interfirió');
+    expect(row('disentir', 'indicative', 'simple_past')[2]).toBe('disintió');
+    expect(row('retrotraer', 'indicative', 'simple_past')[0]).toBe('retrotraje');
+    expect(ids('retrotraer')).toContain('es.classify.prefixed');
+    expect(row('revolcar', 'indicative', 'simple_past')[0]).toBe('revolqué');
+  });
+});
+
+describe('controller rulings on variants', () => {
+  it('gives errar the American erro beside yerro, tagged by region', () => {
+    const forms = conjugated('errar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms;
+    expect(forms.map(form => form.text)).toEqual(['yo yerro', 'yo erro']);
+    expect(forms[1]!.variant).toMatchObject({ region: 'America' });
+    expect(row('errar', 'indicative', 'present')[3]).toBe('erramos');
+    expect(ids('errar')).toContain('es.classify.regional-variant');
+  });
+
+  it('gives engrosar the regular conjugation first and the o-ue one beside it', () => {
+    expect(row('engrosar', 'indicative', 'present')[0]).toBe('engroso / engrueso');
+  });
+
+  it('puts the irregular future of the decir family first', () => {
+    expect(row('predecir', 'indicative', 'future')[0]).toBe('prediré / predeciré');
+    expect(row('contradecir', 'indicative', 'future')[0]).toBe('contradiré / contradeciré');
+    expect(row('desdecir', 'conditional', 'present')[0]).toBe('desdiría / desdeciría');
+    expect(row('bendecir', 'indicative', 'future')[0]).toBe('bendeciré');
+  });
+
+  it('puts iros first and tags idos', () => {
+    const forms = conjugated('irse', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' }).forms;
+    expect(forms.map(form => form.text)).toEqual(['iros', 'idos']);
+    expect(forms.map(form => form.variant.pattern)).toEqual(['iros', 'idos']);
+    expect(explained(forms[0]!)).toContain('infinitive ir');
+  });
+});
+
 export { analysisOf, bare, conjugated, explained, ids, row, texts };

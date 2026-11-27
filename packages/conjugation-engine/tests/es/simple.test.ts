@@ -62,7 +62,7 @@ describe('Spanish simple tenses', () => {
     expect(row('averiguar', 'subjunctive', 'present')).toEqual(['averigüe', 'averigües', 'averigüe', 'averigüemos', 'averigüéis', 'averigüen']);
     expect(row('avergonzar', 'indicative', 'present')[0]).toBe('avergüenzo');
     expect(row('oler', 'indicative', 'present')[0]).toBe('huelo');
-    expect(row('errar', 'indicative', 'present')[0]).toBe('yerro');
+    expect(row('errar', 'indicative', 'present')[0]).toBe('yerro / erro');   // erro: America (controller ruling)
     expect(row('influir', 'indicative', 'present')).toEqual(['influyo', 'influyes', 'influye', 'influimos', 'influís', 'influyen']);
     expect(row('bruñir', 'indicative', 'simple_past')[5]).toBe('bruñeron');
     expect(row('leer', 'indicative', 'simple_past')).toEqual(['leí', 'leíste', 'leyó', 'leímos', 'leísteis', 'leyeron']);
@@ -109,7 +109,7 @@ describe('Spanish simple tenses', () => {
     expect(row('salir', 'conditional', 'present')[1]).toBe('saldrías');
     expect(row('yacer', 'indicative', 'present')[0]).toBe('yazco / yazgo / yago');
     expect(row('podrir', 'indicative', 'future')[0]).toBe('pudriré');
-    expect(row('predecir', 'indicative', 'future')[0]).toBe('predeciré / prediré');
+    expect(row('predecir', 'indicative', 'future')[0]).toBe('prediré / predeciré');
     expect(row('oír', 'indicative', 'present')).toEqual(['oigo', 'oyes', 'oye', 'oímos', 'oís', 'oyen']);
   });
 

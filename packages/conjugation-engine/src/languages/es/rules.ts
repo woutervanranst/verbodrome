@@ -14,6 +14,7 @@ export const spanishRules = defineRules({
   'es.classify.prefixed': { stage: 'classify', kind: 'lexical', params: { prefix: 'text', base: 'text' } },
   'es.classify.family': { stage: 'classify', params: { suffix: 'text', model: 'text' } },
   'es.classify.eir': { stage: 'classify' },
+  'es.classify.regional-variant': { stage: 'classify', kind: 'lexical', params: { region: 'text' } },
   'es.classify.oir': { stage: 'classify' },
   'es.classify.uar-stress': { stage: 'classify' },
   'es.classify.hint': { stage: 'classify', params: { hint: 'text' } },

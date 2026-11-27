@@ -58,8 +58,11 @@ function attach(word: ChainWord, pronoun: string, target: ResolvedTarget, lexeme
   let ways: Attachment[] = [{ verb, steps: [attached], tags: {} }];
   if (command && target.person === 2 && target.number === 'plural' && pronoun === 'os' && verb.endsWith('d')) {
     if (lexeme.infinitive === 'ir') {
-      const iros = `${verb.slice(0, -1)}r`;
-      ways = [ways[0]!, { verb: iros, steps: [attached, step(rules['es.clause.iros'], joined, iros + pronoun)], tags: { pattern: 'iros' } }];
+      // The RAE accepts iros, the infinitive ir with os, beside the older idos, which keeps its d.
+      ways = [
+        { verb: 'ir', steps: [step(rules['es.clause.iros'], verb, `ir${pronoun}`)], tags: { pattern: 'iros' } },
+        { verb, steps: [attached], tags: { pattern: 'idos' } },
+      ];
     } else {
       const dropped = verb.slice(0, -1);
       ways = [{ verb: dropped, steps: [attached, step(rules['es.clause.enclitic-d-drop'], joined, dropped + pronoun)], tags: {} }];

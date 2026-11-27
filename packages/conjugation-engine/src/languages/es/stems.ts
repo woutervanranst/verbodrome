@@ -58,9 +58,11 @@ function replaceLast(text: string, from: string, to: string): string {
 function alternated(lexeme: SpanishLexeme, cell: Cell, stem: string): Fork<string> {
   const { alternation } = lexeme;
   if (alternation === null) return one(stem);
-  const options = variantsOf<Alternation>(alternation);
+  const options = variantsOf<Alternation | null>(alternation);
   if (isRootStressed(lexeme, cell)) {
     const outcomes = options.map(({ value, tags }) => {
+      // A variant without the alternation (errar: erro) keeps the stem.
+      if (value === null) return { value: stem, steps: [], tags };
       if (value === 'e-i') {
         const changed = replaceLast(stem, 'e', 'i');
         return { value: changed, steps: [step(rules['es.stem.e-i'], stem, changed)], tags };
@@ -73,7 +75,7 @@ function alternated(lexeme: SpanishLexeme, cell: Cell, stem: string): Fork<strin
   }
   if (lexeme.raising && isRaisingCell(cell)) {
     // Every alternation of an -ir verb with raising rises the same way, so the variants agree here.
-    const [from, to] = options[0]!.value === 'o-ue' ? ['o', 'u'] : ['e', 'i'];
+    const [from, to] = options.some(option => option.value === 'o-ue') ? ['o', 'u'] : ['e', 'i'];
     const changed = replaceLast(stem, from, to);
     return one(changed, [step(rules['es.stem.raising'], stem, changed, { from, to })]);
   }

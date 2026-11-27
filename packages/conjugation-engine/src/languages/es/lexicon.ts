@@ -29,7 +29,8 @@ export interface Variant<T> {
 export interface SpanishEntry {
   /** The model shown to learners (`analysis.classification`); default: the lemma itself. */
   readonly model?: string;
-  readonly alternation?: Alternation | readonly Variant<Alternation>[];
+  /** The stem-vowel alternation; variants for a verb with two (erguir) or with a variant without one (errar: erro; null). */
+  readonly alternation?: Alternation | readonly Variant<Alternation | null>[];
   /** -ir verbs whose e or o does not rise to i or u (discernir, adquirir). */
   readonly raising?: false;
   readonly stress?: 'hiatus' | 'diphthong' | 'both';
@@ -106,10 +107,20 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   decir: { alternation: 'e-i', present1: 'dig', preterite: 'dij', future: 'dir', imperative2sg: 'di', participle: 'dicho' },
   predecir: {
     alternation: 'e-i', present1: 'predig', preterite: 'predij', participle: 'predicho',
-    future: [{ value: 'predecir', pattern: 'regular' }, { value: 'predir', pattern: 'irregular' }],
+    future: [{ value: 'predir', pattern: 'irregular' }, { value: 'predecir', pattern: 'regular' }],
   },
-  contradecir: { alternation: 'e-i', present1: 'contradig', preterite: 'contradij', future: 'contradir', participle: 'contradicho' },
-  desdecir: { alternation: 'e-i', present1: 'desdig', preterite: 'desdij', future: 'desdir', participle: 'desdicho' },
+  contradecir: {
+    alternation: 'e-i', present1: 'contradig', preterite: 'contradij', participle: 'contradicho',
+    future: [{ value: 'contradir', pattern: 'irregular' }, { value: 'contradecir', pattern: 'regular' }],
+  },
+  desdecir: {
+    alternation: 'e-i', present1: 'desdig', preterite: 'desdij', participle: 'desdicho',
+    future: [{ value: 'desdir', pattern: 'irregular' }, { value: 'desdecir', pattern: 'regular' }],
+  },
+  // yerro everywhere; the regular erro in large parts of America (DPD «errar», unverified).
+  errar: { alternation: [{ value: 'e-ie', pattern: 'ye' }, { value: null, pattern: 'regular', region: 'America' }] },
+  // The regular conjugation is the usual one now; engrueso is also in use (DPD «engrosar», unverified).
+  engrosar: { alternation: [{ value: null, pattern: 'regular' }, { value: 'o-ue', pattern: 'ue' }] },
   bendecir: { alternation: 'e-i', present1: 'bendig', preterite: 'bendij' },
   maldecir: { alternation: 'e-i', present1: 'maldig', preterite: 'maldij' },
   poner: { present1: 'pong', preterite: 'pus', future: 'pondr', imperative2sg: 'pon', participle: 'puesto' },
@@ -188,21 +199,23 @@ const listed = (alternation: Alternation, lemmas: string): Record<string, Altern
 export const alternations: Readonly<Record<string, Alternation>> = {
   ...listed('e-ie', `acertar alentar apacentar apretar arrendar asentar aserrar atravesar aventar calentar cegar cerrar comenzar
     concertar confesar decentar desconcertar desenterrar despertar desplegar empedrar empezar encerrar encomendar enmendar
-    enterrar errar escarmentar fregar gobernar helar herrar invernar manifestar mentar merendar negar pensar plegar quebrar
-    recomendar regar renegar reventar segar sembrar sentar serrar sosegar soterrar temblar tentar tropezar`),
+    enterrar escarmentar fregar gobernar helar herrar invernar manifestar mentar merendar negar pensar plegar quebrar
+    recomendar regar renegar reventar segar sembrar sentar serrar sosegar soterrar temblar tentar tropezar
+    denegar desterrar acrecentar recalentar desalentar replegar restregar remendar deshelar desmembrar ensangrentar`),
   ...listed('e-ie', `ascender atender cerner condescender contender defender descender encender entender extender heder hender
-    perder tender trascender verter`),
+    perder tender trascender verter desatender sobrentender sobreentender desentender malentender distender`),
   ...listed('e-ie', `adherir advertir arrepentir asentir consentir controvertir convertir desmentir diferir digerir divertir herir
     hervir inferir ingerir invertir mentir pervertir preferir presentir proferir referir requerir resentir revertir sentir
-    sugerir transferir zaherir`),
+    sugerir transferir zaherir interferir conferir deferir disentir subvertir reconvertir malherir`),
   ...listed('o-ue', `acordar acostar almorzar aprobar avergonzar colar colgar comprobar concordar consolar contar costar degollar
-    demostrar descontar desollar desosar encontrar engrosar esforzar forzar mostrar poblar probar recordar recostar reforzar
-    renovar reprobar rodar rogar soldar soltar sonar soñar tostar trocar tronar volar volcar`),
-  ...listed('o-ue', 'cocer conmover doler escocer moler morder mover oler promover remover retorcer torcer'),
+    demostrar descontar desollar desosar encontrar esforzar forzar mostrar poblar probar recordar recostar reforzar
+    renovar reprobar rodar rogar soldar soltar sonar soñar tostar trocar tronar volar volcar
+    holgar agorar descolgar desaprobar reencontrar recontar resonar desconsolar revolcar amolar`),
+  ...listed('o-ue', 'cocer conmover doler escocer moler morder mover oler promover remover retorcer torcer demoler remorder condoler destorcer'),
   ...listed('o-ue', 'dormir'),
   ...listed('e-i', `ceñir colegir competir concebir conseguir constreñir corregir derretir desteñir despedir elegir embestir expedir
     gemir henchir impedir investir medir pedir perseguir proseguir reelegir regir rendir reñir repetir revestir seguir servir
-    teñir travestir vestir`),
+    teñir travestir vestir desvestir reexpedir`),
   ...listed('u-ue', 'jugar'),
 };
 
@@ -212,7 +225,7 @@ const words = (text: string): readonly string[] => text.split(/\s+/u).filter(Boo
 export const hiatusVerbs: ReadonlySet<string> = new Set(words(`
   aliar ampliar ansiar arriar ataviar averiar aviar chirriar confiar contrariar criar desafiar desataviar descarriar
   desconfiar desliar desvariar desviar enfriar enviar escalofriar espiar esquiar estriar expiar extasiar extraviar fiar guiar
-  hastiar inventariar liar malcriar piar porfiar reenviar resfriar rociar vaciar variar
+  hastiar inventariar liar malcriar piar porfiar reenviar resfriar rociar vaciar variar amnistiar triar
   autografiar biografiar cablegrafiar caligrafiar cartografiar cinematografiar coreografiar fotografiar mecanografiar
   radiografiar taquigrafiar telegrafiar
   anticuar
@@ -235,7 +248,7 @@ export const strongBases: readonly string[] = words('andar caber hacer poner que
  * added to the design's list so that substraer inherits like sustraer.
  */
 export const prefixes: readonly string[] = words(`a ab abs ad ante bien circun co com con contra de des di dis e en entre equi ex
-  im in inter man mal o ob pos pre pro re sobre sos su sub subs super sus tras trans yuxta`).slice().sort((a, b) => b.length - a.length);
+  im in inter man mal o ob pos pre pro re retro sobre sos su sub subs super sus tras trans yuxta`).slice().sort((a, b) => b.length - a.length);
 
 /**
  * Lemmas that look like a prefix + strong base but do not inherit: decir's derivatives have entries of their own,

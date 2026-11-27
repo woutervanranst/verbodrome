@@ -29,7 +29,7 @@ export interface SpanishLexeme extends LexemeBase {
   /** The stem of the derived forms: the infinitive minus its ending (compon-), or the lexicon's root (podrir: pudr-). */
   readonly root: string;
   /** The stem-vowel alternation; erguir has two, tagged. */
-  readonly alternation: Alternation | readonly Variant<Alternation>[] | null;
+  readonly alternation: Alternation | readonly Variant<Alternation | null>[] | null;
   /** An -ir verb whose alternating e or o rises to i or u where the ending has no stressed i (sintió, durmamos). */
   readonly raising: boolean;
   readonly stress: Stress;
@@ -46,7 +46,7 @@ const regularModels: Readonly<Record<Conjugation, string>> = { ar: 'amar', er: '
 /** One way the lexicon reads the verb, before the hints. */
 interface Reading {
   readonly entry: SpanishEntry;
-  readonly alternation: Alternation | readonly Variant<Alternation>[] | null;
+  readonly alternation: Alternation | readonly Variant<Alternation | null>[] | null;
   readonly prefix: string;
   readonly base: string;
   /** The model a listed reading names, if any. */
@@ -201,9 +201,9 @@ function modelOfListed(infinitive: string, listed: NonNullable<ReturnType<typeof
 
 /** Whether a reading's alternation agrees with a class hint. */
 function agrees(alternation: Reading['alternation'], hint: SpanishClassHint): boolean {
-  if (hint === 'regular') return alternation === null;
-  if (alternation === null) return false;
-  return typeof alternation === 'string' ? alternation === hint : alternation.some(variant => variant.value === hint);
+  if (alternation === null) return hint === 'regular';
+  const value = hint === 'regular' ? null : hint;
+  return typeof alternation === 'string' ? alternation === value : alternation.some(variant => variant.value === value);
 }
 
 interface Parsed {
@@ -245,6 +245,9 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
   const steps: DerivationStep[] = [step(rules['es.classify.conjugation'], infinitive, regularModels[conjugation], {
     ending: `-${conjugation}`, model: regularModels[conjugation],
   }), ...reading.steps];
+  // A regional variant of the conjugation (errar: erro in America) is part of the verb's class.
+  const regional = Array.isArray(reading.alternation) ? (reading.alternation as readonly Variant<Alternation | null>[]).find(variant => variant.region !== undefined) : undefined;
+  if (regional?.region !== undefined) steps.push(step(rules['es.classify.regional-variant'], infinitive, null, { region: regional.region }));
   const hinted: DerivationStep[] = [];
 
   let alternation = reading.alternation;
