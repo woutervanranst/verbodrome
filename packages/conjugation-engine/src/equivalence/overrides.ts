@@ -39,4 +39,9 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     result: [{ tense: 'imperative.present', note: 'eq.pair.fr-nl.hortative' }],
     reason: 'The pivot already ranks the Dutch imperative first; the override only attaches the note that the first person plural is laten we plus infinitive.',
   }),
+  override({
+    from: 'fr', to: 'de', tense: 'indicative.simple_past', mode: 'prepend',
+    result: [{ tense: 'indicative.past', note: 'eq.de.past-written' }],
+    reason: 'The passé simple is the written narrative past, which German writes in the Präteritum; the pivot ranks the Perfekt first (0.90 against 0.80) because the Perfekt is the usual spoken past.',
+  }),
 ]);
