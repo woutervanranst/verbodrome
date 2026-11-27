@@ -107,3 +107,61 @@ describe('I1: the lexicon gaps', () => {
     expect([pf('cōnsīdere'), forms('cōnsīdere', 'supine')]).toEqual([['cōnsēdī'], ['cōnsessum']]);
   });
 });
+
+describe('I8: the imperative of sciō', () => {
+  it('explains scītō, scītōte by A&G §182.a and tags scīte', () => {
+    const present = conjugate({ language: 'la', infinitive: 'scīre', mood: 'imperative', tense: 'present', voice: 'active' } as never).forms;
+    expect(present.map(f => f.text)).toEqual(['scītō', 'scītōte', 'scīte']);
+    for (const f of present.filter(form => form.text !== 'scīte')) {
+      expect(f.parts.flatMap(part => part.steps ?? []).map(s => s.rule)).toEqual(['la.lex.scito']);
+    }
+    const scite = present.find(f => f.text === 'scīte')!;
+    expect([scite.preferred, scite.variant.pattern]).toEqual([false, 'scīte']);
+    expect(forms('nescīre', 'imperative', 'present')).toEqual(['nescī', 'nescīte']); // L&S nescio prints no imperative: derived
+  });
+});
+
+describe('the minor findings', () => {
+  it('M1: soleō is intransitive (L&S "v. n."): its gerundive is impersonal only', () => {
+    expect(forms('solēre', 'participle', 'gerundive')).toEqual(['solendum']);
+  });
+
+  it('M2: morior has no supine (L&S: mortuus, moritūrus)', () => {
+    expect(forms('morī', 'supine')).toEqual([]);
+  });
+
+  it('M3: no -undus doublet on the gerund of an impersonal verb', () => {
+    expect(forms('pluere', 'gerund', undefined, undefined, { agreement: {} })).toEqual(['pluendī', 'pluendō', 'pluendum', 'pluendō']);
+  });
+
+  it('M4: an invented dental stem has ss after a short vowel in the perfect as in the supine (A&G §15)', () => {
+    expect(forms('fludere', 'indicative', 'perfect', 'active', { subject: '1sg' })[0]).toBe('flussī');
+    expect(forms('fludere', 'supine')[0]).toBe('flussum');
+  });
+
+  it('M5: the compounds of sistō have -stitum, resistō none (L&S consisto, resisto)', () => {
+    expect([pf('cōnsistere'), forms('cōnsistere', 'supine')]).toEqual([['cōnstitī'], ['cōnstitum']]);
+    expect([pf('resistere'), forms('resistere', 'supine')]).toEqual([['restitī'], []]);
+  });
+
+  it('M10: the perfects L&S prints beside the common one, tagged (plūvit, reperī)', () => {
+    const pluit = conjugate({ language: 'la', infinitive: 'pluere', mood: 'indicative', tense: 'perfect', voice: 'active', subject: '3sg' } as never).forms;
+    expect(pluit.map(f => [f.text, f.preferred])).toEqual([['pluit', true], ['plūvit', false]]);
+    expect(pluit[1]!.variant.pattern).not.toBeNull();
+    const reperi = conjugate({ language: 'la', infinitive: 'reperīre', mood: 'indicative', tense: 'perfect', voice: 'active', subject: '1sg' } as never).forms;
+    expect(reperi.map(f => [f.text, f.preferred])).toEqual([['repperī', true], ['reperī', false]]);
+  });
+
+  it('M11, M12: nāscitūrus is tagged late, potēns tagged adjective', () => {
+    const fp = conjugate({ language: 'la', infinitive: 'nāscī', mood: 'participle', tense: 'future' } as never).forms;
+    expect(fp.map(f => [f.text, f.variant.usage, f.variant.pattern])).toEqual([['nāscitūrus', 'dated', 'late']]);
+    const potens = conjugate({ language: 'la', infinitive: 'posse', mood: 'participle', tense: 'present' } as never).forms;
+    expect(potens.map(f => [f.text, f.variant.pattern])).toEqual([['potēns', 'adjective']]);
+  });
+
+  it('orior: the imperfect subjunctive orerer, and orīrer beside it (L&S orior: "oreretur … the more usual forms")', () => {
+    const orior = conjugate({ language: 'la', infinitive: 'orīrī', mood: 'subjunctive', tense: 'imperfect', voice: 'active', subject: '3sg' } as never).forms;
+    expect(orior.map(f => [f.text, f.preferred])).toEqual([['orerētur', true], ['orīrētur', false]]);
+    expect(orior[1]!.variant.pattern).not.toBeNull();
+  });
+});

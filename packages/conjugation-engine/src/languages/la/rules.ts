@@ -36,6 +36,7 @@ export const latinRules = defineRules({
   'la.stem.lexical': { stage: 'stem', kind: 'lexical' },
   'la.stem.participle': { stage: 'stem', kind: 'lexical' },
   'la.lex.cell': { stage: 'stem', kind: 'lexical' },
+  'la.lex.scito': { stage: 'stem', kind: 'lexical' },
   'la.lex.sum-compound': { stage: 'stem', kind: 'lexical', params: { prefix: 'text' } },
   'la.lex.pot-sum': { stage: 'stem', kind: 'lexical' },
   'la.lex.passive-fio': { stage: 'stem', kind: 'lexical' },

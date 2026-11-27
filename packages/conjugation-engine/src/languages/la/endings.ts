@@ -150,7 +150,7 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       const nd = `${vowel}nd`;
       const main = declineUs(stem, nd, agreement, [step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` })]);
       // -undus is not formed after qu (sequendus; secundus is an adjective of its own).
-      if (vowel === '' || stem.endsWith('qu')) return main;
+      if (vowel === '' || stem.endsWith('qu') || lexeme.impersonal) return main;
       return withUndus(main, declineUs(stem, 'und', agreement, [
         step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` }), step(latinRules['la.end.undus'], `${stem}${nd}us`, `${stem}undus`),
       ]));
@@ -160,7 +160,8 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       if (stem === lexeme.stems.gerund) return one(caseEnding, [step(latinRules['la.end.gerund'], stem, stem + caseEnding, { ending: caseEnding })]);
       const ending = `${vowel}nd${caseEnding}`;
       const main = one(ending, [step(latinRules['la.end.gerund'], stem, stem + ending, { ending })]);
-      if (vowel === '' || stem.endsWith('qu')) return main;
+      // No -undus beside an impersonal verb's gerund (pluendī): nobody prints one.
+      if (vowel === '' || stem.endsWith('qu') || lexeme.impersonal) return main;
       return withUndus(main, one(`und${caseEnding}`, [
         step(latinRules['la.end.gerund'], stem, stem + ending, { ending }), step(latinRules['la.end.undus'], stem + ending, `${stem}und${caseEnding}`),
       ]));

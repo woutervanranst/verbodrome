@@ -27,6 +27,8 @@ export interface LexicalForm {
   readonly pattern?: string;
   /** Marks a clause reads to keep a word out of a construction (forem is not used in the compound tenses). */
   readonly marks?: readonly string[];
+  /** The lexical rule that explains the word, where it says more than "a listed form" (scītō for the present, A&G §182.a). */
+  readonly rule?: 'la.lex.scito';
 }
 
 /**
@@ -109,14 +111,38 @@ export interface LatinEntry {
   readonly attestedCases?: Readonly<Record<string, readonly ('nominative' | 'genitive' | 'dative' | 'accusative' | 'ablative' | 'vocative')[]>>;
   /** Targets whose forms are dated (fīō: fīmus, fītis, the imperatives; A&G p. 115 brackets). */
   readonly dated?: readonly string[];
+  /** Tags on every form built on a listed future participle (nāscitūrus: late, L&S). */
+  readonly futureParticipleTags?: { readonly usage?: 'literary' | 'dated'; readonly pattern: string };
+  /** Tags on every form built on a lexical stem of that kind (possum's potēns: "(adjective)", A&G p. 109). */
+  readonly stemTags?: Readonly<Record<string, { readonly usage?: 'literary' | 'dated'; readonly pattern: string }>>;
   readonly source: { readonly work: 'ag' | 'bennett' | 'ls'; readonly locator: string };
   readonly checked: LexiconCheck;
 }
 
-/** Extra data of one row. */
 /** "For the imperative of sciō, the future form scītō is always used in the singular, and scītōte usually in the plural" (A&G §182.a). */
-const scioImperative = { cells: { 'imperative.present.active.2s': [{ text: 'scītō' }], 'imperative.present.active.2p': [{ text: 'scītōte' }, { text: 'scīte' }] } };
+const scioImperative = {
+  cells: {
+    'imperative.present.active.2s': [{ text: 'scītō', rule: 'la.lex.scito' }],
+    'imperative.present.active.2p': [{ text: 'scītōte', rule: 'la.lex.scito' }, { text: 'scīte', pattern: 'scīte' }],
+  },
+} as const;
 
+/**
+ * orior's imperfect subjunctive: "oreretur and orerentur are the more usual forms", beside those of the fourth
+ * conjugation (L&S s.v. orior); the -re of the second singular is the literary ending (A&G §163). A deponent's cells
+ * are keyed by their passive morphology.
+ */
+const oriorSubjunctive: Readonly<Record<string, readonly LexicalForm[]>> = Object.fromEntries(
+  ([['1s', 'orerer', 'orīrer'], ['2s', 'orerēris|orerēre', 'orīrēris|orīrēre'], ['3s', 'orerētur', 'orīrētur'],
+    ['1p', 'orerēmur', 'orīrēmur'], ['2p', 'orerēminī', 'orīrēminī'], ['3p', 'orerentur', 'orīrentur']] as const)
+    .map(([slot, third, fourth]) => [`subjunctive.imperfect.passive.${slot}`, [...third.split('|'), ...fourth.split('|')].map((text, index): LexicalForm => {
+      const literary = text.endsWith('ēre');
+      const pattern = [literary ? 're' : '', text.startsWith('orīr') ? 'orīrer' : ''].filter(Boolean).join('.');
+      return index === 0 ? { text } : { text, ...(literary ? { usage: 'literary' as const } : {}), ...(pattern ? { pattern } : {}) };
+    })]),
+);
+
+/** Extra data of one row. */
 type Extra = Partial<Omit<LatinEntry, 'present' | 'perfect' | 'supine' | 'futureParticiple' | 'source' | 'checked'>> & {
   readonly fp?: string;
 };
@@ -284,7 +310,8 @@ const third211: LatinEntry[] = [
     ['pendō', 'pependī', 'pēns', { gloss: 'weigh', compound: { present: 'pendō', perfect: ['pendī'], supine: ['pēnsum'] } }],
     ['poscō', 'poposcī', ''],
     ['pungō', 'pupugī', 'pūnct', { compound: { present: 'pungō', perfect: ['pūnxī'], supine: ['pūnctum'] } }],
-    ['sistō', 'stitī', 'stat'],
+    // The compounds have -stitum (L&S consisto, desisto, exsisto); resistō has none (an entry below).
+    ['sistō', 'stitī', 'stat', { compound: { present: 'sistō', perfect: ['stitī'], supine: ['stitum'] } }],
     ['tangō', 'tetigī', 'tāct', { compound: { present: 'tingō', perfect: ['tigī'], supine: ['tāctum'] } }],
     ['tendō', 'tetendī', 'tent', { compound: { present: 'tendō', perfect: ['tendī'], supine: ['tentum'] } }],
     // A&G: tūns- (-tūs-): the compounds' supine is -tūsum (L&S contundō, contudī, contūsum).
@@ -348,7 +375,8 @@ const third211: LatinEntry[] = [
 const fourth212: LatinEntry[] = list('fourth', 'A&G §212.b', ag(125), [
   ['amiciō', 'amixī|amicuī', 'amict'], ['aperiō', 'aperuī', 'apert'], ['comperiō', 'comperī', 'compert'], ['farciō', 'farsī', 'fartum'],
   ['feriō', '', ''], ['fulciō', 'fulsī', 'fult'], ['hauriō', 'hausī', 'haust', { fp: 'hausūrus' }], ['operiō', 'operuī', 'opert'],
-  ['reperiō', 'repperī', 'repert'], ['saepiō', 'saepsī', 'saept'],
+  // L&S reperio: "repperi (less correctly reperi)": the second perfect is generated, tagged.
+  ['reperiō', 'repperī|reperī', 'repert'], ['saepiō', 'saepsī', 'saept'],
   ['saliō', 'saluī|saliī', 'salt', { compound: { present: 'siliō', perfect: ['siluī'], supine: ['sultum'] } }],
   ['sanciō', 'sānxī', 'sānct'], ['sarciō', 'sarsī', 'sart'], ['sentiō', 'sēnsī', 'sēns'], ['sepeliō', 'sepelīvī', 'sepult'],
   ['veniō', 'vēnī', 'vent', { gloss: 'come' }], ['vinciō', 'vīnxī', 'vīnct'],
@@ -364,13 +392,15 @@ const deponents191: LatinEntry[] = [
     ['expergīscor', '', 'experrēctus', dep], ['fruor', '', 'frūctus|fruitus', { ...dep, fp: 'fruitūrus' }], ['fungor', '', 'fūnctus', dep],
     ['gradior', '', 'gressus', { ...dep, ...io, flags: ['intransitive'], compound: { present: 'gredior', supine: ['gressum'] } }], ['īrāscor', '', 'īrātus', dep],
     ['lābor', '', 'lāpsus', { ...dep, flags: ['intransitive'] }], ['loquor', '', 'locūtus', dep], ['minīscor', '', 'mentus', { ...dep, familyOnly: true }],
-    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus', flags: ['intransitive'] }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', { ...dep, fp: 'nāscitūrus' }],
-    ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī', cells: { presentInfinitivePassive: [{ text: 'orīrī' }] } }],
+    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus', flags: ['intransitive'], lacks: ['supine'] }], ['nancīscor', '', 'nactus|nānctus', dep], 
+    ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī', cells: { presentInfinitivePassive: [{ text: 'orīrī' }], ...oriorSubjunctive } }],
     ['pacīscor', '', 'pactus', dep], ['patior', '', 'passus', { ...dep, ...io, compound: { present: 'petior', supine: ['pessum'] } }],
     ['plector', '', 'plexus', { ...dep, familyOnly: true }], ['proficīscor', '', 'profectus', { ...dep, flags: ['intransitive'] }], ['queror', '', 'questus', dep],
     ['revertor', '', 'reversus', dep], ['ringor', '', 'rictus', dep], ['sequor', '', 'secūtus', dep], ['ulcīscor', '', 'ultus', dep],
     ['ūtor', '', 'ūsus', dep],
   ]),
+  // nāscitūrus is late (L&S s.v. nascor: "part. fut. nasciturus, Pall. …; Vulg."): tagged.
+  ...list('third', 'A&G §191; L&S s.v. nascor', ag(105), [['nāscor', '', 'nātus', { ...dep, fp: 'nāscitūrus', futureParticipleTags: { usage: 'dated', pattern: 'late' } }]]),
   ...list('fourth', 'A&G §191', ag(105), [
     ['adsentior', '', 'adsēnsus', dep], ['experior', '', 'expertus', dep], ['mētior', '', 'mēnsus', dep], ['opperior', '', 'oppertus', dep],
     ['ōrdior', '', 'ōrsus', dep],
@@ -385,7 +415,7 @@ const deponents191: LatinEntry[] = [
   ...list('second', 'A&G §191.a', ag(106), [['diffiteor', '', '', dep], ['medeor', '', '', dep]]),
   ...list('second', 'A&G §192', ag(106), [
     ['audeō', '', 'ausus', { voice: 'semiDeponent', lacks: ['supine'] }], ['gaudeō', '', 'gāvīsus', { voice: 'semiDeponent', lacks: ['supine'] }],
-    ['soleō', '', 'solitus', { voice: 'semiDeponent', lacks: ['supine'] }],
+    ['soleō', '', 'solitus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }],
   ]),
   ...list('third', 'A&G §192', ag(106), [['fīdō', '', 'fīsus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }]]),
 ];
@@ -446,6 +476,7 @@ const groupK: LatinEntry[] = [
   ...list('third', 'A&G §182; L&S s.v. benedico', lsCheck('benedico'), [['benedīcō', 'benedīxī', 'benedict', short]], 'ls'),
   ...list('third', 'A&G §182; L&S s.v. maledico', lsCheck('maledico'), [['maledīcō', 'maledīxī', 'maledict', short]], 'ls'),
   ...list('third', 'L&S s.v. refello', lsCheck('refello'), [['refellō', 'refellī', '']], 'ls'),
+  ...list('third', 'L&S s.v. resisto', lsCheck('resisto'), [['resistō', 'restitī', '']], 'ls'),
   ...list('second', 'L&S s.v. demordeo', lsCheck('demordeo'), [['dēmordeō', '', 'dēmors']], 'ls'),
   ...list('second', 'L&S s.v. remordeo', lsCheck('remordeo'), [['remordeō', '', 'remors']], 'ls'),
   ...list('second', 'L&S s.v. dependeo', lsCheck('dependeo'), [['dēpendeō', '', '']], 'ls'),

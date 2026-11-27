@@ -33,6 +33,7 @@ export const la = {
   'la.stem.t-junction': 'Before the t of the supine, {consonant} becomes {result}: {before} → {after}.',
   'la.stem.lexical': 'The lexicon gives the stem {after}- here.',
   'la.stem.participle': 'Participle stem from the principal part {before}: {after}-.',
+  'la.lex.scito': '{before} uses the future imperative for the present: {after}.',
   'la.lex.cell': '{after} is a listed form of {before}.',
   'la.lex.sum-compound': '{after} is {prefix}- + {before}, the form of sum.',
   'la.lex.pot-sum': '{after} is pot- + {before}, the form of sum: pot- before a vowel, pos- before s, and potess- becomes poss-.',

@@ -44,17 +44,20 @@ function drop(draft: CorrectionDraft, unwanted: (form: string) => boolean, reaso
 }
 
 /**
- * The contractions A&G §181 states, from a cell's full form: -āvi-, -ēvi-, -ōvi- lose vi before s and ve before r
- * (never in the 1st or 3rd singular perfect); -īvī perfects lose v, and ii contracts before s.
+ * The contractions the authorities print, as a fixed table of substitutions on the full form, each with the examples it
+ * is read from (A&G §181 p. 91; Bennett §116.1). It is the ledger's own reading of the grammar, not the engine's rule.
  */
-function syncopated(full: string): string[] {
-  const results: string[] = [];
-  const contracted = full.replace(/([āēō])v(?:i(?=s)|e(?=r)|ē(?=r))/u, '$1');
-  if (contracted !== full) results.push(contracted);
-  const vLess = full.replace(/īv(?=[aeiouāēīōū])/u, 'i');
-  if (vLess !== full) results.push(vLess.replace(/iis/u, 'īs'));
-  return results;
-}
+const contractions: readonly (readonly [pattern: RegExp, replacement: string, examples: string])[] = [
+  [/([āēō])vi(?=ss)/u, '$1', 'amāvisse → amāsse, amāvissem → amāssem, nōvisse → nōsse (A&G §181.a)'],
+  [/([āēō])vi(?=st)/u, '$1', 'flēvistis → flēstis (A&G §181.a); amāvistī → amāstī, nōvistī → nōstī (Bennett §116.1)'],
+  [/([āēō])ve(?=r)/u, '$1', 'amāverim → amārim, cōnsuēverat → cōnsuērat, commōverat → commōrat (A&G §181.a)'],
+  [/([āēō])vē(?=r)/u, '$1', 'amāvērunt → amārunt, dēlēvērunt → dēlērunt (Bennett §116.1)'],
+  [/īvi(?=s)/u, 'ī', 'audīvisse → audīsse, audīvistī → audīstī (A&G §181.b)'],
+  [/īv(?=[eēiī])/u, 'i', 'audīveram → audieram, abīvit → abiit, abīvērunt → abiērunt (A&G §181.b)'],
+];
+
+/** The forms the table above derives from a cell's full form. */
+const contracted = (full: string): string[] => contractions.map(([pattern, replacement]) => full.replace(pattern, replacement)).filter(form => form !== full);
 
 const auxiliaries: Readonly<Record<string, readonly string[]>> = {
   'indicative.perfect': ['sum', 'es', 'est', 'sumus', 'estis', 'sunt'],
@@ -83,7 +86,7 @@ export function wiktionaryLatinCorrection(page: WiktionaryPage, cell: CorpusCell
     'The present passive infinitive in -ier is among the ancient forms "found chiefly in poetry" (A&G §183.4: vocārier, agier; Bennett §116.4.a); the classical form is generated.',
     scan(91));
   const full = cell.expected[0] ?? '';
-  drop(draft, form => noted(/syncopated/u)(form) && !syncopated(full).includes(form),
+  drop(draft, form => noted(/syncopated/u)(form) && !contracted(full).includes(form),
     'A&G §181 contracts -āvi-, -ēvi-, -ōvi- only before s and r (never in the 1st singular, very rarely in the 3rd) and lets -īvī perfects lose v, contracting ii only before st and ss; this rare poetic form (the table\'s footnote) is outside that rule.',
     scan(91));
   drop(draft, noted(/Old Latin or in poetry/u),
@@ -128,18 +131,17 @@ export function wiktionaryLatinCorrection(page: WiktionaryPage, cell: CorpusCell
   if (perfectSystem(cell) || (mood === 'infinitive' && tense === 'perfect')) {
     if (page.title === 'curro') drop(draft, form => form.startsWith('curr'), 'A&G §211 gives currō, cucurrī, curs-: the perfect is reduplicated; currī is not printed.', ag('classified-lists-verbs-3rd-conjugation'));
     if (page.title === 'teneo') drop(draft, form => form.startsWith('tetin'), 'A&G §210 gives teneō, tenuī, tent-; the old reduplicated tetinī is not printed.', ag('classified-lists-verbs-1st-and-2nd-conjugations'));
-    if (page.title === 'reperio') drop(draft, form => /^reper(?!t)/u.test(form), 'A&G §212 gives reperiō, repperī, repert-: the perfect has pp; reperī is not printed.', ag('classified-lists-verbs-4th-conjugation'));
     if (page.title === 'pono') drop(draft, form => form.startsWith('posī'), 'A&G §211 gives pōnō, posuī, posit-; the old perfect posīvī is not printed.', ag('classified-lists-verbs-3rd-conjugation'));
     drop(draft, form => /iis/u.test(form),
       'ii before s contracts to ī in the perfect of eō and of -īvī perfects that lose v (A&G §203.c: īsse; §181.b: audīstī, audīsse); the uncontracted form is not printed.',
       scan(91));
-    if (page.title === 'pluit') drop(draft, form => form.startsWith('plūv'), 'Bennett §138 gives pluit with the perfect pluit; plūvit is not printed.', bennett(138));
   }
   if (page.title === 'morior') {
     draft.change('The table marks the i as of either quantity (ī̆); morior inflects like capiō (Bennett §109.2.c): moritur, morimur.', bennett(109), form => form.replace(/ī̆/gu, 'i'));
     drop(draft, form => /^morī[rt]/u.test(form) || /^morīr/u.test(form),
-      'morior is a third-conjugation verb in -iō (Bennett §109.2.c; §122.V morior, morī, mortuus sum): moreris, morerer, morī; the fourth-conjugation forms are not printed.',
-      bennett(109));
+      'morior is a third-conjugation verb in -iō (Bennett §109.2.c): moreris, morerer, morī; Lewis & Short lists morīmur, morīrī as "old forms acc. to the fourth conj." (Ennius, Plautus, Ovid), which are not generated.',
+      lewisShort('morior'));
+    if (mood === 'supine') draft.markUnavailable('Lewis & Short gives morior, mortuus, moritūrus: no supine (the participle mortuus is not a supine stem).', lewisShort('morior'));
   }
   if (page.title === 'nascor') {
     drop(draft, form => form.startsWith('gnāt'), 'gnātus is the ante-classical and poetic spelling (Lewis & Short s.v. nascor); the classical nātus is generated.', lewisShort('nascor'));
@@ -169,6 +171,12 @@ export function wiktionaryLatinCorrection(page: WiktionaryPage, cell: CorpusCell
   }
   if (page.title === 'odi' && (mood === 'supine' || (mood === 'infinitive' && tense === 'perfect' && cell.target.agreement !== null))) {
     draft.markUnavailable('Bennett §133 gives ōdī the infinitives ōdisse, ōsūrus esse and the participles ōsus, ōsūrus: no supine and no ōsum esse.', bennett(133));
+  }
+  if (['prosum', 'absum'].includes(page.title) && key(cell) === 'infinitive.future.active') {
+    const participle = page.title === 'prosum' ? 'prōfutūrum' : 'āfutūrum';
+    draft.expected = [`${participle} esse`, ...draft.expected];
+    draft.correctedTarget = { ...cell.target, agreement: { gender: 'masculine', number: 'singular', case: 'accusative' } };
+    draft.note('The future infinitive of a compound of sum is the participle with esse, beside fore (A&G p. 108: prōfutūrus esse; p. 83: futūrus esse or fore); the table gives only the fore form.', scan(108));
   }
   if (['prosum', 'absum'].includes(page.title) && key(cell) === 'indicative.future.active.2sg.m') {
     drop(draft, form => form.endsWith('re'), 'The future of sum is erō, eris (A&G p. 82); -re is an ending of the passive (A&G §163), not of sum or its compounds.', scan(82));

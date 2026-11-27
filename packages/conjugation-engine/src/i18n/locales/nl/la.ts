@@ -33,6 +33,7 @@ export const la = {
   'la.stem.t-junction': 'Voor de t van het supinum wordt {consonant} {result}: {before} → {after}.',
   'la.stem.lexical': 'Het lexicon geeft hier de stam {after}-.',
   'la.stem.participle': 'Stam van het participium uit de stamtijd {before}: {after}-.',
+  'la.lex.scito': '{before} gebruikt de imperativus futuri voor de imperativus praesentis: {after}.',
   'la.lex.cell': '{after} is een vorm van {before} die je uit het hoofd leert.',
   'la.lex.sum-compound': '{after} is {prefix}- + {before}, de vorm van sum.',
   'la.lex.pot-sum': '{after} is pot- + {before}, de vorm van sum: pot- voor een klinker, pos- voor s, en potess- wordt poss-.',

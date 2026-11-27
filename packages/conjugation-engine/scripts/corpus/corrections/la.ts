@@ -93,7 +93,7 @@ export function latinMacronCorrection(file: CorpusFile, cell: CorpusCell, _index
   }
   if (at(cell, 'subjunctive', 'perfect', 'active') && ['2s', '1p', '2p'].includes(slot(cell))) {
     draft.change(
-      'The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.',
+      'Not a source error but a choice between authorities: A&G prints the perfect subjunctive with -eris, -erimus, -eritis (p. 93), as this page does; Bennett §101 prints -erīs, -erīmus, -erītis, and the engine follows Bennett, as the design decides.',
       bennett(101), form => form.replace(/eris$/u, 'erīs').replace(/erimus$/u, 'erīmus').replace(/eritis$/u, 'erītis'),
     );
   }

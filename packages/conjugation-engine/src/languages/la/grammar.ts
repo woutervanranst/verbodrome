@@ -58,8 +58,11 @@ function sumCompoundWord(lexeme: LatinLexeme, form: LexicalForm): Outcome<string
     return { value: text, steps: [step(latinRules['la.lex.pot-sum'], word, text)], tags: {}, ...marks };
   }
   // forem and fore belong to the root of fuī and take the prefix of the perfect: āfuī, āforem, āfore (A&G §§170.a, 198).
-  const prefix = word.startsWith('f') ? lexeme.entry!.perfect![0]!.slice(0, -'fuī'.length) : /^[aeiouāēīōū]/u.test(word) ? vowel : consonant;
-  return { value: prefix + word, steps: [step(latinRules['la.lex.sum-compound'], word, prefix + word, { prefix })], tags: {}, ...marks };
+  // A&G prints them for sum only (p. 108 gives prōsum without them), so a compound's are tagged.
+  const fu = word.startsWith('f');
+  const prefix = fu ? lexeme.entry!.perfect![0]!.slice(0, -'fuī'.length) : /^[aeiouāēīōū]/u.test(word) ? vowel : consonant;
+  const tags = fu ? { pattern: word === 'fore' ? 'fore' : 'forem' } : {};
+  return { value: prefix + word, steps: [step(latinRules['la.lex.sum-compound'], word, prefix + word, { prefix })], tags, ...marks };
 }
 
 /**
@@ -79,7 +82,7 @@ function lexicalCell(lexeme: LatinLexeme, cell: Cell): Fork<string> | null {
   if (listed) {
     const words: Fork<string> = listed.map(form => ({
       value: form.text,
-      steps: [step(latinRules['la.lex.cell'], lexeme.lemma, form.text)],
+      steps: [step(latinRules[form.rule ?? 'la.lex.cell'], lexeme.lemma, form.text)],
       tags: { ...(form.usage && form.usage !== 'standard' ? { usage: form.usage } : {}), ...(form.pattern ? { pattern: form.pattern } : {}) },
       ...(form.marks ? { marks: form.marks } : {}),
     }));

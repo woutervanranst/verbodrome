@@ -8,7 +8,9 @@ import { wiktionaryLatinCorrection } from '../../scripts/corpus/corrections/wikt
 import type { CorpusCell } from '../../scripts/corpus/model.ts';
 import { attribution, parseWiktionaryLatin, parseWiktionaryLatinNotes, wiktionaryPins, wiktionaryUnmodelled } from '../../scripts/corpus/sources/wiktionary-la.ts';
 import type { WiktionaryFixture } from '../../scripts/corpus/sources/wiktionary-la.ts';
-import { targetKey } from '../../src/catalogue.js';
+import { createHash } from 'node:crypto';
+import { untaggedExtras } from '../../scripts/corpus/model.ts';
+import { resolvedTargetKey, targetKey } from '../../src/catalogue.js';
 import { conjugate } from '../../src/index.js';
 import type { ConjugatedForm, ResolvedTarget } from '../../src/types.js';
 
@@ -78,13 +80,16 @@ describe('en.wiktionary oracle', () => {
       if (cell.scope === 'unmodelled') return;
       const fix = wiktionaryLatinCorrection(page, cell, index);
       const target = fix?.correctedTarget ?? cell.target;
-      const generated = targetForms(cell, target, forms).map(form => form.text);
+      const candidates = targetForms(cell, target, forms);
+      const generated = candidates.map(form => form.text);
       const label = `${page.title} ${target.mood}.${target.tense} ${cell.voice ?? ''} ${cell.subject ?? ''}`;
       if (fix?.unavailable ?? cell.sourceUnavailable) {
         expect(generated, `${label} is unavailable`).toEqual([]);
         return;
       }
-      for (const form of fix?.expected ?? cell.expected) expect(generated, `${label}: ${form}`).toContain(form);
+      const expected = fix?.expected ?? cell.expected;
+      for (const form of expected) expect(generated, `${label}: ${form}`).toContain(form);
+      expect(untaggedExtras(candidates, expected, resolvedTargetKey).map(form => form.text), `${label}: untagged extras`).toEqual([]);
     });
   });
 
@@ -95,6 +100,9 @@ describe('en.wiktionary oracle', () => {
     expect(cells.filter(c => c.scope === 'unmodelled')).toHaveLength(OracleUnmodelled);
     expect(new Set(cells.flatMap(c => c.reason ? [c.reason] : []))).toEqual(new Set(Object.keys(wiktionaryUnmodelled)));
     expect(ledger).toHaveLength(LedgerCells);
+    // The ledger's content, not only its size: which cells it changes, to what, and on which target.
+    const content = ledger.map(c => [c.file, c.cell, c.expected, c.unavailable, c.correctedTarget ?? c.target]);
+    expect(createHash('sha256').update(JSON.stringify(content)).digest('hex')).toBe(LedgerHash);
     for (const correction of ledger) {
       expect(correction.reason.length, correction.reason).toBeGreaterThan(30);
       expect(correction.source).toMatch(/^https:\/\//u);
@@ -105,4 +113,5 @@ describe('en.wiktionary oracle', () => {
 
 const OracleCells = 6678;
 const OracleUnmodelled = 196;
-const LedgerCells = 602;
+const LedgerCells = 569;
+const LedgerHash = '7a54abc3b383b819a372e5fc9952e57b9e4d5bd174c4352382bc7a93a391bbb7';

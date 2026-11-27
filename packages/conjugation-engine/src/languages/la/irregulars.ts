@@ -83,7 +83,7 @@ const sumCompounds: LatinEntry[] = [
 const possum: LatinEntry = {
   present: 'possum', infinitive: 'posse', perfect: ['potuī'], conjugation: 'irregular', stemClass: 'consonant', passive: 'none',
   sumCompound: { vowel: 'pot', consonant: 'pos', pot: true },
-  lacks: ['imperative', 'supineStem', 'gerund'], stems: { presentParticiple: 'pot' }, compound: { prefixes: [] },
+  lacks: ['imperative', 'supineStem', 'gerund'], stems: { presentParticiple: 'pot' }, stemTags: { presentParticiple: { pattern: 'adjective' } }, compound: { prefixes: [] },
   source: { work: 'ag', locator: 'A&G §198.b' }, checked: agPrint(109),
 };
 
@@ -378,10 +378,10 @@ const sparse: LatinEntry[] = [
  * the perfect of licet only (licuit, -itum est; licitūrum esse); the other perfects are Bennett's (§138), and §208.b–c
  * Notes add libitum est, pigitum est, paenitūrus, paenitendus, pudendus.
  */
-function impersonal(third: string, infinitive: string, conjugation: 'first' | 'second' | 'third', perfect: string | null, bennett: boolean, extra: Partial<LatinEntry> = {}): LatinEntry {
+function impersonal(third: string, infinitive: string, conjugation: 'first' | 'second' | 'third', perfect: string | readonly string[] | null, bennett: boolean, extra: Partial<LatinEntry> = {}): LatinEntry {
   return {
     present: third, infinitive, conjugation, impersonal: true, passive: 'none',
-    ...(perfect ? { perfect: [perfect] } : {}),
+    ...(perfect ? { perfect: typeof perfect === 'string' ? [perfect] : perfect } : {}),
     // A&G §207: impersonal verbs appear in the third person singular, the infinitive and the gerund.
     lacks: [...(perfect ? [] : ['perfect' as const]), 'imperative', 'presentParticiple', 'supine', ...(extra.supine ? [] : ['supineStem' as const])],
     compound: { prefixes: [] },
@@ -401,7 +401,7 @@ const impersonals: LatinEntry[] = [
   impersonal('pudet', 'pudēre', 'second', 'puduit', true, { stems: { gerund: 'pudend' } }),
   impersonal('paenitet', 'paenitēre', 'second', 'paenituit', true, { stems: { gerund: 'paenitend' }, futureParticiple: ['paenitūrus'] }),
   impersonal('taedet', 'taedēre', 'second', 'taeduit', true), impersonal('miseret', 'miserēre', 'second', 'miseruit', true),
-  impersonal('pluit', 'pluere', 'third', 'pluit', true), impersonal('ningit', 'ningere', 'third', 'ninxit', true),
+  impersonal('pluit', 'pluere', 'third', ['pluit', 'plūvit'], true) /* L&S pluo: "plui (or plūvi in Plaut. and Liv.)" */, impersonal('ningit', 'ningere', 'third', 'ninxit', true),
   impersonal('tonat', 'tonāre', 'first', 'tonuit', true, { gloss: 'it thunders' }), impersonal('grandinat', 'grandināre', 'first', null, true),
   impersonal('fulgurat', 'fulgurāre', 'first', null, false), impersonal('rōrat', 'rōrāre', 'first', null, false),
   impersonal('vesperāscit', 'vesperāscere', 'third', null, false), impersonal('lūcīscit', 'lūcīscere', 'third', null, false),

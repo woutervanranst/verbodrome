@@ -5,6 +5,8 @@
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { untaggedExtras } from '../../scripts/corpus/model.ts';
+import { resolvedTargetKey } from '../../src/catalogue.js';
 import { conjugate } from '../../src/index.js';
 import { quantityProblems } from '../../src/languages/la/orthography.js';
 
@@ -46,6 +48,8 @@ describe('Latin authority cells (A&G 1903)', () => {
         continue;
       }
       for (const printed of cell.forms) expect(texts, `${label(cell)}: ${printed}`).toContain(printed);
+      // A form the print does not show must carry a variant tag (usage or pattern), as in the scraped-corpus guard.
+      expect(untaggedExtras(result.forms, cell.forms, resolvedTargetKey).map(form => form.text), `${label(cell)}: untagged extras`).toEqual([]);
       if (cell.usage) {
         for (const printed of cell.forms) expect(result.forms.find(form => form.text === printed)!.variant.usage, `${label(cell)}: ${printed}`).toBe(cell.usage);
       }

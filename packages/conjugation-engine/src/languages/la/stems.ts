@@ -24,7 +24,8 @@ export function presentStem(lexeme: LatinLexeme): Fork<string> {
 /** A stem the lexicon gives for one kind of form (vel- for velim, eunt- for euntis, faciend- for faciendus). */
 export function lexicalStem(lexeme: LatinLexeme, kind: string): Fork<string> | null {
   const stem = lexeme.stems[kind];
-  return stem === undefined ? null : one(stem, [step(latinRules['la.stem.lexical'], lexeme.lemma, stem)]);
+  const tags = lexeme.entry?.stemTags?.[kind] ?? {};
+  return stem === undefined ? null : one(stem, [step(latinRules['la.stem.lexical'], lexeme.lemma, stem)], tags);
 }
 
 function defaultSteps(source: Extract<StemSource, { kind: 'default' }>, regularRule: 'la.stem.perfect-regular' | 'la.stem.supine-regular',

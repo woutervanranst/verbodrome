@@ -25,7 +25,7 @@ describe('C1: impersonal verbs have well-formed perfects', () => {
   it('the other impersonals (Bennett §138)', () => {
     expect(forms('oportēre', 'infinitive', 'perfect', 'active')).toEqual(['oportuisse']);
     expect(forms('oportēre', 'indicative', 'perfect', 'active', { subject: '3sg' })).toEqual(['oportuit']);
-    expect(forms('pluere', 'indicative', 'perfect', 'active', { subject: '3sg' })).toEqual(['pluit']);
+    expect(forms('pluere', 'indicative', 'perfect', 'active', { subject: '3sg' })).toEqual(['pluit', 'plūvit']); // L&S pluo: plūvi in Plautus and Livy
     expect(forms('ningere', 'indicative', 'perfect', 'active', { subject: '3sg' })).toEqual(['ninxit']);
     expect(forms('taedēre', 'indicative', 'pluperfect', 'active', { subject: '3sg' })).toEqual(['taeduerat']);
     expect(forms('paenitēre', 'indicative', 'perfect', 'active', { subject: '3sg' })).toEqual(['paenituit']);

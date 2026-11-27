@@ -87,7 +87,7 @@ export function lexemeFromEntry(entry: LatinEntry, hints: LatinStemHints = {}, e
       : [],
     supineStems: hints.supine ? listed([hints.supine], supineEnding, true, { participle: voiceClass !== 'active' })
       : lacks.has('supineStem') ? [] : listed(entry.supine, supineEnding, false, { participle: voiceClass !== 'active' && !entry.impersonal }),
-    futureParticipleStems: listed(entry.futureParticiple, () => 'ūrus'),
+    futureParticipleStems: listed(entry.futureParticiple, () => 'ūrus').map(source => entry.futureParticipleTags ? { ...source, ...entry.futureParticipleTags } : source),
     passive, impersonal: entry.impersonal === true, lacks, flags: new Set(entry.flags ?? []), cells: entry.cells ?? {},
     stems: entry.stems ?? {}, principalParts: principalParts(entry, perfectSystem === 'participle'), weakened: false,
     ...extra,
@@ -278,7 +278,12 @@ function sJunction(root: string): DefaultStem {
   if (/(?:qu|gu)$/u.test(key)) return make(root.slice(-2), 'x', `${root.slice(0, -2)}x`);
   if (/[cgh]$/u.test(key)) return make(root.slice(-1), 'x', `${root.slice(0, -1)}x`);
   if (key.endsWith('b')) return make('b', 'p', `${root.slice(0, -1)}ps`);
-  if (/[dt]$/u.test(key)) return make(root.slice(-1), 's', `${root.slice(0, -1)}s`);
+  if (/[dt]$/u.test(key)) {
+    // As in the supine: ss after a short or unmarked vowel, s after a long vowel, a diphthong or a consonant (A&G §15).
+    const before = root.slice(0, -1);
+    const single = /(?:[āēīōū]|ae|au|oe|[^aeiouāēīōū])$/u.test(before);
+    return make(root.slice(-1), single ? 's' : 'ss', `${before}${single ? 's' : 'ss'}`);
+  }
   if (key.endsWith('m')) return make('m', 'mp', `${root}ps`);
   if (key.endsWith('r')) return make('r', 's', `${root.slice(0, -1)}ss`);
   return make('', '', joined);

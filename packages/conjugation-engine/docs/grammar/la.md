@@ -123,17 +123,21 @@ only the attested cells (`la.avail.not-attested`).
 - **Scraped corpus:** 18 pages, 3,330 cells (3,312 compared, 18 unmodelled gerund rows that repeat the infinitive, 819
   template placeholders), compared at two levels. The form ledger (107 cells) makes the macron-insensitive comparison
   pass: deponent future imperatives, *fuam*, possum's gerund, *mālēns*, fīō, eō. The macron ledger (147 cells) changes
-  vowel length only: *secūtus, largītus, amantor, audiuntor, volēns* and the perfect subjunctive's long ī (Bennett
-  §101). 254 sourced corrections in all; extra forms must carry a variant tag.
+  vowel length only: *secūtus, largītus, amantor, audiuntor, volēns*, and the perfect subjunctive's -erīs, -erīmus,
+  -erītis (36 cells), which are not source errors: A&G prints -eris (p. 93) as the page does, Bennett §101 prints -erīs,
+  and the engine follows Bennett. 254 sourced corrections in all; extra forms must carry a variant tag.
 - **Authority cells:** 13 files, 1,249 cells of forms the 1903 A&G print shows (§§170, 184–188, 190, 198–204), 21 of
   them printed as missing, transcribed by hand from the scans (`tests/goldens/la/authority/`). Old forms the print names
   (*fuam, siem, faxō, nēvīs*) are `excluded`; the short i of the perfect subjunctive is `disputed` (A&G short, Bennett
   long; the engine follows Bennett).
 - **Second oracle:** en.wiktionary tables of 63 pinned pages (Module:la-verb 93344416), 6,678 cells, 196 of them
-  unmodelled (sigmatic rows, future perfect and perfect potential infinitives). They are compared through a 602-cell
-  ledger (`scripts/corpus/corrections/wiktionary-la.ts`) whose reasons cite A&G, Bennett or Lewis and Short. The oracle
-  found engine defects that were fixed with tests: the compounds of sum lacked *forem, fore*; sciō's imperative
-  *scītō*; *stātūrus, lautūrus, lōtūrus, nāscitūrus*; queō's syncopated perfect; the gerund of impersonal verbs.
+  unmodelled (sigmatic rows, future perfect and perfect potential infinitives). They are compared through a 569-cell
+  ledger (`scripts/corpus/corrections/wiktionary-la.ts`) whose reasons cite A&G, Bennett or Lewis and Short, pinned by
+  its size and a hash of its content; the contractions it accepts are its own table of A&G's and Bennett's examples.
+  A generated form a cell does not print must carry a variant tag (as in the authority test). The oracle found engine
+  defects that were fixed with tests: the compounds of sum lacked *forem, fore* (now tagged); sciō's imperative
+  *scītō*; *stātūrus, lautūrus, lōtūrus, nāscitūrus*; queō's v-less perfect; the gerund of impersonal verbs; the
+  perfects Lewis and Short prints beside the common one (*plūvit, reperī*, tagged).
 
 ## Limits
 
@@ -187,6 +191,7 @@ reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Be
 | `la.stem.lexical` | stem | lexical | The lexicon gives the stem {after}- here. | [A&G §§202–203](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D); [A&G §199](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D) |
 | `la.stem.participle` | stem | lexical | Participle stem from the principal part {before}: {after}-. | [A&G §190](https://dcc.dickinson.edu/grammar/latin/deponent-verbs); [A&G §172](https://dcc.dickinson.edu/grammar/latin/four-conjugations) |
 | `la.lex.cell` | stem | lexical | {after} is a listed form of {before}. | [A&G §170](https://dcc.dickinson.edu/grammar/latin/sum); [A&G §198](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-compounds-sum); [A&G §199](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D); [A&G §§202–203](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D); [A&G §204](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-f%C4%AB%C5%8D); [Bennett §100](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect100) |
+| `la.lex.scito` | stem | lexical | {before} uses the future imperative for the present: {after}. | [A&G §182.a](https://dcc.dickinson.edu/grammar/latin/peculiarities); [A&G p. 91](https://dcc.dickinson.edu/sites/default/files/AG103.jpg) |
 | `la.lex.sum-compound` | stem | lexical | {after} is {prefix}- + {before}, the form of sum. | [A&G §198](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-compounds-sum); [Bennett §125](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect125) |
 | `la.lex.pot-sum` | stem | lexical | {after} is pot- + {before}, the form of sum: pot- before a vowel, pos- before s, and potess- becomes poss-. | [A&G §198.b](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-compounds-sum); [A&G p. 109](https://dcc.dickinson.edu/sites/default/files/AG121.jpg) |
 | `la.lex.passive-fio` | stem | lexical | The present-system passive of {before} is supplied by fīō: {after}. | [A&G §204](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-f%C4%AB%C5%8D); [A&G p. 115](https://dcc.dickinson.edu/sites/default/files/AG127.jpg) |
