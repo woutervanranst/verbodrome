@@ -3,7 +3,7 @@ import type { DerivationStep } from '../../src/core/derivation.js';
 import { parseConjugationOptions } from '../../src/index.js';
 import { classifyGerman, germanLexemeOf } from '../../src/languages/de/classify.js';
 import {
-  denominalPrefixes, derivativeAuxiliaries, dualPrefixLemmas, germanLexicon, impersonalVerbs, inseparableReadings,
+  denominalPrefixes, derivativeAuxiliaries, derivedParadigms, dualPrefixLemmas, germanLexicon, impersonalVerbs, inseparableReadings,
   lookalikes, noInherit, nonInitialStress, particleVerbs, shortRootDerivatives, weakWithSein,
 } from '../../src/languages/de/lexicon.js';
 import { dudenOnly } from '../../src/languages/de/sources.js';
@@ -140,7 +140,7 @@ describe('German lexicon', () => {
     const lemmas = [
       ...Object.keys(germanLexicon), ...Object.keys(weakWithSein), ...Object.keys(derivativeAuxiliaries), ...Object.keys(shortRootDerivatives),
       ...Object.keys(dualPrefixLemmas), ...Object.keys(inseparableReadings), ...lookalikes, ...Object.keys(noInherit), ...Object.keys(nonInitialStress),
-      ...impersonalVerbs, ...Object.keys(particleVerbs),
+      ...impersonalVerbs, ...Object.keys(particleVerbs), ...Object.keys(derivedParadigms),
     ];
     for (const lemma of lemmas) expect(verification[lemma], lemma).toBeDefined();
     expect(verification.unterstellen).toEqual({ dwds: null, duden: expect.arrayContaining([expect.stringMatching(/^https:\/\/www\.duden\.de\//u)]) });

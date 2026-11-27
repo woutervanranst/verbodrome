@@ -74,7 +74,7 @@ const listedWeak = (word: string): boolean =>
 function isListed(word: string): boolean {
   return Object.hasOwn(germanLexicon, word) || listedWeak(word) || Object.hasOwn(noInherit, word) || Object.hasOwn(dualPrefixLemmas, word)
     || Object.hasOwn(inseparableReadings, word) || Object.hasOwn(derivativeAuxiliaries, word) || Object.hasOwn(shortRootDerivatives, word)
-    || Object.hasOwn(particleVerbs, word);
+    || Object.hasOwn(particleVerbs, word) || Object.hasOwn(derivedParadigms, word);
 }
 
 /** Every spelling of `word` with ae, oe, ue read as ä, ö, ü and ss as ß, in any combination (the word itself excluded). */
@@ -442,6 +442,8 @@ interface RootParadigm {
   readonly conjugation: Conjugation;
   readonly auxiliaries: readonly AuxiliaryUse[];
   readonly tags: VariantTags;
+  /** The auxiliaries are recorded for the derivative itself (not inherited from the root). */
+  readonly ownAuxiliaries?: true;
 }
 
 function rootParadigms(root: string): RootParadigm[] {
@@ -486,6 +488,7 @@ const inherited = (uses: readonly AuxiliaryUse[]): readonly AuxiliaryUse[] => {
 function auxiliariesOf(segmentation: Segmentation, paradigm: RootParadigm, rootListed: boolean): { uses: readonly AuxiliaryUse[]; assumed: DerivationStep | null } {
   const { lemma, particle, base } = segmentation;
   if (segmentation.auxiliaries !== null) return { uses: segmentation.auxiliaries, assumed: null };
+  if (paradigm.ownAuxiliaries) return { uses: paradigm.auxiliaries, assumed: null };
   const exact = particle === null && base.prefixes.length === 0;
   if (exact && (rootListed || base.known || segmentation.listed)) return { uses: paradigm.auxiliaries, assumed: null };
   if (!base.known && !segmentation.listed) return { uses: [{ verb: 'haben' }], assumed: step(rules['de.classify.default-haben'], lemma, null) };
@@ -517,9 +520,10 @@ function build(segmentation: Segmentation, hints: Hints): Built[] {
   const recorded = derivedFromDual && Object.hasOwn(derivedParadigms, lemma) ? derivedParadigms[lemma]! : null;
   const all: RootParadigm[] = !derivedFromDual ? ofRoot : recorded === null
     ? ofRoot.map(paradigm => ({ ...paradigm, tags: { pattern: paradigm.tags.pattern! } }))
-    : recorded.map(({ pattern, condition, usage }) => ({
+    : recorded.map(({ pattern, condition, usage, auxiliaries }) => ({
       ...ofRoot.find(paradigm => paradigm.tags.pattern === pattern)!,
       tags: { ...(recorded.length > 1 ? { pattern } : {}), ...(condition === undefined ? {} : { condition }), ...(usage === undefined ? {} : { usage }) },
+      ...(auxiliaries === undefined ? {} : { auxiliaries, ownAuxiliaries: true as const }),
     }));
   const assumedParadigm = derivedFromDual && recorded === null ? step(rules['de.classify.assume-root-paradigm'], lemma, null, { root: base.root }) : null;
   // A class hint keeps the root's paradigms of that class; an unlisted verb takes any class (strong and mixed need stems).

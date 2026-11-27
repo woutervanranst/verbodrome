@@ -29,7 +29,9 @@ describe('German derivatives', () => {
     expect(ruleIds('begleiten')).not.toContain('de.classify.derivative');
     // Real derivatives keep inheriting: DWDS behängte / behing, behängt / behangen.
     expect(er('behängen', 'past')).toEqual(['er behängte', 'er behing']);
-    expect(participle('erhängen')).toEqual(['erhängt', 'erhangen']);
+    // erhängen: erhing, erhangen are DWDS's regional Nebenform, never hängen's 'intransitive: hang'.
+    expect(result('erhängen', 'participle', 'past').forms.map(f => [f.text, f.variant.pattern, f.variant.condition]))
+      .toEqual([['erhängt', 'weak', null], ['erhangen', 'strong', 'regional']]);
     for (const [lemma, past, part] of [
       ['beantragen', 'beantragte', 'beantragt'], ['veranlassen', 'veranlasste', 'veranlasst'], ['handhaben', 'handhabte', 'gehandhabt'],
       ['bewillkommnen', 'bewillkommnete', 'bewillkommnet'], ['beauftragen', 'beauftragte', 'beauftragt'],

@@ -22,6 +22,37 @@ const analysis = (lemma: string, extra: Query = {}) => result(lemma, 'infinitive
 const ruleIds = (lemma: string, extra: Query = {}) => (analysis(lemma, extra).steps ?? []).map(s => s.rule);
 const explained = (form: ConjugatedForm, locale: 'en' | 'nl') => explain('de', form, locale).sections.flatMap(s => s.steps.map(step => step.text));
 
+describe('German derivatives of two-paradigm roots', () => {
+  it('take only the paradigms DWDS gives the derivative itself', () => {
+    expect([...er('abschaffen', 'past'), ...participle('abschaffen')]).toEqual(['er schaffte ab', 'abgeschafft']);
+    expect([...er('anschaffen', 'past'), ...participle('anschaffen')]).toEqual(['er schaffte an', 'angeschafft']);
+    expect([...er('erschaffen', 'past'), ...participle('erschaffen')]).toEqual(['er erschuf', 'erschaffen']);
+    expect([...er('mitschleifen', 'past'), ...ich('mitschleifen', 'perfect')]).toEqual(['er schleifte mit', 'ich habe mitgeschleift']);
+    expect([...er('entwenden', 'past'), ...participle('entwenden')]).toEqual(['er entwendete', 'entwendet']);
+    expect(ich('aufwachsen', 'perfect')).toEqual(['ich bin aufgewachsen']);
+    expect(participle('fortbewegen')).toEqual(['fortbewegt']);
+    expect(participle('aufwiegen')).toEqual(['aufgewogen']);
+    expect(participle('aufhängen')[0]).toBe('aufgehängt');
+    expect(result('verwenden', 'participle', 'past').forms.map(f => [f.text, f.variant.pattern, f.variant.condition]))
+      .toEqual([['verwandt', 'mixed', null], ['verwendet', 'weak', null]]);
+  });
+
+  it('never carry the root glosses', () => {
+    for (const lemma of ['abschaffen', 'verwenden', 'anwenden', 'nachwachsen', 'aufhängen', 'mitschleifen', 'absenden', 'zurückschaffen']) {
+      const conditions = result(lemma, 'indicative', 'perfect', 1, 'singular').forms.map(f => f.variant.condition ?? '');
+      expect(conditions.join(' '), lemma).not.toMatch(/create|manage|wax|grow|turn over|broadcast|send|hang|drag|sharpen|induce/u);
+    }
+  });
+
+  it('give an unrecorded derivative both paradigms by pattern, as an assumption', () => {
+    const forms = result('zurückschaffen', 'indicative', 'past', 3, 'singular').forms;
+    expect(forms.map(f => [f.text, f.variant.pattern])).toEqual([['er schuf zurück', 'strong'], ['er schaffte zurück', 'weak']]);
+    expect(ruleIds('zurückschaffen')).toContain('de.classify.assume-root-paradigm');
+    expect(result('zurückschaffen', 'indicative', 'past', 3, 'singular', { classHint: 'weak' }).forms.map(f => f.text)).toEqual(['er schaffte zurück']);
+    expect(ruleIds('abschaffen')).not.toContain('de.classify.assume-root-paradigm');
+  });
+});
+
 describe('German Konjunktiv II and usage labels (an explicit mark in either dictionary decides)', () => {
   it('gives laden the du-imperative lade only: the bare lad is colloquial (DWDS: ugs.)', () => {
     expect(imperative('laden')).toEqual(['lade']);
