@@ -41,7 +41,7 @@ function stored(lexeme: SpanishLexeme, value: string | readonly Variant<string>[
 /** The root of the derived forms: the infinitive minus -ar/-er/-ir, or the lexicon's root (podrir: pudr-). */
 export function rootOf(lexeme: SpanishLexeme): Fork<string> {
   if (lexeme.entry.root !== undefined) return one(lexeme.root, [step(rules['es.stem.lexical'], lexeme.infinitive, lexeme.root, { stem: lexeme.root })]);
-  return one(lexeme.root, [step(rules['es.stem.root'], lexeme.infinitive, lexeme.root, { ending: `-${lexeme.conjugation}` })]);
+  return one(lexeme.root, [step(rules['es.stem.root'], lexeme.infinitive, lexeme.root, { ending: `-${lexeme.conjugation}`, empty: lexeme.root === '' ? 'yes' : 'no' })]);
 }
 
 const diphthongs: Readonly<Record<Exclude<Alternation, 'e-i'>, readonly [string, string]>> = {

@@ -190,4 +190,38 @@ describe('review I4 and row 18: weather verbs have no subject', () => {
   });
 });
 
+describe('review E3-E12: explanations', () => {
+  const formOf = (verb: string, options: Record<string, unknown>) => conjugated(verb, options).forms[0]!;
+  it('E3: does not call oír an -uir verb', () => {
+    const oyes = explained(formOf('oír', { mood: 'indicative', tense: 'present', person: 2, number: 'singular' }));
+    expect(oyes).toContain('as the verbs in -uir do');
+    expect(oyes).not.toContain('Verbs in -uir add');
+  });
+
+  it('E4 / I5: says why a verb with both stresses has two forms', () => {
+    const [diphthong, hiatus] = conjugated('evacuar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms;
+    expect(diphthong!.ruleIds).toContain('es.orth.both-stress');
+    expect(hiatus!.ruleIds).toEqual(expect.arrayContaining(['es.orth.both-stress', 'es.orth.accent-hiatus']));
+    expect(ids('agriar')).toContain('es.classify.both-stress');
+    const text = engine.explain('es', analysisOf('agriar'), 'en').sections.flatMap(section => section.steps.map(s => s.text)).join('\n');
+    expect(text).toContain('like anunciar or like enviar');
+  });
+
+  it('E5: names des- for deshueso', () => {
+    expect(explained(formOf('desosar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }))).toContain('after des-');
+  });
+
+  it('E6, E7: the vosotros command and a verb without a stem', () => {
+    expect(explained(formOf('pudrir', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' }))).toContain('the vowel of the infinitive');
+    const id = explained(formOf('ir', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' }));
+    expect(id).toContain('ir has no stem');
+    expect(id).not.toContain('stem -.');
+  });
+
+  it('E12: Dutch wording', () => {
+    expect(explained(formOf('pagar', { mood: 'indicative', tense: 'simple_past', person: 1, number: 'singular' }), 'nl')).toContain('als in gato');
+    expect(explained(formOf('dar', { mood: 'subjunctive', tense: 'present', person: 1, number: 'singular' }), 'nl')).toContain('krijgt een accent om het te onderscheiden');
+  });
+});
+
 export { analysisOf, bare, conjugated, explained, ids, row, texts };

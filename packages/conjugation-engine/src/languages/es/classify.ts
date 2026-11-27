@@ -148,7 +148,11 @@ function readingsOf(infinitive: string): Reading[] {
   const listed = listedData(infinitive);
   if (listed !== null) {
     const model = modelOfListed(infinitive, listed);
-    return [{ ...none, ...listed, model, listed: true, steps: [step(rules['es.classify.lexicon'], infinitive, model, { model })], tags: {} }];
+    // A verb with both stresses says so, with the model of each (agriar: anunciar or enviar).
+    const both = listed.stress === 'both'
+      ? step(rules['es.classify.both-stress'], infinitive, model, infinitive.endsWith('uar') ? { diphthong: 'averiguar', hiatus: 'actuar' } : { diphthong: 'anunciar', hiatus: 'enviar' })
+      : null;
+    return [{ ...none, ...listed, model, listed: true, steps: [both ?? step(rules['es.classify.lexicon'], infinitive, model, { model })], tags: {} }];
   }
   // A strong base through the closed prefix list, or a derivative the lexicon lists with its base.
   const strong = strongDerivation(infinitive);

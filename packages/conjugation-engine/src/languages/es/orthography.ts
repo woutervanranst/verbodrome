@@ -130,7 +130,12 @@ const accentHiatus: Rule = {
       const hiatus = stressedIndex(lexeme, cell, j, true);
       if (diphthong !== hiatus) {
         const accent = writeAccent(word, hiatus);
-        return [...one(j, [], { pattern: 'diphthong' }), ...one(split(accent.written, j.stem.length), [], { pattern: 'hiatus' })];
+        // The step on each branch says why the verb has two forms; the hiatus branch also records its tilde.
+        const both = (after: string, reading: string) => step(rules['es.orth.both-stress'], word, after, { reading });
+        return [
+          ...one(j, [both(word, 'diphthong')], { pattern: 'diphthong' }),
+          ...one(split(accent.written, j.stem.length), [both(accent.written, 'hiatus')], { pattern: 'hiatus' }),
+        ];
       }
     }
     return written(j, writeAccent(word, stressedIndex(lexeme, cell, j)), 'hiatus');

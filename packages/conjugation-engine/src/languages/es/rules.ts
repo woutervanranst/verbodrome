@@ -14,6 +14,7 @@ export const spanishRules = defineRules({
   'es.classify.prefixed': { stage: 'classify', kind: 'lexical', params: { prefix: 'text', base: 'text' } },
   'es.classify.family': { stage: 'classify', params: { suffix: 'text', model: 'text' } },
   'es.classify.eir': { stage: 'classify' },
+  'es.classify.both-stress': { stage: 'classify', kind: 'lexical', params: { diphthong: 'text', hiatus: 'text' } },
   'es.classify.regional-variant': { stage: 'classify', kind: 'lexical', params: { region: 'text' } },
   'es.classify.oir': { stage: 'classify' },
   'es.classify.uar-stress': { stage: 'classify' },
@@ -24,7 +25,7 @@ export const spanishRules = defineRules({
   'es.classify.assume-zc': { stage: 'classify', kind: 'assumption' },
 
   // Stems and whole-word lexical cells (§4.2)
-  'es.stem.root': { stage: 'stem', params: { ending: 'text' } },
+  'es.stem.root': { stage: 'stem', params: { ending: 'text', empty: 'text' } },
   'es.stem.diphthong': { stage: 'stem', params: { from: 'text', to: 'text' } },
   'es.stem.e-i': { stage: 'stem' },
   'es.stem.raising': { stage: 'stem', params: { from: 'text', to: 'text' } },
@@ -76,6 +77,7 @@ export const spanishRules = defineRules({
   'es.orth.initial-diphthong': { stage: 'orthography' },
   'es.orth.g-diphthong': { stage: 'orthography' },
   'es.orth.accent-hiatus': { stage: 'orthography' },
+  'es.orth.both-stress': { stage: 'orthography', params: { reading: 'text' } },
   'es.orth.accent-general': { stage: 'orthography', params: { stress: 'text' } },
   'es.orth.monosyllable': { stage: 'orthography' },
   'es.orth.diacritic': { stage: 'orthography', params: { word: 'text' } },
