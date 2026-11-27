@@ -6,17 +6,60 @@
 import {
   conjugate,
   conjugationOptions,
+  ConjugationOptionsBuilder,
   parseConjugationOptions,
   renderParts,
+  normalizeForComparison,
   getCatalogue,
+  getSubjects,
+  explain,
+  languages,
+  equivalentTenses,
+  createEngine,
+  packs,
+  locales,
   ConjugationError,
 } from 'conjugation-engine';
 import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'conjugation-engine';
 ```
 
-`conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
+`conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of the requests of the seven languages (`FrenchConjugationOptions`, `DutchConjugationOptions`, `EnglishConjugationOptions`, `GermanConjugationOptions`, `SpanishConjugationOptions`, `ItalianConjugationOptions`, `LatinConjugationOptions`; `ConjugationOptionsFor<L>` is the one of a language code). `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine. `conjugationOptions(language, infinitive)` returns a `ConjugationOptionsBuilder` (see Builder). `getSubjects(language)` returns the subject slots of a language in the pack's order.
+
+Each language is a pack: its catalogue, rendering rules and grammar. `languages` lists the built-in ones (`['fr', 'nl', 'en', 'de', 'es', 'it', 'la']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs, catalogs?)` (with the built-in `packs` and `locales` exported beside it, so an engine can take a subset of the languages or extra ones) builds an engine with the same `conjugate`, `getCatalogue`, `renderParts`, `expandTargets` and `normalizeForComparison`, plus `explain`, over a chosen set of packs, accepting only those languages. It returns a `TypedEngine` whose `conjugate` takes `EngineQuery<L>`, the typed query of each of its registered languages (`createEngine({ de: germanPack })` refuses a Dutch query or a tense German does not have at compile time); a pack that is not registered takes any object. Every engine is also an `Engine`, whose `conjugate` accepts any value and validates it at run time. `catalogs` maps a locale to its message catalog (see Explanations); without them the engine cannot `explain`.
+
+`normalizeForComparison(language, text)` returns the key two answers are compared by: equal keys are the same answer. A pack defines it with `compareKey` (Latin removes macrons and breves and writes j as i); the others use `plainComparisonKey` (NFC, lower case, trimmed, single spaces; accents kept).
 
 The ESM library runs in modern browsers supporting `structuredClone`. Node-only CLI and corpus-import modules are not reachable from the library entry point.
+
+## Subpaths
+
+An application that needs one language, or only the tense equivalence, imports a subpath; each loads only what it names.
+
+| Subpath | Exports |
+|---|---|
+| `conjugation-engine` | the API above |
+| `conjugation-engine/core` | the pack-authoring API (see Explanations, and [pack-authoring.md](pack-authoring.md)), with `createEngine` |
+| `conjugation-engine/languages/fr` | `frenchPack` and the French spec types (`FrenchTenses`, `FrenchSubject`, ...) |
+| `conjugation-engine/languages/nl` | `dutchPack` and the Dutch spec types |
+| `conjugation-engine/languages/en` | `englishPack` and the English spec types |
+| `conjugation-engine/languages/de` | `germanPack` and the German spec types |
+| `conjugation-engine/languages/es` | `spanishPack` and the Spanish spec types |
+| `conjugation-engine/languages/it` | `italianPack` and the Italian spec types |
+| `conjugation-engine/languages/la` | `latinPack` and the Latin spec types |
+| `conjugation-engine/locales/en` | `en`, the English message catalog of every built-in pack |
+| `conjugation-engine/locales/nl` | `nl`, the Dutch message catalog |
+| `conjugation-engine/equivalence` | `equivalentTenses`, `equivalenceNotes` and the equivalence types, without the packs |
+
+An engine of one language, from subpaths alone:
+
+```ts
+import { createEngine } from 'conjugation-engine/core';
+import { germanPack } from 'conjugation-engine/languages/de';
+import { en } from 'conjugation-engine/locales/en';
+
+const engine = createEngine({ de: germanPack }, { en });
+engine.conjugate({ language: 'de', infinitive: 'machen', mood: 'indicative', tense: 'past', person: 1, number: 'singular' }).forms[0]?.text; // ich machte
+```
 
 ## Query semantics
 
@@ -32,9 +75,19 @@ Wildcards enumerate grammatical targets and accepted morphological variants in t
 
 ## Supported moods and tenses
 
-`getCatalogue(language)` returns immutable mood/tense entries with `finite`, `moodLabel`, and `tenseLabel`. Its 25 French entries expand to 109 base grammatical slots; the 12 Dutch entries expand to 53. Agreement and variant identities can increase the number of returned forms.
+`getCatalogue(language)` returns immutable mood/tense entries with `finite`, `persons` (the person/number slots of a finite entry, in output order; empty when non-finite), `slots` (the subject slots of an entry that lists them), `voices` (where the language has a voice dimension), `moodLabel`, and `tenseLabel`. The default targets are what a query that names only the language and the infinitive expands to (default subject slots, every voice); agreement, gender and variant identities can increase the number of returned forms. `tests/docs.test.ts` checks the tables below against `getCatalogue` and the engine.
 
-### French
+| Language | Code | Catalogue entries | Default targets |
+|---|---|---:|---:|
+| French | `fr` | 25 | 109 |
+| Dutch | `nl` | 12 | 53 |
+| English | `en` | 24 | 126 |
+| German | `de` | 19 | 91 |
+| Spanish | `es` | 23 | 107 |
+| Italian | `it` | 22 | 110 |
+| Latin | `la` | 21 | 144 |
+
+### French (`fr`)
 
 | Mood | Tense IDs and native labels |
 |---|---|
@@ -48,7 +101,7 @@ Wildcards enumerate grammatical targets and accepted morphological variants in t
 
 The conditional past includes tagged `past-first` and literary `past-second` constructions. `near_future`, `recent_past`, compound participles, and gerunds supplement the core Bescherelle headings. `ayant aimé` is an active compound participial construction, not passive voice.
 
-### Dutch
+### Dutch (`nl`)
 
 | Mood | Tense IDs and native labels |
 |---|---|
@@ -57,6 +110,64 @@ The conditional past includes tagged `past-first` and literary `past-second` con
 | `imperative` / Gebiedende wijs | `present`: Tegenwoordig |
 | `infinitive` / Onbepaalde wijs | `present`: Tegenwoordig |
 | `participle` / Deelwoord | `present`: Tegenwoordig deelwoord; `past`: Voltooid deelwoord |
+
+### English (`en`)
+
+| Mood | Tense IDs and native labels |
+|---|---|
+| `indicative` / Indicative | `present`: Present simple; `past`: Past simple; `perfect`: Present perfect; `pluperfect`: Past perfect; `future`: Future simple; `future_perfect`: Future perfect; `present_progressive`: Present continuous; `past_progressive`: Past continuous; `perfect_progressive`: Present perfect continuous; `pluperfect_progressive`: Past perfect continuous; `future_progressive`: Future continuous; `future_perfect_progressive`: Future perfect continuous |
+| `conditional` / Conditional | `present`: Conditional simple; `past`: Conditional perfect; `present_progressive`: Conditional continuous; `past_progressive`: Conditional perfect continuous |
+| `subjunctive` / Subjunctive | `present`: Present; `past`: Past; `perfect`: Perfect; `pluperfect`: Pluperfect |
+| `imperative` / Imperative | `present`: Imperative |
+| `infinitive` / Infinitive | `present`: To-infinitive |
+| `participle` / Participle | `present`: -ing form; `past`: Past participle |
+
+### German (`de`)
+
+| Mood | Tense IDs and native labels |
+|---|---|
+| `indicative` / Indikativ | `present`: Präsens; `past`: Präteritum; `perfect`: Perfekt; `pluperfect`: Plusquamperfekt; `future`: Futur I; `future_perfect`: Futur II |
+| `subjunctive` / Konjunktiv I | `present`: Präsens; `perfect`: Perfekt; `future`: Futur I; `future_perfect`: Futur II; `past`: Präteritum; `pluperfect`: Plusquamperfekt |
+| `conditional` / Konjunktiv II (würde-Form) | `present`: Futur I; `past`: Futur II |
+| `imperative` / Imperativ | `present`: Präsens |
+| `infinitive` / Infinitiv | `present`: Präsens; `perfect`: Perfekt |
+| `participle` / Partizip | `present`: Partizip I; `past`: Partizip II |
+
+### Spanish (`es`)
+
+| Mood | Tense IDs and native labels |
+|---|---|
+| `indicative` / Indicativo | `present`: Presente; `perfect`: Pretérito perfecto compuesto; `imperfect`: Pretérito imperfecto; `pluperfect`: Pretérito pluscuamperfecto; `simple_past`: Pretérito perfecto simple; `past_anterior`: Pretérito anterior; `future`: Futuro simple; `future_perfect`: Futuro compuesto |
+| `conditional` / Condicional | `present`: Condicional simple; `past`: Condicional compuesto |
+| `subjunctive` / Subjuntivo | `present`: Presente; `past`: Pretérito perfecto compuesto; `imperfect`: Pretérito imperfecto; `pluperfect`: Pretérito pluscuamperfecto; `future`: Futuro simple; `future_perfect`: Futuro compuesto |
+| `imperative` / Imperativo | `present`: Afirmativo; `negative`: Negativo |
+| `infinitive` / Infinitivo | `present`: Simple; `past`: Compuesto |
+| `gerund` / Gerundio | `present`: Simple; `past`: Compuesto |
+| `participle` / Participio | `past`: Participio |
+
+### Italian (`it`)
+
+| Mood | Tense IDs and native labels |
+|---|---|
+| `indicative` / Indicativo | `present`: Presente; `perfect`: Passato prossimo; `imperfect`: Imperfetto; `pluperfect`: Trapassato prossimo; `simple_past`: Passato remoto; `past_anterior`: Trapassato remoto; `future`: Futuro semplice; `future_perfect`: Futuro anteriore |
+| `subjunctive` / Congiuntivo | `present`: Presente; `past`: Passato; `imperfect`: Imperfetto; `pluperfect`: Trapassato |
+| `conditional` / Condizionale | `present`: Presente; `past`: Passato |
+| `imperative` / Imperativo | `present`: Presente; `negative`: Negativo |
+| `infinitive` / Infinito | `present`: Presente; `past`: Passato |
+| `participle` / Participio | `present`: Presente; `past`: Passato |
+| `gerund` / Gerundio | `present`: Presente; `past`: Passato |
+
+### Latin (`la`)
+
+| Mood | Tense IDs and native labels |
+|---|---|
+| `indicative` / Indicativus | `present`: Praesens; `imperfect`: Imperfectum; `future`: Futurum; `perfect`: Perfectum; `pluperfect`: Plusquamperfectum; `future_perfect`: Futurum exactum |
+| `subjunctive` / Coniunctivus | `present`: Praesens; `imperfect`: Imperfectum; `perfect`: Perfectum; `pluperfect`: Plusquamperfectum |
+| `imperative` / Imperativus | `present`: Praesens; `future`: Futurum |
+| `infinitive` / Infinitivus | `present`: Praesens; `perfect`: Perfectum; `future`: Futurum |
+| `participle` / Participium | `present`: Praesens; `perfect`: Perfectum; `future`: Futurum; `gerundive`: Gerundivum |
+| `gerund` / Gerundium | `present`: Gerundium |
+| `supine` / Supinum | `present`: Supinum |
 
 ## French context and lexical hints
 
@@ -92,6 +203,10 @@ Without that model, `ressortir` uses the `sortir` morphology. Model/class hints 
 
 French `stems` supports `singular`, `plural`, `thirdPlural`, `future`, `past`, `pastVowel`, and `pastParticiple`. Stems exclude the endings generated by their model; `future` must include its final `r`. `pastVowel` is `a | i | u | in`. For a regular `brumir` profile the corresponding pieces are `brumi`, `brumiss`, `brumiss`, `brumir`, `brum`, `i`, and `brumi`. Each hint replaces the cells it determines (for example, `future` replaces the future and conditional) and leaves the model's other cells unchanged. An infinitive whose ending no model claims, such as an unknown `-oir`, requires a compatible model or complete principal parts.
 
+## English context and lexical hints
+
+English options: `region` (`GB` | `US`) keeps the forms without a region or of that region and prefers the form marked for it (without it, LDOCE's first form and British spellings come first); `classHint` (`regular` | `irregular`) keeps the -ed forms or the listed ones of a verb that has both (hanged / hung); `stems` (`past`, `pastParticiple`, both required) gives an unknown verb its principal parts; `stress` (`final` | `nonFinal`) and `sEnding` (`s` | `es`) decide what spelling cannot show for an unlisted verb, and are refused where the lexicon records the fact. English targets are subject slots `1sg 2sg 3sg.m 1pl 2pl 3pl` by default, with `3sg.f` (she) and `3sg.n` (it) on request; the imperative has `2sg`, `1pl` (let's) and `2pl`. See `docs/grammar/en.md`.
+
 ## Dutch context and lexical hints
 
 | Option | Values / meaning |
@@ -105,11 +220,11 @@ French `stems` supports `singular`, `plural`, `thirdPlural`, `future`, `past`, `
 | `inseparablePrefix` | Verified or explicitly supplied inseparable prefix |
 | `stems` | Written stem, principal parts, stress, and suffix hints described below |
 
-Pronouns constrain compatible person/number slots. `u` means formal second-person singular chart context, not an implicit plural addressee. `zij` and `ze` can match third-person singular or plural; omission uses conventional chart pronouns. Impersonal weather verbs use `het`. Bare past participles remain lexical forms without an invented subject/reflexive pronoun.
+Dutch targets are subject slots: `1sg`, `2sg`, `3sg`, `1pl`, `2pl`, `3pl` by default, and `2sg.je`, `2sg.u`, `3sg.zij`, `3sg.ze`, `3sg.het`, `1pl.we`, `3pl.ze` on request through the common `subject` option. A `pronoun` selects every slot with that pronoun. `u` means formal second-person singular chart context, not an implicit plural addressee. `zij` and `ze` can match third-person singular or plural; omission uses conventional chart pronouns. Impersonal weather verbs use `het`. Bare past participles remain lexical forms without an invented subject/reflexive pronoun.
 
 Dutch `stems` supports `stem`, `pastSingular`, `pastPlural`, `pastParticiple`, `pastSuffix: 'd' | 't' | 'both'`, and `unstressedFinalSyllable`. An unknown `strong` verb requires past-singular and past-participle principal parts; a plural hint avoids unjustified inferred vowel/voicing alternation. An unknown `loan` requires an explicit written/pronounced stem, including any silent `e`. Prefix hints and lexical principal parts apply to the base verb when a derivative is composed.
 
-Unknown prefix strings are not stripped automatically. Ambiguous known spellings such as `voorkomen` require a separable/inseparable hint. Strong verbs and verified prefixed senses reject incompatible weak-class, prefix, or auxiliary hints.
+An unknown verb that starts with a separable particle is split (`opzorpen`: ik zorp op) and one that starts with a prefix that can also be unstressed is taken as inseparable (`overwinnen`), each recorded as an assumption; any other unknown prefix is not stripped. A prefix hint decides instead, and `classHint` keeps the verb one word. A lemma that is separable in one sense and inseparable in another (`voorkomen`) returns both paradigms, each with its `variant.pattern`, its meaning as `variant.condition` and its own auxiliary; a prefix hint keeps one. Strong verbs and verified prefixed senses reject incompatible weak-class, prefix, or auxiliary hints. See [grammar/nl.md](grammar/nl.md).
 
 ```ts
 conjugate({
@@ -120,25 +235,99 @@ conjugate({
 }).forms[0]?.text; // ik heb opgezorpt
 ```
 
+## German context and lexical hints
+
+German options: `auxiliary` (`haben` | `sein`) keeps the forms with that perfect auxiliary; `classHint` (`weak` | `strong` | `mixed`); `separablePrefix` / `inseparablePrefix` decide what an unknown or two-reading prefix is; `stems` gives an unknown verb its principal parts (`present2`, the du/er stem of the present; `preterite`; `subjunctive`, the Konjunktiv II stem; `participle`, the whole Partizip II) and `unstressedFirstSyllable` (no ge- in the Partizip II). Targets are subject slots `1sg 2sg 3sg 1pl 2pl 3pl` by default, with `3sg.f` (sie), `3sg.n` (es) and `2.formal` (Sie) on request. A lemma that is separable in one sense and inseparable in another (`umziehen`) returns both paradigms, tagged. See [grammar/de.md](grammar/de.md).
+
+## Spanish context and lexical hints
+
+Spanish options: `auxiliary` (`haber`); `classHint` (`regular`, `e-ie`, `o-ue`, `u-ue`, `i-ie`, `e-i`) gives an unknown verb its vowel alternation; `stems` has `stress` (`hiatus` | `diphthong`, for -iar / -uar and root vowel groups) and `zc` (force or block the zc of vowel + -cer/-cir); `reflexive` conjugates the verb with its pronoun; `gender` keeps the subjects of that gender. Targets are subject slots: `1sg 2sg 3sg 1pl 2pl 3pl` by default, and `3sg.f` (ella), `1pl.f`, `2pl.f` and `3pl.f` with `gender: 'feminine'` or `subject`; `2sg.formal` (usted) and `2pl.formal` (ustedes) only with `subject`, the imperative included. A gendered slot's gender is its forms' `target.gender`. The imperative has `imperative.negative`, and the imperfect and pluperfect subjunctive carry the `ra` / `se` variants as patterns. See [grammar/es.md](grammar/es.md).
+
+## Italian context and lexical hints
+
+Italian options: `auxiliary` (`avere` | `essere`); `classHint` (`isc` | `plain`, whether an -ire verb takes -isc-); `stems` (`past`, the strong passato remoto 1sg; `participle`; `future`, the future stem with its r; `stressedI`, the stress of the i of -iare); `reflexive`; `gender` keeps the subjects and participle agreements of that gender. Targets are subject slots `1sg 2sg 3sg.m 3sg.f 1pl 2pl 3pl` by default, with `3sg.formal` (Lei) and `3pl.formal` (Loro) on request; a participle after essere agrees with the subject, and the form of a slot without a gender comes in both genders, each with its `target.gender` (sono andato, sono andata). The imperative has `imperative.negative`. See [grammar/it.md](grammar/it.md).
+
+## Latin context and lexical hints
+
+Latin options: `voice` (`active` | `passive`); `gender` (`masculine` | `feminine` | `neuter`) for the participles of the perfect passive and the deponents; `agreement` (`{ gender?, number?, case? }`: present, even empty, it declines the non-finite forms in full and filters them); `classHint` (`first`, `second`, `third`, `thirdIo`, `fourth`); `stems` (`present`, the 1sg present; `perfect`; `supine`; `semiDeponent`). A verb is identified by its infinitive, with or without macrons; output carries macrons, and `normalizeForComparison('la', text)` compares answers without them. Targets are subject slots: one per person and number by default, and a masculine, feminine and neuter one (`3sg.m`, `3sg.f`, `3sg.n`, ...) on request. See [grammar/la.md](grammar/la.md).
+
 ## Results, variants, and errors
 
-`ConjugationResult` contains `language`, normalized `verbId`, cloned `query`, `status`, flat `forms`, `unavailableTargets`, and `analysis`. `analysis` identifies the lexical lemma, classification, source (`lexicon`, `regularRule`, or `explicitHint`), reflexivity, auxiliaries, and regular-default assumptions. For French, `classification` is the conjugation model the verb follows (`aimer`, `placer`, `finir`, `rendre`, `venir`, …); passing it back as `model` selects the same inflection. Use `classificationSource === 'regularRule'` to tell productive models from irregular families.
+`ConjugationResult` contains `language`, normalized `verbId`, cloned `query`, `status`, flat `forms`, `unavailableTargets`, and `analysis`. `analysis` identifies the lexical lemma, classification, source (`lexicon`, `regularRule`, or `explicitHint`), reflexivity, auxiliaries, and regular-default assumptions. For French, `classification` is the conjugation model the verb follows (`aimer`, `placer`, `finir`, `rendre`, `venir`, …); passing it back as `model` selects the same inflection. Its vocabulary differs per language: French and Spanish name the model verb (`manger`, `lever`; `amar`, `contar`, `partir`), Dutch `weak`, `strong`, `mixed` or `loan`, German `weak`, `strong`, `mixed`, `preteritePresent` or `irregular`, English `regular`, `irregular` or `suppletive`, Italian the conjugation (`are`, `ere`, `ire`, `ire-isc`) or `contracted` / `irregular`, Latin the conjugation (`first` … `fourth`, `thirdIo`, with `-deponent` for a deponent) or `irregular`. Use `classificationSource === 'regularRule'` to tell productive models from irregular families. A lemma with several complete paradigms (on a staged pack, such as a verb that is separable in one sense and inseparable in another) has the first paradigm's analysis, with the others in `analysis.alternatives`; each paradigm's forms come after the previous paradigm's and carry its `variant.pattern` and `variant.condition`. Each paradigm's analysis also has its `pattern` and `condition` when it is tagged with them. `alternatives`, `pattern` and `condition` are absent for a lemma with one paradigm.
+
+Subject gender is one rule in every language: `target.gender` is the subject gender the form shows, or `null` when it shows none. `je suis allée`, `io sono andata`, `amāta sum` and `nosotras hemos ido` have `target.gender: 'feminine'`; `j'ai mangé`, `io ho parlato`, `amāvī` and `yo he ido` have `null`. Where gender changes the verb phrase (French, Italian and Latin compounds whose participle agrees with the subject, the French and Italian third person) an unfiltered query returns every gender, each as its own target with its own preferred form; where only the pronoun shows it (Spanish ella / nosotras, German sie / es, English she / it) the gendered slots come on request, and their forms carry the slot's gender (er, he, él: masculine). To accept the feminine answer of a form, look for its twin with `target.gender === 'feminine'`. `target.agreement` is the agreement of a participle, which a bare participle has without a subject gender. One exception: Dutch keeps `target.gender: null` on every form, because its output is frozen by the characterization snapshot; the gender of a Dutch pronoun (zij, het) is the `gender` of its subject slot in `getSubjects('nl')`.
+
+Subject slots (`getSubjects(language)`) differ in their ids from language to language: select formal address by `register: 'formal'` (Dutch `2sg.u`, German `2.formal`, Spanish `2sg.formal` and `2pl.formal`, Italian `3sg.formal` and `3pl.formal`), never by id. Formal slots are returned only when `subject` names them, in the imperative too.
 
 Each form contains:
 
 - `target`: resolved mood/tense, finite person/number or `null`, relevant subject gender or `null`, and separate participle agreement or `null`.
-- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds`.
-- `variant`: orthography (`rectified`, `traditional`, `both`), auxiliary, correlated pattern, usage (`standard`, `literary`, `dated`), and any construction/sense condition.
+- `text`, native `labels`, `preferred`, ordered `parts`, and diagnostic `ruleIds` (deprecated: use `steps`). For Dutch, `ruleIds` changed meaning with the staged grammar: they are now the ids of the rules recorded in the form's steps (`nl.stem.drop-en`, `nl.end.present`, …), no longer the legacy diagnostic ids (`nl.weak.indicative.perfect`, `nl.prefix.separable`).
+- `variant`: orthography (`rectified`, `traditional`, `both`), auxiliary, correlated pattern, usage (`standard`, `literary`, `dated`), any construction/sense condition, and a region (English `GB` / `US`, the southern German sein-perfect) where one applies. `variant.condition` (and the `condition` of a paradigm's analysis) is an English gloss written by the pack, the same in every locale: it is not a message of the catalogs and `explain` does not translate it.
 
 There is one preferred form per fully resolved target, not one answer for an entire wildcard result. Standard usage is preferred to literary/dated variants, then the requested French spelling preference applies. Dutch orthography is `both` because that distinction is French-specific. Identical strings may remain distinct across targets or meaningful pattern/condition identities; callers must not deduplicate solely by `text`.
 
-`status` is `available`, `partiallyAvailable`, or `unavailable`. Every `unavailableTargets` record gives its target, reason (`impersonal`, `defective`, `noImperative`), explanation, and source. For example, a first-person present of `falloir` is unavailable, while its broad query is partially available.
+`status` is `available`, `partiallyAvailable`, or `unavailable`. Every `unavailableTargets` record gives its target, reason (`impersonal`, `defective`, `noImperative`, `noPassive`), explanation, and source. For example, a first-person present of `falloir` is unavailable, while its broad query is partially available.
 
 Invalid requests and failed generation throw `ConjugationError`, with a stable `code`: `INVALID_REQUEST`, `UNSUPPORTED_LANGUAGE`, `INVALID_INFINITIVE`, `INVALID_TARGET`, `INVALID_HINT`, `AMBIGUOUS_CLASSIFICATION`, or `GENERATION_FAILURE`. An empty adapter result without an availability decision is a generation failure, not grammatical unavailability.
 
+## Explanations
+
+A pack built on the staged engine records, for every form, the rule applied at each step: `form.steps` (periphrasis, agreement and clause rules) and `part.steps` (the stem, ending and spelling rules of one word); `analysis.steps` holds the classification steps and `unavailableTarget.step` the availability rule. Every built-in pack records steps.
+
+`explain(language, subject, locale)` turns those steps into text. The subject is a `ConjugatedForm`, an `UnavailableTarget` or a `VerbAnalysis`; the locale is `'en'` or `'nl'`. The result is `{ summary, sections }`. A form has one section per part that has steps (`part` is the part's index, `title` its text) followed by one with `part: null` for the form-level steps; an unavailable target has one section with `part: null`, and an analysis one per paradigm (its own, then one per alternative; with alternatives, a section's title also names its paradigm's `pattern` when it has one); a subject without steps has none. Each step is `{ text, rule, stage, kind, before, after, citations }`, where each citation is `{ work, locator, url?, title }` and `title` is the cited work's title. `explain` throws `INVALID_REQUEST` for an unknown locale and `GENERATION_FAILURE` for a rule or term that has no text.
+
+Text comes from message catalogs: `Record<string, string>` per locale, in the ICU subset described in `src/i18n/format.ts` (`{name}`, `plural`, `select`, `''` for an apostrophe; an apostrophe directly before a placeholder quotes it, so write `l''{noun}`). A rule's id is the key of its message, and the message may use the rule's declared params, `{before}` and `{after}` (empty when the step has none). A `mood` or `tense` param is rendered with the native label of the pack's catalogue entry (a tense is looked up in the mood of what the step describes: a word's steps in that word's own mood, so an auxiliary in the indicative past inside a conditional is labelled as an indicative past; form-level steps and an unavailable target in the target's mood); a `person`, `number`, `gender`, `voice` or `case` param is the catalog message `term.<kind>.<id>`. Each locale's catalog is the core catalog (`src/i18n/locales/<locale>/core.ts`) merged with the messages of every language pack for that locale.
+
+With an `en` catalog, a staged pack's `analysis.assumptions` (and those of each alternative) are the English text of its assumption steps, and the `explanation` of each of its unavailable targets is the English text of the target's `step`; without one they are rule ids. These are rendered without the form's own mood, so an assumption rule must not take a `tense` term param (a `mood` term is fine); an availability rule can, because its target is known. A rule's params may not be named `before` or `after`: `defineRules` rejects them.
+
+A staged pack declares `rules` (the `defineRules` result), `works` (the grammars it cites, keyed by id) and `citations` (rule id to one citation or several, each `{ work, locator, url? }`). `tests/i18n/completeness.test.ts` checks every pack that declares rules: each rule id starts with the pack's language code and a dot (`nl.stem.…`; `core.` is reserved), no two packs and no pack and the core catalog define the same key, each rule has a well-formed message in every locale whose placeholders are declared params, `en` and `nl` have the same keys, every rule has a citation to a listed work, and every url is `https`.
+
+The pack-authoring API is not part of the package root: it is the `conjugation-engine/core` subpath (`src/core/index.ts`). It exports, as values, `createEngine`, `stagedEngine`, `validateGrammar`, `deriveWords`, `defineRules`, `step`, `one`, `chain`, `combine`, `mergeTags`, `mergeMarks`, `usageRank`, `applyJunctureRules`, `wordPart`, `grammaticalPart`, `itemAt`, `allPersons`, `noPersons`, `moodEntries`, `variantRank`, `defaultSubjectsFor`, `ConjugationError`, `plainComparisonKey`; and, as types, `Engine`, `TypedEngine`, `EngineQuery`, `LanguageEngine`, `LanguagePack`, `SubjectSlot`, `CatalogueEntry`, `PackRendering`, `OptionSchema`, `FieldSpec`, `LanguageSpec`, `OptionFieldsOf`, `StagedGrammar`, `Cell`, `LexemeBase`, `Unavailability`, `ClauseGrammar`, `ClauseContext`, `ChainWord`, `WordPartOptions`, `Periphrasis`, `ChainElement`, `VerbRef`, `Fork`, `Marks`, `Outcome`, `VariantTags`, `JunctureRule`, `Juncture`, `DerivationStep`, `RuleInfo`, `Stage`, `StepKind`, `StepParam`, `ParamKind`, `TermRef`, `Work`, `Citation`, `Catalog`, `ConjugationErrorCode`, `Agreement`, `Case`, `ConjugationPart`, `FormVariant`, `GeneratedForm`, `GenerationResult`, `Gender`, `GrammaticalNumber`, `Mood`, `Onset`, `Orthography`, `PartFeatures`, `PartRole`, `Person`, `ResolvedTarget`, `Tense`, `UnavailableTarget`, `VerbAnalysis`, `VerbForm`, `Voice`. [`pack-authoring.md`](pack-authoring.md) is the guide to writing a pack.
+
+A message may also define `<language>.label.pattern.<label>` for a pattern label its paradigms carry; the title of a paradigm in an analysis with several shows that text when the key exists and the raw label otherwise.
+
+## Tense equivalence
+
+`equivalentTenses(from, to, tense, options?)` (from the root, or from the `conjugation-engine/equivalence` subpath, which loads without the language packs) gives the tenses of `to` that correspond to a tense of `from`, best first: the tense a trainer should ask for when it shows a learner of `to` a form of `from`. It is static data over the registered languages and does not need an engine.
+
+```ts
+import { equivalentTenses, locales } from 'conjugation-engine';
+
+const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'perfect' });
+// matches[0]: { match: 'exact', tense: { mood: 'indicative', tense: 'perfect' }, rank: 1, score: 0.8,
+//               register: 'standard', relaxed: [], via: ['PRESENT_PERFECT', 'PRESENT_PERFECT'], notes: [] }
+// matches[1]: { match: 'exact', tense: { mood: 'indicative', tense: 'past' }, rank: 2, score: 0.7,
+//               register: 'standard', relaxed: [], via: ['PAST_PERFECTIVE', 'PAST_PERFECTIVE'], notes: ['eq.fr.perfect.spoken-past'] }
+// notes: []
+locales.nl[matches[1]!.notes[0]!]; // In gesproken taal is de passé composé de gewone tijd voor afgeronde gebeurtenissen; ...
+```
+
+`tense` is a `{ mood, tense }` of the source language (a tense it does not have is a type error, and `INVALID_TARGET` at run time); an unknown language is `UNSUPPORTED_LANGUAGE`. The result is frozen. Each match has:
+
+- `tense`: a `{ mood, tense }` of the target language, typed for it.
+- `match`: `exact` (both tenses express the same concept), `approximate` (the target expresses it less precisely: `relaxed` names what was given up, in the order of the ladder: `remoteness`, `aspect` (never to a progressive tense from a plain one), `mood` (a subjunctive or conditional to the indicative), and last `register` (a dated tense, offered only when nothing else corresponds), or the match is a stand-in such as the Dutch past participle for a French perfect infinitive), or `override` (a correction for one pair of languages; `score` 1).
+- `score`: how close the two tenses are, from 1 down; `rank`: the position, from 1.
+- `register`: `standard`, `literary` or `dated`, the target tense's.
+- `via`: the source and target concepts the match went through (`null` for an override).
+- `notes`: message keys (`eq.*`) of the core catalogs: `locales[locale][key]` is a sentence for the learner, plain text without placeholders. A trainer that imports only `conjugation-engine/equivalence` (without the packs) reads the same texts from `equivalenceNotes[locale][key]` (`en` and `nl`).
+
+`matches` is empty when the target has no tense that corresponds (a Latin supine in any other language, a French gérondif in German); the result's own `notes` then say why (`eq.note.no-counterpart`, followed by the source tense's notes). They are empty whenever there is a match. Within one language, the tense itself is first.
+
+`options.voice` is `'active'` (the default) or `'passive'`. A passive lookup is valid only from a language whose passive is modelled (Latin; anything else is `INVALID_REQUEST`), and a Latin tense without a voice (a participle, the gerund, the supine) is looked up as active. Into a language without a modelled passive the active tenses are given: every exact match becomes approximate, and every match, overrides and approximate ones included, gets the note `eq.note.passive-not-modelled` (form the passive with the auxiliary in the tense given).
+
+For a trainer, the tense to ask for:
+
+1. If `matches` is empty, there is no tense to ask for: show the result's `notes`, and compose the prompt by hand or skip the form.
+2. Leave out the `literary` and `dated` matches, unless the learner asked for them.
+3. Ask for the first match that remains. If none remains (a literary tense whose only counterparts are literary, such as the French passé antérieur into Spanish or Italian), ask for `matches[0]` and show its register.
+4. Show the notes of that match: an `approximate` match always has one that says how its tense stands in, and an `exact` one may have one (the passé composé is the spoken past).
+
+The first match that remains never scores below 0.3. Below 0.3 there are only a few weak relatives (the Dutch present into the French near future, 0.24), which a trainer that offers alternatives can leave out.
+
 ## Components and rendering
 
-Parts are generated before strings, not recovered by splitting them. Roles are `moodMarker`, `subject`, `reflexivePronoun`, `auxiliary`, `lexicalVerb`, `particle`, and `linker`. Each part carries underlying text, lexical lemma where applicable, its own grammatical features, onset (`vowel`, `consonant`, `muteH`, `aspiratedH`), and joining style.
+Parts are generated before strings, not recovered by splitting them. Roles are `moodMarker`, `subject`, `reflexivePronoun`, `auxiliary`, `lexicalVerb`, `particle`, and `linker`. Each part carries underlying text, lexical lemma where applicable, its own grammatical features (including, where a language has them, `voice`, the `case` of a declined participle and the progressive `aspect`), onset (`vowel`, `consonant`, `muteH`, `aspiratedH`; Dutch uses only `vowel` and `consonant`), and joining style.
 
 Underlying `je`, `que`, `se`, and `de` remain unelided. Auxiliary features identify the auxiliary's actual simple mood/tense; non-finite lexical features have no finite person. Dutch future perfect can contain both finite `zal` and final infinitive `hebben`.
 
@@ -146,26 +335,49 @@ Underlying `je`, `que`, `se`, and `de` remain unelided. Auxiliary features ident
 
 Bare projection removes subjects and French subjunctive `que`, while preserving auxiliaries, reflexives, gerund `en`, linkers, and detached particles.
 
+## Types
+
+The package root exports these types (`src/types.ts` and `src/index.ts`):
+
+- Results: `ConjugationResult`, `ConjugatedForm`, `GeneratedForm`, `GenerationResult`, `ConjugationPart`, `PartFeatures`, `PartRole`, `VerbForm`, `Onset`, `FormVariant`, `Orthography`, `UnavailableTarget`, `VerbAnalysis`, `ResolvedTarget`, `DerivationStep`, `RenderContext`.
+- Grammar: `Language`, `Mood`, `Tense`, `MoodFor`, `TenseFor`, `TensesFor`, `Person`, `GrammaticalNumber`, `Gender`, `Voice`, `Case`, `Agreement`, `AgreementQuery`, `CatalogueEntry`, `SubjectSlot`.
+- Queries: `ConjugationOptions`, `ConjugationOptionsOf`, `ConjugationOptionsFor`, `FrenchConjugationOptions`, `DutchConjugationOptions`, `EnglishConjugationOptions`, `GermanConjugationOptions`, `SpanishConjugationOptions`, `ItalianConjugationOptions`, `LatinConjugationOptions`.
+- Per language (the spec of each pack): `FrenchSpec`, `FrenchTenses`, `FrenchSubject`, `FrenchClassHint`, `FrenchStemHints`, `FrenchGender`, `FrenchAgreement`; `DutchSpec`, `DutchTenses`, `DutchSubject`, `DutchClassHint`, `DutchStemHints`, `DutchPronoun`; `EnglishSpec`, `EnglishTenses`, `EnglishSubject`, `EnglishClassHint`, `EnglishStemHints`; `GermanSpec`, `GermanTenses`, `GermanSubject`, `GermanClassHint`, `GermanStemHints`; `SpanishSpec`, `SpanishTenses`, `SpanishSubject`, `SpanishClassHint`, `SpanishStemHints`, `SpanishGender`; `ItalianSpec`, `ItalianTenses`, `ItalianSubject`, `ItalianClassHint`, `ItalianStemHints`, `ItalianGender`; `LatinSpec`, `LatinTenses`, `LatinSubject`, `LatinClassHint`, `LatinStemHints`, `LatinGender`.
+- Engine and explanations: `Engine`, `TypedEngine`, `EngineQuery`, `Catalog`, `Locale`, `Explainable`, `Explanation`, `ExplainedStep`, `ConjugationErrorCode`.
+- Tense equivalence: `TenseRef`, `TenseEquivalence`, `TenseEquivalent`, `EquivalenceOptions`.
+
 ## Builder
 
-`conjugationOptions(language, infinitive)` offers mood-specific methods such as `.indicative('perfect')`, `.subjunctive('present')`, and `.participle('past')`, plus the applicable option setters above. `.build()` returns the language-specific query after runtime validation; it has no independent conjugation logic.
+`conjugationOptions(language, infinitive)` returns a builder with the language-independent setters `.mood()`, `.tense()`, `.person()`, `.number()`, `.auxiliary()`, `.classHint()` and `.stems()`, plus methods installed from the language's pack: one per mood in its catalogue (`.indicative('perfect')`, `.subjunctive('present')`, `.participle('past')`; the tense argument is optional and clears any tense when omitted) and one per language-specific option (`.gender('feminine')`, `.pronoun('u')`; boolean options such as `.inversion()` default to `true`). A language only has the methods of its own moods and options, so Dutch has no `.gerund()` or `.gender()`. `.build()` returns the language-specific query after runtime validation; it has no independent conjugation logic.
+
+Which keys a query may carry, and how each value is validated, is declared per language as an option schema on its pack (`pack.options`); for a registered language the schema is typed against its spec, so a missing or extra field does not compile. Adding a language means writing its pack and schema; the validator and the builder need no changes. The builder throws `INVALID_REQUEST` at construction when a mood or option field of a pack is named like one of its own methods (`build`, `mood`, `subject`...).
 
 Language-specific methods and mood-specific tense arguments are checked by TypeScript. The generic `.mood()`/`.tense()` setters and constraints added after a non-finite method are checked for their combined compatibility at `.build()`.
 
 ## CLI flags and exit codes
 
 ```text
-conjugation-engine <fr|nl> <infinitive> [options]
+conjugation-engine <fr|nl|en|de|es|it|la> <infinitive> [options]
 ```
 
 Quote multiword reflexive infinitives, for example `conjugation-engine fr "se laver"`.
 
-Common flags: `--mood`, `--tense`, `--person`, `--number`, `--auxiliary`, `--class`, `--stems '<JSON>'`, `--json`, `--bare`, `--help`.
+Common flags: `--mood`, `--tense`, `--person`, `--number`, `--subject`, `--json`, `--bare`, `--explain`, `--locale`, `--help`.
 
-French flags: `--gender`, `--agreement '<JSON>'`, `--preceding-direct-object '<JSON>'`, `--reflexive-object`, `--model`, `--aspirated-h`, `--orthography`.
+`--explain` prints, under each form line, one line per derivation step indented by four spaces: each part's steps in part order, then the form-level steps. A language that records no steps prints none. `--locale <en|nl>` (default `en`) chooses the language of those lines and of the reason printed for an unavailable target (the text of the rule it records; a language that records none prints its own sentence); an unknown locale is `INVALID_REQUEST`. With `--json`, `--explain` adds an `explanation` field to every form.
 
-Dutch flags: `--pronoun`, `--inversion`, `--reflexive` / `--no-reflexive`, `--separable-prefix`, `--inseparable-prefix`.
+Every other flag is derived from the option schema of the registered language packs, so a new language needs no CLI changes. A flag is the kebab-case of an option field (`aspiratedH` becomes `--aspirated-h`); a boolean field accepts `--x` and `--no-x` (giving both is an error); `agreement` and `stems` fields take JSON; an enum field lists its allowed values. `--help` prints one section per language, headed by the pack's `label` (for example `Dutch (nl):`), with that language's flags and values. A flag the chosen language does not declare is rejected by the engine as `Unknown <language> option: <key>.`.
 
-The CLI maps these directly to API fields (`--class` to `classHint`, `--orthography` to `preferredOrthography`). Plain single-target output is the preferred phrase; wildcard output includes native target labels and meaningful variant distinctions. Unavailable targets are displayed explicitly.
+Flags by language today:
+
+- French: `--stems '<JSON>'`, `--gender`, `--auxiliary`, `--class`, `--reflexive-object`, `--aspirated-h` / `--no-aspirated-h`, `--orthography`, `--agreement '<JSON>'`, `--preceding-direct-object '<JSON>'`, `--model`.
+- Dutch: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--pronoun`, `--inversion` / `--no-inversion`, `--reflexive` / `--no-reflexive`, `--separable-prefix`, `--inseparable-prefix`.
+- English: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--stress`, `--region`, `--s-ending`.
+- German: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--separable-prefix`, `--inseparable-prefix`.
+- Spanish: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--reflexive` / `--no-reflexive`, `--gender`.
+- Italian: `--stems '<JSON>'`, `--auxiliary`, `--class`, `--reflexive` / `--no-reflexive`, `--gender`.
+- Latin: `--stems '<JSON>'`, `--class`, `--voice`, `--gender`, `--agreement '<JSON>'`.
+
+Flags map directly to API fields; the two short aliases are `--class` for `classHint` and `--orthography` for `preferredOrthography`. Plain single-target output is the preferred phrase; wildcard output includes native target labels and meaningful variant distinctions. Unavailable targets are displayed explicitly.
 
 `--json` always returns the complete structured result, even with `--bare`. Invalid requests emit diagnostics only on stderr. Exit codes are **0** for available/partially available requests or help, **1** for invalid requests/classification or argument errors, **2** for internal generation failure, and **3** when no requested grammatical form is available.

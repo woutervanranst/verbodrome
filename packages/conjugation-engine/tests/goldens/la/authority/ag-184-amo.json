@@ -1,0 +1,1501 @@
+{
+ "work": "ag-print",
+ "section": "§184",
+ "pages": "92–95",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG104.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG105.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG106.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG107.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "amāre"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG104–AG107",
+ "cells": [
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amās"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amat"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amāmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amātis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amant"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amābam"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amābās"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amābat"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amābāmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amābātis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amābant"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amābō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amābis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amābit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amābimus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amābitis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amābunt"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amāvī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amāvistī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāvit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amāvimus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amāvistis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amāvērunt",
+    "amāvēre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amāveram"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amāverās"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāverat"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amāverāmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amāverātis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amāverant"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amāverō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amāveris"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāverit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amāverimus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amāveritis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amāverint"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amem"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amēs"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amet"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amēmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amētis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "ament"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amārem"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amārēs"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāret"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amārēmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amārētis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amārent"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amāverim"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāverit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amāverint"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "amāvissem"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amāvissēs"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amāvisset"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "amāvissēmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amāvissētis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amāvissent"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amā"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amāte"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "amātō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "amātō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "amātōte"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "amantō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "amāre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "amāvisse",
+    "amāsse"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "amātūrus esse"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "amāns"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "amantis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "amātūrus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "gerund",
+   "forms": [
+    "amandī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "amandō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "amandum"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "amandō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "supine",
+   "forms": [
+    "amātum"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "amātū"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "amor"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amāris",
+    "amāre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amātur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "amāmur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amāminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amantur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "amābar"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amābāris",
+    "amābāre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amābātur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "amābāmur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amābāminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amābantur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "amābor"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amāberis",
+    "amābere"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amābitur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "amābimur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amābiminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amābuntur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "amer"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amēris",
+    "amēre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amētur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "amēmur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amēminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amentur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "amārer"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amārēris",
+    "amārēre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amārētur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "amārēmur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amārēminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amārentur"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "amātus sum"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "amātus es"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "amātus est"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "amātī sumus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "amātī estis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "amātī sunt"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "amātus eram"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "amātus erās"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "amātus erat"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "amātī erāmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "amātī erātis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "amātī erant"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "amātus erō"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "amātus eris"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "amātus erit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "amātī erimus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "amātī eritis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "amātī erunt"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "amātus sim"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "amātus sīs"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "amātus sit"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "amātī sīmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "amātī sītis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "amātī sint"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "amātus essem"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "amātus essēs"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "amātus esset"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "amātī essēmus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "amātī essētis"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "amātī essent"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amāre"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "amāminī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "amātor"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "amātor"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "amāre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "amantor"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "amārī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "amātus esse"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "amātum īrī"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "amātus"
+   ]
+  },
+  {
+   "verb": "amāre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "amandus"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": [
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "amāveris",
+   "other": "amāverīs",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short here, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "amāverimus",
+   "other": "amāverīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short here, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "amāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "amāveritis",
+   "other": "amāverītis",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short here, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}

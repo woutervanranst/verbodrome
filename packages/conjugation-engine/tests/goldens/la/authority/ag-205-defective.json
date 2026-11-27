@@ -1,0 +1,1412 @@
+{
+ "work": "ag-print",
+ "section": "§§205–206",
+ "pages": "116–119",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG128.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG129.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG130.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG131.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "notation": "A dash in §206.a–c (āiō, inquam, fārī) marks a form that does not occur: an unavailable cell. queō's table (§206.d) lists the forms that occur in literature; its dashes are not transcribed, except where §206.d says the imperative, gerund and supine are wanting. The print's â (âiō) is the long ā; the breve of cĕdo is dropped.",
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG128–AG131",
+ "cells": [
+  {
+   "verb": "coepisse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "coepī"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "coeperam"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "coeperō"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "coeperim"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "coepissem"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "coepisse"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "coeptūrus esse"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "coeptus"
+   ]
+  },
+  {
+   "verb": "coepisse",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "coeptūrus"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ōdī"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ōderam"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ōderō"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ōderim"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ōdissem"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "ōdisse"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "ōsūrus esse"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "ōsus"
+   ]
+  },
+  {
+   "verb": "ōdisse",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "ōsūrus"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "meminī"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "memineram"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "meminerō"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "meminerim"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "meminissem"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "mementō"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "mementōte"
+   ]
+  },
+  {
+   "verb": "meminisse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "meminisse"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "āiō"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ais"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ait"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "āiunt"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "āiēbam"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "āiēbās"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "āiās"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "āiat"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "āiō",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "āiant"
+   ]
+  },
+  {
+   "verb": "āiō",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "āiēns"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "inquam"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "inquis"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "inquit"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "inquimus"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "inquitis"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "inquiunt"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "inquiēbat"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "inquiēs"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "inquiet"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "inquiī"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "inquīstī"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "inquam",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "inque"
+   ]
+  },
+  {
+   "verb": "inquam",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "inquitō"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fātur"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fantur"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fābor"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fābitur"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg.m",
+   "forms": [
+    "fātus est"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl.m",
+   "forms": [
+    "fātī sunt"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "fātus eram"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg.m",
+   "forms": [
+    "fātus erat"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fārī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fāre"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "fārī"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "fāns"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "fantis"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "fātus"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "fandus"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "gerund",
+   "forms": [
+    "fandī"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "gerund",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "fandō"
+   ]
+  },
+  {
+   "verb": "fārī",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "fātū"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "queō"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "quīs"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "quit"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "quīmus"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "quītis"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "queunt"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "queam"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "queās"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "queat"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "queāmus"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "queant"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "quībam"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "quībat"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "quīret"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "quīrent"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "quībō"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "quībunt"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "quīvī"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "quīvit"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "quīvērunt",
+    "quīvēre"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "quīverit",
+    "quierit"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "quīvissent"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "quīre"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "quiēns"
+   ]
+  },
+  {
+   "verb": "quīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "quīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "quīre",
+   "mood": "gerund",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "quīre",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "quaesō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "quaesō"
+   ]
+  },
+  {
+   "verb": "quaesō",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "quaesumus"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "salvē"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "salvēte"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "salvētō"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "salvēre"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "salveō"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "salvētis"
+   ]
+  },
+  {
+   "verb": "salvēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "salvēbis"
+   ]
+  },
+  {
+   "verb": "avēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "avē",
+    "havē"
+   ]
+  },
+  {
+   "verb": "avēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "avēte"
+   ]
+  },
+  {
+   "verb": "avēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "avētō"
+   ]
+  },
+  {
+   "verb": "avēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "avēre"
+   ]
+  },
+  {
+   "verb": "cedo",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "cĕdo",
+   "forms": [
+    "cedo"
+   ]
+  },
+  {
+   "verb": "cedo",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "cĕdite (cette)",
+   "forms": [
+    "cedite",
+    "cette"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "coepisse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "coepiō",
+   "reason": "An early and rare form (§205.a Note: coepiō, coepiam, coeperet, coepere); for the present system incipiō is used."
+  },
+  {
+   "verb": "meminisse",
+   "mood": "participle",
+   "tense": "present",
+   "printed": "meminēns",
+   "reason": "A present participle that is \"early and late\" (§205.b Note 1); not generated."
+  },
+  {
+   "verb": "āiō",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "aibam",
+   "reason": "An old disyllabic imperfect (§206.a footnote 2: \"aibam, aibās, etc. is sometimes found\"); āiēbam is generated."
+  }
+ ],
+ "disputed": []
+}

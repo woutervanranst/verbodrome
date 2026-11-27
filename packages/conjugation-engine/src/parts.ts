@@ -1,24 +1,25 @@
+import type { PackRendering } from './core/pack.js';
 import { ConjugationError } from './errors.js';
-import type { ConjugationPart, Onset, PartFeatures, PartRole, ResolvedTarget } from './types.js';
+import type { ConjugationPart, PartFeatures, PartRole, ResolvedTarget } from './types.js';
 
 export const emptyFeatures: PartFeatures = Object.freeze({
   mood: null, tense: null, person: null, number: null, gender: null, verbForm: null,
 });
 
 export function grammaticalPart(
+  rendering: PackRendering,
   role: PartRole,
   text: string,
   lemma: string | null = null,
   features: Partial<PartFeatures> = {},
   joinBefore: ConjugationPart['joinBefore'] = 'space',
   aspiratedH = false,
+  onsetFlags?: Readonly<Record<string, boolean>>,
 ): ConjugationPart {
   if (!text) throw new ConjugationError('GENERATION_FAILURE', `Empty ${role} component.`);
   const normalized = text.normalize('NFC');
-  const initial = normalized.toLowerCase();
-  const onset: Onset = initial.startsWith('h')
-    ? (aspiratedH ? 'aspiratedH' : 'muteH')
-    : (/^[aeiouyàâäéèêëîïôöùûüœæ]/u.test(initial) ? 'vowel' : 'consonant');
+  // `aspiratedH` is French's flag; a pack with other flags passes them whole instead.
+  const onset = rendering.onset(normalized, onsetFlags ?? { aspiratedH });
   return { role, text: normalized, lemma, features: { ...emptyFeatures, ...features }, phonology: { onset }, joinBefore };
 }
 
@@ -42,10 +43,15 @@ export function itemAt<T>(items: readonly T[], index: number): T {
   return value;
 }
 
+/** Freezes `value` and everything reachable from it, also inside containers that are already frozen; cycles are fine. */
 export function deepFreeze<T>(value: T): T {
-  if (value !== null && typeof value === 'object' && !Object.isFrozen(value)) {
-    Object.freeze(value);
-    for (const child of Object.values(value)) deepFreeze(child);
-  }
+  const visited = new WeakSet<object>();
+  const freeze = (item: unknown): void => {
+    if (item === null || typeof item !== 'object' || visited.has(item)) return;
+    visited.add(item);
+    Object.freeze(item);
+    for (const child of Object.values(item)) freeze(child);
+  };
+  freeze(value);
   return value;
 }

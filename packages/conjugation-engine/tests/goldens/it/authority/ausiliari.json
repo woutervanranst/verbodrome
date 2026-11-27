@@ -1,0 +1,166 @@
+{
+ "source": {
+  "work": "treccani-lgi / treccani-edi",
+  "entry": "Avere o essere?; Concordanza; Ausiliari, verbi",
+  "url": "https://www.treccani.it/enciclopedia/avere-o-essere_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "amare",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho amato"
+   ],
+   "printed": "ho amato"
+  },
+  {
+   "lemma": "lavarsi",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mi sono lavato"
+   ],
+   "printed": "mi sono lavato"
+  },
+  {
+   "lemma": "vestirsi",
+   "query": {
+    "mood": "indicative",
+    "tense": "pluperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mi ero vestito"
+   ],
+   "printed": "mi ero vestito"
+  },
+  {
+   "lemma": "nascere",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono nato"
+   ],
+   "printed": "sono nato"
+  },
+  {
+   "lemma": "crescere",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono cresciuto"
+   ],
+   "printed": "sono cresciuto"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono andato"
+   ],
+   "printed": "sono andato"
+  },
+  {
+   "lemma": "partire",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono partito"
+   ],
+   "printed": "sono partito"
+  },
+  {
+   "lemma": "camminare",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho camminato"
+   ],
+   "printed": "ho camminato"
+  },
+  {
+   "lemma": "viaggiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho viaggiato"
+   ],
+   "printed": "ho viaggiato"
+  },
+  {
+   "lemma": "dormire",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho dormito"
+   ],
+   "printed": "ho dormito"
+  },
+  {
+   "lemma": "arrivare",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "3sg.f"
+   },
+   "forms": [
+    "è arrivata"
+   ],
+   "printed": "è arrivata"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho corso"
+   ],
+   "printed": "ho corso"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "indicative",
+    "tense": "perfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono corso"
+   ],
+   "printed": "sono corso"
+  }
+ ]
+}

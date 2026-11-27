@@ -1,0 +1,178 @@
+{
+ "work": "ag-print",
+ "section": "§§191.a, 192",
+ "pages": "106",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG118.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "notation": "The print writes fīdĕre with a breve; the engine writes long vowels only. §191.a (\"the following deponents have no supine stem\") gives the unavailable supine cells.",
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG118",
+ "cells": [
+  {
+   "verb": "audēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audeō"
+   ]
+  },
+  {
+   "verb": "audēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "audēre"
+   ]
+  },
+  {
+   "verb": "audēre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "ausus"
+   ]
+  },
+  {
+   "verb": "gaudēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "gaudeō"
+   ]
+  },
+  {
+   "verb": "gaudēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "gaudēre"
+   ]
+  },
+  {
+   "verb": "gaudēre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "gāvīsus"
+   ]
+  },
+  {
+   "verb": "fīdere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fīdō"
+   ]
+  },
+  {
+   "verb": "fīdere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "fīdere"
+   ]
+  },
+  {
+   "verb": "fīdere",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "fīsus"
+   ]
+  },
+  {
+   "verb": "solēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "soleō"
+   ]
+  },
+  {
+   "verb": "solēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "solēre"
+   ]
+  },
+  {
+   "verb": "solēre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "solitus"
+   ]
+  },
+  {
+   "verb": "dēvertī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "diffitērī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "fatīscī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "līquī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "medērī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "reminīscī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "vescī",
+   "mood": "supine",
+   "unavailable": true,
+   "forms": []
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "audēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "ausim",
+   "reason": "An old perfect subjunctive of audeō (§192.a); the classical ausus sim is generated."
+  }
+ ],
+ "disputed": []
+}

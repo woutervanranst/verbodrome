@@ -1,0 +1,779 @@
+{
+ "work": "ag-print",
+ "section": "§170",
+ "pages": "82–83",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG094.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG095.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "esse"
+ },
+ "notation": "The print marks a short vowel with a breve only to tell es from ēs; the engine writes long vowels only, so a breve is kept in `printed` and dropped in `forms`.",
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG094–AG095",
+ "cells": [
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sum"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "ĕs",
+   "forms": [
+    "es"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "est"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "sumus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "estis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "sunt"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "eram"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "erās"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "erat"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "erāmus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "erātis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "erant"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "erō"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "eris"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "erit"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "erimus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "eritis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "erunt"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fuī"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fuistī"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fuit"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "fuimus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fuistis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fuērunt",
+    "fuēre"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fueram"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fuerās"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fuerat"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "fuerāmus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fuerātis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fuerant"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fuerō"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fueris"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fuerit"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "fuerimus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fueritis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fuerint"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sim"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "sīs"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "sit"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "sīmus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "sītis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "sint"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "essem",
+    "forem"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "essēs",
+    "forēs"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "esset",
+    "foret"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "essēmus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "essētis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "essent",
+    "forent"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fuerim"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fuerit"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fuerint"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fuissem"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fuissēs"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fuisset"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "fuissēmus"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fuissētis"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fuissent"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "ĕs",
+   "forms": [
+    "es"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "este"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "estō"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "estō"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "estōte"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "suntō"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "esse"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "fuisse"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "futūrus esse",
+    "fore"
+   ]
+  },
+  {
+   "verb": "esse",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "futūrus"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "fuam",
+   "reason": "An old form of the present subjunctive (§170 Note: fuam, fuās, fuat, fuant; siem, siēs, siet, sient); the classical forms are generated."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "fuās",
+   "reason": "An old form of the present subjunctive (§170 Note: fuam, fuās, fuat, fuant; siem, siēs, siet, sient); the classical forms are generated."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "printed": "fuat",
+   "reason": "An old form of the present subjunctive (§170 Note: fuam, fuās, fuat, fuant; siem, siēs, siet, sient); the classical forms are generated."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "printed": "fuant",
+   "reason": "An old form of the present subjunctive (§170 Note: fuam, fuās, fuat, fuant; siem, siēs, siet, sient); the classical forms are generated."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "siem",
+   "reason": "An old form of the present subjunctive (§170 Note: fuam, fuās, fuat, fuant; siem, siēs, siet, sient); the classical forms are generated."
+  },
+  {
+   "verb": "esse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "printed": "escit",
+   "reason": "An old future (strictly an inchoative present, §170 Note); out of scope as an early form."
+  }
+ ],
+ "disputed": [
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "fueris",
+   "other": "fuerīs",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "fuerimus",
+   "other": "fuerīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "esse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "fueritis",
+   "other": "fuerītis",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}

@@ -1,0 +1,724 @@
+{
+ "work": "ag-print",
+ "section": "§188",
+ "pages": "102–103",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG114.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG115.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "capere"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG114–AG115",
+ "cells": [
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "capiō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "capis"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "capit"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "capimus"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "capitis"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "capiunt"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "capiam"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "capiās"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "capiat"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "capiāmus"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "capiātis"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "capiant"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "capiēbam"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "caperem"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "capiam"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "capiēs"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "capiet"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cēpī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cēperim"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cēperam"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cēpissem"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cēperō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "capior"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "caperis",
+    "capere"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "capitur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "capimur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "capiminī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "capiuntur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "capiar"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "capiāris",
+    "capiāre"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "capiātur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "capiāmur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "capiāminī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "capiantur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "capiēbar"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "caperer"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "capiar"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "capiēris",
+    "capiēre"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "capiētur"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "captus sum"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "captus sim"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "captus eram"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "captus essem"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "captus erō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "cape"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "capite"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "capitō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "capitō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "capitōte"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "capere"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "capiminī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "capitor"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "capitor"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "capiuntor"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "capere"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "cēpisse"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "captūrus esse"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "capī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "captus esse"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "captum īrī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "capiēns"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "capientis"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "captūrus"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "captus"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "capiendus"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "gerund",
+   "forms": [
+    "capiendī"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "capiendō"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "capiendum"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "supine",
+   "forms": [
+    "captum"
+   ]
+  },
+  {
+   "verb": "capere",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "captū"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "capere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "printed": "capiunto",
+   "reason": "The print leaves the final o of the future imperative unmarked here; the ending is -ntō (A&G §163.b; p. 93 amantō), so capiuntō is generated."
+  }
+ ],
+ "disputed": []
+}

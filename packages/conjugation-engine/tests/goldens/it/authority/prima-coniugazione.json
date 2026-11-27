@@ -1,0 +1,202 @@
+{
+ "source": {
+  "work": "treccani-lgi",
+  "entry": "Prima coniugazione",
+  "url": "https://www.treccani.it/enciclopedia/prima-coniugazione_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "sporcare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sporchiamo"
+   ],
+   "printed": "sporc-hiamo"
+  },
+  {
+   "lemma": "vagare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "vagherà"
+   ],
+   "printed": "vag-herà"
+  },
+  {
+   "lemma": "rinunciare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "rinuncerò"
+   ],
+   "printed": "rinunc-erò"
+  },
+  {
+   "lemma": "danneggiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1pl"
+   },
+   "forms": [
+    "danneggeremo"
+   ],
+   "printed": "dannegg-eremo"
+  },
+  {
+   "lemma": "lasciare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "lascerò"
+   ],
+   "printed": "lasc-erò"
+  },
+  {
+   "lemma": "tagliare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "2sg"
+   },
+   "forms": [
+    "taglierai"
+   ],
+   "printed": "tagl-ierai"
+  },
+  {
+   "lemma": "fischiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "fischiamo"
+   ],
+   "printed": "fisch-iamo"
+  },
+  {
+   "lemma": "ringhiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "ringhi"
+   ],
+   "printed": "ringhi"
+  },
+  {
+   "lemma": "sognare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sogniamo"
+   ],
+   "printed": "sogn-iamo"
+  },
+  {
+   "lemma": "lagnare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "lagniate"
+   ],
+   "printed": "lagn-iate"
+  },
+  {
+   "lemma": "inviare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "invii"
+   ],
+   "printed": "inv-ìi"
+  },
+  {
+   "lemma": "sciare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "sciino"
+   ],
+   "printed": "sc-ìino"
+  },
+  {
+   "lemma": "studiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "studi"
+   ],
+   "printed": "stùdi"
+  },
+  {
+   "lemma": "ripudiare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "ripudino"
+   ],
+   "printed": "ripud-ino"
+  },
+  {
+   "lemma": "allineare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1pl"
+   },
+   "forms": [
+    "allineeremo"
+   ],
+   "printed": "alline-eremo"
+  },
+  {
+   "lemma": "creare",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "creerei"
+   ],
+   "printed": "cre-erei"
+  }
+ ]
+}

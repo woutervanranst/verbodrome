@@ -71,3 +71,28 @@ describe('typed answers', () => {
       .toEqual({ text: 'je écris', correct: false, label: 'spelfout', nl: null, kind: 'spelfout' });
   });
 });
+
+describe('typed feminine answers', () => {
+  const gendered = { verbs: ['aller', 'venir', 'se méfier', 'manger'], tenses: ['indicative.perfect'] };
+  const perfect = (verb: string, slot: string): Question => questionFor(gendered, { verb, tense: 'indicative.perfect', slot })!;
+  const typed = (verb: string, slot: string, answer: string): boolean => classify(perfect(verb, slot), answer, gendered.tenses).correct;
+
+  it('accepts a feminine participle where the Dutch prompt leaves the gender open', () => {
+    expect(typed('aller', '1s', 'je suis allée')).toBe(true);
+    expect(typed('aller', '1p', 'nous sommes allées')).toBe(true);
+    expect(typed('se méfier', '1s', 'je me suis méfiée')).toBe(true);
+    expect(typed('aller', '3p', 'elles sont allées')).toBe(true);
+    expect(typed('venir', '1s', 'je suis venue')).toBe(true);
+  });
+
+  it('keeps the masculine answer right, and shows it as the correct one', () => {
+    expect(typed('aller', '1s', 'je suis allé')).toBe(true);
+    expect(classify(perfect('aller', '1s'), 'je suis allée', gendered.tenses).text).toBe('je suis allé');
+  });
+
+  it('rejects a feminine form where the prompt says "hij", and agreement with avoir', () => {
+    expect(typed('aller', '3s', 'il est allée')).toBe(false);
+    expect(typed('aller', '3s', 'elle est allée')).toBe(false);
+    expect(typed('manger', '1s', "j'ai mangée")).toBe(false);
+  });
+});

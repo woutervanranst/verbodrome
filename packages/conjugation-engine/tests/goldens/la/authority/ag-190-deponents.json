@@ -1,0 +1,1044 @@
+{
+ "work": "ag-print",
+ "section": "§190",
+ "pages": "103–104",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG115.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG116.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG115–AG116",
+ "cells": [
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mīror"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "mīrāris",
+    "mīrāre"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "mīrātur"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "mīrāmur"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "mīrāminī"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "mīrantur"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mīrābar"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mīrābor"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "mīrātus sum"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "mīrātus eram"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "mīrātus erō"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mīrer"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mīrārer"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "mīrātus sim"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "mīrātus essem"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "mīrāre"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "mīrātor"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "mīrārī"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "mīrātus esse"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "mīrātūrus esse"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "mīrāns"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "mīrātūrus"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "mīrātus"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "mīrandus"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "gerund",
+   "forms": [
+    "mīrandī"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "mīrandō"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "supine",
+   "forms": [
+    "mīrātum"
+   ]
+  },
+  {
+   "verb": "mīrārī",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "mīrātū"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "vereor"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "verēris",
+    "verēre"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "verētur"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "verēmur"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "verēminī"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "verentur"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "verēbar"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "verēbor"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "veritus sum"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "veritus eram"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "veritus erō"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "verear"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "verērer"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "veritus sim"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "veritus essem"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "verēre"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "verētor"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "verērī"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "veritus esse"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "veritūrus esse"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "verēns"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "veritūrus"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "veritus"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "verendus"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "gerund",
+   "forms": [
+    "verendī"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "supine",
+   "forms": [
+    "veritum"
+   ]
+  },
+  {
+   "verb": "verērī",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "veritū"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sequor"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "sequeris",
+    "sequere"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "sequitur"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "sequimur"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "sequiminī"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "sequuntur"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sequēbar"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sequar"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "secūtus sum"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "secūtus eram"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "secūtus erō"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sequar"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sequerer"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "secūtus sim"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "secūtus essem"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "sequere"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "sequitor"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "sequī"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "secūtus esse"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "secūtūrus esse"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "sequēns"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "secūtūrus"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "secūtus"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "sequendus"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "gerund",
+   "forms": [
+    "sequendī"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "supine",
+   "forms": [
+    "secūtum"
+   ]
+  },
+  {
+   "verb": "sequī",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "secūtū"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "partior"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "partīris",
+    "partīre"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "partītur"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "partīmur"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "partīminī"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "partiuntur"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "partiēbar"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "partiar"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "partītus sum"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "partītus eram"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "partītus erō"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "partiar"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "partīrer"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "partītus sim"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "partītus essem"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "partīre"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "partītor"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "partīrī"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "partītus esse"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "partītūrus esse"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "partiēns"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "partītūrus"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "partītus"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "partiendus"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "gerund",
+   "forms": [
+    "partiendī"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "supine",
+   "forms": [
+    "partītum"
+   ]
+  },
+  {
+   "verb": "partīrī",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "partītū"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": []
+}

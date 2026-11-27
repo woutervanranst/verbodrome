@@ -1,120 +1,76 @@
-export type Language = 'fr' | 'nl';
-export type Person = 1 | 2 | 3;
-export type GrammaticalNumber = 'singular' | 'plural';
-export type Gender = 'masculine' | 'feminine';
+import type { DerivationStep } from './core/derivation.js';
+import type { Agreement, Case, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
+import type { LanguageSpec } from './core/spec.js';
+import type { Language, LanguageRegistry } from './languages/registry.js';
+
+export type { DerivationStep } from './core/derivation.js';
+export type { Agreement, AgreementQuery, Case, Gender, GrammaticalNumber, Person, Voice } from './core/grammar.js';
+
+export type { Language } from './languages/registry.js';
+export type {
+  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchSubject, FrenchTenses,
+} from './languages/fr/spec.js';
+export type {
+  DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchSubject, DutchTenses,
+} from './languages/nl/spec.js';
+export type { EnglishClassHint, EnglishSpec, EnglishStemHints, EnglishSubject, EnglishTenses } from './languages/en/spec.js';
+export type { GermanClassHint, GermanSpec, GermanStemHints, GermanSubject, GermanTenses } from './languages/de/spec.js';
+export type { SpanishClassHint, SpanishGender, SpanishSpec, SpanishStemHints, SpanishSubject, SpanishTenses } from './languages/es/spec.js';
+export type { ItalianClassHint, ItalianGender, ItalianSpec, ItalianStemHints, ItalianSubject, ItalianTenses } from './languages/it/spec.js';
+export type { LatinClassHint, LatinGender, LatinSpec, LatinStemHints, LatinSubject, LatinTenses } from './languages/la/spec.js';
+
 export type Orthography = 'rectified' | 'traditional' | 'both';
 
-export interface FrenchTenses {
-  indicative:
-    | 'present' | 'perfect' | 'imperfect' | 'pluperfect'
-    | 'simple_past' | 'past_anterior' | 'future' | 'future_perfect'
-    | 'near_future' | 'recent_past';
-  subjunctive: 'present' | 'past' | 'imperfect' | 'pluperfect';
-  conditional: 'present' | 'past';
-  imperative: 'present' | 'past';
-  infinitive: 'present' | 'past';
-  participle: 'present' | 'past' | 'perfect';
-  gerund: 'present' | 'past';
-}
+export type TensesFor<L extends Language> = LanguageRegistry[L]['tenses'];
+export type MoodFor<L extends Language> = L extends Language ? keyof TensesFor<L> & string : never;
+export type TenseFor<L extends Language, M extends MoodFor<L> = MoodFor<L>> =
+  L extends Language ? M extends keyof TensesFor<L> ? TensesFor<L>[M] : never : never;
+export type Mood = MoodFor<Language>;
+export type Tense = TenseFor<Language>;
 
-export interface DutchTenses {
-  indicative: 'present' | 'past' | 'future' | 'perfect' | 'pluperfect' | 'future_perfect';
-  conditional: 'present' | 'past';
-  imperative: 'present';
-  infinitive: 'present';
-  participle: 'present' | 'past';
-}
-
-export type Mood = keyof FrenchTenses;
-export type Tense = FrenchTenses[keyof FrenchTenses] | DutchTenses[keyof DutchTenses];
-export type TensesFor<L extends Language> = L extends 'fr' ? FrenchTenses : DutchTenses;
-export type MoodFor<L extends Language> = keyof TensesFor<L>;
-export type TenseFor<L extends Language> = TensesFor<L>[keyof TensesFor<L>];
-
-type FiniteConstraints = {
+/** What only a finite query has: a person and number, and a subject slot (`never` for a language without slots). */
+type FiniteConstraints<S extends LanguageSpec> = {
   readonly person?: Person;
   readonly number?: GrammaticalNumber;
+  readonly subject?: S['subject'];
 };
 
 type NonFiniteConstraints = {
   readonly person?: never;
   readonly number?: never;
+  readonly subject?: never;
 };
 
-type TargetQuery<T> =
-  | ({ readonly mood?: undefined; readonly tense?: T[keyof T] } & FiniteConstraints)
+type TargetQuery<S extends LanguageSpec> =
+  | ({ readonly mood?: undefined; readonly tense?: S['tenses'][keyof S['tenses']] } & FiniteConstraints<S>)
   | {
-    [M in keyof T]: {
+    [M in keyof S['tenses']]: {
       readonly mood: M;
-      readonly tense?: T[M];
-    } & (M extends 'infinitive' | 'participle' | 'gerund'
-      ? NonFiniteConstraints
-      : FiniteConstraints);
-  }[keyof T];
+      readonly tense?: S['tenses'][M];
+    } & (M extends S['nonFinite'] ? NonFiniteConstraints : FiniteConstraints<S>);
+  }[keyof S['tenses']];
 
-export interface Agreement {
-  readonly gender: Gender;
-  readonly number: GrammaticalNumber;
-}
-
-export interface AgreementQuery {
-  readonly gender?: Gender;
-  readonly number?: GrammaticalNumber;
-}
-
-export type FrenchClassHint = 'er' | 'ir' | 're';
-export type DutchClassHint = 'weak' | 'strong' | 'loan';
-
-export interface FrenchStemHints {
-  readonly singular?: string;
-  readonly plural?: string;
-  readonly thirdPlural?: string;
-  readonly future?: string;
-  readonly past?: string;
-  readonly pastVowel?: 'a' | 'i' | 'u' | 'in';
-  readonly pastParticiple?: string;
-}
-
-export type FrenchConjugationOptions = {
-  readonly language: 'fr';
+/** The options of a language called `L` whose registry entry is `S`. */
+export type ConjugationOptionsOf<L extends string, S extends LanguageSpec> = {
+  readonly language: L;
   readonly infinitive: string;
-  readonly gender?: Gender;
-  readonly agreement?: AgreementQuery;
-  readonly precedingDirectObject?: Agreement;
-  readonly reflexiveObject?: 'direct' | 'indirect';
-  readonly auxiliary?: 'avoir' | 'être';
-  readonly classHint?: FrenchClassHint;
-  readonly model?: string;
-  readonly stems?: FrenchStemHints;
-  readonly aspiratedH?: boolean;
-  readonly preferredOrthography?: 'rectified' | 'traditional';
-} & TargetQuery<FrenchTenses>;
+  readonly auxiliary?: S['auxiliary'];
+  readonly classHint?: S['classHint'];
+  readonly stems?: S['stems'];
+} & S['context'] & TargetQuery<S>;
 
-export type DutchPronoun = 'ik' | 'jij' | 'je' | 'u' | 'hij' | 'zij' | 'ze' | 'het' | 'wij' | 'we' | 'jullie';
+/** The options of language `L`; over a union of languages, the union of each language's options. */
+export type ConjugationOptionsFor<L extends Language> = L extends Language ? ConjugationOptionsOf<L, LanguageRegistry[L]> : never;
 
-export interface DutchStemHints {
-  readonly stem?: string;
-  readonly pastSingular?: string;
-  readonly pastPlural?: string;
-  readonly pastParticiple?: string;
-  readonly pastSuffix?: 'd' | 't' | 'both';
-  readonly unstressedFinalSyllable?: boolean;
-}
+export type FrenchConjugationOptions = ConjugationOptionsFor<'fr'>;
+export type DutchConjugationOptions = ConjugationOptionsFor<'nl'>;
+export type EnglishConjugationOptions = ConjugationOptionsFor<'en'>;
+export type GermanConjugationOptions = ConjugationOptionsFor<'de'>;
+export type SpanishConjugationOptions = ConjugationOptionsFor<'es'>;
+export type ItalianConjugationOptions = ConjugationOptionsFor<'it'>;
+export type LatinConjugationOptions = ConjugationOptionsFor<'la'>;
 
-export type DutchConjugationOptions = {
-  readonly language: 'nl';
-  readonly infinitive: string;
-  readonly pronoun?: DutchPronoun;
-  readonly inversion?: boolean;
-  readonly reflexive?: boolean;
-  readonly auxiliary?: 'hebben' | 'zijn';
-  readonly classHint?: DutchClassHint;
-  readonly stems?: DutchStemHints;
-  readonly separablePrefix?: string;
-  readonly inseparablePrefix?: string;
-} & TargetQuery<DutchTenses>;
-
-export type ConjugationOptions = FrenchConjugationOptions | DutchConjugationOptions;
+export type ConjugationOptions = { [L in Language]: ConjugationOptionsFor<L> }[Language];
 
 export interface ResolvedTarget {
   readonly mood: Mood;
@@ -123,10 +79,15 @@ export interface ResolvedTarget {
   readonly number: GrammaticalNumber | null;
   readonly gender: Gender | null;
   readonly agreement: Agreement | null;
+  /** Present only for catalogue entries that have voices; `null` and absent both mean no voice dimension. */
+  readonly voice?: Voice | null;
+  /** The id of the pack's subject slot; present only on finite targets of a pack that declares subjects. */
+  readonly subject?: string;
 }
 
 export type PartRole = 'moodMarker' | 'subject' | 'reflexivePronoun' | 'auxiliary' | 'lexicalVerb' | 'particle' | 'linker';
-export type VerbForm = 'finite' | 'infinitive' | 'presentParticiple' | 'pastParticiple';
+export type VerbForm =
+  | 'finite' | 'infinitive' | 'presentParticiple' | 'pastParticiple' | 'gerund' | 'gerundive' | 'supine' | 'futureParticiple';
 export type Onset = 'vowel' | 'consonant' | 'muteH' | 'aspiratedH';
 
 export interface PartFeatures {
@@ -136,6 +97,14 @@ export interface PartFeatures {
   readonly number: GrammaticalNumber | null;
   readonly gender: Gender | null;
   readonly verbForm: VerbForm | null;
+  /**
+   * The voice of the construction the word belongs to: the cell's voice for a simple target, the periphrasis's for every
+   * verb word of a voiced compound tense. Absent for an active word, since active is the unmarked voice (never 'active').
+   */
+  readonly voice?: Voice | null;
+  /** The case of a declined word (a Latin participle), from its agreement. */
+  readonly case?: Case | null;
+  readonly aspect?: 'progressive' | null;
 }
 
 export interface ConjugationPart {
@@ -145,6 +114,7 @@ export interface ConjugationPart {
   readonly features: PartFeatures;
   readonly phonology: { readonly onset: Onset };
   readonly joinBefore: 'space' | 'hyphen' | 'attached';
+  readonly steps?: readonly DerivationStep[];
 }
 
 export interface FormVariant {
@@ -153,13 +123,16 @@ export interface FormVariant {
   readonly pattern: string | null;
   readonly usage: 'standard' | 'literary' | 'dated';
   readonly condition: string | null;
+  readonly region?: string | null;
 }
 
 export interface GeneratedForm {
   readonly target: ResolvedTarget;
   readonly parts: readonly ConjugationPart[];
   readonly variant: FormVariant;
+  /** @deprecated Use steps. */
   readonly ruleIds: readonly string[];
+  readonly steps: readonly DerivationStep[];
 }
 
 export interface ConjugatedForm extends GeneratedForm {
@@ -170,11 +143,13 @@ export interface ConjugatedForm extends GeneratedForm {
 
 export interface UnavailableTarget {
   readonly target: ResolvedTarget;
-  readonly reason: 'impersonal' | 'defective' | 'noImperative';
+  readonly reason: 'impersonal' | 'defective' | 'noImperative' | 'noPassive';
   readonly explanation: string;
   readonly source: string;
+  readonly step: DerivationStep;
 }
 
+/** The analysis of a verb; for a lemma with several paradigms, the first paradigm's, with the others in `alternatives`. */
 export interface VerbAnalysis {
   readonly lemma: string;
   readonly classification: string;
@@ -182,6 +157,18 @@ export interface VerbAnalysis {
   readonly reflexive: boolean;
   readonly auxiliaries: readonly string[];
   readonly assumptions: readonly string[];
+  readonly steps: readonly DerivationStep[];
+  /**
+   * For a lemma with several paradigms: this paradigm's `pattern` and `condition` tags, the labels its forms carry as
+   * `variant.pattern` and `variant.condition`. Absent for a lemma with one paradigm, and when the paradigm has no such tag.
+   */
+  readonly pattern?: string;
+  readonly condition?: string;
+  /**
+   * The analyses of the lemma's other paradigms, in order, each without `alternatives` of its own. Absent when the
+   * lemma has one paradigm.
+   */
+  readonly alternatives?: readonly VerbAnalysis[];
 }
 
 export interface ConjugationResult {

@@ -1,0 +1,4358 @@
+{
+ "source": {
+  "work": "treccani-voc",
+  "entry": "Vocabolario, the verb headers",
+  "url": "https://www.treccani.it/vocabolario/",
+  "retrieved": "2026-11-25"
+ },
+ "cells": [
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sono"
+   ],
+   "printed": "sóno",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sei"
+   ],
+   "printed": "sèi",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "è"
+   ],
+   "printed": "è",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "siamo"
+   ],
+   "printed": "siamo",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "siete"
+   ],
+   "printed": "siète",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "sono"
+   ],
+   "printed": "sóno",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ero"
+   ],
+   "printed": "èro",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "2sg"
+   },
+   "forms": [
+    "eri"
+   ],
+   "printed": "èri",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "era"
+   ],
+   "printed": "èra",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "1pl"
+   },
+   "forms": [
+    "eravamo"
+   ],
+   "printed": "eravamo",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "2pl"
+   },
+   "forms": [
+    "eravate"
+   ],
+   "printed": "eravate",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "3pl"
+   },
+   "forms": [
+    "erano"
+   ],
+   "printed": "èrano",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "fui"
+   ],
+   "printed": "fui",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "fosti"
+   ],
+   "printed": "fósti",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "fu"
+   ],
+   "printed": "fu",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "fummo"
+   ],
+   "printed": "fummo",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "foste"
+   ],
+   "printed": "fóste",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "furono"
+   ],
+   "printed": "fùrono",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sarò"
+   ],
+   "printed": "sarò",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sarai"
+   ],
+   "printed": "sarài",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "sarà"
+   ],
+   "printed": "sarà",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1pl"
+   },
+   "forms": [
+    "saremo"
+   ],
+   "printed": "sarémo",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sarete"
+   ],
+   "printed": "saréte",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "3pl"
+   },
+   "forms": [
+    "saranno"
+   ],
+   "printed": "saranno",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "siamo"
+   ],
+   "printed": "siamo",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sii"
+   ],
+   "printed": "sii",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "siate"
+   ],
+   "printed": "siate",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "stato"
+   ],
+   "printed": "stato",
+   "page": "https://www.treccani.it/vocabolario/essere1/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ho"
+   ],
+   "printed": "ho",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "hai"
+   ],
+   "printed": "hai",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "ha"
+   ],
+   "printed": "ha",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "abbiamo"
+   ],
+   "printed": "abbiamo",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "avete"
+   ],
+   "printed": "avéte",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "hanno"
+   ],
+   "printed": "hanno",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ebbi"
+   ],
+   "printed": "èbbi",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "avesti"
+   ],
+   "printed": "avésti",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "ebbe"
+   ],
+   "printed": "èbbe",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "avemmo"
+   ],
+   "printed": "avémmo",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "aveste"
+   ],
+   "printed": "avéste",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "ebbero"
+   ],
+   "printed": "èbbero",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "avrò"
+   ],
+   "printed": "avrò",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "avrei"
+   ],
+   "printed": "avrèi",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "abbia"
+   ],
+   "printed": "àbbia",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "abbi"
+   ],
+   "printed": "abbi",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "abbiate"
+   ],
+   "printed": "abbiate",
+   "page": "https://www.treccani.it/vocabolario/avere2/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vado"
+   ],
+   "printed": "vado",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vai"
+   ],
+   "printed": "vai",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "va"
+   ],
+   "printed": "va",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "andiamo"
+   ],
+   "printed": "andiamo",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "andate"
+   ],
+   "printed": "andate",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "vanno"
+   ],
+   "printed": "vanno",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vada"
+   ],
+   "printed": "vada",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vada"
+   ],
+   "printed": "vada",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "vada"
+   ],
+   "printed": "vada",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "andiamo"
+   ],
+   "printed": "andiamo",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "andiate"
+   ],
+   "printed": "andiate",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "vadano"
+   ],
+   "printed": "vàdano",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "andrò"
+   ],
+   "printed": "andrò",
+   "page": "https://www.treccani.it/vocabolario/andare1/",
+   "excluded": [
+    {
+     "form": "anderò",
+     "reason": "Vocabolario: \"meno com.\"; not generated (grammar design §8.3)."
+    }
+   ]
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "andrei"
+   ],
+   "printed": "andrèi",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vai",
+    "va'"
+   ],
+   "printed": "vai; va’",
+   "page": "https://www.treccani.it/vocabolario/andare1/",
+   "excluded": [
+    {
+     "form": "va",
+     "reason": "La grammatica italiana, Imperativo: vai, va'; bare va is archaic."
+    }
+   ]
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "andate"
+   ],
+   "printed": "andate",
+   "page": "https://www.treccani.it/vocabolario/andare1/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vengo"
+   ],
+   "printed": "vèngo",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vieni"
+   ],
+   "printed": "vièni",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "viene"
+   ],
+   "printed": "viène",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "veniamo"
+   ],
+   "printed": "veniamo",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "venite"
+   ],
+   "printed": "venite",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "vengono"
+   ],
+   "printed": "vèngono",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "venga"
+   ],
+   "printed": "vènga",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vieni"
+   ],
+   "printed": "vièni",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "venite"
+   ],
+   "printed": "venite",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "verrò"
+   ],
+   "printed": "verrò",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "venni"
+   ],
+   "printed": "vénni",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "participle",
+    "tense": "present"
+   },
+   "forms": [
+    "veniente"
+   ],
+   "printed": "veniènte",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "venuto"
+   ],
+   "printed": "venuto",
+   "page": "https://www.treccani.it/vocabolario/venire/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "do"
+   ],
+   "printed": "do",
+   "page": "https://www.treccani.it/vocabolario/dare2/",
+   "excluded": [
+    {
+     "form": "dò",
+     "reason": "The Vocabolario prints dò beside do; standard spelling writes no accent on do (Accento grafico §1)."
+    }
+   ]
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "dai"
+   ],
+   "printed": "dai",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "dà"
+   ],
+   "printed": "dà",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "diamo"
+   ],
+   "printed": "diamo",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "date"
+   ],
+   "printed": "date",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "danno"
+   ],
+   "printed": "danno",
+   "page": "https://www.treccani.it/vocabolario/dare2/",
+   "excluded": [
+    {
+     "form": "dànno",
+     "reason": "A pronunciation accent on a word not stressed on its last vowel (Accento grafico §1)."
+    }
+   ]
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "diedi",
+    "detti"
+   ],
+   "printed": "dièdi; dètti",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "desti"
+   ],
+   "printed": "désti",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "diede",
+    "dette"
+   ],
+   "printed": "diède; dètte",
+   "page": "https://www.treccani.it/vocabolario/dare2/",
+   "excluded": [
+    {
+     "form": "dètte",
+     "reason": "A pronunciation mark on dette (Accento grafico §1)."
+    }
+   ]
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "demmo"
+   ],
+   "printed": "démmo",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "deste"
+   ],
+   "printed": "déste",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "diedero",
+    "dettero"
+   ],
+   "printed": "dièdero; dèttero",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "davo"
+   ],
+   "printed": "davo",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "darò"
+   ],
+   "printed": "darò",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "diamo"
+   ],
+   "printed": "diamo",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dessi"
+   ],
+   "printed": "déssi",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "2sg"
+   },
+   "forms": [
+    "dessi"
+   ],
+   "printed": "déssi",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "desse"
+   ],
+   "printed": "désse",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "1pl"
+   },
+   "forms": [
+    "dessimo"
+   ],
+   "printed": "déssimo",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "2pl"
+   },
+   "forms": [
+    "deste"
+   ],
+   "printed": "déste",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "3pl"
+   },
+   "forms": [
+    "dessero"
+   ],
+   "printed": "déssero",
+   "page": "https://www.treccani.it/vocabolario/dare2/"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "dai",
+    "da'"
+   ],
+   "printed": "dai; da’",
+   "page": "https://www.treccani.it/vocabolario/dare2/",
+   "excluded": [
+    {
+     "form": "dà",
+     "reason": "La grammatica italiana, Imperativo: dai, da'; the accented form is not the imperative's spelling."
+    }
+   ]
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sto"
+   ],
+   "printed": "sto",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "stai"
+   ],
+   "printed": "stai",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "sta"
+   ],
+   "printed": "sta",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "stiamo"
+   ],
+   "printed": "stiamo",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "state"
+   ],
+   "printed": "state",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "stanno"
+   ],
+   "printed": "stanno",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "stiamo"
+   ],
+   "printed": "stiamo",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "stai",
+    "sta'"
+   ],
+   "printed": "stai; sta’",
+   "page": "https://www.treccani.it/vocabolario/stare/",
+   "excluded": [
+    {
+     "form": "sta",
+     "reason": "La grammatica italiana, Imperativo: stai, sta'; bare sta is archaic."
+    }
+   ]
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "state"
+   ],
+   "printed": "state",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "stetti"
+   ],
+   "printed": "stètti",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "stesti"
+   ],
+   "printed": "stésti",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "stette"
+   ],
+   "printed": "stètte",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "stemmo"
+   ],
+   "printed": "stémmo",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "steste"
+   ],
+   "printed": "stéste",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "stettero"
+   ],
+   "printed": "stèttero",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "stato"
+   ],
+   "printed": "stato",
+   "page": "https://www.treccani.it/vocabolario/stare/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "fo",
+    "faccio"
+   ],
+   "printed": "fo; fàccio",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "fai"
+   ],
+   "printed": "fai",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "fa"
+   ],
+   "printed": "fa",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "facciamo"
+   ],
+   "printed": "facciamo",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "fate"
+   ],
+   "printed": "fate",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "fanno"
+   ],
+   "printed": "fanno",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "feci"
+   ],
+   "printed": "féci",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "facesti"
+   ],
+   "printed": "facésti",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "fece"
+   ],
+   "printed": "féce",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "facemmo"
+   ],
+   "printed": "facémmo",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "faceste"
+   ],
+   "printed": "facéste",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "fecero"
+   ],
+   "printed": "fécero",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "farò"
+   ],
+   "printed": "farò",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "fai",
+    "fa'"
+   ],
+   "printed": "fai; fa’",
+   "page": "https://www.treccani.it/vocabolario/fare2/",
+   "excluded": [
+    {
+     "form": "fa",
+     "reason": "La grammatica italiana, Imperativo: fai, fa'; bare fa is archaic."
+    }
+   ]
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "faccia"
+   ],
+   "printed": "fàccia",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "farei"
+   ],
+   "printed": "farèi",
+   "page": "https://www.treccani.it/vocabolario/fare2/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dico"
+   ],
+   "printed": "dico",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "dici"
+   ],
+   "printed": "dici",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "dice"
+   ],
+   "printed": "dice",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "diciamo"
+   ],
+   "printed": "diciamo",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "dite"
+   ],
+   "printed": "dite",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "dicono"
+   ],
+   "printed": "dìcono",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dissi"
+   ],
+   "printed": "dissi",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dirò"
+   ],
+   "printed": "dirò",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "di'"
+   ],
+   "printed": "di’",
+   "page": "https://www.treccani.it/vocabolario/dire/",
+   "excluded": [
+    {
+     "form": "dì",
+     "reason": "Accento grafico: the imperative is written di'."
+    }
+   ]
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "dite"
+   ],
+   "printed": "dite",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "participle",
+    "tense": "present"
+   },
+   "forms": [
+    "dicente"
+   ],
+   "printed": "dicènte",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "detto"
+   ],
+   "printed": "détto",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "dire",
+   "query": {
+    "mood": "gerund",
+    "tense": "present"
+   },
+   "forms": [
+    "dicendo"
+   ],
+   "printed": "dicèndo",
+   "page": "https://www.treccani.it/vocabolario/dire/"
+  },
+  {
+   "lemma": "bere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "bevo"
+   ],
+   "printed": "bévo",
+   "page": "https://www.treccani.it/vocabolario/bere/"
+  },
+  {
+   "lemma": "bere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "bevvi",
+    "bevetti"
+   ],
+   "printed": "bévvi; bevétti",
+   "page": "https://www.treccani.it/vocabolario/bere/"
+  },
+  {
+   "lemma": "bere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "berrò"
+   ],
+   "printed": "berrò",
+   "page": "https://www.treccani.it/vocabolario/bere/"
+  },
+  {
+   "lemma": "bere",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "berrei"
+   ],
+   "printed": "berrèi",
+   "page": "https://www.treccani.it/vocabolario/bere/"
+  },
+  {
+   "lemma": "tradurre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "traduco"
+   ],
+   "printed": "traduco",
+   "page": "https://www.treccani.it/vocabolario/tradurre/"
+  },
+  {
+   "lemma": "tradurre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "traduci"
+   ],
+   "printed": "traduci",
+   "page": "https://www.treccani.it/vocabolario/tradurre/"
+  },
+  {
+   "lemma": "tradurre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tradussi"
+   ],
+   "printed": "tradussi",
+   "page": "https://www.treccani.it/vocabolario/tradurre/"
+  },
+  {
+   "lemma": "tradurre",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "tradotto"
+   ],
+   "printed": "tradótto",
+   "page": "https://www.treccani.it/vocabolario/tradurre/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "devo",
+    "debbo"
+   ],
+   "printed": "dèvo; dèbbo",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "devi"
+   ],
+   "printed": "dèvi",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "deve"
+   ],
+   "printed": "dève",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "dobbiamo"
+   ],
+   "printed": "dobbiamo",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "dovete"
+   ],
+   "printed": "dovéte",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "devono",
+    "debbono"
+   ],
+   "printed": "dèvono; dèbbono",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "deva",
+    "debba"
+   ],
+   "printed": "dèva; dèbba",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "dobbiamo"
+   ],
+   "printed": "dobbiamo",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "dobbiate"
+   ],
+   "printed": "dobbiate",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "dovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dovrò"
+   ],
+   "printed": "dovrò",
+   "page": "https://www.treccani.it/vocabolario/dovere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "posso"
+   ],
+   "printed": "pòsso",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "puoi"
+   ],
+   "printed": "puòi",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "può"
+   ],
+   "printed": "può",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "possiamo"
+   ],
+   "printed": "possiamo",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "potete"
+   ],
+   "printed": "potete",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "possono"
+   ],
+   "printed": "pòssono",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "potei"
+   ],
+   "printed": "potéi",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "potrò"
+   ],
+   "printed": "potrò",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "possiamo"
+   ],
+   "printed": "possiamo",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "potuto"
+   ],
+   "printed": "potuto",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "potere",
+   "query": {
+    "mood": "gerund",
+    "tense": "present"
+   },
+   "forms": [
+    "potendo"
+   ],
+   "printed": "potèndo",
+   "page": "https://www.treccani.it/vocabolario/potere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "voglio"
+   ],
+   "printed": "vòglio",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vuoi"
+   ],
+   "printed": "vuòi",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "vuole"
+   ],
+   "printed": "vuòle",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "vogliamo"
+   ],
+   "printed": "vogliamo",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "volete"
+   ],
+   "printed": "voléte",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "vogliono"
+   ],
+   "printed": "vògliono",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vorrò"
+   ],
+   "printed": "vorrò",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "volli"
+   ],
+   "printed": "vòlli",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "volle"
+   ],
+   "printed": "vòlle",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "vollero"
+   ],
+   "printed": "vòllero",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vogli"
+   ],
+   "printed": "vògli",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "participle",
+    "tense": "present"
+   },
+   "forms": [
+    "volente"
+   ],
+   "printed": "volènte",
+   "page": "https://www.treccani.it/vocabolario/volere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "so"
+   ],
+   "printed": "so",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sai"
+   ],
+   "printed": "sai",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "sa"
+   ],
+   "printed": "sa",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sappiamo"
+   ],
+   "printed": "sappiamo",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sapete"
+   ],
+   "printed": "sapéte",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "sanno"
+   ],
+   "printed": "sanno",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sappia"
+   ],
+   "printed": "sàppia",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sappi"
+   ],
+   "printed": "sappi",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sappiate"
+   ],
+   "printed": "sappiate",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "saprò"
+   ],
+   "printed": "saprò",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "seppi"
+   ],
+   "printed": "sèppi",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sapesti"
+   ],
+   "printed": "sapésti",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "seppe"
+   ],
+   "printed": "sèppe",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sapemmo"
+   ],
+   "printed": "sapémmo",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sapeste"
+   ],
+   "printed": "sapéste",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "seppero"
+   ],
+   "printed": "sèppero",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "saputo"
+   ],
+   "printed": "saputo",
+   "page": "https://www.treccani.it/vocabolario/sapere2/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "salgo"
+   ],
+   "printed": "salgo",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sali"
+   ],
+   "printed": "sali",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "sale"
+   ],
+   "printed": "sale",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "saliamo"
+   ],
+   "printed": "saliamo",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "salite"
+   ],
+   "printed": "salite",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "salgono"
+   ],
+   "printed": "sàlgono",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "salga"
+   ],
+   "printed": "salga",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "salire",
+   "query": {
+    "mood": "participle",
+    "tense": "present"
+   },
+   "forms": [
+    "salente",
+    "saliente"
+   ],
+   "printed": "salènte; saliènte",
+   "page": "https://www.treccani.it/vocabolario/salire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "esco"
+   ],
+   "printed": "èsco",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "esci"
+   ],
+   "printed": "èsci",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "esce"
+   ],
+   "printed": "èsce",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "usciamo"
+   ],
+   "printed": "usciamo",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "uscite"
+   ],
+   "printed": "uscite",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "escono"
+   ],
+   "printed": "èscono",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "esca"
+   ],
+   "printed": "èsca",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "esci"
+   ],
+   "printed": "èsci",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "uscire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "uscite"
+   ],
+   "printed": "uscite",
+   "page": "https://www.treccani.it/vocabolario/uscire/"
+  },
+  {
+   "lemma": "cadere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "caddi"
+   ],
+   "printed": "caddi",
+   "page": "https://www.treccani.it/vocabolario/cadere/"
+  },
+  {
+   "lemma": "cadere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "cadrò"
+   ],
+   "printed": "cadrò",
+   "page": "https://www.treccani.it/vocabolario/cadere/"
+  },
+  {
+   "lemma": "accendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "accesi"
+   ],
+   "printed": "accési",
+   "page": "https://www.treccani.it/vocabolario/accendere/"
+  },
+  {
+   "lemma": "accendere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "acceso"
+   ],
+   "printed": "accéso",
+   "page": "https://www.treccani.it/vocabolario/accendere/"
+  },
+  {
+   "lemma": "aprire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "aprii",
+    "apersi"
+   ],
+   "printed": "aprìi; apèrsi",
+   "page": "https://www.treccani.it/vocabolario/aprire/"
+  },
+  {
+   "lemma": "aprire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "aperto"
+   ],
+   "printed": "apèrto",
+   "page": "https://www.treccani.it/vocabolario/aprire/"
+  },
+  {
+   "lemma": "mangiare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mangio"
+   ],
+   "printed": "màngio",
+   "page": "https://www.treccani.it/vocabolario/mangiare2/"
+  },
+  {
+   "lemma": "finire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "finisco"
+   ],
+   "printed": "finisco",
+   "page": "https://www.treccani.it/vocabolario/finire/"
+  },
+  {
+   "lemma": "finire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "finisci"
+   ],
+   "printed": "finisci",
+   "page": "https://www.treccani.it/vocabolario/finire/"
+  },
+  {
+   "lemma": "sedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "siedo"
+   ],
+   "printed": "sièdo",
+   "page": "https://www.treccani.it/vocabolario/sedere2/"
+  },
+  {
+   "lemma": "sedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sediamo"
+   ],
+   "printed": "sediamo",
+   "page": "https://www.treccani.it/vocabolario/sedere2/"
+  },
+  {
+   "lemma": "sedere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "siedi"
+   ],
+   "printed": "sièdi",
+   "page": "https://www.treccani.it/vocabolario/sedere2/"
+  },
+  {
+   "lemma": "sedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sedei",
+    "sedetti"
+   ],
+   "printed": "sedéi; sedètti",
+   "page": "https://www.treccani.it/vocabolario/sedere2/"
+  },
+  {
+   "lemma": "sedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "siederò"
+   ],
+   "printed": "siederò",
+   "page": "https://www.treccani.it/vocabolario/sedere2/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "cuocio"
+   ],
+   "printed": "cuòcio",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "cuoci"
+   ],
+   "printed": "cuòci",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "cuoce"
+   ],
+   "printed": "cuòce",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "cuociamo",
+    "cociamo"
+   ],
+   "printed": "cuociamo; cociamo",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "cuocete",
+    "cocete"
+   ],
+   "printed": "cuocéte; cocéte",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "cuociono"
+   ],
+   "printed": "cuòciono",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "cossi"
+   ],
+   "printed": "còssi",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "cotto"
+   ],
+   "printed": "còtto",
+   "page": "https://www.treccani.it/vocabolario/cuocere/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "pongo"
+   ],
+   "printed": "póngo",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "poni"
+   ],
+   "printed": "póni",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "pone"
+   ],
+   "printed": "póne",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "poniamo"
+   ],
+   "printed": "poniamo",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "ponete"
+   ],
+   "printed": "ponéte",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "pongono"
+   ],
+   "printed": "póngono",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "posi"
+   ],
+   "printed": "pósi",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "ponesti"
+   ],
+   "printed": "ponésti",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "pose"
+   ],
+   "printed": "póse",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "ponemmo"
+   ],
+   "printed": "ponémmo",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "poneste"
+   ],
+   "printed": "ponéste",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3pl"
+   },
+   "forms": [
+    "posero"
+   ],
+   "printed": "pósero",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "porrò"
+   ],
+   "printed": "porrò",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ponga"
+   ],
+   "printed": "pónga",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "porre",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "posto"
+   ],
+   "printed": "pósto",
+   "page": "https://www.treccani.it/vocabolario/porre/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "muoio"
+   ],
+   "printed": "muòio",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "muori"
+   ],
+   "printed": "muòri",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "muore"
+   ],
+   "printed": "muòre",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "moriamo"
+   ],
+   "printed": "moriamo",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "morite"
+   ],
+   "printed": "morite",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "muoiono"
+   ],
+   "printed": "muòiono",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "morirò",
+    "morrò"
+   ],
+   "printed": "morirò; morrò",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "morire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "morto"
+   ],
+   "printed": "mòrto",
+   "page": "https://www.treccani.it/vocabolario/morire/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "odo"
+   ],
+   "printed": "òdo",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "odi"
+   ],
+   "printed": "òdi",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "ode"
+   ],
+   "printed": "òde",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "udiamo"
+   ],
+   "printed": "udiamo",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "udite"
+   ],
+   "printed": "udite",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "odono"
+   ],
+   "printed": "òdono",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "udire",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "udirò",
+    "udrò"
+   ],
+   "printed": "udirò; udrò",
+   "page": "https://www.treccani.it/vocabolario/udire2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "piaccio"
+   ],
+   "printed": "piàccio",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "piaci"
+   ],
+   "printed": "piaci",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "piace"
+   ],
+   "printed": "piace",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "piacciamo"
+   ],
+   "printed": "piacciamo",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "piacete"
+   ],
+   "printed": "piacéte",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "piacciono"
+   ],
+   "printed": "piàcciono",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "piacqui"
+   ],
+   "printed": "piàcqui",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "piacere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "piaciuto"
+   ],
+   "printed": "piaciuto",
+   "page": "https://www.treccani.it/vocabolario/piacere2/"
+  },
+  {
+   "lemma": "rimanere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "rimango"
+   ],
+   "printed": "rimango",
+   "page": "https://www.treccani.it/vocabolario/rimanere/"
+  },
+  {
+   "lemma": "rimanere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "rimasi"
+   ],
+   "printed": "rimasi",
+   "page": "https://www.treccani.it/vocabolario/rimanere/"
+  },
+  {
+   "lemma": "rimanere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "rimarrò"
+   ],
+   "printed": "rimarrò",
+   "page": "https://www.treccani.it/vocabolario/rimanere/"
+  },
+  {
+   "lemma": "rimanere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "rimasto"
+   ],
+   "printed": "rimasto",
+   "page": "https://www.treccani.it/vocabolario/rimanere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "valgo"
+   ],
+   "printed": "valgo",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vali"
+   ],
+   "printed": "vali",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "vale"
+   ],
+   "printed": "vale",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "valiamo"
+   ],
+   "printed": "valiamo",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "valete"
+   ],
+   "printed": "valéte",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "valgono"
+   ],
+   "printed": "vàlgono",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "varrò"
+   ],
+   "printed": "varrò",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "valsi"
+   ],
+   "printed": "valsi",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "valere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "valso"
+   ],
+   "printed": "valso",
+   "page": "https://www.treccani.it/vocabolario/valere/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "paio"
+   ],
+   "printed": "pàio",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "pari"
+   ],
+   "printed": "pari",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "pare"
+   ],
+   "printed": "pare",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "paiamo"
+   ],
+   "printed": "paiamo",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "parete"
+   ],
+   "printed": "paréte",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "paiono"
+   ],
+   "printed": "pàiono",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "parvi"
+   ],
+   "printed": "parvi",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "parrò"
+   ],
+   "printed": "parrò",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "parere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "parso"
+   ],
+   "printed": "parso",
+   "page": "https://www.treccani.it/vocabolario/parere2/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "traggo"
+   ],
+   "printed": "traggo",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "trai"
+   ],
+   "printed": "trai",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "trae"
+   ],
+   "printed": "trae",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "traiamo"
+   ],
+   "printed": "traiamo",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "traete"
+   ],
+   "printed": "traéte",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "traggono"
+   ],
+   "printed": "tràggono",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "trai"
+   ],
+   "printed": "trai",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "trassi"
+   ],
+   "printed": "trassi",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "trarre",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "tratto"
+   ],
+   "printed": "tratto",
+   "page": "https://www.treccani.it/vocabolario/trarre/"
+  },
+  {
+   "lemma": "condurre",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "conduco"
+   ],
+   "printed": "conduco",
+   "page": "https://www.treccani.it/vocabolario/condurre/"
+  },
+  {
+   "lemma": "condurre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "condussi"
+   ],
+   "printed": "condussi",
+   "page": "https://www.treccani.it/vocabolario/condurre/"
+  },
+  {
+   "lemma": "condurre",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "condotto"
+   ],
+   "printed": "condótto",
+   "page": "https://www.treccani.it/vocabolario/condurre/"
+  },
+  {
+   "lemma": "solere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "soglio"
+   ],
+   "printed": "sòglio",
+   "page": "https://www.treccani.it/vocabolario/solere/"
+  },
+  {
+   "lemma": "solere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "solito"
+   ],
+   "printed": "sòlito",
+   "page": "https://www.treccani.it/vocabolario/solere/"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "corsi"
+   ],
+   "printed": "córsi",
+   "page": "https://www.treccani.it/vocabolario/correre/"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "corso"
+   ],
+   "printed": "córso",
+   "page": "https://www.treccani.it/vocabolario/correre/"
+  },
+  {
+   "lemma": "vivere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vissi"
+   ],
+   "printed": "vissi",
+   "page": "https://www.treccani.it/vocabolario/vivere/"
+  },
+  {
+   "lemma": "vivere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vivrò"
+   ],
+   "printed": "vivrò",
+   "page": "https://www.treccani.it/vocabolario/vivere/"
+  },
+  {
+   "lemma": "vivere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "vissuto"
+   ],
+   "printed": "vissuto",
+   "page": "https://www.treccani.it/vocabolario/vivere/"
+  },
+  {
+   "lemma": "inviare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "invio"
+   ],
+   "printed": "invìo",
+   "page": "https://www.treccani.it/vocabolario/inviare/"
+  },
+  {
+   "lemma": "sciare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "scio"
+   ],
+   "printed": "scìo",
+   "page": "https://www.treccani.it/vocabolario/sciare1/"
+  },
+  {
+   "lemma": "sognare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "sogniamo"
+   ],
+   "printed": "sogniamo",
+   "page": "https://www.treccani.it/vocabolario/sognare/"
+  },
+  {
+   "lemma": "sognare",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sogniate"
+   ],
+   "printed": "sogniate",
+   "page": "https://www.treccani.it/vocabolario/sognare/"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tengo"
+   ],
+   "printed": "tèngo",
+   "page": "https://www.treccani.it/vocabolario/tenere/"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "terrò"
+   ],
+   "printed": "terrò",
+   "page": "https://www.treccani.it/vocabolario/tenere/"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tenni"
+   ],
+   "printed": "ténni",
+   "page": "https://www.treccani.it/vocabolario/tenere/"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vedrò"
+   ],
+   "printed": "vedrò",
+   "page": "https://www.treccani.it/vocabolario/vedere/"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "visto",
+    "veduto"
+   ],
+   "printed": "visto; veduto",
+   "page": "https://www.treccani.it/vocabolario/vedere/"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vidi"
+   ],
+   "printed": "vidi",
+   "page": "https://www.treccani.it/vocabolario/vedere/"
+  },
+  {
+   "lemma": "spegnere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "spengo"
+   ],
+   "printed": "spèngo",
+   "page": "https://www.treccani.it/vocabolario/spegnere/"
+  },
+  {
+   "lemma": "spegnere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "spensi"
+   ],
+   "printed": "spènsi",
+   "page": "https://www.treccani.it/vocabolario/spegnere/"
+  },
+  {
+   "lemma": "assumere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "assunsi"
+   ],
+   "printed": "assunsi",
+   "page": "https://www.treccani.it/vocabolario/assumere/"
+  },
+  {
+   "lemma": "assumere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "assunto"
+   ],
+   "printed": "assunto",
+   "page": "https://www.treccani.it/vocabolario/assumere/"
+  }
+ ]
+}
