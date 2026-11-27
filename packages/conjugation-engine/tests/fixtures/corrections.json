@@ -36528,5 +36528,1271 @@
       "agreement": null
     },
     "correctedTarget": null
+  },
+  {
+    "file": "it/dare",
+    "cell": 12,
+    "original": "dànno",
+    "expected": [
+      "loro danno"
+    ],
+    "unavailable": false,
+    "reason": "The accent is written only on words stressed on the last vowel and on monosyllables that need it: danno, not dànno (the Vocabolario prints dànno only as a pronunciation aid).",
+    "source": "https://www.treccani.it/enciclopedia/accento-grafico_(Enciclopedia-dell'Italiano)/",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dare",
+    "cell": 45,
+    "original": "diede; dette; dètte",
+    "expected": [
+      "lui diede",
+      "lui dette"
+    ],
+    "unavailable": false,
+    "reason": "dètte is dette with a pronunciation accent, which standard spelling does not write on a word not stressed on its last vowel.",
+    "source": "https://www.treccani.it/enciclopedia/accento-grafico_(Enciclopedia-dell'Italiano)/",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 55,
+    "original": "debba",
+    "expected": [
+      "io deva",
+      "io debba"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints both present subjunctives, \"dèva o dèbba ..., dèvano o dèbbano\"; the page gives only debba, debbano.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 56,
+    "original": "debba",
+    "expected": [
+      "tu deva",
+      "tu debba"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints both present subjunctives, \"dèva o dèbba ..., dèvano o dèbbano\"; the page gives only debba, debbano.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 57,
+    "original": "debba",
+    "expected": [
+      "lui deva",
+      "lui debba"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints both present subjunctives, \"dèva o dèbba ..., dèvano o dèbbano\"; the page gives only debba, debbano.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 60,
+    "original": "debbano",
+    "expected": [
+      "loro devano",
+      "loro debbano"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints both present subjunctives, \"dèva o dèbba ..., dèvano o dèbbano\"; the page gives only debba, debbano.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 91,
+    "original": "devi",
+    "expected": [],
+    "unavailable": true,
+    "reason": "dovere has no imperative: the Vocabolario says \"manca l'imperativo\"; the page fills the row from the subjunctive and the present.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 92,
+    "original": "debba",
+    "expected": [],
+    "unavailable": true,
+    "reason": "dovere has no imperative: the Vocabolario says \"manca l'imperativo\"; the page fills the row from the subjunctive and the present.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 93,
+    "original": "dobbiamo",
+    "expected": [],
+    "unavailable": true,
+    "reason": "dovere has no imperative: the Vocabolario says \"manca l'imperativo\"; the page fills the row from the subjunctive and the present.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 94,
+    "original": "dovete",
+    "expected": [],
+    "unavailable": true,
+    "reason": "dovere has no imperative: the Vocabolario says \"manca l'imperativo\"; the page fills the row from the subjunctive and the present.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/dovere",
+    "cell": 95,
+    "original": "debbano",
+    "expected": [],
+    "unavailable": true,
+    "reason": "dovere has no imperative: the Vocabolario says \"manca l'imperativo\"; the page fills the row from the subjunctive and the present.",
+    "source": "https://www.treccani.it/vocabolario/dovere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 4,
+    "original": "avere stato",
+    "expected": [
+      "essere stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avere stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "infinitive",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 5,
+    "original": "avendo stato",
+    "expected": [
+      "essendo stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avendo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "gerund",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 13,
+    "original": "ho stato",
+    "expected": [
+      "io sono stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (ho stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 14,
+    "original": "hai stato",
+    "expected": [
+      "tu sei stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (hai stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 15,
+    "original": "ha stato",
+    "expected": [
+      "lui è stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (ha stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 16,
+    "original": "abbiamo stato",
+    "expected": [
+      "noi siamo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbiamo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 17,
+    "original": "avete stato",
+    "expected": [
+      "voi siete stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avete stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 18,
+    "original": "hanno stato",
+    "expected": [
+      "loro sono stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (hanno stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 25,
+    "original": "avevo stato",
+    "expected": [
+      "io ero stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avevo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 26,
+    "original": "avevi stato",
+    "expected": [
+      "tu eri stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avevi stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 27,
+    "original": "aveva stato",
+    "expected": [
+      "lui era stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (aveva stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 28,
+    "original": "avevamo stato",
+    "expected": [
+      "noi eravamo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avevamo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 29,
+    "original": "avevate stato",
+    "expected": [
+      "voi eravate stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avevate stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 30,
+    "original": "avevano stato",
+    "expected": [
+      "loro erano stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avevano stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 37,
+    "original": "avrò stato",
+    "expected": [
+      "io sarò stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrò stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 38,
+    "original": "avrai stato",
+    "expected": [
+      "tu sarai stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrai stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 39,
+    "original": "avrà stato",
+    "expected": [
+      "lui sarà stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrà stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 40,
+    "original": "avremo stato",
+    "expected": [
+      "noi saremo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avremo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 41,
+    "original": "avrete stato",
+    "expected": [
+      "voi sarete stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrete stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 42,
+    "original": "avranno stato",
+    "expected": [
+      "loro saranno stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avranno stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 49,
+    "original": "ebbi stato",
+    "expected": [
+      "io fui stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (ebbi stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 50,
+    "original": "avesti stato",
+    "expected": [
+      "tu fosti stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avesti stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 51,
+    "original": "ebbe stato",
+    "expected": [
+      "lui fu stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (ebbe stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 52,
+    "original": "avemmo stato",
+    "expected": [
+      "noi fummo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avemmo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 53,
+    "original": "aveste stato",
+    "expected": [
+      "voi foste stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (aveste stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 54,
+    "original": "ebbero stato",
+    "expected": [
+      "loro furono stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (ebbero stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 61,
+    "original": "abbia stato",
+    "expected": [
+      "io sia stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbia stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 62,
+    "original": "abbia stato",
+    "expected": [
+      "tu sia stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbia stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 63,
+    "original": "abbia stato",
+    "expected": [
+      "lui sia stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbia stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 64,
+    "original": "abbiamo stato",
+    "expected": [
+      "noi siamo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbiamo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 65,
+    "original": "abbiate stato",
+    "expected": [
+      "voi siate stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbiate stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 66,
+    "original": "abbiano stato",
+    "expected": [
+      "loro siano stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (abbiano stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 73,
+    "original": "avessi stato",
+    "expected": [
+      "io fossi stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avessi stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 74,
+    "original": "avessi stato",
+    "expected": [
+      "tu fossi stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avessi stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 75,
+    "original": "avesse stato",
+    "expected": [
+      "lui fosse stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avesse stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 76,
+    "original": "avessimo stato",
+    "expected": [
+      "noi fossimo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avessimo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 77,
+    "original": "aveste stato",
+    "expected": [
+      "voi foste stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (aveste stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 78,
+    "original": "avessero stato",
+    "expected": [
+      "loro fossero stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avessero stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 85,
+    "original": "avrei stato",
+    "expected": [
+      "io sarei stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrei stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 86,
+    "original": "avresti stato",
+    "expected": [
+      "tu saresti stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avresti stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 87,
+    "original": "avrebbe stato",
+    "expected": [
+      "lui sarebbe stato"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrebbe stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 88,
+    "original": "avremmo stato",
+    "expected": [
+      "noi saremmo stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avremmo stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 89,
+    "original": "avreste stato",
+    "expected": [
+      "voi sareste stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avreste stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/essere",
+    "cell": 90,
+    "original": "avrebbero stato",
+    "expected": [
+      "loro sarebbero stati"
+    ],
+    "unavailable": false,
+    "reason": "The compound tenses of essere take essere, and the participle agrees with the subject (sono stato, siamo stati); the page builds them with avere (avrebbero stato).",
+    "source": "https://www.treccani.it/vocabolario/essere1/",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/fare",
+    "cell": 1,
+    "original": "facente",
+    "expected": [
+      "facente",
+      "faciente"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints \"Part. pres. faciente o più com. facente\"; the page gives only facente.",
+    "source": "https://www.treccani.it/vocabolario/fare2/",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/fare",
+    "cell": 7,
+    "original": "faccio",
+    "expected": [
+      "io faccio",
+      "io fo"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints \"pres. fo o fàccio\" with no label; the page gives only faccio.",
+    "source": "https://www.treccani.it/vocabolario/fare2/",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/potere",
+    "cell": 1,
+    "original": "potente",
+    "expected": [],
+    "unavailable": true,
+    "reason": "The Vocabolario gives potente only as an adjective and noun (\"part. pres. potènte, solo come agg. e sost.\"), not as a form of potere.",
+    "source": "https://www.treccani.it/vocabolario/potere2/",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/sapere",
+    "cell": 1,
+    "original": "sapiente",
+    "expected": [],
+    "unavailable": true,
+    "reason": "sapere has no present participle: \"Il part. pres. manca (sapiènte ha solo funzione di agg. o di sost.)\".",
+    "source": "https://www.treccani.it/vocabolario/sapere2/",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/sapere",
+    "cell": 94,
+    "original": "sapete",
+    "expected": [
+      "sappiate"
+    ],
+    "unavailable": false,
+    "reason": "The imperative of sapere is sappi, sappiate (Vocabolario: \"imperat. sappi, sappiate\"), not sapete.",
+    "source": "https://www.treccani.it/vocabolario/sapere2/",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/tradurre",
+    "cell": 1,
+    "original": "tradunente",
+    "expected": [
+      "traducente"
+    ],
+    "unavailable": false,
+    "reason": "The forms of tradurre other than the infinitive are built on the stem traduc-: \"Part. pres. traducènte\".",
+    "source": "https://www.treccani.it/vocabolario/tradurre/",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/tradurre",
+    "cell": 2,
+    "original": "tradunendo",
+    "expected": [
+      "traducendo"
+    ],
+    "unavailable": false,
+    "reason": "The forms of tradurre other than the infinitive are built on the stem traduc- (io traduco, tradussi): the gerund is traducendo.",
+    "source": "https://www.treccani.it/vocabolario/tradurre/",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/venire",
+    "cell": 1,
+    "original": "venente",
+    "expected": [
+      "veniente"
+    ],
+    "unavailable": false,
+    "reason": "The present participle of venire is veniente (Vocabolario: \"part. pres. veniènte\").",
+    "source": "https://www.treccani.it/vocabolario/venire/",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/volere",
+    "cell": 7,
+    "original": "voglio; vò",
+    "expected": [
+      "io voglio"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario gives only vòglio for io, with a Tuscan proclitic vo' in brackets; vò is not a standard form.",
+    "source": "https://www.treccani.it/vocabolario/volere2/",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/volere",
+    "cell": 43,
+    "original": "volli; volsi",
+    "expected": [
+      "io volli"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints the passato remoto volli, volle, vollero and marks volsi, volse, volsero as old ([ant. vòlsi]).",
+    "source": "https://www.treccani.it/vocabolario/volere2/",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/volere",
+    "cell": 45,
+    "original": "volle; volse",
+    "expected": [
+      "lui volle"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints the passato remoto volli, volle, vollero and marks volsi, volse, volsero as old ([ant. vòlsi]).",
+    "source": "https://www.treccani.it/vocabolario/volere2/",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "it/volere",
+    "cell": 48,
+    "original": "vollero; volsero",
+    "expected": [
+      "loro vollero"
+    ],
+    "unavailable": false,
+    "reason": "The Vocabolario prints the passato remoto volli, volle, vollero and marks volsi, volse, volsero as old ([ant. vòlsi]).",
+    "source": "https://www.treccani.it/vocabolario/volere2/",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
   }
 ]

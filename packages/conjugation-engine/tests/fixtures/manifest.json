@@ -7218,6 +7218,186 @@
       "auxiliary": null,
       "pattern": "default",
       "templatePlaceholders": 4
+    },
+    {
+      "file": "it/accendere",
+      "language": "it",
+      "infinitive": "accendere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/andare",
+      "language": "it",
+      "infinitive": "andare",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/aprire",
+      "language": "it",
+      "infinitive": "aprire",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/avere",
+      "language": "it",
+      "infinitive": "avere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/bere",
+      "language": "it",
+      "infinitive": "bere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/cadere",
+      "language": "it",
+      "infinitive": "cadere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/dare",
+      "language": "it",
+      "infinitive": "dare",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/dire",
+      "language": "it",
+      "infinitive": "dire",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/dovere",
+      "language": "it",
+      "infinitive": "dovere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/essere",
+      "language": "it",
+      "infinitive": "essere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/fare",
+      "language": "it",
+      "infinitive": "fare",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/mangiare",
+      "language": "it",
+      "infinitive": "mangiare",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/potere",
+      "language": "it",
+      "infinitive": "potere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/salire",
+      "language": "it",
+      "infinitive": "salire",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/sapere",
+      "language": "it",
+      "infinitive": "sapere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/stare",
+      "language": "it",
+      "infinitive": "stare",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/tradurre",
+      "language": "it",
+      "infinitive": "tradurre",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/uscire",
+      "language": "it",
+      "infinitive": "uscire",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/venire",
+      "language": "it",
+      "infinitive": "venire",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
+    },
+    {
+      "file": "it/volere",
+      "language": "it",
+      "infinitive": "volere",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 1
     }
   ],
   "fixtures": {
@@ -7283,10 +7463,24 @@
       "templatePlaceholders": 356,
       "remaps": 6,
       "checksum": "07e944dc7fb3bba3c21123e397e11f28de3a1139aca13b8e725b40173c5d65b3"
+    },
+    "it": {
+      "files": 20,
+      "baseInfinitives": 20,
+      "cells": 1920,
+      "targets": 1900,
+      "availableCells": 1888,
+      "unavailableCells": 12,
+      "expectedForms": 1917,
+      "correctionCount": 67,
+      "templatePlaceholders": 20,
+      "unmodelledCells": 20,
+      "remaps": 3,
+      "checksum": "369101f39ab144efcd077e11c5833d83e31a4d84509cfb01f305697aeeffee14"
     }
   },
   "corrections": {
-    "count": 1878,
-    "checksum": "570c40f7c0ae7edf33251cf0d2484765e6e526528e061e5093563da51c45c037"
+    "count": 1945,
+    "checksum": "5484fdcdccbfbb6d7c5933193671f16dbc0e60433433c5d6d6744e55ae8c05db"
   }
 }

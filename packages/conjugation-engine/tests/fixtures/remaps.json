@@ -152,5 +152,44 @@
     },
     "reason": "The column holds habiendo amado, the gerundio compuesto (perfect gerund). The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
     "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "it",
+    "heading": "Congiuntivo/Passato prossimo",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past"
+    },
+    "reason": "The congiuntivo has four tenses, presente, imperfetto, passato and trapassato; \"passato prossimo\" is a tense of the indicative, and the column holds io sia andato, the congiuntivo passato.",
+    "source": "https://www.treccani.it/enciclopedia/congiuntivo_(La-grammatica-italiana)/"
+  },
+  {
+    "language": "it",
+    "heading": "Imperativo/lui",
+    "occurrence": 0,
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "subject": "3sg.formal"
+    },
+    "reason": "The third-person imperative is the courtesy form addressed to Lei, taken from the present subjunctive, not an order to a third party.",
+    "source": "https://www.treccani.it/enciclopedia/imperativo_(La-grammatica-italiana)/"
+  },
+  {
+    "language": "it",
+    "heading": "Imperativo/loro",
+    "occurrence": 0,
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "subject": "3pl.formal"
+    },
+    "reason": "The third-person plural imperative is the courtesy form addressed to Loro, taken from the present subjunctive.",
+    "source": "https://www.treccani.it/enciclopedia/imperativo_(La-grammatica-italiana)/"
   }
 ]

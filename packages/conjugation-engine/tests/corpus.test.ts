@@ -17,6 +17,7 @@ const pinned: Readonly<Partial<Record<Language, {
   en: { files: 145, infinitives: 145, cells: 18_270, modelled: 18_270, unmodelled: 0, placeholders: 435, remaps: 3 },
   de: { files: 139, infinitives: 139, cells: 12_788, modelled: 12_788, unmodelled: 0, placeholders: 0, remaps: 5 },
   es: { files: 89, infinitives: 89, cells: 11_036, modelled: 11_036, unmodelled: 0, placeholders: 356, remaps: 6 },
+  it: { files: 20, infinitives: 20, cells: 1_920, modelled: 1_900, unmodelled: 20, placeholders: 20, remaps: 3 },
 };
 
 const read = (name: string): string => readFileSync(new URL(`./fixtures/${name}.json`, import.meta.url), 'utf8');
