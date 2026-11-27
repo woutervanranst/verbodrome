@@ -27,6 +27,7 @@ const snapshotQueries = (language: string): Readonly<Record<string, unknown>>[] 
 const checked: readonly Checked[] = [
   { language: 'nl', engine, queries: snapshotQueries('nl') },
   { language: 'fr', engine, queries: snapshotQueries('fr') },
+  { language: 'en', engine, queries: [...(JSON.parse(readFileSync(new URL('../fixtures/en.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), 'glorp', 'blit', 'frobe', 'glish', 'glotch', 'flox', 'bliz', 'plaw', 'plory', 'floy', 'snie', 'sklee', 'ploe', 'blye', 'plargue', 'ploto', 'zamic', 'squip', 'trimbit', 'reblit', 'frandel', 'outswim', 'walk', 'stop', 'hope', 'hop', 'try', 'panic', 'picnic', 'travel', 'cancel', 'label', 'model', 'equal', 'fuel', 'dial', 'compel', 'control', 'patrol', 'excel', 'prefer', 'occur', 'admit', 'visit', 'benefit', 'focus', 'target', 'combat', 'enter', 'conquer', 'profit', 'interpret', 'offer', 'develop', 'format', 'handicap', 'kidnap', 'program', 'worship', 'parallel', 'quiz', 'veto', 'echo', 'die', 'tie', 'dye', 'hoe', 'singe', 'agree', 'argue', 'glue', 'queue', 'solo', 'gas', 'fulfil', 'fulfill', 'dive', 'prove', 'learn', 'spell', 'sneak', 'light', 'spring', 'awake', 'show', 'sew', 'thrive', 'input', 'slay', 'misspell', 'underlie', 'outbid', 'behave', 'relay'].map(infinitive => ({ language: 'en', infinitive })) },
 ];
 
 const leftover = /[{}]|undefined/u;
