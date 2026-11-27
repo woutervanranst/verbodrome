@@ -124,4 +124,56 @@ describe('German labels the review found too narrow', () => {
   });
 });
 
-export { er };
+describe('German separable verbs outside the closed particle list (DWDS grammar lines)', () => {
+  it('conjugates the listed noun, adjective and verb first parts as particles', () => {
+    for (const [lemma, present, past, perfect] of [
+      ['teilnehmen', 'ich nehme teil', 'er nahm teil', 'ich habe teilgenommen'],
+      ['stattfinden', 'ich finde statt', 'er fand statt', 'ich habe stattgefunden'],
+      ['fernsehen', 'ich sehe fern', 'er sah fern', 'ich habe ferngesehen'],
+      ['wahrnehmen', 'ich nehme wahr', 'er nahm wahr', 'ich habe wahrgenommen'],
+      ['kennenlernen', 'ich lerne kennen', 'er lernte kennen', 'ich habe kennengelernt'],
+      ['preisgeben', 'ich gebe preis', 'er gab preis', 'ich habe preisgegeben'],
+      ['fertigstellen', 'ich stelle fertig', 'er stellte fertig', 'ich habe fertiggestellt'],
+      ['bereitstellen', 'ich stelle bereit', 'er stellte bereit', 'ich habe bereitgestellt'],
+      ['bekanntgeben', 'ich gebe bekannt', 'er gab bekannt', 'ich habe bekanntgegeben'],
+      ['aufrechterhalten', 'ich erhalte aufrecht', 'er erhielt aufrecht', 'ich habe aufrechterhalten'],
+      ['fehlschlagen', 'ich schlage fehl', 'er schlug fehl', 'ich bin fehlgeschlagen'],
+      ['wiedergutmachen', 'ich mache wieder gut', 'er machte wieder gut', 'ich habe wiedergutgemacht'],
+    ] as const) {
+      expect([lemma, ...ich(lemma, 'present'), ...er(lemma, 'past'), ...ich(lemma, 'perfect')]).toEqual([lemma, present, past, perfect]);
+    }
+    expect(ruleIds('teilnehmen')).toContain('de.classify.particle-verb');
+  });
+
+  it('keeps compound particles in one piece, apart only after wieder', () => {
+    expect(ich('übereinstimmen', 'present')).toEqual(['ich stimme überein']);
+    expect(ich('vorhersagen', 'present')).toEqual(['ich sage vorher']);
+    expect(ich('hinterherlaufen', 'present')).toEqual(['ich laufe hinterher']);
+    expect(ich('umhergehen', 'present')).toEqual(['ich gehe umher']);
+    expect([...ich('auseinandersetzen', 'present'), ...participle('auseinandersetzen')]).toEqual(['ich setze auseinander', 'auseinandergesetzt']);
+    expect(ich('vorwärtskommen', 'perfect')).toEqual(['ich bin vorwärtsgekommen']);
+    expect(ich('wiederherstellen', 'present')).toEqual(['ich stelle wieder her']);
+    expect(ich('wiederaufbauen', 'present')).toEqual(['ich baue wieder auf']);
+  });
+
+  it('does not split an unlisted compound, and says so', () => {
+    expect(ruleIds('ratschlagen')).not.toContain('de.classify.separable');
+    expect(participle('heiraten')).toEqual(['geheiratet']);
+    expect(participle('beinhalten')).toEqual(['beinhaltet']);
+  });
+});
+
+describe('German weak verbs with sein (DWDS grammar lines)', () => {
+  it('takes sein for the frequent ones', () => {
+    for (const lemma of ['aufwachen', 'zurückkehren', 'heimkehren', 'verunglücken', 'erkranken', 'verhungern', 'verdursten', 'erbleichen', 'vereinsamen', 'verstummen', 'scheitern', 'spazieren', 'wallfahren']) {
+      expect(ich(lemma, 'perfect')[0], lemma).toMatch(/^ich bin /u);
+    }
+    expect(ich('aufwachen', 'present')).toEqual(['ich wache auf']);
+    expect(ich('zurückkehren', 'perfect')).toEqual(['ich bin zurückgekehrt']);
+    expect(ich('spazieren', 'perfect')).toEqual(['ich bin spaziert']);
+    // A particle verb of a listed weak sein verb takes sein by the root-auxiliary assumption.
+    expect(ich('abreisen', 'perfect')).toEqual(['ich bin abgereist']);
+    expect(ruleIds('abreisen')).toContain('de.classify.assume-root-auxiliary');
+  });
+});
+

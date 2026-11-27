@@ -355,9 +355,18 @@ function segmentations(lemma: string): Segmentation[] {
     const weakBase: BaseAnalysis = { prefixes: [], root, known: true, kind: 'weak', lead: [], word: root, chain: [step(rules['de.classify.lexicon'], lemma, 'weak')] };
     return [particleSegmentation(lemma, { particles: [noInheritParticle], base: weakBase }, true)];
   }
+  // A weak verb listed with its auxiliary whose first part is a separable particle (aufwachen: wacht auf, ist aufgewacht).
+  const weakParticle = Object.hasOwn(weakWithSein, lemma) ? particleOf(lemma, [...sep, ...dual]) : null;
+  if (weakParticle !== null) {
+    const rest = lemma.slice(weakParticle.length);
+    const weakBase: BaseAnalysis = { prefixes: [], root: rest, known: true, kind: 'weak', lead: [], word: rest, chain: [step(rules['de.classify.lexicon'], lemma, 'weak')] };
+    return [particleSegmentation(lemma, { particles: [weakParticle], base: weakBase }, true)];
+  }
   if (Object.hasOwn(particleVerbs, lemma)) {
-    const particle = particleVerbs[lemma]!;
-    return [particleSegmentation(lemma, { particles: [particle], base: analyseBase(lemma.slice(particle.length)) }, true)];
+    const particles = particleVerbs[lemma]!.split('+');
+    const first = particles.join('');
+    const listedStep = step(rules['de.classify.particle-verb'], lemma, null, { particle: particleWordsOf(particles).join(' ') });
+    return [{ ...segment(lemma, { text: first, separable: true }, analyseBase(lemma.slice(first.length)), [listedStep]), particleWords: particleWordsOf(particles) }];
   }
   const whole = analyseBase(lemma);
   if (whole.known && (whole.kind !== 'derived' || isListed(lemma))) return [segment(lemma, null, whole, [])];

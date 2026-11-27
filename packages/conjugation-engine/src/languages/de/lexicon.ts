@@ -460,6 +460,10 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
 export const weakWithSein: Readonly<Record<string, readonly AuxiliaryUse[]>> = {
   reisen: S, wandern: S, begegnen: S, klettern: S, stolpern: S, rutschen: S, platzen: S, explodieren: S, marschieren: S,
   erwachen: S, verreisen: S, verwelken: S, erstarren: S, flüchten: S,
+  // Checked at DWDS (grammar line) for the last round.
+  aufwachen: S, zurückkehren: S, heimkehren: S, einkehren: S, umkehren: SH, verunglücken: S, erkranken: S, verhungern: S,
+  verdursten: S, erblühen: S, verblühen: S, erröten: S, erbleichen: S, vereinsamen: S, verarmen: S, verstummen: S, erblinden: S,
+  ertauben: S, scheitern: S, altern: SH, reifen: SH, wallfahren: S, spazieren: S,
   folgen: [{ verb: 'sein', condition: 'follow, come after' }, { verb: 'haben', condition: 'obey' }],
   landen: [{ verb: 'sein', condition: 'land, arrive' }, { verb: 'haben', condition: 'land an aircraft, bring ashore' }],
   eilen: [{ verb: 'sein', condition: 'hurry somewhere' }, { verb: 'haben', condition: 'be urgent' }],
@@ -498,6 +502,16 @@ export const derivativeAuxiliaries: Readonly<Record<string, readonly AuxiliaryUs
   zerbersten: S, zerbrechen: HS, zerfließen: S, zerlaufen: S, zerreißen: HS, zerrinnen: S, zerschmelzen: S,
   zerspringen: S, zerstieben: S, überschießen: S, übersieden: S,
   bekommen: [{ verb: 'haben', condition: 'get, receive' }, { verb: 'sein', condition: 'agree with someone (food)' }],
+  // The particle verbs outside the closed lists (particleVerbs), as their DWDS grammar lines give them.
+  teilnehmen: H, stattfinden: H, stattgeben: H, fernsehen: H, wahrnehmen: H, kennenlernen: H, preisgeben: H, standhalten: H,
+  achtgeben: H, bereitstellen: H, bereithalten: H, bereitlegen: H, bekanntgeben: H, bekanntmachen: H, fertigstellen: H,
+  fertigmachen: H, fertigbringen: H, kaputtmachen: H, kaputtgehen: S, aufrechterhalten: H, wehtun: H, leidtun: H, schwerfallen: S,
+  leichtfallen: S, fehlschlagen: S, fehlgehen: S, klarkommen: S, klarmachen: H, klarstellen: H, totschlagen: H, sicherstellen: H,
+  gutschreiben: H, gutheißen: H, irreführen: H, schiefgehen: S, übrigbleiben: S, übelnehmen: H, kundgeben: H, kundtun: H,
+  eislaufen: S, kopfstehen: H, maßhalten: H, gleichkommen: S, gleichstellen: H, nahelegen: H, nahekommen: S, naheliegen: H,
+  nahestehen: H, bloßstellen: H, glattgehen: S, kaltstellen: H, offenlegen: H, offenstehen: H, richtigstellen: H,
+  schwarzarbeiten: H, stillhalten: H, stillstehen: H, stilllegen: H, verlorengehen: S, sitzenbleiben: S, gernhaben: H,
+  liebhaben: H, wiedergutmachen: H,
   erstehen: [{ verb: 'haben', condition: 'buy, acquire' }, { verb: 'sein', condition: 'arise, rise again (literary)' }],
   erweichen: HS, zerweichen: HS, vergären: HS, versalzen: HS, verschießen: HS, verbacken: HS, verstieben: S, durchfrieren: S,
 };
@@ -853,8 +867,26 @@ export const derivedParadigms: Readonly<Record<string, readonly DerivedParadigm[
   beiseiteschaffen: [{ pattern: 'weak', auxiliaries: H }],
 };
 
-/** Particle verbs whose particle is not in the closed particle lists: bevorstehen (steht bevor, bevorgestanden). */
-export const particleVerbs: Readonly<Record<string, string>> = { bevorstehen: 'bevor' };
+/**
+ * Particle verbs whose first part is not in the closed particle lists: a noun, an adjective or a verb (nimmt teil,
+ * lernt kennen, stellt bereit), each checked at DWDS as written in one word; stacked parts joined by + (wieder+gut:
+ * macht wieder gut). Their auxiliaries are in `derivativeAuxiliaries`.
+ */
+export const particleVerbs: Readonly<Record<string, string>> = {
+  bevorstehen: 'bevor',
+  teilnehmen: 'teil', stattfinden: 'statt', stattgeben: 'statt', fernsehen: 'fern', wahrnehmen: 'wahr', kennenlernen: 'kennen',
+  preisgeben: 'preis', standhalten: 'stand', achtgeben: 'acht', bereitstellen: 'bereit', bereithalten: 'bereit', bereitlegen: 'bereit',
+  bekanntgeben: 'bekannt', bekanntmachen: 'bekannt', fertigstellen: 'fertig', fertigmachen: 'fertig', fertigbringen: 'fertig',
+  kaputtmachen: 'kaputt', kaputtgehen: 'kaputt', aufrechterhalten: 'aufrecht', wehtun: 'weh', leidtun: 'leid',
+  schwerfallen: 'schwer', leichtfallen: 'leicht', fehlschlagen: 'fehl', fehlgehen: 'fehl', klarkommen: 'klar', klarmachen: 'klar',
+  klarstellen: 'klar', totschlagen: 'tot', sicherstellen: 'sicher', gutschreiben: 'gut', gutheißen: 'gut', irreführen: 'irre',
+  schiefgehen: 'schief', übrigbleiben: 'übrig', übelnehmen: 'übel', kundgeben: 'kund', kundtun: 'kund', eislaufen: 'eis',
+  kopfstehen: 'kopf', maßhalten: 'maß', gleichkommen: 'gleich', gleichstellen: 'gleich', nahelegen: 'nahe', nahekommen: 'nahe',
+  naheliegen: 'nahe', nahestehen: 'nahe', bloßstellen: 'bloß', glattgehen: 'glatt', kaltstellen: 'kalt', offenlegen: 'offen',
+  offenstehen: 'offen', richtigstellen: 'richtig', schwarzarbeiten: 'schwarz', stillhalten: 'still', stillstehen: 'still',
+  stilllegen: 'still', verlorengehen: 'verloren', sitzenbleiben: 'sitzen', gernhaben: 'gern', liebhaben: 'lieb',
+  wiedergutmachen: 'wieder+gut',
+};
 
 /**
  * Strong verbs whose Konjunktiv II has a short du- and ihr-form beside -est and -et (kämst, kämt), keyed by the
@@ -897,6 +929,10 @@ export const germanParticles: ParticleTables = {
     'heran', 'herauf', 'heraus', 'herbei', 'herein', 'herüber', 'herum', 'herunter', 'hervor', 'hin', 'hinab', 'hinauf', 'hinaus',
     'hinein', 'hinüber', 'hinunter', 'hinweg', 'hinzu', 'hoch', 'los', 'mit', 'nach', 'nieder', 'vor', 'voran', 'voraus', 'vorbei',
     'vorüber', 'vorweg', 'weg', 'weiter', 'zu', 'zurecht', 'zurück', 'zusammen', 'zuvor',
+    // Compound particles, each checked as a separable first part of a verb at DWDS (stimmt überein, setzt auseinander).
+    'überein', 'hinterher', 'umher', 'einher', 'vorher', 'nebenher', 'auseinander', 'durcheinander', 'beisammen', 'vorwärts',
+    'aufwärts', 'abwärts', 'aneinander', 'aufeinander', 'beieinander', 'ineinander', 'übereinander', 'zueinander', 'dahinter',
+    'drauflos', 'abhanden', 'anheim', 'inne', 'überhand', 'vorlieb', 'zugute', 'zuteil', 'hintan', 'zuwider', 'beiseite',
   ],
   dual: ['durch', 'hinter', 'über', 'um', 'unter', 'voll', 'wider', 'wieder'],
   inseparable: ['be', 'emp', 'ent', 'er', 'ge', 'miss', 'ver', 'zer'],
