@@ -1,0 +1,896 @@
+{
+ "work": "ag-print",
+ "section": "§199",
+ "pages": "109–110",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG122.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG121–AG122",
+ "cells": [
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "volō"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "vīs"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "vult",
+    "volt"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "volumus"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "vultis",
+    "voltis"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "volunt"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "volēbam"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "volam"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "volēs"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "voluī"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "volueram"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "voluerō"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "velim"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "velīs"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "velit"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "velīmus"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "velītis"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "velint"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "vellem"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "vellēs"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "vellet"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "vellēmus"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "vellētis"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "vellent"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "voluerim"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "voluissem"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "velle",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "velle"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "voluisse"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "volēns"
+   ]
+  },
+  {
+   "verb": "velle",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "volentis"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōlō"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "nōn vīs"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "nōn vult"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "nōlumus"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "nōn vultis"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "nōlunt"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōlēbam"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōlam"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "nōlēs"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōluī"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōlueram"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōluerō"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōlim"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōllem"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōluerim"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "nōluissem"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "nōlī"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "nōlīte"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "nōlītō"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "nōlle"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "nōluisse"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "nōlēns"
+   ]
+  },
+  {
+   "verb": "nōlle",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "nōlentis"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mālō"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "māvīs"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "māvult"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "mālumus"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "māvultis"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "mālunt"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mālēbam"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mālam"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "mālēs"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "māluī"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mālueram"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "māluerō"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "mālim"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "māllem"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "māluerim"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "māluissem"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "mālle",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "mālle"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "māluisse"
+   ]
+  },
+  {
+   "verb": "mālle",
+   "mood": "participle",
+   "tense": "present",
+   "unavailable": true,
+   "forms": []
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "nēvīs",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  },
+  {
+   "verb": "nōlle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "printed": "nēvolt",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "māvolō",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  },
+  {
+   "verb": "mālle",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "printed": "māvolunt",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "māvelim",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  },
+  {
+   "verb": "mālle",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "māvellem",
+   "reason": "An early form (§199 Note: sīs for sī vīs, sultis, nēvīs, nēvolt, māvolō, māvolunt, māvelim, māvellem occur in early writers); out of scope as an early form."
+  }
+ ],
+ "disputed": []
+}

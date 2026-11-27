@@ -1,0 +1,1489 @@
+{
+ "work": "ag-print",
+ "section": "§186",
+ "pages": "98–99",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG110.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG111.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "tegere"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG110–AG111",
+ "cells": [
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tegō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tegit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tegimus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegitis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tegunt"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tegam"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegās"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tegat"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tegāmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegātis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tegant"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tegēbam"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegēbās"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tegēbat"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tegēbāmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegēbātis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tegēbant"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tegerem"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegerēs"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tegeret"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tegerēmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegerētis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tegerent"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tegam"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegēs"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "teget"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tegēmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegētis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tegent"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tēxī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tēxistī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tēxit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tēximus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tēxistis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tēxērunt",
+    "tēxēre"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tēxerim"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tēxerit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tēxerint"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tēxeram"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tēxerās"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tēxerat"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tēxerāmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tēxerātis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tēxerant"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tēxissem"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tēxissēs"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tēxisset"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tēxissēmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tēxissētis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tēxissent"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tēxerō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tēxeris"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tēxerit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "tēxerimus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tēxeritis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "tēxerint"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tege"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegite"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "tegitō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "tegitō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "tegitōte"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "teguntō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "tegere"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "tēxisse"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "tēctūrus esse"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "tegēns"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "tegentis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "tēctūrus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "gerund",
+   "forms": [
+    "tegendī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "tegendō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "tegendum"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "supine",
+   "forms": [
+    "tēctum"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "tēctū"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "tegor"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegeris",
+    "tegere"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegitur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "tegimur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegiminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "teguntur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "tegar"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegāris",
+    "tegāre"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegātur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "tegāmur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegāminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "tegantur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "tegēbar"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegēbāris",
+    "tegēbāre"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegēbātur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "tegēbāmur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegēbāminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "tegēbantur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "tegerer"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegerēris",
+    "tegerēre"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegerētur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "tegerēmur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegerēminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "tegerentur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "tegar"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegēris",
+    "tegēre"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegētur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "tegēmur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegēminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "tegentur"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "tēctus sum"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "tēctus es"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "tēctus est"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "tēctī sumus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "tēctī estis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "tēctī sunt"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "tēctus sim"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "tēctus sīs"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "tēctus sit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "tēctī sīmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "tēctī sītis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "tēctī sint"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "tēctus eram"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "tēctus erās"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "tēctus erat"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "tēctī erāmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "tēctī erātis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "tēctī erant"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "tēctus essem"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "tēctus essēs"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "tēctus esset"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "tēctī essēmus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "tēctī essētis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "tēctī essent"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "tēctus erō"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "tēctus eris"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "tēctus erit"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "tēctī erimus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "tēctī eritis"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "tēctī erunt"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegere"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "tegiminī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "tegitor"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "tegitor"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "tegere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "teguntor"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "tegī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "tēctus esse"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "tēctum īrī"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "tēctus"
+   ]
+  },
+  {
+   "verb": "tegere",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "tegendus",
+    "tegundus"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": [
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "tēxeris",
+   "other": "tēxerīs",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "tēxerimus",
+   "other": "tēxerīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "tegere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "tēxeritis",
+   "other": "tēxerītis",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}

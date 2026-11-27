@@ -1,0 +1,490 @@
+{
+ "work": "ag-print",
+ "section": "§204",
+ "pages": "115",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG127.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "notation": "Forms the print puts in brackets (\"not used in good prose\"; the imperative \"rarely found, and then only in early writers\") carry usage \"dated\". The bracketed imperative row ends in a dash whose slot the print does not name; it is not transcribed.",
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG127",
+ "cells": [
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fīō"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fīs"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fit"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "usage": "dated",
+   "forms": [
+    "fīmus"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "usage": "dated",
+   "forms": [
+    "fītis"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fīunt"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fīēbam"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fīēbās"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fīam"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fīēs"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "factus sum"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "factus eram"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "factus erō"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fīam"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fīās"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fīat"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "fīāmus"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fīātis"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "fīant"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fierem"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fierēs"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "factus sim"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg.m",
+   "forms": [
+    "factus essem"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "usage": "dated",
+   "forms": [
+    "fī"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "usage": "dated",
+   "forms": [
+    "fīte"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "usage": "dated",
+   "forms": [
+    "fītō"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "fierī"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "factus esse"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "factum īrī"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "factus"
+   ]
+  },
+  {
+   "verb": "fierī",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "faciendus"
+   ]
+  },
+  {
+   "verb": "facere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fac"
+   ]
+  },
+  {
+   "verb": "facere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "faciō"
+   ]
+  },
+  {
+   "verb": "facere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "fēcī"
+   ]
+  },
+  {
+   "verb": "facere",
+   "mood": "supine",
+   "forms": [
+    "factum"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cōnficiō"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cōnfēcī"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "supine",
+   "forms": [
+    "cōnfectum"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "cōnficior"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "cōnficī"
+   ]
+  },
+  {
+   "verb": "cōnficere",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "cōnfectus"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "benefaciō"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "benefēcī"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "supine",
+   "forms": [
+    "benefactum"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "benefīō"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "benefierī"
+   ]
+  },
+  {
+   "verb": "benefacere",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "benefactus"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "facere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "faxō",
+   "reason": "An old sigmatic form (§204, besides the regular forms); sigmatic forms are out of scope by the approved design."
+  },
+  {
+   "verb": "facere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "faxim",
+   "reason": "An old sigmatic form (§204, besides the regular forms); sigmatic forms are out of scope by the approved design."
+  }
+ ],
+ "disputed": []
+}

@@ -93,7 +93,8 @@ const volo: LatinEntry[] = [
     present: 'volō', infinitive: 'velle', perfect: ['voluī'], conjugation: 'irregular', stemClass: 'consonant', passive: 'none',
     lacks: ['imperative', 'supineStem', 'gerund'], stems: { optative: 'vel' }, compound: { prefixes: [] },
     cells: {
-      ...tense('indicative.present', 'volō vīs vult volumus vultis volunt'),
+      // A&G p. 109 prints the older spellings in parentheses: vult (volt), vultis (voltis).
+      ...tense('indicative.present', 'volō vīs vult/volt volumus vultis/voltis volunt', () => ({ usage: 'dated', pattern: 'volt' })),
       ...tense('subjunctive.imperfect', 'vellem vellēs vellet vellēmus vellētis vellent'),
       presentInfinitive: [{ text: 'velle' }],
     },

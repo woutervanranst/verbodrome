@@ -1,0 +1,776 @@
+{
+ "work": "ag-print",
+ "section": "§203",
+ "pages": "114–115",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG127.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG126–AG127",
+ "cells": [
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "eō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "īs"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "it"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "īmus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ītis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "eunt"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ībam"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ībās"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ībat"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "ībāmus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ībātis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "ībant"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ībō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ībis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ībit"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "ībimus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ībitis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "ībunt"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "iī",
+    "īvī"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ieram",
+    "īveram"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ierō",
+    "īverō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "eam"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "eās"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "eat"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "eāmus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "eātis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "eant"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "īrem"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "īrēs"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "īret"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "īrēmus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "īrētis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "īrent"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ierim",
+    "īverim"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "īssem",
+    "īvissem"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ī"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "īte"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ītō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ītō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ītōte"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "euntō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "īre"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "īsse",
+    "īvisse"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "itūrus esse"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "iēns"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "euntis"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "itūrus"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "eundum"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "gerund",
+   "forms": [
+    "eundī"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "eundō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "eundum"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "eundō"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "supine",
+   "forms": [
+    "itum"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "itū"
+   ]
+  },
+  {
+   "verb": "īre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "itum est"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "adeor"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "adīris"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "adītur"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "adīmur"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "adīminī"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "adeuntur"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "adībar"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "adībor"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "aditus sum"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "aditus eram"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "aditus erō"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "adear"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "adīrer"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "aditus sim"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "aditus essem"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "adīrī"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "aditus esse"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "aditus"
+   ]
+  },
+  {
+   "verb": "adīre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "adeundus"
+   ]
+  },
+  {
+   "verb": "prōdīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōdeō"
+   ]
+  },
+  {
+   "verb": "prōdīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "prōdīs"
+   ]
+  },
+  {
+   "verb": "prōdīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "prōdit"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": []
+}

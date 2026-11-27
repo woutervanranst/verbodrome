@@ -1,0 +1,825 @@
+{
+ "work": "ag-print",
+ "section": "§200",
+ "pages": "110–111",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG123.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG122–AG123",
+ "cells": [
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ferō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fers"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fert"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "ferimus"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fertis"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "ferunt"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ferēbam"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "feram"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tulī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tuleram"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tulerō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "feror"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "ferris",
+    "ferre"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "fertur"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "ferimur"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "feriminī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "feruntur"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "ferēbar"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "ferar"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "lātus sum"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "lātus eram"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "lātus erō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "feram"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ferrem"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tulerim"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "tulissem"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "ferar"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "ferrer"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "lātus sim"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "lātus essem"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fer"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ferte"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "fertō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "fertō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "fertōte"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "feruntō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "ferre"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "feriminī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "fertor"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "fertor"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "feruntor"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "ferre"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "tulisse"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "lātūrus esse"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "ferrī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "lātus esse"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "lātum īrī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "ferēns"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "ferentis"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "lātūrus"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "lātus"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "ferendus"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "gerund",
+   "forms": [
+    "ferendī"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "ferendō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "ferendum"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "ferendō"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "supine",
+   "forms": [
+    "lātum"
+   ]
+  },
+  {
+   "verb": "ferre",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "lātū"
+   ]
+  },
+  {
+   "verb": "adferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "adferō"
+   ]
+  },
+  {
+   "verb": "adferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "attulī"
+   ]
+  },
+  {
+   "verb": "adferre",
+   "mood": "supine",
+   "forms": [
+    "allātum"
+   ]
+  },
+  {
+   "verb": "auferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "auferō"
+   ]
+  },
+  {
+   "verb": "auferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "abstulī"
+   ]
+  },
+  {
+   "verb": "auferre",
+   "mood": "supine",
+   "forms": [
+    "ablātum"
+   ]
+  },
+  {
+   "verb": "cōnferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "cōnferō"
+   ]
+  },
+  {
+   "verb": "cōnferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "contulī"
+   ]
+  },
+  {
+   "verb": "cōnferre",
+   "mood": "supine",
+   "forms": [
+    "collātum"
+   ]
+  },
+  {
+   "verb": "differre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "differō"
+   ]
+  },
+  {
+   "verb": "differre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "distulī"
+   ]
+  },
+  {
+   "verb": "differre",
+   "mood": "supine",
+   "forms": [
+    "dīlātum"
+   ]
+  },
+  {
+   "verb": "efferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "efferō"
+   ]
+  },
+  {
+   "verb": "efferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "extulī"
+   ]
+  },
+  {
+   "verb": "efferre",
+   "mood": "supine",
+   "forms": [
+    "ēlātum"
+   ]
+  },
+  {
+   "verb": "īnferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "īnferō"
+   ]
+  },
+  {
+   "verb": "īnferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "intulī"
+   ]
+  },
+  {
+   "verb": "īnferre",
+   "mood": "supine",
+   "forms": [
+    "illātum"
+   ]
+  },
+  {
+   "verb": "offerre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "offerō"
+   ]
+  },
+  {
+   "verb": "offerre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "obtulī"
+   ]
+  },
+  {
+   "verb": "offerre",
+   "mood": "supine",
+   "forms": [
+    "oblātum"
+   ]
+  },
+  {
+   "verb": "referre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "referō"
+   ]
+  },
+  {
+   "verb": "referre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "rettulī"
+   ]
+  },
+  {
+   "verb": "referre",
+   "mood": "supine",
+   "forms": [
+    "relātum"
+   ]
+  },
+  {
+   "verb": "sufferre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sufferō"
+   ]
+  },
+  {
+   "verb": "sufferre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "sustulī"
+   ]
+  },
+  {
+   "verb": "sufferre",
+   "mood": "supine",
+   "forms": [
+    "sublātum"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": []
+}

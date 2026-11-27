@@ -45,7 +45,7 @@ describe('Latin simple finite tenses', () => {
     expect(forms('īre', 'indicative', 'future')[0]).toBe('ībō');
     expect(forms('īre', 'imperative', 'future')).toEqual(['ītō', 'ītō', 'ītōte', 'euntō']);
     expect(forms('īre', 'indicative', 'perfect').slice(0, 4)).toEqual(['iī', 'īvī', 'īstī', 'īvistī']);
-    expect(forms('velle', 'indicative', 'present')).toEqual(['volō', 'vīs', 'vult', 'volumus', 'vultis', 'volunt']);
+    expect(forms('velle', 'indicative', 'present')).toEqual(['volō', 'vīs', 'vult', 'volt', 'volumus', 'vultis', 'voltis', 'volunt']); // volt, voltis dated (A&G p. 109)
     expect(forms('nōlle', 'indicative', 'present')[1]).toBe('nōn vīs');
     expect(forms('dare', 'indicative', 'present')).toEqual(['dō', 'dās', 'dat', 'damus', 'datis', 'dant']);
     expect(forms('dare', 'subjunctive', 'present').slice(0, 2)).toEqual(['dem', 'dēs']);

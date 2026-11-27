@@ -1,0 +1,1488 @@
+{
+ "work": "ag-print",
+ "section": "§187",
+ "pages": "100–101",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG112.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG113.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "audīre"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG112–AG113",
+ "cells": [
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audiō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audītis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audiunt"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audiam"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audiās"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audiat"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audiāmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audiātis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audiant"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audiēbam"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audiēbās"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audiēbat"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audiēbāmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audiēbātis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audiēbant"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīrem"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīrēs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīret"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīrēmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīrētis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīrent"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audiam"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audiēs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audiet"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audiēmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audiētis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audient"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīvī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīvistī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīvit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīvimus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīvistis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīvērunt",
+    "audīvēre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīverim"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīverit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīverint"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīveram"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīverās"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīverat"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīverāmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīverātis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīverant"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīvissem"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīvissēs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīvisset"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīvissēmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīvissētis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīvissent"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "audīverō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audīveris"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audīverit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "audīverimus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīveritis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audīverint"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audīte"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "audītō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "audītō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "audītōte"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "audiuntō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "audīre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "audīvisse"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "audītūrus esse"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "audiēns"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "audientis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "audītūrus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "gerund",
+   "forms": [
+    "audiendī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "audiendō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "audiendum"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "supine",
+   "forms": [
+    "audītum"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "audītū"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "audior"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audīris",
+    "audīre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audītur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "audīmur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audīminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audiuntur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "audiar"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audiāris",
+    "audiāre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audiātur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "audiāmur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audiāminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audiantur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "audiēbar"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audiēbāris",
+    "audiēbāre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audiēbātur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "audiēbāmur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audiēbāminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audiēbantur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "audīrer"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audīrēris",
+    "audīrēre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audīrētur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "audīrēmur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audīrēminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audīrentur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "audiar"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audiēris",
+    "audiēre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audiētur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "audiēmur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audiēminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audientur"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "audītus sum"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "audītus es"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "audītus est"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "audītī sumus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "audītī estis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "audītī sunt"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "audītus sim"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "audītus sīs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "audītus sit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "audītī sīmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "audītī sītis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "audītī sint"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "audītus eram"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "audītus erās"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "audītus erat"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "audītī erāmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "audītī erātis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "audītī erant"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "audītus essem"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "audītus essēs"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "audītus esset"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "audītī essēmus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "audītī essētis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "audītī essent"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "audītus erō"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "audītus eris"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "audītus erit"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "audītī erimus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "audītī eritis"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "audītī erunt"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audīre"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "audīminī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "audītor"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "audītor"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "audīre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "audiuntor"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "audīrī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "audītus esse"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "audītum īrī"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "audītus"
+   ]
+  },
+  {
+   "verb": "audīre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "audiendus"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": [
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "audīveris",
+   "other": "audīverīs",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "audīverimus",
+   "other": "audīverīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "audīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "audīveritis",
+   "other": "audīverītis",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}

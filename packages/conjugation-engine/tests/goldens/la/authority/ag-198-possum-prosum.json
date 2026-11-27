@@ -1,0 +1,690 @@
+{
+ "work": "ag-print",
+ "section": "§198",
+ "pages": "108–109",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG120.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG121.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG120–AG121",
+ "cells": [
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōsum"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "prōdes"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "prōdest"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōsumus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "prōdestis"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "prōsunt"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōderam"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōderāmus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōderō"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōderimus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōfuī"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōfuimus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōfueram"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōfuerāmus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōfuerō"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōfuerimus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōsim"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "prōsīs"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "prōsit"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōsīmus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "prōsītis"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "prōsint"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōdessem"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōdessēmus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōfuerim"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "prōfuissem"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "prōfuissēmus"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "prōdes"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "prōdeste"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "prōdestō"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "prōdestōte"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "prōdesse"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "prōfuisse"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "prōfutūrus esse"
+   ]
+  },
+  {
+   "verb": "prōdesse",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "prōfutūrus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "possum"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "potes"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "potest"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "possumus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "potestis"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "possunt"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "poteram"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "poterāmus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "poterō"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "poterimus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "potuī"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "potuimus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "potueram"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "potuerāmus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "potuerō"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "potuerimus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "possim"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "possīs"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "possit"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "possīmus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "possītis"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "possint"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "possem"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "possēmus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "potuerim"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "potuissem"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "potuissēmus"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "posse"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "potuisse"
+   ]
+  },
+  {
+   "verb": "posse",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "potēns"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "printed": "possiem",
+   "reason": "An early form (§198 footnote 1: possiem, -ēs, -et; poterint, potisit); out of scope as an early form."
+  }
+ ],
+ "disputed": [
+  {
+   "verb": "prōdesse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "prōfuerimus",
+   "other": "prōfuerīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "posse",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "potuerimus",
+   "other": "potuerīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}

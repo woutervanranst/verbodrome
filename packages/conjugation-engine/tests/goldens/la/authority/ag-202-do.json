@@ -1,0 +1,630 @@
+{
+ "work": "ag-print",
+ "section": "§202",
+ "pages": "113",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG125.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "dare"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG125",
+ "cells": [
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "dās"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "dat"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "damus"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "datis"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "dant"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dabam"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dabō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dedī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dederam"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dederō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "daris",
+    "dare"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "datur"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "damur"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "daminī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "dantur"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "dabar"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "dabor"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "datus sum"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "datus eram"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "datus erō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dem"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "dēs"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "det"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "darem"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dederim"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "dedissem"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "dēris",
+    "dēre"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "dētur"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "darer"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "datus sim"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "datus essem"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "dā"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "date"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "datō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "datō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "datōte"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "dantō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "dare"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "daminī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "dator"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "dator"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "dare",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "dantor"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "dare"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "dedisse"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "datūrus esse"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "darī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "datus esse"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "datum īrī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "dāns"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "dantis"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "datūrus"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "datus"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "dandus"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "gerund",
+   "forms": [
+    "dandī"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "dandō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "dandum"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "gerund",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "dandō"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "supine",
+   "forms": [
+    "datum"
+   ]
+  },
+  {
+   "verb": "dare",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "datū"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": []
+}

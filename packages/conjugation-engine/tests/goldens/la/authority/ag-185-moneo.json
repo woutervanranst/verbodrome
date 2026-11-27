@@ -1,0 +1,1488 @@
+{
+ "work": "ag-print",
+ "section": "§185",
+ "pages": "96–97",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG108.jpg",
+  "https://dcc.dickinson.edu/sites/default/files/AG109.jpg"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "monēre"
+ },
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG108–AG109",
+ "cells": [
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "moneō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monēs"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monet"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monēmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monētis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monent"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "moneam"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "moneās"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "moneat"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "moneāmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "moneātis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "moneant"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monēbam"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monēbās"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monēbat"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monēbāmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monēbātis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monēbant"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monērem"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monērēs"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monēret"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monērēmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monērētis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monērent"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monēbō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monēbis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monēbit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monēbimus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monēbitis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monēbunt"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monuī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monuistī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monuit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monuimus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monuistis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monuērunt",
+    "monuēre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monuerim"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monuerit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monuerint"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monueram"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monuerās"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monuerat"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monuerāmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monuerātis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monuerant"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monuissem"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monuissēs"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monuisset"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monuissēmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monuissētis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monuissent"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "monuerō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monueris"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monuerit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "monuerimus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monueritis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monuerint"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monē"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monēte"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "monētō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "monētō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "monētōte"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "monentō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "monēre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "monuisse"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "monitūrus esse"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "monēns"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "monentis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "monitūrus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "gerund",
+   "forms": [
+    "monendī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "monendō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "monendum"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "supine",
+   "forms": [
+    "monitum"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "monitū"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "moneor"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monēris",
+    "monēre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "monētur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "monēmur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "monēminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "monentur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "monear"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "moneāris",
+    "moneāre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "moneātur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "moneāmur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "moneāminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "moneantur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "monēbar"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monēbāris",
+    "monēbāre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "monēbātur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "monēbāmur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "monēbāminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "monēbantur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "monērer"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monērēris",
+    "monērēre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "monērētur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "monērēmur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "monērēminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "monērentur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1sg",
+   "forms": [
+    "monēbor"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monēberis",
+    "monēbere"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "monēbitur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "1pl",
+   "forms": [
+    "monēbimur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "monēbiminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "monēbuntur"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "monitus sum"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "monitus es"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "monitus est"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "monitī sumus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "monitī estis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "monitī sunt"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "monitus sim"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "monitus sīs"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "monitus sit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "monitī sīmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "monitī sītis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "monitī sint"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "monitus eram"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "monitus erās"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "monitus erat"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "monitī erāmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "monitī erātis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "monitī erant"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "monitus essem"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "monitus essēs"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "monitus esset"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "monitī essēmus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "monitī essētis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "monitī essent"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1sg.m",
+   "forms": [
+    "monitus erō"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2sg.m",
+   "forms": [
+    "monitus eris"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3sg.m",
+   "forms": [
+    "monitus erit"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "1pl.m",
+   "forms": [
+    "monitī erimus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "2pl.m",
+   "forms": [
+    "monitī eritis"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3pl.m",
+   "forms": [
+    "monitī erunt"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monēre"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "2pl",
+   "forms": [
+    "monēminī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2sg",
+   "forms": [
+    "monētor"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "monētor"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "2pl",
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "monēre",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3pl",
+   "forms": [
+    "monentor"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "monērī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "forms": [
+    "monitus esse"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "monitum īrī"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "participle",
+   "tense": "perfect",
+   "forms": [
+    "monitus"
+   ]
+  },
+  {
+   "verb": "monēre",
+   "mood": "participle",
+   "tense": "gerundive",
+   "forms": [
+    "monendus"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": [
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2sg",
+   "printed": "monueris",
+   "other": "monuerīs",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "1pl",
+   "printed": "monuerimus",
+   "other": "monuerīmus",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  },
+  {
+   "verb": "monēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "2pl",
+   "printed": "monueritis",
+   "other": "monuerītis",
+   "reason": "Authorities differ on the quantity of -eri- in the perfect subjunctive: A&G prints it short, Bennett §101 long; the engine follows Bennett (design §4.3)."
+  }
+ ]
+}
