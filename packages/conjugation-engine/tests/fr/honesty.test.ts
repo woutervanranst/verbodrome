@@ -32,6 +32,21 @@ describe('French unavailable targets cite what supports them (I8)', () => {
       .toEqual(['https://www.dictionnaire-academie.fr/article/A9P0092']);
   });
 
+  it('cites the page that states each gap, or marks it secondary (last round)', () => {
+    expect(sources('faillir', { mood: 'imperative', tense: 'present' })).toEqual(['https://www.cnrtl.fr/definition/faillir']);
+    expect(sources('déchoir', { mood: 'indicative', tense: 'imperfect' })).toEqual(['https://www.cnrtl.fr/definition/d%C3%A9choir']);
+    expect(sources('traire', { mood: 'indicative', tense: 'simple_past' })).toEqual(['https://www.dictionnaire-academie.fr/article/A9T1801']);
+    expect(sources('issir', { mood: 'indicative', tense: 'present' })).toEqual(['https://www.dictionnaire-academie.fr/article/A8I1568-A']);
+    expect(sources('férir', { mood: 'indicative', tense: 'present' })).toEqual(['https://www.dictionnaire-academie.fr/article/A9F0482']);
+    const rassir = conjugate('rassir', { mood: 'indicative', tense: 'present', person: 3, number: 'singular', gender: 'masculine' }).unavailableTargets[0]!;
+    expect([rassir.step?.rule, rassir.source]).toEqual(['fr.avail.unattested', 'https://www.dictionnaire-academie.fr/conjuguer/A9R0556']);
+    expect(rassir.explanation).toMatch(/^Secondary source only/u);
+    const clore = 'https://www.dictionnaire-academie.fr/article/A9C2658';
+    for (const infinitive of ['déchoir', 'rassir', 'issir', 'férir', 'traire', 'extraire']) {
+      expect(sources(infinitive, {}), infinitive).not.toContain(clore);
+    }
+  });
+
   it('cites the agreeing table of a verified family', () => {
     expect(sources('falloir', { mood: 'imperative', tense: 'present' })).toEqual(['https://www.dictionnaire-academie.fr/conjuguer/A9F0145']);
   });

@@ -38,12 +38,14 @@ export const indirectReflexives: ReadonlySet<string> = new Set(['parler', 'tél�
 export const essentialReflexives: ReadonlySet<string> = new Set(['méfier', 'souvenir', 'enfuir', 'abstenir', 'évanouir', 'repentir']);
 /**
  * Verbs whose initial h is aspirated: each table at the Académie reads « Ce verbe ne fait pas l'élision ni la liaison
- * (H aspiré) » (9th edition; handicaper and harceler 10th, read 2026-11-27). Any other initial h is assumed mute.
+ * (H aspiré) » (9th edition; handicaper and harceler 10th; houer 8th, also TLFi « h aspiré »; read 2026-11-27). Any
+ * other initial h is assumed mute.
  */
 export const aspiratedH: ReadonlySet<string> = new Set([
   'hâbler', 'hacher', 'haïr', 'haler', 'hâler', 'haleter', 'handicaper', 'hanter', 'happer', 'haranguer', 'harasser',
-  'harceler', 'harnacher', 'harponner', 'hasarder', 'hâter', 'hausser', 'héler', 'hennir', 'hérisser', 'heurter',
-  'hiérarchiser', 'hisser', 'hocher', 'honnir', 'hoqueter', 'houspiller', 'huer', 'humer', 'hurler',
+  'harceler', 'harnacher', 'harponner', 'hasarder', 'hâter', 'hausser', 'haver', 'héler', 'hennir', 'hercher',
+  'hérisser', 'heurter', 'hiérarchiser', 'hisser', 'hocher', 'hongrer', 'hongroyer', 'honnir', 'hoqueter', 'houer',
+  'hourder', 'houspiller', 'hucher', 'huer', 'hululer', 'humer', 'hurler',
 ]);
 
 export interface LexicalRestriction {

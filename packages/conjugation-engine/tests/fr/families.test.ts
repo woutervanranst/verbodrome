@@ -27,11 +27,20 @@ describe('French family corrections', () => {
     expect(steps('enclore', third)[1]).toMatch(/fr\.stem\.listed-spelling/u);
   });
 
-  it('surseoir: je sursoirai (built on the 1990 infinitive sursoir) and je surseoirai, with their own rule', () => {
+  it('surseoir: je surseoirai first in both spellings (JO 1990 note (a), Académie A9S3721); sursoirai a marked 1990 variant', () => {
     const future = { mood: 'indicative', tense: 'future', person: 1, number: 'singular' } as const;
-    expect(forms('surseoir', future)).toEqual(['je sursoirai (rectified)', 'je surseoirai (traditional)']);
-    expect(steps('surseoir', future)[0]).toMatch(/fr\.orth\.1990-sursoir-future/u);
-    expect(steps('surseoir', future)[0]).not.toMatch(/fr\.orth\.1990-assoir/u);
+    const result = engine.conjugate({ language: 'fr', infinitive: 'surseoir', ...future });
+    expect(result.forms.map(form => [form.text, form.variant.orthography, form.variant.usage, form.preferred]))
+      .toEqual([['je surseoirai', 'both', 'standard', true], ['je sursoirai', 'rectified', 'literary', false]]);
+    expect(result.forms[1]!.ruleIds).toContain('fr.orth.1990-sursoir-future');
+    expect(result.forms[1]!.ruleIds).not.toContain('fr.orth.1990-assoir');
+    const traditional = engine.conjugate({ language: 'fr', infinitive: 'surseoir', preferredOrthography: 'traditional', ...future });
+    expect(traditional.forms.map(form => [form.text, form.preferred])).toEqual([['je surseoirai', true], ['je sursoirai', false]]);
+    const step = engine.explain('fr', result.forms[1]!, 'en').sections.flatMap(section => section.steps.map(item => item.text))
+      .find(text => text.includes('sursoir'));
+    expect(step).toMatch(/^Secondary source only/u);
+    expect(forms('surseoir', { mood: 'conditional', tense: 'present', person: 1, number: 'singular' }))
+      .toEqual(['je surseoirais', 'je sursoirais (rectified)']);
     expect(forms('surseoir', { mood: 'infinitive', tense: 'present' })).toEqual(['sursoir (rectified)', 'surseoir (traditional)']);
   });
 

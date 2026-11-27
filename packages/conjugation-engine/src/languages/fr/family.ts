@@ -97,10 +97,16 @@ export interface FamilyFlags {
    */
   readonly verified?: { readonly academie: string; readonly date: string };
   /**
-   * The Académie entry (A9…) whose « Conjugaison » remark states which forms the verb lacks: the family's unavailable
-   * targets cite that article, whose table may print more (`docs/grammar/fr.md` lists where).
+   * The page that states which forms the verb lacks: an Académie article's « Conjugaison » remark, or the TLFi or the
+   * 8th edition where the 9th says nothing. The family's unavailable targets cite it; its table may print more
+   * (`docs/grammar/fr.md` lists where).
    */
-  readonly article?: string;
+  readonly gapsSource?: `https://${string}`;
+  /**
+   * No checked page states the family's gaps: they are the former tables' only. Its unavailable targets say so
+   * (`fr.avail.unattested`, secondary source only) and cite `gapsSource`, the table that prints the forms.
+   */
+  readonly secondaryGaps?: true;
 }
 
 /**

@@ -107,6 +107,8 @@ describe('French aspirated h (fix wave I3)', () => {
     'hâbler', 'hacher', 'haïr', 'haler', 'hâler', 'haleter', 'handicaper', 'hanter', 'happer', 'haranguer', 'harasser',
     'harceler', 'harnacher', 'harponner', 'hasarder', 'hâter', 'hausser', 'héler', 'hennir', 'hérisser', 'heurter',
     'hiérarchiser', 'hisser', 'hocher', 'honnir', 'hoqueter', 'houspiller', 'huer', 'humer', 'hurler',
+    // Last round: hucher, hongrer, hululer, hongroyer, hourder, haver, hercher (9th edition), houer (8th edition, TLFi).
+    'haver', 'hercher', 'hongrer', 'hongroyer', 'houer', 'hourder', 'hucher', 'hululer',
   ])('%s keeps je before its aspirated h', infinitive => {
     expect(first(infinitive)).toMatch(/^je h/u);
     expect(classifyFrench({ language: 'fr', infinitive })[0]!.steps.map(step => step.rule)).toContain('fr.classify.aspirated-h');
@@ -115,5 +117,29 @@ describe('French aspirated h (fix wave I3)', () => {
   it('assumes the h of an unlisted verb mute', () => {
     expect(first('hobler')).toBe('j\'hoble');
     expect(classifyFrench({ language: 'fr', infinitive: 'hobler' })[0]!.steps.map(step => step.rule)).toContain('fr.classify.assume-mute-h');
+  });
+});
+
+describe('French auxiliary hints (last round)', () => {
+  const perfect = (infinitive: string, auxiliary: string) => shadow.conjugate({
+    language: 'fr', infinitive, auxiliary, mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', gender: 'masculine',
+  }).forms.map(form => form.text);
+
+  it('lets a hint override an assumed auxiliary, as for a productive verb', () => {
+    expect(perfect('flaindre', 'être')).toEqual(['je suis flaint']);
+    expect(perfect('zobvenir', 'être')).toEqual(['je suis zobvenu']);
+    expect(perfect('prévenir', 'être')).toEqual(['je suis prévenu']);
+    expect(perfect('vendre', 'être')).toEqual(['je suis vendu']);
+  });
+
+  it('refuses a hint that contradicts a listed auxiliary', () => {
+    expect(() => perfect('conduire', 'être')).toThrow('does not accept auxiliary être');
+    expect(() => perfect('aller', 'avoir')).toThrow('does not accept auxiliary avoir');
+  });
+
+  it('gives a verb without compound tenses no auxiliary in its analysis (gésir)', () => {
+    expect(analysis('gésir').auxiliaries).toEqual([]);
+    expect(analysis('seoir').auxiliaries).toEqual([]);
+    expect(analysis('dormir').auxiliaries).toEqual(['avoir']);
   });
 });

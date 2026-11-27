@@ -176,7 +176,9 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
   // Auxiliaries (GD §3 step 6).
   const possible = reflexive ? ['être'] : dualAuxiliary.has(lemma) ? ['avoir', 'être'] : [etreVerbs.has(lemma) ? 'être' : 'avoir'];
   const { auxiliary } = options;
-  if (auxiliary && (reflexive || source === 'lexicon' || etreVerbs.has(lemma) || knownAvoirVerbs.has(lemma)) && !possible.includes(auxiliary)) {
+  // A hint may override an assumed auxiliary, not a listed one (each checked in the Académie's table).
+  const listedAuxiliary = reflexive || etreVerbs.has(lemma) || dualAuxiliary.has(lemma) || knownAvoirVerbs.has(lemma);
+  if (auxiliary && listedAuxiliary && !possible.includes(auxiliary)) {
     throw invalidHint(`${lemma} does not accept auxiliary ${auxiliary} in this model.`);
   }
   // The auxiliary is a lexical fact only for a verb a list names (each checked in the Académie's table); for any other
@@ -221,7 +223,9 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
   const paradigms = paradigmsOf(choice, lemma);
   return paradigms.map(({ paradigm, tags }) => ({
     value: {
-      lemma, verbId, classId: label, classSource: hints ? 'explicitHint' : source, reflexive, auxiliaries: auxiliary ? [auxiliary] : possible,
+      // A verb without compound tenses has no auxiliary to report (gésir, seoir), unless a hint names one.
+      lemma, verbId, classId: label, classSource: hints ? 'explicitHint' : source, reflexive,
+      auxiliaries: auxiliary ? [auxiliary] : reflexive || hasCompounds(choice, options) ? possible : [],
       particle: null, group: choice.kind === 'productive' ? choice.group : null, family, paradigm, label, hints,
       indirect: reflexive && indirect, aspiratedH: aspirated, auxiliaryChoice: possible.length > 1, restriction: restrictions[lemma] ?? {},
     },

@@ -1,6 +1,6 @@
 /**
  * Every rule the French grammar records (GD §4): 23 classify, 13 stem, 11 ending, 16 orthography, 14 periphrasis,
- * 14 clause and 5 availability rules. Their messages are in `src/i18n/locales/{en,nl}/fr.ts`, their citations in
+ * 14 clause and 6 availability rules. Their messages are in `src/i18n/locales/{en,nl}/fr.ts`, their citations in
  * `sources.ts`.
  */
 import { defineRules } from '../../core/derivation.js';
@@ -109,6 +109,7 @@ export const frenchRules = defineRules({
   'fr.avail.impersonal': { stage: 'availability', kind: 'unavailable' },
   'fr.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },
   'fr.avail.pronominal-imperative-past': { stage: 'availability', kind: 'unavailable' },
+  'fr.avail.unattested': { stage: 'availability', kind: 'unavailable' },
 });
 
 export type FrenchRuleId = keyof typeof frenchRules;

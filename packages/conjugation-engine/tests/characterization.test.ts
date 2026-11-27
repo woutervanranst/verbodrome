@@ -27,16 +27,20 @@ const FR_QUERY_COUNT = 1003;
 const NL_QUERY_COUNT = 1478;
 /**
  * Pinned: the analysis lines of the 11 Dutch verbs the lexicon lists with an unstressed prefix, which no longer record
- * the assumptions for an unlisted verb (final review fix wave), 4 queries each; and the 165 French lines of the
- * whitelist probes of GD §9.3 (bleder, crebler, pequer: è before a mute ending; blettre: one t in the singular).
+ * the assumptions for an unlisted verb (final review fix wave), 4 queries each; and the French lines of small, pointed
+ * changes, at most ten per query (French fix wave): croître's participle queries, clore and se clore « il clôt »,
+ * enclore « il enclôt, il enclot », the auxiliary of férir, ensuivre, issir and atteindre, and the verbs without compound
+ * tenses that report no auxiliary.
  */
-const LINE_ENTRY_COUNT = 44 + 6674;
+const LINE_ENTRY_COUNT = 44 + 89;
 /**
  * Pinned: the Dutch queries of the two approved behaviour changes of the staged switch (56), of the lexicon
  * corrections of wrong Dutch that followed it (44), and of the unstressed prefix read from the spelling of an unlisted
- * verb (bezorpelen, verzorpen: 8).
+ * verb (bezorpelen, verzorpen: 8); and the French queries whose whole block changes for one stated cause (French fix
+ * wave): every invented probe (bleder, crebler, pequer, blettre, blouvoir, ïr and the z-prefixed verbs: 177), and faillir,
+ * paraître, croître, se croître, asseoir, assoir, s'asseoir and surseoir where a change runs through the block (26).
  */
-const BLOCK_ENTRY_COUNT = 108;
+const BLOCK_ENTRY_COUNT = 108 + 203;
 /** Pinned: the Dutch default-unprefixed sentence, reworded because it was no longer true (final review fix wave). */
 const SENTENCE_ENTRY_COUNT = 1;
 

@@ -126,7 +126,7 @@ is not used for any rule.
 | `fr.orth.croitre-homograph` | rule | croître keeps a circumflex here so that it is not spelt like croire: {before} becomes {after}. | [JO 1990: II.4 b : le verbe croître](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Exceptions : croître](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe); [Académie: croître, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C5057) |
 | `fr.orth.1990-circumflex` | rule | In the 1990 spelling i and u lose their circumflex: {before} becomes {after}. | [JO 1990: II.4](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Accent circonflexe : rectifications](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe) |
 | `fr.orth.1990-assoir` | rule | The 1990 spelling drops the e of -eoi-: {before} becomes {after}. | [JO 1990: III, Liste H : assoir, rassoir, sursoir](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: ASSEOIR et ASSOIR](https://vitrinelinguistique.oqlf.gouv.qc.ca/23838/la-grammaire/le-verbe/conjugaison/emplois-du-verbe-asseoir) |
-| `fr.orth.1990-sursoir-future` | rule | In the 1990 spelling the future and the conditionnel are built on the infinitive sursoir: {before} becomes {after}. The Académie prints only the forms with -seoi- (surseoirai). | [JO 1990: III, Liste H : sursoir (l’infinitif)](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf) |
+| `fr.orth.1990-sursoir-future` | rule | Secondary source only: a variant of the 1990 spelling, built on the infinitive sursoir, {before} becomes {after}. JO 1990 (Liste H, note a: « mais je surseoirai ») and the Académie give only surseoirai, which comes first in both spellings. | [JO 1990: III, Liste H : sursoir (l’infinitif) ; note (a) : « mais je surseoirai »](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: surseoir : je surseoirai, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9S3721) |
 | `fr.orth.1990-interpeler` | rule | The 1990 spelling writes interpeler with one l, doubled only before a silent e: {before} becomes {after}. | [JO 1990: III, Anomalies : interpeler](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Appeler, jeter et leurs dérivés, y compris interpeler](https://vitrinelinguistique.oqlf.gouv.qc.ca/23169/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-consonnes-doubles/rectifications-liees-a-la-conjugaison-des-verbes-en-eler-et-en-eter) |
 | `fr.orth.1990-absout` | rule | The 1990 spelling ends the masculine in t, like the feminine absoute: {before} becomes {after}. | [JO 1990: III, Liste : absout, absoute](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: absoudre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A0175) |
 
@@ -177,6 +177,7 @@ is not used for any rule.
 | `fr.avail.impersonal` | unavailable | This verb is impersonal: it only exists with il, so this person has no form. | [Académie: article falloir (verbe impersonnel)](https://www.dictionnaire-academie.fr/article/A9F0145); [BDL: Verbes essentiellement impersonnels](https://vitrinelinguistique.oqlf.gouv.qc.ca/24584/la-grammaire/le-verbe/auxiliaires/tableau-synthese-de-lemploi-des-auxiliaires-avoir-et-etre) |
 | `fr.avail.no-imperative` | unavailable | This verb has no imperative. | [Académie: pouvoir (sans impératif), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9P3829); [Académie: falloir (sans impératif), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9F0145) |
 | `fr.avail.pronominal-imperative-past` | unavailable | The past imperative of a pronominal verb is treated as not in use; no checked authority says so, and the Académie prints it (sois-toi assis). | [Académie: asseoir, voix pronominale : imprime l’impératif passé sois-toi assis, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A2823) |
+| `fr.avail.unattested` | unavailable | Secondary source only: the former tables give no form here and it stays unavailable, but no checked authority says it is not in use, and the Académie’s table prints it. | Académie: tableau de conjugaison du verbe, qui imprime la forme |
 
 ## Defaults and assumptions
 
@@ -230,20 +231,27 @@ The 25 families without `verified`, with what their table prints (A9… is the e
 | férir (A9F0482) | participle féru and compounds with avoir | table: infinitive only |
 | issir (no 9th-edition entry; A8I1568-A) | participle issu and compounds with avoir | 8th edition only |
 
-The unavailable targets of absoudre, gésir, paître and the other families whose article states the forms they lack
-cite that article (`flags.article`), never the table that prints the form.
+An unavailable target cites the page that states the forms its family lacks (`flags.gapsSource`): the Académie
+article for absoudre, braire, bruire, choir, clore, éclore, échoir, enclore, férir, frire, gésir, messeoir, paître, seoir
+and traire (A9T1801: « pas de passé simple »), the 8th-edition article for issir (« Issir, qui n'est plus en usage »), and
+the TLFi for déchoir (« se rencontre surtout à l'infinitif et au part. passé ») and faillir (« n'est plus guère usité
+qu'à l'infinitif, au passé simple … »). It never cites a table that prints the form, except where its step says so:
+rassir's gaps are stated nowhere, so they use `fr.avail.unattested` (secondary source only) and cite rassir's table,
+which prints the forms. A verified family's gaps cite its table, which agrees.
 
 ### Secondary source only
 
 Forms no checked authority supports, kept until the user decides:
 
-- surseoir: rectified future and conditional sursoir- (`fr.orth.1990-sursoir-future`), built on the 1990 infinitive
-  sursoir (JO 1990 III, Liste H). Note (a) to the same Liste H reads "j'assoirai … (mais je surseoirai)", and the
-  Académie prints only surseoirai. The traditional surseoirai stays; the rectified form is preferred by the general rule
-  (rectified first).
+- surseoir: je surseoirai, je surseoirais come first in both spellings, as note (a) to JO 1990 Liste H (« mais je
+  surseoirai ») and the Académie (A9S3721) give them. je sursoirai, je sursoirais, built on the 1990 infinitive sursoir,
+  follow as a non-preferred variant of the 1990 spelling, tagged `usage: 'literary'` (the closest marked usage), and
+  their step (`fr.orth.1990-sursoir-future`) opens with « Secondary source only ». The infinitive sursoir stays a 1990
+  spelling (JO 1990 III, Liste H).
+- rassir's gaps (`fr.avail.unattested`): no checked authority states them; the Académie conjugates rassir in full.
 - The pronominal past imperative is unavailable (`fr.avail.pronominal-imperative-past`); no checked authority says it
   is not in use, and the Académie prints sois-toi assis (A9A2823). The step says so.
-- bruire's bruit, rassir's reduced paradigm, issir's issu: see the table above.
+- bruire's bruit and issir's issu: see the table above.
 
 Two cells carry a second word that the Académie's table prints after « ou », in both spellings and after the derived
 one (`fr.stem.listed-spelling`): il enclôt ou enclot (enclore, A9E1359) and il éclôt ou éclot (éclore, A9E0262). The
@@ -252,21 +260,29 @@ crus, crues and clore's 3sg il clôt, in both spellings (JO 1990 II.4; Académie
 
 ## Intended differences from the frozen snapshot
 
-Line entries in `tests/characterization/intended-diffs.json` (each with its reason and an Académie, JO 1990 or BDL
-source; corpus fixtures that held the old form have a sourced correction in `tests/fixtures/corrections.json`):
+`tests/characterization/intended-diffs.json` records each with its reason and an Académie, JO 1990, BDL or TLFi source;
+corpus fixtures that held the old form have a sourced correction in `tests/fixtures/corrections.json`. A query whose
+whole block changes for one stated cause has one block-level entry, and its block is pinned in
+`characterization/fr.accepted.tsv.gz` (`npm run characterize:accept`); a small, pointed change (at most ten lines per
+query) has line-level entries. No French sentence changed identically in every block that lists it, so French has no
+sentence-level entry.
 
-- bleder, crebler, pequer: the mute e of the last stem syllable becomes è before a mute ending whatever consonant
-  follows (je blède, je crèble, je pèque; analysis `lever` instead of `aimer`). The former tables only knew -emer,
-  -ener, -eper, -erer, -eser, -ever, -evrer, -ecer. Source: BDL 24212.
-- blettre: -ttre verbs keep one t in the singular present and the imperative (je blets, il blet, blets), as battre and
-  mettre do in the Académie's tables; the former tables wrote bletts, blett.
-- Auxiliaries: an avoir that no checked table gives is recorded as the assumption `fr.classify.assume-avoir` (invented
-  verbs of a family, férir, issir, ensuivre); paraître takes avoir or être (Académie A9P0487); atteindre is listed with
-  avoir (A9A3024).
-- croître: participle crû, crue, crus, crues in both spellings (A9C5057). clore: il clôt in both spellings (A9C2658).
-  enclore: il enclôt and il enclot in both spellings, enclôt first (A9E1359). asseoir (assois): future and conditional
-  assoir- in both spellings (A9A2823). faillir: avoir only, invariable participle; an `auxiliary: 'être'` hint is now
-  refused (A9F0105). Invented verbs of these families and of devoir (…du in the 1990 spelling, JO 1990 II.4) follow.
+Block-level (203 queries):
+
+- Every invented probe (177): bleder, crebler, pequer (è before a mute ending whatever consonant follows; BDL 24212),
+  blettre (one t in the singular; Académie mettre A9M1992), blouvoir, ïr and the z-prefixed verbs (avoir recorded as
+  the assumption `fr.classify.assume-avoir`, BDL 24224), plus what their families changed: zoclore, zolenclore,
+  zolasseoir, zofaillir, zodevoir (…du in the 1990 spelling, JO 1990 II.4), zosurseoir.
+- faillir: avoir only, invariable participle; an `auxiliary: 'être'` hint is refused (A9F0105).
+- paraître: avoir or être in every compound tense (A9P0487).
+- croître, se croître: participle crû, crue, crus, crues in both spellings (A9C5057), in the full conjugations.
+- asseoir, assoir, s'asseoir: the assois series builds its future and conditional on assoir in both spellings (A9A2823).
+- surseoir: je surseoirai first in both spellings, je sursoirai a marked 1990 variant (JO 1990 note (a), A9S3721).
+
+Line-level (89 lines): croître's participle queries; clore and se clore « il clôt » in both spellings (A9C2658);
+enclore « il enclôt, il enclot » in both spellings (A9E1359); the auxiliary of férir, ensuivre and issir (now an
+assumption) and atteindre (listed, A9A3024); and the analysis of the verbs without compound tenses (accroire, assavoir,
+bienvenir, courre, ester, gésir, malfaire, méfaire, messeoir, quérir, ravoir, seoir), which reports no auxiliary.
 
 Behaviour changes outside the snapshot: every unlisted -e(C)er verb whose consonant opens a syllable takes è (zeger,
 blecher); hinted stems go through the spelling rules (blouper + `stems.plural: 'blac'` → nous blaçons; y becomes i before a mute
@@ -274,20 +290,27 @@ ending in any hinted part, ils plessoient, que je plessoie); the 1990
 circumflex rule applies to every group (mûrir → murir) and keeps jeûne(s), and dû only for devoir itself (redevoir:
 redu, traditionally redû); `model` naming a productive model must be the one the verb's spelling gives. Outside the
 snapshot the Académie's tables also give apparaître, réapparaître, disparaître, éclore, redescendre and ressusciter
-avoir or être, and redevenir être; 30 verbs keep je before their aspirated h, each marked « H aspiré » in its table
-(hâbler … hurler, humer included: je hume); any other initial h is assumed mute (j'hoble).
+avoir or être, and redevenir être; 38 verbs keep je before their aspirated h, each marked « H aspiré » in its table
+(hâbler … hurler, humer included: je hume; houer from the 8th edition and the TLFi); any other initial h is assumed
+mute (j'hoble). An `auxiliary` hint overrides an assumed auxiliary (flaindre, prévenir, comparaître, invented verbs) and
+is refused only when it contradicts a listed one (aller, conduire, faillir).
 
 ## Open decisions for the user
 
 1. The disagreements above: keep the engine's forms, or ledger the Académie's. Pending in particular: absoudre's passé
    simple and imperfect subjunctive, gésir's imperative and paître's compound tenses, which the engine keeps unavailable
    on the strength of their articles while their tables print them.
-2. surseoir's rectified future sursoirai (secondary source only, above).
+2. surseoir's sursoirai, sursoirais: kept as a non-preferred, literary-tagged 1990 variant (secondary source only,
+   above). The alternative: drop them, leaving surseoirai in both spellings.
 3. The pronominal past imperative: kept unavailable. The reviewer's alternative: generate sois-toi lavé(e), soyons-nous
    lavé(e)s, soyez-vous lavé(e)s tagged `usage: 'literary'`, not preferred, cited to the Académie, as a ledgered change.
 4. entrer and tomber take only être here; the Académie gives « avoir (en emploi transitif) ou être ».
 5. The dual-auxiliary condition (known wart, below): replace the sentence with a condition id, drop it on aller/venir
    chains and after an `auxiliary` hint, as a ledgered change.
+6. The pronominal past imperative reports the reason `noImperative`, a value of the public `UnavailableReason` union,
+   although the verb has an imperative and the cited table prints the past one.
+7. méfaire: the Académie (A9M1554) prints a full conjugation with avoir (j'ai méfait, méfais); the engine keeps it in the
+   infinitive-only family of accroire and gives every target unavailable (legacy behaviour), citing accroire's table.
 
 ## Limits
 

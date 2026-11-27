@@ -166,14 +166,15 @@ const assoir1990: Rule = {
 };
 
 /**
- * 14. surseoir's future and conditional in the 1990 spelling are built on the infinitive sursoir (sursoirai). No checked
- * authority prints them: the Académie and note (a) of the 1990 Liste H write surseoirai (docs/grammar/fr.md).
+ * 14. surseoir's future and conditional: surseoirai in both spellings, as note (a) of the 1990 Liste H (« mais je
+ * surseoirai ») and the Académie write it; sursoirai, built on the 1990 infinitive sursoir, follows as a marked variant
+ * of the 1990 spelling, secondary source only (docs/grammar/fr.md, open decisions).
  */
 const sursoirFuture1990: Rule = {
   info: frenchRules['fr.orth.1990-sursoir-future'],
   apply(j, { lexeme, cell }) {
     if (lexeme.family?.id !== 'surseoir' || !futureCell(cellIndex(cell)) || !j.stem.includes('seoi')) return null;
-    return [...traditional(j), ...withoutE(j)];
+    return [...one(j), ...one({ stem: j.stem.replace('seoi', 'soi'), ending: j.ending }, [], { orthography: 'rectified', usage: 'literary' })];
   },
 };
 

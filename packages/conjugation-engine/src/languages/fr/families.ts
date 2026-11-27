@@ -5,7 +5,7 @@
  *
  * `flags.verified` names the Académie conjugation table a family agrees with (see `FamilyFlags`); a family without it
  * disagrees with its table or has no 9th-edition entry, and is listed with what the table prints in `docs/grammar/fr.md`.
- * `flags.article` names the Académie entry whose remark states the forms the verb lacks.
+ * `flags.gapsSource` is the page that states the forms the verb lacks; `flags.secondaryGaps` marks gaps no page states.
  *
  * Generated once from `models.ts` at commit 1e3c0a6 by the one-off `scripts/fr/bootstrap-families.ts` (deleted at the switch), and maintained by hand from
  * now on.
@@ -75,7 +75,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'gi', set: 's', P2: 'gis' }, gaps: ['subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'imp.2s', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { compounds: 'none', circumflexBeforeT: true, article: 'A9G0655' },
+    flags: { compounds: 'none', circumflexBeforeT: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9G0655' },
   },
   {
     id: 'seoir', lemmas: ['seoir'], suffixes: [],
@@ -83,7 +83,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'sied', set: 's', P2: 'sey', P3: 'sié', F: 'siér', PP: 'sis' }, gaps: [], cells: { ppres: ['séant', 'seyant'] }, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', article: 'A9S1259' },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', gapsSource: 'https://www.dictionnaire-academie.fr/article/A9S1259' },
   },
   {
     id: 'messeoir', lemmas: ['messeoir'], suffixes: [],
@@ -91,7 +91,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'messied', set: 's', P2: 'messey', P3: 'messié', F: 'messiér', PP: 'messis' }, gaps: [], cells: { ppres: ['messéant', 'messeyant'] }, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', article: 'A9M1868' },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', gapsSource: 'https://www.dictionnaire-academie.fr/article/A9M1868' },
   },
   {
     id: 'ouïr', lemmas: ['ouïr'], suffixes: [],
@@ -109,7 +109,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'choirai', usage: 'dated', parts: { P1: 'choi', set: 's', P2: 'choy', P3: 'choi', F: 'choir', PS: 'ch', theme: 'u', PP: 'chu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'subjimpf.1s', 'subjimpf.2s', 'subjimpf.1p', 'subjimpf.2p', 'subjimpf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
       { pattern: 'cherrai', usage: 'dated', parts: { P1: 'choi', set: 's', P2: 'choy', P3: 'choi', F: 'cherr', PS: 'ch', theme: 'u', PP: 'chu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'subjimpf.1s', 'subjimpf.2s', 'subjimpf.1p', 'subjimpf.2p', 'subjimpf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
     ],
-    flags: { article: 'A9C2105' },
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A9C2105' },
   },
   {
     id: 'échoir', lemmas: [], suffixes: ['échoir'],
@@ -118,7 +118,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'échoit', usage: 'standard', parts: { P1: 'échoi', set: 's', P2: 'échoy', P3: 'échoi', F: 'échoir', PS: 'éch', theme: 'u', PP: 'échu' }, gaps: [], cells: { ppres: ['échéant'] }, spellings: {} },
       { pattern: 'échet', usage: 'standard', parts: { P1: 'éche', set: 's', P2: 'échoy', P3: 'éché', F: 'écherr', PS: 'éch', theme: 'u', PP: 'échu' }, gaps: [], cells: { ppres: ['échéant'] }, spellings: {} },
     ],
-    flags: { thirdPersonOnly: true, article: 'A9E0216' },
+    flags: { thirdPersonOnly: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9E0216' },
   },
   {
     id: 'déchoir', lemmas: [], suffixes: ['déchoir'],
@@ -126,7 +126,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'déchoi', set: 's', P2: 'déchoy', P3: 'déchoi', F: ['déchoir', 'décherr'], PS: 'déch', theme: 'u', PP: 'déchu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
     ],
-    flags: {},
+    flags: { gapsSource: 'https://www.cnrtl.fr/definition/d%C3%A9choir' },
   },
   {
     id: 'croître', lemmas: ['croître'], suffixes: [],
@@ -158,7 +158,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'pai', set: 's', P2: 'paiss', F: 'paîtr', PP: 'pu' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { compounds: 'nonFinite', circumflexBeforeT: true, article: 'A9P0092' },
+    flags: { compounds: 'nonFinite', circumflexBeforeT: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9P0092' },
   },
   {
     id: 'repaître', lemmas: [], suffixes: ['repaître'],
@@ -278,7 +278,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'rai', set: 's', P2: 'ray', P3: 'rai', F: 'rair', PP: 'rait' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: {},
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A9T1801' },
   },
   {
     id: 'résoudre', lemmas: [], suffixes: ['résoudre'],
@@ -294,7 +294,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'sou', set: 's', P2: 'solv', F: 'soudr', PP: 'sous', PPF: 'sout' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { article: 'A9A0175' },
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A9A0175' },
   },
   {
     id: 'coudre', lemmas: [], suffixes: ['coudre'],
@@ -406,7 +406,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { circumflexBeforeT: true, article: 'A9C2658' },
+    flags: { circumflexBeforeT: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9C2658' },
   },
   {
     // clore's forms; the Académie's table (A9E0262) prints « éclôt ou éclot ».
@@ -415,7 +415,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
     ],
-    flags: { circumflexBeforeT: true, article: 'A9E0262' },
+    flags: { circumflexBeforeT: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9E0262' },
   },
   {
     id: 'acquérir', lemmas: [], suffixes: ['quérir'],
@@ -442,7 +442,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'faille', usage: 'standard', parts: { P1: 'failli', set: 's', P2: 'failliss', F: 'faudr', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'faill', SJ2: 'faill' }, gaps: [], cells: {}, spellings: {} },
       { pattern: 'faux', usage: 'dated', parts: { P1: 'fau', set: 'x', P2: 'faill', F: 'faillir', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'failliss', SJ2: 'failliss' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true, noImperative: true },
+    flags: { invariableParticiple: true, noImperative: true, gapsSource: 'https://www.cnrtl.fr/definition/faillir' },
   },
   {
     id: 'bouillir', lemmas: [], suffixes: ['bouillir'],
@@ -675,7 +675,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ri', set: 's', F: 'rir', PP: 'rit' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { article: 'A9F1701' },
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A9F1701' },
   },
   {
     id: 'maudire', lemmas: ['maudire'], suffixes: [],
@@ -699,7 +699,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ui', set: 's', P2: 'uiss', F: 'uir', PP: 'uit' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.1p', 'impf.2p', 'subj.1s', 'subj.2s', 'subj.1p', 'subj.2p', 'imp.2s', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true, article: 'A9B2326' },
+    flags: { invariableParticiple: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9B2326' },
   },
   {
     id: 'braire', lemmas: ['braire'], suffixes: [],
@@ -707,7 +707,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ai', set: 's', P2: 'ay', P3: 'ai', F: 'air', PP: 'ait' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, article: 'A9B1988' },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9B1988' },
   },
   {
     id: 'foutre', lemmas: [], suffixes: ['foutre'],
@@ -731,7 +731,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
     ],
-    flags: { circumflexBeforeT: true, article: 'A9E1359' },
+    flags: { circumflexBeforeT: true, gapsSource: 'https://www.dictionnaire-academie.fr/article/A9E1359' },
   },
   {
     id: 'prévaloir', lemmas: [], suffixes: ['prévaloir'],
@@ -755,7 +755,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { PP: 'ru' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { article: 'A9F0482' },
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A9F0482' },
   },
   {
     id: 'issir', lemmas: ['issir'], suffixes: [],
@@ -763,7 +763,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { PP: 'su' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: {},
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/article/A8I1568-A' },
   },
   {
     id: 'rassir', lemmas: ['rassir'], suffixes: [],
@@ -771,7 +771,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { PP: 'is' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: {},
+    flags: { gapsSource: 'https://www.dictionnaire-academie.fr/conjuguer/A9R0556', secondaryGaps: true },
   },
   {
     id: 'occire', lemmas: ['occire'], suffixes: [],

@@ -61,14 +61,14 @@ export function hasCell(lexeme: FrenchLexeme, index: number): boolean {
 }
 
 /**
- * The address an unavailable target cites: the Académie article that states the forms the verb lacks, else the table
- * its family agrees with, else the rule's own citation. Never a table that prints the form (gésir's gis, absoudre's
- * absolus, paître's ai pu: their articles say otherwise).
+ * The address an unavailable target cites: the page that states the forms the verb lacks (`gapsSource`), else the table
+ * its family agrees with, else the rule's own citation. A table that prints the form is cited only by
+ * `fr.avail.unattested` and `fr.avail.pronominal-imperative-past`, whose steps say that it prints it.
  */
 function sourceOf(lexeme: FrenchLexeme, rule: keyof typeof frenchCitations): string {
-  const { article, verified } = lexeme.family?.flags ?? {};
+  const { gapsSource, verified } = lexeme.family?.flags ?? {};
   if (rule !== 'fr.avail.pronominal-imperative-past') {
-    if (article) return `https://www.dictionnaire-academie.fr/article/${article}`;
+    if (gapsSource) return gapsSource;
     if (verified) return `https://www.dictionnaire-academie.fr/conjuguer/${verified.academie}`;
   }
   const cited = frenchCitations[rule];
@@ -76,9 +76,14 @@ function sourceOf(lexeme: FrenchLexeme, rule: keyof typeof frenchCitations): str
   return (first as { url?: string } | undefined)?.url ?? 'https://www.dictionnaire-academie.fr/';
 }
 
-const unavailable = (lexeme: FrenchLexeme, rule: 'fr.avail.defective' | 'fr.avail.third-person-only' | 'fr.avail.impersonal'
-  | 'fr.avail.no-imperative' | 'fr.avail.pronominal-imperative-past', reason: Unavailability['reason']): Unavailability =>
-  ({ reason, step: step(frenchRules[rule], null, null), source: sourceOf(lexeme, rule) });
+type AvailabilityRule = 'fr.avail.defective' | 'fr.avail.third-person-only' | 'fr.avail.impersonal' | 'fr.avail.no-imperative'
+  | 'fr.avail.pronominal-imperative-past' | 'fr.avail.unattested';
+
+/** The unavailability, with the rule `fr.avail.unattested` in place of `rule` where the family's gaps are secondary only. */
+function unavailable(lexeme: FrenchLexeme, rule: AvailabilityRule, reason: Unavailability['reason']): Unavailability {
+  const own = lexeme.family?.flags.secondaryGaps && rule !== 'fr.avail.pronominal-imperative-past' ? 'fr.avail.unattested' : rule;
+  return { reason, step: step(frenchRules[own], null, null), source: sourceOf(lexeme, own) };
+}
 
 /** Why `target` has no form in the paradigm of `lexeme` (GD §4.7), or null. */
 export function frenchAvailability(lexeme: FrenchLexeme, target: ResolvedTarget): Unavailability | null {

@@ -136,7 +136,7 @@ export const frenchCitations = {
   'fr.orth.circumflex-before-t': [oqlf(23701, 'Il clôt, il gît, il plaît'), jo1990('II.4 : plait'), conjugation('A9G0655', 'gésir'), conjugation('A9C2658', 'clore')],
   'fr.orth.croitre-homograph': [jo1990('II.4 b : le verbe croître'), oqlf(23166, 'Exceptions : croître'), conjugation('A9C5057', 'croître')],
   'fr.orth.1990-assoir': [jo1990('III, Liste H : assoir, rassoir, sursoir'), oqlf(23838, 'ASSEOIR et ASSOIR')],
-  'fr.orth.1990-sursoir-future': jo1990('III, Liste H : sursoir (l’infinitif)'),
+  'fr.orth.1990-sursoir-future': [jo1990('III, Liste H : sursoir (l’infinitif) ; note (a) : « mais je surseoirai »'), conjugation('A9S3721', 'surseoir : je surseoirai')],
   'fr.orth.1990-interpeler': [jo1990('III, Anomalies : interpeler'), oqlf(23169, 'Appeler, jeter et leurs dérivés, y compris interpeler')],
   'fr.orth.1990-absout': [jo1990('III, Liste : absout, absoute'), conjugation('A9A0175', 'absoudre')],
   'fr.periphrasis.perfect': [oqlf(24224, 'Avoir et être forment les temps composés'), conjugation('A9C1222', 'céder (passé composé)')],
@@ -164,6 +164,8 @@ export const frenchCitations = {
   'fr.avail.no-imperative': [conjugation('A9P3829', 'pouvoir (sans impératif)'), conjugation('A9F0145', 'falloir (sans impératif)')],
   // No checked authority states this rule (Le Bon Usage was not opened); the citation is the Académie table the message
   // names, which prints the form (docs/grammar/fr.md, open decisions).
+  // The family's own table (`gapsSource`), which prints the form, is the source of each target; this is the general one.
+  'fr.avail.unattested': { work: 'academie', locator: 'tableau de conjugaison du verbe, qui imprime la forme' },
   'fr.avail.pronominal-imperative-past': conjugation('A9A2823', 'asseoir, voix pronominale : imprime l’impératif passé sois-toi assis'),
   'fr.clause.subject': [conjugation('A9C1222', 'céder'), oqlf(24203, 'Formes de l’impératif, introduction')],
   'fr.clause.subject-gender': [oqlf(24222, 'Synthèse des règles d’accord'), conjugation('A9C1222', 'céder')],
