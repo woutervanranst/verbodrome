@@ -146,7 +146,9 @@ only the attested cells (`la.avail.not-attested`).
 
 Not generated:
 - old, archaic and early forms the grammars name as such: *fuam, siem, duim, escit*, the -ier infinitive, -ībam/-ībō in
-  the fourth conjugation, *dīce, dūce, face*, *dīxtī*-type forms, *nēvīs, māvolō*;
+  the fourth conjugation, *dīce, dūce, face*, *dīxtī*-type forms, *nēvīs, māvolō*, *ausim*, *coepiō*, *meminēns*, the old
+  fourth-conjugation forms of morior (*morīrī*); edō's archaic subjunctive *edim* is the exception kept from the
+  first review (dated);
 - the sigmatic future and aorist (*faxō, faxim*);
 - the future perfect and perfect potential infinitives (*amātum fore, amātūrum fuisse*);
 - the periphrastic conjugations as paradigms (*amātūrus sum, amandus sum*);
@@ -156,7 +158,9 @@ Not generated:
   before s and t is not a rule of this pack.
 
 The syncope rule follows A&G §181 by shape: it also contracts perfects such as *lāvī* and *cāvī* in -āvī, as the rule
-reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Bennett), against A&G's print.
+reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Bennett §101); A&G prints *-eris* (p. 93).
+The compound gaps of the table in "Compound families" (crepō, necō, micō, plicō, pangō, unguō/ungō, bibō's *pōtus*,
+attollō, comedō) are limits. The authority cells do not include Bennett's paradigms or the whole §§209–212 lists.
 
 ## Rule inventory
 
