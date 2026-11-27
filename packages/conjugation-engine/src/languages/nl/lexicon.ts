@@ -14,6 +14,8 @@ import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
 import { itemAt } from '../../parts.js';
 import type { DutchConjugationOptions } from '../../types.js';
+import { paradigmFork } from '../shared/germanic.js';
+import type { ParadigmChoice } from '../shared/germanic.js';
 import { dutchRules } from './rules.js';
 import type { DutchStemHints } from './spec.js';
 import { presentStem } from './stems.js';
@@ -1232,8 +1234,8 @@ function classification(options: DutchQuery, reading?: ImpliedPrefix): { readonl
 /**
  * The paradigms of the verb a query names, with their classification steps: one, or for a lemma that is separable in
  * one sense and inseparable in another, or has a prefix in one and none in the other (`ambiguousPrefixVerbs`), one per reading, separable or unprefixed first, tagged with the
- * reading (`pattern`) and its meaning (`condition`). A prefix hint keeps the one it names, untagged; a reading that
- * another hint rules out is left out, and none left is that hint's error.
+ * reading (`pattern`) and its meaning (`condition`), as the shared Germanic `paradigmFork` makes them. A prefix hint
+ * keeps the one it names, untagged; a reading that another hint rules out is left out, and none left is that hint's error.
  */
 export function classifyDutch(query: Readonly<Record<string, unknown>>): Fork<DutchLexeme> {
   // The core has parsed the query against the Dutch option schema (`dutchOptions`), so these keys have these types.
@@ -1249,18 +1251,18 @@ export function classifyDutch(query: Readonly<Record<string, unknown>>): Fork<Du
     ? { pattern: 'separable', reading: readings.separable, implied: { prefix: readings.prefix, separable: true, assumed: false } }
     : { pattern: 'unprefixed', reading: readings.unprefixed, implied: { prefix: '', separable: false, assumed: false, auxiliary: readings.unprefixed.auxiliary } };
   const second = { pattern: 'inseparable', reading: readings.inseparable, implied: { prefix: readings.prefix, separable: false, assumed: false } };
-  const paradigms = [first, second].flatMap(({ pattern, reading, implied }) => {
+  const choices = [first, second].flatMap(({ pattern, reading, implied }): ParadigmChoice<DutchLexeme>[] => {
     try {
       const { lexeme, steps } = classification(options, implied);
-      return one(lexeme, steps, { pattern, condition: reading.meaning });
+      return [{ pattern, condition: reading.meaning, lexeme, steps }];
     } catch (error) {
       if (!(error instanceof ConjugationError)) throw error;
       errors.push(error);
       return [];
     }
   });
-  if (!paradigms.length) throw errors[0]!;
-  return paradigms;
+  if (!choices.length) throw errors[0]!;
+  return paradigmFork(choices);
 }
 
 /** The lexeme of a verb a periphrasis names (hebben, zijn, zullen): the lemma alone, without hints. */

@@ -275,14 +275,14 @@ Duden-Grammatik by chapter.
 
 139 pages, 92 cells each (12,788 cells), compared with every form of two queries per verb: the default query answers
 every cell but the Sie-imperative, a `subject: '2.formal'` imperative query answers that one (`scripts/corpus/`). A
-page cell lists its forms row by row; every row must be among the engine's forms. Two guards in
-`tests/de/corpus-guards.test.ts` go further: every form after the preferred one of a target carries a pattern,
-condition, region or non-standard usage, and no generated form is a spelling the 1996 reform replaced. The shared
-`requireTaggedExtras` check is not used for German: it does not count a condition as a tag (the auxiliary of fliehen,
-fahren, schieben is told apart by its condition) and it would flag the preferred form where the page prints only the
-second one (brenne without brenn, fandst without fandest). Instead the German guard pins the reviewed list of untagged
-preferred forms the page lacks (30: the -est Präteritum after d / t, brenn, kenn, nenn, renn, bekenn, hab, and hülfe),
-so a new one fails the test.
+page cell lists its forms row by row; every row must be among the engine's forms. The shared extra-forms guard
+(`requireTaggedExtras`) is on: a generated form beyond the page's must carry a tag. German's `acceptsUntagged`
+(`scripts/corpus/languages/de.ts`) excuses a form told apart by its condition (the auxiliary of fliehen, fahren,
+schieben) and the reviewed preferred forms the page lacks because it prints only the second one (`reviewedUntagged`,
+30: the -est Präteritum after d / t, brenn, kenn, nenn, renn, bekenn, hab, and hülfe); `tests/de/corpus-guards.test.ts`
+pins the 30 and requires each to be generated, so a new one fails the corpus test and a vanished one fails the pin.
+Two more guards there: every form after the preferred one of a target carries a pattern, condition, region or
+non-standard usage, and no generated form is a spelling the 1996 reform replaced.
 
 Remaps (the page prints the wrong tense name over a whole block; 4,170 cells):
 
@@ -318,11 +318,11 @@ the modelled lädt set marks lad ugs. (the table of the ladet set prints it unma
 
 ## Shared Germanic helpers (`src/languages/shared/germanic.ts`)
 
-| Shared (same mechanism, data per language) | What German passes in |
-|---|---|
-| `splitDerivative(lemma, tables)`, `isPlausibleRoot(root, tables)`: closed particle and prefix lists, longest match, particle then prefix, a plausible remainder (vowel letter, an onset from the closed list) | `germanParticles`: the separable, dual and inseparable lists, the onsets, the vowel letters `[aeiouyäöü]` and the digraph `qu` |
-| `placeParticle(words, particle)`: a separable particle to the end of a verb-second main clause | the lexeme's particle (several words for a stack: wieder her) |
-| `paradigmFork(choices)`: several paradigms of one lemma as tagged outcomes | the paradigms of a two-class or dual-prefix lemma |
+| Shared (same mechanism, data per language) | What German passes in | What Dutch passes in |
+|---|---|---|
+| `splitDerivative(lemma, tables)`, `isPlausibleRoot(root, tables)`: closed particle and prefix lists, longest match, particle then prefix, a plausible remainder (vowel letter, an onset from the closed list) | `germanParticles`: the separable, dual and inseparable lists, the onsets, the vowel letters `[aeiouyäöü]` and the digraph `qu` | not used: Dutch judges a remainder by its lexicon and its own spelling rules (`spelledPrefix` in `nl/lexicon.ts`: openen is not op + enen, naaien not na + aien) |
+| `placeParticle(words, particle)`: a separable particle to the end of a verb-second main clause | the lexeme's particle (several words for a stack: wieder her) | the lexeme's particle, after the unstressed prefix of the rest is on the verb (uit + verkocht) |
+| `paradigmFork(choices)`: several paradigms of one lemma as tagged outcomes | the paradigms of a two-class or dual-prefix lemma | the readings of an ambiguous prefix verb (voorkomen, bedelen) |
 
 What stays per language: the ge- rule (German blocks it by stress and inseparable prefixes, Dutch also writes geë-),
 the weak dental suffix (German -te with schwa after a dental; Dutch 't kofschip), stem spelling (Dutch respells open

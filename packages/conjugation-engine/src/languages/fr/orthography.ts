@@ -7,6 +7,7 @@ import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
 import type { Juncture, JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
+import { consonantSpelling } from '../shared/romance.js';
 import type { FrenchLexeme } from './grammar.js';
 import { closedEStem, elerEterClass, mute, muteEStem } from './paradigms.js';
 import { frenchRules } from './rules.js';
@@ -51,18 +52,14 @@ const closedEGrave: Rule = {
 };
 
 /** 4. c takes a cedilla before a, o, u to keep the sound s (plaçons). */
-const cCedilla: Rule = {
-  info: frenchRules['fr.orth.c-cedilla'],
-  apply: (j, { lexeme }) => er(lexeme) && j.stem.endsWith('c') && /^[aoâôuû]/u.test(j.ending)
-    ? one({ stem: `${j.stem.slice(0, -1)}ç`, ending: j.ending }) : null,
-};
+const cCedilla: Rule = consonantSpelling({
+  info: frenchRules['fr.orth.c-cedilla'], letters: { c: 'ç' }, before: /^[aoâôuû]/u, applies: ({ lexeme }) => er(lexeme),
+});
 
 /** 5. g takes an e before a, o to keep the soft sound (mangeons). */
-const gE: Rule = {
-  info: frenchRules['fr.orth.g-e'],
-  apply: (j, { lexeme }) => er(lexeme) && j.stem.endsWith('g') && /^[aoâô]/u.test(j.ending)
-    ? one({ stem: `${j.stem}e`, ending: j.ending }) : null,
-};
+const gE: Rule = consonantSpelling({
+  info: frenchRules['fr.orth.g-e'], letters: { g: 'ge' }, before: /^[aoâô]/u, applies: ({ lexeme }) => er(lexeme),
+});
 
 /**
  * 6. y becomes i before a silent ending: always after o and u, after a only in the y-to-i paradigm, never after e. Also

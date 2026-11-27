@@ -180,7 +180,7 @@ describe('complete pinned corpus accounting', () => {
       expect(verdict.missing, `${location}: missing ${verdict.missing.join(', ')}; generated ${candidates.map(form => form.text).join(' | ')}`).toEqual([]);
       expect(verdict.unexpected, `${location}: an unavailable cell has candidates`).toEqual([]);
       if (!unavailable && language.requireTaggedExtras) {
-        const untagged = untaggedExtras(candidates, expected, resolvedTargetKey).map(form => form.text);
+        const untagged = untaggedExtras(candidates, expected, resolvedTargetKey, form => language.acceptsUntagged?.(form, file) ?? false).map(form => form.text);
         expect(untagged, `${location}: generated beyond the expected forms without a variant tag`).toEqual([]);
       }
     }
@@ -286,6 +286,20 @@ describe('how a cell is compared with the engine', () => {
     it('still fails an untagged extra inside the expected form\'s own gendered target', () => {
       const forms = [inTarget('sono andato', { agreement: male }), inTarget('son andato', { agreement: male }), inTarget('sono andata', { agreement: female })];
       expect(untaggedExtras(forms, ['sono andato'], resolvedTargetKey).map(extra => extra.text)).toEqual(['son andato']);
+    });
+
+    it('excuses only the untagged extras a language\'s own predicate accepts', () => {
+      const forms = [form('x'), form('y'), form('z'), form('w', { condition: 'only with an object' })];
+      const reviewed = (extra: ConjugatedForm) => extra.text === 'y';
+      expect(untaggedExtras(forms, ['x'], resolvedTargetKey, reviewed).map(extra => extra.text)).toEqual(['z', 'w']);
+      const conditioned = (extra: ConjugatedForm) => extra.variant.condition !== null;
+      expect(untaggedExtras(forms, ['x'], resolvedTargetKey, conditioned).map(extra => extra.text)).toEqual(['y', 'z']);
+    });
+
+    it('lets every language that opts in excuse forms only through `acceptsUntagged`', () => {
+      const opted = corpusLanguages.filter(language => language.requireTaggedExtras).map(language => language.language);
+      expect(opted.sort()).toEqual(['de', 'en', 'es', 'it', 'la']);
+      expect(corpusLanguages.filter(language => language.acceptsUntagged !== undefined).map(language => language.language)).toEqual(['de']);
     });
   });
 });

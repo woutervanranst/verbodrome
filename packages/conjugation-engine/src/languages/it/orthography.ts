@@ -2,6 +2,7 @@ import { step } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
 import type { JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
+import { consonantSpelling } from '../shared/romance.js';
 import type { ItalianLexeme } from './lexicon.js';
 import { italianRules as R } from './rules.js';
 
@@ -16,19 +17,16 @@ export function rootStressed(cell: Cell): boolean {
 }
 
 /** 1. -care / -gare: c and g keep their hard sound before e and i (cerchi, pagherò). */
-const velarH: JunctureRule<SpellingContext> = {
-  info: R['it.orth.velar-h'],
-  apply: (j, { lexeme }) => lexeme.conjugation === 'are' && /[cg]$/u.test(j.stem) && /^[ei]/u.test(j.ending)
-    ? one({ stem: `${j.stem}h`, ending: j.ending }) : null,
+const velarH: JunctureRule<SpellingContext> = consonantSpelling({
+  info: R['it.orth.velar-h'], letters: { c: 'ch', g: 'gh' }, before: /^[ei]/u, applies: ({ lexeme }) => lexeme.conjugation === 'are',
   describe: before => ({ letter: before.stem.slice(-1) }),
-};
+});
 
 /** 2. -ciare / -giare / -sciare: the i only marks the soft sound and is not written before e and i (comincerò, mangi). */
-const palatalIDrop: JunctureRule<SpellingContext> = {
-  info: R['it.orth.palatal-i-drop'],
-  apply: (j, { lexeme }) => lexeme.conjugation === 'are' && /[cg]i$/u.test(j.stem) && !lexeme.stressedI && /^[ei]/u.test(j.ending)
-    ? one({ stem: j.stem.slice(0, -1), ending: j.ending }) : null,
-};
+const palatalIDrop: JunctureRule<SpellingContext> = consonantSpelling({
+  info: R['it.orth.palatal-i-drop'], letters: { ci: 'c', gi: 'g' }, before: /^[ei]/u,
+  applies: ({ lexeme }) => lexeme.conjugation === 'are' && !lexeme.stressedI,
+});
 
 /**
  * 3. An unstressed i at the end of the stem and the i of the ending are written once (studi, tagliamo, inviamo), except

@@ -9,6 +9,7 @@ import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
 import type { Juncture, JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
+import { consonantSpelling } from '../shared/romance.js';
 import type { SpanishLexeme } from './classify.js';
 import { diacritics } from './lexicon.js';
 import { hasStrongPreterite, imperativeSource, slotOf, stressOf } from './paradigms.js';
@@ -50,16 +51,20 @@ export function stressedIndex(lexeme: SpanishLexeme, cell: Cell, juncture: Junct
   return root ?? inEnding[0]!;
 }
 
-/** A consonant spelling at the boundary: `stemEnd` written `written` before a front (e, i) or back (a, o) vowel. */
+/**
+ * A consonant spelling at the boundary: `stemEnd` written `written` before a front (e, i) or back (a, o) vowel, for an
+ * infinitive that `infinitive` matches, unless the stem matches `unless` (the shared Romance respelling).
+ */
 function consonant(
   info: Rule['info'], stemEnd: string, written: string, before: RegExp, infinitive: RegExp, unless?: RegExp,
 ): Rule {
-  return {
+  return consonantSpelling<SpellingContext>({
     info,
-    apply: (j, { lexeme }) => j.stem.endsWith(stemEnd) && before.test(j.ending) && infinitive.test(lexeme.infinitive) && !(unless?.test(j.stem) ?? false)
-      ? one({ stem: j.stem.slice(0, -stemEnd.length) + written, ending: j.ending }) : null,
+    letters: { [stemEnd]: written },
+    before,
+    applies: ({ lexeme }, j) => infinitive.test(lexeme.infinitive) && !(unless?.test(j.stem) ?? false),
     describe: before => ({ vowel: before.ending.charAt(0) }),
-  };
+  });
 }
 
 /** The ending begins with an i that is not stressed, followed by a vowel. */

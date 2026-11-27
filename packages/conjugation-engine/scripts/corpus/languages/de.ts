@@ -6,6 +6,20 @@ import type { CorpusLanguage } from '../model.ts';
 const formenbestand = 'https://grammis.ids-mannheim.de/systematische-grammatik/439';
 const wuerdeFormen = 'https://grammis.ids-mannheim.de/systematische-grammatik/312';
 
+/**
+ * The preferred forms the engine generates without a tag where the page prints only the other form, reviewed one by one
+ * (`infinitive: form`): -est before -st after d / t in the strong Präteritum (DWDS and Duden print -est first); the bare
+ * du-imperative of the mixed verbs and haben (DWDS prints it first); hülfe (Duden: "du hülfest, selten hälfest"). Each
+ * is sourced in the lexicon. `tests/de/corpus-guards.test.ts` pins the list.
+ */
+export const reviewedUntagged: readonly string[] = [
+  'ausladen: du ludest aus', 'bekennen: bekenn', 'bieten: du botest', 'binden: du bandest', 'brennen: brenn', 'einladen: du ludest ein',
+  'empfinden: du empfandest', 'fechten: du fochtest', 'finden: du fandest', 'gelten: du galtest', 'haben: hab', 'halten: du hieltest',
+  'helfen: ich hülfe', 'helfen: du hülfest', 'helfen: er hülfe', 'helfen: wir hülfen', 'helfen: ihr hülfet', 'helfen: sie hülfen',
+  'kennen: kenn', 'laden: du ludest', 'meiden: du miedest', 'nennen: nenn', 'raten: du rietest', 'rennen: renn', 'scheiden: du schiedest',
+  'schmelzen: du schmolzest', 'schwinden: du schwandest', 'treten: du tratest', 'vergelten: du vergaltest', 'vertreten: du vertratest',
+];
+
 export const german: CorpusLanguage = {
   language: 'de',
   directory: 'Deutsch',
@@ -43,6 +57,9 @@ export const german: CorpusLanguage = {
     },
   ],
   unmodelled: {},
+  requireTaggedExtras: true,
+  /** A form labelled with a condition (the auxiliary of one sense: ich habe gefahren), and the reviewed forms. */
+  acceptsUntagged: (form, file) => form.variant.condition !== null || reviewedUntagged.includes(`${file.infinitive}: ${form.text}`),
   /**
    * Two queries: every cell but the Sie-imperative is answered by the default query (whose subjects are the six default
    * slots); the Sie-imperative by the query that names the formal slot.

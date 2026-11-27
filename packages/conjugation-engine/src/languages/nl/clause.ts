@@ -21,6 +21,7 @@ import type { VariantTags } from '../../core/fork.js';
 import { ConjugationError } from '../../errors.js';
 import { grammaticalPart, itemAt } from '../../parts.js';
 import type { ConjugationPart, PartFeatures } from '../../types.js';
+import { placeParticle } from '../shared/germanic.js';
 import type { DutchLexeme } from './lexicon.js';
 import { afterVerb, formal, isSecondSingularPresent, spoken } from './paradigms.js';
 import { dutchRules } from './rules.js';
@@ -83,31 +84,30 @@ export const dutchClause: ClauseGrammar<DutchLexeme> = {
     if (!words.every(word => inSet(word, context))) return [];
     const { lexeme, target, query, rendering } = context;
     const particle = lexeme.particle;
-    const finiteMain = words.some(word => word.role === 'lexicalVerb' && word.cell?.kind === 'finite');
-    const detached = particle !== null && particle.separable && finiteMain;
     const inner = lexeme.innerPrefix;
-    const outer = particle !== null && !detached ? particle : null;
-    const verbs = words.map(word => {
+    // The unstressed prefix of the rest goes onto the main verb first (kocht → verkocht); the particle is then placed as
+    // in German: at the end of the clause after a finite main verb, else written onto it (verkocht → uitverkocht).
+    const withInner = inner ? words.map(word => word.role === 'lexicalVerb' ? { ...word, text: inner + word.text } : word) : words;
+    const placed = placeParticle(withInner, particle);
+    const outer = particle !== null && placed.final === null ? particle : null;
+    const verbs = placed.words.map((word, index) => {
+      const original = words[index]!;
       const features = word.cell?.kind === 'nonFinite' ? nonFiniteFeatures[word.cell.form] ?? {} : {};
-      if (word.role !== 'lexicalVerb' || (!inner && outer === null)) return wordPart(rendering, word, features);
-      const attached = (outer?.text ?? '') + inner + word.text;
       // A participle without ge- after an inseparable prefix and no separable particle already shows the whole word in its last step.
-      if (word.steps.at(-1)?.after === attached) return wordPart(rendering, { ...word, text: attached }, features);
-      // The unstressed prefix of the rest first (kocht → verkocht), then the particle (verkocht → uitverkocht).
-      const steps = [...word.steps];
-      let text = word.text;
+      if (word.text === original.text || original.steps.at(-1)?.after === word.text) return wordPart(rendering, word, features);
+      const steps = [...original.steps];
+      let text = original.text;
       if (inner) {
         // A participle's ge-blocked step already shows the prefix before the word (verkocht).
-        if (word.steps.at(-1)?.after !== inner + text) steps.push(step(dutchRules['nl.clause.prefix-attached'], text, inner + text, { prefix: inner }));
+        if (original.steps.at(-1)?.after !== inner + text) steps.push(step(dutchRules['nl.clause.prefix-attached'], text, inner + text, { prefix: inner }));
         text = inner + text;
       }
       if (outer) {
         steps.push(outer.separable
           ? step(dutchRules['nl.clause.particle-attached'], text, outer.text + text, { particle: outer.text })
           : step(dutchRules['nl.clause.prefix-attached'], text, outer.text + text, { prefix: outer.text }));
-        text = outer.text + text;
       }
-      return wordPart(rendering, { ...word, text, steps }, features);
+      return wordPart(rendering, { ...word, steps }, features);
     });
     const tags = condition(words, context);
     // The past participle stands alone, without the reflexive pronoun.
@@ -121,8 +121,8 @@ export const dutchClause: ClauseGrammar<DutchLexeme> = {
       clitics.push(grammaticalPart(rendering, 'reflexivePronoun', pronoun, null, personal));
       steps.push(step(dutchRules['nl.clause.reflexive'], lexeme.lemma, null, { pronoun }));
     }
-    const particles = detached ? [grammaticalPart(rendering, 'particle', particle.text)] : [];
-    if (detached) steps.push(step(dutchRules['nl.clause.particle-final'], null, null, { particle: particle.text }));
+    const particles = placed.final === null ? [] : [grammaticalPart(rendering, 'particle', placed.final)];
+    if (placed.final !== null) steps.push(step(dutchRules['nl.clause.particle-final'], null, null, { particle: placed.final }));
     // The infinitive and the present participle take the reflexive pronoun first.
     if (target.person === null) return one([...clitics, ...verbs], steps, tags);
     const [finite, ...rest] = verbs;

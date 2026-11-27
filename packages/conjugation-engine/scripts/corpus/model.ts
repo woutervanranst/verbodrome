@@ -299,11 +299,15 @@ export function hasVariantTag(variant: FormVariant): boolean {
  * The forms beyond the expected ones that carry no variant tag; the guard for languages with `requireTaggedExtras`
  * wants none. An extra is looked for only among the forms that share a resolved target (`targetId`, the engine's
  * `resolvedTargetKey`: it includes gender, agreement, voice and subject) with a form whose text is expected, so forms
- * of another gender or subject in the same cell are not extras.
+ * of another gender or subject in the same cell are not extras. `accepts` excuses the extras a language has reviewed
+ * (`CorpusLanguage.acceptsUntagged`).
  */
-export function untaggedExtras(forms: readonly ConjugatedForm[], expected: readonly string[], targetId: (target: ResolvedTarget) => string): ConjugatedForm[] {
+export function untaggedExtras(
+  forms: readonly ConjugatedForm[], expected: readonly string[], targetId: (target: ResolvedTarget) => string,
+  accepts: (form: ConjugatedForm) => boolean = () => false,
+): ConjugatedForm[] {
   const answered = new Set(forms.filter(form => expected.includes(form.text)).map(form => targetId(form.target)));
-  return forms.filter(form => answered.has(targetId(form.target)) && !expected.includes(form.text) && !hasVariantTag(form.variant));
+  return forms.filter(form => answered.has(targetId(form.target)) && !expected.includes(form.text) && !hasVariantTag(form.variant) && !accepts(form));
 }
 
 export interface CellVerdict {
@@ -355,9 +359,10 @@ export interface CorpusQuery {
  * 4. An available cell is satisfied when every expected form is the text of a candidate; an unavailable cell when
  *    there is no candidate at all.
  * 5. With `requireTaggedExtras`, every candidate beyond the expected forms must carry a variant tag
- *    (`hasVariantTag`); an untagged extra fails the cell. Only candidates that share a resolved target (gender,
- *    agreement, voice and subject included) with a form whose text is expected are looked at, so a form of another
- *    gender or subject in the same cell (Italian `sono andato` / `sono andata`) is not an extra.
+ *    (`hasVariantTag`) or be one the language's `acceptsUntagged` excuses; any other untagged extra fails the cell.
+ *    Only candidates that share a resolved target (gender, agreement, voice and subject included) with a form whose
+ *    text is expected are looked at, so a form of another gender or subject in the same cell (Italian `sono andato` /
+ *    `sono andata`) is not an extra.
  *
  * Remaps and unmodelled cells: a cell with `scope: 'unmodelled'` is counted but skipped by the comparison; it is its
  * own partition of the accounting (`available + unavailable + unmodelled = cells`). A remap's `occurrence` is the
@@ -384,6 +389,11 @@ export interface CorpusLanguage {
   readonly unmodelled?: Readonly<Record<string, string>>;
   /** Opt in to the extra-forms guard (step 5). French and Dutch do not: their fixtures predate it. */
   readonly requireTaggedExtras?: boolean;
+  /**
+   * The untagged extras the guard (step 5) excuses for this language: forms reviewed one by one, which the language's
+   * own tests pin. Absent: none.
+   */
+  acceptsUntagged?(form: ConjugatedForm, file: CorpusFile): boolean;
   /**
    * The fixtures carry no subject ids: the source pages have no subject slots (French and Dutch), so a cell answers the
    * forms of its person and number whichever slot the engine gives them. Without it, a cell must name its slot.

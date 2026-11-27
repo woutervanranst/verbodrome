@@ -5,7 +5,8 @@ import { conjugate, parseConjugationOptions } from '../../src/index.js';
 import { resolvedTargetKey } from '../../src/catalogue.js';
 import type { ConjugatedForm } from '../../src/index.js';
 import { germanCatalogue } from '../../src/languages/de/catalogue.js';
-import { german } from '../../scripts/corpus/languages/de.ts';
+import { german, reviewedUntagged } from '../../scripts/corpus/languages/de.ts';
+import { untaggedExtras } from '../../scripts/corpus/model.ts';
 import type { CorpusCorrection, CorpusFile } from '../../scripts/corpus/model.ts';
 
 const read = (name: string): string => readFileSync(new URL(`../fixtures/${name}.json`, import.meta.url), 'utf8');
@@ -33,6 +34,9 @@ describe('German corpus guards', () => {
   });
 
   it('pins the reviewed untagged preferred forms the page lacks, so a new one fails', () => {
+    // The shared guard of tests/corpus.test.ts runs for German (`requireTaggedExtras`) and excuses exactly these forms
+    // and the forms tagged with a condition (`acceptsUntagged`); here every excused form must still be generated.
+    expect(german.requireTaggedExtras).toBe(true);
     const ledger = new Map(corrections.map(c => [`${c.file}:${c.cell}`, c]));
     const lacking: string[] = [];
     for (const file of files) {
@@ -44,9 +48,18 @@ describe('German corpus guards', () => {
         const forms = (byQuery.get(file.file)!.get(query) ?? []).filter(form => form.target.mood === target.mood && form.target.tense === target.tense
           && (form.target.person ?? null) === target.person && (form.target.number ?? null) === target.number
           && (cell.subject === undefined || form.target.subject === cell.subject));
-        for (const form of forms) if (!expected.includes(form.text) && !tagged(form)) lacking.push(`${file.infinitive}: ${form.text}`);
+        const own = forms.filter(form => !expected.includes(form.text) && !tagged(form));
+        // The shared guard finds the same forms in the cell: the extras without a tag but for a condition.
+        const shared = untaggedExtras(forms, expected, resolvedTargetKey, form => form.variant.condition !== null);
+        expect(shared.map(form => form.text), `${file.file}:${index}`).toEqual(own.map(form => form.text));
+        for (const form of own) {
+          lacking.push(`${file.infinitive}: ${form.text}`);
+          expect(german.acceptsUntagged!(form, file), `${file.infinitive}: ${form.text}`).toBe(true);
+        }
       });
     }
+    expect(lacking).toEqual(reviewedUntagged);
+    expect(reviewedUntagged).toHaveLength(30);
     // -est before -st after d / t in the strong Präteritum (DWDS and Duden print -est first); the bare du-imperative of
     // the mixed verbs and haben (DWDS prints it first); hülfe (Duden: "du hülfest, selten hälfest"). Each is sourced in
     // the lexicon; the page prints only the other form.
