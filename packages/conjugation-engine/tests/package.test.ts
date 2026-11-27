@@ -99,6 +99,25 @@ describe('built package boundaries', () => {
     expect(result).toEqual({ staged: 'function', engine: 'function', rules: ['xx.a.b'], modules: true });
   });
 
+  it('runs the ./equivalence import graph without Node code and without the language packs', () => {
+    const entry = new URL('../dist/equivalence/index.js', import.meta.url).href;
+    const result = inBrowserGraph(entry, `
+      const { matches } = namespace.equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'perfect' });
+      console.log(JSON.stringify({ tense: matches[0].tense.tense, packs: urls.filter(url => new URL(url).pathname.includes('/languages/')) }));
+    `);
+    expect(result).toEqual({ tense: 'perfect', packs: [] });
+  });
+
+  it('loads the ./equivalence subpath through package self-reference', () => {
+    const output = execFileSync(process.execPath, ['--input-type=module', '-e', `
+      import { equivalentTenses } from 'conjugation-engine/equivalence';
+      import * as root from 'conjugation-engine';
+      const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'simple_past' });
+      console.log(JSON.stringify({ top: matches[0].tense, notes, same: root.equivalentTenses === equivalentTenses }));
+    `], { cwd: root, encoding: 'utf8' });
+    expect(JSON.parse(output)).toEqual({ top: { mood: 'indicative', tense: 'past' }, notes: [], same: true });
+  });
+
   it('packages only compiled runtime code and directly related documentation', () => {
     const output = execFileSync('npm', ['pack', '--dry-run', '--json', '--ignore-scripts'], { cwd: root, encoding: 'utf8' });
     const packages: { files: { path: string }[] }[] = JSON.parse(output);
@@ -109,6 +128,8 @@ describe('built package boundaries', () => {
     expect(paths).toContain('dist/cli.js');
     expect(paths).toContain('dist/core/index.js');
     expect(paths).toContain('dist/core/index.d.ts');
+    expect(paths).toContain('dist/equivalence/index.js');
+    expect(paths).toContain('dist/equivalence/index.d.ts');
     expect(paths).toContain('docs/pack-authoring.md');
     expect(paths).toContain('README.md');
     expect(paths).toContain('docs/api.md');
