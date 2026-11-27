@@ -15,6 +15,9 @@ export const germanRules = defineRules({
   'de.classify.default-stress': { stage: 'classify', kind: 'assumption' },
   'de.classify.ieren': { stage: 'classify' },
   'de.classify.assume-root-auxiliary': { stage: 'classify', kind: 'assumption', params: { root: 'text' } },
+  'de.classify.assume-prefix-haben': { stage: 'classify', kind: 'assumption' },
+  'de.classify.unseparated': { stage: 'classify', params: { particle: 'text' } },
+  'de.classify.duden-only': { stage: 'classify', kind: 'lexical' },
   'de.classify.transliteration': { stage: 'classify', kind: 'assumption', params: { written: 'text', read: 'text' } },
   'de.classify.hint': { stage: 'classify', params: { hint: 'text', value: 'text' } },
   // Stems (GD §4.2).
@@ -29,9 +32,11 @@ export const germanRules = defineRules({
   'de.stem.imperative-i': { stage: 'stem' },
   'de.stem.participle': { stage: 'stem', kind: 'lexical' },
   'de.stem.ge-prefix': { stage: 'stem' },
+  'de.stem.ge-after-particle': { stage: 'stem', params: { particle: 'text' } },
   'de.stem.ge-blocked-prefix': { stage: 'stem', params: { prefix: 'text' } },
   'de.stem.ge-blocked-stress': { stage: 'stem' },
   'de.stem.lexical-cell': { stage: 'stem', kind: 'lexical' },
+  'de.stem.duden-only': { stage: 'stem', kind: 'lexical' },
   // Endings (GD §4.3).
   'de.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
   'de.end.preterite-present': { stage: 'ending', params: { ending: 'text' } },
@@ -74,6 +79,7 @@ export const germanRules = defineRules({
   'de.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
   'de.clause.imperative-pronoun': { stage: 'clause', params: { pronoun: 'text' } },
   'de.clause.impersonal-es': { stage: 'clause' },
+  'de.clause.duden-only': { stage: 'clause', kind: 'lexical' },
   // Forms a verb does not have (GD §4.7).
   'de.avail.third-person-only': { stage: 'availability', kind: 'unavailable' },
   'de.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },

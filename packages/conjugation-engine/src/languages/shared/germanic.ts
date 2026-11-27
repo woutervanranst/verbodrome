@@ -20,6 +20,10 @@ export interface ParticleTables {
   readonly onsets: readonly string[];
   /** The infinitive ending, stripped before a root is judged. */
   readonly infinitiveEnding: RegExp;
+  /** The vowel letters of the language. */
+  readonly vowels: RegExp;
+  /** Consonant letter sequences that count as one consonant at the start of a cluster (German qu). */
+  readonly digraphs: readonly string[];
 }
 
 /** One analysis of a lemma: an optional separable or dual particle, then an optional inseparable prefix, then the root. */
@@ -29,11 +33,22 @@ export interface DerivativeSplit {
   readonly root: string;
 }
 
-const vowel = /[aeiouyäöü]/u;
-
-/** The consonant cluster `word` starts with (`qu` counts as one consonant), or '' when it starts with a vowel. */
-function initialCluster(word: string): string {
-  return /^(?:qu|[^aeiouyäöü])*/u.exec(word)?.[0] ?? '';
+/** The consonant cluster `word` starts with (a digraph counts as one consonant), or '' when it starts with a vowel. */
+function initialCluster(word: string, tables: ParticleTables): string {
+  let cluster = '';
+  let rest = word;
+  while (rest.length) {
+    const digraph = tables.digraphs.find(item => rest.startsWith(item));
+    if (digraph !== undefined) {
+      cluster += digraph;
+      rest = rest.slice(digraph.length);
+    } else if (tables.vowels.test(rest.charAt(0))) break;
+    else {
+      cluster += rest.charAt(0);
+      rest = rest.slice(1);
+    }
+  }
+  return cluster;
 }
 
 /**
@@ -42,8 +57,8 @@ function initialCluster(word: string): string {
  */
 export function isPlausibleRoot(root: string, tables: ParticleTables): boolean {
   const stem = root.replace(tables.infinitiveEnding, '');
-  if (stem.length < 2 || !vowel.test(stem)) return false;
-  const cluster = initialCluster(stem);
+  if (stem.length < 2 || !tables.vowels.test(stem)) return false;
+  const cluster = initialCluster(stem, tables);
   return cluster === '' || tables.onsets.includes(cluster);
 }
 

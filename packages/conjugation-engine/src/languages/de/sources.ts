@@ -1,5 +1,6 @@
 import type { Citation, Work } from '../../core/sources.js';
 import type { GermanRuleId } from './rules.js';
+import { verification } from './verification.js';
 
 const ids = 'Leibniz-Institut für Deutsche Sprache';
 
@@ -65,6 +66,9 @@ export const germanCitations = {
   'de.classify.assume-root-auxiliary': perfectAuxiliary,
   'de.classify.transliteration': cite('regelwerk-2024', '§ 25 E2 (ss für ß)'),
   'de.classify.hint': verbClasses,
+  'de.classify.assume-prefix-haben': [perfectAuxiliary, prefixes],
+  'de.classify.unseparated': [particleVerbs, ...lexicon],
+  'de.classify.duden-only': cite('duden', 'Konjugationstabelle des Lemmas'),
   'de.stem.present': cite('grammis-4071', 'Verbale Stammparadigmen'),
   'de.stem.present2': [cite('grammis-4074', 'Starke Verben: Vokalwechsel im Präsens'), ...lexicon],
   'de.stem.present-singular': [cite('grammis-4075', 'Flexion der Modalverben'), ...lexicon],
@@ -76,8 +80,10 @@ export const germanCitations = {
   'de.stem.imperative-i': [cite('sg-1275', 'Imperativ Singular: mit Vokalwechsel und ohne auslautendes e'), cite('grammis-4074', 'Starke Verben')],
   'de.stem.participle': [cite('grammis-4074', 'Starke Verben: Stammformen'), ...lexicon],
   'de.stem.ge-prefix': [cite('grammis-4071', 'Bildung des Partizip II'), cite('sg-1283', 'Partizip II')],
+  'de.stem.ge-after-particle': [geWithParticle, cite('sg-1283', 'Partizip II')],
   'de.stem.ge-blocked-prefix': [geWithParticle, cite('sg-1283', 'Partizip II')],
   'de.stem.ge-blocked-stress': cite('sg-1283', 'Partizip II'),
+  'de.stem.duden-only': cite('duden', 'Konjugationstabelle des Lemmas'),
   'de.stem.lexical-cell': [cite('grammis-4076', 'Flexion der Hilfsverben'), cite('grammis-4075', 'Flexion der Modalverben'), ...lexicon],
   'de.end.present': [cite('sg-439', 'Indikativ Präsens'), cite('grammis-4070', 'Verbflexion nach Person und Numerus')],
   'de.end.preterite-present': cite('grammis-4075', 'Flexion der Modalverben: endungslose 1. und 3. Person Singular'),
@@ -116,6 +122,7 @@ export const germanCitations = {
   'de.clause.particle-final': [clauseOrder, cite('regelwerk-2024', '§ 34')],
   'de.clause.particle-attached': [cite('regelwerk-2024', '§ 34'), geWithParticle],
   'de.clause.imperative-pronoun': cite('sg-290', 'Distanzform und Adhortativform'),
+  'de.clause.duden-only': cite('duden', 'Konjugationstabelle des Lemmas (Perfekt: habe/bin)'),
   'de.clause.impersonal-es': cite('duden', 'Konjugationstabelle regnen (unpersönlich)'),
   'de.avail.third-person-only': [cite('duden', 'Konjugationstabelle geschehen (1. und 2. Person: –)'), verbChapter('defektive Verben')],
   'de.avail.no-imperative': [cite('grammis-4075', 'Flexion der Modalverben'), cite('sg-380', 'Modalverb: bilden keinen Imperativ'), cite('duden-sprachwissen', 'Modalverben und ihre Bedeutung')],
@@ -123,7 +130,7 @@ export const germanCitations = {
 } as const satisfies Record<GermanRuleId, Citation | readonly Citation[]>;
 
 /** Rules whose claim no online authority states: they cite the Duden-Grammatik by chapter only (GD §1.2). */
-export const printOnly: ReadonlySet<GermanRuleId> = new Set<GermanRuleId>(['de.classify.denominal', 'de.end.present-participle']);
+export const printOnly: ReadonlySet<GermanRuleId> = new Set<GermanRuleId>(['de.classify.denominal', 'de.end.present-participle', 'de.orth.t-merge']);
 
 /** What the lexicon notes per lemma, before the DWDS-only lemmas are marked. */
 const notes: Readonly<Record<string, string>> = {
@@ -131,7 +138,7 @@ const notes: Readonly<Record<string, string>> = {
   tun: 'The du-imperative tue is printed by Duden only (DWDS: tu); it is kept, tagged long.',
   stehlen: 'Konjunktiv II stöhle is printed by Duden only (DWDS: stähle); it is kept, tagged alternate.',
   verderben: 'Konjunktiv II: DWDS verdärbe, Duden verdürbe; DWDS first, verdürbe tagged alternate.',
-  schleifen: 'Strong paradigm: Duden gives habe/bin geschliffen, DWDS hat geschliffen only; sein is kept from Duden with its condition.',
+  schleifen: 'Strong paradigm: DWDS "hat geschliffen" only; the Duden table also prints bin geschliffen, without a sense that could be glossed, so it is not modelled. Weak paradigm: "hat / ist geschleift" (DWDS).',
   liegen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gelegen); DWDS gives hat gelegen.',
   sitzen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gesessen); DWDS gives hat gesessen.',
   stehen: 'sein (southern German, Austria, Switzerland) from the Duden table (habe/bin gestanden); DWDS gives hat gestanden.',
@@ -142,15 +149,15 @@ const notes: Readonly<Record<string, string>> = {
   heben: 'Duden also prints the Präteritum hub; DWDS has hob only (Konjunktiv II hübe marked va.). hub is not emitted.',
   klimmen: 'Duden also prints klimmte, geklimmt; DWDS has klomm, geklommen only, which are emitted.',
   hauen: 'DWDS gehauen (haute / hieb), Duden gehaut; DWDS is followed.',
-  spleißen: 'DWDS grammar line gives the weak conjugation (spleißte, gespleißt) first and prints the strong one (spliss, gesplissen) too; Duden prints only the strong one. Two paradigms, weak first.',
-  melken: 'DWDS: weak (melkte, gemelkt) in the grammar line, strong (milkt, molk, gemolken) as a second table; Duden: melkte/molk, gemolken. Two paradigms, weak first.',
-  sieden: 'DWDS: weak (siedete, gesiedet) in the grammar line, strong (sott, gesotten) as a second table; Duden: weak only. Two paradigms, weak first.',
-  saugen: 'DWDS: weak (saugte, gesaugt) in the grammar line, strong (sog, gesogen) as a second table. Two paradigms, weak first.',
-  gären: 'DWDS: weak (gärte, gegärt) in the grammar line, strong (gor, gegoren) as a second table, both with hat / ist; Duden: gärte/gor, gegoren. Two paradigms, weak first.',
-  glimmen: 'DWDS: strong (glomm, geglommen) in the grammar line, weak (glimmte, geglimmt) as a second table. Two paradigms, strong first.',
-  dingen: 'DWDS: weak (dingte, gedingt) in the grammar line, strong (dang, gedungen) as a second table. Two paradigms, weak first.',
-  stieben: 'DWDS: weak (stiebte, gestiebt) in the grammar line, strong (stob, gestoben) as a second table, both ist / hat. Two paradigms, weak first.',
-  triefen: 'DWDS: weak (triefte) in the grammar line, strong (troff) as a second table, both getrieft; the design marked troff dated, DWDS does not. Two paradigms, weak first.',
+  spleißen: 'DWDS prints two complete sets (spleißte, gespleißt; spliss, gesplissen), Duden "starkes und schwaches Verb" without a difference in sense. Two paradigms, weak first as in DWDS, without a condition.',
+  melken: 'DWDS: melkte, hat gemelkt in the grammar line, milkt, molk, hat gemolken as a second line; Duden: "melkt/milkt, melkte/molk, hat gemelkt/(häufiger:) gemolken". One paradigm: the DWDS grammar line first, milkt, molk, gemolken and milk tagged alternate. Duden calls gemolken the more frequent participle; DWDS order is followed.',
+  sieden: 'DWDS: siedete, gesiedet in the grammar line, sott, gesotten as a second line; Duden: "Fachsprache nur: siedete, gesiedet" and "meist: sott, gesotten" for cooking. Two paradigms with those conditions.',
+  saugen: 'DWDS: saugte, gesaugt in the grammar line, sog, gesogen as a second line; Duden: "schwaches und starkes Verb", only weak for vacuum cleaning and technical suction. Two paradigms with those conditions.',
+  gären: 'DWDS: gärte, hat / ist gegärt in the grammar line, gor, gegoren as a second line; Duden: literal "gärte/gor, hat/ist gegoren/(seltener:) gegärt", figurative "gärte/(selten:) gor". Two paradigms: weak mostly figurative, strong mostly literal.',
+  glimmen: 'DWDS: glomm, hat geglommen in the grammar line, glimmte, geglimmt as a second line; Duden: "starkes, auch schwaches Verb". One paradigm, the weak forms tagged.',
+  dingen: 'DWDS: dingte, hat gedingt in the grammar line, dang, gedungen as a second line; Duden: "dingte/(selten:) dang, hat gedungen/(seltener:) gedingt". One paradigm in the DWDS order, dang and gedungen tagged alternate.',
+  stieben: 'DWDS: stiebte, ist / hat gestiebt in the grammar line, "Nebenform" stob, gestoben; Duden "stob/stiebte", "gestiebt/gestoben". One paradigm in the DWDS order, stob and gestoben tagged alternate.',
+  triefen: 'DWDS: triefte, ist / hat getrieft in the grammar line, "Nebenform gehoben, veraltend" troff; Duden "triefte/(gehoben:) troff, getrieft/(selten:) getroffen". One paradigm: troff tagged literary; getroffen (Duden only, rare) is not modelled.',
   schinden: 'DWDS grammar line "schund (Präteritum ungebräuchlich)", DWDS also prints schindete; Duden schund. schindete first, schund tagged alternate, as the design lists schindete.',
   umziehen: 'DWDS grammar line "hat / ist umgezogen"; sein is listed first because DWDS sense 1 (move house) takes sein.',
   unterziehen: 'DWDS prints untergezogen for the inseparable reading too; Duden and the inseparable-prefix rule give unterzogen, which is emitted.',
@@ -180,29 +187,48 @@ const notes: Readonly<Record<string, string>> = {
   flechten: 'DWDS also prints a weak table (flechtete, geflechtet); not modelled.',
   sprießen: 'DWDS also prints a weak Präteritum table (sprießte); not modelled.',
   erlöschen: 'DWDS also prints a weak table (erlöschte, erlöscht); not modelled.',
-  übernehmen: 'DWDS also prints a separable reading (nimmt über, übergenommen); only the inseparable reading is modelled (design §3.4).',
-  übersehen: 'DWDS also prints a separable reading (sieht über, übergesehen); only the inseparable reading is modelled.',
-  hinterlassen: 'DWDS also prints a separable reading (lässt hinter, hintergelassen); only the inseparable reading is modelled.',
-  hintergehen: 'DWDS also prints a separable reading (geht hinter, ist hintergegangen); only the inseparable reading is modelled.',
+  übernehmen: 'DWDS prints both readings: nimmt über, hat übergenommen (sling over, put on a coat); übernimmt, hat übernommen. Two paradigms, the common inseparable one first.',
+  übersehen: 'DWDS also prints a separable reading (sieht über, übergesehen), only reflexive (sich etwas übersehen, colloquial); reflexive verbs are out, so only the inseparable reading is modelled.',
+  hinterlassen: 'DWDS also prints a separable reading (lässt hinter, hintergelassen), marked East Central German, southern and colloquial; only the inseparable reading is modelled.',
+  hintergehen: 'DWDS also prints a separable reading (geht hinter, ist hintergegangen), marked East Central German, southern and colloquial; only the inseparable reading is modelled.',
+  überschneiden: 'DWDS: reflexive only (überschneidet sich, überschnitt sich, hat sich überschnitten); the inseparable forms are modelled, without the reflexive pronoun.',
+  überfressen: 'DWDS: reflexive only (überfrisst sich, überfraß sich, hat sich überfressen); the inseparable forms are modelled, without the reflexive pronoun.',
+  hintersinnen: 'DWDS: reflexive only (hintersinnt sich, hintersann sich, hat sich hintersonnen); the inseparable forms are modelled, without the reflexive pronoun.',
+  unterwinden: 'DWDS: reflexive only (unterwindet sich, unterwand sich, hat sich unterwunden); the inseparable forms are modelled, without the reflexive pronoun.',
+  durchfrieren: 'DWDS: friert durch, fror durch, ist durchgefroren / durchfroren; the second participle durchfroren is not modelled.',
+  erstehen: 'DWDS has two homographs: erstehen (buy), hat erstanden; erstehen (arise, literary), ist erstanden. Both auxiliaries with those conditions.',
+  behängen: 'DWDS: behängte / behing, hat behängt / behangen; the strong forms come from hängen.',
+  erhängen: 'DWDS: erhängte / erhing, hat erhängt / erhangen; the strong forms come from hängen.',
   umfassen: 'DWDS also prints a separable reading (fasst um, umgefasst); only the inseparable reading is modelled.',
   bedingen: 'DWDS also prints a strong table (bedang, bedungen), the old derivative of dingen; only the weak bedingen is modelled (design §3.4).',
   bereiten: 'DWDS also prints the strong bereiten (beritt, beritten: break in a horse); only the weak bereiten (prepare) is modelled (design §3.4).',
   umringen: 'Formed from Ring, not from ringen: DWDS umringte, umringt. Listed as not derived (not in the design lists).',
+  begleiten: 'Formed from Geleit, not from gleiten: DWDS begleitete, hat begleitet. Not derived.',
+  verleiden: 'Formed from leid, not from leiden: DWDS verleidete, hat verleidet. Not derived.',
+  bevorstehen: 'DWDS: steht bevor, stand bevor, hat bevorgestanden. bevor- is not a particle of the closed list (bevormunden is a denominal verb), so this lemma lists its particle.',
+  überfallen: 'DWDS prints both readings: fällt über, ist übergefallen; überfällt, hat überfallen. Two paradigms.',
+  überholen: 'DWDS prints both readings: holt über, hat übergeholt; überholt, hat überholt. Two paradigms.',
+  durchdringen: 'DWDS prints both readings: dringt durch, ist durchgedrungen; durchdringt, hat durchdrungen. Two paradigms.',
+  bewillkommnen: 'DWDS bewillkommnete, bewillkommnet: an e is inserted after mn as after a consonant + n (the one such stem; grammis SG-1275 excludes nasals generally).',
   lassen: 'The Partizip II lassen (Ersatzinfinitiv) DWDS prints beside gelassen is not modelled; the same holds for the modal verbs.',
   werden: 'The Partizip II worden (passive) is not modelled; the dated Präteritum ward, wardst is.',
 };
 
-/** Lemmas Duden has no conjugation table for: they rest on DWDS alone. */
-export const dwdsOnly: readonly string[] = [
-  'schmeißen', 'stieben', 'sprießen', 'triefen', 'saugen', 'wägen', 'erwägen', 'schmelzen', 'glimmen', 'dingen', 'gelingen',
-  'misslingen', 'bergen', 'sehen', 'schaffen', 'heißen', 'lassen', 'scheren',
-];
+/**
+ * Lemmas for which no Duden conjugation table was found under the plain slug or the homograph slugs Duden's search
+ * listed (sehen, lassen, heißen and schaffen may well have one under a slug the search did not show): they rest on
+ * DWDS alone.
+ */
+export const dwdsOnly: readonly string[] = Object.entries(verification).filter(([, record]) => record.dwds !== null && !record.duden.length).map(([lemma]) => lemma);
+
+/** Lemmas checked in Duden only: DWDS has no table for them (their analysis says so). */
+export const dudenOnly: readonly string[] = Object.entries(verification).filter(([, record]) => record.dwds === null).map(([lemma]) => lemma);
 
 /**
  * Lexicon entries that rest on one authority only, and the places where DWDS and Duden disagree or where DWDS prints
  * more than is modelled, keyed by lemma. DWDS decides the forms and their labels; Duden is the cross-check.
  */
 export const lexiconNotes: Readonly<Record<string, string>> = Object.fromEntries([
-  ...Object.entries(notes).map(([lemma, note]) => [lemma, dwdsOnly.includes(lemma) ? `DWDS only (no Duden table). ${note}` : note] as const),
-  ...dwdsOnly.filter(lemma => !Object.hasOwn(notes, lemma)).map(lemma => [lemma, 'DWDS only: Duden has no conjugation table for this lemma.'] as const),
+  ...Object.entries(notes).map(([lemma, note]) => [lemma, dwdsOnly.includes(lemma) ? `DWDS only (no Duden table found). ${note}` : note] as const),
+  ...dwdsOnly.filter(lemma => !Object.hasOwn(notes, lemma)).map(lemma => [lemma, 'DWDS only: no Duden conjugation table was found for this lemma.'] as const),
 ]);

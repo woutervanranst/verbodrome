@@ -29,6 +29,10 @@ export const indexOf = (cell: FiniteCell): number => (cell.number === 'plural' ?
 const alternates = (value: string | readonly Alternate[]): readonly Alternate[] => typeof value === 'string' ? [{ text: value }] : value;
 const tagsOf = ({ usage, pattern }: Alternate): VariantTags => ({ ...(usage === undefined ? {} : { usage }), ...(pattern === undefined ? {} : { pattern }) });
 
+/** The step that says a listed form rests on Duden only (none for a form DWDS prints). */
+export const dudenOnly = (item: Alternate, base: string): DerivationStep[] =>
+  item.source === 'duden' ? [step(rules['de.stem.duden-only'], base, item.text)] : [];
+
 /** The Präteritum stems of a verb with an entry, each with whether it takes the weak -te. */
 export function preteriteStems(lexeme: GermanLexeme): readonly { readonly stem: Alternate; readonly weak: boolean }[] {
   const entry = lexeme.entry!;
@@ -66,6 +70,9 @@ export interface ParticiplePart { readonly stem: string; readonly ending: 'en' |
 function geSteps(lexeme: GermanLexeme, core: string): { readonly stem: string; readonly steps: DerivationStep[] } {
   if (lexeme.geBlocked === 'prefix') return { stem: core, steps: [step(rules['de.stem.ge-blocked-prefix'], core, core, { prefix: lexeme.prefix! })] };
   if (lexeme.geBlocked === 'stress') return { stem: core, steps: [step(rules['de.stem.ge-blocked-stress'], core, core)] };
+  if (lexeme.particle !== null) {
+    return { stem: `ge${core}`, steps: [step(rules['de.stem.ge-after-particle'], core, `ge${core}`, { particle: lexeme.particle.text })] };
+  }
   return { stem: `ge${core}`, steps: [step(rules['de.stem.ge-prefix'], core, `ge${core}`)] };
 }
 
@@ -98,7 +105,7 @@ export function germanCell(lexeme: GermanLexeme, cell: Cell): Fork<string> | nul
   const key = `${cell.mood}.${cell.tense}.${slotOf(cell)}` as CellKey;
   const listed = lexeme.entry.cells?.[key] ?? (key === 'imperative.present.2sg' ? lexeme.entry.imperative : undefined);
   if (listed === undefined) return null;
-  return listed.flatMap(item => one(item.text, [step(rules['de.stem.lexical-cell'], lexeme.base, item.text)], tagsOf(item)));
+  return listed.flatMap(item => one(item.text, [step(rules['de.stem.lexical-cell'], lexeme.base, item.text), ...dudenOnly(item, lexeme.base)], tagsOf(item)));
 }
 
 /** The stems of a cell. */
@@ -115,8 +122,9 @@ export function germanStem(lexeme: GermanLexeme, cell: Cell): Fork<string> {
     return one(stem, [present]);
   }
   const entry = lexeme.entry;
+  // A listed stem equal to the derived one changes nothing: it records no step of its own (gebären: er gebärt).
   const listed = (rule: keyof typeof rules, from: string, items: readonly Alternate[], before: readonly DerivationStep[] = [present]): Fork<string> =>
-    items.flatMap(item => one(item.text, [...before, step(rules[rule], from, item.text)], tagsOf(item)));
+    items.flatMap(item => one(item.text, item.text === from ? [...before] : [...before, step(rules[rule], from, item.text)], tagsOf(item)));
   if (cell.mood === 'indicative' && cell.tense === 'present') {
     if (entry === null || cell.number === 'plural' || cell.person === 1 && lexeme.conjugation !== 'preteritePresent') return one(stem, [present]);
     if (lexeme.conjugation === 'preteritePresent') return listed('de.stem.present-singular', stem, [{ text: entry.presentSingular! }]);
@@ -139,7 +147,7 @@ function subjunctiveStems(lexeme: GermanLexeme, stem: string, present: Derivatio
   const entry = lexeme.entry;
   if (entry === null) return one(stem, [present, step(rules['de.stem.subjunctive-weak'], lexeme.base, stem)]);
   if (entry.subjunctive !== undefined) {
-    return entry.subjunctive.flatMap(item => one(item.text, [step(rules['de.stem.subjunctive-lexical'], lexeme.base, item.text)], tagsOf(item)));
+    return entry.subjunctive.flatMap(item => one(item.text, [step(rules['de.stem.subjunctive-lexical'], lexeme.base, item.text), ...dudenOnly(item, lexeme.base)], tagsOf(item)));
   }
   return preteriteStems(lexeme).flatMap(({ stem: item, weak }) => {
     const preterite = step(rules['de.stem.preterite'], lexeme.base, item.text);

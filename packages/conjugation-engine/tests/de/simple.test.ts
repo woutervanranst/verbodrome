@@ -117,6 +117,10 @@ describe('German simple tenses', () => {
     expect(usageOf('schwören', subjunctiveII(1, 'singular')).schwüre).toBe('dated');
     expect(words('stehen', subjunctiveII(2, 'singular'))).toEqual(['ständest', 'stündest']);
     expect(words('mahlen', subjunctiveII(1, 'singular'))).toEqual(['mahlte']);
+    expect(words('stehlen', subjunctiveII(1, 'singular'))).toEqual(['stähle', 'stöhle']);
+    expect(ids('stehlen', subjunctiveII(1, 'singular'), 1)).toContain('de.stem.duden-only');
+    // The short du-form only where Duden prints it (kämst), not for every umlauted stem (no sängst).
+    expect(words('singen', subjunctiveII(2, 'singular'))).toEqual(['sängest']);
   });
 
   it('takes whole words from the lexicon', () => {
@@ -180,6 +184,8 @@ describe('German simple tenses', () => {
     expect(words('benedeien', nonFinite('pastParticiple'))).toEqual(['benedeit', 'gebenedeit']);
     expect(words('bewegen', nonFinite('pastParticiple'))).toEqual(['bewegt']);
     expect(words('erwachen', nonFinite('pastParticiple'))).toEqual(['erwacht']);
+    expect(ids('abschreiben', nonFinite('pastParticiple'))).toContain('de.stem.ge-after-particle');
+    expect(words('bewillkommnen', past(1, 'singular'))).toEqual(['bewillkommnete']);
   });
 
   it('exercises every stem, ending and spelling rule', () => {

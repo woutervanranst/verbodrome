@@ -4,8 +4,10 @@ import { parseConjugationOptions } from '../../src/index.js';
 import { classifyGerman, germanLexemeOf } from '../../src/languages/de/classify.js';
 import {
   denominalPrefixes, derivativeAuxiliaries, dualPrefixLemmas, germanLexicon, impersonalVerbs, inseparableReadings,
-  lookalikes, noInherit, nonInitialStress, shortRootDerivatives, weakWithSein,
+  lookalikes, noInherit, nonInitialStress, particleVerbs, shortRootDerivatives, weakWithSein,
 } from '../../src/languages/de/lexicon.js';
+import { dudenOnly } from '../../src/languages/de/sources.js';
+import { verification } from '../../src/languages/de/verification.js';
 import type { DualEntry, GermanEntry } from '../../src/languages/de/lexicon.js';
 import { germanPack } from '../../src/languages/de/pack.js';
 import type { VerbAnalysis } from '../../src/types.js';
@@ -43,19 +45,24 @@ describe('German classification', () => {
   });
 
   it('resolves derivatives of listed roots', () => {
+    // DWDS lists "hat verschlafen", so no auxiliary is assumed (the plan had assume-root-auxiliary last).
     expect(stepsOf('verschlafen').map(s => [s.rule, s.params])).toEqual([
-      ['de.classify.derivative', { prefix: 'ver', root: 'schlafen' }], ['de.classify.inseparable', { prefix: 'ver' }],
-      ['de.classify.assume-root-auxiliary', { root: 'schlafen' }]]);
+      ['de.classify.derivative', { prefix: 'ver', root: 'schlafen' }], ['de.classify.inseparable', { prefix: 'ver' }]]);
+    // An unlisted inseparable derivative assumes haben, first among its steps.
+    expect(stepsOf('verfressen').map(s => [s.rule, s.params])).toEqual([
+      ['de.classify.assume-prefix-haben', {}], ['de.classify.derivative', { prefix: 'ver', root: 'fressen' }], ['de.classify.inseparable', { prefix: 'ver' }]]);
     expect(analysis('verschlafen')).toMatchObject({ classification: 'strong', classificationSource: 'lexicon', auxiliaries: ['haben'] });
     expect(analysis('herumfahren').auxiliaries).toEqual(['sein', 'haben']);
-    expect(ids('herumfahren')).toEqual(['de.classify.derivative', 'de.classify.separable', 'de.classify.assume-root-auxiliary']);
-    expect(stepOf('anerkennen', 'de.classify.derivative').params).toEqual({ prefix: 'an + er', root: 'kennen' });
+    expect(ids('herumfahren')).toEqual(['de.classify.assume-root-auxiliary', 'de.classify.derivative', 'de.classify.separable']);
+    // Outside in: an + erkennen, then er + kennen.
+    expect(stepsOf('anerkennen').filter(s => s.rule === 'de.classify.derivative').map(s => s.params)).toEqual([
+      { prefix: 'an', root: 'erkennen' }, { prefix: 'er', root: 'kennen' }]);
     expect(analysis('vertreten')).toMatchObject({ classification: 'strong', auxiliaries: ['haben'], assumptions: [] });
     expect(analysis('vorbereiten')).toMatchObject({ classification: 'weak' });
     expect(ids('vorbereiten')).toContain('de.classify.not-derived');
     expect(analysis('gerinnen')).toMatchObject({ classification: 'strong', auxiliaries: ['sein'], assumptions: [] });
     expect(analysis('aufheissen')).toMatchObject({ lemma: 'aufheißen', classification: 'strong' });
-    expect(ids('vorbeugen')).toEqual(['de.classify.separable', 'de.classify.lexicon']);
+    expect(ids('vorbeugen')).toEqual(['de.classify.assume-root-auxiliary', 'de.classify.derivative', 'de.classify.separable', 'de.classify.lexicon']);
   });
 
   it('assumes an unknown verb with a particle is separable', () => {
@@ -65,7 +72,7 @@ describe('German classification', () => {
     expect(ids('umschlinken', { inseparablePrefix: 'um' })).toContain('de.classify.hint');
     expect(ids('umschlinken', { inseparablePrefix: 'um' })).not.toContain('de.classify.assume-separable');
     expect(analysis('umschlinken', { inseparablePrefix: 'um' }).classificationSource).toBe('explicitHint');
-    expect(ids('verschlinken')).toEqual(['de.classify.inseparable', 'de.classify.default-weak', 'de.classify.default-haben']);
+    expect(ids('verschlinken')).toEqual(['de.classify.default-weak', 'de.classify.default-haben', 'de.classify.inseparable']);
   });
 
   it('knows inseparable readings, lookalikes, denominal and non-derived verbs', () => {
@@ -128,6 +135,21 @@ describe('German classification', () => {
 describe('German lexicon', () => {
   const isDual = (entry: GermanEntry | DualEntry): entry is DualEntry => 'paradigms' in entry;
 
+  it('records how every listed lemma was checked, and claims no check for an entry built from hints', () => {
+    const lemmas = [
+      ...Object.keys(germanLexicon), ...Object.keys(weakWithSein), ...Object.keys(derivativeAuxiliaries), ...Object.keys(shortRootDerivatives),
+      ...Object.keys(dualPrefixLemmas), ...Object.keys(inseparableReadings), ...lookalikes, ...Object.keys(noInherit), ...Object.keys(nonInitialStress),
+      ...impersonalVerbs, ...Object.keys(particleVerbs),
+    ];
+    for (const lemma of lemmas) expect(verification[lemma], lemma).toBeDefined();
+    expect(verification.unterstellen).toEqual({ dwds: null, duden: expect.arrayContaining([expect.stringMatching(/^https:\/\/www\.duden\.de\//u)]) });
+    expect(dudenOnly).toEqual(['unterstellen']);
+    expect(stepsOf('unterstellen').map(s => s.rule)).toContain('de.classify.duden-only');
+    const hinted = classifyGerman({ language: 'de', infinitive: 'schlinken', classHint: 'strong', stems: { preterite: 'schlank', participle: 'geschlunken' } })[0]!.value.entry!;
+    expect(hinted).toMatchObject({ hinted: true });
+    expect(hinted).not.toHaveProperty('source');
+  });
+
   it('verifies every entry at DWDS', () => {
     for (const [lemma, entry] of Object.entries(germanLexicon)) {
       const entries = isDual(entry) ? entry.paradigms.map(p => p.entry) : [entry];
@@ -137,10 +159,11 @@ describe('German lexicon', () => {
 
   it('gives a dual entry two paradigms with distinct patterns', () => {
     const duals = Object.entries(germanLexicon).filter(([, entry]) => isDual(entry));
-    // The ten of the design, and nine where DWDS prints a weak and a strong conjugation of the same verb.
+    // The ten of the design, and four where DWDS prints a weak and a strong conjugation of the same verb with labels
+    // (melken, triefen, dingen, glimmen and stieben are one paradigm with tagged older forms).
     expect(duals.map(([lemma]) => lemma).sort()).toEqual([
-      'backen', 'bewegen', 'dingen', 'erschrecken', 'gären', 'glimmen', 'hängen', 'melken', 'saugen', 'schaffen', 'schleifen', 'senden',
-      'sieden', 'spleißen', 'stieben', 'triefen', 'wachsen', 'wenden', 'wiegen'].sort());
+      'backen', 'bewegen', 'erschrecken', 'gären', 'hängen', 'saugen', 'schaffen', 'schleifen', 'senden',
+      'sieden', 'spleißen', 'wachsen', 'wenden', 'wiegen'].sort());
     for (const [, entry] of duals) {
       const patterns = (entry as DualEntry).paradigms.map(p => p.pattern);
       expect(patterns).toHaveLength(2);
@@ -151,7 +174,7 @@ describe('German lexicon', () => {
   it('holds side lists of lower-case lemmas', () => {
     const lists = [
       Object.keys(weakWithSein), Object.keys(derivativeAuxiliaries), Object.keys(shortRootDerivatives), Object.keys(inseparableReadings),
-      lookalikes, Object.keys(noInherit), Object.keys(nonInitialStress), impersonalVerbs, Object.keys(dualPrefixLemmas),
+      lookalikes, Object.keys(noInherit), Object.keys(nonInitialStress), impersonalVerbs, Object.keys(dualPrefixLemmas), Object.keys(particleVerbs),
     ];
     for (const lemma of lists.flat()) expect(lemma).toMatch(/^\p{Ll}+n$/u);
     expect(denominalPrefixes).toEqual(['be', 'ver']);

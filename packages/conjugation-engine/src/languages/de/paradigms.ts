@@ -8,6 +8,7 @@ import type { Fork } from '../../core/fork.js';
 import type { Cell } from '../../core/staged.js';
 import { ConjugationError } from '../../errors.js';
 import type { GermanLexeme } from './classify.js';
+import { shortSubjunctive } from './lexicon.js';
 import { germanRules as rules } from './rules.js';
 import { indexOf, isElEr, participleParts, presentStem, preteriteStems, takesWeakPreterite } from './stems.js';
 import type { FiniteCell } from './stems.js';
@@ -30,7 +31,7 @@ const add = (rule: keyof typeof rules, stem: string, ending: string, params: Par
   one(ending, [step(rules[rule], stem, stem + ending, params)]);
 
 /** The obstruent + nasal stems (atm, rechn, öffn) whose du-imperative needs -e. */
-const obstruentNasal = /(?:[bdfgkpstvxzß]|ch)[mn]$/u;
+const obstruentNasal = /(?:[bdfgkpstvxzß]|ch|m)n$|(?:[bdfgkpstvxzß]|ch)m$/u;
 
 function nonFinite(lexeme: GermanLexeme, form: string, stem: string): Fork<string> {
   if (form === 'infinitive') return add('de.end.infinitive', stem, lexeme.base.slice(stem.length));
@@ -61,10 +62,12 @@ function subjunctiveII(lexeme: GermanLexeme, cell: FiniteCell, stem: string): Fo
   const ending = at(endingSets.subjunctiveII, index);
   const full = add('de.end.subjunctive-ii', stem, ending, { ending });
   const preterites = lexeme.entry === null ? [] : preteriteStems(lexeme).map(item => item.stem.text);
-  const shortens = (index === 1 || index === 4) && !preterites.includes(stem) && !/(?:[dt]|(?:[bdfgkpstvxzß]|ch)[mn]|[sßzx])$/u.test(stem);
+  const printed = Object.hasOwn(shortSubjunctive, lexeme.root) ? shortSubjunctive[lexeme.root] : undefined;
+  const shortens = printed !== undefined && (index === 1 || index === 4) && !preterites.includes(stem) && !/(?:[dt]|(?:[bdfgkpstvxzß]|ch)[mn]|[sßzx])$/u.test(stem);
   if (!shortens) return full;
   const short = ending.slice(1);
-  return [...full, ...one(short, [step(rules['de.end.subjunctive-ii-short'], stem, stem + short)], { pattern: 'short' })];
+  const steps = [step(rules['de.end.subjunctive-ii-short'], stem, stem + short), ...(printed === 'duden' ? [step(rules['de.stem.duden-only'], stem, stem + short)] : [])];
+  return [...full, ...one(short, steps, { pattern: 'short' })];
 }
 
 /** The du-imperative: an i-stem bare; -e after obstruent + nasal, -el/-er and d/t; otherwise bare, then -e (long). */
@@ -72,7 +75,8 @@ function imperativeSingular(lexeme: GermanLexeme, stem: string): Fork<string> {
   const present = presentStem(lexeme.base);
   const bare = add('de.end.imperative-singular', stem, '', { ending: '' });
   const withE = add('de.end.imperative-singular', stem, 'e', { ending: 'e' });
-  if (stem !== present) return bare;
+  // An i-stem, and a stem in -ie (knie: kniee would contract to knie again), take no -e.
+  if (stem !== present || stem.endsWith('ie')) return bare;
   if (obstruentNasal.test(stem) || isElEr(lexeme.base) || /[dt]$/u.test(stem)) return withE;
   return [...bare, ...withE.map(outcome => ({ ...outcome, tags: { pattern: 'long' } }))];
 }

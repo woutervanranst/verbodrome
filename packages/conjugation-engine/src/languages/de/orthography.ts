@@ -60,7 +60,8 @@ const schwaDental: JunctureRule<Context> = {
 
 const schwaNasal: JunctureRule<Context> = {
   info: rules['de.orth.schwa-nasal'],
-  apply: (j, context) => /(?:[bdfgkpstvxzß]|ch)[mn]$/u.test(j.stem) && takesSchwa(j, context) ? one({ stem: j.stem, ending: `e${j.ending}` }) : null,
+  // Also after mn (bewillkommnet, DWDS), the one nasal + nasal cluster a German verb stem ends in.
+  apply: (j, context) => /(?:[bdfgkpstvxzß]|ch|m)n$|(?:[bdfgkpstvxzß]|ch)m$/u.test(j.stem) && takesSchwa(j, context) ? one({ stem: j.stem, ending: `e${j.ending}` }) : null,
 };
 
 const tMerge: JunctureRule<Context> = {

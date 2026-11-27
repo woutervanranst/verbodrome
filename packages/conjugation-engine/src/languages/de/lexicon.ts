@@ -8,6 +8,7 @@
  * `sources.ts` lists those cases and every conflict with Duden. Weak verbs are never listed as roots: weak is the default.
  */
 import type { ParticleTables } from '../shared/germanic.js';
+import { verification } from './verification.js';
 
 export type Auxiliary = 'haben' | 'sein';
 
@@ -16,6 +17,8 @@ export interface AuxiliaryUse {
   readonly verb: Auxiliary;
   readonly condition?: string;
   readonly region?: 'south';
+  /** Printed by Duden only, not by DWDS: the form says so in its explanation. */
+  readonly source?: 'duden';
 }
 
 /**
@@ -27,14 +30,16 @@ export interface Alternate {
   readonly text: string;
   readonly usage?: 'dated' | 'literary';
   readonly pattern?: string;
+  /** Printed by Duden only, not by DWDS: the form says so in its explanation. */
+  readonly source?: 'duden';
 }
 
 export type SlotKey = '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl';
 /** A whole-word cell: `mood.tense.slot`, the imperative Sie-form being `imperative.present.3pl`. */
 export type CellKey = `${'indicative' | 'subjunctive' | 'imperative'}.${'present' | 'past'}.${SlotKey}`;
 
-type Dwds = `https://www.dwds.de/${string}`;
-type Duden = `https://www.duden.de/${string}`;
+export type Dwds = `https://www.dwds.de/${string}`;
+export type Duden = `https://www.duden.de/${string}`;
 
 export interface GermanEntry {
   readonly class: 'strong' | 'mixed' | 'preteritePresent' | 'irregular';
@@ -54,17 +59,19 @@ export interface GermanEntry {
   /** Whole words: 'indicative.present.1sg' → bin. */
   readonly cells?: Readonly<Partial<Record<CellKey, readonly Alternate[]>>>;
   readonly flags?: readonly ('thirdPersonOnly' | 'noImperative' | 'impersonal' | 'nonInitialStress')[];
-  /** The DWDS inflection table the entry was verified against. */
-  readonly source: Dwds;
-  /** The Duden conjugation table that confirms it; absent when Duden has none. */
+  /** The DWDS inflection table the entry was verified against (from `verification`); absent for an entry built from hints. */
+  readonly source?: Dwds;
+  /** The Duden conjugation table that confirms it; absent when no Duden table was found. */
   readonly crossCheck?: Duden;
+  /** Built from the stems and classHint options for a verb the lexicon does not list. */
+  readonly hinted?: true;
 }
 
 /** The weak paradigm of a verb with two: forms by rule, only the auxiliaries listed. */
 export interface WeakEntry {
   readonly class: 'weak';
   readonly auxiliaries: readonly AuxiliaryUse[];
-  readonly source: Dwds;
+  readonly source?: Dwds;
   readonly crossCheck?: Duden;
 }
 
@@ -73,25 +80,14 @@ export interface DualEntry {
   readonly paradigms: readonly { readonly pattern: string; readonly condition?: string; readonly entry: GermanEntry | WeakEntry }[];
 }
 
-export const dwds = (lemma: string): Dwds => `https://www.dwds.de/lemma/flexion/${lemma}`;
-const plainSlug = (lemma: string): string => lemma.replace(/ä/gu, 'ae').replace(/ö/gu, 'oe').replace(/ü/gu, 'ue').replace(/ß/gu, 'sz');
-
-/** Duden slugs that are not the plain one (homographs), and `null` for the lemmas Duden has no conjugation table for. */
-const dudenSlugs: Readonly<Record<string, string | null>> = {
-  schmeißen: null, stieben: null, sprießen: null, triefen: null, saugen: null, wägen: null, erwägen: null, schmelzen: null,
-  glimmen: null, dingen: null, gelingen: null, misslingen: null, bergen: null, sehen: null, schaffen: null, heißen: null,
-  lassen: null, scheren: null,
-  schleifen: 'schleifen_wetzen', weichen: 'weichen_gewichen', wiegen: 'wiegen_gewiegt', bewegen: 'bewegen_bewegt',
-  quellen: 'quellen_quillt', schwellen: 'schwellen_wachsen', verlöschen: 'verloeschen_erloeschen', ringen: 'ringen_kaempfen',
-  schlingen: 'schlingen_essen', winden: 'winden_gewunden', erschrecken: 'erschrecken_selbst', lesen: 'lesen_aufsammeln',
-  vergessen: 'vergessen_Verb_nicht_erinnern', liegen: 'liegen_lehnen_ruhen', backen: 'backen_herstellen', laden: 'laden_packen',
-  mahlen: 'mahlen_zerkleinern', wachsen: 'wachsen_gewachsen', hängen: 'haengen_gehangen', raten: 'raten_Rat_geben',
-  wollen: 'wollen_moechten_wuenschen', sein: 'sein_Verb_Vollverb', haben: 'haben_Vollverb', werden: 'werden_Vollverb', tun: 'tun_handeln',
-};
-
-function duden(lemma: string): { readonly crossCheck?: Duden } {
-  const slug = Object.hasOwn(dudenSlugs, lemma) ? dudenSlugs[lemma]! : plainSlug(lemma);
-  return slug === null ? {} : { crossCheck: `https://www.duden.de/konjugation/${slug}` };
+/**
+ * The DWDS table and the first Duden table the lemma was checked against, as recorded in `verification.ts`. A listed
+ * lemma without a record is a programming error: nothing here is defaulted.
+ */
+function checked(lemma: string): { readonly source?: Dwds; readonly crossCheck?: Duden } {
+  const record = verification[lemma];
+  if (record === undefined) throw new Error(`The German lexicon lists ${lemma} without a verification record.`);
+  return { ...(record.dwds === null ? {} : { source: record.dwds }), ...(record.duden.length ? { crossCheck: record.duden[0]! } : {}) };
 }
 
 type Parts = Omit<GermanEntry, 'source' | 'crossCheck' | 'class' | 'auxiliaries'>;
@@ -109,30 +105,34 @@ const HS: readonly AuxiliaryUse[] = [{ verb: 'haben', condition: transitive }, {
 /** Verbs of motion: sein for the movement, haben for the activity or with an object. */
 const MOTION: readonly AuxiliaryUse[] = [{ verb: 'sein', condition: motion }, { verb: 'haben', condition: activity }];
 /** haben, and sein in southern German, Austria and Switzerland. */
-const SOUTH: readonly AuxiliaryUse[] = [{ verb: 'haben' }, { verb: 'sein', region: 'south' }];
+const SOUTH: readonly AuxiliaryUse[] = [{ verb: 'haben' }, { verb: 'sein', region: 'south', source: 'duden' }];
+/** hängen: DWDS itself prints "hat / seltener ist gehangen"; sein is the southern use. */
+const SOUTH_DWDS: readonly AuxiliaryUse[] = [{ verb: 'haben' }, { verb: 'sein', region: 'south' }];
 
 const dated = (text: string): Alternate => ({ text, usage: 'dated' });
+const literary = (text: string): Alternate => ({ text, usage: 'literary' });
+const dudenOnly = (text: string): Alternate => ({ text, pattern: 'alternate', source: 'duden' });
 const alternate = (text: string): Alternate => ({ text, pattern: 'alternate' });
 const weakPreterite = (stem: string): Alternate => ({ text: stem, pattern: 'weak' });
 
 function strong(lemma: string, preterite: GermanEntry['preterite'], participle: GermanEntry['participle'], auxiliaries: readonly AuxiliaryUse[], more: Partial<Parts> = {}): GermanEntry {
-  return { class: 'strong', preterite, participle, auxiliaries, ...more, source: dwds(lemma), ...duden(lemma) };
+  return { class: 'strong', preterite, participle, auxiliaries, ...more, ...checked(lemma) };
 }
 
 function mixed(lemma: string, preterite: GermanEntry['preterite'], participle: GermanEntry['participle'], subjunctive: string | readonly Alternate[], auxiliaries: readonly AuxiliaryUse[]): GermanEntry {
   const kii = typeof subjunctive === 'string' ? [{ text: subjunctive }] : subjunctive;
-  return { class: 'mixed', preterite, participle, subjunctive: kii, auxiliaries, source: dwds(lemma), ...duden(lemma) };
+  return { class: 'mixed', preterite, participle, subjunctive: kii, auxiliaries, ...checked(lemma) };
 }
 
 function modal(lemma: string, presentSingular: string, preterite: string, participle: string, subjunctive: string, more: Partial<Parts> = {}): GermanEntry {
   return {
     class: 'preteritePresent', presentSingular, preterite, participle, subjunctive: [{ text: subjunctive }], auxiliaries: H,
-    flags: ['noImperative'], ...more, source: dwds(lemma), ...duden(lemma),
+    flags: ['noImperative'], ...more, ...checked(lemma),
   };
 }
 
 function weak(lemma: string, auxiliaries: readonly AuxiliaryUse[] = H): WeakEntry {
-  return { class: 'weak', auxiliaries, source: dwds(lemma), ...duden(lemma) };
+  return { class: 'weak', auxiliaries, ...checked(lemma) };
 }
 
 /** A verb with a weak and a strong conjugation of the same meaning, DWDS's order. */
@@ -158,7 +158,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   schleichen: strong('schleichen', 'schlich', 'geschlichen', MOTION),
   schleifen: {
     paradigms: [
-      { pattern: 'strong', condition: 'sharpen, polish', entry: strong('schleifen', 'schliff', 'geschliffen', [{ verb: 'haben' }, { verb: 'sein', condition: 'Duden only: rub along' }]) },
+      { pattern: 'strong', condition: 'sharpen, polish', entry: strong('schleifen', 'schliff', 'geschliffen', H) },
       { pattern: 'weak', condition: 'drag; raze', entry: weak('schleifen', [{ verb: 'haben', condition: transitive }, { verb: 'sein', condition: 'drag along the ground' }]) },
     ],
   },
@@ -193,7 +193,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   fliehen: strong('fliehen', 'floh', 'geflohen', MOTION),
   frieren: strong('frieren', 'fror', 'gefroren', [{ verb: 'haben', condition: 'feel cold' }, { verb: 'sein', condition: 'freeze, turn to ice' }]),
   schieben: strong('schieben', 'schob', 'geschoben', HS),
-  stieben: weakAndStrong('stieben', strong('stieben', 'stob', 'gestoben', MOTION), MOTION),
+  stieben: strong('stieben', whole(weakPreterite('stieb'), alternate('stob')), whole('gestiebt', alternate('gestoben')), MOTION),
   verlieren: strong('verlieren', 'verlor', 'verloren', H),
   wiegen: {
     paradigms: [
@@ -210,17 +210,32 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   riechen: strong('riechen', 'roch', 'gerochen', H),
   schießen: strong('schießen', 'schoss', 'geschossen', HS),
   schließen: strong('schließen', 'schloss', 'geschlossen', H),
-  sieden: weakAndStrong('sieden', strong('sieden', 'sott', 'gesotten', H)),
+  sieden: {
+    paradigms: [
+      { pattern: 'weak', condition: 'boil (the only form in technical use)', entry: weak('sieden') },
+      { pattern: 'strong', condition: 'cook in boiling water (usually strong)', entry: strong('sieden', 'sott', 'gesotten', H) },
+    ],
+  },
   sprießen: strong('sprießen', 'spross', 'gesprossen', S),
-  triefen: weakAndStrong('triefen', strong('triefen', 'troff', 'getrieft', MOTION), MOTION),
+  triefen: strong('triefen', whole(weakPreterite('trief'), literary('troff')), 'getrieft', MOTION),
   verdrießen: strong('verdrießen', 'verdross', 'verdrossen', H),
   // 2c other vowels – o – o
   lügen: strong('lügen', 'log', 'gelogen', H),
   trügen: strong('trügen', 'trog', 'getrogen', H),
-  saugen: weakAndStrong('saugen', strong('saugen', 'sog', 'gesogen', H)),
+  saugen: {
+    paradigms: [
+      { pattern: 'weak', condition: 'any sense; the only form for vacuum cleaning and technical suction', entry: weak('saugen') },
+      { pattern: 'strong', condition: 'suck, draw in (not for vacuum cleaning)', entry: strong('saugen', 'sog', 'gesogen', H) },
+    ],
+  },
   heben: strong('heben', 'hob', 'gehoben', H, { subjunctive: whole('höb', dated('hüb')) }),
   schwören: strong('schwören', whole('schwor', dated('schwur')), 'geschworen', H),
-  gären: weakAndStrong('gären', strong('gären', 'gor', 'gegoren', [{ verb: 'haben' }, { verb: 'sein', condition: 'turn, ferment into something' }]), [{ verb: 'haben' }, { verb: 'sein', condition: 'turn, ferment into something' }]),
+  gären: {
+    paradigms: [
+      { pattern: 'weak', condition: 'mostly figurative (unrest, anger brews)', entry: weak('gären') },
+      { pattern: 'strong', condition: 'mostly literal (wine, dough ferments)', entry: strong('gären', 'gor', 'gegoren', [{ verb: 'haben', condition: 'ferment' }, { verb: 'sein', condition: 'turn into something by fermenting' }]) },
+    ],
+  },
   wägen: strong('wägen', whole('wog', weakPreterite('wäg')), 'gewogen', H),
   bewegen: {
     paradigms: [
@@ -229,7 +244,9 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
     ],
   },
   erwägen: strong('erwägen', 'erwog', 'erwogen', H),
-  melken: weakAndStrong('melken', strong('melken', 'molk', 'gemolken', H, { present2: 'milk' })),
+  melken: strong('melken', whole(weakPreterite('melk'), alternate('molk')), whole('gemelkt', alternate('gemolken')), H, {
+    present2: whole('melk', alternate('milk')), imperative: whole('melk', { text: 'melke', pattern: 'long' }, alternate('milk')),
+  }),
   quellen: strong('quellen', 'quoll', 'gequollen', S, { present2: 'quill' }),
   schmelzen: strong('schmelzen', 'schmolz', 'geschmolzen', SH, { present2: 'schmilz' }),
   schwellen: strong('schwellen', 'schwoll', 'geschwollen', S, { present2: 'schwill' }),
@@ -237,14 +254,14 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   fechten: strong('fechten', 'focht', 'gefochten', H, { present2: 'ficht' }),
   flechten: strong('flechten', 'flocht', 'geflochten', H, { present2: 'flicht' }),
   scheren: strong('scheren', 'schor', 'geschoren', H),
-  glimmen: weakAndStrong('glimmen', strong('glimmen', 'glomm', 'geglommen', H), H, true),
+  glimmen: strong('glimmen', whole('glomm', { text: 'glimm', pattern: 'weak' }), whole('geglommen', alternate('geglimmt')), H),
   klimmen: strong('klimmen', 'klomm', 'geklommen', S),
   erlöschen: strong('erlöschen', 'erlosch', 'erloschen', S, { present2: 'erlisch' }),
   verlöschen: strong('verlöschen', 'verlosch', 'verloschen', S, { present2: 'verlisch' }),
   saufen: strong('saufen', 'soff', 'gesoffen', H, { present2: 'säuf' }),
   // 3a i – a – u
   binden: strong('binden', 'band', 'gebunden', H),
-  dingen: weakAndStrong('dingen', strong('dingen', 'dang', 'gedungen', H)),
+  dingen: strong('dingen', whole(weakPreterite('ding'), alternate('dang')), whole('gedingt', alternate('gedungen')), H),
   dringen: strong('dringen', 'drang', 'gedrungen', MOTION),
   finden: strong('finden', 'fand', 'gefunden', H),
   gelingen: strong('gelingen', 'gelang', 'gelungen', S),
@@ -280,7 +297,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   helfen: strong('helfen', 'half', 'geholfen', H, { present2: 'hilf', subjunctive: whole('hälf', alternate('hülf')) }),
   schelten: strong('schelten', 'schalt', 'gescholten', H, { present2: 'schilt', subjunctive: whole('schält', dated('schölt')) }),
   sterben: strong('sterben', 'starb', 'gestorben', S, { present2: 'stirb', subjunctive: whole('stürb') }),
-  verderben: strong('verderben', 'verdarb', 'verdorben', SH, { present2: 'verdirb', subjunctive: whole('verdärb', alternate('verdürb')) }),
+  verderben: strong('verderben', 'verdarb', 'verdorben', SH, { present2: 'verdirb', subjunctive: whole('verdärb', dudenOnly('verdürb')) }),
   werben: strong('werben', 'warb', 'geworben', H, { present2: 'wirb', subjunctive: whole('würb') }),
   werfen: strong('werfen', 'warf', 'geworfen', H, { present2: 'wirf', subjunctive: whole('würf') }),
   // 4 e – a – o, e → i(e)
@@ -293,7 +310,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   nehmen: strong('nehmen', 'nahm', 'genommen', H, { present2: 'nimm' }),
   sprechen: strong('sprechen', 'sprach', 'gesprochen', H, { present2: 'sprich' }),
   stechen: strong('stechen', 'stach', 'gestochen', HS, { present2: 'stich' }),
-  stehlen: strong('stehlen', 'stahl', 'gestohlen', H, { present2: 'stiehl', subjunctive: whole('stähl', alternate('stöhl')) }),
+  stehlen: strong('stehlen', 'stahl', 'gestohlen', H, { present2: 'stiehl', subjunctive: whole('stähl', dudenOnly('stöhl')) }),
   treffen: strong('treffen', 'traf', 'getroffen', HS, { present2: 'triff' }),
   erschrecken: {
     paradigms: [
@@ -351,7 +368,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   hängen: {
     paradigms: [
       { pattern: 'weak', condition: 'transitive: hang up', entry: weak('hängen') },
-      { pattern: 'strong', condition: 'intransitive: hang', entry: strong('hängen', 'hing', 'gehangen', SOUTH) },
+      { pattern: 'strong', condition: 'intransitive: hang', entry: strong('hängen', 'hing', 'gehangen', SOUTH_DWDS) },
     ],
   },
   hauen: strong('hauen', whole(weakPreterite('hau'), alternate('hieb')), 'gehauen', [{ verb: 'haben' }, { verb: 'sein', condition: 'bump into, run against' }]),
@@ -405,13 +422,13 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
       'subjunctive.present.3pl': whole('seien'),
       'imperative.present.1pl': whole('seien'), 'imperative.present.2pl': whole('seid'), 'imperative.present.3pl': whole('seien'),
     },
-    source: dwds('sein'), ...duden('sein'),
+    ...checked('sein'),
   },
   haben: {
     class: 'irregular', preterite: 'hat', participle: 'gehabt', subjunctive: whole('hätt'), auxiliaries: H,
     imperative: whole('hab', { text: 'habe', pattern: 'long' }),
     cells: { 'indicative.present.2sg': whole('hast'), 'indicative.present.3sg': whole('hat') },
-    source: dwds('haben'), ...duden('haben'),
+    ...checked('haben'),
   },
   werden: {
     class: 'irregular', preterite: 'wurd', participle: 'geworden', subjunctive: whole('würd'), auxiliaries: S, imperative: whole('werde'),
@@ -421,15 +438,15 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
       'indicative.past.3sg': whole('wurde', dated('ward')), 'indicative.past.1pl': whole('wurden'),
       'indicative.past.2pl': whole('wurdet'), 'indicative.past.3pl': whole('wurden'),
     },
-    source: dwds('werden'), ...duden('werden'),
+    ...checked('werden'),
   },
   tun: {
-    class: 'irregular', preterite: 'tat', participle: 'getan', auxiliaries: H, imperative: whole('tu', { text: 'tue', pattern: 'long' }),
+    class: 'irregular', preterite: 'tat', participle: 'getan', auxiliaries: H, imperative: whole('tu', { text: 'tue', pattern: 'long', source: 'duden' }),
     cells: {
       'indicative.present.1pl': whole('tun'), 'indicative.present.3pl': whole('tun'),
       'imperative.present.1pl': whole('tun'), 'imperative.present.3pl': whole('tun'),
     },
-    source: dwds('tun'), ...duden('tun'),
+    ...checked('tun'),
   },
 };
 
@@ -452,7 +469,31 @@ export const weakWithSein: Readonly<Record<string, readonly AuxiliaryUse[]>> = {
 /** Derivatives of listed roots whose auxiliaries are listed instead of assumed from the root (DWDS grammar line). */
 export const derivativeAuxiliaries: Readonly<Record<string, readonly AuxiliaryUse[]>> = {
   vertreten: H, erscheinen: S, verschwinden: S, entkommen: S, gerinnen: S,
+  gefallen: H, befallen: H, besteigen: H, betreten: H, auferstehen: S, beitreten: S, verfallen: S, einschlafen: S,
+  zergehen: S, entfliehen: S, ertrinken: S, zerfallen: S, entfallen: S, erfahren: H, befahren: H, vergeben: H, begeben: H,
+  entgleiten: S, mitgehen: S, ankommen: S, losgehen: S, missverstehen: H, verschlafen: H, bevorstehen: H,
+  verlaufen: [{ verb: 'sein', condition: 'run, proceed; run (colours)' }, { verb: 'haben', condition: 'run, extend (a road, a border)' }],
+  ergehen: [{ verb: 'sein', condition: 'be issued; fare' }, { verb: 'haben', condition: 'walk about (literary)' }],
+  verfahren: [{ verb: 'haben', condition: 'proceed, act; use up driving' }, { verb: 'sein', condition: 'take a wrong turn (sich verfahren is not modelled)' }],
+  abfahren: [{ verb: 'sein', condition: 'depart, leave' }, { verb: 'haben', condition: 'travel along; wear down; take away' }],
+  // Derivatives checked at DWDS (dictionary grammar line) whose auxiliaries the defaults would get wrong; two auxiliaries
+  // in DWDS's order, sein for the intransitive and haben for the transitive use.
+  belaufen: HS, beschlagen: HS, bewachsen: HS, durchbiegen: H, durchbrennen: S, durchgären: S, durchklingen: SH,
+  durchschieben: H, durchschleifen: H, durchschmelzen: S, durchtreiben: H, durchtreten: HS, durchwaschen: H,
+  durchweichen: SH, entbrennen: S, entfahren: S, entfliegen: S, entfließen: S, entglimmen: S, entlaufen: S,
+  entquellen: S, entrinnen: S, entschlafen: S, entschreiten: S, entschwinden: S, entsinken: S, entsprießen: S,
+  entspringen: S, entsteigen: S, entwachsen: S, entweichen: S, erfließen: S, erfrieren: SH, erglimmen: S,
+  erklingen: S, erliegen: S, ersaufen: S, ersprießen: S, ersterben: S, erwachsen: S, gefrieren: S,
+  geraten: S, missraten: S, umhauen: H, umrennen: H, umschießen: H, umschmelzen: H, umstoßen: H, umtreiben: H,
+  umwenden: HS, unterkriechen: S, verbleiben: S, verbrennen: HS, verfliegen: HS, verfließen: S, verfrieren: S,
+  verglimmen: S, verklingen: S, verkommen: S, verquellen: S, verrinnen: S, versaufen: HS, verscheiden: S,
+  verschmelzen: HS, verschwellen: S, verschwimmen: S, versinken: S, verspringen: HS, versterben: S, verstreichen: HS,
+  verwachsen: SH, verziehen: HS, vollhauen: H, volllaufen: S, vollschlagen: H, wiederschlagen: H, wiedertreffen: H,
+  zerbersten: S, zerbrechen: HS, zerfließen: S, zerlaufen: S, zerreißen: HS, zerrinnen: S, zerschmelzen: S,
+  zerspringen: S, zerstieben: S, überschießen: S, übersieden: S,
   bekommen: [{ verb: 'haben', condition: 'get, receive' }, { verb: 'sein', condition: 'agree with someone (food)' }],
+  erstehen: [{ verb: 'haben', condition: 'buy, acquire' }, { verb: 'sein', condition: 'arise, rise again (literary)' }],
+  erweichen: HS, zerweichen: HS, vergären: HS, versalzen: HS, verschießen: HS, verbacken: HS, verstieben: S, durchfrieren: S,
 };
 
 /** Derivatives of the short roots gehen, tun, sein and stehen, checked one by one at DWDS, with their auxiliaries. */
@@ -466,14 +507,19 @@ export const shortRootDerivatives: Readonly<Record<string, readonly AuxiliaryUse
 
 /** One reading of a lemma whose particle is separable in one sense and inseparable in another. */
 export interface PrefixReading {
-  readonly condition: string;
+  /** When the reading applies; absent where the sources give the two readings without a gloss to tell them apart. */
+  readonly condition?: string;
   readonly auxiliaries?: readonly AuxiliaryUse[];
   /** The particle keeps its stress and stays on the verb without becoming a prefix: Partizip II with ge- after it. */
   readonly stressed?: true;
 }
 
 /** Lemmas with a separable and an inseparable reading (two paradigms, separable first), checked at DWDS and Duden. */
-export const dualPrefixLemmas: Readonly<Record<string, { readonly separable: PrefixReading; readonly inseparable: PrefixReading }>> = {
+export const dualPrefixLemmas: Readonly<Record<string, {
+  readonly separable: PrefixReading; readonly inseparable: PrefixReading;
+  /** The inseparable reading is the common one and comes first. */
+  readonly inseparableFirst?: true;
+}>> = {
   umziehen: {
     separable: { condition: 'move house; change clothes', auxiliaries: [{ verb: 'sein', condition: 'move house' }, { verb: 'haben', condition: 'change clothes, change someone' }] },
     inseparable: { condition: 'surround, cover', auxiliaries: H },
@@ -493,7 +539,7 @@ export const dualPrefixLemmas: Readonly<Record<string, { readonly separable: Pre
   überziehen: { separable: { condition: 'put on (a garment)', auxiliaries: H }, inseparable: { condition: 'cover; overdraw', auxiliaries: H } },
   übergehen: { separable: { condition: 'pass into, change over', auxiliaries: S }, inseparable: { condition: 'pass over, ignore', auxiliaries: H } },
   übertreten: {
-    separable: { condition: 'step over; convert', auxiliaries: [{ verb: 'sein', condition: 'step over; convert' }, { verb: 'haben', condition: 'step over the line (sport)' }] },
+    separable: { condition: 'step over, convert', auxiliaries: [{ verb: 'sein', condition: 'step over, convert' }, { verb: 'haben', condition: 'step over the line (sport)' }] },
     inseparable: { condition: 'break (a rule)', auxiliaries: H },
   },
   unterhalten: { separable: { condition: 'hold underneath', auxiliaries: H }, inseparable: { condition: 'entertain; maintain', auxiliaries: H } },
@@ -511,16 +557,86 @@ export const dualPrefixLemmas: Readonly<Record<string, { readonly separable: Pre
   durchsetzen: { separable: { condition: 'enforce, push through', auxiliaries: H }, inseparable: { condition: 'permeate, intersperse', auxiliaries: H } },
   durchsuchen: { separable: { condition: 'search through', auxiliaries: H }, inseparable: { condition: 'search (a place)', auxiliaries: H } },
   wiederholen: { separable: { condition: 'fetch back', auxiliaries: H }, inseparable: { condition: 'repeat', auxiliaries: H } },
+  überholen: { separable: { condition: 'ferry across; heel over', auxiliaries: H }, inseparable: { condition: 'overtake; overhaul', auxiliaries: H } },
+  überfallen: { separable: { condition: 'fall over forwards', auxiliaries: S }, inseparable: { condition: 'attack, raid; overcome', auxiliaries: H } },
+  durchdringen: { separable: { condition: 'get through, penetrate', auxiliaries: S }, inseparable: { condition: 'permeate, pervade', auxiliaries: H } },
+  // Checked at DWDS: the dictionary gives each a separable and an inseparable reading, without a gloss to tell them apart
+  // here; the pattern labels name the readings.
+durchbeißen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchfahren: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchfallen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchfliegen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchhauen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchkriechen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchlesen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchreiten: { separable: { auxiliaries: SH }, inseparable: { auxiliaries: H } },
+  durchrennen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchrinnen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchschlafen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchschlagen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  durchschneiden: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchschwimmen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchspalten: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchspringen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchstechen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  durchsteigen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchstoßen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  durchstreichen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchtrinken: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  durchziehen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  hinterbringen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  hinterlaufen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  hinterziehen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umbinden: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umbrechen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  umfliegen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  umhängen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umlaufen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  umreißen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umschlagen: { separable: { auxiliaries: SH }, inseparable: { auxiliaries: H } },
+  umschlingen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umspringen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  umstechen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  umstreichen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  unterbinden: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  untergraben: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  unterschieben: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  unterschlagen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  widerscheinen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  überbraten: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  überfließen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  übergeben: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } },
+  überkommen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: HS } },
+  überlaufen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  überschlagen: { separable: { auxiliaries: HS }, inseparable: { auxiliaries: H } },
+  überspringen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
+  übersteigen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
   widerspiegeln: { separable: { condition: 'reflect', auxiliaries: H }, inseparable: { condition: 'reflect (less common)', auxiliaries: H, stressed: true } },
   anerkennen: { separable: { condition: 'recognise, acknowledge', auxiliaries: H }, inseparable: { condition: 'less common, especially Swiss', auxiliaries: H, stressed: true } },
+  übernehmen: { separable: { condition: 'sling over, put on (a coat)', auxiliaries: H }, inseparable: { condition: 'take over, take on', auxiliaries: H }, inseparableFirst: true },
 };
 
 /** Verbs whose dual particle is an inseparable prefix (they have no separable reading here), with their auxiliaries. */
 export const inseparableReadings: Readonly<Record<string, readonly AuxiliaryUse[]>> = {
-  überzeugen: H, überraschen: H, übernehmen: H, überweisen: H, übertreiben: H, überprüfen: H, überqueren: H, überwinden: H,
+  überzeugen: H, überraschen: H, überleben: H, übernachten: H,
+  unterlaufen: [{ verb: 'sein', condition: 'slip in (an error)' }, { verb: 'haben', condition: 'get under, undermine' }],
+  // Checked at DWDS: the dictionary gives these verbs an inseparable reading only.
+  durchdenken: H, durchflechten: H, durchfließen: H, durchleiden: H, durchmessen: H, durchschießen: H,
+  durchschreiten: H, durchspinnen: H, durchwinden: H, hinterbleiben: S, hintertreiben: H, umfangen: H, umflechten: H,
+  umfließen: H, umgreifen: H, umpfeifen: H, umreiten: H, umschleichen: H, umschließen: H, umschreiten: H,
+  umsingen: H, umspinnen: H, umstehen: H, umwachsen: H, umwerben: H, umwinden: H, unterbieten: H, unterbleiben: S,
+  unterfahren: H, unterfangen: H, unterfliegen: H, unterlassen: H, unterliegen: SH, unternehmen: H,
+  unterschneiden: H, unterschreiten: H, unterstreichen: H, untertreiben: H, unterwaschen: H, unterweisen: H,
+  unterwerfen: H, widerfahren: S, widerraten: H, widerrufen: H, widerstreiten: H, überbacken: H, überbieten: H,
+  überblasen: H, überbringen: H, überdenken: H, überfliegen: H, überfrieren: S, überheben: H, überladen: H,
+  überlassen: H, überlesen: H, überreiten: H, überreißen: H, überrennen: H, überschlafen: H, überschreiben: H,
+  überschreien: H, überschreiten: H, übersenden: H, überspinnen: H, überstreichen: H, übertragen: H, übertreffen: H,
+  überwachsen: H, überwiegen: H, überweisen: H, übertreiben: H, überprüfen: H, überqueren: H, überwinden: H,
   übersehen: H, unterrichten: H, unterschreiben: H, unterstützen: H, unterbrechen: H, untersuchen: H, unterscheiden: H,
   unterdrücken: H, umarmen: H, umgeben: H, umfassen: H, umringen: H, durchqueren: H, widersprechen: H, widerstehen: H,
   hinterlassen: H, hintergehen: H, vollenden: H, vollziehen: H, vollbringen: H,
+  // Reflexive in use (sich überschneiden …), inseparable in form at DWDS.
+  überschneiden: H, überfressen: H, hintersinnen: H, unterwinden: H,
 };
 
 /** Weak verbs that start like a particle or prefix verb but are not one: never split. */
@@ -532,7 +648,27 @@ export const lookalikes: readonly string[] = [
 /** Weak verbs that look like derivatives of a listed root but are conjugated on their own, with that root. */
 export const noInherit: Readonly<Record<string, string>> = {
   bedingen: 'dingen', bereiten: 'reiten', handhaben: 'haben', willfahren: 'fahren', umringen: 'ringen',
+  begleiten: 'gleiten', verleiden: 'leiden',
+  bekneifen: 'kneifen', bepreisen: 'preisen', beringen: 'ringen', bescheren: 'scheren', beschwingen: 'schwingen', erweichen: 'weichen',
+  zerweichen: 'weichen', gehaben: 'haben', beschaffen: 'schaffen', verschaffen: 'schaffen',
+  // A particle verb on the weak weichen (soften), not the strong one (give way).
+  durchweichen: 'weichen',
 };
+
+/** Particle verbs whose particle is not in the closed particle lists: bevorstehen (steht bevor, bevorgestanden). */
+export const particleVerbs: Readonly<Record<string, string>> = { bevorstehen: 'bevor' };
+
+/**
+ * Strong verbs whose Konjunktiv II has a short du- and ihr-form beside -est and -et (kämst, kämt), as the Duden
+ * conjugation table prints it; `dwds` where DWDS prints it too (only sein: wärst, wärt).
+ */
+export const shortSubjunctive: Readonly<Record<string, 'duden' | 'dwds'>> = Object.fromEntries([
+  ...['fliehen', 'frieren', 'schieben', 'verlieren', 'ziehen', 'kriechen', 'riechen', 'lügen', 'trügen', 'heben', 'schwören', 'dreschen',
+    'erlöschen', 'sinken', 'stinken', 'beginnen', 'gewinnen', 'rinnen', 'sinnen', 'spinnen', 'schwimmen', 'helfen', 'sterben', 'verderben',
+    'werben', 'werfen', 'befehlen', 'brechen', 'empfehlen', 'gebären', 'nehmen', 'sprechen', 'stechen', 'stehlen', 'treffen', 'kommen',
+    'geben', 'backen', 'fahren', 'graben', 'waschen'].map(lemma => [lemma, 'duden' as const]),
+  ['sein', 'dwds' as const],
+]);
 
 /** The inseparable prefixes that make a verb from a noun with a separable particle in it (be-antrag-en, ver-anlass-en). */
 export const denominalPrefixes: readonly string[] = ['be', 'ver'];
@@ -566,4 +702,6 @@ export const germanParticles: ParticleTables = {
     'spl', 'spr', 'st', 'str', 't', 'tr', 'ts', 'tsch', 'v', 'w', 'wr', 'z', 'zw',
   ],
   infinitiveEnding: /e?n$/u,
+  vowels: /[aeiouyäöü]/u,
+  digraphs: ['qu'],
 };

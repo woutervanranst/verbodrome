@@ -45,7 +45,7 @@ export const germanClause: ClauseGrammar<GermanLexeme> = {
     if (subject === null || pronoun === null) parts = verbs;
     else if (!imperative) {
       formSteps.push(step(rules['de.clause.subject'], null, null));
-      if (lexeme.flags.has('impersonal')) formSteps.push(step(rules['de.clause.impersonal-es'], subject.pronoun, pronoun));
+      if (pronoun !== subject.pronoun) formSteps.push(step(rules['de.clause.impersonal-es'], subject.pronoun, pronoun));
       parts = [subjectPart(pronoun), ...verbs];
     } else if (target.person === 2) parts = verbs;
     else {
@@ -53,15 +53,20 @@ export const germanClause: ClauseGrammar<GermanLexeme> = {
       parts = [verbs[0]!, subjectPart(pronoun), ...verbs.slice(1)];
     }
     if (placed.final !== null) {
-      formSteps.push(step(rules['de.clause.particle-final'], null, null, { particle: placed.final }));
-      parts = [...parts, grammaticalPart(rendering, 'particle', placed.final)];
+      // Stacked particles stand apart at the end, each a word: stellt wieder her.
+      const final = lexeme.particleWords.length > 1 ? lexeme.particleWords.join(' ') : placed.final;
+      formSteps.push(step(rules['de.clause.particle-final'], null, null, { particle: final }));
+      parts = [...parts, ...final.split(' ').map(word => grammaticalPart(rendering, 'particle', word))];
     }
     // The condition and region of the perfect auxiliary this form is built with.
+    // A reading's own condition (umziehen: move house; change clothes) where the auxiliary has none.
     const use = auxiliary === null ? undefined : lexeme.auxiliaryUses.find(item => item.verb === auxiliary);
+    const condition = use?.condition ?? lexeme.readingCondition ?? undefined;
     const tags: VariantTags = {
-      ...(use?.condition === undefined ? {} : { condition: use.condition }),
+      ...(condition === undefined ? {} : { condition }),
       ...(use?.region === undefined ? {} : { region: use.region }),
     };
+    if (use?.source === 'duden') formSteps.push(step(rules['de.clause.duden-only'], null, null));
     return one(parts, formSteps, tags);
   },
 };
