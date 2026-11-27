@@ -74,4 +74,23 @@ describe('German explanation steps that were false', () => {
   });
 });
 
+describe('German labels the review found too narrow', () => {
+  const conditions = (lemma: string, tense: string) => result(lemma, 'indicative', tense, 1, 'singular').forms.map(f => [f.text, f.variant.condition]);
+  it('labels umfahren, übernehmen, senden, wenden and aufstehen as the dictionaries do', () => {
+    expect(conditions('umfahren', 'present')[0]).toEqual(['ich fahre um', 'knock down; take a detour']);
+    expect(conditions('übernehmen', 'present')[1]).toEqual(['ich nehme über', 'sling over the shoulder (colloquial); take on water or cargo (nautical)']);
+    expect(conditions('senden', 'past')).toEqual([['ich sandte', 'send'], ['ich sendete', 'broadcast; also send (less often)']]);
+    expect(conditions('wenden', 'past')[1]![1]).toMatch(/also turn \(oneself\)/u);
+    expect(conditions('aufstehen', 'perfect')[1]).toEqual(['ich habe aufgestanden', 'stand open (a door, a window; colloquial)']);
+  });
+
+  it('derives the plural Präteritum of werden from wurd- (only wurde, wurdest and ward are listed)', () => {
+    const forms = result('werden', 'indicative', 'past').forms;
+    expect(forms.map(f => f.text)).toEqual(['ich wurde', 'ich ward', 'du wurdest', 'du wardst', 'er wurde', 'er ward', 'wir wurden', 'ihr wurdet', 'sie wurden']);
+    const rules = explain('de', forms.find(f => f.text === 'ihr wurdet')!, 'en').sections.flatMap(section => section.steps.map(step => step.rule));
+    expect(rules).toEqual(expect.arrayContaining(['de.stem.preterite', 'de.end.preterite-strong', 'de.orth.schwa-dental']));
+    expect(rules).not.toContain('de.stem.lexical-cell');
+  });
+});
+
 export { er };

@@ -98,6 +98,8 @@ const intransitive = 'without a direct object: movement or a change of state';
 const transitive = 'with a direct object';
 const motion = 'movement to a place or over a distance';
 const activity = 'the activity itself, or with a direct object';
+/** The conditions that say only how an auxiliary is used, not what the verb means: a derivative may inherit them. */
+export const generalConditions: readonly string[] = [intransitive, transitive, motion, activity];
 /** sein for movement and change of state, haben with a direct object; DWDS gives sein first ("ist / hat"). */
 const SH: readonly AuxiliaryUse[] = [{ verb: 'sein', condition: intransitive }, { verb: 'haben', condition: transitive }];
 /** The same uses where DWDS gives haben first ("hat / ist"). */
@@ -399,13 +401,13 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   senden: {
     paradigms: [
       { pattern: 'mixed', condition: 'send', entry: mixed('senden', 'sand', 'gesandt', 'sendet', H) },
-      { pattern: 'weak', condition: 'broadcast', entry: weak('senden') },
+      { pattern: 'weak', condition: 'broadcast; also send (less often)', entry: weak('senden') },
     ],
   },
   wenden: {
     paradigms: [
-      { pattern: 'mixed', condition: 'turn (oneself), apply', entry: mixed('wenden', 'wand', 'gewandt', 'wendet', H) },
-      { pattern: 'weak', condition: 'turn over, turn round', entry: weak('wenden') },
+      { pattern: 'mixed', condition: 'turn (oneself), turn to someone', entry: mixed('wenden', 'wand', 'gewandt', 'wendet', H) },
+      { pattern: 'weak', condition: 'turn over, turn round; also turn (oneself), turn to someone', entry: weak('wenden') },
     ],
   },
   // preterite-present
@@ -440,8 +442,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
     cells: {
       'indicative.present.2sg': whole('wirst'), 'indicative.present.3sg': whole('wird'),
       'indicative.past.1sg': whole('wurde', dated('ward')), 'indicative.past.2sg': whole('wurdest', dated('wardst')),
-      'indicative.past.3sg': whole('wurde', dated('ward')), 'indicative.past.1pl': whole('wurden'),
-      'indicative.past.2pl': whole('wurdet'), 'indicative.past.3pl': whole('wurden'),
+      'indicative.past.3sg': whole('wurde', dated('ward')),
     },
     ...checked('werden'),
   },
@@ -506,7 +507,7 @@ export const shortRootDerivatives: Readonly<Record<string, readonly AuxiliaryUse
   ausgehen: S, eingehen: S, vergehen: S, entgehen: S,
   angehen: [{ verb: 'haben', condition: 'concern; tackle' }, { verb: 'sein', condition: 'come on, start burning; be acceptable' }],
   begehen: H, abtun: H, antun: H, zutun: H, auftun: H, dastehen: H,
-  aufstehen: [{ verb: 'sein', condition: 'get up, stand up' }, { verb: 'haben', condition: 'stand open (a door, a window)' }],
+  aufstehen: [{ verb: 'sein', condition: 'get up, stand up' }, { verb: 'haben', condition: 'stand open (a door, a window; colloquial)' }],
   verstehen: H, entstehen: S, bestehen: H, gestehen: H,
 };
 
@@ -530,7 +531,7 @@ export const dualPrefixLemmas: Readonly<Record<string, {
     inseparable: { condition: 'surround, cover', auxiliaries: H },
   },
   umfahren: {
-    separable: { condition: 'knock down', auxiliaries: [{ verb: 'haben', condition: 'knock down' }, { verb: 'sein', condition: 'take a detour' }] },
+    separable: { condition: 'knock down; take a detour', auxiliaries: [{ verb: 'haben', condition: 'knock down' }, { verb: 'sein', condition: 'take a detour' }] },
     inseparable: { condition: 'drive round', auxiliaries: H },
   },
   umgehen: { separable: { condition: 'deal with; go round', auxiliaries: S }, inseparable: { condition: 'avoid, bypass', auxiliaries: H } },
@@ -618,7 +619,7 @@ durchbeißen: { separable: { auxiliaries: H }, inseparable: { auxiliaries: H } }
   übersteigen: { separable: { auxiliaries: S }, inseparable: { auxiliaries: H } },
   widerspiegeln: { separable: { condition: 'reflect', auxiliaries: H }, inseparable: { condition: 'reflect (less common)', auxiliaries: H, stressed: true } },
   anerkennen: { separable: { condition: 'recognise, acknowledge', auxiliaries: H }, inseparable: { condition: 'less common, especially Swiss', auxiliaries: H, stressed: true } },
-  übernehmen: { separable: { condition: 'sling over, put on (a coat)', auxiliaries: H }, inseparable: { condition: 'take over, take on', auxiliaries: H }, inseparableFirst: true },
+  übernehmen: { separable: { condition: 'sling over the shoulder (colloquial); take on water or cargo (nautical)', auxiliaries: H }, inseparable: { condition: 'take over, take on', auxiliaries: H }, inseparableFirst: true },
 };
 
 /** Verbs whose dual particle is an inseparable prefix (they have no separable reading here), with their auxiliaries. */
@@ -658,6 +659,21 @@ export const noInherit: Readonly<Record<string, string>> = {
   zerweichen: 'weichen', gehaben: 'haben', beschaffen: 'schaffen', verschaffen: 'schaffen',
   // A particle verb on the weak weichen (soften), not the strong one (give way).
   durchweichen: 'weichen',
+};
+
+/** One paradigm of a derivative of a two-paradigm root, with the derivative's own label from its DWDS page, if any. */
+export interface DerivedParadigm {
+  readonly pattern: 'weak' | 'strong' | 'mixed';
+  readonly condition?: string;
+  readonly usage?: 'dated' | 'literary';
+}
+
+/**
+ * Derivatives of the two-paradigm roots (schaffen, wenden, hängen …) and the paradigms each takes, from the DWDS
+ * grammar lines of the derivative itself: abschaffen is weak only, erschaffen strong only, verwenden both. The root's
+ * sense glosses never carry over. A derivative not listed here takes both, with an assumption.
+ */
+export const derivedParadigms: Readonly<Record<string, readonly DerivedParadigm[]>> = {
 };
 
 /** Particle verbs whose particle is not in the closed particle lists: bevorstehen (steht bevor, bevorgestanden). */

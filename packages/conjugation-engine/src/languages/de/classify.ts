@@ -12,7 +12,7 @@ import type { LexemeBase } from '../../core/grammar.js';
 import { ConjugationError } from '../../errors.js';
 import { isPlausibleRoot, paradigmFork, splitDerivative } from '../shared/germanic.js';
 import {
-  denominalPrefixes, derivativeAuxiliaries, dualPrefixLemmas, germanLexicon, germanParticles, impersonalVerbs, inseparableReadings,
+  denominalPrefixes, derivativeAuxiliaries, derivedParadigms, dualPrefixLemmas, generalConditions, germanLexicon, germanParticles, impersonalVerbs, inseparableReadings,
   lookalikes, noInherit, nonInitialStress, particleVerbs, shortRootDerivatives, weakWithSein,
 } from './lexicon.js';
 import type { Alternate, AuxiliaryUse, DualEntry, GermanEntry, PrefixReading, WeakEntry } from './lexicon.js';
@@ -464,10 +464,18 @@ const flagsOf = (lemma: string, entry: GermanEntry | null): ReadonlySet<LexemeFl
 
 interface Built { readonly lexeme: GermanLexeme; readonly steps: readonly DerivationStep[]; readonly tags: VariantTags }
 
-/** A root's auxiliaries as a derivative takes them: never a regional use (stehen's southern sein is not aufstehen's). */
+/**
+ * A root's auxiliaries as a derivative takes them: never a regional or one-dictionary use (stehen's southern sein is not
+ * aufstehen's), and never the root's sense gloss (schleifen's 'drag along the ground' is not mitschleifen's): one
+ * auxiliary carries no condition, two keep only the general ones (with or without a direct object, movement).
+ */
 const inherited = (uses: readonly AuxiliaryUse[]): readonly AuxiliaryUse[] => {
-  const kept = uses.filter(use => use.region === undefined);
-  return kept.length ? kept : [{ verb: 'haben' }];
+  const kept = uses.filter(use => use.region === undefined && use.source === undefined);
+  if (kept.length <= 1) return [{ verb: kept[0]?.verb ?? 'haben' }];
+  return kept.map(use => ({
+    verb: use.verb,
+    condition: use.condition !== undefined && generalConditions.includes(use.condition) ? use.condition : use.verb === 'sein' ? generalConditions[0]! : generalConditions[1]!,
+  }));
 };
 
 /**
@@ -502,13 +510,25 @@ const listedAuxiliariesOf: Readonly<Record<string, true>> = Object.fromEntries(
 function build(segmentation: Segmentation, hints: Hints): Built[] {
   const { lemma, particle, base } = segmentation;
   const rootListed = base.known && (base.kind === 'root' || base.kind === 'derived');
-  const all = rootListed ? rootParadigms(base.root) : [{ entry: null, conjugation: 'weak' as const, auxiliaries: [{ verb: 'haben' as const }], tags: {} }];
+  const ofRoot = rootListed ? rootParadigms(base.root) : [{ entry: null, conjugation: 'weak' as const, auxiliaries: [{ verb: 'haben' as const }], tags: {} }];
+  // A derivative of a two-paradigm root takes the paradigms recorded for it, with its own labels, never the root's
+  // glosses (abschaffen weak only, erschaffen strong only); an unrecorded one takes both, by pattern, as an assumption.
+  const derivedFromDual = rootListed && ofRoot.length > 1 && (particle !== null || base.kind === 'derived');
+  const recorded = derivedFromDual && Object.hasOwn(derivedParadigms, lemma) ? derivedParadigms[lemma]! : null;
+  const all: RootParadigm[] = !derivedFromDual ? ofRoot : recorded === null
+    ? ofRoot.map(paradigm => ({ ...paradigm, tags: { pattern: paradigm.tags.pattern! } }))
+    : recorded.map(({ pattern, condition, usage }) => ({
+      ...ofRoot.find(paradigm => paradigm.tags.pattern === pattern)!,
+      tags: { ...(recorded.length > 1 ? { pattern } : {}), ...(condition === undefined ? {} : { condition }), ...(usage === undefined ? {} : { usage }) },
+    }));
+  const assumedParadigm = derivedFromDual && recorded === null ? step(rules['de.classify.assume-root-paradigm'], lemma, null, { root: base.root }) : null;
   // A class hint keeps the root's paradigms of that class; an unlisted verb takes any class (strong and mixed need stems).
   const known = rootListed || base.known || segmentation.listed;
   const paradigms = hints.classHint === undefined || !known ? all : all.filter(paradigm => paradigm.conjugation === hints.classHint);
   if (!paradigms.length) invalidHint(`${lemma} has no ${hints.classHint} conjugation.`);
   return paradigms.map(paradigm => {
     const steps: DerivationStep[] = [...segmentation.steps];
+    if (assumedParadigm !== null && hints.classHint === undefined) steps.push(assumedParadigm);
     if (rootListed && base.kind === 'root' && particle === null) steps.push(step(rules['de.classify.lexicon'], lemma, paradigm.conjugation));
     // A listed lemma that DWDS has no table for rests on Duden alone, and says so.
     if (verification[lemma]?.dwds === null) steps.push(step(rules['de.classify.duden-only'], lemma, null));
