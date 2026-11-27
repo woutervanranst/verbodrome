@@ -32,6 +32,10 @@ const checked: readonly Checked[] = [
     language: 'de', engine, queries: [...(JSON.parse(readFileSync(new URL('../fixtures/de.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), 'schlinken', 'fralten', 'blagnen', 'plaxen', 'trissen', 'wumpeln', 'flompieren', 'verschlinken', 'aufschlinken', 'umschlinken', 'machen', 'arbeiten', 'atmen', 'reisen', 'sammeln', 'wandern', 'ändern', 'lächeln', 'studieren', 'anerkennen', 'verschlafen', 'herumfahren', 'rechnen', 'öffnen', 'mixen', 'küssen', 'regnen', 'kommen', 'gehen', 'sein', 'haben', 'backen', 'schreien', 'gelingen', 'geschehen', 'finden', 'halten', 'bitten', 'tun', 'lesen', 'essen', 'sitzen', 'helfen', 'gewinnen', 'stehlen', 'können', 'beantragen', 'bedingen', 'beugen', 'überzeugen', 'wagen', 'heissen']
       .flatMap(infinitive => [{ language: 'de', infinitive }, { language: 'de', infinitive, subject: '2.formal' }]),
   },
+  {
+    language: 'es', engine, queries: [...(JSON.parse(readFileSync(new URL('../fixtures/es.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), 'blorpar', 'fluzar', 'trobacar', 'drolgar', 'rimiguar', 'plontuar', 'flobiar', 'blaular', 'troger', 'blorecer', 'treer', 'fluñir', 'plostuir', 'bladucir', 'blorparse', 'protener', 'blotener', 'reir', 'blodeír', 'trasoír', 'enviar', 'cambiar', 'continuar', 'aislar', 'rehusar', 'construir', 'huir', 'rehuir', 'freír', 'sofreír', 'sonreír', 'entreoír', 'componer', 'deshacer', 'rehacer', 'prever', 'mantener', 'retrotraer', 'morir', 'vestirse', 'sentarse', 'reírse', 'dormirse', 'irse', 'devolver', 'imprimir', 'nevar', 'estudiar', 'argüir', 'concernir', 'atañer', 'balbucir', 'pudrir', 'agriar', 'evacuar', 'engrosar']
+      .flatMap(infinitive => [{ language: 'es', infinitive }, { language: 'es', infinitive, subject: '2sg.formal' }, { language: 'es', infinitive, gender: 'feminine', mood: 'indicative', tense: 'present' }]),
+  },
 ];
 
 const leftover = /[{}]|undefined/u;
