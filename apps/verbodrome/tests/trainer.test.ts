@@ -5,7 +5,7 @@ import { diff, subjectLength } from '../src/trainer/diff';
 import { mistakes } from '../src/trainer/distractors';
 import { exampleOf, formAt, verbForms } from '../src/trainer/forms';
 import { dutchPrompt } from '../src/trainer/prompt';
-import { askable, inPerson, makeQuestion } from '../src/trainer/question';
+import { askable, inPerson, makeQuestion, questionFor } from '../src/trainer/question';
 import type { Question } from '../src/trainer/question';
 import { rule } from '../src/trainer/rules';
 import { applyAnswer } from '../src/trainer/score';
@@ -173,6 +173,16 @@ describe('wrong answers', () => {
   it('offers subjectless look-alikes for the imperative', () => {
     expect(wrong('manger', 'imperative.present', '2s')).toContainEqual({ text: 'manges !', label: 'présent zonder onderwerp' });
     expect(wrong('être', 'imperative.present', '2p').map(m => m.text)).toContain('êtes !');
+  });
+
+  it('never offers the feminine twin of the right answer as a wrong card', () => {
+    const selection = { verbs: ['aller', 'venir'], tenses: tensesForLevel('g3') };
+    for (const [fr, feminine] of [['aller', 'je suis allée'], ['venir', 'je suis venue']] as const) {
+      for (let draw = 0; draw < 50; draw++) {
+        const question = questionFor(selection, { verb: fr, tense: 'indicative.perfect', slot: '1s' }, seeded(draw))!;
+        expect(question.options.filter(option => !option.correct).map(option => option.text), `${fr} draw ${draw}`).not.toContain(feminine);
+      }
+    }
   });
 
   it('never proposes an accepted spelling as a mistake', () => {

@@ -10,7 +10,10 @@ export interface FrForm {
   readonly slot: string;
   /** Text as shown on a card, e.g. "j'ai été", "sois !". */
   readonly text: string;
-  /** Every accepted spelling/variant for this slot, in card form. Never used as a wrong answer. */
+  /**
+   * Every accepted spelling/variant for this slot, in card form, plus the feminine forms where the
+   * Dutch prompt leaves gender open (every finite slot but 3s). Never used as a wrong answer.
+   */
   readonly accepted: readonly string[];
   /** Subject pronoun as rendered ("je", "ils"), or null for subjectless forms. */
   readonly subject: string | null;
@@ -45,23 +48,33 @@ function isBaseAgreement(form: ConjugatedForm): boolean {
   return agreement === null || (agreement.gender === 'masculine' && agreement.number === 'singular');
 }
 
+/**
+ * Slots whose Dutch prompt leaves the subject's gender open (ik, jij, wij, jullie, and zij in the plural).
+ * The third person singular is prompted as "hij", so only its masculine form is right.
+ */
+const OPEN_GENDER: ReadonlySet<string> = new Set(['1s', '2s', '1p', '2p', '3p']);
+
 const cache = new Map<string, VerbForms>();
 
 /**
  * All French forms of a verb, straight from conjugation-engine (one wildcard query).
- * Subjects are masculine, as in a classic conjugation table.
+ * Subjects are masculine on cards, as in a classic conjugation table; feminine answers
+ * are accepted where the prompt leaves gender open ("je suis allée", "elles sont allées").
  */
 export function verbForms(infinitive: string): VerbForms {
   const cached = cache.get(infinitive);
   if (cached) return cached;
 
-  const result = conjugate({ language: 'fr', infinitive, gender: 'masculine' });
+  // Without a gender the engine returns every subject gender, each form tagged with `target.gender`.
+  const result = conjugate({ language: 'fr', infinitive });
   const grouped = new Map<string, ConjugatedForm[]>();
+  const feminine = new Map<string, ConjugatedForm[]>();
   for (const form of result.forms) {
     if (!isBaseAgreement(form)) continue;
     const key = `${form.target.mood}.${form.target.tense}|${slotOf(form)}`;
-    const list = grouped.get(key);
-    if (list) list.push(form); else grouped.set(key, [form]);
+    const into = form.target.gender === 'feminine' ? feminine : grouped;
+    const list = into.get(key);
+    if (list) list.push(form); else into.set(key, [form]);
   }
 
   const all: FrForm[] = [];
@@ -72,10 +85,11 @@ export function verbForms(infinitive: string): VerbForms {
       const variants = grouped.get(`${tense.id}|${slot}`);
       if (!variants?.length) continue;
       const preferred = variants.find(variant => variant.preferred) ?? variants[0]!;
+      const twins = OPEN_GENDER.has(slot) ? feminine.get(`${tense.id}|${slot}`) ?? [] : [];
       forms.push({
         tense, slot,
         text: display(preferred),
-        accepted: [...new Set(variants.map(display))],
+        accepted: [...new Set([...variants, ...twins].map(display))],
         subject: preferred.parts.find(part => part.role === 'subject')?.text ?? null,
         form: preferred,
       });
