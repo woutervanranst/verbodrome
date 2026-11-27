@@ -1,4 +1,3 @@
-import { variantRank } from '../../core/pack.js';
 import type { LanguagePack } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
 import { dutchCatalogue, dutchSubjects, dutchSubjectsFor } from './catalogue.js';
@@ -21,7 +20,6 @@ export const dutchPack: LanguagePack<'nl'> = {
   options: dutchOptions,
   subjects: dutchSubjects,
   subjectsFor: dutchSubjectsFor,
-  rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(dutchGrammar, dutchRendering, query),
   rules: dutchRules,
   works: dutchWorks,

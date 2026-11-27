@@ -1,7 +1,7 @@
 import { ConjugationError } from '../errors.js';
 import { deepFreeze } from '../parts.js';
 import type {
-  ConjugatedForm, ConjugationOptions, ConjugationPart, ConjugationResult, GeneratedForm, GrammaticalNumber, Language,
+  ConjugatedForm, ConjugationOptions, ConjugationOptionsFor, ConjugationPart, ConjugationResult, GeneratedForm, GrammaticalNumber, Language,
   Person, RenderContext, ResolvedTarget, UnavailableTarget, VerbAnalysis, Voice,
 } from '../types.js';
 import { explainSubject, renderStep } from '../i18n/explain.js';
@@ -9,12 +9,13 @@ import type { Explainable, Explanation, StepContext } from '../i18n/explain.js';
 import type { Catalog } from '../i18n/catalog.js';
 import { comparisonKey } from './compare.js';
 import { parseOptions } from './options.js';
-import { defaultSubjectsFor, packFor } from './pack.js';
+import { defaultSubjectsFor, packFor, variantRank } from './pack.js';
 import type { CatalogueEntry, LanguagePack, SubjectSlot } from './pack.js';
 import { renderWith } from './render.js';
 import { resolvedTargetKey, targetKey } from './target.js';
 
 export interface Engine {
+  /** Any query; it is validated at run time. An engine from `createEngine` types it (`TypedEngine`). */
   conjugate(options: unknown): ConjugationResult;
   getCatalogue(language: string): readonly CatalogueEntry[];
   /** The subject slots of `language`, in the pack's order; empty for a pack without slots. */
@@ -24,13 +25,24 @@ export interface Engine {
   expandTargets(options: Readonly<Record<string, unknown>>): ResolvedTarget[];
   /**
    * A form, an unavailable target or a verb analysis, step by step in the catalog of `locale`. A subject without steps
-   * (French and Dutch for now) has no sections. Throws INVALID_REQUEST for a locale the engine has no catalog for and
+   * has no sections. Throws INVALID_REQUEST for a locale the engine has no catalog for and
    * GENERATION_FAILURE for a rule or term without text.
    */
   explain(language: string, subject: Explainable, locale: string): Explanation;
   /** The key answers in `language` are compared by: the pack's `compareKey`, or `plainComparisonKey`. */
   normalizeForComparison(language: string, text: string): string;
   readonly languages: readonly string[];
+}
+
+/**
+ * The query an engine over the languages `L` accepts: the typed options of a registered language (`ConjugationOptionsFor`),
+ * or, for a pack that is not registered (a pack under development, the test toy), any object.
+ */
+export type EngineQuery<L extends string> = L extends Language ? ConjugationOptionsFor<L> : Readonly<Record<string, unknown>>;
+
+/** The engine `createEngine` builds over the languages `L`: `conjugate` takes the typed query of each of them. */
+export interface TypedEngine<L extends string> extends Engine {
+  conjugate(options: EngineQuery<L>): ConjugationResult;
 }
 
 export function catalogueLabels(catalogue: readonly CatalogueEntry[], target: ResolvedTarget): { mood: string; tense: string } {
@@ -138,7 +150,7 @@ function signature(form: GeneratedForm): string {
  * that clashes with a voice name or contains `/`, or a catalogue entry lists a slot the pack does not declare,
  * has slots though it is not finite, or is finite with an empty slots list.
  */
-export function createEngine(packs: Readonly<Record<string, LanguagePack>>, catalogs: Readonly<Record<string, Catalog>> = {}): Engine {
+export function createEngine<const P extends Readonly<Record<string, LanguagePack>>>(packs: P, catalogs: Readonly<Record<string, Catalog>> = {}): TypedEngine<keyof P & string> {
   for (const [language, pack] of Object.entries(packs)) {
     if (pack.language !== language) {
       throw new ConjugationError('INVALID_REQUEST', `The pack registered as ${language} is the pack for ${pack.language}.`);
@@ -228,7 +240,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
         const previous = unique.get(key);
         if (!previous) unique.set(key, form);
         // The first form keeps its parts and steps. A form with steps keeps the ruleIds its steps derive; a form without
-        // steps (French, Dutch) collects the ruleIds of every form that collapsed into it.
+        // steps (a pack assembled without the types) collects the ruleIds of every form that collapsed into it.
         else unique.set(key, {
           ...previous,
           variant: { ...previous.variant, orthography: previous.variant.orthography === form.variant.orthography ? form.variant.orthography : 'both' },
@@ -239,6 +251,8 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     if (!unique.size && generatedCount > 0) {
       throw new ConjugationError('INVALID_TARGET', 'The agreement filters do not match any compatible form.');
     }
+    // Standard before literary before dated, then the 1990 spelling, unless the pack ranks its own way.
+    const rankOf = (form: GeneratedForm): number => pack.rank ? pack.rank(form, query) : variantRank(form.variant, 'rectified');
     const byTarget = new Map<string, GeneratedForm[]>();
     for (const form of unique.values()) {
       const key = resolvedTargetKey(form.target);
@@ -247,7 +261,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
       byTarget.set(key, group);
     }
     const forms: ConjugatedForm[] = [...byTarget.values()].flatMap(group =>
-      group.sort((a, b) => pack.rank(a, query) - pack.rank(b, query)).map((form, index) => ({
+      group.sort((a, b) => rankOf(a) - rankOf(b)).map((form, index) => ({
         ...form, text: renderWith(pack.rendering, form.parts), preferred: index === 0,
         labels: catalogueLabels(pack.catalogue, form.target),
       })));

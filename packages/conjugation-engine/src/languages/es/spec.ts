@@ -25,6 +25,9 @@ export interface SpanishStemHints {
 export type SpanishSubject =
   | '1sg' | '2sg' | '3sg' | '3sg.f' | '2sg.formal' | '1pl' | '1pl.f' | '2pl' | '2pl.f' | '3pl' | '3pl.f' | '2pl.formal';
 
+/** The genders the `gender` option keeps (the subjects of that gender and the genderless ones). */
+export type SpanishGender = 'masculine' | 'feminine';
+
 export interface SpanishSpec extends LanguageSpec<SpanishTenses> {
   tenses: SpanishTenses;
   nonFinite: 'infinitive' | 'gerund' | 'participle';
@@ -34,6 +37,6 @@ export interface SpanishSpec extends LanguageSpec<SpanishTenses> {
   subject: SpanishSubject;
   context: {
     readonly reflexive?: boolean;
-    readonly gender?: 'masculine' | 'feminine';
+    readonly gender?: SpanishGender;
   };
 }

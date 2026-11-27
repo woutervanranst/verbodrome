@@ -59,7 +59,8 @@ describe('language packs', () => {
     expect(engine.languages).toEqual(['fr']);
     expect(engine.conjugate({ language: 'fr', infinitive: 'aimer', mood: 'infinitive' }).forms[0]!.text).toBe('aimer');
     const unsupported = expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr.' });
-    expect(() => engine.conjugate({ language: 'nl', infinitive: 'werken' })).toThrow(unsupported);
+    // A language the engine does not have is a compile error for a typed caller, and a run-time error for any other.
+    expect(() => engine.conjugate({ language: 'nl', infinitive: 'werken' } as never)).toThrow(unsupported);
     expect(() => engine.getCatalogue('nl')).toThrow(unsupported);
     expect(() => engine.expandTargets({ language: 'nl', infinitive: 'werken' })).toThrow(unsupported);
     expect(() => engine.renderParts('nl', [])).toThrow(unsupported);

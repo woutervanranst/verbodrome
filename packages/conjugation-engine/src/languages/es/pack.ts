@@ -1,4 +1,3 @@
-import { variantRank } from '../../core/pack.js';
 import type { LanguagePack, SubjectSlot } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
 import { spanishCatalogue, spanishSubjects } from './catalogue.js';
@@ -29,7 +28,6 @@ export const spanishPack: LanguagePack<'es'> = {
   },
   /** The gendered slots (él, ella, nosotros, nosotras ...) give their gender to their forms' `target.gender`. */
   genderedTargets: true,
-  rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(spanishGrammar, spanishRendering, query),
   rules: spanishRules,
   works: spanishWorks,

@@ -1,4 +1,4 @@
-import { defaultSubjectsFor, variantRank } from '../../core/pack.js';
+import { defaultSubjectsFor } from '../../core/pack.js';
 import type { LanguagePack } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
 import { italianCatalogue, italianSubjects } from './catalogue.js';
@@ -21,8 +21,6 @@ export const italianPack: LanguagePack<'it'> = {
     return query.gender === undefined ? slots : slots.filter(slot => slot.gender === undefined || slot.gender === query.gender);
   },
   genderedTargets: true,
-  /** Standard before literary before dated; within one rank the order of generation (the lexicon's order) stays. */
-  rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(italianGrammar, italianRendering, query),
   rules: italianRules,
   works: italianWorks,

@@ -210,6 +210,8 @@ describe('built package boundaries', () => {
     expect(paths).toContain('dist/equivalence/index.d.ts');
     for (const code of ['fr', 'nl', 'de', 'en', 'es', 'it', 'la']) expect(paths).toContain(`dist/languages/${code}/index.js`);
     for (const locale of ['en', 'nl']) expect(paths).toContain(`dist/i18n/locales/${locale}/index.js`);
+    // No source maps: they would point at src/, which is not packed.
+    expect(paths?.filter(path => path.endsWith('.map'))).toEqual([]);
     // Nothing whose source is gone: every packed build file has a source under src/.
     expect(paths?.filter(path => path.startsWith('dist/') && !existsSync(new URL(`../src/${path.slice(5).replace(/\.(d\.ts\.map|js\.map|d\.ts|js)$/u, '.ts')}`, import.meta.url)))).toEqual([]);
     expect(paths).toContain('docs/pack-authoring.md');
@@ -217,7 +219,9 @@ describe('built package boundaries', () => {
     expect(paths).toContain('docs/api.md');
     expect(paths?.some(path => /(^|\/)(tests|fixtures|scripts|node_modules|\.cache|\.github)(\/|$)|\.html$/u.test(path))).toBe(false);
     expect(readFileSync(new URL('../dist/cli.js', import.meta.url), 'utf8')).toMatch(/^#!\/usr\/bin\/env node/u);
-    const manifest: { dependencies?: Record<string, string> } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
+    const manifest: { dependencies?: Record<string, string>; private?: boolean } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
     expect(Object.keys(manifest.dependencies ?? {})).toEqual([]);
+    // Not publishable until the licence of the woordenlijst.org tables is settled.
+    expect(manifest.private).toBe(true);
   });
 });

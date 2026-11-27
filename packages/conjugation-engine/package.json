@@ -1,6 +1,7 @@
 {
   "name": "conjugation-engine",
   "version": "0.1.0",
+  "private": true,
   "description": "Rule-based conjugation for French, Dutch, German, English, Spanish, Italian and Latin, with step-by-step explanations",
   "type": "module",
   "engines": {

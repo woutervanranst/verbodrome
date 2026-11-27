@@ -14,6 +14,6 @@ export { ConjugationError } from './errors.js';
 export type { ConjugationErrorCode } from './errors.js';
 export type * from './types.js';
 export type { CatalogueEntry, SubjectSlot } from './core/pack.js';
-export type { Engine } from './core/engine.js';
+export type { Engine, EngineQuery, TypedEngine } from './core/engine.js';
 export type { EquivalenceOptions, TenseEquivalence, TenseEquivalent, TenseRef } from './equivalence/index.js';
 export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';

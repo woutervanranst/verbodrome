@@ -101,21 +101,24 @@ export interface LanguagePack<L extends string = string> {
    * (`defaultSubjectsFor`): the slot named by the common `subject` option, else every default slot.
    */
   subjectsFor?(query: Readonly<Record<string, unknown>>): readonly SubjectSlot[];
-  /** The subject's gender changes the verb phrase (French, Italian, Latin), so a target carries its slot's gender. */
+  /**
+   * A target carries its slot's gender as `target.gender` (`target.gender` is the subject gender a form shows; a slot
+   * without a gender can still show one form by form, through `clause.subjectGenders`).
+   */
   readonly genderedTargets?: boolean;
-  /** Extra target filter from language-specific options (Dutch `pronoun`). */
+  /** Extra target filter from language-specific options. */
   acceptsTarget?(query: Readonly<Record<string, unknown>>, target: ResolvedTarget): boolean;
   /** Extra form filter after generation (French `agreement`). */
   acceptsForm?(query: Readonly<Record<string, unknown>>, form: GeneratedForm): boolean;
-  /** Sort key within one target; lower sorts first. */
-  rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
+  /** Sort key within one target; lower sorts first. Absent: `variantRank(form.variant, 'rectified')`. */
+  rank?(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
   engine(query: Readonly<Record<string, unknown>>): LanguageEngine;
-  /** The rules the pack's steps record, keyed by id (the `defineRules` result). Absent while a pack records no steps. */
-  readonly rules?: Readonly<Record<string, RuleInfo>>;
+  /** The rules the pack's steps record, keyed by id (the `defineRules` result). */
+  readonly rules: Readonly<Record<string, RuleInfo>>;
   /** The works the pack's citations name, keyed by `Work.id`. */
-  readonly works?: Readonly<Record<string, Work>>;
+  readonly works: Readonly<Record<string, Work>>;
   /** Where each rule is described, keyed by rule id. */
-  readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
+  readonly citations: Readonly<Record<string, Citation | readonly Citation[]>>;
   /**
    * The key two spellings of an answer are compared by: equal keys are the same answer (Latin ignores macrons). Absent:
    * `plainComparisonKey` (NFC, lower case, trimmed, single spaces; accents kept).

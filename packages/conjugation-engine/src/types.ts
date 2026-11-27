@@ -11,11 +11,11 @@ export type {
   FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchSubject, FrenchTenses,
 } from './languages/fr/spec.js';
 export type {
-  DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchTenses,
+  DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchSubject, DutchTenses,
 } from './languages/nl/spec.js';
-export type { EnglishClassHint, EnglishSpec, EnglishStemHints, EnglishTenses } from './languages/en/spec.js';
+export type { EnglishClassHint, EnglishSpec, EnglishStemHints, EnglishSubject, EnglishTenses } from './languages/en/spec.js';
 export type { GermanClassHint, GermanSpec, GermanStemHints, GermanSubject, GermanTenses } from './languages/de/spec.js';
-export type { SpanishClassHint, SpanishSpec, SpanishStemHints, SpanishSubject, SpanishTenses } from './languages/es/spec.js';
+export type { SpanishClassHint, SpanishGender, SpanishSpec, SpanishStemHints, SpanishSubject, SpanishTenses } from './languages/es/spec.js';
 export type { ItalianClassHint, ItalianGender, ItalianSpec, ItalianStemHints, ItalianSubject, ItalianTenses } from './languages/it/spec.js';
 export type { LatinClassHint, LatinGender, LatinSpec, LatinStemHints, LatinSubject, LatinTenses } from './languages/la/spec.js';
 
@@ -132,7 +132,7 @@ export interface GeneratedForm {
   readonly variant: FormVariant;
   /** @deprecated Use steps. */
   readonly ruleIds: readonly string[];
-  readonly steps?: readonly DerivationStep[];
+  readonly steps: readonly DerivationStep[];
 }
 
 export interface ConjugatedForm extends GeneratedForm {
@@ -146,7 +146,7 @@ export interface UnavailableTarget {
   readonly reason: 'impersonal' | 'defective' | 'noImperative' | 'noPassive';
   readonly explanation: string;
   readonly source: string;
-  readonly step?: DerivationStep;
+  readonly step: DerivationStep;
 }
 
 /** The analysis of a verb; for a lemma with several paradigms, the first paradigm's, with the others in `alternatives`. */
@@ -157,7 +157,7 @@ export interface VerbAnalysis {
   readonly reflexive: boolean;
   readonly auxiliaries: readonly string[];
   readonly assumptions: readonly string[];
-  readonly steps?: readonly DerivationStep[];
+  readonly steps: readonly DerivationStep[];
   /**
    * For a lemma with several paradigms: this paradigm's `pattern` and `condition` tags, the labels its forms carry as
    * `variant.pattern` and `variant.condition`. Absent for a lemma with one paradigm, and when the paradigm has no such tag.

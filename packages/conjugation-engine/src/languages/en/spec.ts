@@ -21,13 +21,16 @@ export interface EnglishStemHints {
   readonly pastParticiple?: string;
 }
 
+/** The subject slots: I, you, he, she, it, we, you (plural), they; she and it on request. */
+export type EnglishSubject = '1sg' | '2sg' | '3sg.m' | '3sg.f' | '3sg.n' | '1pl' | '2pl' | '3pl';
+
 export interface EnglishSpec extends LanguageSpec<EnglishTenses> {
   tenses: EnglishTenses;
   nonFinite: 'infinitive' | 'participle';
   auxiliary: 'have';
   classHint: EnglishClassHint;
   stems: EnglishStemHints;
-  subject: '1sg' | '2sg' | '3sg.m' | '3sg.f' | '3sg.n' | '1pl' | '2pl' | '3pl';
+  subject: EnglishSubject;
   context: {
     /** Where the stress falls in a polysyllable, for consonant doubling and the British final l. */
     readonly stress?: 'final' | 'nonFinal';

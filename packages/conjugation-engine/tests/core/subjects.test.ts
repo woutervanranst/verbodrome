@@ -93,7 +93,8 @@ describe('subject slots', () => {
       .toThrow(invalid('INVALID_REQUEST', 'Unknown xx option: subject.'));
     // French and Dutch have slots: an unknown one is invalid, a known one selects that subject.
     const registered = createEngine(packs);
-    expect(() => registered.conjugate({ language: 'nl', infinitive: 'werken', subject: '4sg' })).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
+    // The typed query refuses an unknown slot at compile time; an untyped caller gets the run-time error.
+    expect(() => registered.conjugate({ language: 'nl', infinitive: 'werken', subject: '4sg' } as never)).toThrow(invalid('INVALID_REQUEST', 'Invalid subject: 4sg.'));
     expect(registered.conjugate({ language: 'nl', infinitive: 'werken', mood: 'indicative', tense: 'present', subject: '2sg.u' }).forms.map(form => form.text))
       .toEqual(['u werkt']);
     expect(registered.conjugate({ language: 'fr', infinitive: 'aimer', mood: 'indicative', tense: 'present', subject: '1sg' }).forms.map(form => form.text))

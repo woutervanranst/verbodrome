@@ -1,4 +1,3 @@
-import { variantRank } from '../../core/pack.js';
 import type { LanguagePack, SubjectSlot } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
 import type { Agreement } from '../../core/grammar.js';
@@ -40,7 +39,6 @@ export const latinPack: LanguagePack<'la'> = {
   subjectsFor: latinSubjectsFor,
   genderedTargets: true,
   acceptsForm: latinAcceptsForm,
-  rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(latinGrammar, latinRendering, query),
   rules: latinRules,
   works: latinWorks,

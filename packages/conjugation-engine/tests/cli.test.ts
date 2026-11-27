@@ -5,7 +5,7 @@ import { formLabel, targetLabel, unavailableLine } from '../src/cli-labels.js';
 import { createEngine } from '../src/core/engine.js';
 import { locales } from '../src/i18n/locales/index.js';
 import { conjugate, explain } from '../src/index.js';
-import type { ConjugatedForm, ConjugationResult, ResolvedTarget } from '../src/index.js';
+import type { ConjugatedForm, ConjugationResult, ResolvedTarget, UnavailableTarget } from '../src/index.js';
 import { en as toyEn, nl as toyNl } from './toy/messages.js';
 import { toyPack } from './toy/pack.js';
 
@@ -116,6 +116,11 @@ describe('compiled CLI', () => {
     expect(dutch).toContain('--reflexive / --no-reflexive');
     expect(dutch).toContain('--auxiliary <hebben|zijn>');
     expect(dutch).not.toContain('--gender');
+    // An option with no value to choose (the Latin auxiliary) is not offered.
+    const latin = sections.find(section => section.startsWith('Latin (la):'));
+    expect(latin).toContain('--voice <active|passive>');
+    expect(latin).not.toContain('--auxiliary');
+    expect(help).not.toContain('<>');
     expect(french).toContain('--auxiliary <avoir|être>');
     expect(french).toContain('--orthography <rectified|traditional>');
     expect(french).toContain('--class <er|ir|re>');
@@ -236,7 +241,7 @@ describe('form and target labels', () => {
   const labels = { mood: 'Indicative', tense: 'Present' };
   const variant = { orthography: 'both', auxiliary: null, pattern: null, usage: 'standard', condition: null } as const;
   const formOf = (over: Partial<ConjugatedForm>): ConjugatedForm => ({
-    target, parts: [], variant, ruleIds: [], text: '', preferred: true, labels, ...over,
+    target, parts: [], variant, ruleIds: [], text: '', preferred: true, labels, steps: [], ...over,
   });
 
   it('prints what it always printed for a target without voice, case, region or subject', () => {
@@ -283,7 +288,8 @@ describe('unavailable target lines', () => {
 
   it('keeps the pack\'s own sentence for a target that records no rule', () => {
     const { step: _rule, ...withoutRule } = absent!;
-    const own = { ...withoutRule, explanation: 'The pack says why.' };
+    // A target assembled without the types (plain JavaScript): the CLI falls back on the pack's own sentence.
+    const own = { ...withoutRule, explanation: 'The pack says why.' } as unknown as UnavailableTarget;
     expect(unavailableLine(own, labels, toy.explain('xx', own, 'nl'))).toBe('Participle / Past: unavailable (The pack says why.)');
   });
 

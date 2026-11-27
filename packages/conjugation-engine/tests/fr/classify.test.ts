@@ -44,7 +44,7 @@ describe('French classification', () => {
   it('keeps the legacy hint errors', () => {
     const code = (options: Readonly<Record<string, unknown>>) => {
       try {
-        shadow.conjugate({ language: 'fr', mood: 'indicative', tense: 'present', ...options });
+        shadow.conjugate({ language: 'fr', mood: 'indicative', tense: 'present', ...options } as never);
         return 'none';
       } catch (error) {
         return (error as { code: string }).code;
@@ -123,7 +123,7 @@ describe('French aspirated h (fix wave I3)', () => {
 describe('French auxiliary hints (last round)', () => {
   const perfect = (infinitive: string, auxiliary: string) => shadow.conjugate({
     language: 'fr', infinitive, auxiliary, mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', gender: 'masculine',
-  }).forms.map(form => form.text);
+  } as never).forms.map(form => form.text);
 
   it('lets a hint override an assumed auxiliary, as for a productive verb', () => {
     expect(perfect('flaindre', 'être')).toEqual(['je suis flaint']);

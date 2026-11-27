@@ -191,7 +191,7 @@ describe('how a cell is compared with the engine', () => {
   const variant: FormVariant = { orthography: 'both', auxiliary: null, pattern: null, usage: 'standard', condition: null };
   const target: ResolvedTarget = { mood: 'indicative', tense: 'present', person: 1, number: 'singular', gender: null, agreement: null };
   const form = (text: string, tags: Partial<FormVariant> = {}): ConjugatedForm => ({
-    target, parts: [], variant: { ...variant, ...tags }, ruleIds: [], text, preferred: true, labels: { mood: 'indicative', tense: 'present' },
+    target, parts: [], variant: { ...variant, ...tags }, ruleIds: [], text, preferred: true, labels: { mood: 'indicative', tense: 'present' }, steps: [],
   });
   const cell: CorpusCell = {
     target, original: 'x', expected: ['x'], sourceUnavailable: false, construction: null, availabilityMarker: null, pronoun: null,

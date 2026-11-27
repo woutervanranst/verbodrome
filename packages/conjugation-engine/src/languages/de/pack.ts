@@ -1,4 +1,3 @@
-import { variantRank } from '../../core/pack.js';
 import type { LanguagePack } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
 import { germanCatalogue, germanSubjects } from './catalogue.js';
@@ -18,7 +17,6 @@ export const germanPack: LanguagePack<'de'> = {
   subjects: germanSubjects,
   /** The gendered third person singular slots (er / sie / es, he / she / it) give their gender to their forms' `target.gender`. */
   genderedTargets: true,
-  rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(germanGrammar, germanRendering, query),
   rules: germanRules,
   works: germanWorks,

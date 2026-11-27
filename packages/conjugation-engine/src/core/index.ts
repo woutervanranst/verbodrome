@@ -13,7 +13,7 @@ export { allPersons, noPersons, moodEntries, variantRank, defaultSubjectsFor } f
 export { ConjugationError } from '../errors.js';
 export { plainComparisonKey } from './compare.js';
 
-export type { Engine } from './engine.js';
+export type { Engine, EngineQuery, TypedEngine } from './engine.js';
 export type { LanguageEngine, LanguagePack, SubjectSlot, CatalogueEntry, PackRendering } from './pack.js';
 export type { OptionSchema, FieldSpec } from './options.js';
 export type { LanguageSpec, OptionFieldsOf } from './spec.js';

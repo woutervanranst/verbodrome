@@ -86,7 +86,9 @@ function section(heading: string, rows: readonly (readonly [string, string])[]):
 function helpText(): string {
   const sections = Object.values(packs).map(pack => section(
     `${pack.label} (${pack.language}):`,
-    Object.entries(pack.options.fields).map(([field, spec]) => [flagUsage(flagFor(field, spec)), flagNote(flagFor(field, spec))] as const),
+    // An enum with no value (the Latin auxiliary, which the spec requires but Latin does not have) offers nothing to choose.
+    Object.entries(pack.options.fields).filter(([, spec]) => spec.kind !== 'enum' || spec.values.length > 0)
+      .map(([field, spec]) => [flagUsage(flagFor(field, spec)), flagNote(flagFor(field, spec))] as const),
   ));
   return [
     `Usage: conjugation-engine <${languages.join('|')}> <infinitive> [options]`,

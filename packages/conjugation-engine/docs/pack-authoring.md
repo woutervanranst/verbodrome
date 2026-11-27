@@ -357,7 +357,7 @@ Registering a language is one line or one import in each of these shared files. 
 | `tests/equivalence/expectations/<code>.ts` | the pinned lookups of the language (section 11) |
 | `tests/equivalence/matrix.tsv` | regenerated with `npm run equivalence:matrix`, never edited by hand; read the diff |
 
-`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, the pack that has not started migrating to the staged engine) names languages, and a new pack is never added to it.
+`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`.
 
 A registered pack's option schema is typed against its spec (section 3); the toy `xx` is not registered, so it uses the generic `OptionSchema`.
 
@@ -377,11 +377,11 @@ export interface LanguagePack<L extends string = string> {
   readonly genderedTargets?: boolean;
   acceptsTarget?(query: Readonly<Record<string, unknown>>, target: ResolvedTarget): boolean;
   acceptsForm?(query: Readonly<Record<string, unknown>>, form: GeneratedForm): boolean;
-  rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
+  rank?(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
   engine(query: Readonly<Record<string, unknown>>): LanguageEngine;
-  readonly rules?: Readonly<Record<string, RuleInfo>>;
-  readonly works?: Readonly<Record<string, Work>>;
-  readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
+  readonly rules: Readonly<Record<string, RuleInfo>>;
+  readonly works: Readonly<Record<string, Work>>;
+  readonly citations: Readonly<Record<string, Citation | readonly Citation[]>>;
   compareKey?(text: string): string;
 }
 ```
@@ -410,7 +410,7 @@ export const toyPack: LanguagePack<'xx'> = {
 };
 ```
 
-`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots. `compareKey` is the key two spellings of an answer are compared by (`Engine.normalizeForComparison` and the root `normalizeForComparison` call it); without it a pack gets `plainComparisonKey`, which keeps accents. Latin's removes macrons.
+`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules`, `works` and `citations` are required: the rules give `explain` something to resolve (without them assumptions and unavailability reasons would stay rule ids), and `works` and `citations` give every rule its source (section 8). `tests/i18n/completeness.test.ts` also fails at run time for a registered pack without `rules` (one assembled without the types). `subjects` is omitted for a language without subject slots. `compareKey` is the key two spellings of an answer are compared by (`Engine.normalizeForComparison` and the root `normalizeForComparison` call it); without it a pack gets `plainComparisonKey`, which keeps accents. Latin's removes macrons.
 
 ### Testing a pack
 
@@ -579,10 +579,10 @@ export const toyRendering: PackRendering = {
 ```
 
 ```ts signature src/core/pack.ts
-rank(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
+rank?(form: GeneratedForm, query: Readonly<Record<string, unknown>>): number;
 ```
 
-The sort key within one target; lower sorts first, and the first form of a target is `preferred`. `variantRank(variant, preferred)` gives standard before literary before dated usage, then the preferred spelling first; most packs use it: `rank: form => variantRank(form.variant, 'rectified')`.
+The sort key within one target; lower sorts first, and the first form of a target is `preferred`. `variantRank(variant, preferred)` gives standard before literary before dated usage, then the preferred spelling first; a pack without `rank` gets `variantRank(form.variant, 'rectified')`, which is what most packs want. French (its paradigm order) and English (its region option) declare their own.
 
 ## 4. Rules, steps and forks
 
@@ -985,7 +985,7 @@ export interface Citation {
 const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator });
 ```
 
-`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr`.
+`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`.
 
 ## 9. The rules a pack must follow
 

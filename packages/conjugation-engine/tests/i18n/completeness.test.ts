@@ -114,36 +114,22 @@ function sharedKeys(sources: readonly (readonly [string, readonly string[]])[]):
 }
 
 /**
- * The registered packs that have not started migrating to the staged engine and so declare no `rules`. Every other
- * registered pack must declare them: without `rules` the gate below has nothing to check, assumptions and unavailability
- * reasons stay rule ids, and nothing can be explained. Remove a language from this list when its pack first declares
- * rules, which a pack can do while its legacy resolver still serves it, as Dutch does (the test below fails for a listed
- * pack that has rules).
+ * What is wrong with the registered packs' use of `rules`: a pack without them. The type of `LanguagePack` requires
+ * `rules`, `works` and `citations`; this check is for a pack assembled without the types (plain JavaScript, a cast).
  */
-const legacyPacks: readonly string[] = [];
-
-/** What is wrong with the registered packs' use of `rules`: a pack without them that is not legacy, a legacy pack with them. */
-function rulesProblems(registered: Readonly<Record<string, LanguagePack>>, legacy: readonly string[]): string[] {
-  return Object.values(registered).flatMap(pack => {
-    if (pack.rules === undefined && !legacy.includes(pack.language)) return [`${pack.language} declares no rules (a staged pack must; only the legacy packs ${legacy.join(', ')} may omit them)`];
-    if (pack.rules !== undefined && legacy.includes(pack.language)) return [`${pack.language} declares rules: remove it from the legacy list`];
-    return [];
-  });
+function rulesProblems(registered: Readonly<Record<string, LanguagePack>>): string[] {
+  return Object.values(registered).flatMap(pack => pack.rules === undefined ? [`${pack.language} declares no rules (every pack must)`] : []);
 }
 
 describe('rule catalogs are complete', () => {
-  it('requires every registered pack to declare rules, except the legacy packs', () => {
-    expect(rulesProblems(packs, legacyPacks)).toEqual([]);
+  it('requires every registered pack to declare rules', () => {
+    expect(rulesProblems(packs)).toEqual([]);
   });
 
-  it('finds a registered pack that forgot its rules, and a legacy entry that is stale', () => {
+  it('finds a registered pack that forgot its rules', () => {
     const { rules: _, ...forgetful } = toyPack;
-    expect(rulesProblems({ ...packs, xx: forgetful }, legacyPacks)).toEqual([expect.stringContaining('xx declares no rules')]);
-    // Every registered pack has migrated: none needs the legacy list, and a pack listed there that has rules fails.
-    expect(rulesProblems(packs, [])).toEqual([]);
-    expect(rulesProblems(packs, ['fr'])).toEqual(['fr declares rules: remove it from the legacy list']);
-    expect(rulesProblems({ xx: toyPack }, legacyPacks)).toEqual([]);
-    expect(rulesProblems({ xx: toyPack }, ['xx'])).toEqual(['xx declares rules: remove it from the legacy list']);
+    expect(rulesProblems({ ...packs, xx: forgetful as unknown as LanguagePack })).toEqual([expect.stringContaining('xx declares no rules')]);
+    expect(rulesProblems({ xx: toyPack })).toEqual([]);
   });
 
   it('checks at least the toy pack', () => {
@@ -206,7 +192,7 @@ describe('rule catalogs are complete', () => {
 
   it('finds missing and malformed citations', () => {
     const { citations: _, ...uncited } = toyPack;
-    expect(problemsWith(uncited, toyCatalogs)).toContain('xx.stem.drop-a has no citation');
+    expect(problemsWith(uncited as unknown as LanguagePack, toyCatalogs)).toContain('xx.stem.drop-a has no citation');
     const wrongWork = { ...toyPack, citations: { ...toyPack.citations, 'xx.stem.drop-a': { work: 'nowhere', locator: '§1' } } };
     expect(problemsWith(wrongWork, toyCatalogs)).toContain('xx.stem.drop-a cites the work nowhere, which the pack does not list');
     const insecure = { ...toyPack, citations: { ...toyPack.citations, 'xx.stem.drop-a': { work: 'toy', locator: '§1', url: 'http://example.org' } } };
