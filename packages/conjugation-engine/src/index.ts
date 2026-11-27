@@ -1,6 +1,7 @@
 export { conjugate } from './conjugate.js';
 export { conjugationOptions, ConjugationOptionsBuilder, parseConjugationOptions } from './options.js';
 export { renderParts } from './render.js';
+export { normalizeForComparison } from './normalize.js';
 export { getCatalogue, getSubjects } from './catalogue.js';
 export { explain } from './explain.js';
 export { languages } from './default-engine.js';
@@ -14,10 +15,3 @@ export type * from './types.js';
 export type { CatalogueEntry, SubjectSlot } from './core/pack.js';
 export type { Engine } from './core/engine.js';
 export type { Catalog, Locale, Explainable, ExplainedStep, Explanation } from './explain.js';
-import { engine as defaultEngine } from './default-engine.js';
-import type { Language } from './types.js';
-
-/** The key answers in `language` are compared by: equal keys are the same answer (Latin ignores macrons). */
-export function normalizeForComparison(language: Language, text: string): string {
-  return defaultEngine.normalizeForComparison(language, text);
-}
