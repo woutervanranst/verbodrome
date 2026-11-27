@@ -157,7 +157,7 @@ describe('4. The passé composé against the simple past and the present perfect
     const [first, second] = lookup('fr', 'indicative.perfect', 'en').matches;
     expect([first?.tense, first?.match]).toEqual([{ mood: 'indicative', tense: 'past' }, 'override']);
     expect([second?.tense, second?.match, second?.notes]).toEqual([{ mood: 'indicative', tense: 'perfect' }, 'override', ['eq.pair.fr-en.perfect-result']]);
-    expect(top('en', 'indicative.past', 'fr')).toMatchObject({ tense: 'indicative.perfect', score: 0.6 });
+    expect(top('en', 'indicative.past', 'fr')).toMatchObject({ tense: 'indicative.perfect', score: 1 });
   });
 });
 

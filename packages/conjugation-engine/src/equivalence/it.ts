@@ -1,7 +1,8 @@
 /**
  * The Italian tense map (Italian design, section 10, reconciled by the plan; 22 catalogue tenses). The passato prossimo
- * is a present perfect (0.6) that also serves as the spoken past (0.4); the passato remoto is the literary or remote
- * perfective past. The trapassato remoto links `PAST_ANTERIOR` as the French and Spanish past anteriors do, and the
+ * is the standard present perfect (1) and the spoken past of most of Italy (0.8; review I7 raises the design's 0.6 /
+ * 0.4, under which no other language's perfect reached it at more than 0.6); the passato remoto is the literary or
+ * remote perfective past. The trapassato remoto links `PAST_ANTERIOR` as the French and Spanish past anteriors do, and the
  * pluperfect at 0.6. The design's epistemic and future-in-the-past concepts have the dimensions of `PRESENT`,
  * `FUTURE_PERFECT` and `COND_PERFECT`: they are dropped, and their readings are notes on the future and the conditional
  * past. The negative imperative has the source-only plain imperative, as in Spanish. Not in the design: Italian has no
@@ -12,7 +13,7 @@ import type { LanguageMap } from './concepts.js';
 
 export const it = {
   'indicative.present': [link('PRESENT', 1)],
-  'indicative.perfect': [link('PRESENT_PERFECT', 0.6, { note: 'eq.it.perfect-spoken' }), link('PAST_PERFECTIVE', 0.4)],
+  'indicative.perfect': [link('PRESENT_PERFECT', 1, { note: 'eq.it.perfect-spoken' }), link('PAST_PERFECTIVE', 0.8)],
   'indicative.imperfect': [link('PAST_IMPERFECTIVE', 1)],
   'indicative.pluperfect': [link('PLUPERFECT', 1)],
   'indicative.simple_past': [link('PAST_PERFECTIVE', 1, { register: 'literary', note: 'eq.it.simple-past-remote' })],

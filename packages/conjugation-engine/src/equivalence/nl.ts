@@ -5,6 +5,11 @@
  * passé composé ranks the perfect first (0.80 against 0.70) and the passé simple the past (0.70 against 0.60). The
  * margins are thin on purpose and pinned by `tests/equivalence/fr-nl.test.ts`: change a weight only with that test.
  *
+ * A tension to know about (review M9): the past links the imperfective past at full weight so that the French imparfait
+ * comes first, as in the app, and the Romance imperfects with it; yet the Dutch simple past is neutral in aspect (ik liep
+ * is I walked as often as I was walking). Into English this is harmless since the English simple past carries both
+ * aspects; into French, Spanish, Italian and Latin the imperfect comes first, the perfective past second.
+ *
  * The four `only: 'target'` links on the past participle are the stand-ins a trainer composes by hand (the participle
  * plus an auxiliary) for the compound non-finite forms and the perfect imperative Dutch has no tense for. They are never
  * offered when Dutch is the source: a Dutch past participle is not a perfect infinitive.

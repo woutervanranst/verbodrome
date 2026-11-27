@@ -3,6 +3,9 @@
  * aspects of the past and is the written one; the Perfekt is first a present perfect and also the spoken past. Konjunktiv
  * II (`subjunctive.past`, `subjunctive.pluperfect`) is the subjunctive of the unreal and also the conditional of other
  * languages (`COND_PRESENT`, `COND_PERFECT` 0.9); the würde-form `conditional.past` is rare (0.6). German has no gerund.
+ *
+ * A tension to know about (review M9): the Präteritum links the imperfective past at full weight, so the Romance and
+ * Latin imperfects come first for it, though it is as neutral in aspect as the English simple past (ich ging is I went).
  */
 import { link } from './concepts.js';
 import type { LanguageMap } from './concepts.js';

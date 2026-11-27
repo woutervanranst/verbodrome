@@ -1,8 +1,13 @@
 /**
  * The English tense map (English design, section 10, reconciled by the plan; 24 catalogue tenses). Each progressive tense
  * links its own progressive concept at 1, so that within English a progressive answers itself first, and the design's
- * plain concept at the design's weight, so that other languages find their plain tense. The simple past covers both
- * aspects (0.6 perfective, 0.4 imperfective); the -ing form is both a participle and a gerund.
+ * plain concept at the design's weight, so that other languages find their plain tense. The -ing form is both a
+ * participle and a gerund.
+ *
+ * The simple past is a full past of both aspects (review I1, which changes the design's 0.6 / 0.4): it is the ordinary
+ * rendering of a finished event (PAST_PERFECTIVE 1) and of a past state or habit (PAST_IMPERFECTIVE 0.9: I was, I knew,
+ * never I was being). The past progressive comes after it for an imperfective past (0.8), because it is wrong for the
+ * stative verbs a learner drills most.
  *
  * Not in the design (plan open question 6): English has no perfect infinitive, participle or gerund in its catalogue,
  * so the past participle stands in for them when English is the target (`only: 'target'`, as the Dutch stand-ins):
@@ -13,13 +18,13 @@ import type { LanguageMap } from './concepts.js';
 
 export const en = {
   'indicative.present': [link('PRESENT', 1)],
-  'indicative.past': [link('PAST_PERFECTIVE', 0.6, { note: 'eq.en.past-both' }), link('PAST_IMPERFECTIVE', 0.4)],
+  'indicative.past': [link('PAST_PERFECTIVE', 1, { note: 'eq.en.past-both' }), link('PAST_IMPERFECTIVE', 0.9, { note: 'eq.en.past-both' })],
   'indicative.perfect': [link('PRESENT_PERFECT', 1)],
   'indicative.pluperfect': [link('PLUPERFECT', 1)],
   'indicative.future': [link('FUTURE', 1)],
   'indicative.future_perfect': [link('FUTURE_PERFECT', 1)],
   'indicative.present_progressive': [link('PRESENT_PROGRESSIVE', 1), link('PRESENT', 0.9, { note: 'eq.en.progressive' })],
-  'indicative.past_progressive': [link('PAST_PROGRESSIVE', 1), link('PAST_IMPERFECTIVE', 0.9, { note: 'eq.en.progressive' })],
+  'indicative.past_progressive': [link('PAST_PROGRESSIVE', 1), link('PAST_IMPERFECTIVE', 0.8, { note: 'eq.en.progressive' })],
   'indicative.perfect_progressive': [
     link('PRESENT_PERFECT_PROGRESSIVE', 1),
     link('PRESENT_PERFECT', 0.5, { note: 'eq.en.duration' }),

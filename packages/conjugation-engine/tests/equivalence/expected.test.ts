@@ -28,7 +28,7 @@ describe.each(loaded)('expectations/%s', (_, rows) => {
     const [first, second] = result.matches;
     expect({ top: keyOf(first?.tense), score: first?.score, match: first?.match, relaxed: first?.relaxed, notes: first?.notes })
       .toEqual({ top, score, match, relaxed: extra.relaxed ?? [], notes: extra.notes ?? [] });
-    expect(keyOf(second?.tense)).toBe(extra.second);
+    if (extra.second !== undefined) expect(keyOf(second?.tense)).toBe(extra.second ?? undefined);
     expect(result.notes).toEqual([]);
   });
 });

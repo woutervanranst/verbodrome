@@ -55,11 +55,6 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     reason: 'The passé composé is the ordinary spoken past, as the passato prossimo is; the pivot ranks the literary passato remoto first (1.00 against 0.48) because it shares PAST_PERFECTIVE at full weight and the passato prossimo only at 0.4.',
   }),
   override({
-    from: 'de', to: 'it', tense: 'indicative.perfect', mode: 'prepend',
-    result: [{ tense: 'indicative.perfect', note: 'eq.it.perfect-spoken' }],
-    reason: 'The Perfekt is the ordinary spoken past, as the passato prossimo is; the pivot ranks the literary passato remoto first (0.90 against 0.60) because the passato prossimo links PAST_PERFECTIVE only at 0.4.',
-  }),
-  override({
     from: 'it', to: 'de', tense: 'indicative.simple_past', mode: 'prepend',
     result: [{ tense: 'indicative.past', note: 'eq.de.past-written' }],
     reason: 'The passato remoto is the narrative past, which German writes in the Präteritum; the pivot ranks the Perfekt first (0.90 against 0.80) because the Perfekt is the usual spoken past.',
@@ -88,16 +83,6 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     from: 'es', to: 'it', tense: 'indicative.simple_past', mode: 'prepend',
     result: [{ tense: 'indicative.perfect', note: 'eq.it.perfect-spoken' }],
     reason: 'The Spanish simple past is the standard past of speech and writing, which spoken Italian renders with the passato prossimo; the pivot ranks the literary passato remoto first (1.00 against 0.40).',
-  }),
-  override({
-    from: 'nl', to: 'en', tense: 'indicative.past', mode: 'prepend',
-    result: [{ tense: 'indicative.past', note: 'eq.en.past-both' }],
-    reason: 'The Dutch simple past is as neutral in aspect as the English one (ik liep, I walked); the pivot ranks the past progressive first (0.90 against 0.42) because the Dutch past links PAST_IMPERFECTIVE at full weight, which ranks the French imparfait first.',
-  }),
-  override({
-    from: 'de', to: 'en', tense: 'indicative.past', mode: 'prepend',
-    result: [{ tense: 'indicative.past', note: 'eq.en.past-both' }],
-    reason: 'The Präteritum is as neutral in aspect as the English simple past (ich ging, I went); the pivot ranks the past progressive first (0.90 against 0.48) because the Präteritum links PAST_IMPERFECTIVE at full weight, which ranks the French imparfait first.',
   }),
   override({
     from: 'en', to: 'fr', tense: 'subjunctive.past', mode: 'prepend',

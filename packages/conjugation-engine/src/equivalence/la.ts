@@ -1,7 +1,8 @@
 /**
  * The Latin tense map (Latin design, section 10; 21 catalogue tenses). Every entry describes the active tense: the
  * passive of a voiced tense is the same entry looked up with `{ voice: 'passive' }`. The perfect is both a perfective
- * past and a present perfect (A&G §161); the imperfect and pluperfect subjunctives stand for the conditional of other
+ * past and a present perfect (A&G §161), the historic past first (0.9 for the present perfect, review M3: veni, vidi,
+ * vici is vine, vi, vencí and I came, I saw, I conquered); the imperfect and pluperfect subjunctives stand for the conditional of other
  * languages in unreal conditions (0.6). The future infinitive, the future participle, the gerundive and the supine have
  * no counterpart in the other six languages: their notes say what a learner uses instead.
  */
@@ -12,7 +13,7 @@ export const la = {
   'indicative.present': [link('PRESENT', 1)],
   'indicative.imperfect': [link('PAST_IMPERFECTIVE', 1)],
   'indicative.future': [link('FUTURE', 1)],
-  'indicative.perfect': [link('PAST_PERFECTIVE', 1, { note: 'eq.la.perfect-both' }), link('PRESENT_PERFECT', 1)],
+  'indicative.perfect': [link('PAST_PERFECTIVE', 1, { note: 'eq.la.perfect-both' }), link('PRESENT_PERFECT', 0.9)],
   'indicative.pluperfect': [link('PLUPERFECT', 1)],
   'indicative.future_perfect': [link('FUTURE_PERFECT', 1)],
   'subjunctive.present': [link('SUBJ_PRESENT', 1)],
@@ -20,7 +21,7 @@ export const la = {
   'subjunctive.perfect': [link('SUBJ_PERFECT', 1)],
   'subjunctive.pluperfect': [link('SUBJ_PLUPERFECT', 1), link('COND_PERFECT', 0.6, { note: 'eq.la.subjunctive-unreal' })],
   'imperative.present': [link('IMP_PRESENT', 1)],
-  'imperative.future': [link('IMP_FUTURE', 1, { note: 'eq.la.imperative-future' }), link('IMP_PRESENT', 0.4)],
+  'imperative.future': [link('IMP_FUTURE', 1, { note: 'eq.la.imperative-future' }), link('IMP_PRESENT', 0.4, { note: 'eq.la.imperative-future' })],
   'infinitive.present': [link('INF_PRESENT', 1)],
   'infinitive.perfect': [link('INF_PERFECT', 1)],
   'infinitive.future': [link('INF_FUTURE', 1, { note: 'eq.la.infinitive-future' })],
