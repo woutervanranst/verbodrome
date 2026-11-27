@@ -126,10 +126,13 @@ only the attested cells (`la.avail.not-attested`).
   vowel length only: *secūtus, largītus, amantor, audiuntor, volēns*, and the perfect subjunctive's -erīs, -erīmus,
   -erītis (36 cells), which are not source errors: A&G prints -eris (p. 93) as the page does, Bennett §101 prints -erīs,
   and the engine follows Bennett. 254 sourced corrections in all; extra forms must carry a variant tag.
-- **Authority cells:** 13 files, 1,249 cells of forms the 1903 A&G print shows (§§170, 184–188, 190, 198–204), 21 of
-  them printed as missing, transcribed by hand from the scans (`tests/goldens/la/authority/`). Old forms the print names
-  (*fuam, siem, faxō, nēvīs*) are `excluded`; the short i of the perfect subjunctive is `disputed` (A&G short, Bennett
-  long; the engine follows Bennett).
+- **Authority cells:** 17 files, 1,515 cells of forms the 1903 A&G print shows (§§170, 184–188, 190–192, 198–207), 67
+  of them printed as missing, transcribed by hand from the scans (`tests/goldens/la/authority/`; §201 from the DCC text,
+  as the scan of p. 112 is not served). Old forms the print names (*fuam, siem, faxō, nēvīs, ausim, coepiō, meminēns*)
+  are `excluded`; the short i of the perfect subjunctive is `disputed` (A&G short, Bennett long; the engine follows
+  Bennett). A generated form a cell does not print must carry a variant tag. The two Bennett files and a full
+  §§209–212 principal-parts file are not transcribed (`tests/la/common-verbs.test.ts` checks 180 common verbs'
+  principal parts instead).
 - **Second oracle:** en.wiktionary tables of 63 pinned pages (Module:la-verb 93344416), 6,678 cells, 196 of them
   unmodelled (sigmatic rows, future perfect and perfect potential infinitives). They are compared through a 569-cell
   ledger (`scripts/corpus/corrections/wiktionary-la.ts`) whose reasons cite A&G, Bennett or Lewis and Short, pinned by

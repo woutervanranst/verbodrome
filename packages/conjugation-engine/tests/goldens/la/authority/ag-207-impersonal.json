@@ -1,0 +1,738 @@
+{
+ "work": "ag-print",
+ "section": "§207",
+ "pages": "119",
+ "scan": [
+  "https://dcc.dickinson.edu/sites/default/files/AG131.jpg"
+ ],
+ "query": {
+  "language": "la"
+ },
+ "notation": "The table prints the third singular of each tense; the compound and future infinitives of an impersonal stand in the neuter. accidit is queried as accidō (accīdō is another verb); its future infinitive is printed as a dash.",
+ "transcribedBy": "the lead, from the scan viewed in this session",
+ "checkedAgainst": "AG131",
+ "cells": [
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstat"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstābat"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstābit"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstitit"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstiterat"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstiterit"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstet"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstāret"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstiterit"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "cōnstitisset"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "cōnstāre"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "cōnstitisse"
+   ]
+  },
+  {
+   "verb": "cōnstāre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "agreement": {
+    "gender": "neuter",
+    "number": "singular",
+    "case": "accusative"
+   },
+   "forms": [
+    "cōnstātūrum esse"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licet"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licēbat"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licēbit"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licuit",
+    "licitum est"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licuerat"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licuerit"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "liceat"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licēret"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licuerit"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "licuisset"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "licēre"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "licuisse"
+   ]
+  },
+  {
+   "verb": "licēre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "agreement": {
+    "gender": "neuter",
+    "number": "singular",
+    "case": "accusative"
+   },
+   "forms": [
+    "licitūrum esse"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidit"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidēbat"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidet"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidit"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "acciderat"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "acciderit"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidat"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accideret"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "acciderit"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidisset"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidere"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "forms": [
+    "accidisse"
+   ]
+  },
+  {
+   "verb": "accidere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "options": {
+    "stems": {
+     "present": "accidō"
+    }
+   },
+   "unavailable": true,
+   "forms": []
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvenit"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēveniēbat"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēveniet"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvēnit"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvēnerat"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvēnerit"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēveniat"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvenīret"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvēnerit"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ēvēnisset"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "ēvenīre"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "ēvēnisse"
+   ]
+  },
+  {
+   "verb": "ēvenīre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "agreement": {
+    "gender": "neuter",
+    "number": "singular",
+    "case": "accusative"
+   },
+   "forms": [
+    "ēventūrum esse"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "pūgnātur"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "pūgnābātur"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "future",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "pūgnābitur"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.n",
+   "forms": [
+    "pūgnātum est"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.n",
+   "forms": [
+    "pūgnātum erat"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "indicative",
+   "tense": "future_perfect",
+   "voice": "passive",
+   "subject": "3sg.n",
+   "forms": [
+    "pūgnātum erit"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "pūgnētur"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "pūgnārētur"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "subjunctive",
+   "tense": "perfect",
+   "voice": "passive",
+   "subject": "3sg.n",
+   "forms": [
+    "pūgnātum sit"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "subjunctive",
+   "tense": "pluperfect",
+   "voice": "passive",
+   "subject": "3sg.n",
+   "forms": [
+    "pūgnātum esset"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "passive",
+   "forms": [
+    "pūgnārī"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "passive",
+   "agreement": {
+    "gender": "neuter",
+    "number": "singular",
+    "case": "accusative"
+   },
+   "forms": [
+    "pūgnātum esse"
+   ]
+  },
+  {
+   "verb": "pūgnāre",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "passive",
+   "forms": [
+    "pūgnātum īrī"
+   ]
+  }
+ ],
+ "excluded": [],
+ "disputed": []
+}

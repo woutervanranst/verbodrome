@@ -296,7 +296,8 @@ const third211: LatinEntry[] = [
     ['ūrō', 'ussī', 'ust'], ['vādō', 'vāsī', 'vās'], ['vehō', 'vēxī', 'vect'], ['vīvō', 'vīxī', 'vīct'],
   ]),
   ...list('third', 'A&G §211.b', ag(123), [
-    ['cadō', 'cecidī', 'cās', { gloss: 'fall', compound: { present: 'cidō', perfect: ['cidī'], supine: ['cāsum'] } }],
+    // accidō has no supine: A&G §207 (p. 119) prints a dash for its future infinitive.
+    ['cadō', 'cecidī', 'cās', { gloss: 'fall', compound: { present: 'cidō', perfect: ['cidī'], supine: ['cāsum'], overrides: { ad: { perfect: ['accidī'], supine: [] } } } }],
     ['caedō', 'cecīdī', 'caes', { gloss: 'cut', compound: { present: 'cīdō', perfect: ['cīdī'], supine: ['cīsum'] } }],
     ['canō', 'cecinī', '', { compound: { present: 'cinō', perfect: ['cinuī'], supine: ['centum'] } }],
     // occurrō: "curri, rarely cucurri, cursum" (L&S s.v. occurro); the other compounds vary (an assumption).

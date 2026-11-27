@@ -105,6 +105,8 @@ function compoundEntry({ prefix, allomorph, family }: CompoundMatch): LatinEntry
   const lacks = (base.lacks ?? []).filter(lack => !family.weakened || (lack !== 'perfect' && lack !== 'supineStem'));
   if (family.weakened && !family.perfect && base.voice === undefined) lacks.push('perfect');
   if (family.weakened && !family.supine) lacks.push('supineStem');
+  // An override without a supine (accidō: A&G p. 119 prints a dash for its future infinitive) has no supine stem.
+  if (own && own.supine.length === 0 && !lacks.includes('supineStem')) lacks.push('supineStem');
   const passive = eoFamily ? transitiveEoPrefixes.has(prefix) ? undefined : 'impersonal' : base.passive === 'none' ? 'none' : undefined;
   // A compound may well be transitive where its simple verb is not (ēgredior urbem): `intransitive` is not inherited.
   const flags = (base.flags ?? []).filter(flag => flag !== 'intransitive' && (!family.weakened || (flag !== 'shortImperative' && flag !== 'passiveIsFio')));

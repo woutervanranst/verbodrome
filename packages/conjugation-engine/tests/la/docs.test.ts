@@ -12,7 +12,7 @@ describe('docs/grammar/la.md', () => {
   });
 
   it('states the corpus and oracle counts the tests pin', () => {
-    for (const count of ['3,330', '107', '147', '254', '1,249', '63', '6,678', '196', '569']) expect(doc, count).toContain(count);
+    for (const count of ['3,330', '107', '147', '254', '1,515', '63', '6,678', '196', '569']) expect(doc, count).toContain(count);
   });
 
   it('names the sources and the Wiktionary licence and attribution', () => {

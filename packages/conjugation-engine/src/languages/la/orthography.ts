@@ -159,7 +159,9 @@ export function quantityProblems(word: string, stem?: string): string[] {
   for (const match of text.matchAll(/[āēīōū](?=n[td])/gu)) problems.push(`long ${match[0]} before n${text[match.index + 2]!} at ${match.index}`);
   for (const match of text.matchAll(/[āēīōū](?=[aeiouāēīōū])/gu)) {
     const fi = match[0] === 'ī' && text[match.index - 1] === 'f' && !text.startsWith('er', match.index + 1);
-    if (!fi) problems.push(`long ${match[0]} before a vowel at ${match.index}`);
+    // An i between vowels is a consonant written once for two (A&G §6.c: āiō is āi-yō), so the vowel before it is long.
+    const consonantalI = text[match.index + 1] === 'i' && /[aeiouāēīōū]/u.test(text[match.index + 2] ?? '');
+    if (!fi && !consonantalI) problems.push(`long ${match[0]} before a vowel at ${match.index}`);
   }
   for (const match of text.matchAll(/[aeiou](?=n[sf])/gu)) problems.push(`short ${match[0]} before n${text[match.index + 2]!} at ${match.index}`);
   return problems;

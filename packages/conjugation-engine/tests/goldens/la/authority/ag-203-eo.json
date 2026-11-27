@@ -551,7 +551,7 @@
    "mood": "indicative",
    "tense": "perfect",
    "voice": "passive",
-   "subject": "3sg",
+   "subject": "3sg.n",
    "forms": [
     "itum est"
    ]

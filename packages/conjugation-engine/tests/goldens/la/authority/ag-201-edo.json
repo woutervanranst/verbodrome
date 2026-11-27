@@ -1,0 +1,427 @@
+{
+ "work": "ag",
+ "section": "§201",
+ "pages": "112",
+ "scan": [
+  "https://dcc.dickinson.edu/grammar/latin/irregular-verbs-fer%C5%8D-and-ed%C5%8D"
+ ],
+ "query": {
+  "language": "la",
+  "infinitive": "edere"
+ },
+ "notation": "Transcribed from the DCC text of §201 (the scan of p. 112, AG124.jpg, is not served): the forms in parentheses are the \"alternative forms directly from the root\". The archaic present subjunctive edim, edīs … is not transcribed (§201 calls it archaic).",
+ "transcribedBy": "the lead, from the DCC text of §201 read in this session",
+ "checkedAgainst": "DCC text of §201 (Chapter-201.xml)",
+ "cells": [
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "edō"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "edis",
+    "ēs"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "edit",
+    "ēst"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "edimus"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "editis",
+    "ēstis"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "edunt"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "edēbam"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "edēbās"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "edam"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "edās"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "edat"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "edāmus"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "edātis"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "present",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "edant"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1sg",
+   "forms": [
+    "ederem"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ederēs",
+    "ēssēs"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "ederet",
+    "ēsset"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "1pl",
+   "forms": [
+    "ederēmus",
+    "ēssēmus"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "ederētis",
+    "ēssētis"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "ederent",
+    "ēssent"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "ede",
+    "ēs"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "present",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "edite",
+    "ēste"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2sg",
+   "forms": [
+    "editō",
+    "ēstō"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3sg",
+   "forms": [
+    "editō",
+    "ēstō"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "2pl",
+   "forms": [
+    "editōte",
+    "ēstōte"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "imperative",
+   "tense": "future",
+   "voice": "active",
+   "subject": "3pl",
+   "forms": [
+    "eduntō"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "infinitive",
+   "tense": "present",
+   "voice": "active",
+   "forms": [
+    "edere",
+    "ēsse"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "infinitive",
+   "tense": "perfect",
+   "voice": "active",
+   "forms": [
+    "ēdisse"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "infinitive",
+   "tense": "future",
+   "voice": "active",
+   "forms": [
+    "ēsūrus esse"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "participle",
+   "tense": "present",
+   "forms": [
+    "edēns"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "participle",
+   "tense": "present",
+   "agreement": {
+    "gender": "masculine",
+    "number": "singular",
+    "case": "genitive"
+   },
+   "forms": [
+    "edentis"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "participle",
+   "tense": "future",
+   "forms": [
+    "ēsūrus"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "gerund",
+   "forms": [
+    "edendī"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "dative"
+   },
+   "forms": [
+    "edendō"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "gerund",
+   "agreement": {
+    "case": "accusative"
+   },
+   "forms": [
+    "edendum"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "supine",
+   "forms": [
+    "ēsum"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "supine",
+   "agreement": {
+    "case": "ablative"
+   },
+   "forms": [
+    "ēsū"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "indicative",
+   "tense": "present",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "ēstur"
+   ]
+  },
+  {
+   "verb": "edere",
+   "mood": "subjunctive",
+   "tense": "imperfect",
+   "voice": "passive",
+   "subject": "3sg",
+   "forms": [
+    "ēssētur"
+   ]
+  }
+ ],
+ "excluded": [
+  {
+   "verb": "edere",
+   "mood": "participle",
+   "tense": "future",
+   "printed": "ēssūrus",
+   "reason": "An old form (§201 footnote: \"Old forms are ēssūrus and supine ēssum\"); ēsūrus is generated."
+  },
+  {
+   "verb": "edere",
+   "mood": "supine",
+   "printed": "ēssum",
+   "reason": "An old form (§201 footnote: \"Old forms are ēssūrus and supine ēssum\"); ēsum is generated."
+  }
+ ],
+ "disputed": []
+}

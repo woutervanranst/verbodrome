@@ -13,6 +13,8 @@ import { quantityProblems } from '../../src/languages/la/orthography.js';
 interface Target {
   readonly verb: string; readonly mood: string; readonly tense?: string; readonly voice?: string; readonly subject?: string;
   readonly agreement?: Readonly<Record<string, string>>;
+  /** Further query options that pick the verb of a homograph (accidō: `stems.present`). */
+  readonly options?: Readonly<Record<string, unknown>>;
 }
 interface Cell extends Target { readonly forms: readonly string[]; readonly unavailable?: boolean; readonly printed?: string; readonly usage?: string }
 interface Note extends Target { readonly printed: string; readonly other?: string; readonly reason: string }
@@ -27,9 +29,9 @@ const names = readdirSync(directory).filter(name => name.endsWith('.json')).sort
 const files = names.map(name => ({ name, ...(JSON.parse(readFileSync(new URL(name, directory), 'utf8')) as AuthorityFile) }));
 
 function generate(target: Target) {
-  const { verb, mood, tense, voice, subject, agreement } = target;
+  const { verb, mood, tense, voice, subject, agreement, options } = target;
   return conjugate({
-    language: 'la', infinitive: verb, mood, ...(tense === undefined ? {} : { tense }), ...(voice === undefined ? {} : { voice }),
+    language: 'la', infinitive: verb, mood, ...options, ...(tense === undefined ? {} : { tense }), ...(voice === undefined ? {} : { voice }),
     ...(subject === undefined ? {} : { subject }), ...(agreement === undefined ? {} : { agreement }),
   } as never);
 }
@@ -71,8 +73,8 @@ describe('Latin authority cells (A&G 1903)', () => {
   });
 
   it('pins the transcription', () => {
-    expect(names).toHaveLength(13);
-    expect(files.reduce((sum, file) => sum + file.cells.length, 0)).toBe(1_249);
-    expect(files.reduce((sum, file) => sum + file.cells.filter(cell => cell.unavailable).length, 0)).toBe(21);
+    expect(names).toHaveLength(17);
+    expect(files.reduce((sum, file) => sum + file.cells.length, 0)).toBe(1_515);
+    expect(files.reduce((sum, file) => sum + file.cells.filter(cell => cell.unavailable).length, 0)).toBe(67);
   });
 });
