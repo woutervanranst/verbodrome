@@ -37,7 +37,8 @@
     "corpus:import": "node --experimental-strip-types scripts/corpus/import.ts",
     "corpus:check": "vitest run tests/corpus.test.ts tests/corpus-parser.test.ts && node --experimental-strip-types scripts/corpus/report.ts",
     "characterize:accept": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/accept.ts",
-    "characterize:write": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/write.ts"
+    "characterize:write": "node --experimental-strip-types --import ./scripts/characterize/register.ts scripts/characterize/write.ts",
+    "equivalence:matrix": "vitest run tests/equivalence/matrix.test.ts -u"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",
