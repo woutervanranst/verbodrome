@@ -223,14 +223,14 @@ export function wiktionaryLatinCorrection(page: WiktionaryPage, cell: CorpusCell
   if (['oportet', 'pluit'].includes(page.title) && (mood === 'imperative' || (mood === 'participle' && tense === 'present'))) {
     draft.markUnavailable('Impersonal verbs "appear only in the 3rd person singular, the infinitive, and the gerund" (A&G §207): no imperative and no present participle.', ag('impersonal-verbs'));
   }
-  if (page.title === 'fugio' && (mood === 'supine' || (mood === 'participle' && tense === 'perfect') || (mood === 'infinitive' && cell.voice === 'passive' && tense !== 'present'))) {
-    draft.markUnavailable('A&G §211 gives fugiō, fūgī, (fugitūrus): no supine, so no perfect participle and no compound passive infinitive.', ag('classified-lists-verbs-3rd-conjugation'));
-  }
   if (['gaudeo', 'audeo'].includes(page.title) && mood === 'supine') {
     draft.markUnavailable('A&G §192 gives audeō, ausus sum and gaudeō, gāvīsus sum: a semi-deponent has the participle, no supine (Bennett §114).', ag('deponent-verbs'));
   }
   if (page.title === 'gradior' && mood === 'participle' && tense === 'gerundive') {
     draft.markUnavailable('An intransitive deponent has the gerundive only impersonally (A&G §190.d; gradior is "v. dep. n.", Lewis & Short): no personal gradiendus.', ag('deponent-verbs'));
+  }
+  if (page.title === 'gaudeo' && mood === 'participle' && tense === 'gerundive') {
+    draft.markUnavailable('gaudeō is taken as intransitive, whose gerundive is only impersonal (A&G §190.d): no personal gaudendus (Lewis & Short gives the verb as "v. n. and a.": a recorded choice).', ag('deponent-verbs'));
   }
   if (page.title === 'coepi' && (mood === 'supine' || (mood === 'infinitive' && cell.voice === 'passive'))) {
     draft.markUnavailable('coepī has the passive coeptus est only with a passive infinitive (Bennett §133.1; A&G §205.a), a construction; no supine and no passive infinitive of its own.', bennett(133));

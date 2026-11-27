@@ -199,3 +199,15 @@ describe('M7: wording', () => {
     expect(explainIds(calefio)[0]).toBe('la.lex.passive-fio');
   });
 });
+
+describe('M10, M1: what Lewis & Short prints', () => {
+  it('gives fugiō the supine fugitum L&S prints (fūgī, fŭgĭtum), tagged: A&G prints none', () => {
+    const supine = conjugate({ language: 'la', infinitive: 'fugere', mood: 'supine' } as never).forms;
+    expect(supine.map(f => [f.text, f.variant.pattern])).toEqual([['fugitum', 'fugitum']]);
+    expect(forms('fugere', 'participle', 'future')).toEqual(['fugitūrus']); // A&G §211.e
+  });
+
+  it('flags gaudeō intransitive as M1 asks: the gerundive is impersonal only', () => {
+    expect(forms('gaudēre', 'participle', 'gerundive')).toEqual(['gaudendum']);
+  });
+});

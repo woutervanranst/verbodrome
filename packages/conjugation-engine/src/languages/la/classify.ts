@@ -87,7 +87,8 @@ export function lexemeFromEntry(entry: LatinEntry, hints: LatinStemHints = {}, e
       : listed(entry.perfect, entry.impersonal ? impersonalPerfectEnding : perfectEnding, false, { ...(entry.alternativeUsage ? { usage: entry.alternativeUsage } : {}) })
       : [],
     supineStems: hints.supine ? listed([hints.supine], supineEnding, true, { participle: voiceClass !== 'active' })
-      : lacks.has('supineStem') ? [] : listed(entry.supine, supineEnding, false, { participle: voiceClass !== 'active' && !entry.impersonal }),
+      : lacks.has('supineStem') ? [] : listed(entry.supine, supineEnding, false, { participle: voiceClass !== 'active' && !entry.impersonal })
+        .map(source => entry.supineTags ? { ...source, ...entry.supineTags } : source),
     futureParticipleStems: listed(entry.futureParticiple, () => 'ūrus').map(source => entry.futureParticipleTags ? { ...source, ...entry.futureParticipleTags } : source),
     passive, impersonal: entry.impersonal === true, lacks, flags: new Set(entry.flags ?? []), cells: entry.cells ?? {},
     stems: entry.stems ?? {}, principalParts: principalParts(entry, perfectSystem === 'participle'), weakened: false,

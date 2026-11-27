@@ -113,6 +113,8 @@ export interface LatinEntry {
   readonly attestedCases?: Readonly<Record<string, readonly ('nominative' | 'genitive' | 'dative' | 'accusative' | 'ablative' | 'vocative')[]>>;
   /** Targets whose forms are dated (fīō: fīmus, fītis, the imperatives; A&G p. 115 brackets). */
   readonly dated?: readonly string[];
+  /** Tags on every form built on the listed supine (fugitum: printed by L&S, not by A&G). */
+  readonly supineTags?: { readonly usage?: 'literary' | 'dated'; readonly pattern: string };
   /** Tags on every form built on a listed future participle (nāscitūrus: late, L&S). */
   readonly futureParticipleTags?: { readonly usage?: 'literary' | 'dated'; readonly pattern: string };
   /** Tags on every form built on a lexical stem of that kind (possum's potēns: "(adjective)", A&G p. 109). */
@@ -342,7 +344,7 @@ const third211: LatinEntry[] = [
     ['capiō', 'cēpī', 'capt', { ...io, compound: { present: 'cipiō', perfect: ['cēpī'], supine: ['ceptum'] } }],
     ['emō', 'ēmī', 'ēmpt', { compound: { present: 'imō', perfect: ['ēmī'], supine: ['ēmptum'], prefixes: ['ad', 'dis', 'ex', 'inter', 'per', 're'] } }],
     ['faciō', 'fēcī', 'fact', { ...io, flags: ['shortImperative', 'passiveIsFio'], stems: { fio: '' }, compound: { present: 'ficiō', perfect: ['fēcī'], supine: ['fectum'] } }],
-    ['fodiō', 'fōdī', 'foss', io], ['frangō', 'frēgī', 'frāct', { compound: { present: 'fringō', perfect: ['frēgī'], supine: ['frāctum'] } }], ['fugiō', 'fūgī', '', { ...io, fp: 'fugitūrus' }],
+    ['fodiō', 'fōdī', 'foss', io], ['frangō', 'frēgī', 'frāct', { compound: { present: 'fringō', perfect: ['frēgī'], supine: ['frāctum'] } }], ['fugiō', 'fūgī', 'fugit', { ...io, fp: 'fugitūrus', supineTags: { pattern: 'fugitum' } }],
     ['fundō', 'fūdī', 'fūs'],
     ['iaciō', 'iēcī', 'iact', { ...io, gloss: 'throw', compound: { present: 'iciō', perfect: ['iēcī'], supine: ['iectum'] } }],
     ['legō', 'lēgī', 'lēct', { compound: { present: 'ligō', perfect: ['lēgī'], supine: ['lēctum'], simplePrefixes: ['per', 're'] } }],
@@ -414,7 +416,8 @@ const deponents191: LatinEntry[] = [
   ]),
   ...list('second', 'A&G §191.a', ag(106), [['diffiteor', '', '', dep], ['medeor', '', '', dep]]),
   ...list('second', 'A&G §192', ag(106), [
-    ['audeō', '', 'ausus', { voice: 'semiDeponent', lacks: ['supine'] }], ['gaudeō', '', 'gāvīsus', { voice: 'semiDeponent', lacks: ['supine'] }],
+    // gaudeō intransitive as the review's M1 asks (A&G §190.d), though L&S gives "v. n. and a.".
+    ['audeō', '', 'ausus', { voice: 'semiDeponent', lacks: ['supine'] }], ['gaudeō', '', 'gāvīsus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }],
     ['soleō', '', 'solitus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }],
   ]),
   ...list('third', 'A&G §192', ag(106), [['fīdō', '', 'fīsus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }]]),

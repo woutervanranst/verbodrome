@@ -134,13 +134,13 @@ only the attested cells (`la.avail.not-attested`).
   §§209–212 principal-parts file are not transcribed (`tests/la/common-verbs.test.ts` checks 180 common verbs'
   principal parts instead).
 - **Second oracle:** en.wiktionary tables of 63 pinned pages (Module:la-verb 93344416), 6,678 cells, 196 of them
-  unmodelled (sigmatic rows, future perfect and perfect potential infinitives). They are compared through a 569-cell
+  unmodelled (sigmatic rows, future perfect and perfect potential infinitives). They are compared through a 565-cell
   ledger (`scripts/corpus/corrections/wiktionary-la.ts`) whose reasons cite A&G, Bennett or Lewis and Short, pinned by
   its size and a hash of its content; the contractions it accepts are its own table of A&G's and Bennett's examples.
   A generated form a cell does not print must carry a variant tag (as in the authority test). The oracle found engine
   defects that were fixed with tests: the compounds of sum lacked *forem, fore* (now tagged); sciō's imperative
   *scītō*; *stātūrus, lautūrus, lōtūrus, nāscitūrus*; queō's v-less perfect; the gerund of impersonal verbs; the
-  perfects Lewis and Short prints beside the common one (*plūvit, reperī*, tagged).
+  perfects Lewis and Short prints beside the common one (*plūvit, reperī*, tagged) and fugiō's supine *fugitum* (L&S; tagged, as A&G prints none).
 
 ## Limits
 

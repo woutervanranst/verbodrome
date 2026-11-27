@@ -113,5 +113,5 @@ describe('en.wiktionary oracle', () => {
 
 const OracleCells = 6678;
 const OracleUnmodelled = 196;
-const LedgerCells = 569;
-const LedgerHash = '7a54abc3b383b819a372e5fc9952e57b9e4d5bd174c4352382bc7a93a391bbb7';
+const LedgerCells = 565;
+const LedgerHash = '2f09ffff7501814b2368b884c43d87f70c96b276c1f122f9ba0b6ccbf576a170';
