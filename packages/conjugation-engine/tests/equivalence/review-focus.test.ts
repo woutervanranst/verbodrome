@@ -97,6 +97,20 @@ describe('2. A literary tense', () => {
     expect(top('es', 'subjunctive.future', 'es')).toMatchObject({ tense: 'subjunctive.future', match: 'exact' });
   });
 
+  // Ruling 3: a literary tense is never ranked first when a standard tense corresponds, for a source that is not
+  // itself literary (a passé simple may give a passato remoto first).
+  it('never ranks a literary or dated tense first for a standard source that has a standard match', () => {
+    for (const from of all) {
+      for (const [tense, links] of Object.entries(maps[from])) {
+        if ((links[0]?.register ?? 'standard') !== 'standard') continue;
+        for (const to of all.filter(code => code !== from)) {
+          const { matches } = lookup(from, tense, to);
+          if (matches.some(entry => entry.register === 'standard')) expect(matches[0]?.register, `${from} ${tense} -> ${to}`).toBe('standard');
+        }
+      }
+    }
+  });
+
   it('carries the register of the target tense', () => {
     expect(ranked(lookup('fr', 'indicative.simple_past', 'it'))[0]).toEqual(['indicative.simple_past', 1, 'exact', 'literary']);
     expect(ranked(lookup('it', 'indicative.past_anterior', 'es'))[0]).toEqual(['indicative.past_anterior', 1, 'exact', 'literary']);
@@ -122,19 +136,32 @@ describe('3. A subjunctive or conditional into a language without one', () => {
     expect(top('la', 'subjunctive.perfect', 'nl')).toMatchObject({ tense: 'indicative.perfect', match: 'approximate', relaxed: ['mood'], notes: ['eq.note.no-subjunctive'] });
   });
 
+  // Review I2: Konjunktiv I is reported speech, which Dutch puts in the indicative (er sei krank: hij is ziek), so the
+  // Dutch present is an exact answer, no longer a relaxed one.
   it('German Konjunktiv I gives the Dutch present, and its future the French future', () => {
     expect(top('de', 'subjunctive.present', 'nl')).toEqual({
-      tense: 'indicative.present', score: 1, match: 'approximate', relaxed: ['mood'], notes: ['eq.de.subjunctive-reported', 'eq.note.no-subjunctive'],
+      tense: 'indicative.present', score: 0.9, match: 'exact', relaxed: [], notes: ['eq.de.subjunctive-reported'],
     });
     expect(top('de', 'subjunctive.future', 'fr')).toMatchObject({ tense: 'indicative.future', match: 'approximate', relaxed: ['mood'] });
   });
 
   it('a negative imperative into a language without one is the plain imperative, with a note', () => {
     for (const from of ['es', 'it'] as const) {
-      for (const to of ['fr', 'nl', 'de', 'en', 'la'] as const) {
+      for (const to of ['fr', 'nl', 'de', 'en'] as const) {
         expect(top(from, 'imperative.negative', to), `${from} -> ${to}`)
           .toEqual({ tense: 'imperative.present', score: 0.6, match: 'exact', relaxed: [], notes: ['eq.note.negation-added'] });
       }
+    }
+  });
+
+  // Review I5: Latin forbids with nōlī or nōlīte plus the present infinitive; "the plain imperative plus a negation word"
+  // is false for Latin, so it is never offered there.
+  it('a negative imperative into Latin is the infinitive of nōlī plus infinitive, and never the plain imperative', () => {
+    for (const from of ['es', 'it'] as const) {
+      const result = lookup(from, 'imperative.negative', 'la');
+      expect(top(from, 'imperative.negative', 'la'), from)
+        .toEqual({ tense: 'infinitive.present', score: 0.7, match: 'approximate', relaxed: [], notes: ['eq.la.prohibition'] });
+      expect(result.matches.flatMap(entry => entry.notes), from).not.toContain('eq.note.negation-added');
     }
   });
 });

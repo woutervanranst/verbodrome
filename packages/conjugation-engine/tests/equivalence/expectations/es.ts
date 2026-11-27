@@ -10,6 +10,9 @@ export const expectations: readonly Expectation[] = [
   ['es', 'imperative.negative', 'it', 'imperative.negative', 1, 'exact', { second: 'imperative.present' }],
   ['es', 'imperative.negative', 'fr', 'imperative.present', 0.6, 'exact', { notes: ['eq.note.negation-added'], second: null }],
   ['es', 'subjunctive.pluperfect', 'nl', 'indicative.pluperfect', 1, 'override', { notes: ['eq.pair.subjunctive-clause'], second: 'conditional.past' }],
+  // Review I3: si tuviera is si j’avais, never the literary qu’il eût.
+  ['es', 'subjunctive.imperfect', 'fr', 'indicative.imperfect', 1, 'approximate', { notes: ['eq.fr.si-imperfect'] }],
+  ['es', 'subjunctive.pluperfect', 'fr', 'indicative.pluperfect', 1, 'approximate', { notes: ['eq.fr.si-pluperfect'] }],
   ['es', 'indicative.perfect', 'en', 'indicative.perfect', 1, 'exact', { notes: ['eq.es.perfect-spain'], second: 'indicative.past' }],
   ['en', 'indicative.past', 'es', 'indicative.simple_past', 1, 'exact', { notes: ['eq.en.past-both'], second: 'indicative.imperfect' }],
   ['fr', 'imperative.present', 'es', 'imperative.present', 1, 'exact', { second: null }],

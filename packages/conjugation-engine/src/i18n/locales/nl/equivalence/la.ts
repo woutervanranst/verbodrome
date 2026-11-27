@@ -10,4 +10,5 @@ export const laNotes = {
   'eq.la.participle-future': 'Het participium futuri (amaturus) betekent op het punt staan iets te doen; andere talen gebruiken een omschrijving.',
   'eq.la.gerundive': 'Het gerundivum (amandus) betekent dat iets gedaan moet of kan worden; andere talen gebruiken een omschrijving.',
   'eq.la.supine': 'Het supinum drukt een doel uit na werkwoorden van beweging (venit spectatum); andere talen gebruiken een infinitiefconstructie (hij kwam om te kijken).',
+  'eq.la.prohibition': 'Het Latijn verbiedt met nōlī of nōlīte plus de infinitivus praesens (nōlī timēre, wees niet bang).',
 } as const satisfies Record<keyof typeof english, string>;

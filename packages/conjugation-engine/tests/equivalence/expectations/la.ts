@@ -5,6 +5,11 @@ export const expectations: readonly Expectation[] = [
   ['la', 'indicative.perfect', 'fr', 'indicative.perfect', 1, 'exact', { notes: ['eq.la.perfect-both', 'eq.fr.perfect.spoken-past'], second: 'indicative.simple_past' }],
   ['fr', 'indicative.imperfect', 'la', 'indicative.imperfect', 1, 'exact', { second: null }],
   ['la', 'subjunctive.imperfect', 'nl', 'indicative.past', 1, 'override', { notes: ['eq.pair.subjunctive-clause'], second: 'conditional.present' }],
+  // Review I3: si haberem is si j’avais.
+  ['la', 'subjunctive.imperfect', 'fr', 'indicative.imperfect', 1, 'approximate', { notes: ['eq.fr.si-imperfect'] }],
+  // Review I5: Latin forbids with nōlī plus the infinitive (nōlī timēre), never with the imperative plus a negation.
+  ['es', 'imperative.negative', 'la', 'infinitive.present', 0.7, 'approximate', { notes: ['eq.la.prohibition'], second: null }],
+  ['it', 'imperative.negative', 'la', 'infinitive.present', 0.7, 'approximate', { notes: ['eq.la.prohibition'], second: null }],
   ['la', 'infinitive.future', 'en', null, 0, 'none', { notes: ['eq.note.no-counterpart', 'eq.la.infinitive-future'] }],
   ['la', 'supine.present', 'fr', null, 0, 'none', { notes: ['eq.note.no-counterpart', 'eq.la.supine'] }],
   ['la', 'participle.gerundive', 'la', 'participle.gerundive', 1, 'exact', { second: null }],
@@ -19,5 +24,7 @@ export const expectations: readonly Expectation[] = [
   // Review M3 and I1: the historic perfect is the narrative past (vine, vi, vencí; I came, I saw, I conquered).
   ['la', 'indicative.perfect', 'es', 'indicative.simple_past', 1, 'exact', { notes: ['eq.la.perfect-both'], second: 'indicative.perfect' }],
   ['la', 'indicative.perfect', 'en', 'indicative.past', 1, 'exact', { notes: ['eq.la.perfect-both', 'eq.en.past-both'], second: 'indicative.perfect' }],
+  // Ruling 3: the standard passato prossimo before the literary passato remoto (venni stays the second answer).
+  ['la', 'indicative.perfect', 'it', 'indicative.perfect', 1, 'override', { notes: ['eq.it.perfect-spoken'], second: 'indicative.simple_past' }],
   ['la', 'subjunctive.pluperfect', 'nl', 'indicative.pluperfect', 1, 'override', { notes: ['eq.pair.subjunctive-clause'], second: 'conditional.past' }],
 ];

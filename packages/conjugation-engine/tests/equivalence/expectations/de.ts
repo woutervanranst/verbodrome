@@ -7,7 +7,19 @@ export const expectations: readonly Expectation[] = [
   ['de', 'indicative.past', 'nl', 'indicative.past', 1, 'exact', { notes: ['eq.de.past-written'], second: 'indicative.perfect' }],
   ['nl', 'indicative.perfect', 'de', 'indicative.perfect', 1, 'exact', { second: 'indicative.past' }],
   ['de', 'subjunctive.future', 'fr', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.de.subjunctive-reported', 'eq.note.no-subjunctive'], second: 'indicative.near_future' }],
-  ['de', 'subjunctive.past', 'fr', 'subjunctive.imperfect', 1, 'exact', { notes: ['eq.de.subjunctive-unreal'], second: 'conditional.present' }],
+  // Ruling 3 (reverses open question 11): Konjunktiv II is the conditionnel (ich wäre: je serais), the imparfait of a
+  // si-clause next (wenn ich wäre: si j’étais); never the literary subjonctif imparfait first.
+  ['de', 'subjunctive.past', 'fr', 'conditional.present', 1, 'override', { notes: ['eq.de.subjunctive-unreal'], second: 'indicative.imperfect' }],
+  ['de', 'subjunctive.pluperfect', 'fr', 'conditional.past', 1, 'override', { notes: ['eq.de.subjunctive-unreal'], second: 'indicative.pluperfect' }],
+  // Review I2: German has the indicative where the others have a subjunctive (il faut que tu viennes: dass du kommst),
+  // and Konjunktiv I is reported speech, which the others put in the indicative (er sei krank: il est malade).
+  ['fr', 'subjunctive.present', 'de', 'indicative.present', 0.9, 'approximate', { notes: ['eq.de.subjunctive-as-indicative'] }],
+  ['es', 'subjunctive.present', 'de', 'indicative.present', 0.9, 'approximate', { notes: ['eq.de.subjunctive-as-indicative'] }],
+  ['en', 'subjunctive.present', 'de', 'indicative.present', 0.9, 'approximate', { notes: ['eq.en.subjunctive-mandative', 'eq.de.subjunctive-as-indicative'] }],
+  ['fr', 'subjunctive.past', 'de', 'indicative.perfect', 0.9, 'approximate', { notes: ['eq.de.subjunctive-as-indicative'] }],
+  ['de', 'subjunctive.present', 'fr', 'indicative.present', 0.9, 'exact', { notes: ['eq.de.subjunctive-reported'] }],
+  ['de', 'subjunctive.perfect', 'es', 'indicative.perfect', 0.9, 'exact', { notes: ['eq.de.subjunctive-reported', 'eq.es.perfect-spain'] }],
+  ['de', 'subjunctive.present', 'nl', 'indicative.present', 0.9, 'exact', { notes: ['eq.de.subjunctive-reported'], second: null }],
   ['de', 'subjunctive.past', 'nl', 'conditional.present', 0.9, 'exact', { second: null }],
   ['de', 'infinitive.perfect', 'fr', 'infinitive.past', 1, 'exact', { second: null }],
   ['de', 'infinitive.perfect', 'nl', 'participle.past', 0.4, 'approximate', { notes: ['eq.nl.compound-inf-perfect'], second: null }],

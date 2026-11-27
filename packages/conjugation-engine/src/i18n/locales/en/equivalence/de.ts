@@ -7,4 +7,5 @@ export const deNotes = {
   'eq.de.subjunctive-reported': 'Konjunktiv I is the form of reported speech.',
   'eq.de.subjunctive-unreal': 'Konjunktiv II expresses the unreal or the polite; in speech the würde form usually takes its place.',
   'eq.de.conditional-past-rare': 'The würde form with a perfect infinitive is rare; hätte plus past participle is preferred.',
+  'eq.de.subjunctive-as-indicative': 'German uses the indicative where other languages use the subjunctive (dass du kommst); Konjunktiv I is kept for reported speech.',
 } as const;

@@ -8,4 +8,5 @@ export const laNotes = {
   'eq.la.participle-future': 'The future participle (amaturus) means about to do; other languages use a periphrasis.',
   'eq.la.gerundive': 'The gerundive (amandus) means to be done or must be done; other languages use a periphrasis.',
   'eq.la.supine': 'The supine expresses purpose after verbs of motion (venit spectatum); other languages use an infinitive clause.',
+  'eq.la.prohibition': 'Latin forbids with nōlī or nōlīte plus the present infinitive (nōlī timēre, do not be afraid).',
 } as const;

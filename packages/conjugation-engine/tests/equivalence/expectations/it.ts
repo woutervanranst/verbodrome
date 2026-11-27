@@ -13,6 +13,9 @@ export const expectations: readonly Expectation[] = [
   ['it', 'indicative.future', 'nl', 'indicative.future', 1, 'exact', { notes: ['eq.it.future-supposition'], second: 'indicative.present' }],
   ['en', 'subjunctive.past', 'it', 'subjunctive.imperfect', 1, 'exact', { notes: ['eq.en.subjunctive-irrealis'], second: null }],
   ['it', 'indicative.past_anterior', 'nl', 'indicative.pluperfect', 0.6, 'exact', { second: null }],
+  // Review I3: se avessi is si j’avais.
+  ['it', 'subjunctive.imperfect', 'fr', 'indicative.imperfect', 1, 'approximate', { notes: ['eq.fr.si-imperfect'] }],
+  ['it', 'subjunctive.pluperfect', 'fr', 'indicative.pluperfect', 1, 'approximate', { notes: ['eq.fr.si-pluperfect'] }],
   // Not in the plan: the spoken pasts give each other first, the narrative ones too (overrides for the passé composé
   // and the passato remoto; the Perfekt reaches the passato prossimo by the weights of review I7).
   ['fr', 'indicative.perfect', 'it', 'indicative.perfect', 1, 'override', { notes: ['eq.it.perfect-spoken'], second: 'indicative.simple_past' }],

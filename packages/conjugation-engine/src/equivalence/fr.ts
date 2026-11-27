@@ -1,6 +1,10 @@
 /**
  * The French tense map (French design, section 10). The passé composé is first of all the spoken past of a finished
  * event (`PAST_PERFECTIVE`) and only then a present perfect; the passé simple is the same past, written.
+ *
+ * Not in the design (review I3): the subjonctif imparfait and plus-que-parfait are literary, so the imparfait and the
+ * plus-que-parfait stand in for them when French is the target (`only: 'target'`): an unreal si-clause is in the
+ * indicative (si tuviera, if I were: si j’étais), and at equal score the standard tense comes before the literary one.
  */
 import { link } from './concepts.js';
 import type { LanguageMap } from './concepts.js';
@@ -8,8 +12,8 @@ import type { LanguageMap } from './concepts.js';
 export const fr = {
   'indicative.present': [link('PRESENT', 1)],
   'indicative.perfect': [link('PAST_PERFECTIVE', 1, { note: 'eq.fr.perfect.spoken-past' }), link('PRESENT_PERFECT', 0.8)],
-  'indicative.imperfect': [link('PAST_IMPERFECTIVE', 1)],
-  'indicative.pluperfect': [link('PLUPERFECT', 1)],
+  'indicative.imperfect': [link('PAST_IMPERFECTIVE', 1), link('SUBJ_IMPERFECT', 1, { note: 'eq.fr.si-imperfect', only: 'target' })],
+  'indicative.pluperfect': [link('PLUPERFECT', 1), link('SUBJ_PLUPERFECT', 1, { note: 'eq.fr.si-pluperfect', only: 'target' })],
   'indicative.simple_past': [link('PAST_PERFECTIVE', 1, { register: 'literary' })],
   'indicative.past_anterior': [link('PAST_ANTERIOR', 1, { register: 'literary' })],
   'indicative.future': [link('FUTURE', 1)],
