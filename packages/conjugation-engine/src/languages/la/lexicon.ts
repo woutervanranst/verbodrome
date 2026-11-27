@@ -52,6 +52,8 @@ export interface LatinFamily {
   readonly overrides: NonNullable<CompoundForm['overrides']>;
   /** A prefix the overrides do not list is assumed to follow the simple verb. */
   readonly assumeUnlisted: boolean;
+  /** The simple verb's reduplicated perfect and the compounds' perfect without it (spopondī → -spondī). */
+  readonly reduplicationDropped?: { readonly from: string; readonly to: string };
 }
 
 /** The root of an infinitive key (amare → am, sequi → sequ), for the minimum family root of three letters (GD §3.4). */
@@ -59,10 +61,34 @@ function rootOf(key: string): string {
   return key.replace(/(?:are|ere|ire|ari|eri|iri|i)$/u, '');
 }
 
+/**
+ * "Compounds, with the exception of dō, stō, sistō, discō, poscō, omit the reduplication" of the perfect (Bennett
+ * §118.4.a Note 1): momordī, totondī → -mordī, -tondī; spopondī → -spondī (Note 2: sp and st keep both consonants).
+ */
+export const keepsReduplication: ReadonlySet<string> = new Set(['dō', 'stō', 'sistō', 'discō', 'poscō']);
+
+/** The compounds' perfect without the reduplication, or null when `perfect` is not reduplicated (bibī is the root). */
+export function withoutReduplication(present: string, perfect: string): string | null {
+  if (keepsReduplication.has(present)) return null;
+  const s = /^s([pt])[aeiouāēīōū]\1/u.exec(perfect);
+  if (s && present.startsWith(`s${s[1]!}`)) return `s${perfect.slice(3)}`;
+  const c = /^([^aeiouāēīōū])[aeiouāēīōū]\1/u.exec(perfect);
+  if (c && !present.startsWith(perfect.slice(0, 3))) return perfect.slice(2);
+  return null;
+}
+
+/** The compounds' perfects when the simple verb's are reduplicated, with the first change for the step. */
+function dropReduplication(entry: LatinEntry): Pick<LatinFamily, 'perfect' | 'reduplicationDropped'> {
+  const perfects = entry.perfect ?? [];
+  const dropped = perfects.map(perfect => withoutReduplication(entry.present!, perfect));
+  if (!perfects.length || dropped.every(perfect => perfect === null)) return entry.perfect ? { perfect: entry.perfect } : {};
+  return { perfect: dropped.map((perfect, index) => perfect ?? perfects[index]!), reduplicationDropped: { from: perfects[0]!, to: dropped[0] ?? perfects[0]! } };
+}
+
 function simpleFamily(entry: LatinEntry, prefixes: readonly string[] | undefined): LatinFamily {
   const compound = entry.compound;
   return {
-    base: entry, present: entry.present!, infinitive: entry.infinitive, ...(entry.perfect ? { perfect: entry.perfect } : {}),
+    base: entry, present: entry.present!, infinitive: entry.infinitive, ...dropReduplication(entry),
     ...(entry.supine ? { supine: entry.supine } : {}), ...(prefixes ? { prefixes } : {}),
     weakened: false, vary: compound?.vary === true, overrides: compound?.overrides ?? {}, assumeUnlisted: compound?.assumeUnlisted === true,
   };
@@ -75,7 +101,7 @@ function familiesOf(entry: LatinEntry): LatinFamily[] {
     const deponent = entry.voice === 'deponent';
     const infinitive = compound.infinitive ?? infinitiveOf(compound.present, entry.conjugation, deponent);
     const weakened: LatinFamily = {
-      base: entry, present: compound.present, infinitive, ...(compound.perfect ? { perfect: compound.perfect } : {}),
+      base: entry, present: compound.present, infinitive, ...(compound.perfect ? { perfect: compound.perfect } : compound.present === entry.present ? dropReduplication(entry) : {}),
       ...(compound.supine ? { supine: compound.supine } : {}), ...(compound.prefixes ? { prefixes: compound.prefixes } : {}),
       weakened: compound.present !== entry.present, vary: compound.vary === true, overrides: compound.overrides ?? {},
       assumeUnlisted: compound.assumeUnlisted === true,

@@ -4,6 +4,7 @@ import type { latinRules } from '../../../languages/la/rules.js';
 export const la = {
   'la.classify.lexicon': '{before} is in the lexicon: {parts}.',
   'la.classify.compound': '{before} is {prefix}- + {base}; compounds of {base} go {parts}.',
+  'la.classify.compound-reduplication': 'Compounds drop the reduplication of the perfect: {before} → {after}.',
   'la.classify.conjugation': '{before} ends in -{ending}: {conjugation, select, first {first} second {second} third {third} thirdIo {third (-iō)} fourth {fourth} other {irregular}} conjugation.',
   'la.classify.io': 'The first person {after} ends in -iō: a third-conjugation verb in -iō, which keeps its i before a, o, u and long ē.',
   'la.classify.deponent': '{before} has a passive infinitive: the verb is deponent, with passive forms and active meaning.',

@@ -69,3 +69,41 @@ describe('I6: an unknown verb with a passive infinitive', () => {
     expect(ids(analysis('hortārī'))).toContain('la.classify.deponent'); // a lexicon deponent keeps the rule step
   });
 });
+
+describe('I1: the lexicon gaps', () => {
+  it('has the compounds of nōscō as A&G §211.e prints them (cō-gnit-, ā-gnit-) and ignōscō (L&S)', () => {
+    expect([pf('cognōscere'), forms('cognōscere', 'supine')]).toEqual([['cognōvī'], ['cognitum']]);
+    expect([pf('agnōscere'), forms('agnōscere', 'supine')]).toEqual([['agnōvī'], ['agnitum']]);
+    expect([pf('ignōscere'), forms('ignōscere', 'supine')]).toEqual([['ignōvī'], ['ignōtum']]);
+    expect(analysis('cognoscere').alternatives).toBeUndefined();
+  });
+
+  it('drops the reduplication in compounds, as a stated rule (Bennett §118.4.a Notes 1–2)', () => {
+    expect([pf('respondēre'), forms('respondēre', 'supine')]).toEqual([['respondī'], ['respōnsum']]);
+    expect(pf('dēspondēre')).toEqual(['dēspondī']);
+    expect(pf('attondēre')).toEqual(['attondī']);
+    expect(pf('dētondēre')).toEqual(['dētondī', 'dētotondī']); // L&S detondeo: totondi and tondi
+    expect([pf('contundere'), forms('contundere', 'supine')]).toEqual([['contudī'], ['contūsum']]);
+    expect(analysis('respondēre').steps!.find(s => s.rule === 'la.classify.compound-reduplication')).toMatchObject({ before: 'spopondī', after: '-spondī' });
+    expect(pf('ēdiscere')).toEqual(['ēdidicī']); // discō keeps it
+  });
+
+  it('lists the compounds of mordeō and pendeō as Lewis & Short gives them', () => {
+    expect(pf('dēmordēre')).toEqual([]);
+    expect(forms('dēmordēre', 'supine')).toEqual(['dēmorsum']);
+    expect(pf('impendēre')).toEqual([]);
+    expect([pf('prōpendēre'), forms('prōpendēre', 'supine')]).toEqual([['prōpendī'], ['prōpēnsum']]);
+  });
+
+  it('has ostendō, refellō, benedīcō and maledīcō (L&S) with the short imperative of dīcō (A&G §182)', () => {
+    expect([pf('ostendere'), forms('ostendere', 'supine')]).toEqual([['ostendī'], ['ostēnsum', 'ostentum']]);
+    expect(forms('refellere', 'supine')).toEqual([]);
+    expect(forms('benedīcere', 'imperative', 'present')).toEqual(['benedīc', 'benedīcite']);
+    expect(pf('maledīcere')).toEqual(['maledīxī']);
+  });
+
+  it('models the parenthesised compound forms of A&G §211 (ēlicuī; -sēdī; -tūsum)', () => {
+    expect([pf('ēlicere'), forms('ēlicere', 'supine')]).toEqual([['ēlicuī'], ['ēlicitum']]);
+    expect([pf('cōnsīdere'), forms('cōnsīdere', 'supine')]).toEqual([['cōnsēdī'], ['cōnsessum']]);
+  });
+});

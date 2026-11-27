@@ -4,6 +4,7 @@ import type { latinRules } from '../../../languages/la/rules.js';
 export const la = {
   'la.classify.lexicon': '{before} staat in het lexicon: {parts}.',
   'la.classify.compound': '{before} is {prefix}- + {base}; samengestelde werkwoorden van {base} hebben de stamtijden {parts}.',
+  'la.classify.compound-reduplication': 'Samenstellingen laten de verdubbeling van het perfectum weg: {before} → {after}.',
   'la.classify.conjugation': '{before} eindigt op -{ending}: {conjugation, select, first {eerste} second {tweede} third {derde} thirdIo {derde (-iō)} fourth {vierde} other {onregelmatige}} vervoeging.',
   'la.classify.io': 'De eerste persoon {after} eindigt op -iō: een werkwoord van de derde vervoeging op -iō, dat zijn i houdt voor a, o, u en lange ē.',
   'la.classify.deponent': '{before} heeft een infinitivus met passieve vorm: het werkwoord is een deponens, met passieve vormen en een actieve betekenis.',

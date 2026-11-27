@@ -226,16 +226,18 @@ const second210: LatinEntry[] = [
     ['ferveō', 'fervī|ferbuī', ''], ['foveō', 'fōvī', 'fōt'], ['fulgeō', 'fulsī', ''], ['haereō', 'haesī', 'haes'],
     ['indulgeō', 'indulsī', 'indult'], ['iubeō', 'iussī', 'iuss'], ['liqueō', 'licuī|līquī', ''], ['lūceō', 'lūxī', ''],
     ['lūgeō', 'lūxī', ''], ['maneō', 'mānsī', 'māns'], ['misceō', 'miscuī', 'mixt|mist'],
+    // mordeō's compounds lack the perfect (L&S dēmordeō, remordeō): they are entries below, not a family.
     ['mordeō', 'momordī', 'mors', { compound: { prefixes: [] } }], ['moveō', 'mōvī', 'mōt'], ['mulceō', 'mulsī', 'muls'],
     ['mulgeō', 'mulsī', 'muls'], ['cōnīveō', 'cōnīvī|cōnīxī', ''], ['aboleō', 'abolēvī', 'abolit'],
-    // L&S pendeō: "pependi, 2, v. n." with no supine; A&G's -pēns- is the compounds'.
+    // L&S pendeō: "pependi, 2, v. n." with no supine; A&G's -pēns- is the compounds'. Its compounds differ (L&S
+    // dēpendeō, impendeō without perfect; prōpendeō, prōpendī, prōpēnsum): they are entries below, not a family.
     ['pendeō', 'pependī', '', { gloss: 'hang', compound: { prefixes: [] } }], ['prandeō', 'prandī', 'prāns'],
     ['rīdeō', 'rīsī', 'rīs'],
     ['sedeō', 'sēdī', 'sess', { compound: { present: 'sideō', perfect: ['sēdī'], supine: ['sessum'] } }],
-    ['sorbeō', 'sorbuī|sorpsī', ''], ['spondeō', 'spopondī', 'spōns', { compound: { prefixes: [] } }],
+    ['sorbeō', 'sorbuī|sorpsī', ''], ['spondeō', 'spopondī', 'spōns', { compound: { prefixes: ['re', 'dē'] } }],
     ['strīdeō', 'strīdī', ''], ['suādeō', 'suāsī', 'suās'],
     ['teneō', 'tenuī', 'tent', { compound: { present: 'tineō', perfect: ['tinuī'], supine: ['tentum'] } }],
-    ['tergeō', 'tersī', 'ters'], ['tondeō', 'totondī', 'tōns', { compound: { prefixes: [] } }], ['torqueō', 'torsī', 'tort'],
+    ['tergeō', 'tersī', 'ters'], ['tondeō', 'totondī', 'tōns', { compound: { prefixes: ['ad', 'dē'], overrides: { dē: { perfect: ['dētondī', 'dētotondī'], supine: ['dētōnsum'] } } } }], ['torqueō', 'torsī', 'tort'],
     ['torreō', 'torruī', 'tost'], ['turgeō', 'tursī', ''], ['urgeō', 'ursī', ''], ['videō', 'vīdī', 'vīs'], ['voveō', 'vōvī', 'vōt'],
   ]),
 ];
@@ -251,7 +253,7 @@ const third211: LatinEntry[] = [
     ['ēmungō', 'ēmūnxī', 'ēmūnct'], ['fīgō', 'fīxī', 'fīx'], ['fingō', 'fīnxī', 'fict'], ['flectō', 'flexī', 'flex'],
     ['flīgō', 'flīxī', 'flīct', { familyOnly: true }], ['fluō', 'flūxī', 'flux'], ['frendō', '', 'frēs|fress'],
     ['frīgō', 'frīxī', 'frīct'], ['gerō', 'gessī', 'gest'], ['iungō', 'iūnxī', 'iūnct'], ['laedō', 'laesī', 'laes'],
-    ['liciō', 'lexī', 'lect', { ...io, familyOnly: true }], ['lūdō', 'lūsī', 'lūs'], ['mergō', 'mersī', 'mers'],
+    ['liciō', 'lexī', 'lect', { ...io, familyOnly: true, compound: { overrides: { ex: { perfect: ['ēlicuī'], supine: ['ēlicitum'] } } } }], ['lūdō', 'lūsī', 'lūs'], ['mergō', 'mersī', 'mers'],
     ['mittō', 'mīsī', 'miss'], ['nectō', 'nexī|nexuī', 'nex'], ['nūbō', 'nūpsī', 'nūpt'], ['pectō', 'pexī', 'pex'],
     ['pergō', 'perrēxī', 'perrēct'], ['pingō', 'pīnxī', 'pict'], ['plangō', 'plānxī', 'plānct'],
     ['plaudō', 'plausī', 'plaus', { compound: { present: 'plōdō', perfect: ['plōsī'], supine: ['plōsum'] } }],
@@ -272,7 +274,8 @@ const third211: LatinEntry[] = [
     ['cadō', 'cecidī', 'cās', { gloss: 'fall', compound: { present: 'cidō', perfect: ['cidī'], supine: ['cāsum'] } }],
     ['caedō', 'cecīdī', 'caes', { gloss: 'cut', compound: { present: 'cīdō', perfect: ['cīdī'], supine: ['cīsum'] } }],
     ['canō', 'cecinī', '', { compound: { present: 'cinō', perfect: ['cinuī'], supine: ['centum'] } }],
-    ['currō', 'cucurrī', 'curs', { compound: { present: 'currō', perfect: ['currī', 'cucurrī'], supine: ['cursum'], vary: true } }],
+    // occurrō: "curri, rarely cucurri, cursum" (L&S s.v. occurro); the other compounds vary (an assumption).
+    ['currō', 'cucurrī', 'curs', { compound: { present: 'currō', perfect: ['currī', 'cucurrī'], supine: ['cursum'], vary: true, overrides: { ob: { perfect: ['occurrī', 'occucurrī'], supine: ['occursum'] } } } }],
     ['discō', 'didicī', ''], ['fallō', 'fefellī', 'fals', { compound: { prefixes: [] } }],
     ['pangō', 'pepigī', 'pāct', { compound: { prefixes: [] } }],
     ['parcō', 'pepercī|parsī', '', { fp: 'parsūrus', compound: { prefixes: [] } }],
@@ -284,7 +287,8 @@ const third211: LatinEntry[] = [
     ['sistō', 'stitī', 'stat'],
     ['tangō', 'tetigī', 'tāct', { compound: { present: 'tingō', perfect: ['tigī'], supine: ['tāctum'] } }],
     ['tendō', 'tetendī', 'tent', { compound: { present: 'tendō', perfect: ['tendī'], supine: ['tentum'] } }],
-    ['tundō', 'tutudī', 'tūns|tūs', { compound: { prefixes: [] } }],
+    // A&G: tūns- (-tūs-): the compounds' supine is -tūsum (L&S contundō, contudī, contūsum).
+    ['tundō', 'tutudī', 'tūns|tūs', { compound: { present: 'tundō', supine: ['tūsum'], prefixes: ['com', 'ob', 're', 'ex'] } }],
   ]),
   // -dō (A&G §211.b, root DHA): the compounds listed with it.
   ...list('third', 'A&G §211.b (-dō)', ag(123), ['abdō', 'addō', 'condō', 'crēdō', 'dēdō', 'ēdō', 'indō', 'perdō', 'prōdō', 'reddō', 'subdō', 'trādō', 'vēndō']
@@ -328,7 +332,7 @@ const third211: LatinEntry[] = [
     ['nuō', 'nuī', '', { familyOnly: true }], ['pandō', 'pandī', 'pāns|pass'], ['pīnsō', 'pīnsī', 'pīns|pīnst|pīst'],
     ['prehendō', 'prehendī', 'prehēns'], ['ruō', 'ruī', 'rut', { fp: 'ruitūrus' }],
     ['scandō', '', '', { compound: { present: 'scendō', perfect: ['scendī'], supine: ['scēnsum'] } }],
-    ['scindō', 'scidī', 'sciss'], ['sīdō', 'sīdī|sēdī', 'sess'], ['solvō', 'solvī', 'solūt'], ['spuō', 'spuī', ''],
+    ['scindō', 'scidī', 'sciss'], ['sīdō', 'sīdī|sēdī', 'sess', { compound: { present: 'sīdō', perfect: ['sēdī'], supine: ['sessum'] } }], ['solvō', 'solvī', 'solūt'], ['spuō', 'spuī', ''],
     ['statuō', 'statuī', 'statūt', { compound: { present: 'stituō', perfect: ['stituī'], supine: ['stitūtum'] } }],
     ['sternuō', 'sternuī', ''], ['strīdō', 'strīdī', ''], ['suō', 'suī', 'sūt'], ['exuō', 'exuī', 'exūt'], ['tribuō', 'tribuī', 'tribūt'],
     ['vellō', 'vellī|vulsī', 'vuls'], ['verrō', 'verrī', 'vers'], ['vertō', 'vertī', 'vers'], ['vīsō', 'vīsī', 'vīs'], ['volvō', 'volvī', 'volūt'],
@@ -401,7 +405,8 @@ const groupK: LatinEntry[] = [
   ...['largior', 'potior', 'mentior', 'blandior', 'sortior'].flatMap(lemma =>
     list('fourth', `L&S s.v. ${lemma}`, lsCheck(lemma), [[lemma, '', `${lemma.slice(0, -3)}ītus`, dep]], 'ls')),
   ...['cēnō', 'clāmō', 'cōgitō', 'cūrō', 'dēclārō', 'dōnō', 'ēducō', 'explōrō', 'festīnō', 'iūdicō', 'labōrō', 'līberō', 'mōnstrō',
-    'mūtō', 'nāvigō', 'nōminō', 'ōrō', 'pūgnō', 'rēgnō', 'sānō', 'spērō', 'vītō'].flatMap(lemma =>
+    'mūtō', 'nāvigō', 'nōminō', 'ōrō', 'pūgnō', 'rēgnō', 'sānō', 'spērō', 'vītō', 'vocō', 'portō', 'putō', 'parō', 'appellō', 'mandō',
+    'laudō', 'servō', 'spectō', 'superō', 'rogō', 'narrō', 'negō', 'habitō'].flatMap(lemma =>
     list('first', `L&S s.v. ${lemma}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, `${lemma.slice(0, -1)}āvī`, `${lemma.slice(0, -1)}āt`]], 'ls')),
   ...['dormiō', 'fīniō', 'mūniō', 'nesciō', 'sciō', 'serviō'].flatMap(lemma =>
     list('fourth', `L&S s.v. ${lemma}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, `${lemma.slice(0, -2)}īvī`, `${lemma.slice(0, -2)}īt`, lemma === 'sciō' ? scioImperative : {}]], 'ls')),
@@ -431,6 +436,21 @@ const groupK: LatinEntry[] = [
     ['benefaciō', 'benefēcī', 'benefact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'bene' }, compound: { prefixes: [] } }],
     ['satisfaciō', 'satisfēcī', 'satisfact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'satis' }, compound: { prefixes: [] } }],
   ]),
+  // Common verbs A&G prints only in a parenthesis (§211.e nōscō: cō-gnit-, ā-gnit-) or not at all, as Lewis & Short gives
+  // them: the compounds of nōscō, ostendō, the compounds of dīcō with bene-, male- (short imperative, A&G §182), refellō,
+  // and the compounds of mordeō and pendeō, which differ from the simple verb.
+  ...list('third', 'A&G §211.e; L&S s.v. cognosco', lsCheck('cognosco'), [['cognōscō', 'cognōvī', 'cognit']], 'ls'),
+  ...list('third', 'A&G §211.e; L&S s.v. agnosco', lsCheck('agnosco'), [['agnōscō', 'agnōvī', 'agnit']], 'ls'),
+  ...list('third', 'L&S s.v. ignosco', lsCheck('ignosco'), [['ignōscō', 'ignōvī', 'ignōt']], 'ls'),
+  ...list('third', 'L&S s.v. ostendo', lsCheck('ostendo'), [['ostendō', 'ostendī', 'ostēns|ostent']], 'ls'),
+  ...list('third', 'A&G §182; L&S s.v. benedico', lsCheck('benedico'), [['benedīcō', 'benedīxī', 'benedict', short]], 'ls'),
+  ...list('third', 'A&G §182; L&S s.v. maledico', lsCheck('maledico'), [['maledīcō', 'maledīxī', 'maledict', short]], 'ls'),
+  ...list('third', 'L&S s.v. refello', lsCheck('refello'), [['refellō', 'refellī', '']], 'ls'),
+  ...list('second', 'L&S s.v. demordeo', lsCheck('demordeo'), [['dēmordeō', '', 'dēmors']], 'ls'),
+  ...list('second', 'L&S s.v. remordeo', lsCheck('remordeo'), [['remordeō', '', 'remors']], 'ls'),
+  ...list('second', 'L&S s.v. dependeo', lsCheck('dependeo'), [['dēpendeō', '', '']], 'ls'),
+  ...list('second', 'L&S s.v. impendeo', lsCheck('impendeo'), [['impendeō', '', '']], 'ls'),
+  ...list('second', 'L&S s.v. propendeo', lsCheck('propendeo'), [['prōpendeō', 'prōpendī', 'prōpēns']], 'ls'),
   // lavō: first conjugation with lāvī and three supines, and the parallel literary lavere (A&G §§189, 211.e; L&S lavo).
   // The future participle is built on each printed supine stem (A&G §211 lōt- (laut-); Bennett §120 lautus).
   ...list('first', 'A&G §211.e; L&S s.v. lavo', ag(124), [['lavō', 'lāvī', 'laut|lōt|lavāt', { fp: 'lavātūrus|lautūrus|lōtūrus' }]]),

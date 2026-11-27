@@ -133,9 +133,11 @@ function lexiconSteps(typed: string, lexeme: LatinLexeme, match: CompoundMatch |
   const steps: DerivationStep[] = match === null
     ? [step(latinRules['la.classify.lexicon'], typed, null, { parts: lexeme.principalParts })]
     : [step(latinRules['la.classify.compound'], typed, lexeme.lemma, { prefix: match.allomorph, base: match.family.base.present!, parts: compoundParts(match) })];
+  const dropped = match?.family.reduplicationDropped;
+  if (dropped && !match!.family.overrides[match!.prefix]) steps.push(step(latinRules['la.classify.compound-reduplication'], dropped.from, `-${dropped.to}`));
   if (lexeme.voiceClass === 'deponent') steps.push(step(latinRules['la.classify.deponent'], lexeme.lemma, null));
   if (lexeme.voiceClass === 'semiDeponent') steps.push(step(latinRules['la.classify.semi-deponent'], lexeme.lemma, null));
-  if (match && (match.family.vary || (match.family.assumeUnlisted && !match.family.overrides[match.prefix]))) {
+  if (match && (!match.family.overrides[match.prefix] && (match.family.vary || match.family.assumeUnlisted))) {
     steps.push(step(latinRules['la.classify.assume-compound'], null, null, { prefix: match.allomorph, base: match.family.base.present! }));
   }
   return steps;

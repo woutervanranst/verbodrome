@@ -5,6 +5,7 @@ export const latinRules = defineRules({
   // Classification (GD §4.1)
   'la.classify.lexicon': { stage: 'classify', kind: 'lexical', params: { parts: 'text' } },
   'la.classify.compound': { stage: 'classify', params: { prefix: 'text', base: 'text', parts: 'text' } },
+  'la.classify.compound-reduplication': { stage: 'classify' },
   'la.classify.conjugation': { stage: 'classify', params: { ending: 'text', conjugation: 'text' } },
   'la.classify.io': { stage: 'classify' },
   'la.classify.deponent': { stage: 'classify' },

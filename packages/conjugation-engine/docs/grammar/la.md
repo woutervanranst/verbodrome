@@ -28,12 +28,12 @@ unverified); `lexiconVerification` in `sources.ts` keys one record per entry.
   2. principal parts, a first person, or the infinitive alone; a passive infinitive of a verb the lexicon has as active
      is rejected, not read as a deponent; an unknown verb given with a passive infinitive (`-ārī, -ērī, -ī, -īrī`) or a
      first person in -or is assumed to be deponent (`la.classify.assume-deponent`);
-  3. the lexicon (461 look-up entries, 69 irregular, defective and impersonal verbs), looked up with macrons first, then
+  3. the lexicon (487 look-up entries, 69 irregular, defective and impersonal verbs), looked up with macrons first, then
      by the macron-insensitive key. A typed breve means "short" (*capĕre* is *capere*) and never reaches the output.
      Lengths that fit no spelling of a verb the lexicon knows (*regēre*, *āmāre*) are taken as a slip: the lexicon verb,
      with the assumption `la.classify.assume-spelling` naming its spelling. Of two homographs the common verb comes first
      (*veniō* before *vēneō*, *occīdō* before *occidō*: the list `rarerHomographs`);
-  4. compound families (33 with a form or prefix list of their own): the weakened compound form (`-cipiō, -cēpī,
+  4. compound families (36 with a form or prefix list of their own): the weakened compound form (`-cipiō, -cēpī,
      -ceptum`), prefix assimilation, the compounds of sum, ferō, eō, dō and stō; an unlisted prefix of a family that
      varies is an assumption;
   5. the ending, then the defaults (below). A macron-less `-ere` (or `-eri`) that the lexicon does not settle gives two
@@ -52,6 +52,39 @@ unverified); `lexiconVerification` in `sources.ts` keys one record per entry.
   the future infinitives are the participle + esse and the supine + īrī.
 - **Voice** is a target dimension. A deponent's forms are active targets with passive morphology; its passive is
   unavailable (`la.avail.no-passive`). A semi-deponent has the active present system and the participle in the perfect.
+
+## Compound families
+
+A compound takes its family's form: the weakened form where A&G prints one (`-cipiō, -cēpī, -ceptum`), else the
+simple verb's. "Compounds, with the exception of dō, stō, sistō, discō, poscō, omit the reduplication" (Bennett §118.4.a
+Note 1; `la.classify.compound-reduplication`): *respondeō, respondī*; *attondeō, attondī*; *contundō, contudī*.
+
+The parenthesised compound forms of the A&G §§209–212 rows the lexicon is transcribed from:
+
+| A&G | Print | Decision |
+|---|---|---|
+| §209 crepō | -crepāvī; Note: *discrepuī or -crepāvī, increpuī or -crepāvī* | limit: the compounds take crepuī only |
+| §209 iuvō | (ad-iuvō) | modelled: *adiuvō, adiūvī, adiūtum* |
+| §209 necō | necāt- (-nect-), Note 2 "except in composition" | limit: *ēnecō* takes necāvī |
+| §209 Note | micō: *dīmicāvī, ēmicuī*; plicō and its compounds | limit: not modelled |
+| §209 Note | stō: *cōnstō … exstō*; dō: *circum-, inter-, pessum-, satis-, super-, vēnum-dō* | modelled (entries) |
+| §210 | (cō)nīveō, (ab)oleō, teneō (-tineō), misceō mixt- (mist-) | modelled |
+| §210 | tondeō -totondī (-tondī) | modelled: the reduplication rule, *dētondeō* with both perfects (L&S) |
+| §211.a | quatiō (-cussī), frendō (fress-), nectō (nexuī), -liciō (*ēlicuī, -licit-*) | modelled |
+| §211.a | unguō (ungō) | limit: the spelling *ungō* is not an entry |
+| §211.b | pungō (-pūnxī), tendō (-tendī), parcō (parsī), pariō (paritūrus), tundō (-tūs-), -dō | modelled |
+| §211.b | pangō, pepigī (-pēgī) | limit: the compounds' present *-pingō* is not printed |
+| §211.c–f | alō (alit-), iaciō (-iciō, -iect-), lavō (laut-), nōscō (*cō-gnit-, ā-gnit-*), pandō (pass-), pīnsō (pīnst-, pīst-), sīdō (-sēdī), vellō (-vulsī), ruō (ruitūrus), fugiō (fugitūrus), tollō (*sustulī, sublātum*) | modelled |
+| §211.f | bibō (pōtus) | limit: *pōtus* is not generated as bibō's participle |
+| §212 | amiciō (-cuī), saliō (-siliō, saliī, -sult-), hauriō (hausūrus) | modelled |
+
+Verbs whose entry takes no prefix (`prefixes: []`), each a decision: mordeō and pendeō (their compounds lack the perfect
+or differ: *dēmordeō, remordeō, dēpendeō, impendeō, prōpendeō* are entries, L&S); fallō (its compound *refellō* has no
+supine: an entry); pariō (its compounds are fourth-conjugation entries: *reperiō, comperiō*); parcō, pangō, tingō
+(no compound in the lexicon; *attingō, contingō* belong to tangō); tollō (*attollō, extollō* lack the perfect: not
+modelled); the -dō compounds, *calefaciō, benefaciō, satisfaciō*, the compounds of sum and stō and the defective verbs
+(they are compounds or have none); sum, possum, volō, nōlō, mālō, dō, eō's listed compounds, queō, fīō, vēneō, ambiō;
+edō (*comedō, exedō* are not modelled: a limit).
 
 ## Subjects, gender and agreement
 
@@ -124,6 +157,7 @@ reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Be
 |---|---|---|---|---|
 | `la.classify.lexicon` | classify | lexical | {before} is in the lexicon: {parts}. | [A&G §172](https://dcc.dickinson.edu/grammar/latin/four-conjugations); [Lewis & Short](https://logeion.uchicago.edu/) |
 | `la.classify.compound` | classify | rule | {before} is {prefix}- + {base}; compounds of {base} go {parts}. | [A&G §267.a, Note 2](https://dcc.dickinson.edu/grammar/latin/compound-words); [A&G §16](https://dcc.dickinson.edu/grammar/latin/phonetic-changes) |
+| `la.classify.compound-reduplication` | classify | rule | Compounds drop the reduplication of the perfect: {before} → {after}. | [Bennett §118 (4.a, Notes 1–2)](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect118); [A&G §177.c](https://dcc.dickinson.edu/grammar/latin/perfect-stem) |
 | `la.classify.conjugation` | classify | rule | {before} ends in -{ending}: {conjugation, select, first {first} second {second} third {third} thirdIo {third (-iō)} fourth {fourth} other {irregular}} conjugation. | [A&G §171](https://dcc.dickinson.edu/grammar/latin/four-conjugations); [Bennett §98](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect98) |
 | `la.classify.io` | classify | rule | The first person {after} ends in -iō: a third-conjugation verb in -iō, which keeps its i before a, o, u and long ē. | [A&G §179.c.1](https://dcc.dickinson.edu/grammar/latin/forms-conjugation); [A&G §188](https://dcc.dickinson.edu/grammar/latin/3rd-conjugation-io-verbs); [Bennett §109](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect109) |
 | `la.classify.deponent` | classify | rule | {before} has a passive infinitive: the verb is deponent, with passive forms and active meaning. | [A&G §190](https://dcc.dickinson.edu/grammar/latin/deponent-verbs); [A&G §156.b](https://dcc.dickinson.edu/grammar/latin/verb-conjugations) |

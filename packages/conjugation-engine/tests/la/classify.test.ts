@@ -74,6 +74,6 @@ describe('Latin classification', () => {
     // Pinned: 69 irregular, defective and impersonal entries (with the listed compounds of sum, dō and stō),
     // the principal-part entries of A&G §§172, 190–192, 209–212 and Lewis & Short (the family-only bases such as
     // -cutiō are not counted), and the families with a weakened form or a prefix list of their own.
-    expect({ entries: seen.size, irregular: irregularEntries.length, families: familyCount }).toEqual({ entries: 461, irregular: 69, families: 33 });
+    expect({ entries: seen.size, irregular: irregularEntries.length, families: familyCount }).toEqual({ entries: 487, irregular: 69, families: 36 });
   });
 });

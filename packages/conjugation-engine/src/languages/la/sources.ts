@@ -50,6 +50,7 @@ const thirdLists = (sub: string): Citation => ag('classified-lists-verbs-3rd-con
 export const latinCitations = {
   'la.classify.lexicon': [ag('four-conjugations', '§172'), lsWhole],
   'la.classify.compound': [ag('compound-words', '§267.a, Note 2'), ag('phonetic-changes', '§16')],
+  'la.classify.compound-reduplication': [bennett(118, ' (4.a, Notes 1–2)'), ag('perfect-stem', '§177.c')],
   'la.classify.conjugation': [ag('four-conjugations', '§171'), bennett(98)],
   'la.classify.io': [ag('forms-conjugation', '§179.c.1'), ag('3rd-conjugation-io-verbs', '§188'), bennett(109)],
   'la.classify.deponent': [ag('deponent-verbs', '§190'), ag('verb-conjugations', '§156.b')],
