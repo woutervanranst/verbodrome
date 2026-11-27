@@ -164,7 +164,8 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
   }
   const lemma = canonicalLemma(input);
   const opening: DerivationStep[] = [];
-  if (prefixed) opening.push(step(frenchRules['fr.classify.reflexive'], infinitive, input));
+  // « The se in front of laver marks a pronominal verb: se laver is conjugated with a reflexive pronoun. »
+  if (prefixed) opening.push(step(frenchRules['fr.classify.reflexive'], input, infinitive));
   if (essentialReflexives.has(input)) opening.push(step(frenchRules['fr.classify.essentially-pronominal'], input, null));
   if (lemma !== input) opening.push(step(frenchRules['fr.classify.canonical-spelling'], input, lemma));
   const choice = classOf(lemma, options);

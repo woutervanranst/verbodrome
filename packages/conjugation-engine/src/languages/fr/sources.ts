@@ -1,7 +1,6 @@
 /**
  * The works the French rules cite, and the citation of each rule (GD §1). Every page cited here was opened when the
  * rule was implemented. *Le Bon Usage* is listed but cited nowhere: its § numbers were not checked in a copy.
- *
  */
 import type { Citation, Work } from '../../core/sources.js';
 import type { FrenchRuleId } from './rules.js';
@@ -153,7 +152,7 @@ export const frenchCitations = {
   'fr.periphrasis.participle-perfect': [conjugation('A9C1222', 'céder (ayant cédé)'), oqlf(24224, 'Avoir et être forment les temps composés')],
   'fr.periphrasis.gerund-past': [oqlf(22915, 'Gérondif : en + forme en -ant'), oqlf(24224, 'Avoir et être forment les temps composés')],
   'fr.periphrasis.near-future': oqlf(24122, 'Le futur proche : aller au présent suivi d’un infinitif'),
-  'fr.periphrasis.recent-past': { work: 'cnrtl', locator: 'venir : semi-auxiliaire du passé récent, venir de + inf.', url: 'https://www.cnrtl.fr/definition/venir' },
+  'fr.periphrasis.recent-past': { work: 'cnrtl', locator: 'venir, C. — Venir de + inf. : l’action exprimée par l’inf. s’est achevée très récemment', url: 'https://www.cnrtl.fr/definition/venir' },
   'fr.clause.agree-subject': oqlf(24222, 'Le participe passé employé avec être s’accorde avec le sujet'),
   'fr.clause.agree-object': [oqlf(24221, 'Accord avec le complément direct placé avant le verbe'), oqlf(22942, 'Verbes occasionnellement pronominaux')],
   'fr.clause.no-agreement-avoir': oqlf(24221, 'Sans complément direct placé avant : pas d’accord'),
@@ -163,8 +162,9 @@ export const frenchCitations = {
   'fr.avail.third-person-only': entry('A9S1259', 'seoir (uniquement à la 3e personne)'),
   'fr.avail.impersonal': [entry('A9F0145', 'falloir (verbe impersonnel)'), oqlf(24584, 'Verbes essentiellement impersonnels')],
   'fr.avail.no-imperative': [conjugation('A9P3829', 'pouvoir (sans impératif)'), conjugation('A9F0145', 'falloir (sans impératif)')],
-  // No checked authority states this rule; the Académie prints sois-toi assis (open question in the report).
-  'fr.avail.pronominal-imperative-past': oqlf(24203, 'Impératif passé : formes du subjonctif passé, aucune forme pronominale donnée'),
+  // No checked authority states this rule (Le Bon Usage was not opened); the citation is the Académie table the message
+  // names, which prints the form (docs/grammar/fr.md, open decisions).
+  'fr.avail.pronominal-imperative-past': conjugation('A9A2823', 'asseoir, voix pronominale : imprime l’impératif passé sois-toi assis'),
   'fr.clause.subject': [conjugation('A9C1222', 'céder'), oqlf(24203, 'Formes de l’impératif, introduction')],
   'fr.clause.subject-gender': [oqlf(24222, 'Synthèse des règles d’accord'), conjugation('A9C1222', 'céder')],
   'fr.clause.impersonal-subject': entry('A9F0145', 'falloir'),
@@ -175,41 +175,3 @@ export const frenchCitations = {
   'fr.clause.participle-forms': conjugation('A9C1222', 'céder'),
   'fr.clause.invariable-participle': [conjugation('A9D3072', 'dormir'), conjugation('A9F0145', 'falloir')],
 } as const satisfies Record<FrenchRuleId, Citation | readonly Citation[]>;
-
-/**
- * Data the French pack keeps although no checked authority supports it, so the frozen output is reproduced; each is an
- * open question for the user (plan 3 report). `cells` are the cells concerned (all of the family's when absent), and
- * `spelling` the spelling they concern.
- */
-export interface SecondaryOnly {
-  readonly family: string;
-  readonly cells?: readonly string[];
-  readonly spelling?: 'rectified' | 'traditional';
-  readonly reason: string;
-  readonly source: `https://${string}`;
-}
-
-const futureAndConditional = ['fut', 'cond'].flatMap(row => ['1s', '2s', '3s', '1p', '2p', '3p'].map(slot => `${row}.${slot}`));
-
-export const frenchSecondaryOnly: readonly SecondaryOnly[] = [
-  {
-    family: 'surseoir', cells: futureAndConditional, spelling: 'rectified',
-    reason: 'Rule fr.orth.1990-sursoir-future builds sursoirai on the 1990 infinitive sursoir; note (a) to JO 1990 Liste H reads “j’assoirai (mais je surseoirai)” and the Académie prints only surseoirai.',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9S3721',
-  },
-  {
-    family: 'bruire', cells: ['pp.ms'],
-    reason: 'The family gives the past participle bruit; the Académie gives brui (invariable).',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9B2326',
-  },
-  {
-    family: 'rassir',
-    reason: 'The family keeps only the infinitive and the participle rassis; the Académie conjugates rassir in full like finir, participle rassi.',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9R0556',
-  },
-  {
-    family: 'issir',
-    reason: 'issir has no entry in the 9th edition of the Académie dictionary (only the 8th edition entry A8I1568-A), so its participle issu could not be checked there.',
-    source: 'https://www.dictionnaire-academie.fr/article/A8I1568-A',
-  },
-];

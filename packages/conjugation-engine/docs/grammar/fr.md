@@ -121,7 +121,7 @@ is not used for any rule.
 | `fr.orth.y-to-i` | rule | y becomes i before a silent e: {before} becomes {after}. | [BDL: Verbes en -yer](https://vitrinelinguistique.oqlf.gouv.qc.ca/24212/la-grammaire/le-verbe/conjugaison/radical-des-verbes-reguliers-au-present-de-lindicatif); [BDL: Verbes en -oyer, -uyer, -ayer](https://vitrinelinguistique.oqlf.gouv.qc.ca/24137/la-grammaire/le-verbe/conjugaison/formes-du-conditionnel); [Académie: payer, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9P1095) |
 | `fr.orth.diaeresis` | rule | This verb is spelt with ï, so the i of its ending is written ï too: {before} becomes {after}. | [Académie: haïr, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9H0071); [BDL: Haïr et ouïr : le tréma](https://vitrinelinguistique.oqlf.gouv.qc.ca/24207/la-grammaire/le-verbe/conjugaison/formes-du-passe-simple) |
 | `fr.orth.t-after-dental` | rule | After d, t or c the t of the third person singular is not written: {before} becomes {after}. | [BDL: Radical en d, t ou c à la 3e personne du singulier](https://vitrinelinguistique.oqlf.gouv.qc.ca/24213/la-grammaire/le-verbe/conjugaison/terminaison-des-verbes-reguliers-et-irreguliers-au-present-de-lindicatif) |
-| `fr.orth.tt-singular` | rule | In the present singular an -ttre verb keeps only one t, as in il met: {before} becomes {after}. | [Académie: battre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9B0652); [Académie: mettre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9M1992) |
+| `fr.orth.tt-singular` | rule | In the present singular and the imperative singular an -ttre verb keeps only one t, as in il met: {before} becomes {after}. | [Académie: battre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9B0652); [Académie: mettre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9M1992) |
 | `fr.orth.circumflex-before-t` | rule | Before the t of il the stem vowel takes a circumflex: {before} becomes {after}. | [BDL: Il clôt, il gît, il plaît](https://vitrinelinguistique.oqlf.gouv.qc.ca/23701/lorthographe/accents-trema-et-cedille/accent-circonflexe/laccent-circonflexe-dans-les-formes-verbales); [JO 1990: II.4 : plait](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: gésir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9G0655); [Académie: clore, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C2658) |
 | `fr.orth.croitre-homograph` | rule | croître keeps a circumflex here so that it is not spelt like croire: {before} becomes {after}. | [JO 1990: II.4 b : le verbe croître](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Exceptions : croître](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe); [Académie: croître, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C5057) |
 | `fr.orth.1990-circumflex` | rule | In the 1990 spelling i and u lose their circumflex: {before} becomes {after}. | [JO 1990: II.4](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Accent circonflexe : rectifications](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe) |
@@ -147,7 +147,7 @@ is not used for any rule.
 | `fr.periphrasis.participle-perfect` | rule | Compound participle: the present participle of {auxiliary} plus the past participle. | [Académie: céder (ayant cédé), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C1222); [BDL: Avoir et être forment les temps composés](https://vitrinelinguistique.oqlf.gouv.qc.ca/24224/la-grammaire/le-verbe/auxiliaires/emploi-des-auxiliaires-avoir-et-etre) |
 | `fr.periphrasis.gerund-past` | rule | Past gerund: en, the present participle of {auxiliary}, then the past participle. | [BDL: Gérondif : en + forme en -ant](https://vitrinelinguistique.oqlf.gouv.qc.ca/22915/la-grammaire/le-verbe/modes/distinction-entre-le-participe-present-et-ladjectif-participe); [BDL: Avoir et être forment les temps composés](https://vitrinelinguistique.oqlf.gouv.qc.ca/24224/la-grammaire/le-verbe/auxiliaires/emploi-des-auxiliaires-avoir-et-etre) |
 | `fr.periphrasis.near-future` | rule | Futur proche: the present of aller plus the infinitive. | [BDL: Le futur proche : aller au présent suivi d’un infinitif](https://vitrinelinguistique.oqlf.gouv.qc.ca/24122/la-grammaire/le-verbe/temps-grammaticaux/futur/le-futur-proche) |
-| `fr.periphrasis.recent-past` | rule | Passé récent: the present of venir, then de, then the infinitive. | [TLFi: venir : semi-auxiliaire du passé récent, venir de + inf.](https://www.cnrtl.fr/definition/venir) |
+| `fr.periphrasis.recent-past` | rule | Passé récent: the present of venir, then de, then the infinitive. | [TLFi: venir, C. — Venir de + inf. : l’action exprimée par l’inf. s’est achevée très récemment](https://www.cnrtl.fr/definition/venir) |
 
 ### Clause
 
@@ -176,7 +176,7 @@ is not used for any rule.
 | `fr.avail.third-person-only` | unavailable | This verb is only used in the third person (il, elle, ils, elles). | [Académie: article seoir (uniquement à la 3e personne)](https://www.dictionnaire-academie.fr/article/A9S1259) |
 | `fr.avail.impersonal` | unavailable | This verb is impersonal: it only exists with il, so this person has no form. | [Académie: article falloir (verbe impersonnel)](https://www.dictionnaire-academie.fr/article/A9F0145); [BDL: Verbes essentiellement impersonnels](https://vitrinelinguistique.oqlf.gouv.qc.ca/24584/la-grammaire/le-verbe/auxiliaires/tableau-synthese-de-lemploi-des-auxiliaires-avoir-et-etre) |
 | `fr.avail.no-imperative` | unavailable | This verb has no imperative. | [Académie: pouvoir (sans impératif), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9P3829); [Académie: falloir (sans impératif), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9F0145) |
-| `fr.avail.pronominal-imperative-past` | unavailable | A pronominal verb is not given a past imperative. | [BDL: Impératif passé : formes du subjonctif passé, aucune forme pronominale donnée](https://vitrinelinguistique.oqlf.gouv.qc.ca/24203/la-grammaire/le-verbe/conjugaison/formes-de-limperatif) |
+| `fr.avail.pronominal-imperative-past` | unavailable | The past imperative of a pronominal verb is treated as not in use; no checked authority says so, and the Académie prints it (sois-toi assis). | [Académie: asseoir, voix pronominale : imprime l’impératif passé sois-toi assis, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A2823) |
 
 ## Defaults and assumptions
 
@@ -196,26 +196,59 @@ An assumption is recorded first in the analysis and is never restated as a fact:
 ## The family lexicon
 
 `families.ts` has one entry per family (95, 102 paradigms), generated once from the former model tables and maintained
-by hand. 90 families are marked `verified` against the Académie's conjugation table of their representative verb
-(checked 2026-11-25): the forms both print agree, alternatives being allowed to be a subset. The rest are listed in
-`frenchSecondaryOnly` (`sources.ts`).
+by hand. 70 families carry `flags.verified`: the Académie's conjugation table of their representative verb agrees with
+them in the traditional spelling. Every cell the table prints has the same words (or the table also prints the 1990
+word, as in mû ou mu), the family has no cell the table leaves out, and the auxiliaries match. The comparison was
+re-run strictly on 2026-11-27; tables fetched 2026-11-25. The 1990 spellings follow the JO rules and are not compared:
+the tables print them only here and there.
 
-## Spellings no checked authority supports
+### Where the engine and the Académie disagree
 
-These are kept until the user decides (`frenchSecondaryOnly`):
+The 25 families without `verified`, with what their table prints (A9… is the entry; `/conjuguer/` the table,
+`/article/` the article):
+
+| Family (table) | The engine | The Académie |
+|---|---|---|
+| absoudre (A9A0175) | no passé simple or imperfect subjunctive | table: absolus, absolut, absolûmes …, absolusse …; article: « pas de passé simple », « pas d'imparfait du subjonctif » |
+| gésir (A9G0655) | no imperative | table: gis, gisons, gisez; article: « n'est usité qu'au présent de l'indicatif … à l'imparfait … au participe présent » |
+| paître (A9P0092) | no finite compound tense; futur, subjonctif, conditionnel | table: ai pu (avoir) …, no futur, subjonctif or conditionnel; article: « le participe passé, pu, ne se rencontre qu'en fauconnerie » |
+| faillir (A9F0105) | no imperative; also faille-, faillissant | table: faillis ou faux, faillissons ou faillons, faillez ou faillissez; subjunctive faillisse only; participe présent faillant only |
+| choir (A9C2105) | futur and conditionnel 2sg, 1pl, 2pl; nous choyons, vous choyez; tu chus, nous chûmes, vous chûtes | table prints none of these, and prints chois (imperative) and chussent, which the engine lacks |
+| déchoir (A9D0450) | décherr- beside déchoir- in the plural future; no imperative | table: déchoirons … only; déchois, déchoyons, déchoyez |
+| échoir (A9E0216) | imparfait échoyait, échoyaient; subjunctive échée, échéent beside échoie, échoient | table prints neither |
+| ouïr (A9O0956) | the ouïss- series and the futures oirai, orrai beside the table's | table: oyons, oyais, oyant; ouïrai or orrai |
+| seoir, messeoir (A9S1259, A9M1868) | participles sis, messis; participe présent seyant, messeyant beside séant, messéant | table: séant, messéant only, no past participle |
+| clore, enclore (A9C2658, A9E1359) | futur, subjonctif, conditionnel, participe présent; clore's ils closent; enclore's present plural | tables print none of these |
+| éclore (A9E0262) | first and second persons; imperative éclos; participe présent éclosant | table: third persons only |
+| bruire (A9B2326) | participle bruit; je bruis, tu bruis; futur and conditionnel | table: brui (invariable), none of these |
+| braire (A9B1988) | third persons only | table: every person (brayons, brairai, brayions, braites …) |
+| rassir (A9R0556) | infinitive and participle rassis only | table: conjugated like finir, participle rassi |
+| frire (A9F1701) | no participe présent | table: friant |
+| traire (raire, A9R0316), bouillir (A9B1738), prévaloir (A9P4254), surseoir (A9S3721) | feminine and plural participles | table: participle invariable |
+| vouloir (A9V1230) | subjunctive veuillions, veuilliez beside voulions, vouliez | table: voulions, vouliez only |
+| asseoir (A9A2823) | participe présent assoyant beside asseyant | table: asseyant only |
+| férir (A9F0482) | participle féru and compounds with avoir | table: infinitive only |
+| issir (no 9th-edition entry; A8I1568-A) | participle issu and compounds with avoir | 8th edition only |
+
+The unavailable targets of absoudre, gésir, paître and the other families whose article states the forms they lack
+cite that article (`flags.article`), never the table that prints the form.
+
+### Secondary source only
+
+Forms no checked authority supports, kept until the user decides:
 
 - surseoir: rectified future and conditional sursoir- (`fr.orth.1990-sursoir-future`), built on the 1990 infinitive
-  sursoir (JO 1990 III, Liste H). Secondary source only: note (a) to the same Liste H reads "j'assoirai … (mais je
-  surseoirai)", and the Académie prints only surseoirai. The traditional surseoirai stays; the rectified form is
-  preferred by the general rule (rectified first).
-- bruire: past participle bruit; the Académie gives brui (invariable).
-- rassir: kept as infinitive and participle (rassis) only; the Académie conjugates it like finir (rassi).
-- issir: no entry in the 9th edition (8th edition A8I1568-A only).
+  sursoir (JO 1990 III, Liste H). Note (a) to the same Liste H reads "j'assoirai … (mais je surseoirai)", and the
+  Académie prints only surseoirai. The traditional surseoirai stays; the rectified form is preferred by the general rule
+  (rectified first).
+- The pronominal past imperative is unavailable (`fr.avail.pronominal-imperative-past`); no checked authority says it
+  is not in use, and the Académie prints sois-toi assis (A9A2823). The step says so.
+- bruire's bruit, rassir's reduced paradigm, issir's issu: see the table above.
 
 Two cells carry a second word that the Académie's table prints after « ou », in both spellings and after the derived
-one (`fr.stem.listed-spelling`): il enclôt ou enclot (enclore, A9E1359) and il éclôt ou éclot (éclore, A9E0262).
-croître's participle is crû, crue, crus, crues and clore's 3sg il clôt, in both spellings (JO 1990 II.4; Académie
-A9C5057, A9C2658); the former listed rectified crûe, crûs, crûes and il clot are gone.
+one (`fr.stem.listed-spelling`): il enclôt ou enclot (enclore, A9E1359) and il éclôt ou éclot (éclore, A9E0262). The
+1990 rules keep the circumflex on o (JO 1990 II.4), so neither is a 1990 spelling. croître's participle is crû, crue,
+crus, crues and clore's 3sg il clôt, in both spellings (JO 1990 II.4; Académie A9C5057, A9C2658).
 
 ## Intended differences from the frozen snapshot
 
@@ -244,21 +277,25 @@ snapshot the Académie's tables also give apparaître, réapparaître, disparaî
 avoir or être, and redevenir être; 30 verbs keep je before their aspirated h, each marked « H aspiré » in its table
 (hâbler … hurler, humer included: je hume); any other initial h is assumed mute (j'hoble).
 
-## Open questions for the user
+## Open decisions for the user
 
-1. The unsupported forms above (surseoir, bruire, rassir, issir): keep or ledger a change.
-2. Forms the Académie prints that French lacks: the imperative of gésir (gis, gisons, gisez), choir (chois), déchoir and
-   faillir; the passé simple and imperfect subjunctive of absoudre (absolus); frire's participe présent (friant); braire
-   in every person; choir's chussent.
-3. Forms French has that the Académie does not print: paître's future, subjunctive and conditional; clore's and
-   enclore's present plural, future, subjunctive and conditional; bruire's present singular, future and conditional;
-   échoir's imparfait; the participles of seoir and messeoir; férir's féru (the Académie gives the infinitive only).
-4. Participles the Académie marks invariable that French declines: bouillir, prévaloir, surseoir, déchoir, choir and
-   croître (intransitive), raire.
-5. The pronominal past imperative: French reports it unavailable, the Académie prints sois-toi assis (asseoir).
+1. The disagreements above: keep the engine's forms, or ledger the Académie's. Pending in particular: absoudre's passé
+   simple and imperfect subjunctive, gésir's imperative and paître's compound tenses, which the engine keeps unavailable
+   on the strength of their articles while their tables print them.
+2. surseoir's rectified future sursoirai (secondary source only, above).
+3. The pronominal past imperative: kept unavailable. The reviewer's alternative: generate sois-toi lavé(e), soyons-nous
+   lavé(e)s, soyez-vous lavé(e)s tagged `usage: 'literary'`, not preferred, cited to the Académie, as a ledgered change.
+4. entrer and tomber take only être here; the Académie gives « avoir (en emploi transitif) ou être ».
+5. The dual-auxiliary condition (known wart, below): replace the sentence with a condition id, drop it on aller/venir
+   chains and after an `auxiliary` hint, as a ledgered change.
 
 ## Limits
 
-Active voice only; no negation, inversion, surcomposé tenses or object pronouns other than the reflexive; no `on`.
-Spelling cannot tell transitivity, lexical sense or a preceding object: the hints `auxiliary`, `reflexiveObject`,
-`precedingDirectObject`, `agreement` and `aspiratedH` supply them.
+Active voice only; no negation, inversion, surcomposé tenses or object pronouns other than the reflexive; no `on`; no
+pronominal verb with en (`s'en aller` is INVALID_INFINITIVE). Spelling cannot tell transitivity, lexical sense or a
+preceding object: the hints `auxiliary`, `reflexiveObject`, `precedingDirectObject`, `agreement` and `aspiratedH`
+supply them.
+
+Known wart, kept because the snapshot pins it: a verb with two auxiliaries puts an English sentence in
+`variant.condition` (« avoir: auxiliary choice depends on construction or lexical sense. »). It stays after an
+`auxiliary` hint, and it also lands on the near future and recent past (« aller: … », « venir: … »).

@@ -89,8 +89,18 @@ export interface FamilyFlags {
   readonly presentParticipleFromSubjunctive?: true;
   /** The stem vowel before the 3sg t takes a circumflex (connaît, plaît, gît, clôt). */
   readonly circumflexBeforeT?: true;
-  /** Checked against the Académie's conjugation table `https://www.dictionnaire-academie.fr/conjuguer/<academie>`. */
+  /**
+   * The Académie's conjugation table `https://www.dictionnaire-academie.fr/conjuguer/<academie>`, read on `date`, agrees
+   * with the family's representative verb in the traditional spelling: every cell the table prints has the same words
+   * (or the table also prints the 1990 word), the family has no cell the table leaves out, and the auxiliaries match
+   * (strict comparison of 2026-11-27). The families that disagree are listed in `docs/grammar/fr.md`.
+   */
   readonly verified?: { readonly academie: string; readonly date: string };
+  /**
+   * The Académie entry (A9…) whose « Conjugaison » remark states which forms the verb lacks: the family's unavailable
+   * targets cite that article, whose table may print more (`docs/grammar/fr.md` lists where).
+   */
+  readonly article?: string;
 }
 
 /**

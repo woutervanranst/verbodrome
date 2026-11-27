@@ -1,6 +1,6 @@
 /**
  * Stems and endings (GD §4.2-4.3). A productive verb takes its group's stem and ending set; a principal part (a `stems`
- * hint, or a family's part from Task 4) takes the formation endings of the cell it feeds. Every stem and ending records
+ * hint, or a family's part) takes the formation endings of the cell it feeds. Every stem and ending records
  * its step; the spelling rules (`orthography.ts`) apply afterwards.
  */
 import { step } from '../../core/derivation.js';
@@ -236,7 +236,7 @@ function imperativeSeries(lexeme: FrenchLexeme, index: number): readonly ('regul
   return partValues(parts, 'SJ2').map(value => value === nous ? 'regular' : index === 42 ? 'subjunctive' : value);
 }
 
-/** The stems of a family cell from its principal parts (GD §4.2). A cell the family lacks is not migrated yet (Task 5). */
+/** The stems of a family cell from its principal parts (GD §4.2). A cell the family lacks has none (`availability` says why). */
 function familyStems(lexeme: FrenchLexeme, index: number): Fork<string> {
   const family = lexeme.family!;
   const paradigm = lexeme.paradigm as FamilyParadigm;

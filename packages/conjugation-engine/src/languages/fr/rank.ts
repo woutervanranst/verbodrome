@@ -1,9 +1,12 @@
 /**
  * The order of the forms of one French target (GD §6.4): standard before literary before dated usage, the preferred
  * spelling first (`preferredOrthography`, rectified by default); then, among forms equal in both, a verb's paradigms in
- * order and, within one paradigm, its avoir forms before its être forms. The last key matters only for a verb with
- * two auxiliaries and two conditional pasts of the same usage (the dated paradigms of choir and faillir), where the
- * engine builds the constructions before the auxiliaries.
+ * order and, within one paradigm, its avoir forms before its être forms.
+ *
+ * The last two keys compensate for the core's build order: `constructions` in `core/staged.ts` builds a paradigm's
+ * periphrases first and its auxiliaries inside each (il aurait chu, il serait chu, il eût chu, il fût chu). They matter
+ * only where those forms share a target and a usage: the dated paradigms of choir (avoir or être), whose two conditional
+ * pasts are both dated. `tests/fr/rank.test.ts` pins choir's order and faillir's (four paradigms, avoir only).
  */
 import { variantRank } from '../../core/pack.js';
 import type { FrenchConjugationOptions, GeneratedForm } from '../../types.js';

@@ -3,8 +3,9 @@
  * principal parts the formation rules derive every simple cell from (GD §4.2, §5). Parts are in traditional spelling and
  * relative to the infinitive minus its last `strip` letters.
  *
- * `flags.verified` names the Académie conjugation table each family was checked against (plan 3 Task 4); a family without it
- * disagrees with that table or has no 9th-edition entry, and is listed in `frenchSecondaryOnly` (`sources.ts`).
+ * `flags.verified` names the Académie conjugation table a family agrees with (see `FamilyFlags`); a family without it
+ * disagrees with its table or has no 9th-edition entry, and is listed with what the table prints in `docs/grammar/fr.md`.
+ * `flags.article` names the Académie entry whose remark states the forms the verb lacks.
  *
  * Generated once from `models.ts` at commit 1e3c0a6 by the one-off `scripts/fr/bootstrap-families.ts` (deleted at the switch), and maintained by hand from
  * now on.
@@ -74,7 +75,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'gi', set: 's', P2: 'gis' }, gaps: ['subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'imp.2s', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { compounds: 'none', circumflexBeforeT: true, verified: { academie: 'A9G0655', date: '2026-11-25' } },
+    flags: { compounds: 'none', circumflexBeforeT: true, article: 'A9G0655' },
   },
   {
     id: 'seoir', lemmas: ['seoir'], suffixes: [],
@@ -82,7 +83,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'sied', set: 's', P2: 'sey', P3: 'sié', F: 'siér', PP: 'sis' }, gaps: [], cells: { ppres: ['séant', 'seyant'] }, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', verified: { academie: 'A9S1259', date: '2026-11-25' } },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', article: 'A9S1259' },
   },
   {
     id: 'messeoir', lemmas: ['messeoir'], suffixes: [],
@@ -90,7 +91,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'messied', set: 's', P2: 'messey', P3: 'messié', F: 'messiér', PP: 'messis' }, gaps: [], cells: { ppres: ['messéant', 'messeyant'] }, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', verified: { academie: 'A9M1868', date: '2026-11-25' } },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, compounds: 'none', article: 'A9M1868' },
   },
   {
     id: 'ouïr', lemmas: ['ouïr'], suffixes: [],
@@ -99,7 +100,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'ouïs', usage: 'standard', parts: { P1: 'ouï', set: 's', P2: 'ouïss', F: 'ouïr', PS: 'ou', theme: 'ï', PP: 'ouï' }, gaps: [], cells: {}, spellings: {} },
       { pattern: 'ois', usage: 'dated', parts: { P1: 'oi', set: 's', P2: 'oy', P3: 'oi', F: ['ouïr', 'orr', 'oir'], PS: 'ou', theme: 'ï', PP: 'ouï' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9O0956', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'choir', lemmas: ['choir'], suffixes: [],
@@ -108,7 +109,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'choirai', usage: 'dated', parts: { P1: 'choi', set: 's', P2: 'choy', P3: 'choi', F: 'choir', PS: 'ch', theme: 'u', PP: 'chu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'subjimpf.1s', 'subjimpf.2s', 'subjimpf.1p', 'subjimpf.2p', 'subjimpf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
       { pattern: 'cherrai', usage: 'dated', parts: { P1: 'choi', set: 's', P2: 'choy', P3: 'choi', F: 'cherr', PS: 'ch', theme: 'u', PP: 'chu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'subj.1s', 'subj.2s', 'subj.3s', 'subj.1p', 'subj.2p', 'subj.3p', 'subjimpf.1s', 'subjimpf.2s', 'subjimpf.1p', 'subjimpf.2p', 'subjimpf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9C2105', date: '2026-11-25' } },
+    flags: { article: 'A9C2105' },
   },
   {
     id: 'échoir', lemmas: [], suffixes: ['échoir'],
@@ -117,7 +118,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'échoit', usage: 'standard', parts: { P1: 'échoi', set: 's', P2: 'échoy', P3: 'échoi', F: 'échoir', PS: 'éch', theme: 'u', PP: 'échu' }, gaps: [], cells: { ppres: ['échéant'] }, spellings: {} },
       { pattern: 'échet', usage: 'standard', parts: { P1: 'éche', set: 's', P2: 'échoy', P3: 'éché', F: 'écherr', PS: 'éch', theme: 'u', PP: 'échu' }, gaps: [], cells: { ppres: ['échéant'] }, spellings: {} },
     ],
-    flags: { thirdPersonOnly: true, verified: { academie: 'A9E0216', date: '2026-11-25' } },
+    flags: { thirdPersonOnly: true, article: 'A9E0216' },
   },
   {
     id: 'déchoir', lemmas: [], suffixes: ['déchoir'],
@@ -125,7 +126,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'déchoi', set: 's', P2: 'déchoy', P3: 'déchoi', F: ['déchoir', 'décherr'], PS: 'déch', theme: 'u', PP: 'déchu' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.2s', 'imp.1p', 'imp.2p', 'ppres'], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9D0450', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'croître', lemmas: ['croître'], suffixes: [],
@@ -157,7 +158,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'pai', set: 's', P2: 'paiss', F: 'paîtr', PP: 'pu' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { compounds: 'nonFinite', circumflexBeforeT: true, verified: { academie: 'A9P0092', date: '2026-11-25' } },
+    flags: { compounds: 'nonFinite', circumflexBeforeT: true, article: 'A9P0092' },
   },
   {
     id: 'repaître', lemmas: [], suffixes: ['repaître'],
@@ -277,7 +278,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'rai', set: 's', P2: 'ray', P3: 'rai', F: 'rair', PP: 'rait' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9R0316', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'résoudre', lemmas: [], suffixes: ['résoudre'],
@@ -293,7 +294,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'sou', set: 's', P2: 'solv', F: 'soudr', PP: 'sous', PPF: 'sout' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9A0175', date: '2026-11-25' } },
+    flags: { article: 'A9A0175' },
   },
   {
     id: 'coudre', lemmas: [], suffixes: ['coudre'],
@@ -405,7 +406,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { circumflexBeforeT: true, verified: { academie: 'A9C2658', date: '2026-11-25' } },
+    flags: { circumflexBeforeT: true, article: 'A9C2658' },
   },
   {
     // clore's forms; the Académie's table (A9E0262) prints « éclôt ou éclot ».
@@ -414,7 +415,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
     ],
-    flags: { circumflexBeforeT: true },
+    flags: { circumflexBeforeT: true, article: 'A9E0262' },
   },
   {
     id: 'acquérir', lemmas: [], suffixes: ['quérir'],
@@ -441,7 +442,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'faille', usage: 'standard', parts: { P1: 'failli', set: 's', P2: 'failliss', F: 'faudr', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'faill', SJ2: 'faill' }, gaps: [], cells: {}, spellings: {} },
       { pattern: 'faux', usage: 'dated', parts: { P1: 'fau', set: 'x', P2: 'faill', F: 'faillir', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'failliss', SJ2: 'failliss' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true, noImperative: true, verified: { academie: 'A9F0105', date: '2026-11-25' } },
+    flags: { invariableParticiple: true, noImperative: true },
   },
   {
     id: 'bouillir', lemmas: [], suffixes: ['bouillir'],
@@ -449,7 +450,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'bou', set: 's', P2: 'bouill', F: 'bouillir', PS: 'bouill', theme: 'i', PP: 'bouilli' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9B1738', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'cueillir', lemmas: [], suffixes: ['cueillir'],
@@ -570,7 +571,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'sursoi', set: 's', P2: 'sursoy', P3: 'sursoi', F: 'surseoir', PS: 'surs', theme: 'i', PP: 'sursis' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9S3721', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'voir', lemmas: [], suffixes: ['voir'],
@@ -626,7 +627,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'veu', set: 'x', P2: 'voul', P3: 'veul', F: 'voudr', PS: 'voul', theme: 'u', PP: 'voulu', SJ1: 'veuill', SJ2: ['voul', 'veuill'] }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { imperativeFromSubjunctive: true, verified: { academie: 'A9V1230', date: '2026-11-25' } },
+    flags: { imperativeFromSubjunctive: true },
   },
   {
     id: 'envoyer', lemmas: [], suffixes: ['envoyer'],
@@ -674,7 +675,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ri', set: 's', F: 'rir', PP: 'rit' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9F1701', date: '2026-11-25' } },
+    flags: { article: 'A9F1701' },
   },
   {
     id: 'maudire', lemmas: ['maudire'], suffixes: [],
@@ -698,7 +699,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ui', set: 's', P2: 'uiss', F: 'uir', PP: 'uit' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.1p', 'impf.2p', 'subj.1s', 'subj.2s', 'subj.1p', 'subj.2p', 'imp.2s', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true },
+    flags: { invariableParticiple: true, article: 'A9B2326' },
   },
   {
     id: 'braire', lemmas: ['braire'], suffixes: [],
@@ -706,7 +707,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'ai', set: 's', P2: 'ay', P3: 'ai', F: 'air', PP: 'ait' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { invariableParticiple: true, thirdPersonOnly: true, verified: { academie: 'A9B1988', date: '2026-11-25' } },
+    flags: { invariableParticiple: true, thirdPersonOnly: true, article: 'A9B1988' },
   },
   {
     id: 'foutre', lemmas: [], suffixes: ['foutre'],
@@ -730,7 +731,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
     ],
-    flags: { circumflexBeforeT: true, verified: { academie: 'A9E1359', date: '2026-11-25' } },
+    flags: { circumflexBeforeT: true, article: 'A9E1359' },
   },
   {
     id: 'prévaloir', lemmas: [], suffixes: ['prévaloir'],
@@ -738,7 +739,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { P1: 'vau', set: 'x', P2: 'val', F: 'vaudr', PS: 'val', theme: 'u', PP: 'valu' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9P4254', date: '2026-11-25' } },
+    flags: {},
   },
   {
     id: 'ester', lemmas: ['accroire', 'assavoir', 'bienvenir', 'courre', 'ester', 'malfaire', 'méfaire', 'quérir', 'ravoir'], suffixes: [],
@@ -754,7 +755,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     paradigms: [
       { pattern: null, usage: 'standard', parts: { PP: 'ru' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { verified: { academie: 'A9F0482', date: '2026-11-25' } },
+    flags: { article: 'A9F0482' },
   },
   {
     id: 'issir', lemmas: ['issir'], suffixes: [],

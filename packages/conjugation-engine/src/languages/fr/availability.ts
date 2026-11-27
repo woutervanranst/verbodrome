@@ -60,10 +60,17 @@ export function hasCell(lexeme: FrenchLexeme, index: number): boolean {
   return part !== null && partValues(parts, part).length > 0;
 }
 
-/** The address an unavailable target cites: the Académie table of the verb's family where it was checked there. */
+/**
+ * The address an unavailable target cites: the Académie article that states the forms the verb lacks, else the table
+ * its family agrees with, else the rule's own citation. Never a table that prints the form (gésir's gis, absoudre's
+ * absolus, paître's ai pu: their articles say otherwise).
+ */
 function sourceOf(lexeme: FrenchLexeme, rule: keyof typeof frenchCitations): string {
-  const academie = lexeme.family?.flags.verified?.academie;
-  if (academie) return `https://www.dictionnaire-academie.fr/conjuguer/${academie}`;
+  const { article, verified } = lexeme.family?.flags ?? {};
+  if (rule !== 'fr.avail.pronominal-imperative-past') {
+    if (article) return `https://www.dictionnaire-academie.fr/article/${article}`;
+    if (verified) return `https://www.dictionnaire-academie.fr/conjuguer/${verified.academie}`;
+  }
   const cited = frenchCitations[rule];
   const first = Array.isArray(cited) ? cited[0] : cited;
   return (first as { url?: string } | undefined)?.url ?? 'https://www.dictionnaire-academie.fr/';
