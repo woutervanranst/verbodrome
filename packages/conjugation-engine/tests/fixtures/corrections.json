@@ -37794,5 +37794,5229 @@
       "agreement": null
     },
     "correctedTarget": null
+  },
+  {
+    "file": "la/amāre",
+    "cell": 49,
+    "original": "amāveris",
+    "expected": [
+      "amāverīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/amāre",
+    "cell": 51,
+    "original": "amāverimus",
+    "expected": [
+      "amāverīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/amāre",
+    "cell": 52,
+    "original": "amāveritis",
+    "expected": [
+      "amāverītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/amāre",
+    "cell": 137,
+    "original": "amāntor",
+    "expected": [
+      "amantor"
+    ],
+    "unavailable": false,
+    "reason": "A vowel before nt is short (A&G §10.e): amantor, not amāntor.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/quantity-syllables",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/audīre",
+    "cell": 49,
+    "original": "audīveris",
+    "expected": [
+      "audīverīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/audīre",
+    "cell": 51,
+    "original": "audīverimus",
+    "expected": [
+      "audīverīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/audīre",
+    "cell": 52,
+    "original": "audīveritis",
+    "expected": [
+      "audīverītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/audīre",
+    "cell": 137,
+    "original": "audīuntor",
+    "expected": [
+      "audiuntor"
+    ],
+    "unavailable": false,
+    "reason": "A vowel before another vowel is short (A&G §10.a): audiuntor, not audīuntor.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/quantity-syllables",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/capere",
+    "cell": 49,
+    "original": "cēperis",
+    "expected": [
+      "cēperīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/capere",
+    "cell": 51,
+    "original": "cēperimus",
+    "expected": [
+      "cēperīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/capere",
+    "cell": 52,
+    "original": "cēperitis",
+    "expected": [
+      "cēperītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 36,
+    "original": "sim / fuam",
+    "expected": [
+      "sim"
+    ],
+    "unavailable": false,
+    "reason": "fuam, fuās, fuat, fuant are old forms of the present subjunctive (A&G §170 Note); the classical forms are sim, sīs, sit, sint.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/sum",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 37,
+    "original": "sīs / fuas",
+    "expected": [
+      "sīs"
+    ],
+    "unavailable": false,
+    "reason": "fuam, fuās, fuat, fuant are old forms of the present subjunctive (A&G §170 Note); the classical forms are sim, sīs, sit, sint.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/sum",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 38,
+    "original": "sit / fuat",
+    "expected": [
+      "sit"
+    ],
+    "unavailable": false,
+    "reason": "fuam, fuās, fuat, fuant are old forms of the present subjunctive (A&G §170 Note); the classical forms are sim, sīs, sit, sint.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/sum",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 41,
+    "original": "sint / fuant",
+    "expected": [
+      "sint"
+    ],
+    "unavailable": false,
+    "reason": "fuam, fuās, fuat, fuant are old forms of the present subjunctive (A&G §170 Note); the classical forms are sim, sīs, sit, sint.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/sum",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 49,
+    "original": "fueris",
+    "expected": [
+      "fuerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 51,
+    "original": "fuerimus",
+    "expected": [
+      "fuerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/esse",
+    "cell": 52,
+    "original": "fueritis",
+    "expected": [
+      "fuerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/ferre",
+    "cell": 49,
+    "original": "tuleris",
+    "expected": [
+      "tulerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/ferre",
+    "cell": 51,
+    "original": "tulerimus",
+    "expected": [
+      "tulerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/ferre",
+    "cell": 52,
+    "original": "tuleritis",
+    "expected": [
+      "tulerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 62,
+    "original": "factūrum esse",
+    "expected": [
+      "factum īrī"
+    ],
+    "unavailable": false,
+    "reason": "The future infinitive of fīō is factum īrī (A&G p. 115); fīō has no future participle to form factūrum esse with.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "infinitive",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": {
+      "mood": "infinitive",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": null
+    }
+  },
+  {
+    "file": "la/fierī",
+    "cell": 68,
+    "original": "fīuntō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 138,
+    "original": "fiēns",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 139,
+    "original": "fientis",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 140,
+    "original": "fientī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 141,
+    "original": "fientem",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 142,
+    "original": "fiente",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 143,
+    "original": "fientēs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 144,
+    "original": "fientium",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 145,
+    "original": "fientibus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 146,
+    "original": "fientēs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 147,
+    "original": "fientibus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 148,
+    "original": "factūrus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 149,
+    "original": "factūrī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 150,
+    "original": "factūrō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 151,
+    "original": "factūrum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 152,
+    "original": "factūrō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 153,
+    "original": "factūrī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 154,
+    "original": "factūrōrum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 155,
+    "original": "factūrīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 156,
+    "original": "factūrōs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 157,
+    "original": "factūrīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 168,
+    "original": "fiendus",
+    "expected": [
+      "faciendus"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 169,
+    "original": "fiendī",
+    "expected": [
+      "faciendī"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 170,
+    "original": "fiendō",
+    "expected": [
+      "faciendō"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 171,
+    "original": "fiendum",
+    "expected": [
+      "faciendum"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 172,
+    "original": "fiendō",
+    "expected": [
+      "faciendō"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 173,
+    "original": "fiendī",
+    "expected": [
+      "faciendī"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 174,
+    "original": "fiendōrum",
+    "expected": [
+      "faciendōrum"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 175,
+    "original": "fiendīs",
+    "expected": [
+      "faciendīs"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 176,
+    "original": "fiendōs",
+    "expected": [
+      "faciendōs"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 177,
+    "original": "fiendīs",
+    "expected": [
+      "faciendīs"
+    ],
+    "unavailable": false,
+    "reason": "The gerundive of fīō is faciendus, from faciō (A&G p. 115; Bennett §131), not fiendus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 179,
+    "original": "fiendī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 180,
+    "original": "fiendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 181,
+    "original": "fiendum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 182,
+    "original": "fiendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 183,
+    "original": "factum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/fierī",
+    "cell": 184,
+    "original": "factū",
+    "expected": [],
+    "unavailable": true,
+    "reason": "fīō has no present or future participle, gerund, supine or third plural future imperative: A&G p. 115 prints none of them.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG127.jpg",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/hortārī",
+    "cell": 65,
+    "original": "hortāto / hortātor",
+    "expected": [
+      "hortātor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form hortāto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/hortārī",
+    "cell": 66,
+    "original": "hortāto / hortātor",
+    "expected": [
+      "hortātor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form hortāto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/hortārī",
+    "cell": 68,
+    "original": "hortanto / hortantor",
+    "expected": [
+      "hortantor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form hortanto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 49,
+    "original": "ieris",
+    "expected": [
+      "ierīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 51,
+    "original": "ierimus",
+    "expected": [
+      "ierīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 52,
+    "original": "ieritis",
+    "expected": [
+      "ierītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 89,
+    "original": "itus est",
+    "expected": [
+      "itum est"
+    ],
+    "unavailable": false,
+    "reason": "The passive of eō is impersonal: its participle stands in the neuter singular, itum est (A&G p. 114, §203.a; §208.d), not itus est.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 95,
+    "original": "itus erat",
+    "expected": [
+      "itum erat"
+    ],
+    "unavailable": false,
+    "reason": "The passive of eō is impersonal: its participle stands in the neuter singular, itum est (A&G p. 114, §203.a; §208.d), not itus est.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 101,
+    "original": "itus erit",
+    "expected": [
+      "itum erit"
+    ],
+    "unavailable": false,
+    "reason": "The passive of eō is impersonal: its participle stands in the neuter singular, itum est (A&G p. 114, §203.a; §208.d), not itus est.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 119,
+    "original": "itus sit",
+    "expected": [
+      "itum sit"
+    ],
+    "unavailable": false,
+    "reason": "The passive of eō is impersonal: its participle stands in the neuter singular, itum est (A&G p. 114, §203.a; §208.d), not itus est.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 125,
+    "original": "itus esset",
+    "expected": [
+      "itum esset"
+    ],
+    "unavailable": false,
+    "reason": "The passive of eō is impersonal: its participle stands in the neuter singular, itum est (A&G p. 114, §203.a; §208.d), not itus est.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 130,
+    "original": "itum esse",
+    "expected": [
+      "itum esse"
+    ],
+    "unavailable": false,
+    "reason": "itum esse is the impersonal passive of eō, in the neuter singular (A&G §207 table, pūgnātum esse), not a masculine form.",
+    "source": "https://dcc.dickinson.edu/grammar/latin/impersonal-verbs",
+    "target": {
+      "mood": "infinitive",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": {
+      "mood": "infinitive",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "accusative"
+      }
+    }
+  },
+  {
+    "file": "la/īre",
+    "cell": 158,
+    "original": "itus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 159,
+    "original": "itī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 160,
+    "original": "itō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 161,
+    "original": "itum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 162,
+    "original": "itō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 163,
+    "original": "itī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 164,
+    "original": "itōrum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 165,
+    "original": "itīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 166,
+    "original": "itōs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 167,
+    "original": "itīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "A&G prints no perfect participle for eō (p. 114; Bennett §132): its passive is only impersonal (itum est).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 168,
+    "original": "eundus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 169,
+    "original": "eundī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 170,
+    "original": "eundō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 171,
+    "original": "eundum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 172,
+    "original": "eundō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 173,
+    "original": "eundī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 174,
+    "original": "eundōrum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 175,
+    "original": "eundīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 176,
+    "original": "eundōs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/īre",
+    "cell": 177,
+    "original": "eundīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "eō has only the impersonal gerundive eundum (A&G p. 114; §190.d: an intransitive verb has the gerundive only impersonally).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG126.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 18,
+    "original": "largitus sum",
+    "expected": [
+      "largītus sum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 19,
+    "original": "largitus es",
+    "expected": [
+      "largītus es"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 20,
+    "original": "largitus est",
+    "expected": [
+      "largītus est"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 21,
+    "original": "largitī sumus",
+    "expected": [
+      "largītī sumus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 22,
+    "original": "largitī estis",
+    "expected": [
+      "largītī estis"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 23,
+    "original": "largitī sunt",
+    "expected": [
+      "largītī sunt"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 24,
+    "original": "largitus eram",
+    "expected": [
+      "largītus eram"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 25,
+    "original": "largitus erās",
+    "expected": [
+      "largītus erās"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 26,
+    "original": "largitus erat",
+    "expected": [
+      "largītus erat"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 27,
+    "original": "largitī erāmus",
+    "expected": [
+      "largītī erāmus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 28,
+    "original": "largitī erātis",
+    "expected": [
+      "largītī erātis"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 29,
+    "original": "largitī erant",
+    "expected": [
+      "largītī erant"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 30,
+    "original": "largitus erō",
+    "expected": [
+      "largītus erō"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 31,
+    "original": "largitus eris",
+    "expected": [
+      "largītus eris"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 32,
+    "original": "largitus erit",
+    "expected": [
+      "largītus erit"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 33,
+    "original": "largitī erimus",
+    "expected": [
+      "largītī erimus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 34,
+    "original": "largitī eritis",
+    "expected": [
+      "largītī eritis"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 35,
+    "original": "largitī erunt",
+    "expected": [
+      "largītī erunt"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 48,
+    "original": "largitus sim",
+    "expected": [
+      "largītus sim"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 49,
+    "original": "largitus sīs",
+    "expected": [
+      "largītus sīs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 50,
+    "original": "largitus sit",
+    "expected": [
+      "largītus sit"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 51,
+    "original": "largitī sīmus",
+    "expected": [
+      "largītī sīmus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 52,
+    "original": "largitī sītis",
+    "expected": [
+      "largītī sītis"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 53,
+    "original": "largitī sint",
+    "expected": [
+      "largītī sint"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 54,
+    "original": "largitus essem",
+    "expected": [
+      "largītus essem"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 55,
+    "original": "largitus essēs",
+    "expected": [
+      "largītus essēs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 56,
+    "original": "largitus esset",
+    "expected": [
+      "largītus esset"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 57,
+    "original": "largitī essēmus",
+    "expected": [
+      "largītī essēmus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 58,
+    "original": "largitī essētis",
+    "expected": [
+      "largītī essētis"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 59,
+    "original": "largitī essent",
+    "expected": [
+      "largītī essent"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 61,
+    "original": "largitum esse",
+    "expected": [
+      "largītum esse"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "infinitive",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 62,
+    "original": "largitūrum esse",
+    "expected": [
+      "largītūrum esse"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "infinitive",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 65,
+    "original": "largīto / largītor",
+    "expected": [
+      "largītor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form largīto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 66,
+    "original": "largīto / largītor",
+    "expected": [
+      "largītor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form largīto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 68,
+    "original": "largiunto / largiuntor",
+    "expected": [
+      "largiuntor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form largiunto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 148,
+    "original": "largitūrus",
+    "expected": [
+      "largītūrus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 149,
+    "original": "largitūrī",
+    "expected": [
+      "largītūrī"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 150,
+    "original": "largitūrō",
+    "expected": [
+      "largītūrō"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 151,
+    "original": "largitūrum",
+    "expected": [
+      "largītūrum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 152,
+    "original": "largitūrō",
+    "expected": [
+      "largītūrō"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 153,
+    "original": "largitūrī",
+    "expected": [
+      "largītūrī"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 154,
+    "original": "largitūrōrum",
+    "expected": [
+      "largītūrōrum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 155,
+    "original": "largitūrīs",
+    "expected": [
+      "largītūrīs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 156,
+    "original": "largitūrōs",
+    "expected": [
+      "largītūrōs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 157,
+    "original": "largitūrīs",
+    "expected": [
+      "largītūrīs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 158,
+    "original": "largitus",
+    "expected": [
+      "largītus"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 159,
+    "original": "largitī",
+    "expected": [
+      "largītī"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 160,
+    "original": "largitō",
+    "expected": [
+      "largītō"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 161,
+    "original": "largitum",
+    "expected": [
+      "largītum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 162,
+    "original": "largitō",
+    "expected": [
+      "largītō"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 163,
+    "original": "largitī",
+    "expected": [
+      "largītī"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 164,
+    "original": "largitōrum",
+    "expected": [
+      "largītōrum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 165,
+    "original": "largitīs",
+    "expected": [
+      "largītīs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 166,
+    "original": "largitōs",
+    "expected": [
+      "largītōs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 167,
+    "original": "largitīs",
+    "expected": [
+      "largītīs"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 183,
+    "original": "largitum",
+    "expected": [
+      "largītum"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/largīrī",
+    "cell": 184,
+    "original": "largitū",
+    "expected": [
+      "largītū"
+    ],
+    "unavailable": false,
+    "reason": "largior's participle is largītus, with a long ī (Bennett §113; Lewis & Short largĭor, ītus), not largitus.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect113",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 49,
+    "original": "mālueris",
+    "expected": [
+      "māluerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 51,
+    "original": "māluerimus",
+    "expected": [
+      "māluerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 52,
+    "original": "mālueritis",
+    "expected": [
+      "māluerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 138,
+    "original": "mālēns",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 139,
+    "original": "mālentis",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 140,
+    "original": "mālentī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 141,
+    "original": "mālentem",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 142,
+    "original": "mālente",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 143,
+    "original": "mālentēs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 144,
+    "original": "mālentium",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 145,
+    "original": "mālentibus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 146,
+    "original": "mālentēs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/mālle",
+    "cell": 147,
+    "original": "mālentibus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "mālō has no present participle: A&G p. 110 prints volēns and nōlēns but none for mālō (Bennett §130 likewise).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/monēre",
+    "cell": 49,
+    "original": "monueris",
+    "expected": [
+      "monuerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/monēre",
+    "cell": 51,
+    "original": "monuerimus",
+    "expected": [
+      "monuerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/monēre",
+    "cell": 52,
+    "original": "monueritis",
+    "expected": [
+      "monuerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/nōlle",
+    "cell": 49,
+    "original": "nōlueris",
+    "expected": [
+      "nōluerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/nōlle",
+    "cell": 51,
+    "original": "nōluerimus",
+    "expected": [
+      "nōluerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/nōlle",
+    "cell": 52,
+    "original": "nōlueritis",
+    "expected": [
+      "nōluerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/patī",
+    "cell": 65,
+    "original": "patito / patitor",
+    "expected": [
+      "patitor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form patito beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/patī",
+    "cell": 66,
+    "original": "patito / patitor",
+    "expected": [
+      "patitor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form patito beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/patī",
+    "cell": 68,
+    "original": "patiunto / patiuntor",
+    "expected": [
+      "patiuntor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form patiunto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 49,
+    "original": "potueris",
+    "expected": [
+      "potuerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 51,
+    "original": "potuerimus",
+    "expected": [
+      "potuerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 52,
+    "original": "potueritis",
+    "expected": [
+      "potuerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 168,
+    "original": "potendus",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 169,
+    "original": "potendī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 170,
+    "original": "potendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 171,
+    "original": "potendum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 172,
+    "original": "potendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 173,
+    "original": "potendī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 174,
+    "original": "potendōrum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 175,
+    "original": "potendīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 176,
+    "original": "potendōs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 177,
+    "original": "potendīs",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "gerundive",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 179,
+    "original": "potendī",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 180,
+    "original": "potendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 181,
+    "original": "potendum",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/posse",
+    "cell": 182,
+    "original": "potendō",
+    "expected": [],
+    "unavailable": true,
+    "reason": "possum has no gerund or gerundive: A&G p. 109 and Bennett §126 print none (its only participle is the adjective potēns).",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG121.jpg",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "neuter",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 18,
+    "original": "sēcūtus sum",
+    "expected": [
+      "secūtus sum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 19,
+    "original": "sēcūtus es",
+    "expected": [
+      "secūtus es"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 20,
+    "original": "sēcūtus est",
+    "expected": [
+      "secūtus est"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 21,
+    "original": "sēcūtī sumus",
+    "expected": [
+      "secūtī sumus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 22,
+    "original": "sēcūtī estis",
+    "expected": [
+      "secūtī estis"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 23,
+    "original": "sēcūtī sunt",
+    "expected": [
+      "secūtī sunt"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 24,
+    "original": "sēcūtus eram",
+    "expected": [
+      "secūtus eram"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 25,
+    "original": "sēcūtus erās",
+    "expected": [
+      "secūtus erās"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 26,
+    "original": "sēcūtus erat",
+    "expected": [
+      "secūtus erat"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 27,
+    "original": "sēcūtī erāmus",
+    "expected": [
+      "secūtī erāmus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 28,
+    "original": "sēcūtī erātis",
+    "expected": [
+      "secūtī erātis"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 29,
+    "original": "sēcūtī erant",
+    "expected": [
+      "secūtī erant"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 30,
+    "original": "sēcūtus erō",
+    "expected": [
+      "secūtus erō"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 31,
+    "original": "sēcūtus eris",
+    "expected": [
+      "secūtus eris"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 32,
+    "original": "sēcūtus erit",
+    "expected": [
+      "secūtus erit"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 33,
+    "original": "sēcūtī erimus",
+    "expected": [
+      "secūtī erimus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 34,
+    "original": "sēcūtī eritis",
+    "expected": [
+      "secūtī eritis"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 35,
+    "original": "sēcūtī erunt",
+    "expected": [
+      "secūtī erunt"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 48,
+    "original": "sēcūtus sim",
+    "expected": [
+      "secūtus sim"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 49,
+    "original": "sēcūtus sīs",
+    "expected": [
+      "secūtus sīs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 50,
+    "original": "sēcūtus sit",
+    "expected": [
+      "secūtus sit"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 51,
+    "original": "sēcūtī sīmus",
+    "expected": [
+      "secūtī sīmus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 52,
+    "original": "sēcūtī sītis",
+    "expected": [
+      "secūtī sītis"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 53,
+    "original": "sēcūtī sint",
+    "expected": [
+      "secūtī sint"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 54,
+    "original": "sēcūtus essem",
+    "expected": [
+      "secūtus essem"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 55,
+    "original": "sēcūtus essēs",
+    "expected": [
+      "secūtus essēs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 56,
+    "original": "sēcūtus esset",
+    "expected": [
+      "secūtus esset"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 57,
+    "original": "sēcūtī essēmus",
+    "expected": [
+      "secūtī essēmus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 58,
+    "original": "sēcūtī essētis",
+    "expected": [
+      "secūtī essētis"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 59,
+    "original": "sēcūtī essent",
+    "expected": [
+      "secūtī essent"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 61,
+    "original": "sēcūtum esse",
+    "expected": [
+      "secūtum esse"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "infinitive",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 62,
+    "original": "sēcūtūrum esse",
+    "expected": [
+      "secūtūrum esse"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "infinitive",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 65,
+    "original": "sequito / sequitor",
+    "expected": [
+      "sequitor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form sequito beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 66,
+    "original": "sequito / sequitor",
+    "expected": [
+      "sequitor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form sequito beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 68,
+    "original": "sequunto / sequuntor",
+    "expected": [
+      "sequuntor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form sequunto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 148,
+    "original": "sēcūtūrus",
+    "expected": [
+      "secūtūrus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 149,
+    "original": "sēcūtūrī",
+    "expected": [
+      "secūtūrī"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 150,
+    "original": "sēcūtūrō",
+    "expected": [
+      "secūtūrō"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 151,
+    "original": "sēcūtūrum",
+    "expected": [
+      "secūtūrum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 152,
+    "original": "sēcūtūrō",
+    "expected": [
+      "secūtūrō"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 153,
+    "original": "sēcūtūrī",
+    "expected": [
+      "secūtūrī"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 154,
+    "original": "sēcūtūrōrum",
+    "expected": [
+      "secūtūrōrum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 155,
+    "original": "sēcūtūrīs",
+    "expected": [
+      "secūtūrīs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 156,
+    "original": "sēcūtūrōs",
+    "expected": [
+      "secūtūrōs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 157,
+    "original": "sēcūtūrīs",
+    "expected": [
+      "secūtūrīs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "future",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 158,
+    "original": "sēcūtus",
+    "expected": [
+      "secūtus"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 159,
+    "original": "sēcūtī",
+    "expected": [
+      "secūtī"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 160,
+    "original": "sēcūtō",
+    "expected": [
+      "secūtō"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 161,
+    "original": "sēcūtum",
+    "expected": [
+      "secūtum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 162,
+    "original": "sēcūtō",
+    "expected": [
+      "secūtō"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 163,
+    "original": "sēcūtī",
+    "expected": [
+      "secūtī"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 164,
+    "original": "sēcūtōrum",
+    "expected": [
+      "secūtōrum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "genitive"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 165,
+    "original": "sēcūtīs",
+    "expected": [
+      "secūtīs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "dative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 166,
+    "original": "sēcūtōs",
+    "expected": [
+      "secūtōs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 167,
+    "original": "sēcūtīs",
+    "expected": [
+      "secūtīs"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "perfect",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "plural",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 183,
+    "original": "sēcūtum",
+    "expected": [
+      "secūtum"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "accusative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/sequī",
+    "cell": 184,
+    "original": "sēcūtū",
+    "expected": [
+      "secūtū"
+    ],
+    "unavailable": false,
+    "reason": "sequor's participle is secūtus, with a short e (A&G p. 104, §191; Lewis & Short sĕcūtus), not sēcūtus.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "supine",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "ablative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/tegere",
+    "cell": 49,
+    "original": "tēxeris",
+    "expected": [
+      "tēxerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/tegere",
+    "cell": 51,
+    "original": "tēxerimus",
+    "expected": [
+      "tēxerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/tegere",
+    "cell": 52,
+    "original": "tēxeritis",
+    "expected": [
+      "tēxerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/velle",
+    "cell": 49,
+    "original": "volueris",
+    "expected": [
+      "voluerīs"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/velle",
+    "cell": 51,
+    "original": "voluerimus",
+    "expected": [
+      "voluerīmus"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/velle",
+    "cell": 52,
+    "original": "volueritis",
+    "expected": [
+      "voluerītis"
+    ],
+    "unavailable": false,
+    "reason": "The perfect subjunctive has a long ī in -erīs, -erīmus, -erītis (Bennett §101; A&G §169.d Note on the original ī): the engine follows Bennett, as the design decides.",
+    "source": "https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect101",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/velle",
+    "cell": 138,
+    "original": "volens",
+    "expected": [
+      "volēns"
+    ],
+    "unavailable": false,
+    "reason": "A vowel before ns is long (A&G §10.d); A&G p. 110 prints volēns, not volens.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG122.jpg",
+    "target": {
+      "mood": "participle",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": {
+        "gender": "masculine",
+        "number": "singular",
+        "case": "nominative"
+      }
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/verērī",
+    "cell": 65,
+    "original": "verēto / verētor",
+    "expected": [
+      "verētor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form verēto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/verērī",
+    "cell": 66,
+    "original": "verēto / verētor",
+    "expected": [
+      "verētor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form verēto beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "la/verērī",
+    "cell": 68,
+    "original": "verento / verentor",
+    "expected": [
+      "verentor"
+    ],
+    "unavailable": false,
+    "reason": "A deponent has only the passive-form future imperative (hortātor, hortantor; A&G p. 104, Bennett §113); the active-form verento beside it is not a form of a deponent.",
+    "source": "https://dcc.dickinson.edu/sites/default/files/AG116.jpg",
+    "target": {
+      "mood": "imperative",
+      "tense": "future",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
   }
 ]

@@ -7398,6 +7398,168 @@
       "auxiliary": null,
       "pattern": "default",
       "templatePlaceholders": 1
+    },
+    {
+      "file": "la/amāre",
+      "language": "la",
+      "infinitive": "amāre",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/audīre",
+      "language": "la",
+      "infinitive": "audīre",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/capere",
+      "language": "la",
+      "infinitive": "capere",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/esse",
+      "language": "la",
+      "infinitive": "esse",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 84
+    },
+    {
+      "file": "la/ferre",
+      "language": "la",
+      "infinitive": "ferre",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/fierī",
+      "language": "la",
+      "infinitive": "fierī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/hortārī",
+      "language": "la",
+      "infinitive": "hortārī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/īre",
+      "language": "la",
+      "infinitive": "īre",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/largīrī",
+      "language": "la",
+      "infinitive": "largīrī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/mālle",
+      "language": "la",
+      "infinitive": "mālle",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 84
+    },
+    {
+      "file": "la/monēre",
+      "language": "la",
+      "infinitive": "monēre",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/nōlle",
+      "language": "la",
+      "infinitive": "nōlle",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 84
+    },
+    {
+      "file": "la/patī",
+      "language": "la",
+      "infinitive": "patī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/posse",
+      "language": "la",
+      "infinitive": "posse",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/sequī",
+      "language": "la",
+      "infinitive": "sequī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
+    },
+    {
+      "file": "la/tegere",
+      "language": "la",
+      "infinitive": "tegere",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 0
+    },
+    {
+      "file": "la/velle",
+      "language": "la",
+      "infinitive": "velle",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 84
+    },
+    {
+      "file": "la/verērī",
+      "language": "la",
+      "infinitive": "verērī",
+      "gender": "masculine",
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 69
     }
   ],
   "fixtures": {
@@ -7477,10 +7639,23 @@
       "unmodelledCells": 20,
       "remaps": 3,
       "checksum": "369101f39ab144efcd077e11c5833d83e31a4d84509cfb01f305697aeeffee14"
+    },
+    "la": {
+      "files": 18,
+      "baseInfinitives": 18,
+      "cells": 3330,
+      "targets": 3330,
+      "availableCells": 2226,
+      "unavailableCells": 1086,
+      "expectedForms": 2234,
+      "correctionCount": 254,
+      "templatePlaceholders": 819,
+      "unmodelledCells": 18,
+      "checksum": "9ebc1ba3a8a0e707e4bf0ac376fb9d49bd8189f07934fe8487655bb6d9f7f88e"
     }
   },
   "corrections": {
-    "count": 1945,
-    "checksum": "5484fdcdccbfbb6d7c5933193671f16dbc0e60433433c5d6d6744e55ae8c05db"
+    "count": 2199,
+    "checksum": "fae2d3d02c01aea5613d47a76c9c1b9ac05e8907824c4314b4aebf9af62d0387"
   }
 }
