@@ -13,7 +13,13 @@ export type LatinStemClass = 'a' | 'e' | 'consonant' | 'io' | 'i';
 /** What a verb lacks; `supine` is the supine itself where the stem exists for the participle (fīō: factus, factum īrī). */
 export type LatinLack = 'present' | 'perfect' | 'supineStem' | 'supine' | 'imperative' | 'presentParticiple' | 'futureParticiple' | 'gerund';
 /** `intransitive`: a deponent or semi-deponent whose gerundive is only impersonal (moriendum est, A&G §190.d). */
-export type LatinFlag = 'shortImperative' | 'athematic' | 'eoRoot' | 'longBeforeVowel' | 'fore' | 'passiveIsFio' | 'intransitive';
+/**
+ * `vLessPerfect`: the v-less perfect is listed as the main form (eō: iī, īstī), so no v-loss or syncope alternative is
+ * derived; `perfectOnParticiple`: an active verb whose perfect system is participle + sum (fīō: factus sum);
+ * `futureInfinitivePassive`: the future infinitive is the supine + īrī (fīō: factum īrī).
+ */
+export type LatinFlag = 'shortImperative' | 'athematic' | 'eoRoot' | 'longBeforeVowel' | 'fore' | 'passiveIsFio' | 'intransitive'
+  | 'vLessPerfect' | 'perfectOnParticiple' | 'futureInfinitivePassive';
 
 export interface LexicalForm {
   readonly text: string;

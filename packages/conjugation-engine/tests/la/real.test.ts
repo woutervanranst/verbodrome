@@ -36,7 +36,7 @@ describe('real verbs (design §8.2)', () => {
     expect([pf('occidere', { stems: { present: 'occidō' } }), supine('occidere', { stems: { present: 'occidō' } })]).toEqual([['occidī'], ['occāsum']]);
     expect([pf('tangere'), supine('tangere')]).toEqual([['tetigī'], ['tāctum']]);
     expect([pf('contingere'), supine('contingere')]).toEqual([['contigī'], ['contāctum']]);
-    expect([pf('quaerere'), supine('quaerere')]).toEqual([['quaesīvī', 'quaesiī'], ['quaesītum']]); // quaesiī: syncope (A&G §181.b)
+    expect([pf('quaerere'), supine('quaerere')]).toEqual([['quaesīvī', 'quaesiī'], ['quaesītum']]); // quaesiī: v-loss (A&G §181.b)
     expect(pf('requīrere')).toEqual(['requīsīvī', 'requīsiī']);
     expect([pf('frangere'), supine('frangere')]).toEqual([['frēgī'], ['frāctum']]);
     expect([pf('vertere'), supine('vertere')]).toEqual([['vertī'], ['versum']]);

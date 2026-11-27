@@ -71,7 +71,7 @@ export function lexemeFromEntry(entry: LatinEntry, hints: LatinStemHints = {}, e
   const deponent = entry.voice === 'deponent';
   const voiceClass = entry.voice ?? 'active';
   const stemClass = entry.stemClass ?? stemClassOf[entry.conjugation as Exclude<LatinConjugation, 'irregular'>];
-  const perfectSystem = voiceClass !== 'active' || entry.infinitive === 'fierī' ? 'participle' : 'stem';
+  const perfectSystem = voiceClass !== 'active' || entry.flags?.includes('perfectOnParticiple') ? 'participle' : 'stem';
   const lacks = new Set(entry.lacks ?? []);
   const passive = voiceClass !== 'active' ? 'none'
     : entry.passive ?? (entry.present !== null && impersonalPassive.has(entry.present) ? 'impersonal' : 'personal');

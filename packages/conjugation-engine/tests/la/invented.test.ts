@@ -123,7 +123,7 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('plundīre', 'infinitive', 'present', 'passive')).toEqual(['plundīrī']);
     expect(forms('plundīre', 'participle', 'present', undefined, { agreement: { case: 'genitive', gender: 'masculine', number: 'singular' } })).toEqual(['plundientis']);
     expect(forms('plundīre', 'participle', 'gerundive')).toEqual(['plundiendus', 'plundiundus']);
-    expect(forms('plundīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['plundīvī', 'plundiī']); // plundiī: syncope, literary
+    expect(forms('plundīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['plundīvī', 'plundiī']); // plundiī: v-loss (A&G §181.b)
     expect(forms('plundīre', 'supine')).toEqual(['plundītum']);
   });
 

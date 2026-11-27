@@ -234,7 +234,7 @@ export const transitiveEoPrefixes: ReadonlySet<string> = new Set(transitiveEo);
  */
 const eo: LatinEntry = {
   present: 'eō', infinitive: 'īre', perfect: ['iī', 'īvī'], supine: ['itum'], conjugation: 'irregular', stemClass: 'i',
-  passive: 'impersonal', flags: ['eoRoot'], stems: { presentParticipleOblique: 'eunt', gerund: 'eund' }, alternativeUsage: 'literary',
+  passive: 'impersonal', flags: ['eoRoot', 'vLessPerfect'], stems: { presentParticipleOblique: 'eunt', gerund: 'eund' }, alternativeUsage: 'literary',
   compound: { prefixes: ['ab', 'ad', 'ante', 'circum', 'com', 'ex', 'in', 'inter', 'ob', 'per', 'prae', 'praeter', 'prō', 're', 'sub', 'trāns'] },
   source: { work: 'ag', locator: 'A&G §203' }, checked: agPrint(114),
 };
@@ -270,7 +270,7 @@ const queo: LatinEntry[] = (['qu', 'nequ'] as const).map(stem => ({
  */
 const fio: LatinEntry = {
   present: 'fīō', infinitive: 'fierī', supine: ['factum'], conjugation: 'irregular', stemClass: 'i', passive: 'none',
-  flags: ['longBeforeVowel'], lacks: ['presentParticiple', 'futureParticiple', 'gerund', 'supine'], stems: { present: 'fī', gerund: 'faciend' },
+  flags: ['longBeforeVowel', 'perfectOnParticiple', 'futureInfinitivePassive'], lacks: ['presentParticiple', 'futureParticiple', 'gerund', 'supine'], stems: { present: 'fī', gerund: 'faciend' },
   cells: {
     ...tense('subjunctive.imperfect', 'fierem fierēs fieret fierēmus fierētis fierent'),
     presentInfinitive: [{ text: 'fierī' }],

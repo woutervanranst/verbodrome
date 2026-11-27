@@ -36,12 +36,14 @@ unverified); `lexiconVerification` in `sources.ts` keys one record per entry.
   5. the ending, then the defaults (below). A macron-less `-ere` (or `-eri`) that the lexicon does not settle gives two
      paradigms, the third and the second conjugation, each with its assumption.
 - **A cell**: stem (present, perfect or supine stem; `la.stem.*`), ending (`la.end.*`), then the juncture rules in order:
-  syncope of the perfect, -iō drops i, the root of eō, the a lost before a vowel, short before a vowel, short before nt,
+  syncope of the perfect, loss of v in -īvī perfects, -iō drops i, the root of eō, the a lost before a vowel, short before a vowel, short before nt,
   short final vowel, long before ns, ii contracted before s, the short imperative (`la.orth.*`). Whole words the lexicon
   lists record `la.lex.cell`; the compounds of sum build on sum's words (`la.lex.sum-compound`, `la.lex.pot-sum`); faciō's
   present-system passive is fīō's active (`la.lex.passive-fio`).
-- **Variants**: `-re` beside `-ris` and `-ēre` beside `-ērunt` (literary); the syncopated perfects of A&G §181
-  (*amāstī, amārim, amāsse; audiī, audīstī*: literary, never preferred); `-undus` beside `-endus` (dated); fīō's
+- **Variants**: `-re` beside `-ris` and `-ēre` beside `-ērunt` (literary); the contracted perfects of A&G §181
+  (*amāstī, amārim, amāsse, nōram; audīstī, audīsse*: literary, never preferred, `la.orth.syncope`); the v-less forms of
+  -īvī perfects, which A&G §181.b says these perfects "regularly" have (*audiī, audiit, audieram*: standard, pattern
+  `iī`, after the full form, `la.orth.v-loss`); `-undus` beside `-endus` (dated); fīō's
   bracketed forms and *volt, voltis* (dated); *forem* beside *essem* and *fore* beside *futūrus esse*.
 - **Compound tenses** (`la.periphrasis.*`): the perfect passive system and the deponent perfect are participle + sum;
   the future infinitives are the participle + esse and the supine + īrī.
@@ -187,7 +189,8 @@ reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Be
 | `la.orth.short-final` | orthography | rule | A long vowel is short before a final m, t or r: {before} → {after}. | [A&G §167](https://dcc.dickinson.edu/grammar/latin/verb-endings) |
 | `la.orth.long-before-ns` | orthography | rule | A vowel before ns or nf is long: {before} → {after}. | [A&G §10.d](https://dcc.dickinson.edu/grammar/latin/quantity-syllables); [Bennett §5 (1.a)](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect5) |
 | `la.orth.ii-contraction` | orthography | rule | In the perfect of eō, ii before s contracts to ī: {before} → {after}. | [A&G §203.c](https://dcc.dickinson.edu/grammar/latin/irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D); [A&G p. 114](https://dcc.dickinson.edu/sites/default/files/AG126.jpg) |
-| `la.orth.syncope` | orthography | rule | Syncopated perfect, chiefly literary: the v of the perfect stem drops and the vowels contract: {before} → {after}. | [A&G §181](https://dcc.dickinson.edu/grammar/latin/peculiarities); [A&G p. 91](https://dcc.dickinson.edu/sites/default/files/AG103.jpg); [Bennett §116](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect116) |
+| `la.orth.syncope` | orthography | rule | Syncopated perfect, chiefly literary: the v and the next vowel drop before s or r, and the vowels contract: {before} → {after}. | [A&G §181.a](https://dcc.dickinson.edu/grammar/latin/peculiarities); [A&G p. 91](https://dcc.dickinson.edu/sites/default/files/AG103.jpg); [Bennett §116](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect116) |
+| `la.orth.v-loss` | orthography | rule | Perfects in -īvī often drop the v: {before} → {after}. | [A&G §181.b](https://dcc.dickinson.edu/grammar/latin/peculiarities); [A&G p. 91](https://dcc.dickinson.edu/sites/default/files/AG103.jpg); [Bennett §116](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect116) |
 | `la.periphrasis.perfect` | periphrasis | rule | Perfect: the perfect participle with the present of esse. | [A&G §179.g](https://dcc.dickinson.edu/grammar/latin/forms-conjugation); [A&G §164.3.a](https://dcc.dickinson.edu/grammar/latin/stems); [A&G p. 94](https://dcc.dickinson.edu/sites/default/files/AG106.jpg); [Bennett §102](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect102) |
 | `la.periphrasis.pluperfect` | periphrasis | rule | Pluperfect: the perfect participle with the imperfect of esse. | [A&G §179.g](https://dcc.dickinson.edu/grammar/latin/forms-conjugation); [A&G p. 94](https://dcc.dickinson.edu/sites/default/files/AG106.jpg); [Bennett §102](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect102) |
 | `la.periphrasis.future-perfect` | periphrasis | rule | Future perfect: the perfect participle with the future of esse. | [A&G §179.g](https://dcc.dickinson.edu/grammar/latin/forms-conjugation); [A&G p. 94](https://dcc.dickinson.edu/sites/default/files/AG106.jpg); [Bennett §102](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect102) |

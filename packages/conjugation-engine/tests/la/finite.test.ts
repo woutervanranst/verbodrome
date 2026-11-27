@@ -37,8 +37,9 @@ describe('Latin simple finite tenses', () => {
     expect(syncopated('amāre', 'subjunctive', 'pluperfect', { subject: '1sg' }).map(f => f.text)).toEqual(['amāssem']);
     expect(syncopated('nōscere', 'indicative', 'perfect').map(f => f.text)).toEqual(['nōstī', 'nōstis', 'nōrunt']);
     expect(syncopated('dēlēre', 'indicative', 'perfect', { subject: '2pl' }).map(f => f.text)).toEqual(['dēlēstis']);
-    expect(syncopated('audīre', 'indicative', 'perfect').map(f => f.text)).toEqual(['audiī', 'audīstī', 'audiit', 'audiimus', 'audīstis', 'audiērunt', 'audiēre']);
-    expect(syncopated('audīre', 'indicative', 'pluperfect', { subject: '1sg' }).map(f => f.text)).toEqual(['audieram']);
+    // In -īvī perfects only the contraction before s is syncope (audīstī, audīsse; A&G §181.b); the loss of v is not.
+    expect(syncopated('audīre', 'indicative', 'perfect').map(f => f.text)).toEqual(['audīstī', 'audīstis']);
+    expect(syncopated('audīre', 'indicative', 'pluperfect', { subject: '1sg' })).toEqual([]);
     expect(syncopated('audīre', 'infinitive', 'perfect').map(f => f.text)).toEqual(['audīsse']);
     for (const f of [...syncopated('amāre', 'indicative', 'perfect'), ...syncopated('audīre', 'indicative', 'perfect')]) {
       expect([f.variant.usage, f.preferred]).toEqual(['literary', false]);
@@ -47,6 +48,24 @@ describe('Latin simple finite tenses', () => {
     expect(syncopated('amāre', 'indicative', 'perfect', { subject: '1sg' })).toEqual([]); // amāvī is never contracted (§181.a Note)
     expect(syncopated('īre', 'indicative', 'perfect')).toEqual([]); // eō has iī, īstī as its main forms (§203)
     expect(syncopated('tegere', 'indicative', 'perfect')).toEqual([]);
+  });
+
+  it('drops the v of -īvī perfects as an ordinary alternative, never preferred (A&G §181.b "regularly omit v")', () => {
+    const perfect = (infinitive: string, mood: string, tense: string, extra: Record<string, unknown> = {}) =>
+      conjugate({ language: 'la', infinitive, mood, tense, voice: 'active', ...extra } as never).forms;
+    const vLess = (infinitive: string, mood: string, tense: string, extra: Record<string, unknown> = {}) =>
+      perfect(infinitive, mood, tense, extra).filter(f => f.variant.pattern?.split('.').includes('iī'));
+    expect(vLess('audīre', 'indicative', 'perfect').map(f => f.text)).toEqual(['audiī', 'audiit', 'audiimus', 'audiērunt', 'audiēre']);
+    expect(vLess('audīre', 'indicative', 'pluperfect', { subject: '1sg' }).map(f => f.text)).toEqual(['audieram']);
+    expect(vLess('petere', 'subjunctive', 'perfect', { subject: '1sg' }).map(f => f.text)).toEqual(['petierim']);
+    for (const f of vLess('audīre', 'indicative', 'perfect')) {
+      expect([f.variant.usage, f.preferred]).toEqual([f.text === 'audiēre' ? 'literary' : 'standard', false]); // -ēre stays literary
+      const rules = f.parts.flatMap(part => part.steps ?? []).map(s => s.rule);
+      expect(rules).toContain('la.orth.v-loss');
+      expect(rules).not.toContain('la.orth.syncope');
+    }
+    expect(vLess('amāre', 'indicative', 'perfect')).toEqual([]);
+    expect(vLess('īre', 'indicative', 'perfect')).toEqual([]); // eō lists iī as its main form
   });
 
   it('builds the active perfect system on the perfect stem', () => {

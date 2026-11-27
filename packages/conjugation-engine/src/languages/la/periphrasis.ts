@@ -11,7 +11,8 @@ const participle: ChainElement = { verb: 'main', nonFinite: 'perfectParticiple',
 const esse = (mood: string, tense: string): ChainElement => ({ verb: { lemma: 'esse' }, finite: { mood, tense } });
 const esseInfinitive: ChainElement = { verb: { lemma: 'esse' }, nonFinite: 'presentInfinitive' };
 const onParticiple = (lexeme: LatinLexeme): boolean => lexeme.perfectSystem === 'participle';
-const isFio = (lexeme: LatinLexeme): boolean => lexeme.entry?.infinitive === 'fierī';
+/** fīō's future infinitive is factum īrī (A&G p. 115), flagged in the lexicon. */
+const supineFuture = (lexeme: LatinLexeme): boolean => lexeme.flags.has('futureInfinitivePassive');
 
 const finite = [
   ['indicative', 'perfect', 'indicative', 'present', latinRules['la.periphrasis.perfect']],
@@ -31,7 +32,7 @@ export const latinPeriphrases: readonly Periphrasis<LatinLexeme>[] = [
   { mood: 'infinitive', tense: 'perfect', voice: 'passive', rule: latinRules['la.periphrasis.perfect-infinitive'], chain: [participle, esseInfinitive] },
   { mood: 'infinitive', tense: 'perfect', voice: 'active', applies: onParticiple, rule: latinRules['la.periphrasis.perfect-infinitive'], chain: [participle, esseInfinitive] },
   {
-    mood: 'infinitive', tense: 'future', voice: 'active', applies: lexeme => !isFio(lexeme), rule: latinRules['la.periphrasis.future-infinitive'],
+    mood: 'infinitive', tense: 'future', voice: 'active', applies: lexeme => !supineFuture(lexeme), rule: latinRules['la.periphrasis.future-infinitive'],
     chain: [{ verb: 'main', nonFinite: 'futureParticiple', agree: true }, esseInfinitive],
   },
   {
@@ -39,5 +40,5 @@ export const latinPeriphrases: readonly Periphrasis<LatinLexeme>[] = [
     chain: [{ verb: 'main', nonFinite: 'fore', agree: true }],
   },
   { mood: 'infinitive', tense: 'future', voice: 'passive', rule: latinRules['la.periphrasis.future-infinitive-passive'], chain: futurePassive },
-  { mood: 'infinitive', tense: 'future', voice: 'active', applies: isFio, rule: latinRules['la.periphrasis.future-infinitive-passive'], chain: futurePassive },
+  { mood: 'infinitive', tense: 'future', voice: 'active', applies: supineFuture, rule: latinRules['la.periphrasis.future-infinitive-passive'], chain: futurePassive },
 ];

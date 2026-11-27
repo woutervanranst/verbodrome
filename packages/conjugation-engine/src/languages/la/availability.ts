@@ -37,7 +37,7 @@ function needsSupine(lexeme: LatinLexeme, target: ResolvedTarget): boolean {
   if (target.mood === 'participle') return target.tense === 'perfect' || (target.tense === 'future' && !lexeme.futureParticipleStems.length);
   if (target.mood === 'infinitive') {
     if (target.tense === 'perfect') return passive || lexeme.perfectSystem === 'participle';
-    if (target.tense === 'future') return passive || lexeme.entry?.infinitive === 'fierī' || !lexeme.futureParticipleStems.length;
+    if (target.tense === 'future') return passive || lexeme.flags.has('futureInfinitivePassive') || !lexeme.futureParticipleStems.length;
     return false;
   }
   return isPerfectTense(target.mood, target.tense) && (passive || lexeme.perfectSystem === 'participle');
