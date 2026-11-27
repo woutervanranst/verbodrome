@@ -189,7 +189,7 @@ locales.nl[matches[1]!.notes[0]!]; // In gesproken taal is de passé composé de
 - `score`: how close the two tenses are, from 1 down; `rank`: the position, from 1.
 - `register`: `standard`, `literary` or `dated`, the target tense's.
 - `via`: the source and target concepts the match went through (`null` for an override).
-- `notes`: message keys (`eq.*`) of the core catalogs: `locales[locale][key]` is a sentence for the learner, plain text without placeholders.
+- `notes`: message keys (`eq.*`) of the core catalogs: `locales[locale][key]` is a sentence for the learner, plain text without placeholders. A trainer that imports only `conjugation-engine/equivalence` (without the packs) reads the same texts from `equivalenceNotes[locale][key]` (`en` and `nl`).
 
 `matches` is empty when the target has no tense that corresponds (a Latin supine in any other language, a French gérondif in German); the result's own `notes` then say why (`eq.note.no-counterpart`, followed by the source tense's notes). They are empty whenever there is a match. Within one language, the tense itself is first.
 

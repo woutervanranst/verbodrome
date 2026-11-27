@@ -11,7 +11,10 @@ export const expectations: readonly Expectation[] = [
   ['en', 'indicative.perfect_progressive', 'nl', 'indicative.present', 0.5, 'exact', { notes: ['eq.en.duration'], second: 'indicative.perfect' }],
   ['en', 'subjunctive.past', 'nl', 'indicative.past', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.en.subjunctive-irrealis', 'eq.note.no-subjunctive'] }],
   ['fr', 'subjunctive.imperfect', 'en', 'subjunctive.past', 1, 'exact', { notes: ['eq.en.subjunctive-irrealis'], second: null }],
-  ['fr', 'indicative.near_future', 'en', 'indicative.future', 0.6, 'exact', { second: 'indicative.future_progressive' }],
+  // Review M1: the note points the learner to be going to.
+  ['fr', 'indicative.near_future', 'en', 'indicative.future', 0.6, 'exact', { notes: ['eq.fr.near-future'] }],
+  // Review M2: the note points the learner to have just.
+  ['fr', 'indicative.recent_past', 'en', 'indicative.perfect', 0.5, 'exact', { notes: ['eq.fr.recent-past'] }],
   ['en', 'indicative.present_progressive', 'en', 'indicative.present_progressive', 1, 'exact', { second: 'indicative.present' }],
   ['en', 'participle.present', 'fr', 'participle.present', 0.6, 'exact', { second: 'gerund.present' }],
   ['en', 'indicative.pluperfect_progressive', 'nl', 'indicative.past', 0.5, 'exact', { notes: ['eq.en.duration'], second: 'indicative.pluperfect' }],

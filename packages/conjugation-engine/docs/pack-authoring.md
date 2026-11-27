@@ -1055,7 +1055,7 @@ const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', te
 
 - `match`: `exact` (a shared concept), `approximate` (the ladder relaxed the dimensions named in `relaxed`, or the match is a stand-in), `override` (a pair override; `score` 1, `via` null).
 - `register`: the target tense's, so a trainer can leave out literary and dated tenses.
-- `notes`: message keys of the core catalogs, in order: the source link's, the target link's, then one per relaxation (`eq.note.relaxed-aspect`, `eq.note.no-subjunctive`, ...). `locales[locale][key]` is the text.
+- `notes`: message keys of the core catalogs, in order: the source link's, the target link's, then one per relaxation (`eq.note.relaxed-aspect`, `eq.note.no-subjunctive`, ...). `locales[locale][key]` is the text, and `equivalenceNotes[locale][key]` on the `./equivalence` subpath. A note speaks to the learner: it names the forms (je vais manger: ik ga eten), never the engine or its catalogue.
 - `matches` may be empty: no tense of the target corresponds (a Latin supine, a French gerund into German). The result's own `notes` then say why: `eq.note.no-counterpart`, then the source tense's notes. They are empty whenever there is a match.
 - `{ voice: 'passive' }` looks up the passive of the source tense. Only a language in `passiveLanguages` (its catalogue has a passive voice) can be the source; a tense it does not list in `passiveTenses` (a Latin participle, gerund or supine) is looked up as active; a target without a modelled passive gets its active tenses, every exact match turned approximate, with `eq.note.passive-not-modelled`.
 

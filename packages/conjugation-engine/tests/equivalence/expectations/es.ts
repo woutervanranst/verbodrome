@@ -4,7 +4,10 @@ import type { Expectation } from './types.js';
 export const expectations: readonly Expectation[] = [
   ['fr', 'indicative.perfect', 'es', 'indicative.simple_past', 1, 'exact', { notes: ['eq.fr.perfect.spoken-past'], second: 'indicative.perfect' }],
   ['es', 'indicative.simple_past', 'fr', 'indicative.perfect', 1, 'exact', { notes: ['eq.fr.perfect.spoken-past'], second: 'indicative.simple_past' }],
-  ['es', 'subjunctive.future', 'fr', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.note.no-subjunctive'], second: 'indicative.near_future' }],
+  ['es', 'subjunctive.future', 'fr', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.note.no-subjunctive'] }],
+  // Review M1 and M2: voy a comer, acabo de comer.
+  ['fr', 'indicative.near_future', 'es', 'indicative.future', 0.6, 'exact', { notes: ['eq.fr.near-future', 'eq.es.future-conjecture'], second: null }],
+  ['fr', 'indicative.recent_past', 'es', 'indicative.perfect', 0.5, 'exact', { notes: ['eq.fr.recent-past', 'eq.es.perfect-spain'], second: null }],
   // Ruling I6 (replaces the plan's dated subjunctive future): reported speech is the indicative future (dice que vendrá).
   ['de', 'subjunctive.future', 'es', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.de.subjunctive-reported', 'eq.es.future-conjecture', 'eq.note.no-subjunctive'], second: null }],
   ['es', 'imperative.negative', 'it', 'imperative.negative', 1, 'exact', { second: 'imperative.present' }],

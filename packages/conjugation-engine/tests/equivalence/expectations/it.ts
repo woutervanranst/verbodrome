@@ -9,6 +9,8 @@ export const expectations: readonly Expectation[] = [
   ['it', 'indicative.perfect', 'nl', 'indicative.perfect', 1, 'exact', { notes: ['eq.it.perfect-spoken'], second: 'indicative.past' }],
   ['it', 'indicative.past_anterior', 'es', 'indicative.past_anterior', 1, 'exact', { second: 'indicative.pluperfect' }],
   ['fr', 'gerund.past', 'it', 'gerund.past', 1, 'exact', { second: null }],
+  // Review M2: ho appena mangiato.
+  ['fr', 'indicative.recent_past', 'it', 'indicative.perfect', 0.5, 'exact', { notes: ['eq.fr.recent-past', 'eq.it.perfect-spoken'], second: null }],
   ['it', 'conditional.past', 'fr', 'conditional.past', 1, 'exact', { notes: ['eq.it.cond-past-future-in-past'], second: null }],
   ['it', 'indicative.future', 'nl', 'indicative.future', 1, 'exact', { notes: ['eq.it.future-supposition'], second: 'indicative.present' }],
   ['en', 'subjunctive.past', 'it', 'subjunctive.imperfect', 1, 'exact', { notes: ['eq.en.subjunctive-irrealis'], second: null }],

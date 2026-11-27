@@ -27,6 +27,9 @@ export const expectations: readonly Expectation[] = [
   ['en', 'indicative.perfect_progressive', 'de', 'indicative.present', 0.5, 'exact', { notes: ['eq.en.duration'], second: 'indicative.perfect' }],
   ['fr', 'gerund.present', 'de', null, 0, 'none', { notes: ['eq.note.no-counterpart'] }],
   ['de', 'indicative.present', 'fr', 'indicative.present', 1, 'exact', { second: 'indicative.future' }],
+  // Review M1 and M2: ich esse gleich, ich habe gerade gegessen.
+  ['fr', 'indicative.near_future', 'de', 'indicative.future', 0.6, 'exact', { notes: ['eq.fr.near-future', 'eq.de.future-supposition'], second: 'indicative.present' }],
+  ['fr', 'indicative.recent_past', 'de', 'indicative.perfect', 0.5, 'exact', { notes: ['eq.fr.recent-past'], second: null }],
   // Not in the plan: the written narrative past is the Präteritum (an override; the pivot alone ranks the Perfekt first).
   ['fr', 'indicative.simple_past', 'de', 'indicative.past', 1, 'override', { notes: ['eq.de.past-written'], second: 'indicative.perfect' }],
   ['fr', 'conditional.past', 'de', 'subjunctive.pluperfect', 0.9, 'exact', { second: 'conditional.past' }],

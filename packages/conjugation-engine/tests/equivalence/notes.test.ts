@@ -58,8 +58,14 @@ describe('equivalence note catalogs', () => {
     expect(eqKeys(locale).filter(key => !owner.has(key))).toEqual([]);
   });
 
-  it('has the English text of the plan and the Dutch of its translation', () => {
-    expect(locales.en['eq.note.no-counterpart']).toBe('The target language has no tense in its catalogue that corresponds to this form.');
-    expect(locales.nl['eq.pair.fr-nl.near-future']).toMatch(/^Frans aller /u);
+  it('has the English text of the review and its Dutch translation', () => {
+    expect(locales.en['eq.note.no-counterpart']).toBe('The target language has no tense that corresponds to this form.');
+    expect(locales.nl['eq.pair.fr-nl.near-future']).toMatch(/^Het Franse aller /u);
+  });
+
+  it.each(['en', 'nl'] as const)('%s: speaks to the learner, never of the engine (review M14)', locale => {
+    for (const key of eqKeys(locale)) {
+      expect(locales[locale][key], key).not.toMatch(/catalog|catalogus|modelled|gemodelleerd|\bask for\b|\bvraag\b/iu);
+    }
   });
 });

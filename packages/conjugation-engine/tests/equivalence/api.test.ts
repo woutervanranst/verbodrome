@@ -62,6 +62,14 @@ describe('equivalentTenses', () => {
   it('is the same function on the root and on the ./equivalence subpath', () => {
     expect(root.equivalentTenses).toBe(sub.equivalentTenses);
   });
+
+  it('gives the note texts of both locales on the ./equivalence subpath, as the core catalogs have them (review M12)', () => {
+    for (const locale of ['en', 'nl'] as const) {
+      const catalog = Object.fromEntries(Object.entries(locales[locale]).filter(([key]) => key.startsWith('eq.')));
+      expect(sub.equivalenceNotes[locale]).toEqual(catalog);
+      expect(Object.isFrozen(sub.equivalenceNotes[locale])).toBe(true);
+    }
+  });
 });
 
 describe('pair overrides', () => {

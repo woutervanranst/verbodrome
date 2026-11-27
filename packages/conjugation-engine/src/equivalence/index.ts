@@ -2,9 +2,12 @@
  * Tense equivalence between the registered languages: for a tense of one language, the ranked tenses of another that a
  * trainer can ask for. The registry below holds one total tense map per language, the languages whose passive is
  * modelled and the pair overrides; `equivalentTenses` validates a lookup and hands it to the derivation. It reads no
- * language pack (only their types), so this subpath loads without them.
+ * language pack (only their types), and the note texts come from the locale files of the notes, which import nothing,
+ * so this subpath loads without the packs.
  */
 import { ConjugationError } from '../errors.js';
+import { equivalence as englishNotes } from '../i18n/locales/en/equivalence/index.js';
+import { equivalence as dutchNotes } from '../i18n/locales/nl/equivalence/index.js';
 import type { Language, MoodFor, TenseFor } from '../types.js';
 import type { ConceptId, ConceptLink, LanguageMap, NoteKey, Register, TenseKeyFor } from './concepts.js';
 import { de } from './de.js';
@@ -31,7 +34,7 @@ function frozen<T extends Readonly<Record<string, Readonly<Record<string, readon
 export const maps = frozen({ fr, nl, de, es, it, la, en } satisfies { readonly [L in Language]: LanguageMap<L> });
 
 /** The languages with a modelled passive: a passive lookup may start only from one of them. */
-export const passiveLanguages: readonly Language[] = Object.freeze(['la']);
+export const passiveLanguages = Object.freeze(['la'] as const) satisfies readonly Language[];
 
 /**
  * The tenses of each passive language that have a passive voice (the catalogue entries with `voices`); a passive lookup
@@ -44,9 +47,18 @@ export const passiveTenses = Object.freeze({
     'indicative.future_perfect', 'subjunctive.present', 'subjunctive.imperfect', 'subjunctive.perfect', 'subjunctive.pluperfect',
     'imperative.present', 'imperative.future', 'infinitive.present', 'infinitive.perfect', 'infinitive.future',
   ] as const),
-}) satisfies { readonly [L in (typeof passiveLanguages)[number]]?: readonly TenseKeyFor<L>[] };
+}) satisfies { readonly [L in (typeof passiveLanguages)[number]]: readonly TenseKeyFor<L>[] };
 
 export const equivalenceData: EquivalenceData = Object.freeze({ maps, overrides, passiveLanguages, passiveTenses });
+
+/**
+ * The texts of the notes (`eq.*`) by locale, the same as in the core catalogs (`locales.en`, `locales.nl`), for a trainer
+ * that imports only this subpath: `equivalenceNotes.nl[match.notes[0]]`.
+ */
+export const equivalenceNotes: { readonly [locale in 'en' | 'nl']: Readonly<Record<NoteKey, string>> } = Object.freeze({
+  en: Object.freeze({ ...englishNotes }),
+  nl: Object.freeze({ ...dutchNotes }),
+});
 
 /** A tense of language `L` as a mood and one of that mood's tenses. */
 export type TenseRef<L extends Language> = { [M in MoodFor<L>]: { readonly mood: M; readonly tense: TenseFor<L, M> } }[MoodFor<L>];

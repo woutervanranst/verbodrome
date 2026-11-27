@@ -102,10 +102,11 @@ describe('built package boundaries', () => {
   it('runs the ./equivalence import graph without Node code and without the language packs', () => {
     const entry = new URL('../dist/equivalence/index.js', import.meta.url).href;
     const result = inBrowserGraph(entry, `
-      const { matches } = namespace.equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'perfect' });
-      console.log(JSON.stringify({ tense: matches[0].tense.tense, packs: urls.filter(url => new URL(url).pathname.includes('/languages/')) }));
+      const { matches } = namespace.equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'simple_past' });
+      const note = namespace.equivalenceNotes.nl[matches[1].notes[0]];
+      console.log(JSON.stringify({ tense: matches[0].tense.tense, note, packs: urls.filter(url => new URL(url).pathname.includes('/languages/')) }));
     `);
-    expect(result).toEqual({ tense: 'perfect', packs: [] });
+    expect(result).toEqual({ tense: 'past', note: expect.stringMatching(/^In het Nederlands is de voltooid tegenwoordige tijd/u), packs: [] });
   });
 
   it('loads the ./equivalence subpath through package self-reference', () => {
