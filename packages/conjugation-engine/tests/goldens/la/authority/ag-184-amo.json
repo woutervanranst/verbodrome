@@ -661,7 +661,8 @@
    "tense": "perfect",
    "voice": "active",
    "forms": [
-    "amāvisse"
+    "amāvisse",
+    "amāsse"
    ]
   },
   {
@@ -1464,16 +1465,7 @@
    ]
   }
  ],
- "excluded": [
-  {
-   "verb": "amāre",
-   "mood": "infinitive",
-   "tense": "perfect",
-   "voice": "active",
-   "printed": "amāsse",
-   "reason": "A contracted perfect (A&G §181), out of scope by the approved design; amāvisse is generated."
-  }
- ],
+ "excluded": [],
  "disputed": [
   {
    "verb": "amāre",

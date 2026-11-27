@@ -79,6 +79,7 @@ export const latinCitations = {
   'la.lex.sum-compound': [ag('irregular-verbs-compounds-sum', '§198'), bennett(125)],
   'la.lex.pot-sum': [ag('irregular-verbs-compounds-sum', '§198.b'), agPage(109)],
   'la.lex.passive-fio': [ag('irregular-verbs-f%C4%AB%C5%8D', '§204'), agPage(115)],
+  'la.orth.syncope': [ag('peculiarities', '§181'), agPage(91), bennett(116)],
   'la.orth.ii-contraction': [ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§203.c'), agPage(114)],
   'la.avail.not-attested': [ag('defective-verbs', '§206'), agPage(113), agPage(115)],
   'la.lex.cell': [ag('sum', '§170'), ag('irregular-verbs-compounds-sum', '§198'), ag('irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D', '§199'), ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§§202–203'), ag('irregular-verbs-f%C4%AB%C5%8D', '§204'), bennett(100)],

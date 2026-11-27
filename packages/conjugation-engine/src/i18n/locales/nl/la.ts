@@ -60,6 +60,7 @@ export const la = {
   'la.orth.short-before-nt': 'Een klinker voor nt of nd is kort: {before} → {after}.',
   'la.orth.short-final': 'Een lange klinker wordt kort voor een m, t of r aan het eind van het woord: {before} → {after}.',
   'la.orth.long-before-ns': 'Een klinker voor ns of nf is lang: {before} → {after}.',
+  'la.orth.syncope': 'Gesyncopeerd perfectum, vooral literair: de v van de perfectumstam valt weg en de klinkers trekken samen: {before} → {after}.',
   'la.orth.ii-contraction': 'In het perfectum van eō wordt ii voor s samengetrokken tot ī: {before} → {after}.',
   'la.end.present-participle': 'Participium praesentis: voeg -{ending} toe (genitivus -ntis).',
   'la.end.perfect-participle': 'Participium perfecti: de supinumstam + -us, -a, -um.',

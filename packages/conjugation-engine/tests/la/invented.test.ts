@@ -20,18 +20,18 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('blorpāre', 'indicative', 'present')).toEqual(['blorpō', 'blorpās', 'blorpat', 'blorpāmus', 'blorpātis', 'blorpant']);
     expect(forms('blorpāre', 'indicative', 'imperfect')[0]).toBe('blorpābam');
     expect(forms('blorpāre', 'indicative', 'future')).toEqual(['blorpābō', 'blorpābis', 'blorpābit', 'blorpābimus', 'blorpābitis', 'blorpābunt']);
-    expect(forms('blorpāre', 'indicative', 'perfect').slice(-2)).toEqual(['blorpāvērunt', 'blorpāvēre']);
+    expect(forms('blorpāre', 'indicative', 'perfect').slice(-3)).toEqual(['blorpāvērunt', 'blorpārunt', 'blorpāvēre']); // blorpārunt: syncope, literary
     expect(forms('blorpāre', 'indicative', 'pluperfect')[0]).toBe('blorpāveram');
     expect(forms('blorpāre', 'indicative', 'future_perfect')[0]).toBe('blorpāverō');
     expect(forms('blorpāre', 'subjunctive', 'present').slice(0, 2)).toEqual(['blorpem', 'blorpēs']);
     expect(forms('blorpāre', 'subjunctive', 'imperfect')[0]).toBe('blorpārem');
-    expect(forms('blorpāre', 'subjunctive', 'perfect').slice(0, 2)).toEqual(['blorpāverim', 'blorpāverīs']);
+    expect(forms('blorpāre', 'subjunctive', 'perfect').slice(0, 3)).toEqual(['blorpāverim', 'blorpārim', 'blorpāverīs']);
     expect(forms('blorpāre', 'imperative', 'present')).toEqual(['blorpā', 'blorpāte']);
     expect(forms('blorpāre', 'imperative', 'future')).toEqual(['blorpātō', 'blorpātō', 'blorpātōte', 'blorpantō']);
     expect(forms('blorpāre', 'indicative', 'present', 'passive').slice(0, 3)).toEqual(['blorpor', 'blorpāris', 'blorpāre']);
     expect(forms('blorpāre', 'indicative', 'present', 'passive').at(-1)).toBe('blorpantur');
     expect(forms('blorpāre', 'indicative', 'perfect', 'passive', { subject: '3sg' })).toEqual(['blorpātus est', 'blorpāta est', 'blorpātum est']);
-    expect(forms('blorpāre', 'infinitive')).toEqual(['blorpāre', 'blorpārī', 'blorpāvisse', 'blorpātus esse', 'blorpātūrus esse', 'blorpātum īrī']);
+    expect(forms('blorpāre', 'infinitive')).toEqual(['blorpāre', 'blorpārī', 'blorpāvisse', 'blorpāsse', 'blorpātus esse', 'blorpātūrus esse', 'blorpātum īrī']);
     expect(forms('blorpāre', 'participle')).toEqual(['blorpāns', 'blorpātus', 'blorpātūrus', 'blorpandus']);
     expect(forms('blorpāre', 'participle', 'present', undefined, { agreement: { case: 'genitive', gender: 'masculine', number: 'singular' } })).toEqual(['blorpantis']);
     expect(forms('blorpāre', 'gerund')).toEqual(['blorpandī']);
@@ -123,7 +123,7 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('plundīre', 'infinitive', 'present', 'passive')).toEqual(['plundīrī']);
     expect(forms('plundīre', 'participle', 'present', undefined, { agreement: { case: 'genitive', gender: 'masculine', number: 'singular' } })).toEqual(['plundientis']);
     expect(forms('plundīre', 'participle', 'gerundive')).toEqual(['plundiendus', 'plundiundus']);
-    expect(forms('plundīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['plundīvī']);
+    expect(forms('plundīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['plundīvī', 'plundiī']); // plundiī: syncope, literary
     expect(forms('plundīre', 'supine')).toEqual(['plundītum']);
   });
 

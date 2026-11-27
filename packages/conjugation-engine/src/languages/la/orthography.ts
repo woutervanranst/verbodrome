@@ -106,6 +106,26 @@ const iiContraction: JunctureRule<Context> = {
     ? one({ stem: `${j.stem.slice(0, -1)}ī`, ending: j.ending.slice(1) }) : null,
 };
 
+/**
+ * Syncopated perfects, a literary alternative after the full form (A&G §181; Bennett §116.1). In -āvī, -ēvī, -ōvī
+ * (also mōvī, nōvī) the v and the next vowel drop before -is- and -er-: amāvistī → amāstī, amāverim → amārim,
+ * amāvērunt → amārunt, amāvisse → amāsse; never in the first or third singular (§181.a Note). In -īvī the v drops
+ * (audīvī → audiī, audīveram → audieram) and ii contracts before st and ss (audīstī, audīsse; §181.b).
+ */
+const syncope: JunctureRule<Context> = {
+  info: latinRules['la.orth.syncope'],
+  apply(j, { lexeme, cell }) {
+    if (onPresentStem(cell) || lexeme.flags.has('eoRoot') || j.stem.length < 3) return null;
+    const literary = { usage: 'literary', pattern: 'syncope' } as const;
+    const alongside = (stem: string, ending: string) => [...one(j), ...one({ stem, ending }, [], literary)];
+    if (/īv$/u.test(j.stem) && vowel.test(j.ending)) {
+      return j.ending.startsWith('is') ? alongside(j.stem.slice(0, -1), j.ending.slice(1)) : alongside(j.stem.slice(0, -1), j.ending);
+    }
+    if (/[āēō]v$/u.test(j.stem) && /^(?:is|er|ērunt$)/u.test(j.ending)) return alongside(j.stem.slice(0, -1), j.ending.slice(1));
+    return null;
+  },
+};
+
 /** dīc, dūc, fac, fer and their compounds, but not the compounds in -ficiō (A&G §182): face → fac. */
 const shortImperative: JunctureRule<Context> = {
   info: latinRules['la.end.short-imperative'],
@@ -114,8 +134,8 @@ const shortImperative: JunctureRule<Context> = {
     ? one({ stem: j.stem, ending: '' }) : null,
 };
 
-/** The rules of GD §4.4 in order, with the eō contraction and the short imperative after the vowel rules. */
-export const latinOrthography: readonly JunctureRule<Context>[] = [ioDropI, eoRoot, aLost, shortBeforeVowel, shortBeforeNt, shortFinal, longBeforeNs, iiContraction, shortImperative];
+/** The rules of GD §4.4 in order, after the syncope of the perfect, with the eō contraction and the short imperative after the vowel rules. */
+export const latinOrthography: readonly JunctureRule<Context>[] = [syncope, ioDropI, eoRoot, aLost, shortBeforeVowel, shortBeforeNt, shortFinal, longBeforeNs, iiContraction, shortImperative];
 
 /**
  * What breaks the quantity rules in `word` (GD §4.4 lint): a long vowel before nt, nd or another vowel (fī- before a

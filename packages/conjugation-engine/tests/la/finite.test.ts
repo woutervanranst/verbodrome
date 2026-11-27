@@ -28,10 +28,32 @@ describe('Latin simple finite tenses', () => {
     expect(forms('tegere', 'indicative', 'future', 'passive')).toContain('tegēris');
   });
 
+  it('syncopates the perfect as a literary alternative, never preferred (A&G §181; Bennett §116.1)', () => {
+    const perfect = (infinitive: string, mood: string, tense: string, extra: Record<string, unknown> = {}) =>
+      conjugate({ language: 'la', infinitive, mood, tense, voice: 'active', ...extra } as never).forms;
+    const syncopated = (infinitive: string, mood: string, tense: string, extra: Record<string, unknown> = {}) =>
+      perfect(infinitive, mood, tense, extra).filter(f => f.variant.pattern?.split('.').includes('syncope'));
+    expect(syncopated('amāre', 'indicative', 'perfect').map(f => f.text)).toEqual(['amāstī', 'amāstis', 'amārunt']);
+    expect(syncopated('amāre', 'subjunctive', 'pluperfect', { subject: '1sg' }).map(f => f.text)).toEqual(['amāssem']);
+    expect(syncopated('nōscere', 'indicative', 'perfect').map(f => f.text)).toEqual(['nōstī', 'nōstis', 'nōrunt']);
+    expect(syncopated('dēlēre', 'indicative', 'perfect', { subject: '2pl' }).map(f => f.text)).toEqual(['dēlēstis']);
+    expect(syncopated('audīre', 'indicative', 'perfect').map(f => f.text)).toEqual(['audiī', 'audīstī', 'audiit', 'audiimus', 'audīstis', 'audiērunt', 'audiēre']);
+    expect(syncopated('audīre', 'indicative', 'pluperfect', { subject: '1sg' }).map(f => f.text)).toEqual(['audieram']);
+    expect(syncopated('audīre', 'infinitive', 'perfect').map(f => f.text)).toEqual(['audīsse']);
+    for (const f of [...syncopated('amāre', 'indicative', 'perfect'), ...syncopated('audīre', 'indicative', 'perfect')]) {
+      expect([f.variant.usage, f.preferred]).toEqual(['literary', false]);
+      expect(f.parts.flatMap(part => part.steps ?? []).map(s => s.rule)).toContain('la.orth.syncope');
+    }
+    expect(syncopated('amāre', 'indicative', 'perfect', { subject: '1sg' })).toEqual([]); // amāvī is never contracted (§181.a Note)
+    expect(syncopated('īre', 'indicative', 'perfect')).toEqual([]); // eō has iī, īstī as its main forms (§203)
+    expect(syncopated('tegere', 'indicative', 'perfect')).toEqual([]);
+  });
+
   it('builds the active perfect system on the perfect stem', () => {
-    expect(forms('amāre', 'indicative', 'perfect')).toEqual(['amāvī', 'amāvistī', 'amāvit', 'amāvimus', 'amāvistis', 'amāvērunt', 'amāvēre']);
-    expect(forms('amāre', 'subjunctive', 'perfect')).toEqual(['amāverim', 'amāverīs', 'amāverit', 'amāverīmus', 'amāverītis', 'amāverint']);
-    expect(forms('amāre', 'indicative', 'future_perfect')).toEqual(['amāverō', 'amāveris', 'amāverit', 'amāverimus', 'amāveritis', 'amāverint']);
+    // the syncopated forms (amāstī, amārim) are literary alternatives after the full ones: see the next test
+    expect(forms('amāre', 'indicative', 'perfect')).toEqual(['amāvī', 'amāvistī', 'amāstī', 'amāvit', 'amāvimus', 'amāvistis', 'amāstis', 'amāvērunt', 'amārunt', 'amāvēre']);
+    expect(forms('amāre', 'subjunctive', 'perfect').filter((_, i) => i % 2 === 0)).toEqual(['amāverim', 'amāverīs', 'amāverit', 'amāverīmus', 'amāverītis', 'amāverint']);
+    expect(forms('amāre', 'indicative', 'future_perfect').filter((_, i) => i % 2 === 0)).toEqual(['amāverō', 'amāveris', 'amāverit', 'amāverimus', 'amāveritis', 'amāverint']);
     expect(explainIds(form('tegere', 'indicative', 'perfect', '1sg'))).toEqual(['la.stem.perfect', 'la.end.perfect']);
     expect(forms('tegere', 'indicative', 'perfect')[0]).toBe('tēxī');
   });

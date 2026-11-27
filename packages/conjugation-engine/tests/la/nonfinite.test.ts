@@ -7,7 +7,7 @@ describe('Latin non-finite forms', () => {
     expect(forms('amāre', 'participle')).toEqual(['amāns', 'amātus', 'amātūrus', 'amandus']);
     expect(forms('amāre', 'gerund')).toEqual(['amandī']);
     expect(forms('amāre', 'supine')).toEqual(['amātum']);
-    expect(forms('amāre', 'infinitive')).toEqual(['amāre', 'amārī', 'amāvisse', 'amātus esse', 'amātūrus esse', 'amātum īrī']);
+    expect(forms('amāre', 'infinitive')).toEqual(['amāre', 'amārī', 'amāvisse', 'amāsse', 'amātus esse', 'amātūrus esse', 'amātum īrī']);
     expect(forms('tegere', 'participle', 'gerundive')).toEqual(['tegendus', 'tegundus']); // second: usage 'dated', pattern 'undus'
     expect(forms('audīre', 'participle', 'present')).toEqual(['audiēns']);
     expect(forms('īre', 'participle', 'present')).toEqual(['iēns']);

@@ -60,6 +60,7 @@ export const la = {
   'la.orth.short-before-nt': 'A vowel before nt or nd is short: {before} → {after}.',
   'la.orth.short-final': 'A long vowel is short before a final m, t or r: {before} → {after}.',
   'la.orth.long-before-ns': 'A vowel before ns or nf is long: {before} → {after}.',
+  'la.orth.syncope': 'Syncopated perfect, chiefly literary: the v of the perfect stem drops and the vowels contract: {before} → {after}.',
   'la.orth.ii-contraction': 'In the perfect of eō, ii before s contracts to ī: {before} → {after}.',
   'la.end.present-participle': 'Present participle: add -{ending} (genitive -ntis).',
   'la.end.perfect-participle': 'Perfect participle: the supine stem + -us, -a, -um.',

@@ -36,14 +36,14 @@ describe('real verbs (design §8.2)', () => {
     expect([pf('occidere', { stems: { present: 'occidō' } }), supine('occidere', { stems: { present: 'occidō' } })]).toEqual([['occidī'], ['occāsum']]);
     expect([pf('tangere'), supine('tangere')]).toEqual([['tetigī'], ['tāctum']]);
     expect([pf('contingere'), supine('contingere')]).toEqual([['contigī'], ['contāctum']]);
-    expect([pf('quaerere'), supine('quaerere')]).toEqual([['quaesīvī'], ['quaesītum']]);
-    expect(pf('requīrere')).toEqual(['requīsīvī']);
+    expect([pf('quaerere'), supine('quaerere')]).toEqual([['quaesīvī', 'quaesiī'], ['quaesītum']]); // quaesiī: syncope (A&G §181.b)
+    expect(pf('requīrere')).toEqual(['requīsīvī', 'requīsiī']);
     expect([pf('frangere'), supine('frangere')]).toEqual([['frēgī'], ['frāctum']]);
     expect([pf('vertere'), supine('vertere')]).toEqual([['vertī'], ['versum']]);
   });
 
   it('fourth conjugation, A&G §212.b', () => {
-    expect([pf('sepelīre'), supine('sepelīre')]).toEqual([['sepelīvī'], ['sepultum']]);
+    expect([pf('sepelīre'), supine('sepelīre')]).toEqual([['sepelīvī', 'sepeliī'], ['sepultum']]);
     expect([pf('haurīre'), supine('haurīre'), forms('haurīre', 'participle', 'future')]).toEqual([['hausī'], ['haustum'], ['hausūrus']]);
   });
 

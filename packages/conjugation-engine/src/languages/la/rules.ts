@@ -77,6 +77,7 @@ export const latinRules = defineRules({
   'la.orth.short-final': { stage: 'orthography' },
   'la.orth.long-before-ns': { stage: 'orthography' },
   'la.orth.ii-contraction': { stage: 'orthography' },
+  'la.orth.syncope': { stage: 'orthography' },
   // Compound tenses, clause and availability (GD §4.5)
   'la.periphrasis.perfect': { stage: 'periphrasis' },
   'la.periphrasis.pluperfect': { stage: 'periphrasis' },
