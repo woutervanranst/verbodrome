@@ -44,6 +44,12 @@ export interface SpanishEntry {
   readonly preteriteConjugation?: 'er';
   /** The future and conditional stem, where it is not the infinitive (tendr-é). */
   readonly future?: string | readonly Variant<string>[];
+  /**
+   * The regular form is in use too beside a stored irregular one (`first` or `second` in output order): the lexicon
+   * holds only the irregular value and the rules derive the regular one (predeciré beside prediré, yace beside yaz, roo
+   * beside roigo and royo).
+   */
+  readonly regularToo?: { readonly future?: 'first' | 'second'; readonly imperative2sg?: 'first' | 'second'; readonly present1?: 'first' | 'second' };
   /** The whole tú command, where it is not the él form of the present (pon). */
   readonly imperative2sg?: string | readonly Variant<string>[];
   /** The irregular participle (puesto). */
@@ -107,21 +113,24 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   hacer: { present1: 'hag', preterite: 'hic', future: 'har', imperative2sg: 'haz', participle: 'hecho' },
   satisfacer: {
     present1: 'satisfag', preterite: 'satisfic', future: 'satisfar', participle: 'satisfecho',
-    imperative2sg: [{ value: 'satisfaz', pattern: 'short' }, { value: 'satisface', pattern: 'regular' }],
+    imperative2sg: 'satisfaz', regularToo: { imperative2sg: 'second' },
   },
   decir: { alternation: 'e-i', present1: 'dig', preterite: 'dij', future: 'dir', imperative2sg: 'di', participle: 'dicho' },
   predecir: {
     alternation: 'e-i', present1: 'predig', preterite: 'predij', participle: 'predicho',
-    future: [{ value: 'predir', pattern: 'irregular' }, { value: 'predecir', pattern: 'regular' }],
+    // DPD «predecir» (unverified): both futures, the regular one the more common today.
+    future: 'predir', regularToo: { future: 'first' },
   },
   contradecir: {
     alternation: 'e-i', present1: 'contradig', preterite: 'contradij', participle: 'contradicho',
-    future: [{ value: 'contradir', pattern: 'irregular' }, { value: 'contradecir', pattern: 'regular' }],
+    future: 'contradir', regularToo: { future: 'second' },
   },
   desdecir: {
     alternation: 'e-i', present1: 'desdig', preterite: 'desdij', participle: 'desdicho',
-    future: [{ value: 'desdir', pattern: 'irregular' }, { value: 'desdecir', pattern: 'regular' }],
+    future: 'desdir', regularToo: { future: 'second' },
   },
+  antedecir: { alternation: 'e-i', present1: 'antedig', preterite: 'antedij', participle: 'antedicho', future: 'antedir', regularToo: { future: 'second' } },
+  interdecir: { alternation: 'e-i', present1: 'interdig', preterite: 'interdij', participle: 'interdicho', future: 'interdir', regularToo: { future: 'second' } },
   // yerro everywhere; the regular erro in large parts of America (DPD «errar», unverified).
   errar: { alternation: [{ value: 'e-ie', pattern: 'ye' }, { value: null, pattern: 'regular', region: 'America' }] },
   // The regular conjugation is the usual one now; engrueso is also in use (DPD «engrosar», unverified).
@@ -144,10 +153,10 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   asir: { present1: 'asg' },
   yacer: {
     present1: [{ value: 'yazc', pattern: 'zc' }, { value: 'yazg', pattern: 'zg' }, { value: 'yag', pattern: 'g' }],
-    imperative2sg: [{ value: 'yace', pattern: 'regular' }, { value: 'yaz', pattern: 'short' }],
+    imperative2sg: 'yaz', regularToo: { imperative2sg: 'first' },
   },
   placer: {},
-  roer: { present1: [{ value: 'ro', pattern: 'o' }, { value: 'roig', pattern: 'ig' }, { value: 'roy', pattern: 'y' }] },
+  roer: { present1: [{ value: 'roig', pattern: 'ig' }, { value: 'roy', pattern: 'y' }], regularToo: { present1: 'first' } },
   raer: { present1: [{ value: 'raig', pattern: 'ig' }, { value: 'ray', pattern: 'y' }] },
   erguir: { alternation: [{ value: 'e-ie', pattern: 'ye' }, { value: 'e-i', pattern: 'i' }] },
   // One verb with two infinitives (DPD «pudrir»): pudr- in every form except the participle podrido.
@@ -252,7 +261,7 @@ export const bothStressVerbs: ReadonlySet<string> = new Set(words('agriar auxili
 
 /** Vowel + -cer/-cir verbs without zc (§4.2): mezo, cuezo; the others have a stored 1sg stem. */
 export const zcExceptions: ReadonlySet<string> = new Set(words(`hacer deshacer rehacer contrahacer satisfacer cocer escocer recocer
-  mecer remecer decir bendecir maldecir predecir contradecir desdecir yacer`));
+  mecer remecer decir bendecir maldecir predecir contradecir desdecir antedecir interdecir yacer`));
 
 /** Strong bases of five letters or more, whose irregularity a prefixed verb inherits (§3.3). */
 export const strongBases: readonly string[] = words('andar caber hacer poner querer saber salir tener traer valer venir');

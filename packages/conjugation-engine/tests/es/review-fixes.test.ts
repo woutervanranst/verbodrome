@@ -135,7 +135,7 @@ describe('controller rulings on variants', () => {
   });
 
   it('puts the irregular future of the decir family first', () => {
-    expect(row('predecir', 'indicative', 'future')[0]).toBe('prediré / predeciré');
+    expect(row('predecir', 'indicative', 'future')[0]).toBe('predeciré / prediré');   // whole-pack review I2: regular first
     expect(row('contradecir', 'indicative', 'future')[0]).toBe('contradiré / contradeciré');
     expect(row('desdecir', 'conditional', 'present')[0]).toBe('desdiría / desdeciría');
     expect(row('bendecir', 'indicative', 'future')[0]).toBe('bendeciré');

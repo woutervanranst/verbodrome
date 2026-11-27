@@ -46,4 +46,43 @@ describe('C1: the h of hue- only at the start of a word; desosar and desovar are
   });
 });
 
+describe('C2 and I2: regular variants are derived by rule, the irregular one is the lexical item', () => {
+  const ruleIds = (forms: readonly ConjugatedForm[]) => forms.map(form => form.ruleIds.filter(id => id.startsWith('es.stem') || id.startsWith('es.end') || id.startsWith('es.cell')));
+  it('derives predeciré first and lists prediré second; the other -decir verbs the other way round', () => {
+    expect(row('predecir', 'indicative', 'future')[0]).toBe('predeciré / prediré');
+    expect(row('predecir', 'conditional', 'present')[0]).toBe('predeciría / prediría');
+    const [regular, irregular] = one('predecir', 'indicative', 'future', 1, 'singular');
+    expect(ruleIds([regular!])[0]).toEqual(['es.stem.future-infinitive', 'es.end.future']);
+    expect(ruleIds([irregular!])[0]).toEqual(['es.stem.future-lexical', 'es.end.future']);
+    expect([regular!.variant.pattern, irregular!.variant.pattern]).toEqual(['regular', 'irregular']);
+    expect(row('contradecir', 'indicative', 'future')[0]).toBe('contradiré / contradeciré');
+    expect(row('desdecir', 'conditional', 'present')[0]).toBe('desdiría / desdeciría');
+    for (const [verb, first, preterite, command] of [['antedecir', 'antedigo', 'antedije', 'antedice'], ['interdecir', 'interdigo', 'interdije', 'interdice'],
+      ['contradecir', 'contradigo', 'contradije', 'contradice'], ['desdecir', 'desdigo', 'desdije', 'desdice'], ['predecir', 'predigo', 'predije', 'predice']]) {
+      expect(row(verb!, 'indicative', 'present')[0]).toBe(first);
+      expect(row(verb!, 'indicative', 'simple_past')[0]).toBe(preterite);
+      expect(row(verb!, 'imperative', 'present')[0]).toBe(command);
+    }
+    expect(row('antedecir', 'indicative', 'future')[0]).toBe('antediré / antedeciré');
+    expect(row('bendecir', 'indicative', 'future')[0]).toBe('bendeciré');
+  });
+
+  it('derives the regular tú command of yacer and satisfacer', () => {
+    expect(row('yacer', 'imperative', 'present')[0]).toBe('yace / yaz');
+    expect(row('satisfacer', 'imperative', 'present')[0]).toBe('satisfaz / satisface');
+    const [yace, yaz] = one('yacer', 'imperative', 'present', 2, 'singular');
+    expect(ruleIds([yace!])[0]).toEqual(['es.stem.root', 'es.end.imperative-tu']);
+    expect(ruleIds([yaz!])[0]).toEqual(['es.cell.imperative-short']);
+    expect(explained(yace!)).not.toContain('short');
+  });
+
+  it('derives roo by the regular rules beside roigo and royo', () => {
+    expect(row('roer', 'indicative', 'present')[0]).toBe('roo / roigo / royo');
+    expect(row('roer', 'subjunctive', 'present')[0]).toBe('roa / roiga / roya');
+    const [roo] = one('roer', 'indicative', 'present', 1, 'singular');
+    expect(ruleIds([roo!])[0]).toEqual(['es.stem.root', 'es.end.present']);
+    expect(roo!.variant.pattern).toBe('regular');
+  });
+});
+
 export { analysisOf, explained, ids, texts };

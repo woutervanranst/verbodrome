@@ -103,13 +103,26 @@ function consonantInsertions(lexeme: SpanishLexeme, cell: Cell, root: string): F
 const presentCell = (person: FiniteCell['person'], number: FiniteCell['number'], mood: 'indicative' | 'subjunctive'): FiniteCell =>
   ({ kind: 'finite', mood, tense: 'present', person, number });
 
+/**
+ * A stored irregular value beside the regular form the rules derive (`regularToo`): the stored outcomes tagged
+ * `irregular` unless they carry a pattern, the derived ones tagged `regular`, in the order the lexicon gives.
+ */
+function withRegular(order: 'first' | 'second' | undefined, irregular: Fork<string>, regular: () => Fork<string>): Fork<string> {
+  if (order === undefined) return irregular;
+  const tag = (fork: Fork<string>, pattern: string) => fork.map(outcome => ({ ...outcome, tags: { pattern, ...outcome.tags } }));
+  const derived = tag(regular(), 'regular');
+  const listed = tag(irregular, 'irregular');
+  return order === 'first' ? [...derived, ...listed] : [...listed, ...derived];
+}
+
 /** The stem of a present indicative cell. */
 function presentStem(lexeme: SpanishLexeme, cell: FiniteCell): Fork<string> {
   const { present1 } = lexeme.entry;
+  const derived = () => chain(rootOf(lexeme), root => chain(consonantInsertions(lexeme, cell, root), stem => alternated(lexeme, cell, stem)));
   if (slotOf(cell) === 0 && present1 !== undefined) {
-    return stored(lexeme, present1, stem => step(rules['es.stem.present-1sg'], lexeme.infinitive, stem, { stem }));
+    return withRegular(lexeme.entry.regularToo?.present1, stored(lexeme, present1, stem => step(rules['es.stem.present-1sg'], lexeme.infinitive, stem, { stem })), derived);
   }
-  return chain(rootOf(lexeme), root => chain(consonantInsertions(lexeme, cell, root), stem => alternated(lexeme, cell, stem)));
+  return derived();
 }
 
 /** The stem of a present subjunctive cell: the lexicon's, the first person's (teng-, conozc-), or the root. */
@@ -119,9 +132,10 @@ function subjunctiveStem(lexeme: SpanishLexeme, cell: FiniteCell): Fork<string> 
     return stored(lexeme, entry.subjunctive, stem => step(rules['es.stem.lexical'], lexeme.infinitive, stem, { stem }));
   }
   const fromFirst = (stem: string) => step(rules['es.stem.subjunctive-from-1sg'], lexeme.infinitive, stem, { stem });
-  if (entry.present1 !== undefined) return stored(lexeme, entry.present1, fromFirst);
-  return chain(rootOf(lexeme), root => chain(consonantInsertions(lexeme, cell, root), stem =>
+  const derived = () => chain(rootOf(lexeme), root => chain(consonantInsertions(lexeme, cell, root), stem =>
     stem.endsWith('zc') ? one(stem, [fromFirst(stem)]) : alternated(lexeme, cell, stem)));
+  if (entry.present1 !== undefined) return withRegular(entry.regularToo?.present1, stored(lexeme, entry.present1, fromFirst), derived);
+  return derived();
 }
 
 /** The third person plural preterite without -ron (amaron → ama-), the base of the imperfect and future subjunctive. */
@@ -162,12 +176,12 @@ export function stemFork(lexeme: SpanishLexeme, cell: Cell): Fork<string> {
       return chain(rootOf(lexeme), root => alternated(lexeme, cell, root));
     case 'indicative.future':
     case 'conditional.present': {
-      if (entry.future !== undefined) {
-        return stored(lexeme, entry.future, stem => step(rules['es.stem.future-lexical'], lexeme.infinitive, stem, { stem }));
-      }
       // The whole infinitive, without the tilde of -eír / -oír (reiré), on the lexicon's root where it has one (pudrir-).
       const stem = `${lexeme.root}${themeVowel[lexeme.conjugation]}r`;
-      return one(stem, [step(rules['es.stem.future-infinitive'], lexeme.infinitive, stem)]);
+      const whole = () => one(stem, [step(rules['es.stem.future-infinitive'], lexeme.infinitive, stem)]);
+      if (entry.future === undefined) return whole();
+      const short = stored(lexeme, entry.future, future => step(rules['es.stem.future-lexical'], lexeme.infinitive, future, { stem: future }));
+      return withRegular(entry.regularToo?.future, short, whole);
     }
     case 'subjunctive.imperfect':
     case 'subjunctive.future':
@@ -231,7 +245,7 @@ export function lexicalCell(lexeme: SpanishLexeme, cell: Cell, derive: Derive = 
     const listed = entry.cells?.[cellKey(cell)];
     if (listed !== undefined) return lexicalWords(lexeme, listed, 'es.cell.lexical');
     if (cell.mood === 'imperative' && imperativeSource(cell) === 'tu' && entry.imperative2sg !== undefined) {
-      return lexicalWords(lexeme, entry.imperative2sg, 'es.cell.imperative-short');
+      return withRegular(entry.regularToo?.imperative2sg, lexicalWords(lexeme, entry.imperative2sg, 'es.cell.imperative-short'), () => derive(cell));
     }
     return null;
   }

@@ -109,7 +109,7 @@ describe('Spanish simple tenses', () => {
     expect(row('salir', 'conditional', 'present')[1]).toBe('saldrías');
     expect(row('yacer', 'indicative', 'present')[0]).toBe('yazco / yazgo / yago');
     expect(row('podrir', 'indicative', 'future')[0]).toBe('pudriré');
-    expect(row('predecir', 'indicative', 'future')[0]).toBe('prediré / predeciré');
+    expect(row('predecir', 'indicative', 'future')[0]).toBe('predeciré / prediré');   // whole-pack review I2
     expect(row('oír', 'indicative', 'present')).toEqual(['oigo', 'oyes', 'oye', 'oímos', 'oís', 'oyen']);
   });
 
