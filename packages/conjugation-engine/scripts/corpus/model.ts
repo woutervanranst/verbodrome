@@ -384,6 +384,11 @@ export interface CorpusLanguage {
   readonly unmodelled?: Readonly<Record<string, string>>;
   /** Opt in to the extra-forms guard (step 5). French and Dutch do not: their fixtures predate it. */
   readonly requireTaggedExtras?: boolean;
+  /**
+   * The fixtures carry no subject ids: the source pages have no subject slots (French and Dutch), so a cell answers the
+   * forms of its person and number whichever slot the engine gives them. Without it, a cell must name its slot.
+   */
+  readonly fixturesWithoutSubjects?: boolean;
   /** Labelled engine queries whose forms, taken together (step 3), cover every modelled cell of a fixture file. */
   query(file: CorpusFile): readonly CorpusQuery[];
   /** Which of the forms of query `label` that already match the cell's target answer the cell (step 3). */

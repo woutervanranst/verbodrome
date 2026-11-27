@@ -30,9 +30,10 @@ export const frenchNeuter: ConjugationOptions = { language: 'fr', infinitive: 'a
 // @ts-expect-error French participles do not agree in the neuter.
 export const frenchNeuterAgreement: ConjugationOptions = { language: 'fr', infinitive: 'aimer', agreement: { gender: 'neuter' } };
 
-// A language without subject slots has no `subject` option, in a query or on a builder.
-// @ts-expect-error French declares no subject slots.
-export const frenchSubject: ConjugationOptions = { language: 'fr', infinitive: 'aimer', subject: 'x' };
+// A language's `subject` option names one of its slots, in a query or on a builder.
+export const frenchSubject: ConjugationOptions = { language: 'fr', infinitive: 'aimer', mood: 'indicative', subject: '3pl' };
+// @ts-expect-error French has no slot x.
+export const frenchUnknownSubject: ConjugationOptions = { language: 'fr', infinitive: 'aimer', subject: 'x' };
 // @ts-expect-error Dutch declares no subject slots.
 export const dutchSubject: ConjugationOptions = { language: 'nl', infinitive: 'werken', mood: 'indicative', subject: 'x' };
 
@@ -67,7 +68,8 @@ export const unmarked: Partial<PartFeatures> = { voice: null, case: null, aspect
 export const perfectiveAspect: Partial<PartFeatures> = { aspect: 'perfective' };
 
 export function checkBuilderLanguageConstraints(): void {
-  // @ts-expect-error French has no subject slots to name.
+  conjugationOptions('fr', 'aimer').subject('1sg');
+  // @ts-expect-error French has no slot x.
   conjugationOptions('fr', 'aimer').subject('x');
   // @ts-expect-error Dutch has no subject slots to name.
   conjugationOptions('nl', 'werken').subject('x');

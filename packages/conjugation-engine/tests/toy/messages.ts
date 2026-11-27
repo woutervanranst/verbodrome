@@ -27,6 +27,7 @@ export const en = {
   'xx.classify.inseparable': 'In this meaning {before} has an inseparable particle, {particle}: it always stays on the verb.',
   'xx.avail.no-participle': 'This verb has no participle, so the perfect and the past participle do not exist.',
   'xx.lex.present': 'Irregular verb: the present of {before} is the whole word {after}.',
+  'xx.lex.formal': 'With the formal Vu, the present of {before} is {after}.',
   'xx.stem.drop-a': 'Drop -a from {before}: {after}-.',
   'xx.stem.listed': 'The lexicon lists the stem {after}- for {before}.',
   'xx.end.present': 'Present, {person} {number}: add -{ending}.',
@@ -48,6 +49,7 @@ export const en = {
   'xx.periphrasis.conditional': 'Future in the past: the past of vada, then the infinitive.',
   'xx.periphrasis.deponent-past': 'Simple past of a deponent verb: the present of esta plus the past participle.',
   'xx.agree.gender': 'The participle agrees in gender: {gender}.',
+  'xx.clause.subject-gender': 'The subject mi is {gender} here, and the participle after esta shows it.',
   'xx.clause.particle-final': 'The separable particle {particle} goes to the end of the clause.',
   'xx.clause.particle-attached': 'The particle {particle} attaches to the verb: {before} becomes {after}.',
 } as const satisfies Record<keyof typeof toyRules | keyof typeof enLabels, string>;
@@ -61,6 +63,7 @@ export const nl = {
   'xx.classify.inseparable': 'In deze betekenis heeft {before} een onscheidbaar partikel, {particle}: het blijft altijd aan het werkwoord vast.',
   'xx.avail.no-participle': 'Dit werkwoord heeft geen deelwoord, dus het perfectum en het voltooid deelwoord bestaan niet.',
   'xx.lex.present': 'Onregelmatig werkwoord: de tegenwoordige tijd van {before} is het hele woord {after}.',
+  'xx.lex.formal': 'Met het beleefde Vu is de tegenwoordige tijd van {before} {after}.',
   'xx.stem.drop-a': 'Laat -a weg van {before}: {after}-.',
   'xx.stem.listed': 'Het lexicon geeft de stam {after}- voor {before}.',
   'xx.end.present': 'Tegenwoordige tijd, {person} {number}: voeg -{ending} toe.',
@@ -82,6 +85,7 @@ export const nl = {
   'xx.periphrasis.conditional': 'Toekomende tijd in het verleden: de verleden tijd van vada en dan de onbepaalde wijs.',
   'xx.periphrasis.deponent-past': 'Simpele verleden tijd van een deponens: de tegenwoordige tijd van esta plus het voltooid deelwoord.',
   'xx.agree.gender': 'Het deelwoord komt overeen in geslacht: {gender}.',
+  'xx.clause.subject-gender': 'Het onderwerp mi is hier {gender}, en het deelwoord na esta laat dat zien.',
   'xx.clause.particle-final': 'Het scheidbare partikel {particle} gaat naar het einde van de zin.',
   'xx.clause.particle-attached': 'Het partikel {particle} hecht zich aan het werkwoord: {before} wordt {after}.',
 } as const satisfies Record<keyof typeof toyRules | keyof typeof enLabels, string>;

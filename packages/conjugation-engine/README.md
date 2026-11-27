@@ -2,7 +2,7 @@
 
 A rule-based TypeScript conjugation engine for **French (`fr`)** and **Dutch (`nl`)**, with a small Node CLI and a browser-safe ESM API.
 
-French forms come from conjugation models: each model is selected by an infinitive ending (or, for suppletive verbs, by name), strips a fixed number of letters to obtain the stem, and appends endings from a compact table. Dutch forms are derived from stems, endings, and spelling rules. Both languages build compound tenses from auxiliary constructions, and compact lexical data supplies auxiliaries and grammatical restrictions. The production engine does **not** import the test corpus, read fixtures, or call an external service. Invented verbs work within the productive models.
+French and Dutch forms are derived by recorded rules from stems (French verb families keep their principal parts), endings and spelling rules, and every form explains itself step by step in English and Dutch (`explain`, CLI `--explain`); see `docs/grammar/fr.md` and `docs/grammar/nl.md`. Both languages build compound tenses from auxiliary constructions, and compact lexical data supplies auxiliaries and grammatical restrictions. The production engine does **not** import the test corpus, read fixtures, or call an external service. Invented verbs work within the productive models.
 
 ## Quick start
 
@@ -68,7 +68,7 @@ Each returned form has its own resolved target, native mood/tense labels, accept
 
 French labels follow Bescherelle terminology. French 1990 spelling is preferred without discarding accepted traditional alternatives. Dutch spelling follows Taalunie's official Leidraad, with grammar from e-ANS. Unknown French `-er`, second-group `-ir`, and modeled `-re` verbs use regular defaults; unknown ordinary Dutch verbs default to weak conjugation. Pronunciation, stress, lexical sense, and irregular classification may need hints.
 
-See [the API reference](docs/api.md) for the complete query contract and CLI flags, [the pack-authoring guide](docs/pack-authoring.md) for writing a language pack against `conjugation-engine/core`, [grammar and corpus documentation](docs/grammar.md) for rules, defaults, sources, and limitations, and [the approved implementation plan](docs/PLAN.md).
+See [the API reference](docs/api.md) for the complete query contract and CLI flags, [the pack-authoring guide](docs/pack-authoring.md) for writing a language pack against `conjugation-engine/core`, [grammar and corpus documentation](docs/grammar.md) and [the Dutch rule inventory](docs/grammar/nl.md) for rules, defaults, sources, and limitations, and [the approved implementation plan](docs/PLAN.md).
 
 ## CLI
 

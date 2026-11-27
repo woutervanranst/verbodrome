@@ -1,9 +1,38 @@
 import { startCorrection } from '../model.ts';
 import type { CorpusCell, CorpusCorrection, CorpusFile } from '../model.ts';
 
+/**
+ * An auxiliary the source tabulates for a verb that the Académie does not give it: that table's compound cells are
+ * unavailable, and its queries ask the engine without the auxiliary (`languages/fr.ts`).
+ */
+export const withdrawnAuxiliaries: Readonly<Record<string, { readonly auxiliary: 'avoir' | 'être'; readonly reason: string; readonly source: string }>> = {
+  faillir: {
+    auxiliary: 'être',
+    reason: 'The Académie conjugates faillir with avoir only (ayant failli; its table offers no être), so the source’s être table has no compound forms.',
+    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9F0105',
+  },
+};
+
+/** A compound cell: auxiliary + past participle (the participle perfect included, the past participle itself not). */
+export const compound = ({ mood, tense }: CorpusCell['target']): boolean =>
+  (['perfect', 'pluperfect', 'past_anterior', 'future_perfect', 'past'].includes(tense) && mood !== 'participle') || (mood === 'participle' && tense === 'perfect');
+
 export function frenchCorrection(file: CorpusFile, cell: CorpusCell, index: number): CorpusCorrection | null {
   const draft = startCorrection(file, cell, index);
   const { mood, tense, person, number } = cell.target;
+  const withdrawn = withdrawnAuxiliaries[file.infinitive];
+  if (withdrawn && withdrawn.auxiliary === file.auxiliary && compound(cell.target)) draft.markUnavailable(withdrawn.reason, withdrawn.source);
+  if (file.infinitive === 'faillir' && mood === 'participle' && tense === 'past' && !draft.unavailable) {
+    draft.correctedTarget = { ...cell.target, agreement: null };
+    draft.expected = ['failli'];
+    draft.note('The Académie: « Le participe passé de ce verbe est toujours invariable » (failli); the source’s agreement headings collapse to one target.',
+      'https://www.dictionnaire-academie.fr/conjuguer/A9F0105');
+  }
+  if (file.infinitive === 'croître' && (compound(cell.target) || (mood === 'participle' && tense === 'past'))) {
+    draft.change('The participle of croître is crû, crue, crus, crues: JO 1990 II.4 keeps only the circumflex of crû, and the Académie prints no crûe, crûs, crûes.',
+      'https://www.dictionnaire-academie.fr/conjuguer/A9C5057',
+      text => text.replace(/(^| )crû(e|s|es)(?= |$)/gu, '$1cru$2'));
+  }
   if (['falloir', 'pleuvoir', 'seoir', 'messeoir', 'être', 'dormir', 'plaire', 'pouvoir', 'rire'].includes(file.infinitive) && mood === 'participle' && tense === 'past' && !draft.unavailable) {
     draft.correctedTarget = { ...cell.target, agreement: null };
     draft.note('This invariant verbal participle has no grammatical gender/number inflection; repeated source agreement headings collapse to one applicable target. Adjectival uses are outside scope.',

@@ -4,83 +4,19 @@
 
 `src/conjugate.ts` validates a query, resolves the language model, expands valid catalogue slots, applies grammatical availability, composes components, renders them, and deduplicates/orders equivalent records. French and Dutch adapters share contracts and orchestration, not a speculative universal grammar.
 
-French morphology is model-driven (see below); Dutch morphology is rule-driven with principal parts. Lexical auxiliary/reflexive/availability metadata is kept separately from morphology, and compound constructions are always composed, never stored. Test fixtures, HTML parsers, filesystem/network access, and the CLI are not imported by the library.
+French and Dutch morphology are rule-driven with principal parts (see their grammar pages). Lexical auxiliary/reflexive/availability metadata is kept separately from morphology, and compound constructions are always composed, never stored. Test fixtures, HTML parsers, filesystem/network access, and the CLI are not imported by the library.
 
-To add French coverage, add or widen a model selector, or add a model, with an independent regression. To add Dutch coverage, prefer a productive rule or a verified principal-part entry. Do not add per-verb answer tables for verbs a model can cover. Adding another language requires its typed options, catalogue, adapter, validation/dispatch, sources, and tests.
+To add French or Dutch coverage, prefer a productive rule or a verified principal-part entry (a French family in `families.ts`, checked against the Académie's table). Do not add per-verb answer tables for verbs a model can cover. Adding another language requires its typed options, catalogue, adapter, validation/dispatch, sources, and tests.
 
 ## French
 
-The primary grammar is [Le Conjugueur's rule index](https://leconjugueur.lefigaro.fr/regle). Core native headings follow [Bescherelle's active aimer table](https://conjugaison.bescherelle.com/verbes/aimer). The supplied [French conjugation overview](https://en.wikipedia.org/wiki/French_conjugation) is supplementary.
-
-| Rule area | Source |
-|---|---|
-| Productive groups and irregular family boundaries | [Verb groups](https://leconjugueur.lefigaro.fr/frlesgroupes.php) |
-| First-group endings and spelling environments | [First-group present](https://leconjugueur.lefigaro.fr/fr_present_indicatif_groupe1.php) |
-| 1990 alternatives, accents, `-eler/-eter`, `-é(.)er`, assoir | [Orthographic revisions](https://leconjugueur.lefigaro.fr/fr_nouvelle_orthographe.php) |
-| Past-participle formation | [Participe passé](https://leconjugueur.lefigaro.fr/regle/conjugaison/participe_passe.html) |
-| Subject versus preceding-direct-object agreement | [Past-participle agreement](https://leconjugueur.lefigaro.fr/fraccord_participe_passe.php) |
-| Direct/indirect and essential reflexives | [Pronominal agreement](https://leconjugueur.lefigaro.fr/fraccordpronominal.php) |
-| Literary imperfect subjunctive | [Formation](https://leconjugueur.lefigaro.fr/regle/conjugaison/imparfait_subjonctif.html) |
-| `aller + infinitif`, `venir de + infinitif` | [Futur proche and passé récent](https://leconjugueur.lefigaro.fr/frfuturproche.php) |
-
-### Conjugation models
-
-`src/languages/fr/models.ts` lists the French conjugation models. A model has selectors, a strip length, and one or more ending tables:
-
-- **Selection.** An infinitive listed in a model's `lemmas` uses it. Otherwise the model with the longest matching `suffixes` entry wins (`prévaloir` over `valoir`, `-ecer` over `-cer`), unless the infinitive is in that model's `except` list or ends with one of its `exceptEndings`. A family is therefore covered by one suffix: `-eindre` covers atteindre, éteindre, and peindre; `-uire` covers conduire and construire.
-- **Forms.** The stem is the infinitive minus `strip` letters; each table cell is appended to it. Eight rows hold the indicative present, imperfect, simple past, and future, the subjunctive present and imperfect, the conditional, and a last row with the three imperatives, the present participle, the four past participles, and the infinitive.
-- **Cell notation.** `-` marks a missing form, `/` separates accepted alternatives, `t:`/`r:` restrict an alternative to traditional/1990 spelling, `^` rewrites the stem's last `e`/`é` to `è` (lever → lève, céder → cède), and `0` is an empty ending.
-- **Model flags** record invariant participles, impersonal use, third-person-only verbs, missing imperatives, and restricted compound tenses. Verb-level restrictions that a shared model cannot express (advenir within the venir family) live in `lexicon.ts`.
-
-Productive models cover regular `-er` (with spelling classes for `-cer`, `-ger`, mute `e`, closed `é`, `-eler/-eter` doubling or grave, and `-yer`), second-group `-ir/-issant`, and regular `-re`. In 1990 spelling, `-er` stems also drop circumflexes on `i` and `u`. Irregular families and suppletive verbs have their own tables; defective verbs mark missing cells.
-
-Important boundaries are explicit selectors: appeler/jeter families double in both spellings; other `-eler/-eter` verbs double traditionally and take `è` in 1990 spelling, except a closed list (geler, modeler, acheter, harceler, …) that takes `è` in both; envoyer/renvoyer keep their irregular future while other `-voyer` verbs do not; accroître and émouvoir do not inherit every accent of croître/mouvoir.
-
-Suffix membership does not override a different productive class: [asservir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/asservir.html) uses second-group `asservissons`, not servir's pattern. [Convenir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/convenir_auxiliaire-etre.html) retains both lexical auxiliary choices, and [advenir](https://leconjugueur.lefigaro.fr/conjugaison/verbe/advenir.html) is restricted to third-person uses.
-
-Traditional interpeller and rectified interpeler share one grammatical identity. Their non-mute forms differ (`interpellons/interpelons`, `interpellé/interpelé`) while `j'interpelle` and `j'interpellerai` retain doubling. The [Académie française entry](https://www.dictionnaire-academie.fr/article/A9I1744*) explicitly gives interpeler the appeler model.
-
-Accepted traditional and rectified spellings remain separate answers where they differ. Homograph-protecting circumflexes are not blanket-removed. In particular, `croître` has preferred rectified participles `crûe/crûs/crûes` alongside traditional `crue/crus/crues`; finite `je crûs` and `que je crûsse` keep their accents. The specific inflections are corroborated by [crûe](https://fr.wiktionary.org/wiki/cr%C3%BBe) and [crûs](https://fr.wiktionary.org/wiki/cr%C3%BBs), in addition to the primary homography rule. Changing spelling preference changes ordering, not acceptance.
-
-Verbal participles marked invariant have no invented agreement identity. The [dormir model](https://leconjugueur.lefigaro.fr/conjugaison/verbe/dormir.html), for example, distinguishes invariant `dormi` from agreeing `endormi/endormie` and `rendormi/rendormie`.
-
-### French defaults and limits
-
-Unlisted infinitives use the model their ending selects. An ending shared by an irregular family selects that family, and the analysis records the inference as an assumption. Otherwise `-er`, `-ir`, and `-re` use the productive models; unfamiliar `-ir` defaults to second-group morphology, not a guessed third-group exception. Endings that no model claims, such as an unknown `-oir`, need a compatible model or principal parts. Explicit regular hints can select a different morphological interpretation, as with the [second ressortir model](https://leconjugueur.lefigaro.fr/conjugaison/verbe/ressortir_deuxieme-forme.html).
-
-Unlisted non-reflexives default to `avoir`; known dual auxiliaries preserve conditioned choices. Spelling cannot determine transitivity, lexical sense, or a preceding object. An unlisted initial `h` is assumed mute unless `aspiratedH` is provided. Unclassified reflexive pronouns are assumed direct unless indirect context is supplied.
-
-Availability follows explicit lexical restrictions. Weather `pleuvoir` is impersonal; its accepted plural interpretation is tagged `figurative` using the [figurative paradigm](https://leconjugueur.lefigaro.fr/conjugaison/verbe/pleuvoir_deuxieme-forme.html). `paître` compounds are restricted, with isolated `pu` surviving in specialized use. Defective seoir/messeoir and other literary models do not get fabricated missing paradigms.
-
-Reflexive past imperatives are marked unavailable in the current reference-paradigm scope; the [se laver table](https://leconjugueur.lefigaro.fr/conjugaison/verbe/laver_pronominal.html) supplies present imperatives but no past ones. This is a scoped paradigm decision, not a general sentence-generation claim.
+French runs on the staged core. Its rule inventory with sources, its defaults and assumptions, the family lexicon, the
+intended differences of the switch, the open questions for the user and its limits are in [grammar/fr.md](grammar/fr.md).
 
 ## Dutch
 
-[Taalunie's official spelling authority](https://taalunie.org/dossiers/45/spelling) and its Leidraad provide the normative spelling rules; [e-ANS](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic), maintained by the Instituut voor de Nederlandse Taal, provides grammar. The supplied [Dutch conjugation overview](https://nl.wikipedia.org/wiki/Werkwoordsvervoegingen_in_het_Nederlands) is supplementary.
-
-| Rule area | Authoritative source |
-|---|---|
-| Open/closed syllables, written stems, consonants, `v/f`, `z/s` | [Leidraad 11.1](https://woordenlijst.org/zoeken/leidraad/11/1.html) |
-| Present endings, final `t`, real `dt`, jij/je versus u inversion | [Leidraad 11.2](https://woordenlijst.org/zoeken/leidraad/11/2.html) |
-| Weak past `-de/-te`, underlying voicing | [Leidraad 11.3](https://woordenlijst.org/zoeken/leidraad/11/3.html) |
-| Weak participles and `ge-` | [Leidraad 11.4](https://woordenlijst.org/zoeken/leidraad/11/4.html) |
-| English loans, silent `e`, pronunciation-dependent alternatives | [Leidraad 12.2](https://woordenlijst.org/zoeken/leidraad/12/2.html) |
-| Grammatical conjugation | [e-ANS chapter 2.3](https://e-ans.ivdnt.org/topics/pid/ans0203lingtopic) |
-| Modern imperative | [e-ANS 2.3.2.5](https://e-ans.ivdnt.org/topics/pid/ans02030205lingtopic) |
-| Perfect auxiliary choice | [e-ANS 2.3.2.8.iv](https://e-ans.ivdnt.org/topics/pid/ans0203020804lingtopic) |
-| Obligatory reflexivity, including zich vergissen | [e-ANS 2.2.4](https://e-ans.ivdnt.org/topics/pid/ans020204lingtopic) |
-
-Native stemming keeps underlying voicing separate from written devoicing: `leven` has written `leef` but takes `-de`, not `-te`. Rules handle vowel length, final consonants, `ge-` placement and diaeresis, weak endings, inversion, and compound auxiliaries. Strong/mixed verbs store principal parts rather than complete paradigms; their person endings and compounds remain generated.
-
-Prefix models separate particles only in constructions that actually detach them. For example, `opstaan` generates `ik sta op` but `ik ben opgestaan`. Inseparable derivatives retain their bound prefix and suppress inappropriate `ge-`. Personal `invriezen/bevriezen` models do not inherit the weather paradigm's impersonal restrictions.
-
-### Dutch defaults and limits
-
-An unlisted ordinary `-en` verb defaults to weak native conjugation and `hebben`. Ordinary open/closed syllables are inferred; an explicit written stem or stress hint handles spellings that do not determine pronunciation. Unknown strong verbs need principal parts, and unknown loans need a stem and, where necessary, a `d/t/both` suffix hint.
-
-Stress and lexical sense govern separability and sometimes auxiliary choice. Unknown prefixes are not guessed by stripping letters. Known ambiguous spellings require an explicit separable/inseparable prefix. Known lexical auxiliary choices are not freely replaced; passive-shaped or contradictory hints are errors.
-
-Dutch chart defaults use conventional subjects, not every pronoun/register variation. `u` uses formal singular context and retains present `t` under inversion. `gij/ge`, Dutch subjunctives, and archaic imperative paradigms are not initial public targets.
+Dutch runs on the staged core. Its rule inventory with sources, its defaults and assumptions, the two behaviour changes
+of the switch and its limits are in [grammar/nl.md](grammar/nl.md).
 
 ## Shared scope
 

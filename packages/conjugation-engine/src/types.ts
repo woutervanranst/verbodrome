@@ -8,7 +8,7 @@ export type { Agreement, AgreementQuery, Case, Gender, GrammaticalNumber, Person
 
 export type { Language } from './languages/registry.js';
 export type {
-  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchTenses,
+  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchSubject, FrenchTenses,
 } from './languages/fr/spec.js';
 export type {
   DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchTenses,
