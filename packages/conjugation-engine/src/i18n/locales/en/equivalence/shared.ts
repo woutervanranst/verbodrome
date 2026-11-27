@@ -14,5 +14,7 @@ export const sharedNotes = {
   'eq.pair.fr-nl.near-future': 'French aller plus infinitive corresponds to Dutch gaan plus infinitive: ask for the present tense of gaan and add the infinitive.',
   'eq.pair.fr-nl.recent-past': 'French venir de plus infinitive is rendered in Dutch with the perfect and the word net.',
   'eq.pair.fr-nl.hortative': 'The French first person plural imperative is built in Dutch with laten we plus infinitive.',
+  'eq.pair.fr-en.perfect-result': 'The English present perfect fits only when the result still matters now (I have lost my keys); for a finished event English uses the simple past.',
+  'eq.pair.en-fr.si-clause': 'After si French puts the unreal in the indicative: the imperfect for if I were (si j’étais), the pluperfect for if I had known (si j’avais su).',
   'eq.pair.subjunctive-clause': 'Dutch has no subjunctive: it renders this form with the indicative, usually in a subordinate clause.',
 } as const;

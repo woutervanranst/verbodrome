@@ -16,5 +16,7 @@ export const sharedNotes = {
   'eq.pair.fr-nl.near-future': 'Frans aller plus infinitief komt overeen met het Nederlandse gaan plus infinitief: vraag de onvoltooid tegenwoordige tijd van gaan en voeg de infinitief toe.',
   'eq.pair.fr-nl.recent-past': 'Frans venir de plus infinitief wordt in het Nederlands weergegeven met de voltooid tegenwoordige tijd en het woord net.',
   'eq.pair.fr-nl.hortative': 'De eerste persoon meervoud van de Franse gebiedende wijs wordt in het Nederlands gevormd met laten we plus infinitief.',
+  'eq.pair.fr-en.perfect-result': 'De Engelse present perfect past alleen als het resultaat nu nog telt (I have lost my keys); voor een afgeronde gebeurtenis gebruikt het Engels de simple past.',
+  'eq.pair.en-fr.si-clause': 'Na si zet het Frans het onwerkelijke in de aantonende wijs: de imparfait voor if I were (si j’étais), de plus-que-parfait voor if I had known (si j’avais su).',
   'eq.pair.subjunctive-clause': 'Het Nederlands heeft geen aanvoegende wijs: deze vorm wordt weergegeven met de aantonende wijs, meestal in een bijzin.',
 } as const satisfies Record<keyof typeof english, string>;

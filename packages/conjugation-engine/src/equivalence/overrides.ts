@@ -74,4 +74,39 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     result: [{ tense: 'indicative.pluperfect', note: 'eq.pair.subjunctive-clause' }],
     reason: 'The Latin pluperfect subjunctive links COND_PERFECT 0.6, an exact match that ranks the Dutch conditional past first and hides the indicative pluperfect that renders a Latin subordinate clause (cum amavisset).',
   }),
+  override({
+    from: 'fr', to: 'en', tense: 'indicative.perfect', mode: 'prepend',
+    result: [{ tense: 'indicative.past', note: 'eq.fr.perfect.spoken-past' }, { tense: 'indicative.perfect', note: 'eq.pair.fr-en.perfect-result' }],
+    reason: 'The passé composé of a finished event is the English simple past, and the present perfect only when the result still matters; the pivot ranks the present perfect first (0.80 against 0.60), and the approved design fixes the opposite order.',
+  }),
+  override({
+    from: 'en', to: 'it', tense: 'indicative.past', mode: 'prepend',
+    result: [{ tense: 'indicative.perfect', note: 'eq.it.perfect-spoken' }],
+    reason: 'The English simple past of a finished event is the spoken passato prossimo, as it is the French passé composé; the pivot ranks the literary passato remoto first (0.60 against 0.24) because the passato prossimo links PAST_PERFECTIVE only at 0.4.',
+  }),
+  override({
+    from: 'es', to: 'it', tense: 'indicative.simple_past', mode: 'prepend',
+    result: [{ tense: 'indicative.perfect', note: 'eq.it.perfect-spoken' }],
+    reason: 'The Spanish simple past is the standard past of speech and writing, which spoken Italian renders with the passato prossimo; the pivot ranks the literary passato remoto first (1.00 against 0.40).',
+  }),
+  override({
+    from: 'nl', to: 'en', tense: 'indicative.past', mode: 'prepend',
+    result: [{ tense: 'indicative.past', note: 'eq.en.past-both' }],
+    reason: 'The Dutch simple past is as neutral in aspect as the English one (ik liep, I walked); the pivot ranks the past progressive first (0.90 against 0.42) because the Dutch past links PAST_IMPERFECTIVE at full weight, which ranks the French imparfait first.',
+  }),
+  override({
+    from: 'de', to: 'en', tense: 'indicative.past', mode: 'prepend',
+    result: [{ tense: 'indicative.past', note: 'eq.en.past-both' }],
+    reason: 'The Präteritum is as neutral in aspect as the English simple past (ich ging, I went); the pivot ranks the past progressive first (0.90 against 0.48) because the Präteritum links PAST_IMPERFECTIVE at full weight, which ranks the French imparfait first.',
+  }),
+  override({
+    from: 'en', to: 'fr', tense: 'subjunctive.past', mode: 'prepend',
+    result: [{ tense: 'indicative.imperfect', note: 'eq.pair.en-fr.si-clause' }],
+    reason: 'The English past subjunctive is the unreal after if, which French puts in the indicative imperfect after si; the pivot offers only the literary subjonctif imparfait, the other SUBJ_IMPERFECT.',
+  }),
+  override({
+    from: 'en', to: 'fr', tense: 'subjunctive.pluperfect', mode: 'prepend',
+    result: [{ tense: 'indicative.pluperfect', note: 'eq.pair.en-fr.si-clause' }],
+    reason: 'The English pluperfect subjunctive is the unreal past after if, which French puts in the indicative pluperfect after si; the pivot offers only the literary subjonctif plus-que-parfait.',
+  }),
 ]);

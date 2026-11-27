@@ -9,6 +9,7 @@ import type { Language, MoodFor, TenseFor } from '../types.js';
 import type { ConceptId, ConceptLink, LanguageMap, NoteKey, Register, TenseKeyFor } from './concepts.js';
 import { de } from './de.js';
 import { deriveEquivalents } from './derive.js';
+import { en } from './en.js';
 import { es } from './es.js';
 import type { EquivalenceData, EquivalenceOptions, EquivalentFound, MatchType, RawEquivalence, Relaxation } from './derive.js';
 import { fr } from './fr.js';
@@ -18,7 +19,7 @@ import { nl } from './nl.js';
 import { overrides } from './overrides.js';
 
 /** The registered languages that have a tense map so far. */
-export type MappedLanguage = Extract<Language, 'fr' | 'nl' | 'de' | 'es' | 'it' | 'la'>;
+export type MappedLanguage = Extract<Language, 'fr' | 'nl' | 'de' | 'es' | 'it' | 'la' | 'en'>;
 
 /** Freezes the registry and each map's link lists (the links themselves are frozen by `link`). */
 function frozen<T extends Readonly<Record<string, Readonly<Record<string, readonly ConceptLink[]>>>>>(registry: T): T {
@@ -29,7 +30,7 @@ function frozen<T extends Readonly<Record<string, Readonly<Record<string, readon
   return Object.freeze(registry);
 }
 
-export const maps = frozen({ fr, nl, de, es, it, la } satisfies { readonly [L in MappedLanguage]: LanguageMap<L> });
+export const maps = frozen({ fr, nl, de, es, it, la, en } satisfies { readonly [L in MappedLanguage]: LanguageMap<L> });
 
 /** The languages with a modelled passive: a passive lookup may start only from one of them. */
 export const passiveLanguages: readonly MappedLanguage[] = Object.freeze(['la']);
