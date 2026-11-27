@@ -32,7 +32,8 @@ describe('C1: impersonal verbs have well-formed perfects', () => {
   });
   it('I10: an impersonal has no participles but what the grammar names', () => {
     expect(unavailable({ infinitive: 'oportēre', mood: 'participle', tense: 'present' })).toEqual([['defective', 'la.avail.not-attested']]);
-    expect(unavailable({ infinitive: 'oportēre', mood: 'gerund' })).toEqual([['defective', 'la.avail.not-attested']]);
+    // "Many verbs ... appear only in the 3rd person singular, the infinitive, and the gerund" (A&G §207).
+    expect(forms('oportēre', 'gerund')).toEqual(['oportendī']);
     expect(unavailable({ infinitive: 'oportēre', mood: 'participle', tense: 'gerundive' })).toEqual([['defective', 'la.avail.not-attested']]);
     expect(forms('paenitēre', 'participle', 'gerundive')).toEqual(['paenitendus']); // A&G §208.b Note
     expect(forms('pudēre', 'participle', 'gerundive')).toEqual(['pudendus']);
@@ -220,5 +221,28 @@ describe('Defective verbs with only their attested forms (A&G §206)', () => {
   it('nōvī', () => {
     expect(forms('nōvisse', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['nōvī']);
     expect(unavailable({ infinitive: 'nōvisse', mood: 'indicative', tense: 'present', voice: 'active', subject: '1sg' })).toEqual([['defective', 'la.avail.no-present']]);
+  });
+});
+
+describe('found by the en.wiktionary oracle (Task 9)', () => {
+  it('gives the compounds of sum forem and fore with the prefix of the perfect (A&G §§170.a, 198)', () => {
+    expect(forms('abesse', 'subjunctive', 'imperfect', 'active', { subject: '3sg' })).toEqual(['abesset', 'āforet']);
+    expect(forms('prōdesse', 'infinitive', 'future', 'active', { agreement: { gender: 'masculine', number: 'singular', case: 'accusative' } })).toEqual(['prōfutūrum esse', 'prōfore']);
+    expect(forms('posse', 'subjunctive', 'imperfect', 'active', { subject: '1sg' })).toEqual(['possem']);
+  });
+
+  it('uses scītō for the imperative of sciō (A&G §182.a)', () => {
+    expect(forms('scīre', 'imperative', 'present')).toEqual(['scītō', 'scītōte', 'scīte']);
+  });
+
+  it('prints the future participles the authorities print', () => {
+    expect(forms('stāre', 'participle', 'future')).toEqual(['stātūrus']); // Bennett §120.IV
+    expect(forms('lavāre', 'participle', 'future')).toEqual(['lavātūrus', 'lautūrus', 'lōtūrus']); // A&G §211 lōt- (laut-)
+    expect(forms('nāscī', 'participle', 'future')).toEqual(['nāscitūrus']); // Lewis & Short s.v. nascor
+  });
+
+  it('syncopates queō like any -īvī perfect, and gives an impersonal verb its gerund (A&G §§181.b, 207)', () => {
+    expect(forms('quīre', 'indicative', 'perfect', 'active', { subject: '1sg' })).toEqual(['quīvī', 'quiī']);
+    expect(forms('pluere', 'gerund', undefined, undefined, { agreement: {} })).toEqual(expect.arrayContaining(['pluendī', 'pluendō', 'pluendum']));
   });
 });

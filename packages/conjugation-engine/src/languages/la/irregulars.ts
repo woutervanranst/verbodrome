@@ -63,7 +63,7 @@ const sum: LatinEntry = {
 function sumCompound(vowel: string, consonant: string, perfect: string, participle?: string, spellings?: readonly string[]): LatinEntry {
   return {
     present: `${consonant}sum`, infinitive: `${vowel}esse`, perfect: [`${perfect}fuī`], futureParticiple: [`${perfect}futūrus`],
-    conjugation: 'irregular', stemClass: 'consonant', passive: 'none', sumCompound: { vowel, consonant },
+    conjugation: 'irregular', stemClass: 'consonant', passive: 'none', sumCompound: { vowel, consonant }, flags: ['fore'],
     lacks: [...(participle ? [] : ['presentParticiple' as const]), 'supineStem', 'gerund'],
     ...(participle ? { stems: { presentParticiple: participle } } : {}), ...(spellings ? { spellings } : {}),
     compound: { prefixes: [] },
@@ -204,8 +204,9 @@ const dare: LatinEntry[] = [
  * and ex-stō have no perfect (ex-stātūrus).
  */
 const sto: LatinEntry[] = [
-  { present: 'stō', infinitive: 'stāre', perfect: ['stetī'], supine: ['statum'], conjugation: 'first', compound: { prefixes: [] },
-    source: { work: 'ag', locator: 'A&G §209.a' }, checked: agPrint(121) },
+  // The future participle has a long ā (Bennett §120.IV stō, stāre, stetī, stātūrus; A&G §209.a ex-stātūrus).
+  { present: 'stō', infinitive: 'stāre', perfect: ['stetī'], supine: ['statum'], futureParticiple: ['stātūrus'], conjugation: 'first', compound: { prefixes: [] },
+    source: { work: 'ag', locator: 'A&G §209.a; Bennett §120' }, checked: agPrint(121) },
   ...([
     ['cōnstō', 'cōnstitī', null, 'cōnstātūrus'], ['adstō', 'adstitī', null, null], ['restō', 'restitī', null, null],
     ['antestō', 'antestetī', null, null], ['interstō', 'interstetī', null, null], ['superstō', 'superstetī', null, null],
@@ -380,7 +381,8 @@ function impersonal(third: string, infinitive: string, conjugation: 'first' | 's
   return {
     present: third, infinitive, conjugation, impersonal: true, passive: 'none',
     ...(perfect ? { perfect: [perfect] } : {}),
-    lacks: [...(perfect ? [] : ['perfect' as const]), 'imperative', 'presentParticiple', 'gerund', 'supine', ...(extra.supine ? [] : ['supineStem' as const])],
+    // A&G §207: impersonal verbs appear in the third person singular, the infinitive and the gerund.
+    lacks: [...(perfect ? [] : ['perfect' as const]), 'imperative', 'presentParticiple', 'supine', ...(extra.supine ? [] : ['supineStem' as const])],
     compound: { prefixes: [] },
     source: bennett ? { work: 'bennett', locator: 'A&G §208; Bennett §138' } : { work: 'ag', locator: 'A&G §§207–208' },
     checked: bennett ? { url: bennettUrl(138), status: 'secondary' } : agPrint(119),

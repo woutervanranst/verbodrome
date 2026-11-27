@@ -108,6 +108,9 @@ export interface LatinEntry {
 }
 
 /** Extra data of one row. */
+/** "For the imperative of sciō, the future form scītō is always used in the singular, and scītōte usually in the plural" (A&G §182.a). */
+const scioImperative = { cells: { 'imperative.present.active.2s': [{ text: 'scītō' }], 'imperative.present.active.2p': [{ text: 'scītōte' }, { text: 'scīte' }] } };
+
 type Extra = Partial<Omit<LatinEntry, 'present' | 'perfect' | 'supine' | 'futureParticiple' | 'source' | 'checked'>> & {
   readonly fp?: string;
 };
@@ -351,7 +354,7 @@ const deponents191: LatinEntry[] = [
     ['expergīscor', '', 'experrēctus', dep], ['fruor', '', 'frūctus|fruitus', { ...dep, fp: 'fruitūrus' }], ['fungor', '', 'fūnctus', dep],
     ['gradior', '', 'gressus', { ...dep, ...io, flags: ['intransitive'], compound: { present: 'gredior', supine: ['gressum'] } }], ['īrāscor', '', 'īrātus', dep],
     ['lābor', '', 'lāpsus', { ...dep, flags: ['intransitive'] }], ['loquor', '', 'locūtus', dep], ['minīscor', '', 'mentus', { ...dep, familyOnly: true }],
-    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus', flags: ['intransitive'] }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', dep],
+    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus', flags: ['intransitive'] }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', { ...dep, fp: 'nāscitūrus' }],
     ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī', cells: { presentInfinitivePassive: [{ text: 'orīrī' }] } }],
     ['pacīscor', '', 'pactus', dep], ['patior', '', 'passus', { ...dep, ...io, compound: { present: 'petior', supine: ['pessum'] } }],
     ['plector', '', 'plexus', { ...dep, familyOnly: true }], ['proficīscor', '', 'profectus', { ...dep, flags: ['intransitive'] }], ['queror', '', 'questus', dep],
@@ -395,7 +398,7 @@ const groupK: LatinEntry[] = [
     'mūtō', 'nāvigō', 'nōminō', 'ōrō', 'pūgnō', 'rēgnō', 'sānō', 'spērō', 'vītō'].flatMap(lemma =>
     list('first', `L&S s.v. ${lemma}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, `${lemma.slice(0, -1)}āvī`, `${lemma.slice(0, -1)}āt`]], 'ls')),
   ...['dormiō', 'fīniō', 'mūniō', 'nesciō', 'sciō', 'serviō'].flatMap(lemma =>
-    list('fourth', `L&S s.v. ${lemma}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, `${lemma.slice(0, -2)}īvī`, `${lemma.slice(0, -2)}īt`]], 'ls')),
+    list('fourth', `L&S s.v. ${lemma}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, `${lemma.slice(0, -2)}īvī`, `${lemma.slice(0, -2)}īt`, lemma === 'sciō' ? scioImperative : {}]], 'ls')),
   // Homographs and intransitives A&G's lists do not print (L&S): iaceō, pāreō, noceō.
   ...list('second', 'L&S s.v. iaceo', lsCheck('iaceo'), [['iaceō', 'iacuī', 'iacit', { gloss: 'lie' }]], 'ls'),
   ...list('second', 'L&S s.v. pareo', lsCheck('pareo'), [['pāreō', 'pāruī', 'pārit', { gloss: 'obey' }]], 'ls'),
@@ -423,7 +426,8 @@ const groupK: LatinEntry[] = [
     ['satisfaciō', 'satisfēcī', 'satisfact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'satis' }, compound: { prefixes: [] } }],
   ]),
   // lavō: first conjugation with lāvī and three supines, and the parallel literary lavere (A&G §§189, 211.e; L&S lavo).
-  ...list('first', 'A&G §211.e; L&S s.v. lavo', ag(124), [['lavō', 'lāvī', 'laut|lōt|lavāt', { fp: 'lavātūrus' }]]),
+  // The future participle is built on each printed supine stem (A&G §211 lōt- (laut-); Bennett §120 lautus).
+  ...list('first', 'A&G §211.e; L&S s.v. lavo', ag(124), [['lavō', 'lāvī', 'laut|lōt|lavāt', { fp: 'lavātūrus|lautūrus|lōtūrus' }]]),
 ];
 
 export const regularEntries: readonly LatinEntry[] = [

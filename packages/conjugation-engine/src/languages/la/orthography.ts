@@ -115,7 +115,8 @@ const iiContraction: JunctureRule<Context> = {
 const syncope: JunctureRule<Context> = {
   info: latinRules['la.orth.syncope'],
   apply(j, { lexeme, cell }) {
-    if (onPresentStem(cell) || lexeme.flags.has('eoRoot') || j.stem.length < 3) return null;
+    // eō and its compounds list the v-less perfect (iī, īstī) as their main forms (A&G §203); queō is syncopated as any -īvī perfect.
+    if (onPresentStem(cell) || (lexeme.flags.has('eoRoot') && !/^quīv|^nequīv/u.test(j.stem)) || j.stem.length < 3) return null;
     const literary = { usage: 'literary', pattern: 'syncope' } as const;
     const alongside = (stem: string, ending: string) => [...one(j), ...one({ stem, ending }, [], literary)];
     if (/īv$/u.test(j.stem) && vowel.test(j.ending)) {

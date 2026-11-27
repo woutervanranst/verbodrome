@@ -11,6 +11,7 @@ import { isOblique } from './declension.js';
 import { finiteEnding, nonFiniteEnding } from './endings.js';
 import { foremMark, sumCells } from './irregulars.js';
 import type { LatinLexeme } from './lexicon.js';
+import type { LexicalForm } from './entries.js';
 import { latinOrthography, onPresentStem } from './orthography.js';
 import { isPerfectTense } from './paradigms.js';
 import { latinRules } from './rules.js';
@@ -48,14 +49,17 @@ function cellOf(target: ResolvedTarget, lexeme: LatinLexeme): Cell | null {
 }
 
 /** A word of sum behind the prefix of one of its compounds (A&G §198), or pot-/pos- for possum (§198.b). */
-function sumCompoundWord(lexeme: LatinLexeme, word: string): Outcome<string> {
+function sumCompoundWord(lexeme: LatinLexeme, form: LexicalForm): Outcome<string> {
   const { vowel, consonant, pot } = lexeme.entry!.sumCompound!;
+  const word = form.text;
+  const marks = form.marks ? { marks: form.marks } : {};
   if (pot) {
     const text = word.startsWith('ess') ? `po${word.slice(1)}` : word.startsWith('s') ? `pos${word}` : `pot${word}`;
-    return { value: text, steps: [step(latinRules['la.lex.pot-sum'], word, text)], tags: {} };
+    return { value: text, steps: [step(latinRules['la.lex.pot-sum'], word, text)], tags: {}, ...marks };
   }
-  const prefix = /^[aeiouāēīōū]/u.test(word) ? vowel : consonant;
-  return { value: prefix + word, steps: [step(latinRules['la.lex.sum-compound'], word, prefix + word, { prefix })], tags: {} };
+  // forem and fore belong to the root of fuī and take the prefix of the perfect: āfuī, āforem, āfore (A&G §§170.a, 198).
+  const prefix = word.startsWith('f') ? lexeme.entry!.perfect![0]!.slice(0, -'fuī'.length) : /^[aeiouāēīōū]/u.test(word) ? vowel : consonant;
+  return { value: prefix + word, steps: [step(latinRules['la.lex.sum-compound'], word, prefix + word, { prefix })], tags: {}, ...marks };
 }
 
 /**
@@ -66,10 +70,10 @@ function sumCompoundWord(lexeme: LatinLexeme, word: string): Outcome<string> {
 function lexicalCell(lexeme: LatinLexeme, cell: Cell): Fork<string> | null {
   const key = cellKeyOf(cell);
   const entry = lexeme.entry;
-  if (entry?.sumCompound && cell.voice === undefined && (cell.kind === 'finite' ? onPresentStem(cell) : cell.form === 'presentInfinitive')) {
+  if (entry?.sumCompound && cell.voice === undefined && (cell.kind === 'finite' ? onPresentStem(cell) : ['presentInfinitive', 'fore'].includes(cell.form))) {
     const words = sumCells[key];
-    // forem is sum's own: the compounds are listed with essem only.
-    if (words) return words.filter(form => !form.marks?.includes(foremMark)).map(form => sumCompoundWord(lexeme, form.text));
+    // The compounds inflect as sum "without any change" (A&G §198), forem and fore included; possum has neither (p. 109).
+    if (words) return words.filter(form => !entry.sumCompound!.pot || !form.marks?.includes(foremMark)).map(form => sumCompoundWord(lexeme, form));
   }
   const listed = lexeme.cells[key];
   if (listed) {
