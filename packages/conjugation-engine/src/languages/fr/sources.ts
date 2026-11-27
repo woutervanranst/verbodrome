@@ -88,6 +88,7 @@ export const frenchCitations = {
   'fr.classify.class-hint': oqlf(24654, 'Verbes réguliers et irréguliers'),
   'fr.classify.model-hint': verbArticle,
   'fr.classify.principal-parts-hint': [oqlf(24214, 'Radical des verbes irréguliers'), oqlf(24207, 'Passé simple')],
+  'fr.classify.assume-ils-stem': [oqlf(24214, 'Radical des verbes irréguliers au présent'), oqlf(24237, 'Modification du radical au subjonctif présent')],
   'fr.classify.paradigm': [conjugation('A9P1095', 'payer'), conjugation('A9A2823', 'asseoir'), conjugation('A9F0105', 'faillir'), conjugation('A9C2105', 'choir')],
   'fr.classify.aux-etre': [oqlf(24584, 'Emploi de l’auxiliaire être'), conjugation('A9A1226', 'aller')],
   'fr.classify.aux-dual': [oqlf(24224, 'Emploi de avoir ou de être'), oqlf(24584, 'Tableau-synthèse')],

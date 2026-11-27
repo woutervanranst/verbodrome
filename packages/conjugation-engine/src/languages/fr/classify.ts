@@ -211,6 +211,8 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
   else if (lemma.startsWith('h') && options.aspiratedH === undefined) hSteps.push(step(frenchRules['fr.classify.assume-mute-h'], null, null));
 
   const hints = options.stems && Object.keys(options.stems).length ? options.stems : null;
+  // A plural hint without thirdPlural also gives the ils stem (and the subjunctive's): recorded as an assumption.
+  const hintSteps = hints?.plural && !hints.thirdPlural ? [step(frenchRules['fr.classify.assume-ils-stem'], null, hints.plural)] : [];
   const verbId = reflexive ? renderWith(frenchRendering, [
     grammaticalPart(frenchRendering, 'reflexivePronoun', 'se'),
     grammaticalPart(frenchRendering, 'lexicalVerb', lemma, lemma, {}, 'space', aspirated),
@@ -226,7 +228,7 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
     steps: assumptionsFirst([
       ...opening, ...choice.steps,
       ...(paradigms.length > 1 ? [step(frenchRules['fr.classify.paradigm'], lemma, null, { pattern: paradigm.pattern! })] : []),
-      ...auxiliarySteps, ...objectSteps, ...hSteps,
+      ...auxiliarySteps, ...objectSteps, ...hSteps, ...hintSteps,
     ]),
     tags,
   }));

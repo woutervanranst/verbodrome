@@ -132,6 +132,9 @@ function hintedPart(lexeme: FrenchLexeme, index: number): { readonly name: PartN
   return Object.hasOwn(hintedParts(lexeme.hints, lexeme.group).from, source) ? { name, source } : null;
 }
 
+/** Whether a `stems` hint gives the part that feeds `cell`. */
+export const hintedCell = (lexeme: FrenchLexeme, cell: Cell): boolean => hintedPart(lexeme, cellIndex(cell)) !== null;
+
 /** The stem of a productive verb: the infinitive without -er, -ir (-ïr) or -re. */
 export const groupStem = (lemma: string): string => lemma.slice(0, -2);
 

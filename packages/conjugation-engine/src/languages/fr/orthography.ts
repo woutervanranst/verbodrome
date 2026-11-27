@@ -1,7 +1,7 @@
 /**
  * The French spelling rules at the stem/ending boundary (GD §4.4), in the order they apply. Rules 1-6 act only on the
- * er group (a family stores its parts already spelt); a rule with two outcomes makes the traditional and the 1990
- * (rectified) spelling. Every form is born in both spellings.
+ * er group (a family stores its parts already spelt), rule 6 also on a hinted part; a rule with two outcomes makes the
+ * traditional and the 1990 (rectified) spelling. Every form is born in both spellings.
  */
 import { one } from '../../core/fork.js';
 import type { Fork } from '../../core/fork.js';
@@ -10,7 +10,7 @@ import type { Cell } from '../../core/staged.js';
 import type { FrenchLexeme } from './grammar.js';
 import { closedEStem, elerEterClass, mute, muteEStem } from './paradigms.js';
 import { frenchRules } from './rules.js';
-import { cellIndex, cellNameOf, familyPrefix } from './stems.js';
+import { cellIndex, cellNameOf, familyPrefix, hintedCell } from './stems.js';
 
 export type SpellingContext = { readonly lexeme: FrenchLexeme; readonly cell: Cell };
 type Rule = JunctureRule<SpellingContext>;
@@ -64,13 +64,16 @@ const gE: Rule = {
     ? one({ stem: `${j.stem}e`, ending: j.ending }) : null,
 };
 
-/** 6. y becomes i before a silent ending: always after o and u, after a only in the y-to-i paradigm, never after e. */
+/**
+ * 6. y becomes i before a silent ending: always after o and u, after a only in the y-to-i paradigm, never after e. Also
+ * in a part a `stems` hint gives, after o and u (ils plessoient, as voient, croient, fuient).
+ */
 const yToI: Rule = {
   info: frenchRules['fr.orth.y-to-i'],
-  apply(j, { lexeme }) {
-    if (!er(lexeme) || !j.stem.endsWith('y') || !mute(j.ending)) return null;
+  apply(j, { lexeme, cell }) {
+    if ((!er(lexeme) && !hintedCell(lexeme, cell)) || !j.stem.endsWith('y') || !mute(j.ending)) return null;
     const before = j.stem.slice(-2, -1);
-    const changes = before === 'o' || before === 'u' || (before === 'a' && lexeme.paradigm.pattern === 'y-to-i');
+    const changes = before === 'o' || before === 'u' || (er(lexeme) && before === 'a' && lexeme.paradigm.pattern === 'y-to-i');
     return changes ? one({ stem: `${j.stem.slice(0, -1)}i`, ending: j.ending }) : null;
   },
 };

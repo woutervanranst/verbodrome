@@ -1,5 +1,5 @@
 /**
- * The French rules: the 95 rules of the grammar design by stage, each with a message in both locales and a citation
+ * The French rules: the 96 rules of the grammar design by stage, each with a message in both locales and a citation
  * (`tests/i18n/completeness.test.ts` checks the same for every registered pack; this pins the French inventory).
  */
 import { describe, expect, it } from 'vitest';
@@ -14,10 +14,10 @@ import { frenchCitations, frenchWorks } from '../../src/languages/fr/sources.js'
 const ids = Object.keys(frenchRules);
 
 describe('French rules', () => {
-  it('declares the 95 rules of the grammar design, by stage', () => {
+  it('declares the 96 rules of the grammar design, by stage', () => {
     const byStage: Record<string, number> = {};
     for (const rule of Object.values(frenchRules)) byStage[rule.stage] = (byStage[rule.stage] ?? 0) + 1;
-    expect(byStage).toEqual({ classify: 22, stem: 13, ending: 11, orthography: 16, periphrasis: 14, clause: 14, availability: 5 });
+    expect(byStage).toEqual({ classify: 23, stem: 13, ending: 11, orthography: 16, periphrasis: 14, clause: 14, availability: 5 });
     expect(ids.every(id => /^fr\.[a-z]+\.[a-z0-9]+(-[a-z0-9]+)*$/u.test(id))).toBe(true);
   });
 

@@ -62,6 +62,7 @@ is not used for any rule.
 | `fr.classify.class-hint` | rule | The class you gave makes {before} a regular -{group} verb. | [BDL: Verbes réguliers et irréguliers](https://vitrinelinguistique.oqlf.gouv.qc.ca/24654/la-grammaire/le-verbe/conjugaison/verbes-reguliers-et-irreguliers) |
 | `fr.classify.model-hint` | rule | The model you gave makes {before} conjugate like {model}. | Académie: article et tableau de conjugaison du verbe |
 | `fr.classify.principal-parts-hint` | rule | The principal parts you gave make every form of {before}. | [BDL: Radical des verbes irréguliers](https://vitrinelinguistique.oqlf.gouv.qc.ca/24214/la-grammaire/le-verbe/conjugaison/radical-des-verbes-irreguliers-au-present-de-lindicatif); [BDL: Passé simple](https://vitrinelinguistique.oqlf.gouv.qc.ca/24207/la-grammaire/le-verbe/conjugaison/formes-du-passe-simple) |
+| `fr.classify.assume-ils-stem` | assumption | The ils stem is taken from the nous stem you gave, {after}-; give thirdPlural when it differs. | [BDL: Radical des verbes irréguliers au présent](https://vitrinelinguistique.oqlf.gouv.qc.ca/24214/la-grammaire/le-verbe/conjugaison/radical-des-verbes-irreguliers-au-present-de-lindicatif); [BDL: Modification du radical au subjonctif présent](https://vitrinelinguistique.oqlf.gouv.qc.ca/24237/la-grammaire/le-verbe/conjugaison/formes-du-subjonctif) |
 | `fr.classify.paradigm` | lexical | {before} has more than one accepted conjugation; this one is {pattern}. | [Académie: payer, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9P1095); [Académie: asseoir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A2823); [Académie: faillir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9F0105); [Académie: choir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C2105) |
 | `fr.classify.aux-etre` | lexical | {before} forms its compound tenses with être. | [BDL: Emploi de l’auxiliaire être](https://vitrinelinguistique.oqlf.gouv.qc.ca/24584/la-grammaire/le-verbe/auxiliaires/tableau-synthese-de-lemploi-des-auxiliaires-avoir-et-etre); [Académie: aller, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A1226) |
 | `fr.classify.aux-dual` | lexical | {before} takes avoir or être in its compound tenses, depending on how it is used. | [BDL: Emploi de avoir ou de être](https://vitrinelinguistique.oqlf.gouv.qc.ca/24224/la-grammaire/le-verbe/auxiliaires/emploi-des-auxiliaires-avoir-et-etre); [BDL: Tableau-synthèse](https://vitrinelinguistique.oqlf.gouv.qc.ca/24584/la-grammaire/le-verbe/auxiliaires/tableau-synthese-de-lemploi-des-auxiliaires-avoir-et-etre) |
@@ -185,9 +186,10 @@ An assumption is recorded first in the analysis and is never restated as a fact:
 |---|---|
 | `fr.classify.assume-regular` | an unlisted verb is read as a regular -er, -ir or -re verb |
 | `fr.classify.family-suffix` | an unlisted verb is conjugated like the family whose suffix it ends with (conduire like cuire) |
-| `fr.classify.assume-avoir` | an unlisted non-reflexive verb defaults to avoir |
+| `fr.classify.assume-avoir` | a non-reflexive verb that no checked table gives an auxiliary takes avoir |
 | `fr.classify.assume-direct-reflexive` | the reflexive pronoun of an unlisted pronominal verb is assumed direct |
 | `fr.classify.assume-mute-h` | an unlisted initial h is assumed mute |
+| `fr.classify.assume-ils-stem` | a `stems.plural` hint without `thirdPlural` also gives the ils stem (and the subjunctive's) |
 
 `preferredOrthography` (default rectified) only orders the two spellings; both stay answers.
 
@@ -234,7 +236,8 @@ source; corpus fixtures that held the old form have a sourced correction in `tes
   refused (A9F0105). Invented verbs of these families and of devoir (…du in the 1990 spelling, JO 1990 II.4) follow.
 
 Behaviour changes outside the snapshot: every unlisted -e(C)er verb whose consonant opens a syllable takes è (zeger,
-blecher); hinted stems go through the spelling rules (blouper + `stems.plural: 'blac'` → nous blaçons); the 1990
+blecher); hinted stems go through the spelling rules (blouper + `stems.plural: 'blac'` → nous blaçons; y becomes i before a mute
+ending in any hinted part, ils plessoient, que je plessoie); the 1990
 circumflex rule applies to every group (mûrir → murir) and keeps jeûne(s), and dû only for devoir itself (redevoir:
 redu, traditionally redû); `model` naming a productive model must be the one the verb's spelling gives. Outside the
 snapshot the Académie's tables also give apparaître, réapparaître, disparaître, éclore, redescendre and ressusciter

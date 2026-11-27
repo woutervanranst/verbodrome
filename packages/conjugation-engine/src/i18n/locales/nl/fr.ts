@@ -68,6 +68,7 @@ export const fr = {
   'fr.classify.indirect-reflexive': 'Hier is het wederkerend voornaamwoord een meewerkend voorwerp (aan zichzelf), dus het voltooid deelwoord past zich er niet aan aan.',
   'fr.classify.assume-direct-reflexive': 'Aangenomen is dat het wederkerend voornaamwoord lijdend voorwerp is; geef het aan als het een meewerkend voorwerp is.',
   'fr.classify.aspirated-h': 'De h van {before} is een h aspiré: je, que en de houden hun e ervoor.',
+  'fr.classify.assume-ils-stem': 'De stam van ils komt van de nous-stam die je gaf, {after}-; geef thirdPlural als die verschilt.',
   'fr.classify.assume-mute-h': 'Een onbekende h aan het begin wordt als stomme h behandeld.',
   'fr.stem.group-stem': 'Haal de uitgang van het hele werkwoord {before} weg: de stam is {after}-.',
   'fr.stem.hint': 'De opgegeven stam ({part}) wordt hier gebruikt: {after}-.',

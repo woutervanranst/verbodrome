@@ -52,3 +52,27 @@ describe('French family corrections', () => {
     expect(forms('devoir', { mood: 'participle', tense: 'past', agreement: { gender: 'masculine', number: 'singular' } })).toEqual(['dû']);
   });
 });
+
+describe('French hinted stems (fix wave I4)', () => {
+  const stems = { singular: 'plessoi', plural: 'plessoy', future: 'plessoir', past: 'pless', pastVowel: 'i', pastParticiple: 'plessu' } as const;
+  const third = { mood: 'indicative', tense: 'present', person: 3, number: 'plural', gender: 'masculine' } as const;
+  const subjunctive = { mood: 'subjunctive', tense: 'present', person: 1, number: 'singular' } as const;
+
+  it('writes y as i before a mute ending in a hinted part (BDL 24212: voient, croient, fuient)', () => {
+    expect(forms('plessoir', { stems, ...third })).toEqual(['ils plessoient']);
+    expect(forms('plessoir', { stems, ...subjunctive })).toEqual(['que je plessoie']);
+    expect(forms('plessoir', { stems, mood: 'indicative', tense: 'present', person: 1, number: 'plural' })).toEqual(['nous plessoyons']);
+    const blouvoir = { singular: 'blouvoi', plural: 'blouvoy', future: 'blouvoir', past: 'blouv', pastVowel: 'i', pastParticiple: 'blouvu' } as const;
+    expect(forms('blouvoir', { stems: blouvoir, ...third })).toEqual(['ils blouvoient']);
+    expect(forms('blouvoir', third)).toEqual(['ils blouvoient']);
+  });
+
+  it('records the ils stem taken from the nous stem as an assumption, and none when thirdPlural is given', () => {
+    const assumptions = (hints: Readonly<Record<string, string>>) =>
+      engine.conjugate({ language: 'fr', infinitive: 'plessoir', stems: hints, ...third }).analysis.assumptions;
+    const ils = 'The ils stem is taken from the nous stem you gave, plessoy-; give thirdPlural when it differs.';
+    expect(assumptions(stems)).toContain(ils);
+    expect(assumptions({ ...stems, thirdPlural: 'plessoi' })).not.toContain(ils);
+    expect(forms('plessoir', { stems: { ...stems, thirdPlural: 'plessoi' }, ...third })).toEqual(['ils plessoient']);
+  });
+});

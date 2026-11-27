@@ -67,6 +67,7 @@ export const fr = {
   'fr.classify.indirect-reflexive': 'Here the reflexive pronoun is an indirect object (to oneself), so the past participle does not agree with it.',
   'fr.classify.assume-direct-reflexive': 'The reflexive pronoun is assumed direct; specify indirect-object context when needed.',
   'fr.classify.aspirated-h': 'The h of {before} is aspirated: je, que and de keep their e in front of it.',
+  'fr.classify.assume-ils-stem': 'The ils stem is taken from the nous stem you gave, {after}-; give thirdPlural when it differs.',
   'fr.classify.assume-mute-h': 'An unlisted initial h is assumed mute.',
   'fr.stem.group-stem': 'Take the infinitive ending off {before}: the stem is {after}-.',
   'fr.stem.hint': 'The {part} stem you gave is used here: {after}-.',
