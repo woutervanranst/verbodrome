@@ -17,10 +17,10 @@ A rule is never cited to the scraped corpus.
   paradigm, or two for hang, lie and shine (hung / hanged; lay / lied; shone / shined), each tagged with its pattern
   and meaning. An unlisted verb that is a prefix (under, inter, fore, over, with, mis, out, for, off, pre, sub, be, re,
   un, up, in; at most two) plus a listed verb inherits that verb's first paradigm, unmarked forms only (outswim:
-  outswam, outswum; never a regional, dated or literary variant of the base). Verbs that look prefixed but are regular
+  outswam, outswum; never a regional or literary variant of the base, nor a form only one dictionary prints). Verbs that look prefixed but are regular
   are listed (behave, belie, befit, refit, outfit, relay, welcome, belay, reprove, retread). Any other verb is regular,
   with the assumption recorded, unless a side list records it.
-- **Hints**: `classHint` keeps the regular or the irregular forms; `stems` gives an unknown verb its past and past
+- **Hints**: `region` prefers and keeps one region's forms (see Labels); `classHint` keeps the regular or the irregular forms; `stems` gives an unknown verb its past and past
   participle; `stress` and `sEnding` decide what spelling cannot show. A hint overrides an assumption; a hint that
   contradicts a recorded fact (the listed stress of begin, the -s of demo) is an `INVALID_HINT`, and so is a query
   whose `region` and class hint leave no form.
@@ -36,27 +36,32 @@ A rule is never cited to the scraped corpus.
 - **Clause** (`clause.ts`): the subject pronoun before the verb chain; none in the imperative.
 - **Availability**: no English verb in scope is defective; nothing is declared unavailable.
 
-## Labels: region and usage
+## Labels: region, usage and preference
 
 - A form is `GB` or `US` only where a dictionary marks it so: LDOCE's "(especially) British English" / "(especially)
-  American English" (learnt, spelt, leapt, quitted are GB; gotten, dove, proven, snuck, pled, kneeled are US). The British
-  final l (travelled / traveled) is a rule of the spelling sources and tags the two spellings it makes.
-- A form both dictionaries print without a label is standard; LDOCE's order is the order of preference.
-- A form only one dictionary prints (AHD's "X or Y" second choices such as sung, shrunk, stunk, stricken, strived,
-  awaked, waked, forgot as participle; a form only LDOCE's verb table shows, such as shoed) and the forms marked old
-  (writ, smote, begot) are `usage: 'dated'`: accepted as an answer, never preferred, never inherited.
-- LDOCE's literary forms (bade, bidden, hewn) are `usage: 'literary'`.
-- `region: 'GB' | 'US'` keeps only the forms of that region and those without one, and ranks that region first; British
-  is preferred by default.
+  American English" (learnt, spelt, leapt, quitted, ageing are GB; gotten, dove, proven, snuck, pled, kneeled, kidnaped
+  are US). The British final l (travelled / traveled) is a rule of the spelling sources and tags the two spellings it makes.
+- `usage` is set only where a dictionary marks the form itself: LDOCE's literary bade, bidden and hewn. Neither
+  dictionary marks writ, smote, begot, forbad or thriven as old (AHD's own entries for them carry no label), so they are
+  standard.
+- Every other form is standard, in LDOCE's order: the first is preferred, a form listed second (strived, broadcasted,
+  swelled, stricken, waked, sung as a past, programed, nonplused, outputted) is accepted and never preferred. A form only
+  one dictionary prints (AHD's second choices, shoed from LDOCE's verb table) is recorded as such and is never inherited
+  by a prefixed verb (rewritten, never rewrit).
+- **Preference by region.** Without the `region` option the pack prefers LDOCE's first form and, where the spelling
+  forks, the British one (burnt, travelled, aging, kidnapped). With `region: 'GB'` the form marked British comes first
+  (ageing, travelled); with `region: 'US'` the form marked American comes first (traveled, gotten, kidnaped), and where
+  neither dictionary marks one, the form AHD prints first (burned, lighted, knit, mowed, cleft). The option also drops
+  the forms marked for the other region.
 
 ## Side lists
 
 | List | Members | What it decides |
 |---|---|---|
-| finalStress | abet, abhor, acquit, admit, allot, annul, appal, commit, compel, concur, confer, control, corral, defer, deter, dispel, distil, emit, enrol, equip, excel, expel, extol, fulfil, impel, incur, infer, instil, nonplus, occur, omit, patrol, permit, prefer, propel, rebel, recur, refer, regret, remit, repel, submit, transfer, transmit | doubling (preferred, controlled) |
-| nonFinalStress | bevel, combat, conquer, debit, devil, enter, interpret, profit, prosper, revel | no doubling; British l (entered, devilled / deviled) |
-| doublesUnstressed | babysit, eavesdrop, format, handicap, input, kidnap, output, program, retrofit, sidestep, typeset, worship, zigzag | doubling without stress |
-| consonantVariants | kidnap, worship, corral (single consonant US); program, nonplus (single consonant dated); bus (single preferred: bused, bussed) | the other spelling |
+| finalStress | abet, abhor, abut, acquit, admit, allot, annul, appal, commit, compel, concur, confer, control, corral, defer, deter, dispel, distil, emit, enrol, equip, excel, expel, extol, fulfil, impel, incur, infer, instil, nonplus, occur, omit, patrol, permit, prefer, propel, rappel, rebel, recur, refer, regret, remit, repel, submit, transfer, transmit, trepan | doubling (preferred, controlled) |
+| nonFinalStress | bedevil, bevel, combat, conquer, debit, devil, enter, interpret, profit, prosper, revel | no doubling; British l (entered, devilled / deviled) |
+| doublesUnstressed | babysit, bootleg, eavesdrop, format, gift-wrap, handicap, hobnob, housesit, input, kidnap, leapfrog, output, program, retrofit, sandbag, sidestep, typeset, wiretap, worship, zigzag | doubling without stress |
+| consonantVariants | kidnap, worship, corral (single consonant US); program, nonplus (single consonant second); bus (single preferred: bused, bussed); before -es also nonplusses / nonpluses, buses / busses | the other spelling |
 | noDoubling | debut | silent final t (debuted) |
 | keepsE / keepsEBritish | be, singe / age | being, singeing / aging, ageing (GB) |
 | plainS / takesEs / sVariant | solo, demo, disco, photo, ditto, stomach / veto, echo, psych, tango / tango | -s or -es (demos, stomachs; vetoes, psyches; tangoes, tangos) |
@@ -74,9 +79,9 @@ A rule is never cited to the scraped corpus.
 
 ## Lexicon verification
 
-The 186 irregular entries and every side-list verb were read in LDOCE and AHD at
-`https://www.ldoceonline.com/dictionary/<lemma>` and `https://www.ahdictionary.com/word/search.html?q=<lemma>` (2026-11-24
-and 2026-11-25); `src/languages/en/sources.ts` records each verb (`lexiconChecked`, `sideListsChecked`,
+The 198 irregular entries and every side-list verb were read in LDOCE and AHD at
+`https://www.ldoceonline.com/dictionary/<lemma>` and `https://www.ahdictionary.com/word/search.html?q=<lemma>` (2026-11-24,
+2026-11-25 and 2026-11-27); `src/languages/en/sources.ts` records each verb (`lexiconChecked`, `sideListsChecked`,
 `derivativesChecked`) and the explanation of a lexicon step says when only one dictionary was read. Checked in one
 dictionary only (secondary source only):
 
@@ -87,6 +92,9 @@ dictionary only (secondary source only):
 | nonplus, devil, bevel, disco, photo, ditto, retread, inlay | LDOCE has no verb entry; AHD only. |
 | preset | LDOCE's verb entry prints no forms; AHD only. |
 | demo | AHD prints no forms for the verb; LDOCE's verb table only. |
+| handwrite, typewrite, housesit, floodlight, wiretap | LDOCE has no verb entry; AHD only. |
+| trepan | read in AHD only. |
+| abut, bootleg, sandbag, leapfrog, hobnob, gift-wrap, rappel, bedevil | read in LDOCE only (last round). |
 
 ## Rule inventory
 
@@ -139,7 +147,7 @@ dictionary only (secondary source only):
 | `en.orth.double-l-british` | rule | British spelling doubles a final l after a vowel even without stress: {before} becomes {after}. | [UT style guide doubling of a final -l after a short vowel](https://www.utwente.nl/en/language-centre/translation-editing-services/english-styleguide/tricky/spelling/); [LDOCE travel, verb entry header](https://www.ldoceonline.com/dictionary/travel); [LDOCE cancel, verb entry header](https://www.ldoceonline.com/dictionary/cancel) |
 | `en.orth.single-l-american` | rule | American spelling keeps one l: {after}. | [AHD travel, verb entry, inflected forms](https://www.ahdictionary.com/word/search.html?q=travel); [LDOCE travel, verb entry header: traveled American English](https://www.ldoceonline.com/dictionary/travel) |
 | `en.orth.single-consonant-american` | rule | American spelling may keep one consonant: {after}. | [LDOCE kidnap, verb entry header: also kidnaped American English](https://www.ldoceonline.com/dictionary/kidnap); [LDOCE worship, verb entry header](https://www.ldoceonline.com/dictionary/worship) |
-| `en.orth.spelling-variant` | rule | {variant, select, single {The dictionaries prefer one consonant here: {after}.} dated {An older spelling keeps one consonant: {after}.} keepE {British spelling may also keep the e: {after}.} other {This verb is also written with -s only: {after}.}} | [LDOCE age, verb: aging or ageing British English](https://www.ldoceonline.com/dictionary/age); [LDOCE bus, verb entry header](https://www.ldoceonline.com/dictionary/bus); [AHD program, verb entry, inflected forms](https://www.ahdictionary.com/word/search.html?q=program); [AHD tango, verb entry, inflected forms](https://www.ahdictionary.com/word/search.html?q=tango) |
+| `en.orth.spelling-variant` | rule | {variant, select, single {The dictionaries prefer one consonant here: {after}.} second {Also accepted with one consonant: {after}.} keepE {British spelling may also keep the e: {after}.} other {This verb is also written with -s only: {after}.}} | [LDOCE age, verb: aging or ageing British English](https://www.ldoceonline.com/dictionary/age); [LDOCE bus, verb entry header](https://www.ldoceonline.com/dictionary/bus); [AHD program, verb entry, inflected forms](https://www.ahdictionary.com/word/search.html?q=program); [AHD tango, verb entry, inflected forms](https://www.ahdictionary.com/word/search.html?q=tango) |
 | `en.periphrasis.perfect` | rule | Present perfect: the present of have plus the past participle. | CGEL ch. 3 "The verb" |
 | `en.periphrasis.pluperfect` | rule | Past perfect: had plus the past participle. | CGEL ch. 3 "The verb" |
 | `en.periphrasis.future` | rule | Future: will plus the plain form. | CGEL ch. 3 "The verb"; [LDOCE will, modal verb, sense 1: "used to make future tenses"](https://www.ldoceonline.com/dictionary/will) |
@@ -184,7 +192,7 @@ Corrections (480 cells, 19,005 form expectations after them):
 | fly | flys | flies | 1 | DfE Appendix 1 |
 | teach | teachs | teaches | 1 | DfE Appendix 1 |
 | shake | shaked | shook | 12 | LDOCE shake |
-| strike | striked; stricken (U) | struck; stricken (dated, no region) | 49 | LDOCE / AHD strike |
+| strike | striked; stricken (U) | struck; stricken (no region) | 49 | LDOCE / AHD strike |
 | shut, cast, spit, slide, bend | shutted, casted, spitted, slidden, bended | dropped | 49, 49, 49, 37, 37 | LDOCE |
 | bear | born (active perfect) | dropped | 37 | AHD bear |
 | spin | span | dropped | 12 | AHD spin |
@@ -197,8 +205,17 @@ Corrections (480 cells, 19,005 form expectations after them):
   phrasal verbs (a multiword infinitive is refused), subjunctive progressives, the perfect infinitive and participle.
 - Second verbs left out, their forms restricted to one sense: spit (spitted), wind (winded), weave (weaved), ring
   (ringed), relay (relaid), cost (costed), fly (flied), grind (grinded), pay (payed), stick (sticked), let (letted).
-- Spelling variants not generated: focussed, benefitted, combatted, eying, glueing, queueing; nonplusses (AHD's first
-  3rd person; the engine writes nonpluses, AHD's second).
+- Spelling variants not generated: focussed, benefitted, combatted, eying, glueing, queueing. Not in the lexicon:
+  abide (abode), bereave (bereft), gird (girt), heave (hove), shave (shaven), sunburn (sunburnt), the keep-e -ing of
+  binge, whinge and tinge.
+- **Compounds outside the lists come out regular.** A compound of an irregular verb whose first element is not one of
+  the inheritance prefixes and that is not listed (sightread → sightreaded, deepfreeze → deepfreezed) is conjugated as a
+  regular verb, with the assumption step first; give its parts with the `stems` hint (`{ past: 'sightread',
+  pastParticiple: 'sightread' }`). Suffix-based inheritance is deliberately absent: cheat, defeat, repeat and retreat end in
+  eat, and behave, relay and welcome show why the prefix list is closed. A hyphenated lemma is accepted only where the
+  dictionaries print it with the hyphen (spoon-feed, lip-read, gift-wrap).
+- rappel: LDOCE labels the verb (not a spelling) American English; the engine has no verb-level region, so its forms are
+  unmarked.
 - can and will conjugate as the ordinary verbs (canned, willed); beware has a full paradigm though it is used mostly in
   the imperative and the infinitive. The analysis says so.
 - Stress is read from the lists or assumed from spelling; an unlisted polysyllable may be assumed wrongly (the

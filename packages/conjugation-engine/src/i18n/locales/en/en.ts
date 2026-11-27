@@ -61,7 +61,7 @@ export const english = {
   'en.orth.c-to-ck': 'A final c after a vowel becomes ck before -ed and -ing: {before} becomes {after}.',
   'en.orth.double-consonant': 'One {consonant} after one vowel {reason, select, listed {at the end of this verb is always doubled} other {at the end of a stressed syllable is doubled}} before -{ending}: {before} becomes {after}.',
   'en.orth.double-l-british': 'British spelling doubles a final l after a vowel even without stress: {before} becomes {after}.',
-  'en.orth.spelling-variant': '{variant, select, single {The dictionaries prefer one consonant here: {after}.} dated {An older spelling keeps one consonant: {after}.} keepE {British spelling may also keep the e: {after}.} other {This verb is also written with -s only: {after}.}}',
+  'en.orth.spelling-variant': '{variant, select, single {The dictionaries prefer one consonant here: {after}.} second {Also accepted with one consonant: {after}.} keepE {British spelling may also keep the e: {after}.} other {This verb is also written with -s only: {after}.}}',
   'en.orth.single-l-american': 'American spelling keeps one l: {after}.',
   'en.orth.single-consonant-american': 'American spelling may keep one consonant: {after}.',
   'en.periphrasis.perfect': 'Present perfect: the present of have plus the past participle.',

@@ -3,13 +3,16 @@
  * classification and the spelling rules read. Every entry was read in the Longman Dictionary of Contemporary English
  * (LDOCE) and the American Heritage Dictionary (AHD); `sources.ts` records, verb by verb, where.
  *
- * Labelling policy (controller ruling after the stint-1 review):
+ * Labelling policy (controller rulings after the stint-1 and whole-pack reviews):
  * - `region` only where a dictionary marks the form: LDOCE's "(especially) American English" is US, "(especially)
  *   British English" is GB. A form is never regional because only one dictionary prints it.
- * - A form both dictionaries print without a label is standard; LDOCE's order is the order of preference.
- * - A form only one dictionary prints (AHD's second choices "X or Y", "also Y"; LDOCE's verb table only) is accepted but
- *   never preferred: `usage: 'dated'`, no region. So are the forms the dictionaries mark old (writ, smote, begot).
- * - A form LDOCE labels literary is `usage: 'literary'` (bade, bidden, hewn).
+ * - `usage` only where a dictionary marks the form itself old, archaic or literary: LDOCE's literary bade, bidden and
+ *   hewn. Neither dictionary marks writ, smote, begot, forbad or thriven as forms (AHD's entries for them carry no
+ *   label), so they are standard.
+ * - Every other form is standard, in LDOCE's order of preference: a form listed second is accepted, never preferred.
+ *   `source` says when only one dictionary prints a form (AHD's "X or Y" second choices; shoed, only in LDOCE's verb
+ *   table): such a form is never inherited by a prefixed verb (no *rewrit). `americanFirst` marks the form AHD prints
+ *   first where LDOCE prefers another (burned, lighted): with `region: 'US'` it is preferred.
  * - Forms restricted to one sense (hanged, shined) are a second paradigm or left out.
  */
 
@@ -19,7 +22,11 @@ export type Region = 'GB' | 'US';
 export interface Alternate {
   readonly form: string | null;
   readonly region?: Region;
-  readonly usage?: 'literary' | 'dated';
+  readonly usage?: 'literary';
+  /** Only this dictionary prints the form; a prefixed verb does not inherit it. */
+  readonly source?: 'ldoce' | 'ahd';
+  /** AHD prints this form first where LDOCE prints another first: preferred when the query asks for American spelling. */
+  readonly americanFirst?: true;
 }
 
 export interface Paradigm {
@@ -32,6 +39,12 @@ export interface Paradigm {
   readonly meaning?: string;
 }
 
+/** A doubled form with a single-consonant variant: which is preferred, and the single form's region if LDOCE marks one. */
+export interface ConsonantVariant {
+  readonly first: 'double' | 'single';
+  readonly single: { readonly region?: Region };
+}
+
 export interface IrregularEntry {
   readonly paradigms: readonly Paradigm[];
   /** A polysyllable stressed on its last syllable (begin, forget): it doubles its final consonant. */
@@ -41,12 +54,15 @@ export interface IrregularEntry {
 const ed: Alternate = { form: null };
 const edUS: Alternate = { form: null, region: 'US' };
 const edGB: Alternate = { form: null, region: 'GB' };
-const edDated: Alternate = { form: null, usage: 'dated' };
+const edAhd: Alternate = { form: null, source: 'ahd' };
+const edUsFirst: Alternate = { form: null, americanFirst: true };
 const w = (form: string): Alternate => ({ form });
 const us = (form: string): Alternate => ({ form, region: 'US' });
 const gb = (form: string): Alternate => ({ form, region: 'GB' });
 const literary = (form: string): Alternate => ({ form, usage: 'literary' });
-const dated = (form: string): Alternate => ({ form, usage: 'dated' });
+const ahdOnly = (form: string): Alternate => ({ form, source: 'ahd' });
+const ldoceOnly = (form: string): Alternate => ({ form, source: 'ldoce' });
+const usFirst = (form: string): Alternate => ({ form, americanFirst: true });
 
 /** One paradigm from its past and participle alternates. */
 function parts(past: readonly Alternate[], participle: readonly Alternate[], extra: { finalStress?: true } = {}): IrregularEntry {
@@ -61,26 +77,26 @@ const two = (past: string, participle: string, extra: { finalStress?: true } = {
 /**
  * The irregular verbs (hang, lie and shine have two paradigms each). Section A was read for the design (design §5.1),
  * section B for this pack (design §5.2), section C after the stint-1 review; `sources.ts` records each check.
- * A "dated" form below is one only AHD prints (or only LDOCE's verb table), per the policy above.
+ * An `ahdOnly` / `edAhd` form is one only AHD prints; `usFirst` / `edUsFirst` one AHD prints first (see the policy).
  */
 export const irregulars: Readonly<Record<string, IrregularEntry>> = {
   // A. Design §5.1.
-  awake: parts([w('awoke'), edDated], [w('awoken'), edDated]),
+  awake: parts([w('awoke'), edAhd], [w('awoken'), { form: null, source: 'ahd', americanFirst: true }]),
   bear: two('bore', 'borne'),
-  beat: parts([w('beat')], [w('beaten'), dated('beat')]),
+  beat: parts([w('beat')], [w('beaten'), ahdOnly('beat')]),
   bend: same('bent'),
   bet: parts([w('bet'), ed], [w('bet'), ed]),
   bid: parts([w('bid'), literary('bade')], [w('bid'), literary('bidden')]),
-  broadcast: parts([w('broadcast'), edDated], [w('broadcast'), edDated]),
-  burn: parts([w('burnt'), ed], [w('burnt'), ed]),
+  broadcast: parts([w('broadcast'), edAhd], [w('broadcast'), edAhd]),
+  burn: parts([w('burnt'), edUsFirst], [w('burnt'), edUsFirst]),
   cast: same('cast'),
   dive: parts([ed, us('dove')], [ed]),
   dream: parts([ed, w('dreamt')], [ed, w('dreamt')]),
   dwell: parts([w('dwelt'), ed], [w('dwelt'), ed]),
   fit: parts([ed, us('fit')], [ed, us('fit')]),
-  forbid: parts([w('forbade'), dated('forbad')], [w('forbidden'), dated('forbid')], { finalStress: true }),
+  forbid: parts([w('forbade'), ahdOnly('forbad')], [w('forbidden'), ahdOnly('forbid')], { finalStress: true }),
   forecast: parts([w('forecast'), ed], [w('forecast'), ed]),
-  forget: parts([w('forgot')], [w('forgotten'), dated('forgot')], { finalStress: true }),
+  forget: parts([w('forgot')], [w('forgotten'), ahdOnly('forgot')], { finalStress: true }),
   get: parts([w('got')], [w('got'), us('gotten')]),
   hang: {
     paradigms: [
@@ -90,7 +106,7 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
   },
   input: parts([ed, w('input')], [ed, w('input')]),
   kneel: parts([w('knelt'), edUS], [w('knelt'), edUS]),
-  knit: parts([ed, w('knit')], [ed, w('knit')]),
+  knit: parts([ed, usFirst('knit')], [ed, usFirst('knit')]),
   lean: parts([ed, gb('leant')], [ed, gb('leant')]),
   leap: parts([gb('leapt'), edUS], [gb('leapt'), edUS]),
   learn: parts([ed, gb('learnt')], [ed, gb('learnt')]),
@@ -100,8 +116,8 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
       { past: [ed], participle: [ed], label: 'lied', meaning: 'say something untrue' },
     ],
   },
-  light: parts([w('lit'), ed], [w('lit'), ed]),
-  mow: parts([ed], [w('mown'), ed]),
+  light: parts([w('lit'), edUsFirst], [w('lit'), edUsFirst]),
+  mow: parts([ed], [w('mown'), edUsFirst]),
   plead: parts([ed, us('pled')], [ed, us('pled')]),
   prove: parts([ed], [ed, us('proven')]),
   quit: parts([w('quit'), edGB], [w('quit'), edGB]),
@@ -113,12 +129,12 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
       { past: [ed], participle: [ed], label: 'shined', meaning: 'polish' },
     ],
   },
-  show: parts([ed], [w('shown'), edDated]),
-  shrink: parts([w('shrank'), dated('shrunk')], [w('shrunk'), dated('shrunken')]),
+  show: parts([ed], [w('shown'), edAhd]),
+  shrink: parts([w('shrank'), ahdOnly('shrunk')], [w('shrunk'), ahdOnly('shrunken')]),
   shut: same('shut'),
-  sing: parts([w('sang'), dated('sung')], [w('sung')]),
+  sing: parts([w('sang'), ahdOnly('sung')], [w('sung')]),
   sink: parts([w('sank'), us('sunk')], [w('sunk')]),
-  slay: parts([w('slew'), edDated], [w('slain'), edDated]),
+  slay: parts([w('slew'), edAhd], [w('slain'), edAhd]),
   slide: same('slid'),
   smell: parts([gb('smelt'), edUS], [gb('smelt'), edUS]),
   sneak: parts([ed, us('snuck')], [ed, us('snuck')]),
@@ -130,13 +146,13 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
   spit: parts([w('spat'), us('spit')], [w('spat'), us('spit')]),
   spoil: parts([ed, gb('spoilt')], [ed, gb('spoilt')]),
   spring: parts([w('sprang'), us('sprung')], [w('sprung')]),
-  stink: parts([w('stank'), dated('stunk')], [w('stunk')]),
-  strike: parts([w('struck')], [w('struck'), dated('stricken')]),
-  strive: parts([w('strove'), edDated], [w('striven'), edDated]),
-  swell: parts([ed], [w('swollen'), edDated]),
-  thrive: parts([ed, w('throve')], [ed, dated('thriven')]),
-  tread: parts([w('trod'), edDated], [w('trodden'), dated('trod'), edDated]),
-  wake: parts([w('woke'), edDated], [w('woken'), edDated]),
+  stink: parts([w('stank'), ahdOnly('stunk')], [w('stunk')]),
+  strike: parts([w('struck')], [w('struck'), ahdOnly('stricken')]),
+  strive: parts([w('strove'), edAhd], [w('striven'), edAhd]),
+  swell: parts([ed], [w('swollen'), { form: null, source: 'ahd', americanFirst: true }]),
+  thrive: parts([ed, w('throve')], [ed, ahdOnly('thriven')]),
+  tread: parts([w('trod'), edAhd], [w('trodden'), ahdOnly('trod'), edAhd]),
+  wake: parts([w('woke'), edAhd], [w('woken'), { form: null, source: 'ahd', americanFirst: true }]),
   weave: two('wove', 'woven'),
   wet: parts([w('wet'), ed], [w('wet'), ed]),
   wind: same('wound'),
@@ -161,25 +177,25 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
   mean: same('meant'), meet: same('met'), pay: same('paid'), say: same('said'), seek: same('sought'), sell: same('sold'),
   send: same('sent'), shoot: same('shot'), sit: same('sat'), sleep: same('slept'), sling: same('slung'),
   // slink: AHD "slunk also slinked"; LDOCE "slunk" only.
-  slink: parts([w('slunk'), edDated], [w('slunk'), edDated]),
+  slink: parts([w('slunk'), edAhd], [w('slunk'), edAhd]),
   spend: same('spent'), stand: same('stood'), stick: same('stuck'), sting: same('stung'), string: same('strung'),
   sweep: same('swept'), swing: same('swung'), teach: same('taught'), tell: same('told'), think: same('thought'),
   weep: same('wept'), win: same('won'), wring: same('wrung'),
   // An -en or -n participle. (fly: LDOCE fly³ and AHD sense 7 "flied", baseball, left out as sense-restricted.)
   arise: two('arose', 'arisen'),
   begin: two('began', 'begun', { finalStress: true }),
-  bite: parts([w('bit')], [w('bitten'), dated('bit')]),
+  bite: parts([w('bit')], [w('bitten'), ahdOnly('bit')]),
   blow: two('blew', 'blown'), break: two('broke', 'broken'), choose: two('chose', 'chosen'), draw: two('drew', 'drawn'),
   drive: two('drove', 'driven'), eat: two('ate', 'eaten'), fall: two('fell', 'fallen'), fly: two('flew', 'flown'),
   forsake: two('forsook', 'forsaken'), freeze: two('froze', 'frozen'), give: two('gave', 'given'), grow: two('grew', 'grown'),
-  hide: parts([w('hid')], [w('hidden'), dated('hid')]),
+  hide: parts([w('hid')], [w('hidden'), ahdOnly('hid')]),
   know: two('knew', 'known'), ride: two('rode', 'ridden'), rise: two('rose', 'risen'), see: two('saw', 'seen'),
   shake: two('shook', 'shaken'), speak: two('spoke', 'spoken'), steal: two('stole', 'stolen'), swear: two('swore', 'sworn'),
   take: two('took', 'taken'), tear: two('tore', 'torn'), throw: two('threw', 'thrown'), wear: two('wore', 'worn'),
   // write: AHD "written also writ"; beget: AHD "begotten or begot"; smite: AHD "smitten or smote"; LDOCE prints none.
-  write: parts([w('wrote')], [w('written'), dated('writ')]),
-  beget: parts([w('begot')], [w('begotten'), dated('begot')], { finalStress: true }),
-  smite: parts([w('smote')], [w('smitten'), dated('smote')]),
+  write: parts([w('wrote')], [w('written'), ahdOnly('writ')]),
+  beget: parts([w('begot')], [w('begotten'), ahdOnly('begot')], { finalStress: true }),
+  smite: parts([w('smote')], [w('smitten'), ahdOnly('smote')]),
   stride: two('strode', 'stridden'),
   // A regular past and an -n participle. hew: LDOCE "hewed or hewn literary", AHD "hewn or hewed".
   hew: parts([ed], [ed, literary('hewn')]),
@@ -196,19 +212,32 @@ export const irregulars: Readonly<Record<string, IrregularEntry>> = {
   // C. Added after the stint-1 review.
   // misspell: LDOCE "misspelt or misspelled", AHD "misspelled or misspelt", unlabelled: listed, since a prefixed verb
   // inherits only its base's unmarked forms.
-  misspell: parts([w('misspelt'), ed], [w('misspelt'), ed]),
+  misspell: parts([w('misspelt'), edUsFirst], [w('misspelt'), edUsFirst]),
   // output: LDOCE "output"; AHD "outputted or output".
-  output: parts([w('output'), edDated], [w('output'), edDated]),
+  output: parts([w('output'), { form: null, source: 'ahd', americanFirst: true }], [w('output'), { form: null, source: 'ahd', americanFirst: true }]),
   // retrofit: LDOCE "retrofitted"; AHD "retrofitted or retrofit".
-  retrofit: parts([ed, dated('retrofit')], [ed, dated('retrofit')]),
+  retrofit: parts([ed, ahdOnly('retrofit')], [ed, ahdOnly('retrofit')]),
   // shoe: LDOCE header "shod", its verb table also shoed; AHD "shod, shod or shodden".
-  shoe: parts([w('shod'), dated('shoed')], [w('shod'), dated('shodden')]),
+  shoe: parts([w('shod'), ldoceOnly('shoed')], [w('shod'), ahdOnly('shodden')]),
   // beseech: LDOCE "besought or beseeched", AHD "besought or beseeched".
   beseech: parts([w('besought'), ed], [w('besought'), ed]),
   // wed: LDOCE "wedded or wed", AHD "wedded, wed or wedded".
-  wed: parts([ed, w('wed')], [ed, w('wed')]),
+  wed: parts([ed, w('wed')], [ed, usFirst('wed')]),
   // Compounds LDOCE has no entry for (AHD only): typeset, breastfeed, ghostwrite.
   typeset: same('typeset'), breastfeed: same('breastfed'), ghostwrite: two('ghostwrote', 'ghostwritten'),
+
+  // D. Added after the whole-pack review (read 2026-11-27).
+  // rend: LDOCE "rent", AHD "rent also rended".
+  rend: parts([w('rent'), edAhd], [w('rent'), edAhd]),
+  // cleave (split): LDOCE "cleaved, clove or cleft; cleaved, cloven or cleft"; AHD prints cleft first, and has a second
+  // verb cleave (cling) with cleaved only, which this paradigm already has.
+  cleave: parts([ed, w('clove'), usFirst('cleft')], [ed, w('cloven'), usFirst('cleft')]),
+  // Compounds outside the prefix list: LDOCE and AHD typecast, backslid, spoon-fed, gainsaid, spotlighted or spotlit;
+  // lip-read; AHD only (no LDOCE entry) handwrote / handwritten, typewrote / typewritten, housesat, floodlighted or floodlit.
+  typecast: same('typecast'), backslide: same('backslid'), 'spoon-feed': same('spoon-fed'), gainsay: same('gainsaid'),
+  'lip-read': same('lip-read'), spotlight: parts([ed, w('spotlit')], [ed, w('spotlit')]),
+  handwrite: two('handwrote', 'handwritten'), typewrite: two('typewrote', 'typewritten'), housesit: same('housesat'),
+  floodlight: parts([ed, w('floodlit')], [ed, w('floodlit')]),
 };
 
 /**
@@ -246,37 +275,35 @@ export const legalOnsets: ReadonlySet<string> = new Set([
 
 /** Regular verbs stressed on the last syllable (LDOCE and AHD: admitted, compelled, preferred, allotted, ...). */
 export const finalStress: ReadonlySet<string> = new Set([
-  'abet', 'abhor', 'acquit', 'admit', 'allot', 'annul', 'appal', 'commit', 'compel', 'concur', 'confer', 'control', 'corral',
+  'abet', 'abhor', 'abut', 'acquit', 'admit', 'allot', 'annul', 'appal', 'commit', 'compel', 'concur', 'confer', 'control', 'corral',
   'defer', 'deter', 'dispel', 'distil', 'emit', 'enrol', 'equip', 'excel', 'expel', 'extol', 'fulfil', 'impel', 'incur', 'infer',
   'instil', 'nonplus', 'occur', 'omit', 'patrol', 'permit', 'prefer', 'propel', 'rebel', 'recur', 'refer', 'regret', 'remit',
-  'repel', 'submit', 'transfer', 'transmit',
+  'rappel', 'repel', 'submit', 'transfer', 'transmit', 'trepan',
 ]);
 
 /** Regular verbs the prefix parse would wrongly stress on the last syllable (LDOCE and AHD: entered, profited, devilled, ...). */
 export const nonFinalStress: ReadonlySet<string> = new Set([
-  'bevel', 'combat', 'conquer', 'debit', 'devil', 'enter', 'interpret', 'profit', 'prosper', 'revel',
+  'bedevil', 'bevel', 'combat', 'conquer', 'debit', 'devil', 'enter', 'interpret', 'profit', 'prosper', 'revel',
 ]);
 
 /** Verbs that double their last consonant although the last syllable is unstressed (formatted, kidnapped, zigzagged). */
 export const doublesUnstressed: ReadonlySet<string> = new Set([
-  'babysit', 'eavesdrop', 'format', 'handicap', 'input', 'kidnap', 'output', 'program', 'retrofit', 'sidestep', 'typeset',
-  'worship', 'zigzag',
+  'babysit', 'bootleg', 'eavesdrop', 'format', 'gift-wrap', 'handicap', 'hobnob', 'housesit', 'input', 'kidnap', 'leapfrog', 'output',
+  'program', 'retrofit', 'sandbag', 'sidestep', 'typeset', 'wiretap', 'worship', 'zigzag',
 ]);
 
 /**
  * Verbs whose doubled form has a single-consonant variant. `first: 'double'`: the doubled form is preferred and the
- * single one carries `single` (kidnaped: LDOCE "also kidnaped American English"; programed, nonplused: AHD only, so
- * dated). `first: 'single'`: both dictionaries print the single form first (bus: "bused or bussed").
+ * single one carries `single` (kidnaped: LDOCE "also kidnaped American English"; programed, nonplused: AHD only, second).
+ * `first: 'single'`: both dictionaries print the single form first (bus: "bused or bussed"). Before -es the s of
+ * nonplus and bus forks the same way (AHD nonplusses also nonpluses; buses or busses).
  */
-export const consonantVariants: Readonly<Record<string, {
-  readonly first: 'double' | 'single';
-  readonly single: { readonly region?: Region; readonly usage?: 'dated' };
-}>> = {
+export const consonantVariants: Readonly<Record<string, ConsonantVariant>> = {
   kidnap: { first: 'double', single: { region: 'US' } },
   worship: { first: 'double', single: { region: 'US' } },
   corral: { first: 'double', single: { region: 'US' } },
-  program: { first: 'double', single: { usage: 'dated' } },
-  nonplus: { first: 'double', single: { usage: 'dated' } },
+  program: { first: 'double', single: {} },
+  nonplus: { first: 'double', single: {} },
   bus: { first: 'single', single: {} },
 };
 

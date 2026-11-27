@@ -24,7 +24,7 @@ const vowelEnding = (j: Juncture): boolean => j.ending === 'ed' || j.ending === 
 const unchanged = (j: Juncture, lexeme: EnglishLexeme): boolean => j.stem === lexeme.lemma;
 
 /** The American, older or other accepted spelling a rule leaves unchanged, with the step that names it. */
-function variantOf(j: Juncture, variant: 'single' | 'dated' | 'keepE' | 's', tags: Fork<Juncture>[number]['tags']): Fork<Juncture> {
+function variantOf(j: Juncture, variant: 'single' | 'second' | 'keepE' | 's', tags: Fork<Juncture>[number]['tags']): Fork<Juncture> {
   return one(j, [step(rules['en.orth.spelling-variant'], null, j.stem + j.ending, { variant })], tags);
 }
 
@@ -86,22 +86,24 @@ const cToCk: JunctureRule<SpellingContext> = {
 /**
  * 8. One consonant after one vowel is doubled before -ed and -ing (and z before -es) when the last syllable is stressed
  * or the verb always doubles; a silent consonant never does (debuted), and an unstressed final l is left to #9. Some
- * verbs also keep one consonant: American kidnaped, older programed; bus prefers it (bused, bussed).
+ * verbs also keep one consonant: American kidnaped, programed as a second spelling; bus prefers it (bused, bussed).
  */
 const doubleConsonant: JunctureRule<SpellingContext> = {
   info: rules['en.orth.double-consonant'],
   apply(j, { lexeme }) {
-    const before = vowelEnding(j) || (j.ending === 'es' && j.stem.endsWith('z'));
+    // Before -es only a final z doubles (quizzes), and the s of a verb with a single-consonant variant (nonplusses, busses).
+    const sBeforeEs = j.ending === 'es' && j.stem.endsWith('s') && lexeme.consonantVariant !== null;
+    const before = vowelEnding(j) || (j.ending === 'es' && j.stem.endsWith('z')) || sBeforeEs;
     const doubles = lexeme.doubling === 'always' || (lexeme.doubling === 'stress' && lexeme.finalStress);
     if (!before || !unchanged(j, lexeme) || !endsInDoublingConsonant(j.stem) || !doubles || (j.stem.endsWith('l') && !lexeme.finalStress)) return null;
     const doubled = one({ stem: j.stem + j.stem.charAt(j.stem.length - 1), ending: j.ending });
     const variant = lexeme.consonantVariant;
-    if (variant === null || !vowelEnding(j)) return doubled;
+    if (variant === null || (!vowelEnding(j) && !sBeforeEs)) return doubled;
     if (variant.first === 'single') return [...variantOf(j, 'single', {}), ...doubled.map(o => ({ ...o, tags: { pattern: 'variant' } }))];
     if (variant.single.region === 'US') {
       return [...doubled, ...one(j, [step(rules['en.orth.single-consonant-american'], null, j.stem + j.ending)], { region: 'US', pattern: 'variant' })];
     }
-    return [...doubled, ...variantOf(j, 'dated', { usage: 'dated', pattern: 'variant' })];
+    return [...doubled, ...variantOf(j, 'second', { pattern: 'variant' })];
   },
   describe: (_, after, { lexeme }) => ({
     consonant: after.stem.charAt(after.stem.length - 1), reason: lexeme.doubling === 'stress' ? 'stressed' : 'listed', ending: after.ending,

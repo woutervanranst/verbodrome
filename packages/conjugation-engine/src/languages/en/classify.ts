@@ -17,7 +17,7 @@ import {
   modals, mostlyImperative, neverBase, noDoubling, noInherit, nonFinalStress, notModal, plainS, sideListed, stressPrefixes, sVariant,
   takesEs,
 } from './lexicon.js';
-import type { Alternate, Region } from './lexicon.js';
+import type { Alternate, ConsonantVariant } from './lexicon.js';
 import { englishOrthography } from './orthography.js';
 import { englishRules } from './rules.js';
 import { checkedIn } from './sources.js';
@@ -36,7 +36,7 @@ export interface EnglishLexeme extends LexemeBase {
   /** `stress`: a final consonant doubles in a stressed last syllable; `always`: whatever the stress; `never`: it is silent (debut). */
   readonly doubling: 'stress' | 'always' | 'never';
   /** A single-consonant variant beside the doubled form (kidnaped), or the single form preferred (bused). */
-  readonly consonantVariant: { readonly first: 'double' | 'single'; readonly single: { readonly region?: Region; readonly usage?: 'dated' } } | null;
+  readonly consonantVariant: ConsonantVariant | null;
   readonly keepsE: boolean;
   /** Drops its e before -ing, with a British variant that keeps it (aging, ageing). */
   readonly keepsEBritish: boolean;
@@ -92,8 +92,8 @@ function alternatesText(lexeme: EnglishLexeme, alternates: readonly Alternate[])
 
 const hasListed = (alternates: readonly Alternate[]): boolean => alternates.some(alternate => alternate.form !== null);
 const hasRegular = (alternates: readonly Alternate[]): boolean => !alternates.length || alternates.some(alternate => alternate.form === null);
-/** An alternate that is neither regional nor marked by usage: the only kind a prefixed verb inherits. */
-const unmarked = (alternate: Alternate): boolean => alternate.region === undefined && alternate.usage === undefined;
+/** An alternate both dictionaries print, neither regional nor marked by usage: the only kind a prefixed verb inherits. */
+const unmarked = (alternate: Alternate): boolean => alternate.region === undefined && alternate.usage === undefined && alternate.source === undefined;
 
 function lexiconStep(lexeme: EnglishLexeme): DerivationStep {
   return step(rules['en.classify.lexicon'], lexeme.lemma, null, {
@@ -148,7 +148,7 @@ function inheritance(lemma: string): { readonly prefix: string; readonly base: s
 }
 
 /**
- * A prefixed verb's forms: the base's first paradigm, unmarked forms only (no regional, dated or literary variant of
+ * A prefixed verb's forms: the base's first paradigm, unmarked forms only (no regional, literary or one-dictionary variant of
  * the base: rewritten, never *rewrit), written after the prefix; null when no listed form is left (the verb is then
  * read as regular).
  */
@@ -236,6 +236,12 @@ function withRegion(lemma: string, readings: readonly Reading[], region: unknown
   return kept;
 }
 
+/** With `region: 'US'`, the forms AHD prints first come first (burned, lighted); the order is otherwise LDOCE's. */
+function americanOrder(reading: Reading): Reading {
+  const order = (alternates: readonly Alternate[]): Alternate[] => [...alternates.filter(a => a.americanFirst), ...alternates.filter(a => !a.americanFirst)];
+  return { ...reading, past: order(reading.past), participle: order(reading.participle) };
+}
+
 /** Where the stress falls (design §3 step 7), and the step that says so; a hint that contradicts listed stress is refused. */
 function stressOf(lemma: string, reading: Reading, hint: unknown): { readonly final: boolean; readonly steps: readonly DerivationStep[] } {
   if (vowelGroups(lemma) <= 1) return { final: true, steps: [] };
@@ -314,7 +320,9 @@ function lexemeOutcome(lemma: string, reading: Reading, query: Readonly<Record<s
 function lemmaOf(infinitive: unknown): string {
   const text = String(infinitive);
   const lemma = text.startsWith('to ') ? text.slice(3) : text;
-  if (!/^[a-z]+$/u.test(lemma)) throw new ConjugationError('INVALID_INFINITIVE', 'Give one English verb without particles, e.g. walk.');
+  // A hyphen only in a lemma the dictionaries print with one (spoon-feed, lip-read, gift-wrap).
+  const listedHyphen = /^[a-z]+-[a-z]+$/u.test(lemma) && (Object.hasOwn(irregulars, lemma) || sideListed(lemma));
+  if (!/^[a-z]+$/u.test(lemma) && !listedHyphen) throw new ConjugationError('INVALID_INFINITIVE', 'Give one English verb without particles, e.g. walk.');
   if (modals.has(lemma)) throw new ConjugationError('INVALID_INFINITIVE', `${lemma} is a modal verb; modal verbs are not conjugated.`);
   return lemma;
 }
@@ -323,7 +331,7 @@ function lemmaOf(infinitive: unknown): string {
 export function classifyEnglish(query: Readonly<Record<string, unknown>>): Fork<EnglishLexeme> {
   const lemma = lemmaOf(query.infinitive);
   const hinted = withClassHint(lemma, readingsOf(lemma, query.stems as EnglishStemHints | undefined), query.classHint as EnglishClassHint | undefined);
-  return withRegion(lemma, hinted, query.region).map(reading => lexemeOutcome(lemma, reading, query));
+  return withRegion(lemma, hinted, query.region).map(reading => lexemeOutcome(lemma, query.region === 'US' ? americanOrder(reading) : reading, query));
 }
 
 /** The lexeme of a verb in its first paradigm, without hints: an auxiliary a periphrasis names (be, have). */

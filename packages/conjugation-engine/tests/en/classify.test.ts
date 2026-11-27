@@ -98,7 +98,7 @@ describe('English classification', () => {
   });
 
   it('records where every lexicon entry and side-list verb was checked, verb by verb', () => {
-    expect(Object.keys(irregulars)).toHaveLength(186);
+    expect(Object.keys(irregulars)).toHaveLength(198);
     expect(Object.keys(irregulars).filter(lemma => irregulars[lemma]!.paradigms.length > 1)).toEqual(['hang', 'lie', 'shine']);
     // The record is literal: every lexicon key has one, and it names no verb the lexicon does not have.
     expect(Object.keys(lexiconChecked).sort()).toEqual(Object.keys(irregulars).sort());

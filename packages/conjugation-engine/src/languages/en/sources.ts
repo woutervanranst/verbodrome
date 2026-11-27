@@ -160,6 +160,9 @@ export const lexiconChecked: Readonly<Record<string, LexiconCheck>> = {
   // C (typeset, breastfeed, ghostwrite: LDOCE has no entry; see secondaryOnly)
   misspell: 'ldoce+ahd', output: 'ldoce+ahd', retrofit: 'ldoce+ahd', shoe: 'ldoce+ahd', beseech: 'ldoce+ahd', wed: 'ldoce+ahd', typeset: 'ahd', breastfeed: 'ahd',
   ghostwrite: 'ahd',
+  // D (read 2026-11-27)
+  rend: 'ldoce+ahd', cleave: 'ldoce+ahd', typecast: 'ldoce+ahd', backslide: 'ldoce+ahd', 'spoon-feed': 'ldoce+ahd', gainsay: 'ldoce+ahd',
+  'lip-read': 'ldoce+ahd', spotlight: 'ldoce+ahd', handwrite: 'ahd', typewrite: 'ahd', housesit: 'ahd', floodlight: 'ahd',
 };
 
 /**
@@ -190,6 +193,9 @@ export const sideListsChecked: Readonly<Record<string, LexiconCheck>> = {
   demo: 'ldoce', disco: 'ahd', photo: 'ahd', ditto: 'ahd', stomach: 'ldoce+ahd', psych: 'ldoce+ahd', tango: 'ldoce+ahd',
   veto: 'ldoce+ahd', echo: 'ldoce+ahd', can: 'ldoce+ahd', will: 'ldoce+ahd', beware: 'ldoce+ahd', reprove: 'ldoce+ahd',
   retread: 'ahd',
+  // Added after the whole-pack review (read 2026-11-27).
+  abut: 'ldoce', bootleg: 'ldoce', sandbag: 'ldoce', leapfrog: 'ldoce', hobnob: 'ldoce', 'gift-wrap': 'ldoce', rappel: 'ldoce',
+  bedevil: 'ldoce', wiretap: 'ahd', trepan: 'ahd',
 };
 
 /** Prefixed verbs read to confirm that inheritance through the prefixes added after the review gives their forms. */
@@ -214,6 +220,20 @@ export const secondaryOnly: Readonly<Record<string, string>> = {
   retread: 'LDOCE has no verb entry; AHD prints retreaded, retreading, retreads.',
   preset: 'The LDOCE verb entry prints no forms; AHD prints preset, presetting.',
   inlay: 'LDOCE has no verb entry; AHD prints inlaid, inlaying.',
+  handwrite: 'LDOCE has no verb entry; AHD prints handwrote, handwritten.',
+  typewrite: 'LDOCE has no verb entry; AHD prints typewrote, typewritten.',
+  housesit: 'LDOCE has no verb entry; AHD prints housesat, housesitting.',
+  floodlight: 'LDOCE has no verb entry; AHD prints floodlighted or floodlit.',
+  wiretap: 'LDOCE has no verb entry; AHD prints wiretapped, wiretapping.',
+  trepan: 'Read in AHD only (trepanned, trepanning); LDOCE was not read for it.',
+  abut: 'Read in LDOCE only (abutted, abutting); AHD was not read for it.',
+  bootleg: 'Read in LDOCE only (bootlegged, bootlegging); AHD was not read for it.',
+  sandbag: 'Read in LDOCE only (sandbagged, sandbagging); AHD was not read for it.',
+  leapfrog: 'Read in LDOCE only (leapfrogged, leapfrogging); AHD was not read for it.',
+  hobnob: 'Read in LDOCE only (hobnobbed, hobnobbing); AHD was not read for it.',
+  'gift-wrap': 'Read in LDOCE only (gift-wrap, gift-wrapped, gift-wrapping); AHD was not read for it.',
+  rappel: 'Read in LDOCE only (rappelled, rappelling, the verb labelled American English); AHD was not read for it.',
+  bedevil: 'Read in LDOCE only (bedevilled British English, bedeviled American English); AHD was not read for it.',
 };
 
 /**

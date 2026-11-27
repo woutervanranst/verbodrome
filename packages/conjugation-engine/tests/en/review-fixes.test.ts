@@ -65,19 +65,19 @@ describe('forms the review found wrong', () => {
     expect(texts('ghostwrite', 'participle', 'past')).toEqual(['ghostwritten']);
     expect(texts('interweave', 'participle', 'past')).toEqual(['interwoven']);
     expect(texts('retrofit', 'indicative', 'past')).toEqual(['retrofitted', 'retrofit']);
-    expect(labelled('retrofit', 'indicative', 'past')[1]).toEqual(['retrofit', null, 'dated']);
+    expect(labelled('retrofit', 'indicative', 'past')[1]).toEqual(['retrofit', null, 'standard']);
     expect(texts('beseech', 'indicative', 'past')).toEqual(['besought', 'beseeched']);
     expect(texts('wed', 'indicative', 'past')).toEqual(['wedded', 'wed']);
     expect(texts('shoe', 'indicative', 'past')).toEqual(['shod', 'shoed']);
-    expect(labelled('shoe', 'participle', 'past')).toEqual([['shod', null, 'standard'], ['shodden', null, 'dated']]);
+    expect(labelled('shoe', 'participle', 'past')).toEqual([['shod', null, 'standard'], ['shodden', null, 'standard']]);
     expect(texts('output', 'indicative', 'past')).toEqual(['output', 'outputted']);
     expect(texts('output', 'participle', 'present')).toEqual(['outputting']);
   });
 
   it('doubles the consonant of a final-stressed verb in both spellings, with the variants LDOCE and AHD print', () => {
     expect(labelled('corral', 'indicative', 'past')).toEqual([['corralled', null, 'standard'], ['corraled', 'US', 'standard']]);
-    expect(labelled('nonplus', 'indicative', 'past')).toEqual([['nonplussed', null, 'standard'], ['nonplused', null, 'dated']]);
-    expect(labelled('program', 'indicative', 'past')).toEqual([['programmed', null, 'standard'], ['programed', null, 'dated']]);
+    expect(labelled('nonplus', 'indicative', 'past')).toEqual([['nonplussed', null, 'standard'], ['nonplused', null, 'standard']]);
+    expect(labelled('program', 'indicative', 'past')).toEqual([['programmed', null, 'standard'], ['programed', null, 'standard']]);
     expect(labelled('kidnap', 'indicative', 'past')).toEqual([['kidnapped', null, 'standard'], ['kidnaped', 'US', 'standard']]);
     expect(texts('bus', 'indicative', 'past')).toEqual(['bused', 'bussed']);
     expect(texts('bus', 'participle', 'present')).toEqual(['busing', 'bussing']);
@@ -98,38 +98,38 @@ describe('forms the review found wrong', () => {
 
 describe('region and usage labels', () => {
   it.each([
-    ['awake', 'indicative', 'past', [['awoke', null, 'standard'], ['awaked', null, 'dated']]],
-    ['awake', 'participle', 'past', [['awoken', null, 'standard'], ['awaked', null, 'dated']]],
-    ['beat', 'participle', 'past', [['beaten', null, 'standard'], ['beat', null, 'dated']]],
-    ['broadcast', 'indicative', 'past', [['broadcast', null, 'standard'], ['broadcasted', null, 'dated']]],
-    ['forbid', 'indicative', 'past', [['forbade', null, 'standard'], ['forbad', null, 'dated']]],
-    ['forbid', 'participle', 'past', [['forbidden', null, 'standard'], ['forbid', null, 'dated']]],
-    ['forget', 'participle', 'past', [['forgotten', null, 'standard'], ['forgot', null, 'dated']]],
-    ['show', 'participle', 'past', [['shown', null, 'standard'], ['showed', null, 'dated']]],
-    ['shrink', 'indicative', 'past', [['shrank', null, 'standard'], ['shrunk', null, 'dated']]],
-    ['shrink', 'participle', 'past', [['shrunk', null, 'standard'], ['shrunken', null, 'dated']]],
-    ['sing', 'indicative', 'past', [['sang', null, 'standard'], ['sung', null, 'dated']]],
-    ['slay', 'indicative', 'past', [['slew', null, 'standard'], ['slayed', null, 'dated']]],
-    ['stink', 'indicative', 'past', [['stank', null, 'standard'], ['stunk', null, 'dated']]],
-    ['strike', 'participle', 'past', [['struck', null, 'standard'], ['stricken', null, 'dated']]],
-    ['strive', 'participle', 'past', [['striven', null, 'standard'], ['strived', null, 'dated']]],
-    ['swell', 'participle', 'past', [['swollen', null, 'standard'], ['swelled', null, 'dated']]],
-    ['thrive', 'participle', 'past', [['thrived', null, 'standard'], ['thriven', null, 'dated']]],
-    ['tread', 'participle', 'past', [['trodden', null, 'standard'], ['trod', null, 'dated'], ['treaded', null, 'dated']]],
-    ['wake', 'indicative', 'past', [['woke', null, 'standard'], ['waked', null, 'dated']]],
-    ['slink', 'indicative', 'past', [['slunk', null, 'standard'], ['slinked', null, 'dated']]],
-    ['bite', 'participle', 'past', [['bitten', null, 'standard'], ['bit', null, 'dated']]],
-    ['hide', 'participle', 'past', [['hidden', null, 'standard'], ['hid', null, 'dated']]],
-    ['write', 'participle', 'past', [['written', null, 'standard'], ['writ', null, 'dated']]],
-    ['beget', 'participle', 'past', [['begotten', null, 'standard'], ['begot', null, 'dated']]],
-    ['smite', 'participle', 'past', [['smitten', null, 'standard'], ['smote', null, 'dated']]],
+    ['awake', 'indicative', 'past', [['awoke', null, 'standard'], ['awaked', null, 'standard']]],
+    ['awake', 'participle', 'past', [['awoken', null, 'standard'], ['awaked', null, 'standard']]],
+    ['beat', 'participle', 'past', [['beaten', null, 'standard'], ['beat', null, 'standard']]],
+    ['broadcast', 'indicative', 'past', [['broadcast', null, 'standard'], ['broadcasted', null, 'standard']]],
+    ['forbid', 'indicative', 'past', [['forbade', null, 'standard'], ['forbad', null, 'standard']]],
+    ['forbid', 'participle', 'past', [['forbidden', null, 'standard'], ['forbid', null, 'standard']]],
+    ['forget', 'participle', 'past', [['forgotten', null, 'standard'], ['forgot', null, 'standard']]],
+    ['show', 'participle', 'past', [['shown', null, 'standard'], ['showed', null, 'standard']]],
+    ['shrink', 'indicative', 'past', [['shrank', null, 'standard'], ['shrunk', null, 'standard']]],
+    ['shrink', 'participle', 'past', [['shrunk', null, 'standard'], ['shrunken', null, 'standard']]],
+    ['sing', 'indicative', 'past', [['sang', null, 'standard'], ['sung', null, 'standard']]],
+    ['slay', 'indicative', 'past', [['slew', null, 'standard'], ['slayed', null, 'standard']]],
+    ['stink', 'indicative', 'past', [['stank', null, 'standard'], ['stunk', null, 'standard']]],
+    ['strike', 'participle', 'past', [['struck', null, 'standard'], ['stricken', null, 'standard']]],
+    ['strive', 'participle', 'past', [['striven', null, 'standard'], ['strived', null, 'standard']]],
+    ['swell', 'participle', 'past', [['swollen', null, 'standard'], ['swelled', null, 'standard']]],
+    ['thrive', 'participle', 'past', [['thrived', null, 'standard'], ['thriven', null, 'standard']]],
+    ['tread', 'participle', 'past', [['trodden', null, 'standard'], ['trod', null, 'standard'], ['treaded', null, 'standard']]],
+    ['wake', 'indicative', 'past', [['woke', null, 'standard'], ['waked', null, 'standard']]],
+    ['slink', 'indicative', 'past', [['slunk', null, 'standard'], ['slinked', null, 'standard']]],
+    ['bite', 'participle', 'past', [['bitten', null, 'standard'], ['bit', null, 'standard']]],
+    ['hide', 'participle', 'past', [['hidden', null, 'standard'], ['hid', null, 'standard']]],
+    ['write', 'participle', 'past', [['written', null, 'standard'], ['writ', null, 'standard']]],
+    ['beget', 'participle', 'past', [['begotten', null, 'standard'], ['begot', null, 'standard']]],
+    ['smite', 'participle', 'past', [['smitten', null, 'standard'], ['smote', null, 'standard']]],
     ['sink', 'indicative', 'past', [['sank', null, 'standard'], ['sunk', 'US', 'standard']]],
     ['get', 'participle', 'past', [['got', null, 'standard'], ['gotten', 'US', 'standard']]],
   ])('%s %s %s', (verb, mood, tense, expected) => {
     expect(labelled(verb, mood, tense)).toEqual(expected);
   });
 
-  it('never prefers a dated form, whatever the region', () => {
+  it('prefers the first form, whatever the region', () => {
     expect(forms('sing', 'indicative', 'past', { region: 'US' }).map(f => [f.text, f.preferred])).toEqual([['he sang', true], ['he sung', false]]);
   });
 

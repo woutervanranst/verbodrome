@@ -1,6 +1,6 @@
 /**
  * Real verbs outside the corpus (design §8b), against LDOCE and AHD as read for this pack, with the region and usage
- * labels of the controller's ruling (a region only where LDOCE marks it; a form only one dictionary prints is dated).
+ * labels of the controller's ruling (a region only where LDOCE marks it; usage only where a dictionary marks the form).
  * The regular verbs' 3rd person, past and -ing forms are in forms.test.ts; here their past participles.
  */
 import { describe, expect, it } from 'vitest';
@@ -13,7 +13,7 @@ const labelled = (infinitive: string, mood: string, tense: string): Labelled[] =
 const std = (form: string): Labelled => [form, null, 'standard'];
 const us = (form: string): Labelled => [form, 'US', 'standard'];
 const gb = (form: string): Labelled => [form, 'GB', 'standard'];
-const dated = (form: string): Labelled => [form, null, 'dated'];
+const second = (form: string): Labelled => [form, null, 'standard'];
 
 describe('irregular verbs outside the corpus (design §8b)', () => {
   it.each([
@@ -24,12 +24,12 @@ describe('irregular verbs outside the corpus (design §8b)', () => {
     ['sneak', [std('sneaked'), us('snuck')], [std('sneaked'), us('snuck')]],
     ['light', [std('lit'), std('lighted')], [std('lit'), std('lighted')]],
     ['spring', [std('sprang'), us('sprung')], [std('sprung')]],
-    ['awake', [std('awoke'), dated('awaked')], [std('awoken'), dated('awaked')]],
-    ['show', [std('showed')], [std('shown'), dated('showed')]],
+    ['awake', [std('awoke'), second('awaked')], [std('awoken'), second('awaked')]],
+    ['show', [std('showed')], [std('shown'), second('showed')]],
     ['sew', [std('sewed')], [std('sewn'), std('sewed')]],
-    ['thrive', [std('thrived'), std('throve')], [std('thrived'), dated('thriven')]],
+    ['thrive', [std('thrived'), std('throve')], [std('thrived'), second('thriven')]],
     ['input', [std('inputted'), std('input')], [std('inputted'), std('input')]],
-    ['slay', [std('slew'), dated('slayed')], [std('slain'), dated('slayed')]],
+    ['slay', [std('slew'), second('slayed')], [std('slain'), second('slayed')]],
   ])('%s', (verb, past, participle) => {
     expect(labelled(verb, 'indicative', 'past')).toEqual(past);
     expect(labelled(verb, 'participle', 'past')).toEqual(participle);
