@@ -1,169 +1,317 @@
 from	tense	to	ranked	notes
 de	indicative.present	de	indicative.present 1.00 exact | indicative.future 0.50 exact	- | eq.de.present-future,eq.de.future-supposition
+de	indicative.present	es	indicative.present 1.00 exact | indicative.future 0.50 exact	- | eq.de.present-future,eq.es.future-conjecture
 de	indicative.present	fr	indicative.present 1.00 exact | indicative.future 0.50 exact | indicative.near_future 0.30 exact	- | eq.de.present-future | eq.de.present-future
 de	indicative.present	nl	indicative.present 1.00 exact | indicative.future 0.50 exact	- | eq.de.present-future
 de	indicative.past	de	indicative.past 1.00 exact | indicative.perfect 0.72 exact	- | eq.de.perfect-spoken
+de	indicative.past	es	indicative.imperfect 1.00 exact | indicative.simple_past 0.80 exact | indicative.perfect 0.48 exact	eq.de.past-written | - | -
 de	indicative.past	fr	indicative.imperfect 1.00 exact | indicative.perfect 0.80 exact | indicative.simple_past 0.80 exact	eq.de.past-written | eq.fr.perfect.spoken-past | -
 de	indicative.past	nl	indicative.past 1.00 exact | indicative.perfect 0.48 exact	eq.de.past-written | eq.nl.perfect.spoken-past
 de	indicative.perfect	de	indicative.perfect 1.00 exact | indicative.past 0.72 exact	- | eq.de.perfect-spoken
+de	indicative.perfect	es	indicative.perfect 1.00 exact | indicative.simple_past 0.90 exact	eq.es.perfect-spain | eq.de.perfect-spoken
 de	indicative.perfect	fr	indicative.perfect 0.90 exact | indicative.simple_past 0.90 exact | indicative.recent_past 0.50 exact	eq.de.perfect-spoken,eq.fr.perfect.spoken-past | eq.de.perfect-spoken | -
 de	indicative.perfect	nl	indicative.perfect 1.00 exact | indicative.past 0.63 exact	- | eq.de.perfect-spoken
 de	indicative.pluperfect	de	indicative.pluperfect 1.00 exact	-
+de	indicative.pluperfect	es	indicative.pluperfect 1.00 exact	-
 de	indicative.pluperfect	fr	indicative.pluperfect 1.00 exact	-
 de	indicative.pluperfect	nl	indicative.pluperfect 1.00 exact	-
 de	indicative.future	de	indicative.future 1.00 exact | indicative.present 0.50 exact	- | eq.de.future-supposition,eq.de.present-future
+de	indicative.future	es	indicative.future 1.00 exact	eq.de.future-supposition,eq.es.future-conjecture
 de	indicative.future	fr	indicative.future 1.00 exact | indicative.near_future 0.60 exact	eq.de.future-supposition | eq.de.future-supposition
 de	indicative.future	nl	indicative.future 1.00 exact | indicative.present 0.40 exact	eq.de.future-supposition | eq.de.future-supposition,eq.nl.present-future
 de	indicative.future_perfect	de	indicative.future_perfect 1.00 exact	-
+de	indicative.future_perfect	es	indicative.future_perfect 1.00 exact	-
 de	indicative.future_perfect	fr	indicative.future_perfect 1.00 exact	-
 de	indicative.future_perfect	nl	indicative.future_perfect 1.00 exact	-
 de	subjunctive.present	de	subjunctive.present 1.00 exact	-
+de	subjunctive.present	es	subjunctive.present 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.present	fr	subjunctive.present 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.present	nl	indicative.present 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.perfect	de	subjunctive.perfect 1.00 exact	-
+de	subjunctive.perfect	es	subjunctive.past 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.perfect	fr	subjunctive.past 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.perfect	nl	indicative.perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future	de	subjunctive.future 1.00 exact	-
+de	subjunctive.future	es	subjunctive.future 1.00 approximate(register)	eq.de.subjunctive-reported,eq.note.relaxed-register
 de	subjunctive.future	fr	indicative.future 1.00 approximate(mood) | indicative.near_future 0.60 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future	nl	indicative.future 1.00 approximate(mood) | indicative.present 0.40 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.nl.present-future,eq.note.no-subjunctive
 de	subjunctive.future_perfect	de	subjunctive.future_perfect 1.00 exact	-
+de	subjunctive.future_perfect	es	subjunctive.future_perfect 1.00 approximate(register)	eq.de.subjunctive-reported,eq.note.relaxed-register
 de	subjunctive.future_perfect	fr	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future_perfect	nl	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.past	de	subjunctive.past 1.00 exact | conditional.present 0.90 exact	- | -
+de	subjunctive.past	es	subjunctive.imperfect 1.00 exact | conditional.present 0.90 exact	eq.de.subjunctive-unreal | -
 de	subjunctive.past	fr	subjunctive.imperfect 1.00 exact | conditional.present 0.90 exact	eq.de.subjunctive-unreal | -
 de	subjunctive.past	nl	conditional.present 0.90 exact	-
 de	subjunctive.pluperfect	de	subjunctive.pluperfect 1.00 exact | conditional.past 0.54 exact	- | eq.de.conditional-past-rare
+de	subjunctive.pluperfect	es	subjunctive.pluperfect 1.00 exact | conditional.past 0.90 exact	eq.de.subjunctive-unreal | -
 de	subjunctive.pluperfect	fr	subjunctive.pluperfect 1.00 exact | conditional.past 0.90 exact	eq.de.subjunctive-unreal | -
 de	subjunctive.pluperfect	nl	conditional.past 0.90 exact	-
 de	conditional.present	de	conditional.present 1.00 exact | subjunctive.past 0.90 exact	- | -
+de	conditional.present	es	conditional.present 1.00 exact	-
 de	conditional.present	fr	conditional.present 1.00 exact	-
 de	conditional.present	nl	conditional.present 1.00 exact	-
 de	conditional.past	de	conditional.past 1.00 exact | subjunctive.pluperfect 0.54 exact	- | eq.de.conditional-past-rare
+de	conditional.past	es	conditional.past 0.60 exact | subjunctive.pluperfect 0.30 exact	eq.de.conditional-past-rare | eq.de.conditional-past-rare,eq.es.subjunctive-pluperfect-conditional
 de	conditional.past	fr	conditional.past 0.60 exact	eq.de.conditional-past-rare
 de	conditional.past	nl	conditional.past 0.60 exact	eq.de.conditional-past-rare
 de	imperative.present	de	imperative.present 1.00 exact	-
+de	imperative.present	es	imperative.present 1.00 exact	-
 de	imperative.present	fr	imperative.present 1.00 exact	-
 de	imperative.present	nl	imperative.present 1.00 exact	-
 de	infinitive.present	de	infinitive.present 1.00 exact	-
+de	infinitive.present	es	infinitive.present 1.00 exact	-
 de	infinitive.present	fr	infinitive.present 1.00 exact	-
 de	infinitive.present	nl	infinitive.present 1.00 exact	-
 de	infinitive.perfect	de	infinitive.perfect 1.00 exact	-
+de	infinitive.perfect	es	infinitive.past 1.00 exact	-
 de	infinitive.perfect	fr	infinitive.past 1.00 exact	-
 de	infinitive.perfect	nl	participle.past 0.40 approximate	eq.nl.compound-inf-perfect
 de	participle.present	de	participle.present 1.00 exact	-
+de	participle.present	es	gerund.present 0.50 approximate	eq.es.gerund-as-participle
 de	participle.present	fr	participle.present 1.00 exact	-
 de	participle.present	nl	participle.present 1.00 exact	-
 de	participle.past	de	participle.past 1.00 exact	-
+de	participle.past	es	participle.past 1.00 exact	-
 de	participle.past	fr	participle.past 1.00 exact	-
 de	participle.past	nl	participle.past 1.00 exact	-
+es	indicative.present	de	indicative.present 1.00 exact	-
+es	indicative.present	es	indicative.present 1.00 exact	-
+es	indicative.present	fr	indicative.present 1.00 exact	-
+es	indicative.present	nl	indicative.present 1.00 exact	-
+es	indicative.perfect	de	indicative.perfect 1.00 exact | indicative.past 0.48 exact	eq.es.perfect-spain | -
+es	indicative.perfect	es	indicative.perfect 1.00 exact | indicative.simple_past 0.60 exact	- | -
+es	indicative.perfect	fr	indicative.perfect 0.80 exact | indicative.simple_past 0.60 exact | indicative.recent_past 0.50 exact	eq.es.perfect-spain | - | eq.es.perfect-spain
+es	indicative.perfect	nl	indicative.perfect 1.00 exact | indicative.past 0.42 exact	eq.es.perfect-spain | -
+es	indicative.imperfect	de	indicative.past 1.00 exact	eq.de.past-written
+es	indicative.imperfect	es	indicative.imperfect 1.00 exact	-
+es	indicative.imperfect	fr	indicative.imperfect 1.00 exact	-
+es	indicative.imperfect	nl	indicative.past 1.00 exact	-
+es	indicative.pluperfect	de	indicative.pluperfect 1.00 exact	-
+es	indicative.pluperfect	es	indicative.pluperfect 1.00 exact	-
+es	indicative.pluperfect	fr	indicative.pluperfect 1.00 exact	-
+es	indicative.pluperfect	nl	indicative.pluperfect 1.00 exact	-
+es	indicative.simple_past	de	indicative.perfect 0.90 exact | indicative.past 0.80 exact	eq.de.perfect-spoken | -
+es	indicative.simple_past	es	indicative.simple_past 1.00 exact | indicative.perfect 0.60 exact	- | -
+es	indicative.simple_past	fr	indicative.perfect 1.00 exact | indicative.simple_past 1.00 exact	eq.fr.perfect.spoken-past | -
+es	indicative.simple_past	nl	indicative.past 0.70 exact | indicative.perfect 0.60 exact	- | eq.nl.perfect.spoken-past
+es	indicative.past_anterior	de	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
+es	indicative.past_anterior	es	indicative.past_anterior 1.00 exact	-
+es	indicative.past_anterior	fr	indicative.past_anterior 1.00 exact	-
+es	indicative.past_anterior	nl	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
+es	indicative.future	de	indicative.future 1.00 exact | indicative.present 0.50 exact	eq.es.future-conjecture,eq.de.future-supposition | eq.es.future-conjecture,eq.de.present-future
+es	indicative.future	es	indicative.future 1.00 exact	-
+es	indicative.future	fr	indicative.future 1.00 exact | indicative.near_future 0.60 exact	eq.es.future-conjecture | eq.es.future-conjecture
+es	indicative.future	nl	indicative.future 1.00 exact | indicative.present 0.40 exact	eq.es.future-conjecture | eq.es.future-conjecture,eq.nl.present-future
+es	indicative.future_perfect	de	indicative.future_perfect 1.00 exact	-
+es	indicative.future_perfect	es	indicative.future_perfect 1.00 exact	-
+es	indicative.future_perfect	fr	indicative.future_perfect 1.00 exact	-
+es	indicative.future_perfect	nl	indicative.future_perfect 1.00 exact	-
+es	conditional.present	de	conditional.present 1.00 exact | subjunctive.past 0.90 exact	- | -
+es	conditional.present	es	conditional.present 1.00 exact	-
+es	conditional.present	fr	conditional.present 1.00 exact	-
+es	conditional.present	nl	conditional.present 1.00 exact	-
+es	conditional.past	de	subjunctive.pluperfect 0.90 exact | conditional.past 0.60 exact	- | eq.de.conditional-past-rare
+es	conditional.past	es	conditional.past 1.00 exact | subjunctive.pluperfect 0.50 exact	- | eq.es.subjunctive-pluperfect-conditional
+es	conditional.past	fr	conditional.past 1.00 exact	-
+es	conditional.past	nl	conditional.past 1.00 exact	-
+es	subjunctive.present	de	subjunctive.present 1.00 exact	eq.de.subjunctive-reported
+es	subjunctive.present	es	subjunctive.present 1.00 exact	-
+es	subjunctive.present	fr	subjunctive.present 1.00 exact	-
+es	subjunctive.present	nl	indicative.present 1.00 approximate(mood)	eq.note.no-subjunctive
+es	subjunctive.past	de	subjunctive.perfect 1.00 exact	eq.de.subjunctive-reported
+es	subjunctive.past	es	subjunctive.past 1.00 exact	-
+es	subjunctive.past	fr	subjunctive.past 1.00 exact	-
+es	subjunctive.past	nl	indicative.perfect 1.00 approximate(mood)	eq.note.no-subjunctive
+es	subjunctive.imperfect	de	subjunctive.past 1.00 exact	eq.de.subjunctive-unreal
+es	subjunctive.imperfect	es	subjunctive.imperfect 1.00 exact	-
+es	subjunctive.imperfect	fr	subjunctive.imperfect 1.00 exact	-
+es	subjunctive.imperfect	nl	indicative.past 1.00 approximate(mood) | indicative.perfect 0.60 approximate(aspect+mood)	eq.note.no-subjunctive | eq.nl.perfect.spoken-past,eq.note.relaxed-aspect,eq.note.no-subjunctive
+es	subjunctive.pluperfect	de	subjunctive.pluperfect 1.00 exact | conditional.past 0.30 exact	eq.de.subjunctive-unreal | eq.es.subjunctive-pluperfect-conditional,eq.de.conditional-past-rare
+es	subjunctive.pluperfect	es	subjunctive.pluperfect 1.00 exact | conditional.past 0.50 exact	- | eq.es.subjunctive-pluperfect-conditional
+es	subjunctive.pluperfect	fr	subjunctive.pluperfect 1.00 exact | conditional.past 0.50 exact	- | eq.es.subjunctive-pluperfect-conditional
+es	subjunctive.pluperfect	nl	indicative.pluperfect 1.00 override | conditional.past 0.50 exact	eq.pair.subjunctive-clause | eq.es.subjunctive-pluperfect-conditional
+es	subjunctive.future	de	subjunctive.future 1.00 exact	eq.de.subjunctive-reported
+es	subjunctive.future	es	subjunctive.future 1.00 exact	-
+es	subjunctive.future	fr	indicative.future 1.00 approximate(mood) | indicative.near_future 0.60 approximate(mood)	eq.note.no-subjunctive | eq.note.no-subjunctive
+es	subjunctive.future	nl	indicative.future 1.00 approximate(mood) | indicative.present 0.40 approximate(mood)	eq.note.no-subjunctive | eq.nl.present-future,eq.note.no-subjunctive
+es	subjunctive.future_perfect	de	subjunctive.future_perfect 1.00 exact	eq.de.subjunctive-reported
+es	subjunctive.future_perfect	es	subjunctive.future_perfect 1.00 exact	-
+es	subjunctive.future_perfect	fr	indicative.future_perfect 1.00 approximate(mood)	eq.note.no-subjunctive
+es	subjunctive.future_perfect	nl	indicative.future_perfect 1.00 approximate(mood)	eq.note.no-subjunctive
+es	imperative.present	de	imperative.present 1.00 exact	-
+es	imperative.present	es	imperative.present 1.00 exact	-
+es	imperative.present	fr	imperative.present 1.00 exact	-
+es	imperative.present	nl	imperative.present 1.00 exact	-
+es	imperative.negative	de	imperative.present 0.60 exact	eq.note.negation-added
+es	imperative.negative	es	imperative.negative 1.00 exact | imperative.present 0.60 exact	- | eq.note.negation-added
+es	imperative.negative	fr	imperative.present 0.60 exact	eq.note.negation-added
+es	imperative.negative	nl	imperative.present 0.60 exact	eq.note.negation-added
+es	infinitive.present	de	infinitive.present 1.00 exact	-
+es	infinitive.present	es	infinitive.present 1.00 exact	-
+es	infinitive.present	fr	infinitive.present 1.00 exact	-
+es	infinitive.present	nl	infinitive.present 1.00 exact	-
+es	infinitive.past	de	infinitive.perfect 1.00 exact	-
+es	infinitive.past	es	infinitive.past 1.00 exact	-
+es	infinitive.past	fr	infinitive.past 1.00 exact	-
+es	infinitive.past	nl	participle.past 0.40 approximate	eq.nl.compound-inf-perfect
+es	gerund.present	de	none	eq.note.no-counterpart
+es	gerund.present	es	gerund.present 1.00 exact	-
+es	gerund.present	fr	gerund.present 1.00 exact	-
+es	gerund.present	nl	participle.present 0.50 exact	eq.nl.gerund-as-participle
+es	gerund.past	de	none	eq.note.no-counterpart
+es	gerund.past	es	gerund.past 1.00 exact	-
+es	gerund.past	fr	gerund.past 1.00 exact	-
+es	gerund.past	nl	participle.past 0.40 approximate	eq.nl.compound-gerund-perfect
+es	participle.past	de	participle.past 1.00 exact	-
+es	participle.past	es	participle.past 1.00 exact	-
+es	participle.past	fr	participle.past 1.00 exact	-
+es	participle.past	nl	participle.past 1.00 exact	-
 fr	indicative.present	de	indicative.present 1.00 exact	-
+fr	indicative.present	es	indicative.present 1.00 exact	-
 fr	indicative.present	fr	indicative.present 1.00 exact	-
 fr	indicative.present	nl	indicative.present 1.00 exact	-
 fr	indicative.perfect	de	indicative.perfect 0.90 exact | indicative.past 0.80 exact	eq.fr.perfect.spoken-past,eq.de.perfect-spoken | eq.fr.perfect.spoken-past
+fr	indicative.perfect	es	indicative.simple_past 1.00 exact | indicative.perfect 0.80 exact	eq.fr.perfect.spoken-past | eq.es.perfect-spain
 fr	indicative.perfect	fr	indicative.perfect 1.00 exact | indicative.simple_past 1.00 exact | indicative.recent_past 0.40 exact	- | eq.fr.perfect.spoken-past | -
 fr	indicative.perfect	nl	indicative.perfect 0.80 exact | indicative.past 0.70 exact	- | eq.fr.perfect.spoken-past
 fr	indicative.imperfect	de	indicative.past 1.00 exact	eq.de.past-written
+fr	indicative.imperfect	es	indicative.imperfect 1.00 exact	-
 fr	indicative.imperfect	fr	indicative.imperfect 1.00 exact	-
 fr	indicative.imperfect	nl	indicative.past 1.00 exact	-
 fr	indicative.pluperfect	de	indicative.pluperfect 1.00 exact	-
+fr	indicative.pluperfect	es	indicative.pluperfect 1.00 exact	-
 fr	indicative.pluperfect	fr	indicative.pluperfect 1.00 exact	-
 fr	indicative.pluperfect	nl	indicative.pluperfect 1.00 exact	-
 fr	indicative.simple_past	de	indicative.past 1.00 override | indicative.perfect 0.90 exact	eq.de.past-written | eq.de.perfect-spoken
+fr	indicative.simple_past	es	indicative.simple_past 1.00 exact | indicative.perfect 0.60 exact	- | -
 fr	indicative.simple_past	fr	indicative.simple_past 1.00 exact | indicative.perfect 1.00 exact	- | eq.fr.perfect.spoken-past
 fr	indicative.simple_past	nl	indicative.past 0.70 exact | indicative.perfect 0.60 exact	- | eq.nl.perfect.spoken-past
 fr	indicative.past_anterior	de	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
+fr	indicative.past_anterior	es	indicative.past_anterior 1.00 exact	-
 fr	indicative.past_anterior	fr	indicative.past_anterior 1.00 exact	-
 fr	indicative.past_anterior	nl	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
 fr	indicative.future	de	indicative.future 1.00 exact | indicative.present 0.50 exact	eq.de.future-supposition | eq.de.present-future
+fr	indicative.future	es	indicative.future 1.00 exact	eq.es.future-conjecture
 fr	indicative.future	fr	indicative.future 1.00 exact | indicative.near_future 0.60 exact	- | -
 fr	indicative.future	nl	indicative.future 1.00 exact | indicative.present 0.40 exact	- | eq.nl.present-future
 fr	indicative.future_perfect	de	indicative.future_perfect 1.00 exact	-
+fr	indicative.future_perfect	es	indicative.future_perfect 1.00 exact	-
 fr	indicative.future_perfect	fr	indicative.future_perfect 1.00 exact	-
 fr	indicative.future_perfect	nl	indicative.future_perfect 1.00 exact	-
 fr	indicative.near_future	de	indicative.future 0.60 exact | indicative.present 0.30 exact	eq.de.future-supposition | eq.de.present-future
+fr	indicative.near_future	es	indicative.future 0.60 exact	eq.es.future-conjecture
 fr	indicative.near_future	fr	indicative.near_future 1.00 exact | indicative.future 0.60 exact	- | -
 fr	indicative.near_future	nl	indicative.present 1.00 override | indicative.future 0.60 exact	eq.pair.fr-nl.near-future | -
 fr	indicative.recent_past	de	indicative.perfect 0.50 exact	-
+fr	indicative.recent_past	es	indicative.perfect 0.50 exact	eq.es.perfect-spain
 fr	indicative.recent_past	fr	indicative.recent_past 1.00 exact | indicative.perfect 0.40 exact	- | -
 fr	indicative.recent_past	nl	indicative.perfect 1.00 override	eq.pair.fr-nl.recent-past
 fr	subjunctive.present	de	subjunctive.present 1.00 exact	eq.de.subjunctive-reported
+fr	subjunctive.present	es	subjunctive.present 1.00 exact	-
 fr	subjunctive.present	fr	subjunctive.present 1.00 exact	-
 fr	subjunctive.present	nl	indicative.present 1.00 approximate(mood)	eq.note.no-subjunctive
 fr	subjunctive.past	de	subjunctive.perfect 1.00 exact	eq.de.subjunctive-reported
+fr	subjunctive.past	es	subjunctive.past 1.00 exact	-
 fr	subjunctive.past	fr	subjunctive.past 1.00 exact	-
 fr	subjunctive.past	nl	indicative.perfect 1.00 approximate(mood)	eq.note.no-subjunctive
 fr	subjunctive.imperfect	de	subjunctive.past 1.00 exact	eq.de.subjunctive-unreal
+fr	subjunctive.imperfect	es	subjunctive.imperfect 1.00 exact	-
 fr	subjunctive.imperfect	fr	subjunctive.imperfect 1.00 exact	-
 fr	subjunctive.imperfect	nl	indicative.past 1.00 approximate(mood) | indicative.perfect 0.60 approximate(aspect+mood)	eq.note.no-subjunctive | eq.nl.perfect.spoken-past,eq.note.relaxed-aspect,eq.note.no-subjunctive
 fr	subjunctive.pluperfect	de	subjunctive.pluperfect 1.00 exact	eq.de.subjunctive-unreal
+fr	subjunctive.pluperfect	es	subjunctive.pluperfect 1.00 exact	-
 fr	subjunctive.pluperfect	fr	subjunctive.pluperfect 1.00 exact	-
 fr	subjunctive.pluperfect	nl	indicative.pluperfect 1.00 approximate(mood)	eq.note.no-subjunctive
 fr	conditional.present	de	conditional.present 1.00 exact | subjunctive.past 0.90 exact	- | -
+fr	conditional.present	es	conditional.present 1.00 exact	-
 fr	conditional.present	fr	conditional.present 1.00 exact	-
 fr	conditional.present	nl	conditional.present 1.00 exact	-
 fr	conditional.past	de	subjunctive.pluperfect 0.90 exact | conditional.past 0.60 exact	- | eq.de.conditional-past-rare
+fr	conditional.past	es	conditional.past 1.00 exact | subjunctive.pluperfect 0.50 exact	- | eq.es.subjunctive-pluperfect-conditional
 fr	conditional.past	fr	conditional.past 1.00 exact	-
 fr	conditional.past	nl	conditional.past 1.00 exact	-
 fr	imperative.present	de	imperative.present 1.00 exact	-
+fr	imperative.present	es	imperative.present 1.00 exact	-
 fr	imperative.present	fr	imperative.present 1.00 exact	-
 fr	imperative.present	nl	imperative.present 1.00 override	eq.pair.fr-nl.hortative
 fr	imperative.past	de	none	eq.note.no-counterpart
+fr	imperative.past	es	none	eq.note.no-counterpart
 fr	imperative.past	fr	imperative.past 1.00 exact	-
 fr	imperative.past	nl	participle.past 0.40 approximate	eq.nl.compound-imp-perfect
 fr	infinitive.present	de	infinitive.present 1.00 exact	-
+fr	infinitive.present	es	infinitive.present 1.00 exact	-
 fr	infinitive.present	fr	infinitive.present 1.00 exact	-
 fr	infinitive.present	nl	infinitive.present 1.00 exact	-
 fr	infinitive.past	de	infinitive.perfect 1.00 exact	-
+fr	infinitive.past	es	infinitive.past 1.00 exact	-
 fr	infinitive.past	fr	infinitive.past 1.00 exact	-
 fr	infinitive.past	nl	participle.past 0.40 approximate	eq.nl.compound-inf-perfect
 fr	participle.present	de	participle.present 1.00 exact	-
+fr	participle.present	es	gerund.present 0.50 approximate	eq.es.gerund-as-participle
 fr	participle.present	fr	participle.present 1.00 exact	-
 fr	participle.present	nl	participle.present 1.00 exact	-
 fr	participle.past	de	participle.past 1.00 exact	-
+fr	participle.past	es	participle.past 1.00 exact	-
 fr	participle.past	fr	participle.past 1.00 exact	-
 fr	participle.past	nl	participle.past 1.00 exact	-
 fr	participle.perfect	de	none	eq.note.no-counterpart
+fr	participle.perfect	es	gerund.past 0.50 approximate	eq.es.gerund-as-participle
 fr	participle.perfect	fr	participle.perfect 1.00 exact	-
 fr	participle.perfect	nl	participle.past 0.40 approximate	eq.nl.compound-part-perfect
 fr	gerund.present	de	none	eq.note.no-counterpart
+fr	gerund.present	es	gerund.present 1.00 exact	-
 fr	gerund.present	fr	gerund.present 1.00 exact	-
 fr	gerund.present	nl	participle.present 0.50 exact	eq.nl.gerund-as-participle
 fr	gerund.past	de	none	eq.note.no-counterpart
+fr	gerund.past	es	gerund.past 1.00 exact	-
 fr	gerund.past	fr	gerund.past 1.00 exact	-
 fr	gerund.past	nl	participle.past 0.40 approximate	eq.nl.compound-gerund-perfect
 nl	indicative.present	de	indicative.present 1.00 exact | indicative.future 0.40 exact	- | eq.nl.present-future,eq.de.future-supposition
+nl	indicative.present	es	indicative.present 1.00 exact | indicative.future 0.40 exact	- | eq.nl.present-future,eq.es.future-conjecture
 nl	indicative.present	fr	indicative.present 1.00 exact | indicative.future 0.40 exact | indicative.near_future 0.24 exact	- | eq.nl.present-future | eq.nl.present-future
 nl	indicative.present	nl	indicative.present 1.00 exact | indicative.future 0.40 exact	- | eq.nl.present-future
 nl	indicative.past	de	indicative.past 1.00 exact | indicative.perfect 0.63 exact	eq.de.past-written | eq.de.perfect-spoken
+nl	indicative.past	es	indicative.imperfect 1.00 exact | indicative.simple_past 0.70 exact | indicative.perfect 0.42 exact	- | - | -
 nl	indicative.past	fr	indicative.imperfect 1.00 exact | indicative.perfect 0.70 exact | indicative.simple_past 0.70 exact	- | eq.fr.perfect.spoken-past | -
 nl	indicative.past	nl	indicative.past 1.00 exact | indicative.perfect 0.42 exact	- | eq.nl.perfect.spoken-past
 nl	indicative.future	de	indicative.future 1.00 exact | indicative.present 0.50 exact	eq.de.future-supposition | eq.de.present-future
+nl	indicative.future	es	indicative.future 1.00 exact	eq.es.future-conjecture
 nl	indicative.future	fr	indicative.future 1.00 exact | indicative.near_future 0.60 exact	- | -
 nl	indicative.future	nl	indicative.future 1.00 exact | indicative.present 0.40 exact	- | eq.nl.present-future
 nl	indicative.perfect	de	indicative.perfect 1.00 exact | indicative.past 0.48 exact	- | eq.nl.perfect.spoken-past
+nl	indicative.perfect	es	indicative.perfect 1.00 exact | indicative.simple_past 0.60 exact	eq.es.perfect-spain | eq.nl.perfect.spoken-past
 nl	indicative.perfect	fr	indicative.perfect 0.80 exact | indicative.simple_past 0.60 exact | indicative.recent_past 0.50 exact	- | eq.nl.perfect.spoken-past | -
 nl	indicative.perfect	nl	indicative.perfect 1.00 exact | indicative.past 0.42 exact	- | eq.nl.perfect.spoken-past
 nl	indicative.pluperfect	de	indicative.pluperfect 1.00 exact	-
+nl	indicative.pluperfect	es	indicative.pluperfect 1.00 exact	-
 nl	indicative.pluperfect	fr	indicative.pluperfect 1.00 exact	-
 nl	indicative.pluperfect	nl	indicative.pluperfect 1.00 exact	-
 nl	indicative.future_perfect	de	indicative.future_perfect 1.00 exact	-
+nl	indicative.future_perfect	es	indicative.future_perfect 1.00 exact	-
 nl	indicative.future_perfect	fr	indicative.future_perfect 1.00 exact	-
 nl	indicative.future_perfect	nl	indicative.future_perfect 1.00 exact	-
 nl	conditional.present	de	conditional.present 1.00 exact | subjunctive.past 0.90 exact	- | -
+nl	conditional.present	es	conditional.present 1.00 exact	-
 nl	conditional.present	fr	conditional.present 1.00 exact	-
 nl	conditional.present	nl	conditional.present 1.00 exact	-
 nl	conditional.past	de	subjunctive.pluperfect 0.90 exact | conditional.past 0.60 exact	- | eq.de.conditional-past-rare
+nl	conditional.past	es	conditional.past 1.00 exact | subjunctive.pluperfect 0.50 exact	- | eq.es.subjunctive-pluperfect-conditional
 nl	conditional.past	fr	conditional.past 1.00 exact	-
 nl	conditional.past	nl	conditional.past 1.00 exact	-
 nl	imperative.present	de	imperative.present 1.00 exact	-
+nl	imperative.present	es	imperative.present 1.00 exact	-
 nl	imperative.present	fr	imperative.present 1.00 exact	-
 nl	imperative.present	nl	imperative.present 1.00 exact	-
 nl	infinitive.present	de	infinitive.present 1.00 exact	-
+nl	infinitive.present	es	infinitive.present 1.00 exact	-
 nl	infinitive.present	fr	infinitive.present 1.00 exact	-
 nl	infinitive.present	nl	infinitive.present 1.00 exact	-
 nl	participle.present	de	participle.present 1.00 exact	-
+nl	participle.present	es	gerund.present 0.50 approximate	eq.es.gerund-as-participle
 nl	participle.present	fr	participle.present 1.00 exact | gerund.present 0.50 exact	- | eq.nl.gerund-as-participle
 nl	participle.present	nl	participle.present 1.00 exact	-
 nl	participle.past	de	participle.past 1.00 exact	-
+nl	participle.past	es	participle.past 1.00 exact	-
 nl	participle.past	fr	participle.past 1.00 exact	-
 nl	participle.past	nl	participle.past 1.00 exact	-

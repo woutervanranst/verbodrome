@@ -44,4 +44,9 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     result: [{ tense: 'indicative.past', note: 'eq.de.past-written' }],
     reason: 'The passé simple is the written narrative past, which German writes in the Präteritum; the pivot ranks the Perfekt first (0.90 against 0.80) because the Perfekt is the usual spoken past.',
   }),
+  override({
+    from: 'es', to: 'nl', tense: 'subjunctive.pluperfect', mode: 'prepend',
+    result: [{ tense: 'indicative.pluperfect', note: 'eq.pair.subjunctive-clause' }],
+    reason: 'The Spanish -ra pluperfect subjunctive links COND_PERFECT 0.5, an exact match that ranks the Dutch conditional past first and hides the indicative pluperfect that renders a Spanish subordinate clause.',
+  }),
 ]);
