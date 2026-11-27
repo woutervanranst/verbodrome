@@ -89,7 +89,8 @@ export const spanishClause: ClauseGrammar<SpanishLexeme> = {
       opening.push(grammaticalPart(rendering, 'moodMarker', 'que'));
       steps.push(step(rules['es.clause.que'], null, null));
     }
-    if (subject !== null && subject.pronoun !== null && target.mood !== 'imperative') {
+    // A weather verb has no subject (llueve), so no pronoun.
+    if (subject !== null && subject.pronoun !== null && target.mood !== 'imperative' && !lexeme.entry.impersonal) {
       opening.push(grammaticalPart(rendering, 'subject', subject.pronoun, null, { person: subject.person, number: subject.number, gender: subject.gender ?? null }));
       steps.push(step(rules['es.clause.subject'], null, null, { pronoun: subject.pronoun }));
     }

@@ -149,4 +149,45 @@ describe('controller rulings on variants', () => {
   });
 });
 
+describe('review I3 and rows 15-17: defective verbs (NGLE §4.14)', () => {
+  const unavailable = (verb: string, options: Record<string, unknown>) => conjugated(verb, options).unavailableTargets;
+  it('keeps only the third persons of concernir, atañer, acaecer and acontecer', () => {
+    for (const [verb, third] of [['concernir', ['él concierne', 'ellos conciernen']], ['atañer', ['él atañe', 'ellos atañen']],
+      ['acaecer', ['él acaece', 'ellos acaecen']], ['acontecer', ['él acontece', 'ellos acontecen']]] as const) {
+      expect(texts(verb, { mood: 'indicative', tense: 'present' })).toEqual(third);
+      expect(unavailable(verb, { mood: 'indicative', tense: 'present' }).map(u => u.reason)).toEqual(Array(4).fill('defective'));
+      expect(unavailable(verb, { mood: 'imperative' })).toHaveLength(10);
+    }
+    expect(texts('acaecer', { mood: 'subjunctive', tense: 'present', person: 3, number: 'singular' })).toEqual(['que él acaezca']);
+    expect(texts('concernir', { mood: 'gerund', tense: 'present' })).toEqual(['concerniendo']);
+  });
+
+  it('leaves balbucir without its -zc- forms', () => {
+    expect(unavailable('balbucir', { mood: 'indicative', tense: 'present' }).map(u => `${u.target.person}${u.target.number}`)).toEqual(['1singular']);
+    expect(texts('balbucir', { mood: 'indicative', tense: 'present', person: 2, number: 'singular' })).toEqual(['tú balbuces']);
+    expect(unavailable('balbucir', { mood: 'subjunctive', tense: 'present' })).toHaveLength(6);
+    expect(texts('balbucir', { mood: 'imperative', tense: 'present' })).toEqual(['balbuce', 'balbucid']);
+    expect(unavailable('balbucir', { mood: 'imperative', tense: 'negative' })).toHaveLength(5);
+  });
+
+  it('explains each kind of gap, the future subjunctive of soler included', () => {
+    const soler = unavailable('soler', { mood: 'subjunctive', tense: 'future' })[0]!;
+    expect(engine.explain('es', soler, 'en').sections[0]!.steps[0]!.text).toContain('future subjunctive');
+    const concernir = unavailable('concernir', { mood: 'indicative', tense: 'present' })[0]!;
+    expect(engine.explain('es', concernir, 'nl').sections[0]!.steps[0]!.text).toContain('derde persoon');
+  });
+});
+
+describe('review I4 and row 18: weather verbs have no subject', () => {
+  it('gives llover its third person singular only, without a pronoun', () => {
+    expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['llueve']);
+    expect(texts('llover', { mood: 'indicative', tense: 'perfect' })).toEqual(['ha llovido']);
+    expect(texts('nevar', { mood: 'subjunctive', tense: 'present' })).toEqual(['que nieve']);
+    expect(conjugated('llover', { gender: 'feminine', mood: 'indicative', tense: 'present' }).forms).toEqual([]);
+    expect(conjugated('llover', { subject: '3sg.f', mood: 'indicative', tense: 'present' }).unavailableTargets.map(u => u.reason)).toEqual(['impersonal']);
+    expect(conjugated('llover', { subject: '2sg.formal', mood: 'indicative', tense: 'present' }).unavailableTargets.map(u => u.reason)).toEqual(['impersonal']);
+    expect(conjugated('llover', { mood: 'indicative', tense: 'present', person: 3, number: 'singular' }).forms[0]!.ruleIds).not.toContain('es.clause.subject');
+  });
+});
+
 export { analysisOf, bare, conjugated, explained, ids, row, texts };

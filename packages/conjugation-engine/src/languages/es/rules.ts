@@ -105,7 +105,7 @@ export const spanishRules = defineRules({
 
   // Availability (§4.8)
   'es.avail.impersonal': { stage: 'availability', kind: 'unavailable' },
-  'es.avail.defective': { stage: 'availability', kind: 'unavailable' },
+  'es.avail.defective': { stage: 'availability', kind: 'unavailable', params: { verb: 'text', kind: 'text' } },
   'es.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },
 });
 

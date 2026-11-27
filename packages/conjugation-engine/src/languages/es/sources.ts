@@ -154,7 +154,7 @@ export const spanishCitations = {
   'es.clause.enclitic-accent': [orto('§3.4.5', 'formas-verbales-con-pronombres-cl%C3%ADticos'), dpdTilde('§4.3')],
   'es.clause.iros': [iros, ngle('§4.13i')],
   'es.avail.impersonal': [ngle('§4.14'), dpd('llover')],
-  'es.avail.defective': dpd('soler'),
+  'es.avail.defective': [ngle('§4.14'), dpd('soler'), dpd('concernir'), dpd('balbucir')],
   'es.avail.no-imperative': dpd('haber'),
 } as const satisfies Record<SpanishRuleId, Citation | readonly Citation[]>;
 

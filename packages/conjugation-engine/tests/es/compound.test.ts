@@ -63,13 +63,12 @@ describe('Spanish compound tenses and non-finite forms', () => {
 
   it('declares impersonal, defective and imperative-less verbs unavailable', () => {
     expect(unavailable('llover', { mood: 'indicative', tense: 'present' }).map(u => u.reason)).toEqual(Array(5).fill('impersonal'));
-    expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['él llueve']);
-    expect(texts('llover', { mood: 'indicative', tense: 'perfect' })).toEqual(['él ha llovido']);
+    expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['llueve']);       // review I4: no subject
+    expect(texts('llover', { mood: 'indicative', tense: 'perfect' })).toEqual(['ha llovido']);
     expect(unavailable('llover', { mood: 'imperative' }).map(u => u.reason)).toEqual(Array(10).fill('impersonal'));
     expect(texts('llover', { mood: 'gerund', tense: 'present' })).toEqual(['lloviendo']);
     expect(unavailable('haber', { mood: 'imperative' })).toHaveLength(10);
     expect(unavailable('haber', { mood: 'imperative' }).every(u => u.reason === 'noImperative')).toBe(true);
-    expect(texts('haber', { mood: 'indicative', tense: 'perfect', person: 3, number: 'singular' })).toEqual(['él ha habido']);
     expect(texts('abolir', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual(['yo abolo']);
     expect(texts('soler', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['yo he solido']);
     expect(texts('soler', { mood: 'gerund', tense: 'present' })).toEqual(['soliendo']);

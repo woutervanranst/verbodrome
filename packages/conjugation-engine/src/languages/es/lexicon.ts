@@ -68,8 +68,11 @@ export interface SpanishEntry {
   readonly cells?: Readonly<Record<string, string | readonly Variant<string>[]>>;
   /** Used only in the third person singular (weather verbs). */
   readonly impersonal?: true;
-  /** Lacks the tenses of §5.6 of the grammar design. */
-  readonly defective?: 'soler';
+  /**
+   * Lacks some forms (NGLE §4.14): soler the future tenses, conditional and imperative (grammar design §5.6); concernir
+   * and the like every form but the third persons; balbucir the forms with -zc-.
+   */
+  readonly defective?: 'soler' | 'third-person' | 'balbucir';
   /** Has no imperative (haber as an auxiliary). */
   readonly noImperative?: true;
 }
@@ -162,8 +165,14 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   adquirir: { alternation: 'i-ie', raising: false },
   inquirir: { model: 'adquirir', alternation: 'i-ie', raising: false },
   discernir: { alternation: 'e-ie', raising: false },
-  concernir: { model: 'discernir', alternation: 'e-ie', raising: false },
+  concernir: { model: 'discernir', alternation: 'e-ie', raising: false, defective: 'third-person' },
   cernir: { model: 'discernir', alternation: 'e-ie', raising: false },
+  // Used only in the third persons (DPD «concernir», «atañer»; NGLE §4.14).
+  atañer: { defective: 'third-person' },
+  acaecer: { defective: 'third-person' },
+  acontecer: { defective: 'third-person' },
+  // No forms with -zc- (balbuzco): balbucear replaces them (DPD «balbucir»).
+  balbucir: { defective: 'balbucir' },
   soler: { alternation: 'o-ue', defective: 'soler' },
   llover: { alternation: 'o-ue', impersonal: true },
   nevar: { alternation: 'e-ie', impersonal: true },

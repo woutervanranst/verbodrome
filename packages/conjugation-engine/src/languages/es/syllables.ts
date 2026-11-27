@@ -63,8 +63,11 @@ export function rootStressIn(word: string, stemLength: number, base: { prefixLen
   if (glide) position--;
   let start = position;
   let end = position;
-  while (start > 0 && adjacent(plainWord, candidates[start - 1]!, candidates[start]!)) start--;
-  while (end < candidates.length - 1 && adjacent(plainWord, candidates[end]!, candidates[end + 1]!)) end++;
+  // A group is one syllable's vowels: touching, and never two open vowels (acaec-: a-e are two syllables).
+  const joined = (left: number, right: number): boolean =>
+    adjacent(plainWord, left, right) && !(isOpenLetter(plainWord[left]!) && isOpenLetter(plainWord[right]!));
+  while (start > 0 && joined(candidates[start - 1]!, candidates[start]!)) start--;
+  while (end < candidates.length - 1 && joined(candidates[end]!, candidates[end + 1]!)) end++;
   const group = candidates.slice(start, end + 1);
   if (group.length === 1) return group[0]!;
   const close = group.filter(index => !isOpenLetter(plainWord[index]!));

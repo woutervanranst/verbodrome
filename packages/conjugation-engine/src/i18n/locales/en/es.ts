@@ -92,6 +92,6 @@ export const es = {
   'es.clause.enclitic-accent': 'The stress stays on the same vowel, which is now on {stress, select, final {the last syllable} penultimate {the second-to-last syllable} other {the third syllable from the end}}, so the longer word follows the accent rules: {before} becomes {after}.',
   'es.clause.iros': 'The RAE also accepts iros, the infinitive ir with os attached, as the vosotros command of irse: {before} becomes {after}.',
   'es.avail.impersonal': 'This verb describes the weather and is used only in the third person singular (llueve).',
-  'es.avail.defective': 'soler is defective: it has no future, conditional or imperative.',
+  'es.avail.defective': '{kind, select, soler {{verb} has no future tenses (not even the future subjunctive), no conditional and no imperative} third {{verb} is used only in the third person: its subject is a thing or an event} other {{verb} has no forms with -zc-; balbucear is used instead}}.',
   'es.avail.no-imperative': 'haber as an auxiliary has no imperative.',
 } as const satisfies Record<SpanishRuleId, string>;

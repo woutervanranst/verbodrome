@@ -75,5 +75,6 @@ describe('Spanish written accent', () => {
     expect(rootStress('actu', { prefixLength: 0, hiatus: true, stored: false })).toBe(3);
     expect(rootStress('compon', { prefixLength: 3, hiatus: false, stored: false })).toBe(4);
     expect(rootStress('sonri', { prefixLength: 0, hiatus: true, stored: false })).toBe(4);
+    expect(rootStress('acaec', { prefixLength: 0, hiatus: false, stored: false })).toBe(3);   // a-e: two syllables
   });
 });

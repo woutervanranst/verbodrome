@@ -93,6 +93,6 @@ export const es = {
   'es.clause.enclitic-accent': 'De klemtoon blijft op dezelfde klinker, die nu op {stress, select, final {de laatste lettergreep} penultimate {de voorlaatste lettergreep} other {de derde lettergreep van achteren}} staat, dus het langere woord volgt de accentregels: {before} wordt {after}.',
   'es.clause.iros': 'De RAE aanvaardt ook iros, de infinitief ir met os erachter, als imperativo voor vosotros van irse: {before} wordt {after}.',
   'es.avail.impersonal': 'Dit werkwoord gaat over het weer en bestaat alleen in de derde persoon enkelvoud (llueve).',
-  'es.avail.defective': 'soler is onvolledig: het heeft geen futuro, condicional of imperativo.',
+  'es.avail.defective': '{kind, select, soler {{verb} heeft geen toekomende tijden (ook niet de futuro van de subjuntivo), geen condicional en geen imperativo} third {{verb} bestaat alleen in de derde persoon: het onderwerp is een ding of een gebeurtenis} other {{verb} heeft geen vormen met -zc-; je gebruikt dan balbucear}}.',
   'es.avail.no-imperative': 'haber als hulpwerkwoord heeft geen imperativo.',
 } as const satisfies Record<SpanishRuleId, string>;

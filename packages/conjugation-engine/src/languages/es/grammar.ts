@@ -26,23 +26,33 @@ const solerGaps: ReadonlySet<string> = new Set([
   'imperative.present', 'imperative.negative', 'subjunctive.future', 'subjunctive.future_perfect',
 ]);
 
-function unavailable(rule: 'es.avail.impersonal' | 'es.avail.defective' | 'es.avail.no-imperative', reason: Unavailability['reason'], source: string): Unavailability {
-  return { reason, step: step(rules[rule], null, null), source };
+/** balbucir's missing forms: those with -zc- (the 1sg present, the present subjunctive and the commands built on it). */
+function balbucirGap(target: ResolvedTarget): boolean {
+  if (target.mood === 'indicative' && target.tense === 'present') return target.person === 1 && target.number === 'singular';
+  if (target.mood === 'subjunctive' && target.tense === 'present') return true;
+  if (target.mood === 'imperative') return target.tense === 'negative' || target.person !== 2;
+  return false;
 }
 
-/** Why a target has no form for the lexeme (grammar design §4.8), or null. */
+/** Why a target has no form for the lexeme (grammar design §4.8, NGLE §4.14), or null. */
 function availability(lexeme: SpanishLexeme, target: ResolvedTarget): Unavailability | null {
   const { entry } = lexeme;
-  if (entry.noImperative && target.mood === 'imperative') return unavailable('es.avail.no-imperative', 'noImperative', 'https://www.rae.es/dpd/haber');
-  if (entry.impersonal && target.person !== null) {
-    // Weather verbs have only the él form (llueve); no command, and no usted that would share its person.
-    const third = target.person === 3 && target.number === 'singular' && target.subject !== '2sg.formal';
-    if (target.mood === 'imperative' || !third) return unavailable('es.avail.impersonal', 'impersonal', 'https://www.rae.es/dpd/llover');
+  if (entry.noImperative && target.mood === 'imperative') {
+    return { reason: 'noImperative', step: step(rules['es.avail.no-imperative'], null, null), source: 'https://www.rae.es/dpd/haber' };
   }
-  if (entry.defective === 'soler' && solerGaps.has(`${target.mood}.${target.tense}`)) {
-    return unavailable('es.avail.defective', 'defective', 'https://www.rae.es/dpd/soler');
+  // Weather verbs have no subject: only the third person singular, without a pronoun (llueve); no command.
+  if (entry.impersonal && target.person !== null && target.subject !== '3sg') {
+    return { reason: 'impersonal', step: step(rules['es.avail.impersonal'], null, null), source: 'https://www.rae.es/dpd/llover' };
   }
-  return null;
+  const defective = entry.defective;
+  if (defective === undefined) return null;
+  const gap = defective === 'soler' ? solerGaps.has(`${target.mood}.${target.tense}`)
+    : defective === 'third-person' ? target.person !== null && (target.mood === 'imperative' || target.person !== 3 || target.subject?.endsWith('formal') === true)
+      : balbucirGap(target);
+  if (!gap) return null;
+  const kind = defective === 'third-person' ? 'third' : defective;
+  const source = `https://www.rae.es/dpd/${defective === 'third-person' ? 'concernir' : defective}`;
+  return { reason: 'defective', step: step(rules['es.avail.defective'], null, null, { verb: lexeme.infinitive, kind }), source };
 }
 
 /** The Spanish staged grammar. */
