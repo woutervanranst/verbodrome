@@ -375,6 +375,7 @@ export interface LanguagePack<L extends string = string> {
   readonly rules?: Readonly<Record<string, RuleInfo>>;
   readonly works?: Readonly<Record<string, Work>>;
   readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
+  compareKey?(text: string): string;
 }
 ```
 
@@ -402,7 +403,7 @@ export const toyPack: LanguagePack<'xx'> = {
 };
 ```
 
-`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
+`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots. `compareKey` is the key two spellings of an answer are compared by (`Engine.normalizeForComparison` and the root `normalizeForComparison` call it); without it a pack gets `plainComparisonKey`, which keeps accents. Latin's removes macrons.
 
 ### Testing a pack
 

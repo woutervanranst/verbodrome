@@ -7,6 +7,7 @@ import type {
 import { explainSubject, renderStep } from '../i18n/explain.js';
 import type { Explainable, Explanation, StepContext } from '../i18n/explain.js';
 import type { Catalog } from '../i18n/catalog.js';
+import { comparisonKey } from './compare.js';
 import { parseOptions } from './options.js';
 import { defaultSubjectsFor, packFor } from './pack.js';
 import type { CatalogueEntry, LanguagePack, SubjectSlot } from './pack.js';
@@ -27,6 +28,8 @@ export interface Engine {
    * GENERATION_FAILURE for a rule or term without text.
    */
   explain(language: string, subject: Explainable, locale: string): Explanation;
+  /** The key answers in `language` are compared by: the pack's `compareKey`, or `plainComparisonKey`. */
+  normalizeForComparison(language: string, text: string): string;
   readonly languages: readonly string[];
 }
 
@@ -262,6 +265,7 @@ export function createEngine(packs: Readonly<Record<string, LanguagePack>>, cata
     renderParts: (language, parts, context) => renderWith(packFor(registry, language).rendering, parts, context),
     expandTargets: options => expandTargets(packFor(registry, options.language), options),
     explain: (language, subject, locale) => explainSubject(packFor(registry, language), catalogFor(locale), locale, subject),
+    normalizeForComparison: (language, text) => comparisonKey(packFor(registry, language), text),
     languages: Object.freeze(Object.keys(registry)),
   };
 }

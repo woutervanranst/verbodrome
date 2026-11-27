@@ -116,6 +116,11 @@ export interface LanguagePack<L extends string = string> {
   readonly works?: Readonly<Record<string, Work>>;
   /** Where each rule is described, keyed by rule id. */
   readonly citations?: Readonly<Record<string, Citation | readonly Citation[]>>;
+  /**
+   * The key two spellings of an answer are compared by: equal keys are the same answer (Latin ignores macrons). Absent:
+   * `plainComparisonKey` (NFC, lower case, trimmed, single spaces; accents kept).
+   */
+  compareKey?(text: string): string;
 }
 
 /** The pack registered for `language`; anything else is UNSUPPORTED_LANGUAGE, naming the registered languages. */

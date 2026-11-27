@@ -11,7 +11,7 @@ export { wordPart } from './clause.js';
 export { grammaticalPart, itemAt } from '../parts.js';
 export { allPersons, noPersons, moodEntries, variantRank, defaultSubjectsFor } from './pack.js';
 export { ConjugationError } from '../errors.js';
-export { comparisonFor, plainComparisonKey } from './compare.js';
+export { plainComparisonKey } from './compare.js';
 
 export type { Engine } from './engine.js';
 export type { LanguageEngine, LanguagePack, SubjectSlot, CatalogueEntry, PackRendering } from './pack.js';
@@ -24,7 +24,6 @@ export type { Fork, Marks, Outcome, VariantTags } from './fork.js';
 export type { JunctureRule, Juncture } from './juncture.js';
 export type { DerivationStep, RuleInfo, Stage, StepKind, StepParam, ParamKind, TermRef } from './derivation.js';
 export type { Work, Citation } from './sources.js';
-export type { ComparisonKey, ComparesSpelling } from './compare.js';
 export type { Catalog } from '../i18n/catalog.js';
 export type { ConjugationErrorCode } from '../errors.js';
 export type {

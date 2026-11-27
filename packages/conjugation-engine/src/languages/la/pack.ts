@@ -1,4 +1,3 @@
-import type { ComparesSpelling } from '../../core/compare.js';
 import { variantRank } from '../../core/pack.js';
 import type { LanguagePack, SubjectSlot } from '../../core/pack.js';
 import { stagedEngine } from '../../core/staged.js';
@@ -31,7 +30,7 @@ function latinAcceptsForm(query: Readonly<Record<string, unknown>>, form: Genera
     && (asked.case === undefined || asked.case === agreement.case);
 }
 
-export const latinPack: LanguagePack<'la'> & ComparesSpelling = {
+export const latinPack: LanguagePack<'la'> = {
   language: 'la',
   label: 'Latin',
   catalogue: latinCatalogue,
