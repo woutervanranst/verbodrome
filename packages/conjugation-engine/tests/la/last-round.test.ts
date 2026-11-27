@@ -3,10 +3,10 @@
  * assumption, and the lexicon gaps. Every expectation is from the authority named beside it, not from the engine.
  */
 import { describe, expect, it } from 'vitest';
-import { conjugate, parseConjugationOptions } from '../../src/index.js';
+import { conjugate, explain, parseConjugationOptions } from '../../src/index.js';
 import { latinPack } from '../../src/languages/la/pack.js';
-import type { VerbAnalysis } from '../../src/types.js';
-import { forms } from './helpers.js';
+import type { ConjugatedForm, VerbAnalysis } from '../../src/types.js';
+import { explainIds, forms } from './helpers.js';
 
 const analysis = (infinitive: string, extra: Record<string, unknown> = {}): VerbAnalysis =>
   latinPack.engine(parseConjugationOptions({ language: 'la', infinitive, ...extra } as never)).analysis;
@@ -163,5 +163,39 @@ describe('the minor findings', () => {
     const orior = conjugate({ language: 'la', infinitive: 'orīrī', mood: 'subjunctive', tense: 'imperfect', voice: 'active', subject: '3sg' } as never).forms;
     expect(orior.map(f => [f.text, f.preferred])).toEqual([['orerētur', true], ['orīrētur', false]]);
     expect(orior[1]!.variant.pattern).not.toBeNull();
+  });
+});
+
+describe('M7: wording', () => {
+  const texts = (form: ConjugatedForm, locale: 'en' | 'nl' = 'en'): string[] =>
+    explain('la', form, locale).sections.flatMap(section => section.steps.map(s => s.text));
+  const first = (query: Record<string, unknown>): ConjugatedForm => conjugate({ language: 'la', ...query } as never).forms[0]!;
+
+  it('names esse the present infinitive of sum, not a listed form of itself', () => {
+    const esse = first({ infinitive: 'esse', mood: 'infinitive', tense: 'present', voice: 'active' });
+    expect(texts(esse).join(' ')).toContain('esse is the present infinitive of sum');
+    expect(texts(esse, 'nl').join(' ')).toContain('esse is de infinitivus praesentis van sum');
+  });
+
+  it('does not make ferō its own model', () => {
+    const fert = first({ infinitive: 'ferre', mood: 'indicative', tense: 'present', voice: 'active', subject: '3sg' });
+    expect(texts(fert).join(' ')).not.toContain('Like ferō');
+    const affert = first({ infinitive: 'afferre', mood: 'indicative', tense: 'present', voice: 'active', subject: '3sg' });
+    expect(texts(affert).join(' ')).toContain('Like ferō');
+  });
+
+  it('says that dō lacks only the forms A&G prints as a dash', () => {
+    const dor = conjugate({ language: 'la', infinitive: 'dare', mood: 'indicative', tense: 'present', voice: 'passive', subject: '1sg' } as never).unavailableTargets[0]!;
+    expect(explain('la', dor, 'en').sections[0]!.steps[0]!.text).toContain('A&G prints a dash');
+  });
+
+  it('reads tregere with -ēre in its second reading', () => {
+    const second = conjugate({ language: 'la', infinitive: 'tregere', mood: 'infinitive', tense: 'present' } as never).analysis.alternatives![0]!;
+    expect(explain('la', second, 'en').sections.flatMap(s => s.steps.map(t => t.text))[0]).toBe('tregere is read with -ēre: second conjugation.');
+  });
+
+  it('explains calefīō from the passive of calefaciō first', () => {
+    const calefio = first({ infinitive: 'calefacere', mood: 'indicative', tense: 'present', voice: 'passive', subject: '1sg' });
+    expect(explainIds(calefio)[0]).toBe('la.lex.passive-fio');
   });
 });

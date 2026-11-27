@@ -263,7 +263,12 @@ async function main(): Promise<void> {
   const { join } = await import('node:path');
   const cacheIndex = process.argv.indexOf('--cache');
   if (cacheIndex < 0) throw new Error('Give --cache <dir>, a directory outside the repository for the raw responses.');
-  const cache = process.argv[cacheIndex + 1]!;
+  const { resolve, sep } = await import('node:path');
+  const { fileURLToPath } = await import('node:url');
+  const cache = resolve(process.argv[cacheIndex + 1]!);
+  // The raw responses are another site's pages: they stay out of the repository (only the parsed fixture is committed).
+  const repository = resolve(fileURLToPath(new URL('../../../../../', import.meta.url)));
+  if (cache === repository || cache.startsWith(repository + sep)) throw new Error(`The cache ${cache} lies inside the repository ${repository}; give a directory outside it.`);
   mkdirSync(cache, { recursive: true });
   const api = 'https://en.wiktionary.org/w/api.php';
   const userAgent = 'generic-oracle-client/1.0';

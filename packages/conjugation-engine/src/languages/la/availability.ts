@@ -65,13 +65,14 @@ export function latinAvailability(lexeme: LatinLexeme, target: ResolvedTarget): 
   if (lexeme.passive === 'impersonal' && ((passive && (target.mood === 'imperative' || (finite && (target.person !== 3 || target.number !== 'singular'))))
     || (target.mood === 'participle' && target.tense === 'perfect'))) return unavailable('la.avail.impersonal-passive', 'impersonal', lexeme);
   // Only the forms the grammar prints (āiō, inquam …), or all but the ones it prints as missing (dō: no dor, der).
-  if ((entry?.attested && !entry.attested.includes(key)) || entry?.notAttested?.includes(key)) return unavailable('la.avail.not-attested', 'defective', lexeme);
+  if (entry?.attested && !entry.attested.includes(key)) return unavailable('la.avail.not-attested', 'defective', lexeme, { gap: 'no' });
+  if (entry?.notAttested?.includes(key)) return unavailable('la.avail.not-attested', 'defective', lexeme, { gap: 'yes' });
   // An impersonal verb appears "only in the 3rd person singular, the infinitive, and the gerund" (A&G §207), and has only
   // the participles the grammar names (paenitendus, pudendus, paenitūrus).
   if (lexeme.impersonal && !finite && target.mood !== 'infinitive' && target.mood !== 'gerund'
     && !(target.mood === 'participle' && target.tense === 'gerundive' && lexeme.stems.gerund !== undefined)
     && !(target.mood === 'participle' && target.tense === 'future' && lexeme.futureParticipleStems.length > 0)) {
-    return unavailable('la.avail.not-attested', 'defective', lexeme);
+    return unavailable('la.avail.not-attested', 'defective', lexeme, { gap: 'no' });
   }
   if (target.mood === 'imperative') {
     if (lexeme.lacks.has('imperative')) return unavailable('la.avail.no-imperative', 'noImperative', lexeme);

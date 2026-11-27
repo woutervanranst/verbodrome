@@ -7,9 +7,7 @@
 import { startCorrection } from '../model.ts';
 import type { CorpusCell, CorpusCorrection, CorpusFile, CorrectionDraft } from '../model.ts';
 
-const scan = (page: number): string => `https://dcc.dickinson.edu/sites/default/files/AG${String(page + 12).padStart(3, '0')}.jpg`;
-const ag = (slug: string): string => `https://dcc.dickinson.edu/grammar/latin/${slug}`;
-const bennett = (section: number): string => `https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect${section}`;
+import { ag, bennett, scan } from './latin-urls.ts';
 
 const deponents: ReadonlySet<string> = new Set(['hortārī', 'largīrī', 'patī', 'sequī', 'verērī']);
 const at = (cell: CorpusCell, mood: string, tense: string, voice?: string): boolean =>

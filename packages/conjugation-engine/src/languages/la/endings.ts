@@ -85,7 +85,7 @@ function presentEnding(lexeme: LatinLexeme, cell: FiniteCell, stem: string): For
   if (lexeme.flags.has('athematic')) {
     // ferō: an ending of the long-stem column that starts with s, t or r goes straight on the root (A&G §200 fn. 3).
     const long = endingsFor('i', key)[slot]!;
-    if (/^[str]/u.test(long)) return withReVariant(cell, stem, long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long })]);
+    if (/^[str]/u.test(long)) return withReVariant(cell, stem, long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long, self: lexeme.lemma === 'ferre' ? 'yes' : 'no' })]);
   }
   const ending = endingsFor(lexeme.flags.has('athematic') ? 'c' : column, key)[slot]!;
   if (ending === 'x') return [];
@@ -127,7 +127,7 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       const passive = cell.form === 'presentInfinitivePassive';
       if (lexeme.flags.has('athematic')) {
         const long = infinitiveEnding('i', passive);
-        return one(long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long })]);
+        return one(long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long, self: lexeme.lemma === 'ferre' ? 'yes' : 'no' })]);
       }
       const ending = infinitiveEnding(column, passive);
       return one(ending, [step(latinRules['la.end.infinitive'], stem, stem + ending, { ending, tense: { term: 'tense', id: 'present' } })]);

@@ -6,7 +6,7 @@ export const latinRules = defineRules({
   'la.classify.lexicon': { stage: 'classify', kind: 'lexical', params: { parts: 'text' } },
   'la.classify.compound': { stage: 'classify', params: { prefix: 'text', base: 'text', parts: 'text' } },
   'la.classify.compound-reduplication': { stage: 'classify' },
-  'la.classify.conjugation': { stage: 'classify', params: { ending: 'text', conjugation: 'text' } },
+  'la.classify.conjugation': { stage: 'classify', params: { ending: 'text', conjugation: 'text', read: 'text' } },
   'la.classify.io': { stage: 'classify' },
   'la.classify.deponent': { stage: 'classify' },
   'la.classify.semi-deponent': { stage: 'classify', kind: 'lexical' },
@@ -35,7 +35,7 @@ export const latinRules = defineRules({
   'la.stem.t-junction': { stage: 'stem', params: { consonant: 'text', result: 'text' } },
   'la.stem.lexical': { stage: 'stem', kind: 'lexical' },
   'la.stem.participle': { stage: 'stem', kind: 'lexical' },
-  'la.lex.cell': { stage: 'stem', kind: 'lexical' },
+  'la.lex.cell': { stage: 'stem', kind: 'lexical', params: { kind: 'text' } },
   'la.lex.scito': { stage: 'stem', kind: 'lexical' },
   'la.lex.sum-compound': { stage: 'stem', kind: 'lexical', params: { prefix: 'text' } },
   'la.lex.pot-sum': { stage: 'stem', kind: 'lexical' },
@@ -58,7 +58,7 @@ export const latinRules = defineRules({
   'la.end.ere': { stage: 'ending' },
   'la.end.re': { stage: 'ending' },
   'la.end.short-imperative': { stage: 'orthography', kind: 'lexical' },
-  'la.end.athematic': { stage: 'ending', params: { ending: 'text' } },
+  'la.end.athematic': { stage: 'ending', params: { ending: 'text', self: 'text' } },
   'la.end.optative': { stage: 'ending', params: { ending: 'text' } },
   // Non-finite endings and declension (GD §4.3, second table)
   'la.end.present-participle': { stage: 'ending', params: { ending: 'text' } },
@@ -107,5 +107,5 @@ export const latinRules = defineRules({
   'la.avail.no-participle': { stage: 'availability', kind: 'unavailable', params: { tense: 'text' } },
   'la.avail.no-gerund': { stage: 'availability', kind: 'unavailable' },
   'la.avail.no-future-imperative-plural': { stage: 'availability', kind: 'unavailable' },
-  'la.avail.not-attested': { stage: 'availability', kind: 'unavailable' },
+  'la.avail.not-attested': { stage: 'availability', kind: 'unavailable', params: { gap: 'text' } },
 });

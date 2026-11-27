@@ -6,7 +6,8 @@ import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
 import type { Fork, VariantTags } from '../../core/fork.js';
-import type { LatinLexeme, StemSource } from './lexicon.js';
+import { latinKey } from './key.js';
+import type { LatinConjugation, LatinLexeme, StemSource } from './lexicon.js';
 import { latinRules } from './rules.js';
 
 const sourceTags = (source: StemSource): VariantTags => source.kind === 'listed'
@@ -66,4 +67,72 @@ export function futureParticipleStems(lexeme: LatinLexeme): Fork<string> {
   return lexeme.futureParticipleStems.map(source => ({
     value: source.stem, steps: [step(latinRules['la.stem.lexical'], lexeme.lemma, source.stem)], tags: sourceTags(source),
   }));
+}
+
+// The default stems of a verb the lexicon does not have (GD §3.3): the junction phonology of -s- and -t- (A&G §15).
+
+/** The perfect -s- of a stop stem (GD §3.3; A&G §15; Bennett §118.3.a). */
+export function sJunction(root: string): DefaultStem {
+  const joined = `${root}s`;
+  const make = (consonant: string, result: string, stem: string): DefaultStem =>
+    ({ kind: 'default', base: root, suffix: 's', joined, junction: stem === joined ? null : { consonant, result }, stem });
+  const key = latinKey(root);
+  if (/(?:qu|gu)$/u.test(key)) return make(root.slice(-2), 'x', `${root.slice(0, -2)}x`);
+  if (/[cgh]$/u.test(key)) return make(root.slice(-1), 'x', `${root.slice(0, -1)}x`);
+  if (key.endsWith('b')) return make('b', 'p', `${root.slice(0, -1)}ps`);
+  if (/[dt]$/u.test(key)) {
+    // As in the supine: ss after a short or unmarked vowel, s after a long vowel, a diphthong or a consonant (A&G §15).
+    const before = root.slice(0, -1);
+    const single = /(?:[āēīōū]|ae|au|oe|[^aeiouāēīōū])$/u.test(before);
+    return make(root.slice(-1), single ? 's' : 'ss', `${before}${single ? 's' : 'ss'}`);
+  }
+  if (key.endsWith('m')) return make('m', 'mp', `${root}ps`);
+  if (key.endsWith('r')) return make('r', 's', `${root.slice(0, -1)}ss`);
+  return make('', '', joined);
+}
+
+/** The supine -t- of a stop stem (A&G §178 Note 1; Bennett §119.1.a). */
+export function tJunction(root: string): DefaultStem {
+  const joined = `${root}t`;
+  const make = (consonant: string, result: string, stem: string): DefaultStem =>
+    ({ kind: 'default', base: root, suffix: 't', joined, junction: stem === joined ? null : { consonant, result }, stem });
+  const key = latinKey(root);
+  if (/(?:qu|gu)$/u.test(key)) return make(root.slice(-2), 'c', `${root.slice(0, -2)}ct`);
+  if (/[cgh]$/u.test(key)) return make(root.slice(-1), 'c', `${root.slice(0, -1)}ct`);
+  if (key.endsWith('b')) return make('b', 'p', `${root.slice(0, -1)}pt`);
+  if (/[dt]$/u.test(key)) {
+    // ss after a short or unmarked vowel, s after a long vowel, a diphthong or a consonant.
+    const before = root.slice(0, -1);
+    const single = /(?:[āēīōū]|ae|au|oe|[^aeiouāēīōū])$/u.test(before);
+    return make(root.slice(-1), single ? 's' : 'ss', `${before}${single ? 's' : 'ss'}`);
+  }
+  if (key.endsWith('m')) return make('m', 'mp', `${root}pt`);
+  if (key.endsWith('r')) return make('r', 's', `${root.slice(0, -1)}st`);
+  return make('', '', joined);
+}
+
+type DefaultStem = Extract<StemSource, { kind: 'default' }>;
+
+const regular = (base: string, suffix: string): DefaultStem =>
+  ({ kind: 'default', base, suffix, joined: base + suffix, junction: null, stem: base + suffix });
+
+export type DefaultRule = 'la.classify.default-parts' | 'la.classify.default-sigmatic' | 'la.classify.default-uo' | 'la.classify.default-sco' | 'la.classify.default-u';
+
+/** The default perfect and supine of an unknown verb (GD §3.3) and the assumption that names them. */
+export function defaults(conjugation: Exclude<LatinConjugation, 'irregular'>, root: string, stem: string): { perfect: StemSource; supine: StemSource; rule: DefaultRule } {
+  switch (conjugation) {
+    case 'first': case 'fourth':
+      return { perfect: regular(stem, 'v'), supine: regular(stem, 't'), rule: 'la.classify.default-parts' };
+    case 'second':
+      return { perfect: regular(root, 'u'), supine: regular(root, 'it'), rule: 'la.classify.default-parts' };
+    case 'third': case 'thirdIo': {
+      const key = latinKey(root);
+      if (key.endsWith('sc')) return { perfect: regular(root.slice(0, -2), 'v'), supine: regular(root.slice(0, -2), 't'), rule: 'la.classify.default-sco' };
+      if (/(?:[cghbpdt]|qu|gu)$/u.test(key)) return { perfect: sJunction(root), supine: tJunction(root), rule: 'la.classify.default-sigmatic' };
+      if (key.endsWith('u')) {
+        return { perfect: regular(root, ''), supine: { ...regular(root, 't'), stem: `${root.slice(0, -1)}ūt`, joined: `${root.slice(0, -1)}ūt` }, rule: 'la.classify.default-uo' };
+      }
+      return { perfect: regular(root, 'u'), supine: regular(root, 'it'), rule: 'la.classify.default-u' };
+    }
+  }
 }

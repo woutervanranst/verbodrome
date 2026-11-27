@@ -9,10 +9,7 @@ import { startCorrection } from '../model.ts';
 import type { CorpusCell, CorpusCorrection, CorpusFile, CorrectionDraft } from '../model.ts';
 import type { WiktionaryPage } from '../sources/wiktionary-la.ts';
 
-const scan = (page: number): string => `https://dcc.dickinson.edu/sites/default/files/AG${String(page + 12).padStart(3, '0')}.jpg`;
-const ag = (slug: string): string => `https://dcc.dickinson.edu/grammar/latin/${slug}`;
-const bennett = (section: number): string => `https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect${section}`;
-const lewisShort = (lemma: string): string => `https://logeion.uchicago.edu/${lemma}`;
+import { ag, bennett, lewisShort, scan } from './latin-urls.ts';
 
 const fileOf = (page: WiktionaryPage): CorpusFile => ({
   file: page.title, language: 'la', infinitive: page.infinitive, gender: 'masculine', auxiliary: null, pattern: 'default', templatePlaceholders: 0,

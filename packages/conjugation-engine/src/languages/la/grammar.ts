@@ -82,7 +82,10 @@ function lexicalCell(lexeme: LatinLexeme, cell: Cell): Fork<string> | null {
   if (listed) {
     const words: Fork<string> = listed.map(form => ({
       value: form.text,
-      steps: [step(latinRules[form.rule ?? 'la.lex.cell'], lexeme.lemma, form.text)],
+      steps: [form.rule ? step(latinRules[form.rule], lexeme.lemma, form.text)
+        // A listed infinitive is named from the first person (esse: the present infinitive of sum), not from itself.
+        : form.text === lexeme.lemma && entry?.present ? step(latinRules['la.lex.cell'], entry.present, form.text, { kind: 'infinitive' })
+          : step(latinRules['la.lex.cell'], lexeme.lemma, form.text, { kind: 'form' })],
       tags: { ...(form.usage && form.usage !== 'standard' ? { usage: form.usage } : {}), ...(form.pattern ? { pattern: form.pattern } : {}) },
       ...(form.marks ? { marks: form.marks } : {}),
     }));
@@ -95,9 +98,10 @@ function lexicalCell(lexeme: LatinLexeme, cell: Cell): Fork<string> | null {
       : { kind: 'finite', mood: cell.mood, tense: cell.tense, person: cell.person, number: cell.number };
     const prefix = lexeme.stems.fio ?? '';
     const words = lexicalCell(fio, active) ?? deriveWords(latinGrammar, fio, active);
+    // The step that says the passive is fīō's comes first, then how fīō's word is built.
     return words.map(outcome => ({
       ...outcome, value: prefix + outcome.value,
-      steps: [...outcome.steps, step(latinRules['la.lex.passive-fio'], lexeme.lemma, prefix + outcome.value)],
+      steps: [step(latinRules['la.lex.passive-fio'], lexeme.lemma, prefix + outcome.value), ...outcome.steps],
     }));
   }
   return null;

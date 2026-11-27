@@ -14,6 +14,7 @@ import { hasQuantityMarks, latinKey } from './key.js';
 import { compoundGlosses, impersonalPassive, latinLexicon, rarerHomographs } from './lexicon.js';
 import type { LatinConjugation, LatinEntry, LatinLexeme, LatinStemClass, LexicalForm, PresentStem, StemSource } from './lexicon.js';
 import { latinRules } from './rules.js';
+import { defaults } from './stems.js';
 import type { LatinClassHint, LatinStemHints } from './spec.js';
 
 const stemClassOf: Readonly<Record<Exclude<LatinConjugation, 'irregular'>, LatinStemClass>> = {
@@ -269,72 +270,6 @@ function readEnding(typed: string, key: string, present: string | undefined): Re
   return invalid();
 }
 
-/** The perfect -s- of a stop stem (GD §3.3; A&G §15; Bennett §118.3.a). */
-function sJunction(root: string): DefaultStem {
-  const joined = `${root}s`;
-  const make = (consonant: string, result: string, stem: string): DefaultStem =>
-    ({ kind: 'default', base: root, suffix: 's', joined, junction: stem === joined ? null : { consonant, result }, stem });
-  const key = latinKey(root);
-  if (/(?:qu|gu)$/u.test(key)) return make(root.slice(-2), 'x', `${root.slice(0, -2)}x`);
-  if (/[cgh]$/u.test(key)) return make(root.slice(-1), 'x', `${root.slice(0, -1)}x`);
-  if (key.endsWith('b')) return make('b', 'p', `${root.slice(0, -1)}ps`);
-  if (/[dt]$/u.test(key)) {
-    // As in the supine: ss after a short or unmarked vowel, s after a long vowel, a diphthong or a consonant (A&G §15).
-    const before = root.slice(0, -1);
-    const single = /(?:[āēīōū]|ae|au|oe|[^aeiouāēīōū])$/u.test(before);
-    return make(root.slice(-1), single ? 's' : 'ss', `${before}${single ? 's' : 'ss'}`);
-  }
-  if (key.endsWith('m')) return make('m', 'mp', `${root}ps`);
-  if (key.endsWith('r')) return make('r', 's', `${root.slice(0, -1)}ss`);
-  return make('', '', joined);
-}
-
-/** The supine -t- of a stop stem (A&G §178 Note 1; Bennett §119.1.a). */
-function tJunction(root: string): DefaultStem {
-  const joined = `${root}t`;
-  const make = (consonant: string, result: string, stem: string): DefaultStem =>
-    ({ kind: 'default', base: root, suffix: 't', joined, junction: stem === joined ? null : { consonant, result }, stem });
-  const key = latinKey(root);
-  if (/(?:qu|gu)$/u.test(key)) return make(root.slice(-2), 'c', `${root.slice(0, -2)}ct`);
-  if (/[cgh]$/u.test(key)) return make(root.slice(-1), 'c', `${root.slice(0, -1)}ct`);
-  if (key.endsWith('b')) return make('b', 'p', `${root.slice(0, -1)}pt`);
-  if (/[dt]$/u.test(key)) {
-    // ss after a short or unmarked vowel, s after a long vowel, a diphthong or a consonant.
-    const before = root.slice(0, -1);
-    const single = /(?:[āēīōū]|ae|au|oe|[^aeiouāēīōū])$/u.test(before);
-    return make(root.slice(-1), single ? 's' : 'ss', `${before}${single ? 's' : 'ss'}`);
-  }
-  if (key.endsWith('m')) return make('m', 'mp', `${root}pt`);
-  if (key.endsWith('r')) return make('r', 's', `${root.slice(0, -1)}st`);
-  return make('', '', joined);
-}
-
-type DefaultStem = Extract<StemSource, { kind: 'default' }>;
-
-const regular = (base: string, suffix: string): DefaultStem =>
-  ({ kind: 'default', base, suffix, joined: base + suffix, junction: null, stem: base + suffix });
-
-type DefaultRule = 'la.classify.default-parts' | 'la.classify.default-sigmatic' | 'la.classify.default-uo' | 'la.classify.default-sco' | 'la.classify.default-u';
-
-/** The default perfect and supine of an unknown verb (GD §3.3) and the assumption that names them. */
-function defaults(conjugation: Reading['conjugation'], root: string, stem: string): { perfect: StemSource; supine: StemSource; rule: DefaultRule } {
-  switch (conjugation) {
-    case 'first': case 'fourth':
-      return { perfect: regular(stem, 'v'), supine: regular(stem, 't'), rule: 'la.classify.default-parts' };
-    case 'second':
-      return { perfect: regular(root, 'u'), supine: regular(root, 'it'), rule: 'la.classify.default-parts' };
-    case 'third': case 'thirdIo': {
-      const key = latinKey(root);
-      if (key.endsWith('sc')) return { perfect: regular(root.slice(0, -2), 'v'), supine: regular(root.slice(0, -2), 't'), rule: 'la.classify.default-sco' };
-      if (/(?:[cghbpdt]|qu|gu)$/u.test(key)) return { perfect: sJunction(root), supine: tJunction(root), rule: 'la.classify.default-sigmatic' };
-      if (key.endsWith('u')) {
-        return { perfect: regular(root, ''), supine: { ...regular(root, 't'), stem: `${root.slice(0, -1)}ūt`, joined: `${root.slice(0, -1)}ūt` }, rule: 'la.classify.default-uo' };
-      }
-      return { perfect: regular(root, 'u'), supine: regular(root, 'it'), rule: 'la.classify.default-u' };
-    }
-  }
-}
-
 const canonicalEnding: Readonly<Record<Reading['conjugation'], readonly [string, string]>> = {
   first: ['āre', 'ārī'], second: ['ēre', 'ērī'], third: ['ere', 'ī'], thirdIo: ['ere', 'ī'], fourth: ['īre', 'īrī'],
 };
@@ -367,7 +302,10 @@ function ruleParadigm(typed: string, reading: Reading, hints: LatinStemHints, cl
   const defaulted = (perfectSystem === 'stem' && !hints.perfect) || !hints.supine;
 
   const steps: DerivationStep[] = [
-    step(latinRules['la.classify.conjugation'], typed, null, { ending: reading.ending, conjugation }),
+    // An assumed reading names the ending it reads (tregere is read with -ēre), not the typed one.
+    step(latinRules['la.classify.conjugation'], typed, null, assumption === null
+      ? { ending: reading.ending, conjugation, read: 'no' }
+      : { ending: canonicalEnding[conjugation][deponent ? 1 : 0], conjugation, read: 'yes' }),
   ];
   // Not in the lexicon, a passive infinitive could also be the passive of an unknown active verb: deponent is assumed.
   if (deponent) steps.push(step(latinRules['la.classify.assume-deponent'], typed, null));

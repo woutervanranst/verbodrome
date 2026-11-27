@@ -8,6 +8,8 @@
  * sternuō, nūpsī), as every 1sg present in -ō and perfect in -ī is (A&G §§163, 172).
  */
 
+import { agScanUrl as scan, lsUrl } from './urls.js';
+
 export type LatinConjugation = 'first' | 'second' | 'third' | 'thirdIo' | 'fourth' | 'irregular';
 export type LatinStemClass = 'a' | 'e' | 'consonant' | 'io' | 'i';
 /** What a verb lacks; `supine` is the supine itself where the stem exists for the participle (fīō: factus, factum īrī). */
@@ -150,9 +152,6 @@ type Extra = Partial<Omit<LatinEntry, 'present' | 'perfect' | 'supine' | 'future
 /** One row of a list: 1sg present, perfect(s) (`a|b`, '' for none), supine or participle stem(s) as printed ('' for none). */
 type Row = readonly [present: string, perfect: string, supine: string, extra?: Extra];
 
-const scan = (page: number): `https://${string}` => `https://dcc.dickinson.edu/sites/default/files/AG${String(page + 12).padStart(3, '0')}.jpg`;
-const lsUrl = (lemma: string): `https://${string}` => `https://logeion.uchicago.edu/${lemma}`;
-const bennettUrl = (section: number): `https://${string}` => `https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect${section}`;
 
 /** The 1sg ending is long: a print that left it unmarked is normalised. */
 function present(text: string): string {
@@ -492,4 +491,4 @@ export const regularEntries: readonly LatinEntry[] = [
   ...list('third', 'A&G §189; §211.e', ag(124), [['lavō', 'lāvī', 'lōt|laut', { usage: 'literary' }]]),
 ];
 
-export { bennettUrl, lsUrl, scan as agScan };
+export { bennettUrl, lsUrl, agScanUrl as agScan } from './urls.js';

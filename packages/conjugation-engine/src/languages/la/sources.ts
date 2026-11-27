@@ -2,6 +2,7 @@ import type { Citation, Work } from '../../core/sources.js';
 import type { LatinEntry, LexiconCheck } from './entries.js';
 import { latinEntries } from './lexicon.js';
 import type { latinRules } from './rules.js';
+import { agScanUrl, agTextUrl, bennettUrl, lsUrl } from './urls.js';
 
 /** The works Latin rules cite (GD §1.1). Wiktionary and the scraped corpus are data, never cited for a rule. */
 export const latinWorks = {
@@ -25,21 +26,21 @@ export const latinWorks = {
 
 /** A&G in the DCC edition: `slug` is the page of the section, `section` its number (e.g. '§172'). */
 export function ag(slug: string, section: string): Citation {
-  return { work: 'ag', locator: `A&G ${section}`, url: `https://dcc.dickinson.edu/grammar/latin/${slug}` };
+  return { work: 'ag', locator: `A&G ${section}`, url: agTextUrl(slug) };
 }
 
 /** The 1903 A&G print page `page`, whose scan is the file AG<page + 12>.jpg. */
 export function agPage(page: number): Citation {
-  return { work: 'ag-print', locator: `A&G p. ${page}`, url: `https://dcc.dickinson.edu/sites/default/files/AG${String(page + 12).padStart(3, '0')}.jpg` };
+  return { work: 'ag-print', locator: `A&G p. ${page}`, url: agScanUrl(page) };
 }
 
 export function bennett(section: number, sub = ''): Citation {
-  return { work: 'bennett', locator: `Bennett §${section}${sub}`, url: `https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect${section}` };
+  return { work: 'bennett', locator: `Bennett §${section}${sub}`, url: bennettUrl(section) };
 }
 
 /** Lewis & Short's entry for `lemma` (written without macrons, as Logeion addresses it). */
 export function ls(lemma: string): Citation {
-  return { work: 'ls', locator: `Lewis & Short, s.v. ${lemma}`, url: `https://logeion.uchicago.edu/${lemma}` };
+  return { work: 'ls', locator: `Lewis & Short, s.v. ${lemma}`, url: lsUrl(lemma) };
 }
 
 /** Lewis & Short as a whole, for rules that read the lexicon. */
@@ -85,7 +86,7 @@ export const latinCitations = {
   'la.orth.syncope': [ag('peculiarities', '§181.a'), agPage(91), bennett(116)],
   'la.orth.v-loss': [ag('peculiarities', '§181.b'), agPage(91), bennett(116)],
   'la.orth.ii-contraction': [ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§203.c'), agPage(114)],
-  'la.avail.not-attested': [ag('defective-verbs', '§206'), agPage(113), agPage(115)],
+  'la.avail.not-attested': [ag('defective-verbs', '§206'), ag('impersonal-verbs', '§§207–208 (§208.b Note: paenitendus, pudendus)'), agPage(113), agPage(115)],
   'la.lex.scito': [ag('peculiarities', '§182.a'), agPage(91)],
   'la.lex.cell': [ag('sum', '§170'), ag('irregular-verbs-compounds-sum', '§198'), ag('irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D', '§199'), ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§§202–203'), ag('irregular-verbs-f%C4%AB%C5%8D', '§204'), bennett(100)],
   'la.end.personal': [ag('personal-endings', '§163'), agPage(89)],
