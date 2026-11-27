@@ -5,6 +5,7 @@ import { resolveFamily } from '../../src/languages/it/families.js';
 import { italianLexicon } from '../../src/languages/it/lexicon.js';
 import { italianPack } from '../../src/languages/it/pack.js';
 import { lexiconVerification } from '../../src/languages/it/sources.js';
+import { readPages } from '../../src/languages/it/verification.js';
 import type { VerbAnalysis } from '../../src/types.js';
 
 /** The analysis of a verb: classification only, so it does not depend on the later stages. */
@@ -110,5 +111,7 @@ describe('Italian classification', () => {
     // Verification is a record of pages read, never a default: these lemmas were not read.
     expect(Object.entries(lexiconVerification).filter(([, record]) => record.status !== 'read').map(([lemma]) => lemma).sort())
       .toEqual(['riavviare']);
+    // Every page recorded as read verifies an entry of the lexicon, a side list or a family list (review I4).
+    expect(Object.keys(readPages).filter(lemma => !Object.hasOwn(lexiconVerification, lemma))).toEqual([]);
   });
 });

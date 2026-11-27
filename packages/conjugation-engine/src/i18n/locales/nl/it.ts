@@ -32,6 +32,7 @@ export const it = {
   'it.classify.hint': 'Volgens jouw aanwijzing: {hint}.',
   'it.avail.no-imperative': 'Dit werkwoord heeft geen gebiedende wijs.',
   'it.avail.impersonal': 'Dit werkwoord is onpersoonlijk: je gebruikt het alleen in de derde persoon enkelvoud.',
+  'it.avail.third-person': 'Dit werkwoord gebruik je alleen in de derde persoon.',
   'it.avail.defective': 'Dit werkwoord heeft geen {mood} {tense}.',
   'it.stem.infinitive': 'Haal -{ending} van {before} af: de stam is {after}-.',
   'it.stem.long': 'Deze vorm wordt gemaakt met de lange stam {after}-.',

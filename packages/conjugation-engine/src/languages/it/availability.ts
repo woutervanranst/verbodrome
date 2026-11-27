@@ -19,6 +19,9 @@ export function availabilityOf(lexeme: ItalianLexeme, target: ResolvedTarget): U
   if (lexeme.impersonal && target.person !== null && (target.mood === 'imperative' || !impersonalSubjects.has(target.subject ?? ''))) {
     return { reason: 'impersonal', step: step(R['it.avail.impersonal'], null, null), source };
   }
+  if (entry?.flags?.includes('thirdPerson') && target.person !== null && target.person !== 3) {
+    return { reason: 'defective', step: step(R['it.avail.third-person'], null, null), source };
+  }
   if (target.mood === 'imperative' && entry?.flags?.includes('noImperative')) {
     return { reason: 'noImperative', step: step(R['it.avail.no-imperative'], null, null), source };
   }

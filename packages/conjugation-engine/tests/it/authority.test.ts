@@ -19,9 +19,9 @@ const files = readdirSync(directory).filter(name => name.endsWith('.json')).sort
 const read = (name: string): AuthorityFile => JSON.parse(readFileSync(new URL(name, directory), 'utf8')) as AuthorityFile;
 
 describe('Italian authority cells', () => {
-  it('has the ten source files and pins their cells', () => {
-    expect(files).toHaveLength(10);
-    expect(files.reduce((sum, name) => sum + read(name).cells.length, 0)).toBe(442);
+  it('has the eleven source files and pins their cells', () => {
+    expect(files).toHaveLength(11);
+    expect(files.reduce((sum, name) => sum + read(name).cells.length, 0)).toBe(509);
     expect(read('serianni.json').cells).toEqual([]); // the print book was not at hand: nothing is reconstructed from memory
   });
 

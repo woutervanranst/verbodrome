@@ -32,6 +32,7 @@ export const it = {
   'it.classify.hint': 'Following your hint: {hint}.',
   'it.avail.no-imperative': 'This verb has no imperative.',
   'it.avail.impersonal': 'This verb is impersonal: it is used only in the third person singular.',
+  'it.avail.third-person': 'This verb is used only in the third person.',
   'it.avail.defective': 'This verb has no {mood} {tense}.',
   'it.stem.infinitive': 'Remove -{ending} from {before}: the stem is {after}-.',
   'it.stem.long': 'This form is built on the long stem {after}-.',

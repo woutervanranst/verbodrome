@@ -1,4 +1,5 @@
 import { italianLexicon } from './lexicon.js';
+import { nonIscVerbs } from './lists.js';
 import type { ItalianEntry, PastSeries, WholeForm } from './lexicon.js';
 
 /**
@@ -31,6 +32,8 @@ const suffixFamilies: Readonly<Record<string, { readonly model: string; readonly
   nettere: { model: 'annettere', members: ['connettere'] },
   struggere: { model: 'distruggere', members: ['struggere'] },
   mergere: { model: 'emergere', members: ['sommergere'] },
+  fliggere: { model: 'affliggere', members: ['infliggere'] },
+  cutere: { model: 'discutere', members: ['incutere'] },
 };
 
 /**
@@ -42,7 +45,7 @@ const listedBases: Readonly<Record<string, string>> = {
   liquefare: 'fare', putrefare: 'fare', rarefare: 'fare', stupefare: 'fare', tumefare: 'fare',
   predire: 'dire', contraddire: 'dire', disdire: 'dire', ridire: 'dire', interdire: 'dire', benedire: 'dire', maledire: 'dire',
   ridare: 'dare', sottostare: 'stare', soprastare: 'stare', ristare: 'stare', risapere: 'sapere', riandare: 'andare',
-  appartenere: 'tenere',
+  appartenere: 'tenere', indire: 'dire', addire: 'dire', rivolere: 'volere', confare: 'fare', sfare: 'fare', riemergere: 'emergere',
 };
 
 /**
@@ -57,6 +60,9 @@ const listedDerivatives: ReadonlySet<string> = new Set([
   'ricoprire', 'scoprire', 'riscoprire', 'risalire', 'riuscire', 'avvenire', 'divenire', 'intervenire', 'pervenire', 'provenire',
   'svenire', 'sopravvenire', 'convenire', 'prevenire', 'accadere', 'scadere', 'dispiacere', 'occorrere', 'accorrere', 'percorrere',
   'ricorrere', 'risorgere', 'decrescere', 'sopravvivere', 'convivere', 'scomparire', 'ricuocere', 'stracuocere',
+  'riempire', 'svestire', 'susseguire', 'trafiggere', 'configgere', 'detergere', 'suddividere', 'circoscrivere', 'capovolgere',
+  'misconoscere', 'prevenire', 'compiacere', 'contravvenire', 'rinvenire', 'trascorrere', 'incorrere', 'decorrere', 'sopraggiungere',
+  'ripartire', 'correggere', 'rincrescere', 'ricrescere', 'scorrere', 'discendere', 'ascendere', 'rivivere', 'prevalere', 'spiovere',
 ]);
 
 /** The derived verbs listed by name: the members of the suffix families, the listed bases and derivatives. */
@@ -71,7 +77,7 @@ export const listedFamilyMembers: readonly string[] = [
 export const prefixes: readonly string[] = [
   'a', 'ab', 'ac', 'ad', 'af', 'ag', 'al', 'am', 'an', 'ap', 'ar', 'as', 'at', 'av', 'co', 'com', 'con', 'cor', 'col', 'contra', 'contro', 'de',
   'di', 'dis', 'e', 'equi', 'es', 'ex', 'fra', 'i', 'im', 'in', 'ir', 'inter', 'intra', 'intro', 'man', 'o', 'ob', 'oc', 'op', 'per', 'pos',
-  'pre', 'pro', 'ra', 're', 'ri', 'rim', 'rin', 's', 'sc', 'so', 'sop', 'sopr', 'sor', 'sos', 'sot', 'sott', 'sotto', 'sopra', 'sovra', 'sov',
+  'pre', 'pro', 'ra', 're', 'ri', 'rim', 'rin', 's', 'sc', 'so', 'sop', 'sopr', 'sor', 'sos', 'sot', 'sud', 'sus', 'circo', 'capo', 'mis', 'sott', 'sotto', 'sopra', 'sovra', 'sov',
   'stra', 'sub', 'super', 'tra', 'tras',
 ];
 const elided: ReadonlySet<string> = new Set(['sott', 'sopr']);
@@ -89,8 +95,11 @@ export const derivedDifferently: ReadonlyMap<string, string> = new Map([['smenti
 
 /** A lexicon verb that a prefix can be put before. */
 function prefixBase(lemma: string): ItalianEntry | null {
+  if (lemma.length < 6) return null;
   const entry = Object.hasOwn(italianLexicon, lemma) ? italianLexicon[lemma]! : null;
-  return entry !== null && entry.class !== 'irregular' && lemma.length >= 6 ? entry : null;
+  if (entry !== null) return entry.class !== 'irregular' ? entry : null;
+  // A plain -ire verb of the side list passes on only its lack of -isc- (s + vestire: svesto).
+  return nonIscVerbs.has(lemma) ? { class: 'ire', isc: 'no' } : null;
 }
 
 export interface Family {
@@ -136,6 +145,7 @@ export function rebase(entry: ItalianEntry, from: string, to: string): ItalianEn
     ...(series === undefined ? {} : { pastSeries: series }),
     ...(entry.participle === undefined ? {} : { participle: move(entry.participle)! }),
     ...(entry.future === undefined ? {} : { future: move(entry.future)! }),
+    ...(entry.gerundStem === undefined ? {} : { gerundStem: moved(entry.gerundStem, from, to) }),
     ...(entry.presentParticiple === undefined || entry.presentParticiple === null ? {} : { presentParticiple: move(entry.presentParticiple)! }),
     ...(entry.usage === undefined ? {} : { usage: Object.fromEntries(Object.entries(entry.usage).map(([form, usage]) => [moved(form, from, to), usage])) }),
     ...(kept === undefined ? {} : { cells: kept as Readonly<Record<string, readonly WholeForm[]>> }),
@@ -158,9 +168,12 @@ function bySuffix(lemma: string): Family | null {
  * The regular -are present forms the Vocabolario prints beside the forms of fare (soddisfare: "io soddisfàccio o
  * soddisfò o soddisfo, tu soddisfài o soddisfi, ... noi soddisfacciamo e fam. soddisfiamo"; disfare likewise).
  */
-const regularAre: Readonly<Record<string, ItalianEntry['regularAre']>> = {
-  soddisfare: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '3pl'] },
-  disfare: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'] },
+const familyExtras: Readonly<Record<string, Partial<ItalianEntry>>> = {
+  soddisfare: { regularAre: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '3pl'] } },
+  disfare: { regularAre: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'] } },
+  // "usato solo nella 3a pers. sing. e plur." (addirsi), "comunem. usato solo nella terza pers." (confarsi).
+  addire: { flags: ['thirdPerson'] },
+  confare: { flags: ['thirdPerson'] },
 };
 
 function byListedBase(lemma: string): Family | null {
@@ -168,8 +181,8 @@ function byListedBase(lemma: string): Family | null {
   if (base === null) return null;
   const prefix = lemma.slice(0, -base.length);
   const entry = rebase(italianLexicon[base]!, '', prefix);
-  const extra = regularAre[lemma];
-  return { prefix, base, suffix: null, doubled: false, entry: extra === undefined ? entry : { ...entry, regularAre: extra }, assumed: false };
+  const extra = familyExtras[lemma];
+  return { prefix, base, suffix: null, doubled: false, entry: extra === undefined ? entry : { ...entry, ...extra }, assumed: false };
 }
 
 /** The ways `text` is one or two prefixes of the list; an elided prefix only before a vowel. */
@@ -203,7 +216,7 @@ function byPrefix(lemma: string): Family | null {
 /** The family `base` (a lemma without -si) belongs to, or null. Listed lexicon verbs are not looked up here. */
 export function resolveFamily(base: string): Family | null {
   if (noInherit.has(base) || derivedDifferently.has(base)) return null;
-  const family = bySuffix(base) ?? byListedBase(base) ?? byPrefix(base);
+  const family = byListedBase(base) ?? bySuffix(base) ?? byPrefix(base);
   if (family === null || family.suffix !== null) return family;
   return { ...family, assumed: !listedDerivatives.has(base) && !Object.hasOwn(listedBases, base) };
 }

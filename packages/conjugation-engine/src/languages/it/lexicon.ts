@@ -14,7 +14,7 @@ export interface WholeForm { readonly text: string; readonly usage?: 'literary' 
  */
 export type PastSeries = 'ei' | 'etti' | 'weak' | `=${string}`;
 
-export type EntryFlag = 'noImperative' | 'impersonal' | 'palatal' | 'stressedI' | 'imperative2plSubjunctive';
+export type EntryFlag = 'noImperative' | 'impersonal' | 'palatal' | 'stressedI' | 'imperative2plSubjunctive' | 'thirdPerson';
 
 export interface Auxiliary { readonly lemma: 'avere' | 'essere'; readonly condition?: string }
 
@@ -63,6 +63,8 @@ export interface ItalianEntry {
   readonly familyDrops?: readonly string[];
   /** Persons of the present (indicative, subjunctive) that also have the regular -are form (soddisfare: soddisfo). */
   readonly regularAre?: Partial<Record<'indicative' | 'subjunctive', readonly Slot[]>>;
+  /** The stem of the gerund and the present participle when it is not the regular one (empire: empi-endo). */
+  readonly gerundStem?: string;
 }
 
 type Forms = string | WholeForm | readonly (string | WholeForm)[] | null;
@@ -90,6 +92,11 @@ const intransitive = { lemma: 'essere', condition: 'intransitive use' } as const
 const servile = [
   { lemma: 'avere', condition: 'alone, or with an infinitive that takes avere' },
   { lemma: 'essere', condition: 'with an infinitive that takes essere' },
+] as const;
+/** The compound tenses and the past participle, which a verb without a past participle lacks. */
+const compounds = [
+  'indicative.perfect', 'indicative.pluperfect', 'indicative.past_anterior', 'indicative.future_perfect', 'subjunctive.past',
+  'subjunctive.pluperfect', 'conditional.past', 'infinitive.past', 'gerund.past', 'participle.past',
 ] as const;
 const stressed = (stems: readonly string[]): Partial<Record<Slot, readonly string[]>> =>
   ({ '1sg': stems, '2sg': stems, '3sg': stems, '3pl': stems });
@@ -380,6 +387,50 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   frangere: { class: 'ere', auxiliaries: [avere], past: ['fransi'], participle: ['franto'] },
   redimere: { class: 'ere', auxiliaries: [avere], past: ['redensi'], participle: ['redento'] },
   seppellire: { class: 'ire', isc: 'yes', auxiliaries: [avere], participle: ['sepolto', '*'] },
+  // Last round (whole-pack review): each header read in the Vocabolario on 2026-11-27.
+  empire: { class: 'ire', isc: 'no', auxiliaries: [avere], present: { '1sg': ['empi'], '3sg': ['empi'], '3pl': ['empi'] }, participle: ['*', 'empiuto'], gerundStem: 'empi' },
+  compiere: {
+    class: 'ire', isc: 'no', long: 'comp', auxiliaries: [avere], present: { '1sg': ['compi'], '3sg': ['compi'], '3pl': ['compi'] }, future: ['compir'],
+    participle: ['compiuto'], gerundStem: 'compi',
+  },
+  adempiere: {
+    class: 'ire', isc: 'no', long: 'ademp', auxiliaries: [avere], future: ['adempir'], participle: ['adempiuto', '*'], gerundStem: 'adempi',
+    present: { '1sg': ['adempi', '*isc'], '2sg': ['*', '*isc'], '3sg': ['adempi', '*isc'], '3pl': ['adempi', '*isc'] },
+  },
+  figgere: { class: 'ere', auxiliaries: [avere], past: ['fissi'], participle: ['fitto'] },
+  affiggere: { class: 'ere', auxiliaries: [avere], past: ['affissi'], participle: ['affisso'] },
+  crocifiggere: { class: 'ere', auxiliaries: [avere], past: ['crocifissi'], participle: ['crocifisso'] },
+  prefiggere: { class: 'ere', auxiliaries: [avere], past: ['prefissi'], participle: ['prefisso'] },
+  prediligere: { class: 'ere', auxiliaries: [avere], past: ['predilessi'], participle: ['prediletto'], presentParticiple: null },
+  fungere: { class: 'ere', auxiliaries: [avere], past: ['funsi'], participle: ['funto'] },
+  convergere: { class: 'ere', past: ['conversi'], participle: ['converso'] },
+  aspergere: { class: 'ere', auxiliaries: [avere], past: ['aspersi'], participle: ['asperso'] },
+  tergere: { class: 'ere', auxiliaries: [avere], past: ['tersi'], participle: ['terso'] },
+  ergere: { class: 'ere', auxiliaries: [avere], past: ['ersi'], participle: ['erto'] },
+  intridere: { class: 'ere', auxiliaries: [avere], past: ['intrisi'], participle: ['intriso'] },
+  flettere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', '=flessi'], participle: ['flesso', '*'] },
+  elidere: { class: 'ere', auxiliaries: [avere], past: ['elisi'], participle: ['eliso'] },
+  indulgere: { class: 'ere', auxiliaries: [avere], past: ['indulsi'], participle: ['indulto'] },
+  transigere: { class: 'ere', auxiliaries: [avere], pastSeries: ['ei', 'etti'], participle: ['transatto'] },
+  dissuadere: { class: 'ere', auxiliaries: [avere], past: ['dissuasi'], participle: ['dissuaso'] },
+  riflettere: { class: 'ere', participle: ['*', 'riflesso'], conditions: { '*': 'to think, to consider', riflesso: 'to reflect (light, an image)' } },
+  assalire: {
+    class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=assalsi'],
+    present: { '1sg': ['assalg', '*isc'], '2sg': ['*', '*isc'], '3sg': ['*', '*isc'], '3pl': ['assalg', '*isc'] },
+  },
+  avvedere: { class: 'ere', past: ['avvidi'], future: ['avvedr'] },
+  ravvedere: { class: 'ere', past: ['ravvidi'], future: ['ravvedr'] },
+  sospendere: { class: 'ere', auxiliaries: [avere], past: ['sospesi'], participle: ['sospeso'] },
+  prescindere: { class: 'ere', pastSeries: ['ei', '=prescissi'], participle: ['prescisso'] },
+  trasparire: {
+    class: 'ire', isc: 'no', auxiliaries: [essere], pastSeries: ['weak', '=trasparsi', '=trasparvi'],
+    present: { '1sg': ['traspai', '*isc'], '2sg': ['*', '*isc'], '3sg': ['*', '*isc'], '3pl': ['traspai', '*isc'] },
+  },
+  concernere: { class: 'ere', auxiliaries: [], defective: [...compounds, 'indicative.simple_past'] },
+  vigere: { class: 'ere', auxiliaries: [], defective: [...compounds], flags: ['thirdPerson'] },
+  urgere: { class: 'ere', auxiliaries: [], defective: [...compounds, 'indicative.simple_past'] },
+  competere: { class: 'ere', auxiliaries: [], defective: [...compounds] },
+  esimere: { class: 'ere', auxiliaries: [], defective: [...compounds] },
   piovere: {
     class: 'ere', past: ['piovvi'], flags: ['impersonal'],
     auxiliaries: [{ lemma: 'essere', condition: 'the usual auxiliary' }, { lemma: 'avere', condition: 'to stress a longer duration' }],

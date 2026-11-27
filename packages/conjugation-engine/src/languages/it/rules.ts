@@ -28,6 +28,7 @@ export const italianRules = defineRules({
   'it.classify.hint': { stage: 'classify', params: { hint: 'text' } },
   'it.avail.no-imperative': { stage: 'availability', kind: 'unavailable' },
   'it.avail.impersonal': { stage: 'availability', kind: 'unavailable' },
+  'it.avail.third-person': { stage: 'availability', kind: 'unavailable' },
   'it.avail.defective': { stage: 'availability', kind: 'unavailable', params: { mood: 'term', tense: 'term' } },
   // Stems and whole words.
   'it.stem.infinitive': { stage: 'stem', params: { ending: 'text' } },

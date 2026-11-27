@@ -18,7 +18,7 @@ export const iscVerbs: ReadonlySet<string> = new Set([
   'finire', 'capire', 'preferire', 'contribuire', 'definire', 'favorire', 'obbedire', 'inserire', 'guarire', 'agire', 'reagire', 'impazzire',
   'arrossire', 'impallidire', 'dimagrire', 'svanire', 'appassire', 'diminuire', 'colpire', 'pulire', 'spedire', 'sparire', 'smentire',
   'ardire', 'asservire', 'insignire', 'trasalire', 'tradire', 'unire', 'suggerire', 'sostituire', 'stabilire', 'fornire', 'punire', 'restituire',
-  'istruire', 'chiarire', 'tossire', 'muggire', 'ruggire', 'starnutire', 'sdrucire', 'ripartire',
+  'istruire', 'chiarire', 'tossire', 'muggire', 'ruggire', 'starnutire', 'sdrucire',
 ]);
 
 /** -ire verbs with both paradigms, and which the Vocabolario prints first (io mento o mentisco). */
@@ -28,7 +28,11 @@ export const iscBothVerbs: Readonly<Record<string, 'isc' | 'plain'>> = {
 };
 
 /** Verbs whose compound tenses take avere, where the Vocabolario says so and a base or model would suggest essere. */
-export const avereVerbs: ReadonlySet<string> = new Set(['insistere', 'resistere', 'persistere', 'desistere', 'soprassedere', 'alludere', 'incidere', 'coincidere']);
+export const avereVerbs: ReadonlySet<string> = new Set([
+  'insistere', 'resistere', 'persistere', 'desistere', 'soprassedere', 'alludere', 'incidere', 'coincidere', 'possedere', 'prevenire',
+  'compiacere', 'contravvenire', 'rinvenire', 'svestire', 'indire', 'rivolere', 'sfare', 'riflettere', 'infliggere', 'incutere',
+  'suddividere', 'capovolgere', 'misconoscere', 'circoscrivere', 'trafiggere', 'configgere', 'detergere',
+]);
 
 /** Verbs whose compound tenses take essere. */
 export const essereVerbs: ReadonlySet<string> = new Set([
@@ -37,6 +41,7 @@ export const essereVerbs: ReadonlySet<string> = new Set([
   'derivare', 'risultare', 'decrescere', 'sbocciare', 'tramontare', 'avvenire', 'divenire', 'intervenire', 'pervenire', 'provenire', 'svenire',
   'sopravvenire', 'sopravvivere', 'rifuggire', 'impazzire', 'arrossire', 'impallidire', 'dimagrire', 'svanire', 'appassire', 'sparire',
   'scomparire', 'riuscire', 'partire', 'fuggire', 'sfuggire', 'putrefare', 'sottostare', 'ammalare', 'coesistere', 'preesistere',
+  'incorrere', 'decorrere', 'rincrescere', 'ricrescere', 'riemergere', 'ascendere', 'rivivere', 'constare', 'susseguire',
   'riandare', 'ristare', 'rinascere', 'ricadere', 'decadere', 'riapparire', 'rivenire',
 ]);
 
@@ -65,6 +70,8 @@ export const dualVerbs: Readonly<Record<string, readonly Auxiliary[]>> = {
   nevicare: weather, grandinare: weather, piovigginare: weather,
   trasalire: [{ lemma: 'avere' }, { lemma: 'essere' }], appartenere: [{ lemma: 'essere' }, { lemma: 'avere' }],
   equivalere: [{ lemma: 'avere' }, { lemma: 'essere' }], eccellere: [{ lemma: 'essere' }, { lemma: 'avere' }],
+  trascorrere: [tr, intr], sopraggiungere: [intrFirst, tr], scorrere: [intrFirst, tr], discendere: [intrFirst, tr], ardere: [tr, intr],
+  prevalere: [{ lemma: 'essere' }, { lemma: 'avere' }], spiovere: weather,
 };
 
 /** -iare verbs whose i is stressed (io invìo), so it is kept before the i of an ending. */
@@ -77,4 +84,4 @@ export const stressedIVerbs: ReadonlySet<string> = new Set([
 export const palatalVerbs: ReadonlySet<string> = new Set(['cucire', 'scucire', 'ricucire']);
 
 /** Weather verbs used only in the third person (piovere is in the lexicon). */
-export const impersonalVerbs: ReadonlySet<string> = new Set(['nevicare', 'grandinare', 'piovigginare']);
+export const impersonalVerbs: ReadonlySet<string> = new Set(['nevicare', 'grandinare', 'piovigginare', 'spiovere']);

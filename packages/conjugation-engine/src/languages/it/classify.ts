@@ -245,6 +245,8 @@ export function classifyItalian(query: Readonly<Record<string, unknown>>): Fork<
   const entry = withHints(base, known.entry, known, hints, steps);
   const auxiliaries = auxiliariesOf(base, known, reflexive, query.auxiliary, steps);
 
+  const senses = readings[base];
+  if (senses !== undefined) return sensesOf(lemma, base, known, entry, stressedI, reflexive, senses, steps, query);
   if (isc !== 'both') return [{ value: lexemeFor(lemma, base, known, entry, isc ?? 'no', stressedI, reflexive, auxiliaries), steps, tags: {} }];
   const order: readonly ('isc' | 'plain')[] = iscBothVerbs[base] === 'isc' || known.entry?.iscFirst ? ['isc', 'plain'] : ['plain', 'isc'];
   const paradigms = order.map((pattern): Outcome<ItalianLexeme> => ({
@@ -254,6 +256,38 @@ export function classifyItalian(query: Readonly<Record<string, unknown>>): Fork<
   if (query.classHint === undefined) return paradigms;
   const kept = paradigms.filter(paradigm => paradigm.tags.pattern === query.classHint);
   return kept.map(paradigm => ({ ...paradigm, steps: [...steps, step(R['it.classify.hint'], base, null, { hint: `classHint: ${String(query.classHint)}` })] }));
+}
+
+/**
+ * Verbs with two senses conjugated differently (Vocabolario ripartire1 "dividere": ripartisco, avere; ripartire2
+ * "partire di nuovo": riparto, essere): one paradigm each, tagged with its pattern and the sense as its condition.
+ */
+const readings: Readonly<Record<string, readonly { readonly pattern: 'plain' | 'isc'; readonly condition: string; readonly auxiliary: 'avere' | 'essere' }[]>> = {
+  ripartire: [
+    { pattern: 'plain', condition: 'to leave again', auxiliary: 'essere' },
+    { pattern: 'isc', condition: 'to divide, to share out', auxiliary: 'avere' },
+  ],
+};
+
+function sensesOf(
+  lemma: string, base: string, known: Known, entry: ItalianEntry | null, stressedI: boolean, reflexive: boolean,
+  senses: NonNullable<typeof readings[string]>, steps: readonly DerivationStep[], query: Readonly<Record<string, unknown>>,
+): Fork<ItalianLexeme> {
+  const kept = senses.filter(sense => query.classHint === undefined || query.classHint === sense.pattern)
+    .filter(sense => query.auxiliary === undefined || query.auxiliary === sense.auxiliary);
+  if (!kept.length) throw new ConjugationError('INVALID_HINT', `${base} has no sense with these hints.`);
+  return kept.map(sense => {
+    const auxiliary = reflexive ? 'essere' : sense.auxiliary;
+    const own = [
+      step(sense.pattern === 'isc' ? R['it.classify.isc'] : R['it.classify.no-isc'], base, null),
+      step(R['it.classify.auxiliary'], base, null, { auxiliary }),
+    ];
+    return {
+      value: lexemeFor(lemma, base, known, entry, sense.pattern === 'isc' ? 'yes' : 'no', stressedI, reflexive, [{ lemma: auxiliary }]),
+      steps: [...steps.filter(s => s.rule !== 'it.classify.assume-isc' && s.rule !== 'it.classify.assume-avere'), ...own],
+      tags: { pattern: sense.pattern, condition: sense.condition },
+    };
+  });
 }
 
 /** The lexeme of an auxiliary or another verb a periphrasis names. */

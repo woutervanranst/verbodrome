@@ -12,6 +12,6 @@ describe('docs/grammar/it.md', () => {
   });
 
   it('states the corpus and oracle counts', () => {
-    for (const count of ['1,920', '67', '63', '442']) expect(doc, count).toContain(count);
+    for (const count of ['1,920', '67', '63', '509']) expect(doc, count).toContain(count);
   });
 });

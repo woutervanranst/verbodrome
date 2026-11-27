@@ -28,6 +28,8 @@ const finite = (mood: string, tense: string, from: Finite): Finite => ({ kind: '
 
 /** The regular stem: the infinitive without -are/-ere/-ire, or the long stem of a shortened infinitive (fac-). */
 function rootStem(lexeme: ItalianLexeme): Fork<string> {
+  // compiere and adempiere are conjugated on comp-, ademp- like -ire verbs (Vocabolario: "le altre forme sono da compire").
+  if (lexeme.entry?.long !== undefined && lexeme.entry.class !== 'contracted') return lexicalStems(lexeme, [lexeme.root]);
   return lexeme.entry?.class === 'contracted'
     ? one(lexeme.root, [step(R['it.stem.long'], lexeme.base, lexeme.root)])
     : one(lexeme.root, [step(R['it.stem.infinitive'], lexeme.base, lexeme.root, { ending: lexeme.conjugation })]);
@@ -145,9 +147,16 @@ export function stemOf(lexeme: ItalianLexeme, cell: Cell): Fork<string> {
   if (cell.kind === 'nonFinite') {
     const participle = lexeme.entry?.participle;
     if (cell.form === 'participle' && participle !== undefined) {
-      return participle.flatMap(form => form === '*' ? unstressedStems(lexeme)
-        : one(form.slice(0, -1), [step(R['it.stem.strong-participle'], lexeme.base, form.slice(0, -1))]));
+      // A participle with a sense of its own (riflettere: riflesso of light, riflettuto of thought) carries its condition.
+      const tagged = (form: string, fork: Fork<string>): Fork<string> => {
+        const condition = lexeme.entry?.conditions?.[form];
+        return condition === undefined ? fork : fork.map(outcome => ({ ...outcome, tags: { ...outcome.tags, condition } }));
+      };
+      return participle.flatMap(form => form === '*' ? tagged(form, unstressedStems(lexeme))
+        : tagged(form, one(form.slice(0, -1), [step(R['it.stem.strong-participle'], lexeme.base, form.slice(0, -1))])));
     }
+    const gerundStem = lexeme.entry?.gerundStem;
+    if ((cell.form === 'gerund' || cell.form === 'presentParticiple') && gerundStem !== undefined) return lexicalStems(lexeme, [gerundStem]);
     return unstressedStems(lexeme);
   }
   const slot = slotOf(cell);

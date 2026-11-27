@@ -95,6 +95,7 @@ export const italianCitations = {
   'it.classify.hint': [encyclopedia('coniugazione', 'Coniugazione verbale, §2–4'), serianni],
   'it.avail.no-imperative': [entry('potere2'), entry('dovere2')],
   'it.avail.impersonal': [encyclopedia('ausiliari', 'Ausiliari, verbi, §3 (verbi atmosferici)'), entry('piovere')],
+  'it.avail.third-person': perVerb,
   'it.avail.defective': [entry('sapere2'), entry('parere2'), entry('potere2'), entry('solere')],
   'it.stem.infinitive': encyclopedia('coniugazione', 'Coniugazione verbale, §2.1'),
   'it.stem.long': encyclopedia('coniugazione', 'Coniugazione verbale, §4'),
