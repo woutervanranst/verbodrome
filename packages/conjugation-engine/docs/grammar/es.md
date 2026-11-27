@@ -6,7 +6,7 @@ verb. Written accents are never stored in stems or endings: they are computed fr
 syllables (only whole-word lexical forms such as *éramos* carry a stored tilde).
 
 **Read this first.** The RAE sites (rae.es, dle.rae.es) refused automated reading and no browser was available while the
-pack was built. No NGLE, Ortografía, DLE, DPD or GTG page was read by the implementer: every such citation carries
+pack was built. No NGLE, Ortografía, DLE, DPD or GTG page was read: every such citation carries
 "(unverified: not yet read)" in its locator, every lexicon lemma is recorded as unchecked in `verification.ts`, and the
 section "Unverified against the RAE" below lists the pages to open by hand.
 
@@ -23,7 +23,7 @@ section "Unverified against the RAE" below lists the pages to open by hand.
 
    Hints come last: `classHint`, `stems.stress`, `stems.zc`.
 2. **Stem** (`stems.ts`). Root-stressed cells take the diphthong or e→i. In -ir verbs, cells whose ending has no stressed i take the raised vowel. Then come the stored 1sg stem and the subjunctive built on it, zc, y after -uir / oír, the strong preterite and -duj-, the future stem, and the third-person-plural preterite base of the imperfect and future subjunctive. Lexical whole words (ser, ir, haber, the short tú commands, irregular participles) come from the `cell` hook. A doublet participle (frito / freído) returns the listed word and the derived one.
-3. **Ending** (`paradigms.ts`). The ending sets of the grammar design §4.3. Each ending carries the position of its stressed vowel, or `root` for a root-stressed cell.
+3. **Ending** (`paradigms.ts`). The ending sets. Each ending carries the position of its stressed vowel, or `root` for a root-stressed cell.
 4. **Spelling** (`orthography.ts`), in order:
    1. the consonant spellings c/qu, g/gu, gu/gü, z/c, c/z, g/j, gu/g, qu/c;
    2. unstressed i → y;
@@ -116,7 +116,7 @@ Every form beyond the first in a target carries a tag (the first may carry one t
 
 Two cases need a word on their own:
 - **apostar, aterrar, atestar** carry their paradigm's `pattern` and `condition`.
-- **No adjectival participles.** electo, preso, bendito, maldito, bienquisto and malquisto are adjectives, not participles of their verbs (NGLE §4.12, controller ruling): they are not generated.
+- **No adjectival participles.** electo, preso, bendito, maldito, bienquisto and malquisto are adjectives, not participles of their verbs (NGLE §4.12): they are not generated.
 
 ## Out of scope
 
@@ -164,13 +164,13 @@ Two cases need a word on their own:
 `src/languages/es/verification.ts` is a hand record, one line per lexicon lemma (408).
 - **What each line holds:** the lemma's DLE page, `raeRead: false`, and the pages actually read instead:
   - English Wiktionary conjugation tables for 26 lemmas, read through a look-up helper on 24 Nov 2026;
-  - engrosar, read by the implementer on 27 Nov 2026;
+  - engrosar, read on 27 Nov 2026;
   - the RAE note on iros, for ir.
 - **What a secondary page does:** it does not verify an entry.
 - **The check:** `tests/es/verification.test.ts` matches the record against the lexicon in both directions.
-- **For the ledger,** the implementer also read en.wiktionary abolir, adquirir, ahincar, pudrir, elegir and llover on 27 Nov 2026.
+- **For the corrections,** the en.wiktionary pages of abolir, adquirir, ahincar, pudrir, elegir and llover were also read on 27 Nov 2026.
 
-**Secondary-source disagreements kept as the design or the rulings have them:**
+**Secondary-source disagreements, kept as decided:**
 - anticuar: anticúo;
 - auxiliar: both stresses;
 - the contradecir / desdecir futures: irregular first, regular tagged.
@@ -215,7 +215,7 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 - verbo-regular: consonant spellings.
 
 **DLE** (https://dle.rae.es/<lemma>): the conjugation table of every lemma in `verification.ts`. In particular:
-- the stem-vowel lists of `lexicon.ts`: the alternation lemmas, including those added after the stint-1 and whole-pack reviews;
+- the stem-vowel lists of `lexicon.ts`: the alternation lemmas, including the later additions;
 - the hiatus and both-stress lists;
 - the doublet participles of freír, imprimir and proveer.
 
@@ -223,7 +223,7 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 
 ## Rule inventory
 
-94 rules. "(secondary only)" marks the rules whose only source the implementer could read is a secondary copy of an RAE text (`secondaryOnly` in `sources.ts`). Every RAE citation is marked "(unverified: not yet read)".
+94 rules. "(secondary only)" marks the rules whose only source read is a secondary copy of an RAE text (`secondaryOnly` in `sources.ts`). Every RAE citation is marked "(unverified: not yet read)".
 
 ### classify
 
@@ -356,6 +356,6 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 
 ## Limits
 
-- **No RAE page was read** except the iros note. The rule statements and lexicon lists rest on the grammar design's snippets and on secondary pages.
+- **No RAE page was read** except the iros note. The rule statements and lexicon lists rest on secondary pages, not on the RAE texts they cite.
 - **The stem-vowel lists are not exhaustive.** An unlisted real verb with a stem change (for example a rare derivative) comes out regular, with the assumption recorded. No systematic sweep of the NGLE §4.16 index was possible.
 - **Two steps are recorded on unchanged words** (guio: `es.orth.monosyllable`; agrio: `es.orth.both-stress`), under the named exception to rule 14 of the pack-authoring guide.

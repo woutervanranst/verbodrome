@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { italian } from '../../scripts/corpus/languages/it.ts';
 import { applyRemaps } from '../../scripts/corpus/model.ts';
 import { parseItalian } from '../../scripts/corpus/parsers/it.ts';
-import { verbixPage } from './verbix-page.js';
-import type { PageSpec } from './verbix-page.js';
+import { italianPage } from './italian-page.js';
+import type { PageSpec } from './italian-page.js';
 
 const six = (forms: readonly string[]): string[][] => forms.map(form => [form]);
 const compound = (aux: readonly string[], participle: string): string[][] => six(aux.map(a => `${a} ${participle}`));
@@ -39,7 +39,7 @@ const andareLike: PageSpec = {
 };
 
 describe('Italian corpus parser', () => {
-  const page = verbixPage(andareLike);
+  const page = italianPage(andareLike);
 
   it('reads 96 cells in order', () => { expect(parseItalian(page, 'andare.html').cells).toHaveLength(96); });
 
@@ -69,7 +69,7 @@ describe('Italian corpus parser', () => {
     const parsed = parseItalian(page, 'andare.html');
     expect(parsed.cells[6]).toMatchObject({ scope: 'unmodelled', reason: 'compound-participle' });
     expect(parsed.templatePlaceholders).toBe(1);
-    expect(parseItalian(verbixPage({ ...andareLike, notused: true }), 'potere.html').cells[91]!.sourceUnavailable).toBe(true);
+    expect(parseItalian(italianPage({ ...andareLike, notused: true }), 'potere.html').cells[91]!.sourceUnavailable).toBe(true);
   });
 
   it('fails loudly on a page it does not recognise', () => { expect(() => parseItalian('<html></html>', 'x.html')).toThrow('96 Italian cells'); });

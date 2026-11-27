@@ -148,8 +148,8 @@ only the attested cells (`la.avail.not-attested`).
 Not generated:
 - old, archaic and early forms the grammars name as such: *fuam, siem, duim, escit*, the -ier infinitive, -ībam/-ībō in
   the fourth conjugation, *dīce, dūce, face*, *dīxtī*-type forms, *nēvīs, māvolō*, *ausim*, *coepiō*, *meminēns*, the old
-  fourth-conjugation forms of morior (*morīrī*); edō's archaic subjunctive *edim* is the exception kept from the
-  first review (dated);
+  fourth-conjugation forms of morior (*morīrī*); edō's archaic subjunctive *edim* is the exception, kept
+  as dated;
 - the sigmatic future and aorist (*faxō, faxim*);
 - the future perfect and perfect potential infinitives (*amātum fore, amātūrum fuisse*);
 - the periphrastic conjugations as paradigms (*amātūrus sum, amandus sum*);

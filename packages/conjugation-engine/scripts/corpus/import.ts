@@ -15,7 +15,7 @@ const { values } = parseArgs({
     only: { type: 'string' },
   },
 });
-if (!values.source) throw new Error('Use --source <VerbodromeX checkout> to import the pinned corpus.');
+if (!values.source) throw new Error('Use --source <pinned corpus checkout> to import the pinned corpus.');
 const selected = values.only ? corpusLanguages.filter(language => language.language === values.only) : corpusLanguages;
 if (!selected.length) {
   throw new Error(`Unknown corpus language ${values.only}; choose from ${corpusLanguages.map(language => language.language).join(', ')}.`);

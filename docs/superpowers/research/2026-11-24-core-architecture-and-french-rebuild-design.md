@@ -16,7 +16,7 @@ All findings below come from reading the repo and running read-only probes again
 | 6 | `docs/grammar.md` says the manifest holds original byte checksums. It does not: entries are `{file, language, infinitive, gender, auxiliary, pattern, templatePlaceholders}`. | Add per-file `sha256` and `encoding` in manifest v2; this is what actually pins the five new directories. |
 | 7 | Stem hints currently overwrite cells and bypass spelling (`hints.plural + 'ons'`). | In the rebuild, hints become principal parts and pass through orthography rules. Pin hinted queries in the snapshot. |
 
-The pin itself generalises for free. `/Users/wouter/Downloads/VerbodromeX` is at `3a9a01de…`, clean, and all seven directories are tracked at that commit (139 / 145 / 89 / 222 / 20 / 18 / 207 files).
+The pin itself generalises for free. `<pinned corpus checkout>` is at `3a9a01de…`, clean, and all seven directories are tracked at that commit (139 / 145 / 89 / 222 / 20 / 18 / 207 files).
 
 ## A. Core types
 
@@ -525,11 +525,11 @@ subject: string | null;                                  // generalises `pronoun
 | PR size | The commit order is the review order; each commit is independently green |
 
 ### Critical Files for Implementation
-- /Users/wouter/.paradev/projects/verbodrome/packages/conjugation-engine/src/types.ts
-- /Users/wouter/.paradev/projects/verbodrome/packages/conjugation-engine/src/conjugate.ts
-- /Users/wouter/.paradev/projects/verbodrome/packages/conjugation-engine/src/languages/fr/models.ts
-- /Users/wouter/.paradev/projects/verbodrome/packages/conjugation-engine/src/languages/nl/index.ts
-- /Users/wouter/.paradev/projects/verbodrome/packages/conjugation-engine/scripts/corpus.ts
+- <repository root>/packages/conjugation-engine/src/types.ts
+- <repository root>/packages/conjugation-engine/src/conjugate.ts
+- <repository root>/packages/conjugation-engine/src/languages/fr/models.ts
+- <repository root>/packages/conjugation-engine/src/languages/nl/index.ts
+- <repository root>/packages/conjugation-engine/scripts/corpus.ts
 
 ## Additional notes
 

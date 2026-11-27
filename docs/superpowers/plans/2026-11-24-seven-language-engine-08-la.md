@@ -422,7 +422,7 @@ it('fails loudly', () => {
 **Interfaces:**
 - Produces (`corrections/la.ts`): `latinFormCorrection(file, cell, index, draft)` and `latinMacronCorrection(file, cell, index, draft)` applying the two tables of GD §9.5 to one `CorrectionDraft`, and `latinCorrection(file, cell, index): CorpusCorrection | null` = form then macron on one draft, `finish()`. Every reason is longer than 30 characters and names the rule; every source is the `https://` URL of the GD §9.5 authority.
 
-- [ ] **Step 1: Import.** `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX --only la` (the pinned checkout; the script refuses another revision). `git diff --exit-code -- tests/fixtures/fr.json tests/fixtures/nl.json` → exit 0. The import prints 18 files, 3,330 cells, 819 placeholders.
+- [ ] **Step 1: Import.** `npm run corpus:import -- --source <pinned corpus checkout> --only la` (the pinned checkout; the script refuses another revision). `git diff --exit-code -- tests/fixtures/fr.json tests/fixtures/nl.json` → exit 0. The import prints 18 files, 3,330 cells, 819 placeholders.
 - [ ] **Step 2: Write the failing test** `tests/la/corpus-levels.test.ts` (fixture `la.json`, the engine's forms from `latin.query`):
 
 ```ts

@@ -373,7 +373,7 @@ expect(() => finiteCells('Präsens', sevenGroups)).toThrow('expected 6 person gr
 ```
 
 - [ ] **Step 2:** run — FAIL.
-- [ ] **Step 3:** implement the three modules; register `german`; add the pinned line; run `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX --only de` (refuses on a wrong revision; the checkout is read only and nothing in it is executed). Expected console line: `de: 139 files, 139 infinitives, 12788 cells, 12788 contextual targets, 12704 available / 84 unavailable cells, 14035 form expectations, 412 corrections, 0 accounted template placeholders`.
+- [ ] **Step 3:** implement the three modules; register `german`; add the pinned line; run `npm run corpus:import -- --source <pinned corpus checkout> --only de` (refuses on a wrong revision; the checkout is read only and nothing in it is executed). Expected console line: `de: 139 files, 139 infinitives, 12788 cells, 12788 contextual targets, 12704 available / 84 unavailable cells, 14035 form expectations, 412 corrections, 0 accounted template placeholders`.
 - [ ] **Step 4:** `npm run corpus:check` — every German cell passes; `git diff --stat -- tests/fixtures/fr.json tests/fixtures/nl.json` is empty. A failing cell is either an engine bug (fix it in the pack with a test in `tests/de/`) or a source error missing from GD §9.5 (add a ledger row with an authority URL and report it); never a silent skip.
 - [ ] **Step 5:** commit `feat(conjugation-engine): German corpus import with a sourced corrections ledger`.
 

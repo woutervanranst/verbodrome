@@ -4,7 +4,7 @@ The Italian pack (`src/languages/it/`) builds every form from recorded rules and
 with a citation per rule. The rules come from Treccani's *La grammatica italiana* and *Enciclopedia dell'Italiano*. The
 lexicon comes from the Treccani *Vocabolario*. Every lexicon, side-list and family-list entry has a record in
 `verification.ts`: the Vocabolario page that was read for it and the day. A test checks that every recorded page belongs to
-such an entry. One list lemma, riavviare, has no page and is recorded unread. For the entries changed in the last round,
+such an entry. One list lemma, riavviare, has no page and is recorded unread. For the entries checked against their header,
 the authority file `vocabolario-last-round.json` holds the forms each header prints, so a contradiction between the record
 and the engine fails a test. Serianni's *Grammatica italiana* (cap. XI) is cited only beside a Treccani page, and its paragraph
 numbers are unverified. The DOP was not consulted.
@@ -65,7 +65,7 @@ lui and lei are slots with a gender (`genderedTargets`), which their forms carry
   - the doublets the page omits (deva, fo, faciente);
   - the forms the page gets wrong (dànno, vò, volsi, sapete, tradunente, tradunendo, venente);
   - the forms the Vocabolario says are missing (sapiente, potente, dovere's imperative).
-- **Authority cells:** 11 files, 509 cells of forms printed by Treccani pages (`tests/goldens/it/authority/`), 67 of them from the headers of the verbs changed in the last round. The Serianni file is empty.
+- **Authority cells:** 11 files, 509 cells of forms printed by Treccani pages (`tests/goldens/it/authority/`), 67 of them from the headers of lexicon verbs (`vocabolario-last-round.json`). The Serianni file is empty.
 - **Second oracle:** en.wiktionary tables for 63 pinned pages, 3,361 cells (6 unmodelled reflexive participles with enclitic), in `tests/fixtures/wiktionary-it.json` (CC BY-SA 4.0, English Wiktionary contributors, adapted; each page's title, revision and history URL recorded). They are compared through a 7-rule ledger (`scripts/corpus/corrections/wiktionary-it.ts`), each rule citing a Treccani page. The oracle found five engine defects, which were fixed in the engine with tests:
   - the future of verbs with two unstressed stems (cuocerò);
   - three present participles (udiente, dormiente, offerente);

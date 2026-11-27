@@ -636,8 +636,8 @@ export interface CorpusLanguage {
 - [ ] **Step 3: Move the code** into the new modules without changing behaviour.
 - [ ] **Step 4: Verify the fixtures are reproduced byte for byte:**
 
-Run: `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX && git diff --exit-code -- tests/fixtures`
-Expected: exit 0, no diff. Then `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX --only nl && git diff --exit-code -- tests/fixtures` — expected: exit 0.
+Run: `npm run corpus:import -- --source <pinned corpus checkout> && git diff --exit-code -- tests/fixtures`
+Expected: exit 0, no diff. Then `npm run corpus:import -- --source <pinned corpus checkout> --only nl && git diff --exit-code -- tests/fixtures` — expected: exit 0.
 
 - [ ] **Step 5: Run** `npm run typecheck && npm test && npm run corpus:check` — expected: PASS, with the report printing the same two lines as before.
 - [ ] **Step 6: Commit** `refactor(conjugation-engine): corpus tooling per language`.

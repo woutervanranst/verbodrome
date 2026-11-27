@@ -157,7 +157,7 @@ it('keeps legacy targets structurally unchanged', () => { /* fr target has no `s
 - Fixture JSON for French and Dutch is byte-identical after re-import.
 
 - [ ] **Step 1: Failing test:** `tests/corpus.test.ts` uses labelled queries; add a unit test that a cell is not satisfied by a form coming from a query whose `applicable` rejects it.
-- [ ] **Step 2–4:** run (FAIL), implement, re-import (`npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX && git diff --exit-code -- tests/fixtures` → exit 0), gate, `npm run corpus:check`.
+- [ ] **Step 2–4:** run (FAIL), implement, re-import (`npm run corpus:import -- --source <pinned corpus checkout> && git diff --exit-code -- tests/fixtures` → exit 0), gate, `npm run corpus:check`.
 - [ ] **Step 5:** commit `refactor(conjugation-engine): corpus model ready for seven languages`.
 
 ---

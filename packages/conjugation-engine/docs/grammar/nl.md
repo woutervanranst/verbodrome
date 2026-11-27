@@ -220,7 +220,7 @@ overzorp, overzorpt), where a wrong split invents a word order and a ge- (ik zor
 
 ## The two behaviour changes of the switch
 
-Decided with the user:
+Decisions:
 
 1. An unknown verb that starts with a separable particle is split when the four guards hold, and one that starts with
    a dual prefix gets the reading most verbs with that prefix have (above; at first every dual prefix was read as
@@ -245,7 +245,7 @@ forms (`tests/characterization.test.ts` and `docs/pack-authoring.md` document th
   it.
 
 The ledger has 108 block-level entries (the switch, the lexicon corrections and the unstressed prefix read from the
-spelling, below), 44 line-level entries and 1 sentence-level entry (the final review fix wave):
+spelling, below), 44 line-level entries and 1 sentence-level entry:
 
 - 44 line-level entries: the analysis lines of bedanken, behandelen, beloven (also as zich beloven), bestellen, betalen,
   gebruiken, geloven, herinneren, herkennen and ontdekken, four queries each, which no longer record the assumptions for
@@ -315,14 +315,14 @@ an open decision for the maintainers. Attribution: "Woordenlijst Nederlandse Taa
 ## Lexicon corrections
 
 After the switch, the lexicon was corrected where the frozen output, or a common verb, was wrong Dutch, each entry
-checked on woordenlijst.org (by data for the verbs listed below; since the residual fix wave an unknown verb that starts with be-, ge-, er-, her-, ver- or ont- is also read with it, as an assumption, see "A verb that starts with an unstressed prefix" above):
+checked on woordenlijst.org (by data for the verbs listed below; an unknown verb that starts with be-, ge-, er-, her-, ver- or ont- is also read with it, as an assumption, see "A verb that starts with an unstressed prefix" above):
 
 - 61 common verbs with an unstressed prefix: weak ones in `inseparableVerbs` (verhuizen, bedekken, veranderen,
   vertellen, gebeuren, ontmoeten …; the auxiliary woordenlijst.org gives in `dutchExceptions` when it is not hebben
   alone), strong ones as derivatives of their base in `inseparableDerivatives` (besluiten of sluiten, verbinden of
   binden, vervallen of vallen with zijn …), and vergelijken and ervaren with their own strong forms;
 
-In the final review fix wave, more hand-checked entries followed, each with its woordenlijst.org lemma id:
+More hand-checked entries, each with its woordenlijst.org lemma id:
 
 - 12 verbs in -eren with a stressed last syllable (reageren, controleren, organiseren, presenteren, repareren,
   telefoneren, fotograferen, accepteren, irriteren, regeren, opereren, integreren), whose stress the rules cannot see;
@@ -361,8 +361,8 @@ what is regretted (die woorden spijten me), so the 3rd person plural stays.
 ## Limits
 
 - **What the lexicon does not list is inferred from spelling, and can be wrong.** Stress and meaning decide
-  separability and the stress of a last syllable, and spelling shows neither. The verbs the final review found wrong are
-  now listed (above), each checked on woordenlijst.org; the bulk lists that would cover every verb were not imported
+  separability and the stress of a last syllable, and spelling shows neither. The verbs known to be read wrong are
+  listed (above), each checked on woordenlijst.org; the bulk lists that would cover every verb were not imported
   (licence, above). What remains, for a verb the lexicon does not list:
   - *Separability.* A verb with a prefix whose default is inseparable is kept whole when it is separable (an unlisted
     overtikken gives ik overtik, not ik tik over); a lemma with both readings that is not one of the eight listed gets

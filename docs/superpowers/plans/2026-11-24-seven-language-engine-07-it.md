@@ -384,7 +384,7 @@ it('fails loudly on a page it does not recognise', () => { expect(() => parseIta
 **Interfaces:**
 - Produces: `italianCorrection(file, cell, index): CorpusCorrection | null` implementing exactly the 13 rules of GD §9.4 with their reasons (> 30 characters) and URLs; 61 records.
 
-- [ ] **Step 1: Register and import.** Add `italian` to `corpusLanguages` and the pin line; run `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX --only it` (the pinned checkout; the script refuses another revision); `git diff --exit-code -- tests/fixtures/fr.json tests/fixtures/nl.json` → exit 0.
+- [ ] **Step 1: Register and import.** Add `italian` to `corpusLanguages` and the pin line; run `npm run corpus:import -- --source <pinned corpus checkout> --only it` (the pinned checkout; the script refuses another revision); `git diff --exit-code -- tests/fixtures/fr.json tests/fixtures/nl.json` → exit 0.
 - [ ] **Step 2: Write the failing tests.** In `tests/it/overgeneration.test.ts`:
 
 ```ts

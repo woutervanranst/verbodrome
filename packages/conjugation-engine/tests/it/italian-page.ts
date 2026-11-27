@@ -20,7 +20,7 @@ const row = (pronoun: string, forms: readonly string[], cls = 'normal'): string 
   `<font color=#007F00 face=Courier><span class="normal">${pronoun}</span>&nbsp;&nbsp;</font>${spans(forms, cls)}<br>\n`;
 const labels = ['Infinito: ', 'Participio presente:', 'Gerundio:', 'Participio passato:'];
 
-export function verbixPage(spec: PageSpec): string {
+export function italianPage(spec: PageSpec): string {
   const nominal = `<div class="column"><h3>Nominal Forms</h3><table class="verbtable"><tr><td valign="top" class="verbtable"> <p>${
     spec.nominal.map((forms, index) => `<b>${labels[index]}</b> ${spans(forms)}<br>\n`).join('')
   }</p></td><td valign="top" class="verbtable"> <p>${spec.compound.map(line => `${spans([line])}<br>\n`).join('')}</p></td></tr></table></div>`;

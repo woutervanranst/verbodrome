@@ -94,7 +94,7 @@ dictionary only (secondary source only):
 | demo | AHD prints no forms for the verb; LDOCE's verb table only. |
 | handwrite, typewrite, housesit, floodlight, wiretap | LDOCE has no verb entry; AHD only. |
 | trepan | read in AHD only. |
-| abut, bootleg, sandbag, leapfrog, hobnob, gift-wrap, rappel, bedevil | read in LDOCE only (last round). |
+| abut, bootleg, sandbag, leapfrog, hobnob, gift-wrap, rappel, bedevil | read in LDOCE only. |
 
 ## Rule inventory
 

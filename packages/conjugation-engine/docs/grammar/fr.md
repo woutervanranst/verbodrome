@@ -2,13 +2,12 @@
 
 French runs on the staged core: a verb is classified into one or more paradigms, every simple cell is built from a stem,
 an ending and spelling rules, compound tenses are recipes over auxiliaries, and the clause orders the words. Every form
-records its steps, which `explain` renders in English and Dutch with the sources below (CLI `--explain`). The design is
-`docs/superpowers/research/2026-11-24-fr-grammar-design.md` (GD); this page is the reference for what the code does.
+records its steps, which `explain` renders in English and Dutch with the sources below (CLI `--explain`). This page is
+the reference for what the code does.
 
 Sources: the Dictionnaire de l'Académie française, 9th edition (articles and `/conjuguer/` tables), the 1990
 *Rectifications de l'orthographe* (Journal officiel, Documents administratifs n° 100), the OQLF's Banque de dépannage
-linguistique (BDL) and the TLFi (CNRTL). *Le Bon Usage* is not cited: no § number was checked in a copy. Le Conjugueur
-is not used for any rule.
+linguistique (BDL) and the TLFi (CNRTL). *Le Bon Usage* is not cited: no § number was checked in a copy.
 
 ## How a form is built
 
@@ -20,7 +19,7 @@ is not used for any rule.
    tagged `pattern` (payer: `y-to-i`, `keep-y`; asseoir: `assois`, `assieds`; ouïr, choir, échoir, faillir), with
    `usage: dated` for the dated ones.
 2. **Stems and endings** (`stems.ts`, `paradigms.ts`). A productive verb takes the infinitive minus its ending and the
-   51 endings of its group. A family stores principal parts (GD §4.2): P1 (present singular, ending set e/s/x), P2
+   51 endings of its group. A family stores principal parts: P1 (present singular, ending set e/s/x), P2
    (nous: also imparfait, participe présent, subjunctive 1pl/2pl, imperative 1pl/2pl), P3 (ils, default P2), F (future and
    conditional), PS with its theme vowel (passé simple, imperfect subjunctive), PP (past participle, optional feminine
    base PPF), SJ1/SJ2 (subjunctive, defaults P3/P2). Être, avoir, savoir and vouloir take their imperative from the
@@ -241,7 +240,7 @@ which prints the forms. A verified family's gaps cite its table, which agrees.
 
 ### Secondary source only
 
-Forms no checked authority supports, kept until the user decides:
+Forms no checked authority supports, kept pending a decision:
 
 - surseoir: je surseoirai, je surseoirais come first in both spellings, as note (a) to JO 1990 Liste H (« mais je
   surseoirai ») and the Académie (A9S3721) give them. je sursoirai, je sursoirais, built on the 1990 infinitive sursoir,
@@ -295,14 +294,14 @@ avoir or être, and redevenir être; 38 verbs keep je before their aspirated h, 
 mute (j'hoble). An `auxiliary` hint overrides an assumed auxiliary (flaindre, prévenir, comparaître, invented verbs) and
 is refused only when it contradicts a listed one (aller, conduire, faillir).
 
-## Open decisions for the user
+## Open questions
 
 1. The disagreements above: keep the engine's forms, or ledger the Académie's. Pending in particular: absoudre's passé
    simple and imperfect subjunctive, gésir's imperative and paître's compound tenses, which the engine keeps unavailable
    on the strength of their articles while their tables print them.
 2. surseoir's sursoirai, sursoirais: kept as a non-preferred, literary-tagged 1990 variant (secondary source only,
    above). The alternative: drop them, leaving surseoirai in both spellings.
-3. The pronominal past imperative: kept unavailable. The reviewer's alternative: generate sois-toi lavé(e), soyons-nous
+3. The pronominal past imperative: kept unavailable. The alternative: generate sois-toi lavé(e), soyons-nous
    lavé(e)s, soyez-vous lavé(e)s tagged `usage: 'literary'`, not preferred, cited to the Académie, as a ledgered change.
 4. entrer and tomber take only être here; the Académie gives « avoir (en emploi transitif) ou être ».
 5. The dual-auxiliary condition (known wart, below): replace the sentence with a condition id, drop it on aller/venir

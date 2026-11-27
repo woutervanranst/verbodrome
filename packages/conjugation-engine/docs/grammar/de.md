@@ -119,7 +119,7 @@ Every assumption comes first in the analysis and names the option that overrides
 
 `src/languages/de/verification.ts` records, per lemma, the pages that were actually opened and read: 824 lemmas (the
 184 root entries and every side-list lemma), fetched between 2026-11-24 and 2026-11-27. 493 were read in DWDS and Duden.
-The 242 lemmas added in the last round (derivatives of the two-paradigm roots, particle verbs, weak verbs with sein)
+242 further lemmas (derivatives of the two-paradigm roots, particle verbs, weak verbs with sein)
 were read in their DWDS dictionary entry (`/wb/`, the grammar line), not in a Duden table.
 
 **Secondary source only.** The forms and facts below rest on one authority; each is marked in the form's explanation
@@ -146,7 +146,7 @@ unterfangen, unterfliegen, unterliegen, verfliegen, verfrieren, verglimmen, verg
 verschwellen, verspringen, vollhauen, volllaufen, vollschlagen, widerrufen, widerscheinen, widerspiegeln,
 wiederschlagen, wiedertreffen, wägen, zerfallen, zerlaufen, zerspringen, zerstieben, zerweichen, überfließen,
 überreiten, überschießen, überschlagen, überschreiben, überspringen, übersteigen, übertragen, überwiegen (88), and
-the 242 lemmas of the last round named above.
+the 242 further lemmas named above.
 
 Where DWDS prints more than is modelled (a weak homograph, a second table, a reflexive-only or regional reading) or
 where DWDS and Duden disagree, `lexiconNotes` in `src/languages/de/sources.ts` says so per lemma.
@@ -281,6 +281,8 @@ page cell lists its forms row by row; every row must be among the engine's forms
 schieben) and the reviewed preferred forms the page lacks because it prints only the second one (`reviewedUntagged`,
 30: the -est Präteritum after d / t, brenn, kenn, nenn, renn, bekenn, hab, and hülfe); `tests/de/corpus-guards.test.ts`
 pins the 30 and requires each to be generated, so a new one fails the corpus test and a vanished one fails the pin.
+Because every form with a condition is excused, a spurious extra that happens to carry a condition passes both German
+guards; that is accepted, as German conditions are set only by the lexicon's auxiliary and reading data.
 Two more guards there: every form after the preferred one of a target carries a pattern, condition, region or
 non-standard usage, and no generated form is a spelling the 1996 reform replaced.
 

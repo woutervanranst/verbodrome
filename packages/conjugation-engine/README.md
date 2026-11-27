@@ -72,8 +72,12 @@ are not in the npm package.
 
 The grammar page of each language lists its limits in full. In short:
 
+- **Every language:** `variant.condition` (the meaning or construction a form or paradigm belongs to, such as "to occur" for vóórkomen) is English free text in both locales; it is not translated by `explain`.
+
 - **French**
-  - A verb with two auxiliaries carries an English sentence in `variant.condition`, also on the near future and recent past.
+  - A verb with two auxiliaries carries an English sentence in `variant.condition`, even when the `auxiliary` option chose one, and also on the near future and recent past.
+  - For some defective and rare verbs (absoudre, gésir, paître, choir, clore, bruire, frire and others) the engine's forms differ from the Académie's conjugation table, in either direction; the grammar page lists each, and which to follow is open.
+  - surseoir has je sursoirai as a marked, non-preferred 1990 variant that rests on a secondary source only.
   - The past imperative of a pronominal verb is reported unavailable with the reason `noImperative`.
   - méfaire is reported unavailable throughout, although the Académie prints a conjugation for it.
   - apparaître gives "j'ai apparu" before "je suis apparu", where the Académie prefers être.
@@ -92,10 +96,11 @@ The grammar page of each language lists its limits in full. In short:
   - An unlisted noun or adjective + verb compound is conjugated as a weak simple verb, with an assumption (plumfahren: geplumfahrt).
   - einhängen and umhängen have weak forms only.
   - A reflexive-only verb is conjugated without its pronoun.
+  - Colloquial forms (DWDS ugs.), such as the bare imperatives lad, find, halt, are not generated.
   - The explanation of du last (lesen) is correct but awkward.
   - Part of the lexicon is checked against DWDS only, without a Duden table.
 - **Spanish**
-  - No lexicon entry has been checked against the RAE's dictionary (DLE); a few were checked against secondary sources only.
+  - None of the RAE texts the Spanish rules cite (NGLE, Ortografía, DPD) or the DLE entries of its lexicon has been read; each such citation says "(unverified: not yet read)" in its explanation.
   - Rare stem-changing verbs outside the checked lists come out regular, with an assumption.
   - Existential hay and voseo are not modelled.
   - The variants of cimentar and emparentar rest on Wiktionary only.
@@ -130,8 +135,8 @@ The rules cite the grammars and dictionaries they come from; each pack's `source
   (Nederlandse Taalunie).
 - German: grammis (Leibniz-Institut für Deutsche Sprache), the Amtliches Regelwerk (Rat für deutsche Rechtschreibung),
   DWDS and Duden.
-- English: Huddleston and Pullum, Quirk et al., the Longman Dictionary of Contemporary English and the American Heritage
-  Dictionary.
+- English: Huddleston and Pullum, the Longman Dictionary of Contemporary English and the American Heritage Dictionary;
+  one rule also cites Quirk et al., which was not opened.
 - Spanish: the RAE and ASALE (*Nueva gramática*, *Ortografía*, *Diccionario de la lengua española*, *Diccionario
   panhispánico de dudas*).
 - Italian: Treccani (*Enciclopedia dell'Italiano*, *La grammatica italiana*, *Vocabolario*), Serianni and the DOP.
@@ -150,7 +155,8 @@ Third-party material in the repository:
 - **Wiktionary.** The Italian and Latin second-oracle fixtures (`tests/fixtures/wiktionary-it.json`,
   `tests/fixtures/wiktionary-la.json`) are adapted from English Wiktionary conjugation tables, CC BY-SA 4.0
   (https://creativecommons.org/licenses/by-sa/4.0/). Attribution: English Wiktionary contributors; adapted (parsed
-  into cells). Each fixture records the licence, the attribution and the title and revision of every page. They are
+  into cells). Each fixture records the licence, the attribution and the title and revision of every page. The sample
+  pages `tests/{it,la}/wiktionary-samples/*.html` carry the same licence, attribution and revision in a header. They are
   test data and are not in the npm package.
 - **The reference corpus.** The corpus fixtures hold normalised grammatical facts read from a pinned revision of a
   third-party collection of conjugation tables, with the corrections and their sources. No original pages are

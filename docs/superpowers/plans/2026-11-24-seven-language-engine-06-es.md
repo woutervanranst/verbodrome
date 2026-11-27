@@ -358,7 +358,7 @@ expect(() => parseSpanish(pageWithHeading('Indicative', 'Present tense'), 'bad.h
 ```
 
 - [ ] **Step 2:** run — FAIL.
-- [ ] **Step 3:** implement the three modules; register `spanish`; add the pinned line; run `npm run corpus:import -- --source /Users/wouter/Downloads/VerbodromeX --only es` (refuses on a wrong revision; the checkout is read only and nothing in it is executed). Expected console line: `es: 89 files, 89 infinitives, 11036 cells, …, 97 corrections, 356 accounted template placeholders`.
+- [ ] **Step 3:** implement the three modules; register `spanish`; add the pinned line; run `npm run corpus:import -- --source <pinned corpus checkout> --only es` (refuses on a wrong revision; the checkout is read only and nothing in it is executed). Expected console line: `es: 89 files, 89 infinitives, 11036 cells, …, 97 corrections, 356 accounted template placeholders`.
 - [ ] **Step 4:** `npm run corpus:check` — every Spanish cell passes; `git diff --stat -- tests/fixtures/fr.json tests/fixtures/nl.json` is empty. Any failing cell is either an engine bug (fix it in the pack, with a test in `tests/es/`) or a source error missing from GD §9.6 (add a ledger row with an authority, and note it in the task report).
 - [ ] **Step 5:** commit `feat(conjugation-engine): Spanish corpus import with a sourced corrections ledger`.
 
