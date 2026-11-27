@@ -11,6 +11,7 @@ import {
   getCatalogue,
   explain,
   languages,
+  equivalentTenses,
   createEngine,
   packs,
   locales,
@@ -164,6 +165,37 @@ A staged pack declares `rules` (the `defineRules` result), `works` (the grammars
 The pack-authoring API is not part of the package root: it is the `conjugation-engine/core` subpath (`src/core/index.ts`). It exports, as values, `createEngine`, `stagedEngine`, `validateGrammar`, `deriveWords`, `defineRules`, `step`, `one`, `chain`, `combine`, `mergeTags`, `mergeMarks`, `usageRank`, `applyJunctureRules`, `wordPart`, `grammaticalPart`, `itemAt`, `allPersons`, `noPersons`, `moodEntries`, `variantRank`, `defaultSubjectsFor`, `ConjugationError`, `plainComparisonKey`; and, as types, `Engine`, `LanguageEngine`, `LanguagePack`, `SubjectSlot`, `CatalogueEntry`, `PackRendering`, `OptionSchema`, `FieldSpec`, `LanguageSpec`, `OptionFieldsOf`, `StagedGrammar`, `Cell`, `LexemeBase`, `Unavailability`, `ClauseGrammar`, `ClauseContext`, `ChainWord`, `WordPartOptions`, `Periphrasis`, `ChainElement`, `VerbRef`, `Fork`, `Marks`, `Outcome`, `VariantTags`, `JunctureRule`, `Juncture`, `DerivationStep`, `RuleInfo`, `Stage`, `StepKind`, `StepParam`, `ParamKind`, `TermRef`, `Work`, `Citation`, `Catalog`, `ConjugationErrorCode`, `Agreement`, `Case`, `ConjugationPart`, `FormVariant`, `GeneratedForm`, `GenerationResult`, `Gender`, `GrammaticalNumber`, `Mood`, `Onset`, `Orthography`, `PartFeatures`, `PartRole`, `Person`, `ResolvedTarget`, `Tense`, `UnavailableTarget`, `VerbAnalysis`, `VerbForm`, `Voice`. [`pack-authoring.md`](pack-authoring.md) is the guide to writing a pack.
 
 A message may also define `<language>.label.pattern.<label>` for a pattern label its paradigms carry; the title of a paradigm in an analysis with several shows that text when the key exists and the raw label otherwise.
+
+## Tense equivalence
+
+`equivalentTenses(from, to, tense, options?)` (from the root, or from the `conjugation-engine/equivalence` subpath, which loads without the language packs) gives the tenses of `to` that correspond to a tense of `from`, best first: the tense a trainer should ask for when it shows a learner of `to` a form of `from`. It is static data over the registered languages and does not need an engine.
+
+```ts
+import { equivalentTenses, locales } from 'conjugation-engine';
+
+const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'perfect' });
+// matches[0]: { match: 'exact', tense: { mood: 'indicative', tense: 'perfect' }, rank: 1, score: 0.8,
+//               register: 'standard', relaxed: [], via: ['PRESENT_PERFECT', 'PRESENT_PERFECT'], notes: [] }
+// matches[1]: { match: 'exact', tense: { mood: 'indicative', tense: 'past' }, rank: 2, score: 0.7,
+//               register: 'standard', relaxed: [], via: ['PAST_PERFECTIVE', 'PAST_PERFECTIVE'], notes: ['eq.fr.perfect.spoken-past'] }
+// notes: []
+locales.nl[matches[1]!.notes[0]!]; // In gesproken taal is de passé composé de gewone tijd voor afgeronde gebeurtenissen; ...
+```
+
+`tense` is a `{ mood, tense }` of the source language (a tense it does not have is a type error, and `INVALID_TARGET` at run time); an unknown language is `UNSUPPORTED_LANGUAGE`. The result is frozen. Each match has:
+
+- `tense`: a `{ mood, tense }` of the target language, typed for it.
+- `match`: `exact` (both tenses express the same concept), `approximate` (the target expresses it less precisely: `relaxed` names what was given up, in the order `register`, `remoteness`, `aspect`, `mood`, or the match is a stand-in such as the Dutch past participle for a French perfect infinitive), or `override` (a correction for one pair of languages; `score` 1).
+- `score`: how close the two tenses are, from 1 down; `rank`: the position, from 1.
+- `register`: `standard`, `literary` or `dated`, the target tense's.
+- `via`: the source and target concepts the match went through (`null` for an override).
+- `notes`: message keys (`eq.*`) of the core catalogs: `locales[locale][key]` is a sentence for the learner, plain text without placeholders.
+
+`matches` is empty when the target has no tense that corresponds (a Latin supine in any other language, a French gérondif in German); the result's own `notes` then say why (`eq.note.no-counterpart`, followed by the source tense's notes). They are empty whenever there is a match. Within one language, the tense itself is first.
+
+`options.voice` is `'active'` (the default) or `'passive'`. A passive lookup is valid only from a language whose passive is modelled (Latin); into a language without one, the active tenses are given, every exact match becomes approximate and gets the note `eq.note.passive-not-modelled`.
+
+For a trainer: ask for `matches[0]` when its `match` is `exact` or `override`; treat `approximate` as "ask, but show the note"; treat an empty `matches` as "compose the prompt by hand, or skip the form"; offer a `literary` or `dated` tense only when the learner asked for one. Lower matches with small scores are close relatives, not alternatives: a trainer can ignore everything under 0.3.
 
 ## Components and rendering
 

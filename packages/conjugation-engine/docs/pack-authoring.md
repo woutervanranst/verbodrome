@@ -349,6 +349,11 @@ Registering a language is one line or one import in each of these shared files. 
 | `tests/corpus.test.ts` | its row in the `pinned` table (a language in the list but not in the table fails) |
 | `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
 | `README.md`, `docs/api.md` | the list of languages the package conjugates |
+| `src/equivalence/<code>.ts` | the language's total tense map (section 11), from its design's section 10 as reconciled in `docs/superpowers/plans/2026-11-24-seven-language-engine-04-equivalence.md` |
+| `src/equivalence/index.ts` | `import { de } from './de.js';`, the code in the `MappedLanguage` union and `de` in `maps`; the code in `passiveLanguages` for a language whose catalogue has a passive voice |
+| `src/i18n/locales/en/equivalence/<code>.ts`, `src/i18n/locales/nl/equivalence/<code>.ts` and their `index.ts` | the language's equivalence notes (`eq.<code>.*`, exported as `deNotes`); `import` and `...deNotes` in each `index.ts` |
+| `tests/equivalence/expectations/<code>.ts` | the pinned lookups of the language (section 11) |
+| `tests/equivalence/matrix.tsv` | regenerated with `npm run equivalence:matrix`, never edited by hand; read the diff |
 
 `tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, the pack that has not started migrating to the staged engine) names languages, and a new pack is never added to it.
 
@@ -1008,3 +1013,56 @@ The corpus is the reference data a pack's output is checked against: a table of 
 5. `npm run corpus:import -- --source <pinned checkout> --only xx` writes `tests/fixtures/xx.json` and updates the manifest, corrections and `remaps.json`, leaving the other languages byte-identical; then `npm run corpus:check`. Update the counts in `docs/grammar.md` and `README.md`.
 
 Scripts import only types from `src/` (erased at runtime). Fixtures hold no source file names, encodings or checksums of the original pages.
+
+## 11. Tense equivalence
+
+`equivalentTenses(from, to, tense)` answers a trainer's question: a learner of `to` is shown a tense of `from`; which tense of `to` should the question ask for? It does not compare two languages directly. Each language maps every one of its catalogue tenses to weighted links to a closed inventory of 41 language-neutral concepts (`src/equivalence/concepts.ts`), and the derivation (`src/equivalence/derive.ts`) compares the two maps through those concepts. A pack is not involved: the maps read only the types of the registry, so the `./equivalence` subpath loads without the packs.
+
+### The concepts
+
+A concept is a point in seven dimensions: `finiteness` (`finite`, `infinitive`, `participle`, `gerund`, `verbalAdjective`, `supine`), `mood` (`indicative`, `subjunctive`, `conditional`, `imperative`; `null` for a non-finite concept), `time` (the reference time: `past`, `present`, `future`), `relative` (the event against the reference: `anterior`, `simultaneous`, `posterior`), `aspect` (`neutral`, `perfective`, `imperfective`, `progressive`), and the optional `remoteness: 'near'` and `polarity: 'negative'`. No two concepts share all seven. `PRESENT_PERFECT` is a finite indicative present anterior; `PAST_PERFECTIVE` a finite indicative past simultaneous perfective; `NEAR_FUTURE` a present posterior near; `IMP_NEGATIVE` an imperative with negative polarity. Voice is not a dimension: a passive tense looks up the concept of its active tense.
+
+### A map
+
+`src/equivalence/<code>.ts` exports one object, `satisfies LanguageMap<'<code>'>`: a key `mood.tense` for every catalogue tense, in catalogue order, and nothing else (a missing or a foreign tense does not compile), each with at least one link. A link is built with `link(concept, weight, extra?)`:
+
+```ts
+export const fr = {
+  'indicative.present': [link('PRESENT', 1)],
+  'indicative.perfect': [link('PAST_PERFECTIVE', 1, { note: 'eq.fr.perfect.spoken-past' }), link('PRESENT_PERFECT', 0.8)],
+  'indicative.simple_past': [link('PAST_PERFECTIVE', 1, { register: 'literary' })],
+  // ...
+} satisfies LanguageMap<'fr'>;
+```
+
+- `weight`: a multiple of 0.1 in (0, 1], how well the concept describes the tense. A score is the product of a source and a target weight, rounded to two decimals. Weights are relative: the French passé composé is first a perfective past (1) and only then a present perfect (0.8), so it ranks the Dutch perfect (0.80) above the Dutch past (0.70, whose perfective link weighs 0.7).
+- `register`: `standard` (the default), `literary` or `dated`, the register of the tense in that use. A literary tense sorts after a standard one of equal score; a dated one is offered only when nothing else corresponds.
+- `note`: a key `eq.<code>.*` (or a shared `eq.note.*`) of the core catalogs, attached to every match that goes through this link.
+- `only: 'target'`: a stand-in, used only when the language is the target. The Dutch past participle links `INF_PERFECT 0.4` this way: a French perfect infinitive asks for it (with the note that says to add hebben or zijn), but a Dutch past participle never answers as a perfect infinitive. `only: 'source'` is the reverse (the Spanish and Italian negative imperatives link `IMP_PRESENT 0.6` so that a language without a negative imperative gets its plain imperative). A link with `only` has a note.
+
+### The derivation
+
+For a source tense, every target tense is scored over the pairs (source link, target link) whose concepts are compatible, and its score is the best product. Compatible means equal in every dimension at first; if no target tense is compatible, a fixed ladder relaxes, one step at a time, until one is: the register (a `dated` target link), then remoteness, then aspect, then mood (a subjunctive or a conditional to the indicative, never anything else, so an imperative never relaxes). Finiteness, time, relative time and polarity never relax: an infinitive never answers a participle, a future never a present. The first step that finds a match is the result; matches sort by score, then by register, then by catalogue order. Within one language, the tense itself comes first and the ladder never runs.
+
+A pair override in `src/equivalence/overrides.ts` corrects the few lookups where the concepts alone do not give what a learner expects (`replace`, `prepend` or `exclude` tenses of the derived list, with a note and a `reason` of more than 30 characters). The French near future into Dutch, for example, puts the present (of gaan, plus an infinitive) before the Dutch future. `tests/equivalence/api.test.ts` fails for an override that changes nothing.
+
+### Reading a result
+
+```ts
+const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', tense: 'perfect' });
+// matches[0]: { match: 'exact', tense: { mood: 'indicative', tense: 'perfect' }, rank: 1, score: 0.8, register: 'standard', relaxed: [], via: ['PRESENT_PERFECT', 'PRESENT_PERFECT'], notes: [] }
+```
+
+- `match`: `exact` (a shared concept), `approximate` (the ladder relaxed the dimensions named in `relaxed`, or the match is a stand-in), `override` (a pair override; `score` 1, `via` null).
+- `register`: the target tense's, so a trainer can leave out literary and dated tenses.
+- `notes`: message keys of the core catalogs, in order: the source link's, the target link's, then one per relaxation (`eq.note.relaxed-aspect`, `eq.note.no-subjunctive`, ...). `locales[locale][key]` is the text.
+- `matches` may be empty: no tense of the target corresponds (a Latin supine, a French gerund into German). The result's own `notes` then say why: `eq.note.no-counterpart`, then the source tense's notes. They are empty whenever there is a match.
+- `{ voice: 'passive' }` looks up the passive of the source tense. Only a language in `passiveLanguages` (its catalogue has a passive voice) can be the source; a target without a modelled passive gets its active tenses, every exact match turned approximate, with `eq.note.passive-not-modelled`.
+
+### Adding a language
+
+1. Read the language's catalogue (`src/languages/<code>/catalogue.ts`): the map follows it, tense for tense.
+2. Write `tests/equivalence/expectations/<code>.ts`: the lookups a learner of the language would check first (its narrative past both ways, its subjunctives into Dutch, its tenses without a counterpart), as `[from, tense, to, top, score, match, extra?]` rows (`tests/equivalence/expectations/types.ts`).
+3. Write the notes, `src/i18n/locales/{en,nl}/equivalence/<code>.ts`, plain text without placeholders or a straight apostrophe (the Dutch file is typed `satisfies Record<keyof typeof english, string>` against the English one, so neither can miss a key), and spread them in both `index.ts` files. `tests/equivalence/notes.test.ts` checks the prefix and that both locales agree.
+4. Write `src/equivalence/<code>.ts` and register it in `src/equivalence/index.ts`. `npm run typecheck` fails until the map is total.
+5. `npm run equivalence:matrix`, then read the new and changed lines of `tests/equivalence/matrix.tsv` pair by pair, as a learner translating a question from one language into the other would. Fix a wrong line in the map (or, rarely, with an override), never in the snapshot.
