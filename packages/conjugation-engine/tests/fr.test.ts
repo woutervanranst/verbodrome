@@ -1,14 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { expandTargets } from '../src/catalogue.js';
-import { isListedFrenchLemma, resolveFrench } from '../src/languages/fr/index.js';
+import { isListedLemma as isListedFrenchLemma } from '../src/languages/fr/classify.js';
 import { ConjugationError } from '../src/errors.js';
-import { renderParts } from '../src/render.js';
 import { conjugate } from '../src/conjugate.js';
 import type { FrenchConjugationOptions } from '../src/types.js';
 
+/** The distinct texts of a query's forms, in output order. */
 function french(options: FrenchConjugationOptions): string[] {
-  const engine = resolveFrench(options);
-  return [...new Set(expandTargets(options).flatMap(target => engine.generate(target).forms.map(form => renderParts('fr', form.parts))))];
+  return [...new Set(conjugate(options).forms.map(form => form.text))];
 }
 
 describe('French grammatical generation', () => {
@@ -69,12 +67,13 @@ describe('French grammatical generation', () => {
     expect(french({ language: 'fr', infinitive: 'accroître', mood: 'participle', tense: 'past', agreement: { gender: 'feminine', number: 'plural' } })).toEqual(['accrues']);
   });
 
-  it('retains both rectified and traditional croître participle spellings without changing finite crûs', () => {
+  it('writes croître\'s participle crû, crue, crus, crues in both spellings and keeps the finite crûs', () => {
     const options = { language: 'fr', infinitive: 'croître', mood: 'participle', tense: 'past' } as const;
-    expect(french({ ...options, agreement: { gender: 'feminine', number: 'singular' } })).toEqual(['crûe', 'crue']);
-    expect(french({ ...options, agreement: { gender: 'masculine', number: 'plural' } })).toEqual(['crûs', 'crus']);
-    expect(french({ ...options, agreement: { gender: 'feminine', number: 'plural' } })).toEqual(['crûes', 'crues']);
-    expect(french({ ...options, preferredOrthography: 'traditional', agreement: { gender: 'feminine', number: 'singular' } })).toEqual(['crue', 'crûe']);
+    expect(french({ ...options, agreement: { gender: 'masculine', number: 'singular' } })).toEqual(['crû']);
+    expect(french({ ...options, agreement: { gender: 'feminine', number: 'singular' } })).toEqual(['crue']);
+    expect(french({ ...options, agreement: { gender: 'masculine', number: 'plural' } })).toEqual(['crus']);
+    expect(french({ ...options, agreement: { gender: 'feminine', number: 'plural' } })).toEqual(['crues']);
+    expect(french({ ...options, preferredOrthography: 'traditional', agreement: { gender: 'feminine', number: 'singular' } })).toEqual(['crue']);
     expect(french({ language: 'fr', infinitive: 'croître', mood: 'indicative', tense: 'simple_past', person: 1, number: 'singular' })).toEqual(['je crûs']);
     expect(french({ language: 'fr', infinitive: 'croître', mood: 'subjunctive', tense: 'imperfect', person: 1, number: 'singular' })).toEqual(['que je crûsse']);
   });

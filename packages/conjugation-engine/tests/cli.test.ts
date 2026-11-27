@@ -1,9 +1,12 @@
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { formLabel, targetLabel } from '../src/cli-labels.js';
+import { formLabel, targetLabel, unavailableLine } from '../src/cli-labels.js';
 import { createEngine } from '../src/core/engine.js';
+import { locales } from '../src/i18n/locales/index.js';
+import { conjugate, explain } from '../src/index.js';
 import type { ConjugatedForm, ConjugationResult, ResolvedTarget } from '../src/index.js';
+import { en as toyEn, nl as toyNl } from './toy/messages.js';
 import { toyPack } from './toy/pack.js';
 
 const cli = fileURLToPath(new URL('../dist/cli.js', import.meta.url));
@@ -30,9 +33,10 @@ describe('compiled CLI', () => {
     expect(result.status).toBe(0);
     expect(result.stderr).toBe('');
     expect(result.stdout.trim().split('\n')).toHaveLength(12);
-    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / y-to-i: je paie');
-    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / keep-y: je paye');
-    expect(result.stdout).toContain('Indicatif / Présent / 1 plural / y-to-i: nous payons');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / y-to-i / 1sg: je paie');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 singular / keep-y / 1sg: je paye');
+    expect(result.stdout).toContain('Indicatif / Présent / 1 plural / y-to-i / 1pl: nous payons');
+    expect(result.stdout).toContain('Indicatif / Présent / 3 singular / masculine / y-to-i / 3sg: il paie');
   });
 
   it('returns the complete JSON result without diagnostic noise', () => {
@@ -99,7 +103,7 @@ describe('compiled CLI', () => {
   it('provides usage independently of conjugation', () => {
     const result = run(['--help']);
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl|it> <infinitive>');
+    expect(result.stdout).toContain('Usage: conjugation-engine <fr|nl|en|de|es|it> <infinitive>');
     expect(result.stderr).toBe('');
   });
 
@@ -126,7 +130,7 @@ describe('compiled CLI', () => {
     const result = run(['xx', 'aimer']);
     expect(result.status).toBe(1);
     expect(result.stdout).toBe('');
-    expect(result.stderr).toBe('UNSUPPORTED_LANGUAGE: Language must be one of: fr, nl, it.\n');
+    expect(result.stderr).toBe('UNSUPPORTED_LANGUAGE: Language must be one of: fr, nl, en, de, es, it.\n');
   });
 
   it('accepts negated boolean flags for every boolean option', () => {
@@ -144,23 +148,66 @@ describe('compiled CLI', () => {
     expect(result.stderr).toBe('INVALID_REQUEST: Unknown nl option: gender.\n');
   });
 
-  it('passes --subject to the engine, which rejects it for a language without subject slots', () => {
+  it('passes --subject to the engine, which selects that slot or rejects an unknown one', () => {
     const common = run(['--help']).stdout.split('\n\n').find(section => section.startsWith('Common options:'));
     expect(common).toContain('--subject <id>');
-    const result = run(['fr', 'aimer', '--subject', '1sg']);
+    expect(run(['fr', 'aimer', '--mood', 'indicative', '--tense', 'present', '--subject', '1sg']).stdout).toBe('j\'aime\n');
+    const result = run(['fr', 'aimer', '--subject', '4sg']);
     expect(result.status).toBe(1);
     expect(result.stdout).toBe('');
-    expect(result.stderr).toBe('INVALID_REQUEST: Unknown fr option: subject.\n');
+    expect(result.stderr).toBe('INVALID_REQUEST: Invalid subject: 4sg.\n');
   });
 
-  it('prints no step lines for a language that records no steps yet', () => {
-    const args = ['fr', 'aimer', '--mood', 'infinitive', '--tense', 'present'];
+  it('prints no step lines for a form that records no steps', () => {
+    const args = ['nl', 'werken', '--mood', 'infinitive', '--tense', 'present'];
     const explained = run([...args, '--explain']);
     expect(explained.status).toBe(0);
     expect(explained.stdout).toBe(run(args).stdout);
-    expect(explained.stdout).toBe('aimer\n');
+    expect(explained.stdout).toBe('werken\n');
     expect(explained.stderr).toBe('');
-    expect(run([...args, '--explain', '--locale', 'nl']).stdout).toBe('aimer\n');
+  });
+
+  it('prints the steps of a French form under it, in the chosen locale', () => {
+    const args = ['fr', 'placer', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'plural', '--explain'];
+    expect(run([...args, '--locale', 'nl']).stdout).toBe([
+      'nous plaçons',
+      '    Haal de uitgang van het hele werkwoord placer weg: de stam is plac-.',
+      '    Présent meervoud: zet -ons achter plac-.',
+      '    De c krijgt een cedille vóór a, o of u, zodat hij als s blijft klinken: placons wordt plaçons.',
+      '    Het onderwerp nous staat vóór het werkwoord.',
+      '',
+    ].join('\n'));
+  });
+
+  it('prints the steps of a Dutch form under it, in the chosen locale', () => {
+    const args = ['nl', 'leven', '--mood', 'indicative', '--tense', 'past', '--person', '1', '--number', 'singular', '--explain'];
+    expect(run(args).stdout).toBe([
+      'ik leefde',
+      '    Take -en off leven: lev-.',
+      '    A long vowel in a closed syllable is written with two letters, so lev- becomes leev-.',
+      '    At the end of a word, v and z are written f and s, so leev- becomes leef-.',
+      '    Weak verb: the past tense is the stem + de: leefde.',
+      "    v is not one of the sounds of 't kofschip (t, k, f, s, ch, p), so the ending starts with d: leefde.",
+      '    The subject is ik.',
+      '',
+    ].join('\n'));
+    const dutch = run([...args, '--locale', 'nl']).stdout.split('\n');
+    expect(dutch[0]).toBe('ik leefde');
+    expect(dutch).toContain("    v zit niet in 't kofschip (t, k, f, s, ch, p), dus de uitgang begint met d: leefde.");
+  });
+
+  it('words person and number in the chosen locale, and keeps the default labels in English', () => {
+    const args = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present', '--number', 'plural', '--person', '3'];
+    expect(run([...args, '--pronoun', 'zij', '--locale', 'nl']).stdout).toBe('zij werken\n');
+    const all = ['nl', 'werken', '--mood', 'indicative', '--tense', 'present'];
+    expect(run([...all, '--locale', 'nl']).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: ik werk');
+    expect(run(all).stdout).toContain('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1 singular / 1sg: ik werk');
+  });
+
+  it('prints the reason a Dutch form does not exist in the chosen locale', () => {
+    const result = run(['nl', 'spijten', '--mood', 'indicative', '--tense', 'present', '--person', '1', '--number', 'singular', '--locale', 'nl']);
+    expect(result.status).toBe(3);
+    expect(result.stdout).toBe('Aantonende wijs / Onvoltooid tegenwoordige tijd / 1e persoon enkelvoud / 1sg: unavailable (spijten is een onpersoonlijk werkwoord: het heeft alleen vormen in de 3e persoon.)\n');
   });
 
   it('adds an explanation to every form in JSON only when asked', () => {
@@ -169,7 +216,8 @@ describe('compiled CLI', () => {
     expect(plain.forms[0]).not.toHaveProperty('explanation');
     const explained: { forms: { text: string; explanation: { summary: string; sections: unknown[] } }[] } = JSON.parse(run([...args, '--explain']).stdout);
     expect(explained.forms[0]?.text).toBe('aimer');
-    expect(explained.forms[0]?.explanation).toEqual({ summary: 'aimer: Infinitif, Présent', sections: [] });
+    expect(explained.forms[0]?.explanation.summary).toBe('aimer: Infinitif, Présent');
+    expect(explained.forms[0]?.explanation.sections).toHaveLength(1);
   });
 
   it('rejects an unknown locale and lists the flags in the help', () => {
@@ -217,6 +265,31 @@ describe('form and target labels', () => {
   it('labels the forms of a language with voices and subject slots', () => {
     const toy = createEngine({ xx: toyPack });
     const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', person: 3, number: 'singular', voice: 'passive' }).forms;
-    expect(forms.map(formLabel)).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+    expect(forms.map(form => formLabel(form))).toEqual(['Indicative / Present / 3 singular / passive / 3sg']);
+  });
+});
+
+describe('unavailable target lines', () => {
+  const toy = createEngine({ xx: toyPack }, { en: { ...locales.en, ...toyEn }, nl: { ...locales.nl, ...toyNl } });
+  const [absent] = toy.conjugate({ language: 'xx', infinitive: 'solea', mood: 'participle', tense: 'past' }).unavailableTargets;
+  const labels = { mood: 'Participle', tense: 'Past' };
+
+  it('gives the reason of a target that records its rule in the chosen locale', () => {
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'en')))
+      .toBe('Participle / Past: unavailable (This verb has no participle, so the perfect and the past participle do not exist.)');
+    expect(unavailableLine(absent!, labels, toy.explain('xx', absent!, 'nl')))
+      .toBe('Participle / Past: unavailable (Dit werkwoord heeft geen deelwoord, dus het perfectum en het voltooid deelwoord bestaan niet.)');
+  });
+
+  it('keeps the pack\'s own sentence for a target that records no rule', () => {
+    const { step: _rule, ...withoutRule } = absent!;
+    const own = { ...withoutRule, explanation: 'The pack says why.' };
+    expect(unavailableLine(own, labels, toy.explain('xx', own, 'nl'))).toBe('Participle / Past: unavailable (The pack says why.)');
+  });
+
+  it('gives the reason of a French target in the chosen locale', () => {
+    const [impersonal] = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).unavailableTargets;
+    expect(unavailableLine(impersonal!, { mood: 'Indicatif', tense: 'Présent' }, explain('fr', impersonal!, 'nl')))
+      .toBe('Indicatif / Présent / 1 singular / 1sg: unavailable (Dit werkwoord is onpersoonlijk: het bestaat alleen met il, dus deze persoon heeft geen vorm.)');
   });
 });

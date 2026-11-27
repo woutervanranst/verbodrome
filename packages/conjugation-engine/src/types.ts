@@ -8,11 +8,14 @@ export type { Agreement, AgreementQuery, Case, Gender, GrammaticalNumber, Person
 
 export type { Language } from './languages/registry.js';
 export type {
-  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchTenses,
+  FrenchAgreement, FrenchClassHint, FrenchGender, FrenchSpec, FrenchStemHints, FrenchSubject, FrenchTenses,
 } from './languages/fr/spec.js';
 export type {
   DutchClassHint, DutchPronoun, DutchSpec, DutchStemHints, DutchTenses,
 } from './languages/nl/spec.js';
+export type { EnglishClassHint, EnglishSpec, EnglishStemHints, EnglishTenses } from './languages/en/spec.js';
+export type { GermanClassHint, GermanSpec, GermanStemHints, GermanSubject, GermanTenses } from './languages/de/spec.js';
+export type { SpanishClassHint, SpanishSpec, SpanishStemHints, SpanishSubject, SpanishTenses } from './languages/es/spec.js';
 export type { ItalianClassHint, ItalianGender, ItalianSpec, ItalianStemHints, ItalianSubject, ItalianTenses } from './languages/it/spec.js';
 
 export type Orthography = 'rectified' | 'traditional' | 'both';
@@ -60,6 +63,9 @@ export type ConjugationOptionsFor<L extends Language> = L extends Language ? Con
 
 export type FrenchConjugationOptions = ConjugationOptionsFor<'fr'>;
 export type DutchConjugationOptions = ConjugationOptionsFor<'nl'>;
+export type EnglishConjugationOptions = ConjugationOptionsFor<'en'>;
+export type GermanConjugationOptions = ConjugationOptionsFor<'de'>;
+export type SpanishConjugationOptions = ConjugationOptionsFor<'es'>;
 export type ItalianConjugationOptions = ConjugationOptionsFor<'it'>;
 
 export type ConjugationOptions = { [L in Language]: ConjugationOptionsFor<L> }[Language];

@@ -19,10 +19,19 @@ interface TagValues {
  */
 export type VariantTags = { readonly [K in keyof TagValues]?: TagValues[K] };
 
+/**
+ * Names a grammar puts on a word's outcome for its own clause to read, such as which set of forms the word belongs to.
+ * Marks are not explanations and not variant labels: they travel with the outcome to the word (`ChainWord.marks`) and
+ * never reach a form's variant or its steps.
+ */
+export type Marks = readonly string[];
+
 export interface Outcome<T> {
   readonly value: T;
   readonly steps: readonly DerivationStep[];
   readonly tags: VariantTags;
+  /** The outcome's marks; absent when it has none. */
+  readonly marks?: Marks;
 }
 
 /**
@@ -32,8 +41,18 @@ export interface Outcome<T> {
  */
 export type Fork<T> = readonly Outcome<T>[];
 
-export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T> {
-  return [{ value, steps, tags }];
+export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}, marks: Marks = []): Fork<T> {
+  return [{ value, steps, tags, ...withMarks(marks) }];
+}
+
+/** The marks of both outcomes, those of `a` first, each once. */
+export function mergeMarks(a: Marks | undefined, b: Marks | undefined): Marks {
+  return [...new Set([...a ?? [], ...b ?? []])];
+}
+
+/** The `marks` property of an outcome: absent for no marks, so an outcome without marks has no such key. */
+export function withMarks(marks: Marks): { readonly marks?: Marks } {
+  return marks.length ? { marks } : {};
 }
 
 /** How marked each usage is, standard lowest; a new usage value does not compile until it is ranked here. */
@@ -89,14 +108,14 @@ export function mergeTags(a: VariantTags, b: VariantTags): VariantTags | null {
   return merged;
 }
 
-/** Continues every outcome through `next`; steps are concatenated, tags merged, conflicting branches dropped. */
+/** Continues every outcome through `next`; steps are concatenated, tags and marks merged, conflicting branches dropped. */
 export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B> {
   const result: Outcome<B>[] = [];
   for (const first of fork) {
     for (const second of next(first.value)) {
       const tags = mergeTags(first.tags, second.tags);
       if (tags === null) continue;
-      result.push({ value: second.value, steps: [...first.steps, ...second.steps], tags });
+      result.push({ value: second.value, steps: [...first.steps, ...second.steps], tags, ...withMarks(mergeMarks(first.marks, second.marks)) });
     }
   }
   return result;
