@@ -17,7 +17,7 @@ section "Unverified against the RAE" below lists the pages to open by hand.
    2. Take the conjugation from the ending (`-ar`, `-er`, `-ir`).
    3. Look the verb up in the lexicon (two-paradigm lemmas give two outcomes: apostar, aterrar, atestar).
    4. Otherwise, a strong base after a closed prefix (componer = com + poner, retrotraer = retro + traer).
-   5. Otherwise, a derivative the lexicon lists with its base (prever → ver, devolver → volver, sofreír → freír).
+   5. Otherwise, a derivative the lexicon lists with its base (prever → ver, devolver → volver, sofreír → freír). desosar and desovar keep the h of hueso / huevo lexically (deshueso, deshuevo).
    6. Otherwise, a suffix family or rule class: `-ducir`, `-scribir`, `-eír` (like reír) or `-oír` (like oír).
    7. Otherwise, a regular verb with recorded assumptions.
 
@@ -29,7 +29,7 @@ section "Unverified against the RAE" below lists the pages to open by hand.
    2. unstressed i → y;
    3. the i absorbed after ñ, ll, i or a strong j;
    4. ü → u before y;
-   5. hue- / ye- at the start of a word;
+   5. hue- / ye- only at the very start of a word (huelo, yerro; desuello has none);
    6. güe after g;
    7. then the accent: hiatus tilde, general rules, no tilde on a monosyllable, the diacritic of dé / sé.
 
@@ -39,12 +39,14 @@ section "Unverified against the RAE" below lists the pages to open by hand.
    - **Enclitics:** the pronoun is attached to the end of an affirmative command, an infinitive or a gerund (to haber in their compound forms).
    - **Dropped letters:** the vosotros command loses its -d before os, the nosotros command its -s before nos.
    - **Accent:** the longer word keeps its stress and is re-written by the accent rules (levántate).
-   - **irse:** iros (the infinitive with os) comes first, then idos, both tagged.
+   - **irse:** idos (keeps its d, the form the RAE recommends) comes first; iros (the infinitive with os, also valid) follows, tagged `iros`.
+   - **No pronoun:** weather verbs (llueve) and third-person-only verbs (concierne) render no subject pronoun.
 7. **Availability** (`grammar.ts`):
    - weather verbs: only the third person singular, without a pronoun;
    - soler: no future tenses, conditional or imperative;
-   - concernir, atañer, acaecer, acontecer: third persons only;
+   - concernir, atañer, acaecer, acontecer: third persons only, without a pronoun;
    - balbucir: no -zc- forms;
+   - embaír: only the forms whose ending begins with i;
    - haber: no imperative.
 
 ## The written accent (`syllables.ts`)
@@ -81,24 +83,27 @@ An unlisted verb is regular and records `es.classify.assume-regular`. It also re
 - `es.classify.assume-diphthong`: a root group of an open and a close vowel is one syllable, like causar;
 - `es.classify.assume-zc`: a vowel + -cer / -cir verb inserts zc like conocer.
 
-Two classes need no assumption because a rule decides them:
+Some classes need no assumption because a rule decides them:
 - **-uar** (`es.classify.uar-stress`): stressed u, except after g or c;
+- **-iar with no other vowel in the stem** (`es.classify.iar-single-vowel`): ciar, criar, fiar, guiar, liar, piar, triar and invented fliar stress the i (cío); their one-syllable preterites still take no tilde (crie, lio, guio). Longer -iar verbs keep the diphthong default as an assumption unless they are on the hiatus list (enviar, gloriar);
 - **-eír / -oír** (`es.classify.eir`, `es.classify.oir`).
+
+A class hint that does not fit the stem (e-ie on a verb whose stem has no e) is `INVALID_HINT`.
 
 Vowel alternation is never inherited through a guessed prefix (pretender is regular). A strong base inherits only through the closed prefix list, and the step `es.classify.prefixed` records it.
 
 ## Variants
 
-Every form after the first in a target carries a tag:
+Every form beyond the first in a target carries a tag (the first may carry one too, as frito `irregular` does):
 - `ra` / `se` (imperfect and pluperfect subjunctive);
 - `usage: 'dated'` (future subjunctive);
 - `diphthong` / `hiatus` (both stresses);
-- `irregular` / `regular` (frito / freído, impreso / imprimido, provisto / proveído; the decir family's futures, the irregular one first);
-- the stored variants (yacer `zc` / `zg` / `g`, roer `o` / `ig` / `y`, raer `ig` / `y`, erguir `ye` / `i`, ir `vamos` / `vayamos`);
-- `iros` / `idos`;
+- `irregular` / `regular` (frito / freído, impreso / imprimido, provisto / proveído; predeciré before prediré; contradiré, desdiré, antediré and interdiré before their regular forms; yace before yaz; satisfaz before satisface; roo before roigo and royo). The regular form is always derived by the rules (`regularToo` in the lexicon); only the irregular one is stored;
+- the stored variants (yacer `zc` / `zg` / `g`, roer `ig` / `y` beside the regular roo, raer `ig` / `y`, erguir `ye` / `i`, ir `vamos` / `vayamos`);
+- `iros` (idos, first, is untagged);
 - `pudrir` / `podrir`;
 - errar's `regular` with `region: 'America'` (erro);
-- engrosar `regular` / `ue`.
+- engrosar, cimentar and emparentar `regular` / `ue` or `ie`; atestar 'to cram' `ie` / `regular`.
 
 Two cases need a word on their own:
 - **apostar, aterrar, atestar** carry their paradigm's `pattern` and `condition`.
@@ -183,7 +188,10 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 - averiguar: -guar / -cuar unstressed u, except anticuar; adecuar, evacuar and licuar admit both;
 - errar: erro in America;
 - engrosar: regular usual;
-- predecir, contradecir, desdecir: futures;
+- predecir (regular future first), contradecir, desdecir: futures;
+- atestar, cimentar, emparentar: regular conjugation beside the e→ie one;
+- embaír: defective;
+- desosar, desovar: deshueso, deshuevo;
 - bendecir, maldecir: regular future and participle;
 - yacer, roer, raer, satisfacer: variant lists;
 - erguir: yergo / irgo;
@@ -198,7 +206,7 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 - verbo-regular: consonant spellings.
 
 **DLE** (https://dle.rae.es/<lemma>): the conjugation table of every lemma in `verification.ts`. In particular:
-- the stem-vowel lists of `lexicon.ts`: the 222 alternation lemmas, including those added after the stint-1 review;
+- the stem-vowel lists of `lexicon.ts`: the alternation lemmas, including those added after the stint-1 and whole-pack reviews;
 - the hiatus and both-stress lists;
 - the doublet participles of freír, imprimir and proveer.
 
@@ -206,7 +214,7 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 
 ## Rule inventory
 
-91 rules. "(secondary only)" marks the rules whose only source the implementer could read is a secondary copy of an RAE text (`secondaryOnly` in `sources.ts`). Every RAE citation is marked "(unverified: not yet read)".
+94 rules. "(secondary only)" marks the rules whose only source the implementer could read is a secondary copy of an RAE text (`secondaryOnly` in `sources.ts`). Every RAE citation is marked "(unverified: not yet read)".
 
 ### classify
 
@@ -215,15 +223,17 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 | `es.classify.conjugation` | rule | {before} ends in {ending}, so its regular model is {model}. | [ngle: §4.3, §4.6 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.classify.reflexive` | rule | {before} is reflexive: the verb is {base}, and every form takes a reflexive pronoun (me, te, se, nos, os). | [dpd: «pronombres personales átonos» (unverified: not yet read)](https://www.rae.es/dpd/pronombres%20personales%20%C3%A1tonos) |
 | `es.classify.restore-accent` (secondary only) | rule | Infinitives in -eír and -oír always have an accent on the i, so {before} is written {after}. | [orto: §3.4.2 (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/palabras-con-hiato); [dpd-tilde: §2.2.2](https://induccion.urosario.edu.co/sites/default/files/2023-02/material-de-apoyo-la-tilde-segun-la-rae.pdf) |
-| `es.classify.lexicon` | lexical | The dictionary lists {before}, which is conjugated like {model}. | [dle: the verb's entry and its conjugation table (unverified: not yet read)](https://dle.rae.es/) |
-| `es.classify.two-paradigms` | lexical | {before} has two conjugations with different meanings; this one is conjugated like {model}. | [dle: the numbered homographs of the verb (unverified: not yet read)](https://dle.rae.es/); [dpd: «lemas con superíndice» (unverified: not yet read)](https://www.rae.es/dpd/ayuda/lemas-con-superindice) |
+| `es.classify.lexicon` | lexical | {checked, select, yes {The DLE lists {before}} other {This pack's lexicon lists {before} (not yet checked against the DLE)}}{own, select, yes {: it is a model verb of its own} other {: it is conjugated like {model}}}. | [dle: the verb's entry and its conjugation table (unverified: not yet read)](https://dle.rae.es/) |
+| `es.classify.two-paradigms` | lexical | {checked, select, yes {The DLE lists {before}} other {This pack's lexicon lists {before} (not yet checked against the DLE)}} with two conjugations of different meaning; this one is conjugated like {model}. | [dle: the numbered homographs of the verb (unverified: not yet read)](https://dle.rae.es/); [dpd: «lemas con superíndice» (unverified: not yet read)](https://www.rae.es/dpd/ayuda/lemas-con-superindice) |
 | `es.classify.prefixed` | lexical | {before} is {prefix} + {base}, so it has the same irregular forms as {base}. | [ngle: §4.16 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.classify.family` | rule | Verbs ending in {suffix} share their irregular forms, so {before} is conjugated like {model}. | [ngle: §4.11, §4.12 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «conducir» (unverified: not yet read)](https://www.rae.es/dpd/conducir) |
 | `es.classify.eir` | rule | {before} ends in -eír, so it is conjugated like reír: its e becomes i where the stem is stressed (río) or the ending has no stressed i (rio). | [ngle: §4.10 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «reír» (unverified: not yet read)](https://www.rae.es/dpd/reír) |
-| `es.classify.both-stress` | lexical | {before} can be stressed like {diphthong} or like {hiatus}; both are correct. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «averiguar» (unverified: not yet read)](https://www.rae.es/dpd/averiguar); [aml-minucias: licuo y licúo](https://academia.org.mx/consultas/obras-de-consulta-en-linea/diccionario-minucias-del-lenguaje/item/licuo-y-licuo) |
-| `es.classify.regional-variant` | lexical | In {region}, {before} is also conjugated without the change of the stem vowel. | [dpd: «errar» (unverified: not yet read)](https://www.rae.es/dpd/errar) |
+| `es.classify.both-stress` | lexical | {checked, select, yes {The DLE lists {before}} other {This pack's lexicon lists {before} (not yet checked against the DLE)}}: it can be stressed like {diphthong} or like {hiatus}, and both are correct. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «averiguar» (unverified: not yet read)](https://www.rae.es/dpd/averiguar); [aml-minucias: licuo y licúo](https://academia.org.mx/consultas/obras-de-consulta-en-linea/diccionario-minucias-del-lenguaje/item/licuo-y-licuo) |
+| `es.classify.variants` | lexical | {before} has more than one accepted form in some tenses; each extra form is tagged with its variant. | [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
+| `es.classify.regional-variant` | lexical | {region, select, America {In much of Latin America} other {In {region}}}, {before} is also conjugated without the change of the stem vowel. | [dpd: «errar» (unverified: not yet read)](https://www.rae.es/dpd/errar) |
 | `es.classify.oir` | rule | {before} ends in -oír, so it is conjugated like oír (oigo, oyes). | [ngle: §4.11 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «oír» (unverified: not yet read)](https://www.rae.es/dpd/oír) |
 | `es.classify.uar-stress` | rule | In -uar verbs like {before} the u is stressed on its own when the stem is stressed (actúo), but not after g or c (averiguo). | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «averiguar» (unverified: not yet read)](https://www.rae.es/dpd/averiguar); [aml-minucias: licuo y licúo](https://academia.org.mx/consultas/obras-de-consulta-en-linea/diccionario-minucias-del-lenguaje/item/licuo-y-licuo) |
+| `es.classify.iar-single-vowel` | rule | The i of {before} has no other vowel before it in the stem to give the stress to, so it is stressed on its own where the stem is stressed: {form}. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [orto-novedades: item 4](https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf) |
 | `es.classify.hint` | rule | The hint {hint} decides how {before} is conjugated. | [ngle: §4.10 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.classify.assume-regular` | assumption | {before} is not in the dictionary, so it is taken to be regular, with no vowel change in the stem. | [ngle: §4.6 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.classify.assume-glide` | assumption | The {vowel} before -ar in {before} is taken to share a syllable with the next vowel, as in cambiar (cambio), not as in enviar (envío). | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
@@ -248,7 +258,8 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 | `es.stem.future-lexical` | lexical | {before} has the short future and conditional stem {stem}-. | [ngle: §4.15 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
 | `es.stem.preterite-3pl` | rule | This tense is built on the ellos form of the preterite without -ron: {before} gives {base}-. | [ngle: §4.5 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.stem.lexical` | lexical | The dictionary gives {before} the stem {stem}- here. | [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
-| `es.cell.lexical` | lexical | This form of {before} is irregular: {form}. | [ngle: §4.13 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
+| `es.stem.hue` | lexical | {before} keeps the h of its base word (hueso, huevo) where the stem is stressed: {after}-. | [dle: desosar, desovar (unverified: not yet read)](https://dle.rae.es/); [orto: the letters h and y (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/reglas-de-acentuaci%C3%B3n) |
+| `es.cell.lexical` | lexical | The lexicon lists this form of {before} as a whole word: {form}. | [ngle: §4.13 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
 | `es.cell.imperative-short` | lexical | The tú command of {before} is short: {form}. | [ngle: §4.15 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
 | `es.cell.participle` | lexical | {before} has an irregular participle: {form}. | [ngle: §4.12 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.cell.gerund` | lexical | {before} has an irregular gerund: {form}. | [ngle: §4.15 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dle: the verb's conjugation table (unverified: not yet read)](https://dle.rae.es/) |
@@ -289,7 +300,7 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 | `es.orth.u-diaeresis-y` | rule | Before y the u needs no diaeresis: {before} becomes {after}. | [orto: the diaeresis (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/reglas-de-acentuaci%C3%B3n); [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.orth.i-y` | rule | An unstressed i between vowels is written y: {before} becomes {after}. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «leer» (unverified: not yet read)](https://www.rae.es/dpd/leer) |
 | `es.orth.i-absorbed` | rule | After {letter} the unstressed i of the ending disappears: {before} becomes {after}. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
-| `es.orth.initial-diphthong` | rule | ue at the start of a word (or after des-) is written hue, and ie at the start is written ye: {before} becomes {after}. | [orto: the letters h and y (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/reglas-de-acentuaci%C3%B3n); [ngle: §4.10 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
+| `es.orth.initial-diphthong` | rule | A word cannot begin with ue or ie: ue at the start is written hue, and ie is written ye, so {before} becomes {after}. | [orto: the letters h and y (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/reglas-de-acentuaci%C3%B3n); [ngle: §4.10 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/) |
 | `es.orth.g-diphthong` | rule | After g the diphthong ue is written üe so that the u is pronounced: {before} becomes {after}. | [orto: the diaeresis (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/reglas-de-acentuaci%C3%B3n) |
 | `es.orth.accent-hiatus` (secondary only) | rule | The stressed i or u stands next to a, e or o in a syllable of its own, so it takes an accent: {before} becomes {after}. | [orto: §3.4.2 (unverified: not yet read)](https://www.rae.es/ortograf%C3%ADa/palabras-con-hiato); [dpd-tilde: §2.2.2](https://induccion.urosario.edu.co/sites/default/files/2023-02/material-de-apoyo-la-tilde-segun-la-rae.pdf) |
 | `es.orth.both-stress` | rule | This verb has two accepted stresses; {reading, select, hiatus {in this form the i or u is stressed on its own} other {in this form the i or u shares a syllable with the next vowel}}: {after}. | [ngle: §4.9 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [aml-minucias: licuo y licúo](https://academia.org.mx/consultas/obras-de-consulta-en-linea/diccionario-minucias-del-lenguaje/item/licuo-y-licuo) |
@@ -330,14 +341,12 @@ Open these by hand; a page that contradicts the pack changes the rule (and the l
 
 | Rule | Kind | What it says (English message) | Sources |
 |---|---|---|---|
-| `es.avail.impersonal` | unavailable | This verb describes the weather and is used only in the third person singular (llueve). | [ngle: §4.14 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «llover» (unverified: not yet read)](https://www.rae.es/dpd/llover) |
-| `es.avail.defective` | unavailable | {kind, select, soler {{verb} has no future tenses (not even the future subjunctive), no conditional and no imperative} third {{verb} is used only in the third person: its subject is a thing or an event} other {{verb} has no forms with -zc-; balbucear is used instead}}. | [ngle: §4.14 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «soler» (unverified: not yet read)](https://www.rae.es/dpd/soler); [dpd: «concernir» (unverified: not yet read)](https://www.rae.es/dpd/concernir); [dpd: «balbucir» (unverified: not yet read)](https://www.rae.es/dpd/balbucir) |
+| `es.avail.impersonal` | unavailable | This verb describes the weather and has no subject: only the third person singular, without a pronoun (llueve). | [ngle: §4.14 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «llover» (unverified: not yet read)](https://www.rae.es/dpd/llover) |
+| `es.avail.defective` | unavailable | {kind, select, soler {{verb} has no future tenses (not even the future subjunctive), no conditional and no imperative} third {{verb} is used only in the third person: its subject is a thing or an event} iendings {{verb} is used only in the forms whose ending begins with i (embaímos, embaía)} other {{verb} has no forms with -zc-; balbucear is used instead}}. | [ngle: §4.14 (unverified: not yet read)](https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/); [dpd: «soler» (unverified: not yet read)](https://www.rae.es/dpd/soler); [dpd: «concernir» (unverified: not yet read)](https://www.rae.es/dpd/concernir); [dpd: «balbucir» (unverified: not yet read)](https://www.rae.es/dpd/balbucir) |
 | `es.avail.no-imperative` | unavailable | haber as an auxiliary has no imperative. | [dpd: «haber» (unverified: not yet read)](https://www.rae.es/dpd/haber) |
 
 ## Limits
 
 - **No RAE page was read** except the iros note. The rule statements and lexicon lists rest on the grammar design's snippets and on secondary pages.
 - **The stem-vowel lists are not exhaustive.** An unlisted real verb with a stem change (for example a rare derivative) comes out regular, with the assumption recorded. No systematic sweep of the NGLE §4.16 index was possible.
-- **Two step-recording rules diverge from guide rule 14** ("a rule that changed nothing records no step"):
-  - `es.orth.monosyllable` records a step on an unchanged word (guio), as the plan requires;
-  - `es.orth.both-stress` records its step on the unchanged diphthong form.
+- **Two steps are recorded on unchanged words** (guio: `es.orth.monosyllable`; agrio: `es.orth.both-stress`), under the named exception to rule 14 of the pack-authoring guide.

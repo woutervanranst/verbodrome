@@ -994,7 +994,7 @@ const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator }
 11. A cell speaks the pack's own ids; an active cell has no `voice`; an active periphrasis in a pack with voices says `voice: 'active'`.
 12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`, line-level or block-level, each with its reason and source (section 2, "The characterization ledger").
 13. A staged pack declares `rules`, `works` and `citations`.
-14. A step explains what a rule did to this form, and only that: a rule that changed nothing records no step, and a step is never a signal for another stage. A clause that must tell words of one cell apart reads their marks (section 4), never their steps or variant tags.
+14. A step explains what a rule did to this form, and only that: a rule that changed nothing records no step, and a step is never a signal for another stage. A clause that must tell words of one cell apart reads their marks (section 4), never their steps or variant tags. One named exception: a spelling rule that decides *against* a change the learner would expect (Spanish *guio* takes no tilde because it is one syllable; *agrio* is the accepted form without the hiatus tilde) may record its step on the unchanged word. It does so by putting the step in the outcome it returns (`one(juncture, [step(...)])`), which the runner keeps although the text did not change; it never does so to signal another stage.
 
 ## 10. Corpus
 
