@@ -4,8 +4,6 @@ import { locales } from '../../src/i18n/locales/index.js';
 import { parseConjugationOptions } from '../../src/index.js';
 import { packs } from '../../src/languages/index.js';
 import { spanishGrammar } from '../../src/languages/es/grammar.js';
-import { entries, twoParadigms } from '../../src/languages/es/lexicon.js';
-import { lexiconVerification } from '../../src/languages/es/sources.js';
 import type { VerbAnalysis } from '../../src/types.js';
 
 const engine = createEngine(packs, locales);
@@ -130,11 +128,5 @@ describe('Spanish classification', () => {
         expect(text).not.toMatch(/[{}]|undefined/u);
       }
     }
-  });
-
-  it('records the verification status of every lexicon lemma', () => {
-    const lemmas = [...Object.keys(entries), ...Object.keys(twoParadigms)];
-    for (const lemma of lemmas) expect(lexiconVerification(lemma)).toMatchObject({ status: expect.stringMatching(/^(verified|unverified)$/u) });
-    expect(lexiconVerification('tener')).toMatchObject({ status: 'unverified', url: 'https://dle.rae.es/tener' });
   });
 });

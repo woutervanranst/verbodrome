@@ -5,7 +5,7 @@
  * Verification (24 Nov 2026): the authority for every lemma is its DLE conjugation table (https://dle.rae.es/<lemma>)
  * and, where marked, its DPD entry (https://www.rae.es/dpd/<lemma>). Both sites answered HTTP 403 to automated
  * fetching and no browser was connected for a manual check, so no lemma below has been verified against them:
- * `lexiconVerification` in `sources.ts` reports every one as unverified, with its URL. The variant lists of raer,
+ * `verification.ts` records, lemma by lemma, the DLE page to check and the pages that were read instead. The variant lists of raer,
  * roer, yacer, satisfacer, erguir, predecir and ir, and the participles of imprimir and proveer, were cross-checked
  * against the English Wiktionary conjugation tables (a secondary source, which does not make them verified); raer
  * follows that check (raigo / rayo) instead of the grammar design's raigo / rao. Nothing here is copied from the corpus.

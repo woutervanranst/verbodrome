@@ -4,8 +4,9 @@
  * Status of the sources (24 Nov 2026): rae.es and dle.rae.es answer HTTP 403 to automated fetching, and no browser was
  * connected for a manual check, so every NGLE, Ortografía, DLE, DPD and GTG locator below rests on the grammar design's
  * search snippets and copies, not on a page read by the implementer. The exceptions are the secondary copies marked
- * "read" below and the RAE note on iros, which was fetched and read in full. `secondaryOnly` lists the rules whose only
- * source that was read is a secondary copy of an RAE text.
+ * "read" below and the RAE note on iros, which was fetched and read in full. Every citation of an RAE work carries
+ * "(unverified: not yet read)" in its locator, which `explain` shows. `secondaryOnly` lists the rules whose only source
+ * that was read is a secondary copy of an RAE text. The record of what was read per lexicon lemma is `verification.ts`.
  */
 import type { Citation, Work } from '../../core/sources.js';
 import type { SpanishRuleId } from './rules.js';
@@ -51,15 +52,20 @@ export const spanishWorks = {
   },
 } as const satisfies Record<string, Work>;
 
-type Url = `https://${string}`;
 
-const ngle = (locator: string): Citation => ({ work: 'ngle', locator });
-const orto = (locator: string, path = 'reglas-de-acentuaci%C3%B3n'): Citation => ({ work: 'orto', locator, url: `https://www.rae.es/ortograf%C3%ADa/${path}` });
-const dpd = (entry: string, path = entry): Citation => ({ work: 'dpd', locator: `«${entry}»`, url: `https://www.rae.es/dpd/${path}` });
-const dle = (locator: string): Citation => ({ work: 'dle', locator });
+/**
+ * Every NGLE, Ortografía, DLE, DPD and GTG locator is marked: none of those pages was read by the implementer (the RAE
+ * site refuses automated reading), so they rest on the grammar design's search snippets until someone opens them.
+ */
+const unread = (locator: string): string => `${locator} (unverified: not yet read)`;
+
+const ngle = (locator: string): Citation => ({ work: 'ngle', locator: unread(locator) });
+const orto = (locator: string, path = 'reglas-de-acentuaci%C3%B3n'): Citation => ({ work: 'orto', locator: unread(locator), url: `https://www.rae.es/ortograf%C3%ADa/${path}` });
+const dpd = (entry: string, path = entry): Citation => ({ work: 'dpd', locator: unread(`«${entry}»`), url: `https://www.rae.es/dpd/${path}` });
+const dle = (locator: string): Citation => ({ work: 'dle', locator: unread(locator) });
 const dpdTilde = (locator: string): Citation => ({ work: 'dpd-tilde', locator });
-const gtg = (term: string, path: string): Citation => ({ work: 'gtg', locator: `«${term}»`, url: `https://www.rae.es/gtg/${path}` });
-const letters = [{ work: 'orto', locator: 'the letters c, z, g and j' }, gtg('verbo regular', 'verbo-regular')] as const satisfies readonly Citation[];
+const gtg = (term: string, path: string): Citation => ({ work: 'gtg', locator: unread(`«${term}»`), url: `https://www.rae.es/gtg/${path}` });
+const letters = [{ work: 'orto', locator: unread('the letters c, z, g and j') }, gtg('verbo regular', 'verbo-regular')] as const satisfies readonly Citation[];
 const endings = ngle('§4.4–4.6');
 const models = ngle('§4.15 (model tables)');
 const clitics = dpd('pronombres personales átonos', 'pronombres%20personales%20%C3%A1tonos');
@@ -120,17 +126,17 @@ export const spanishCitations = {
   'es.end.participle': ngle('§4.6'),
   'es.orth.c-qu': letters,
   'es.orth.g-gu': letters,
-  'es.orth.gu-diaeresis': [{ work: 'orto', locator: 'the diaeresis' }, dpd('averiguar')],
+  'es.orth.gu-diaeresis': [{ work: 'orto', locator: unread('the diaeresis') }, dpd('averiguar')],
   'es.orth.z-c': letters,
   'es.orth.c-z': letters,
   'es.orth.g-j': letters,
   'es.orth.gu-g': letters,
   'es.orth.qu-c': letters,
-  'es.orth.u-diaeresis-y': [{ work: 'orto', locator: 'the diaeresis' }, ngle('§4.9')],
+  'es.orth.u-diaeresis-y': [{ work: 'orto', locator: unread('the diaeresis') }, ngle('§4.9')],
   'es.orth.i-y': [ngle('§4.9'), dpd('leer')],
   'es.orth.i-absorbed': ngle('§4.9'),
-  'es.orth.initial-diphthong': [{ work: 'orto', locator: 'the letters h and y' }, ngle('§4.10')],
-  'es.orth.g-diphthong': { work: 'orto', locator: 'the diaeresis' },
+  'es.orth.initial-diphthong': [{ work: 'orto', locator: unread('the letters h and y') }, ngle('§4.10')],
+  'es.orth.g-diphthong': { work: 'orto', locator: unread('the diaeresis') },
   'es.orth.accent-hiatus': [orto('§3.4.2', 'palabras-con-hiato'), dpdTilde('§2.2.2')],
   'es.orth.both-stress': [ngle('§4.9'), { work: 'aml-minucias', locator: 'licuo y licúo' }],
   'es.orth.accent-general': [orto('§3.4.1'), dpdTilde('§1.1')],
@@ -165,36 +171,3 @@ export const secondaryOnly: ReadonlySet<SpanishRuleId> = new Set<SpanishRuleId>(
   'es.classify.restore-accent', 'es.orth.accent-hiatus', 'es.orth.accent-general', 'es.orth.monosyllable', 'es.orth.diacritic',
   'es.clause.enclitic-accent',
 ]);
-
-/** Lemmas whose forms were cross-checked against a secondary source (English Wiktionary), which does not verify them. */
-const secondaryChecks: Readonly<Record<string, Url>> = Object.fromEntries(
-  ['raer', 'roer', 'yacer', 'satisfacer', 'predecir', 'contradecir', 'desdecir', 'bendecir', 'maldecir', 'erguir', 'ir', 'errar',
-    'prender', 'imprimir', 'proveer', 'agriar', 'auxiliar', 'paliar', 'expatriar', 'repatriar', 'historiar', 'vidriar', 'adecuar',
-    'evacuar', 'licuar', 'anticuar', 'soler'].map(lemma => [lemma, `https://en.wiktionary.org/wiki/${encodeURIComponent(lemma)}` as Url]),
-);
-
-export interface LexiconVerification {
-  readonly status: 'verified' | 'unverified';
-  /** The authority's page for the lemma (its DLE entry with the conjugation table). */
-  readonly url: Url;
-  /** When the page was tried. */
-  readonly checked: string;
-  readonly note: string;
-  /** A secondary source the forms were compared with, if any. */
-  readonly secondary?: Url;
-}
-
-/**
- * The verification status of a lexicon lemma against its authority. None could be verified: dle.rae.es and
- * www.rae.es/dpd answered HTTP 403 to automated fetching on 24 Nov 2026, and no browser was connected for a manual check.
- */
-export function lexiconVerification(lemma: string): LexiconVerification {
-  const secondary = Object.hasOwn(secondaryChecks, lemma) ? secondaryChecks[lemma] : undefined;
-  return {
-    status: 'unverified',
-    url: `https://dle.rae.es/${encodeURIComponent(lemma)}`,
-    checked: '2026-11-24',
-    note: 'dle.rae.es refused automated fetching (HTTP 403) and no browser was available to open it by hand',
-    ...(secondary === undefined ? {} : { secondary }),
-  };
-}
