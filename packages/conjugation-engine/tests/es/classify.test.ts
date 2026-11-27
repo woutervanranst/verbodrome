@@ -71,7 +71,7 @@ describe('Spanish classification', () => {
     expect(analysisOf('pensar').classification).toBe('acertar');
     expect(analysisOf('dormir').classification).toBe('dormir');
     expect(analysisOf('tener').classification).toBe('tener');
-    expect(analysisOf('guiar')).toMatchObject({ classification: 'enviar', classificationSource: 'lexicon' });
+    expect(analysisOf('guiar')).toMatchObject({ classification: 'enviar', classificationSource: 'regularRule' });   // whole-pack review C3: a rule
     expect(classified('discernir')[0]).toMatchObject({ alternation: 'e-ie', raising: false });
     expect(classified('sentir')[0]).toMatchObject({ alternation: 'e-ie', raising: true });
     expect(classified('erguir')[0]!.alternation).toEqual([{ value: 'e-ie', pattern: 'ye' }, { value: 'e-i', pattern: 'i' }]);

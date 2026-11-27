@@ -97,4 +97,5 @@ export const es = {
   'es.classify.both-stress': '{before} can be stressed like {diphthong} or like {hiatus}; both are correct.',
   'es.orth.both-stress': 'This verb has two accepted stresses; {reading, select, hiatus {in this form the i or u is stressed on its own} other {in this form the i or u shares a syllable with the next vowel}}: {after}.',
   'es.stem.hue': '{before} keeps the h of its base word (hueso, huevo) where the stem is stressed: {after}-.',
+  'es.classify.iar-single-vowel': 'The i of {before} has no other vowel before it in the stem to give the stress to, so it is stressed on its own where the stem is stressed: {form}.',
 } as const satisfies Record<SpanishRuleId, string>;

@@ -127,6 +127,17 @@ function lastVowelRun(infinitive: string): string {
   return infinitive.slice(start, end + 1);
 }
 
+/**
+ * Whether the i of an -iar stem is the vowel that takes the stress whatever the verb's class: the stem has no other
+ * vowel (ci-, fi-, gui-, whose u is silent), or only a close vowel right before it (glui-).
+ */
+function iCarriesStress(infinitive: string): boolean {
+  const root = infinitive.slice(0, -2);
+  const vowels = [...root].filter((letter, index) => /[aeiouü]/u.test(letter)
+    && !(letter === 'u' && /[gq]/u.test(root[index - 1] ?? '') && /[ei]/u.test(root[index + 1] ?? '')));
+  return vowels.length === 1 || (vowels.length === 2 && /[uü]/u.test(root.at(-2) ?? ''));
+}
+
 function closeOfLastGroup(infinitive: string): 'i' | 'u' | null {
   const run = lastVowelRun(infinitive);
   return run.includes('u') ? 'u' : run.includes('i') ? 'i' : null;
@@ -272,6 +283,10 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
     if (infinitive.endsWith('uar')) {
       stress = /[gc]uar$/u.test(infinitive) ? 'diphthong' : 'hiatus';
       steps.push(step(rules['es.classify.uar-stress'], infinitive, null));
+    } else if (infinitive.endsWith('iar') && iCarriesStress(infinitive)) {
+      // No other vowel can take the stress (ciar, fiar, guiar): a rule, not an assumption.
+      stress = 'hiatus';
+      steps.push(step(rules['es.classify.iar-single-vowel'], infinitive, null, { form: `${infinitive.slice(0, -3)}ío` }));
     } else if (infinitive.endsWith('iar')) {
       assumptions.push(step(rules['es.classify.assume-glide'], infinitive, null, { vowel: 'i' }));
     } else {

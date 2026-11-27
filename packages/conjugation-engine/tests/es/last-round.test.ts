@@ -85,4 +85,21 @@ describe('C2 and I2: regular variants are derived by rule, the irregular one is 
   });
 });
 
+describe('C3: the i of a one-vowel -iar stem takes the stress by rule', () => {
+  it.each([['ciar', 'cío'], ['criar', 'crío'], ['fiar', 'fío'], ['guiar', 'guío'], ['liar', 'lío'], ['piar', 'pío'], ['triar', 'trío'], ['fliar', 'flío']])('%s → %s', (verb, form) => {
+    expect(row(verb, 'indicative', 'present')[0]).toBe(form);
+    expect(ids(verb)).toContain('es.classify.iar-single-vowel');
+    expect(ids(verb)).not.toContain('es.classify.assume-glide');
+  });
+  it('keeps the 2010 monosyllables and the diphthong default of longer stems', () => {
+    expect(row('criar', 'indicative', 'simple_past')[0]).toBe('crie');
+    expect(row('liar', 'indicative', 'simple_past')[2]).toBe('lio');
+    expect(row('guiar', 'indicative', 'simple_past')[2]).toBe('guio');
+    expect(ids('flobiar')).toContain('es.classify.assume-glide');
+    expect(row('gloriar', 'indicative', 'present')[0]).toBe('glorío');
+    expect(row('sahumar', 'indicative', 'present')[0]).toBe('sahúmo');
+    expect(explained(analysisOf('ciar'))).toContain('cío');
+  });
+});
+
 export { analysisOf, explained, ids, texts };

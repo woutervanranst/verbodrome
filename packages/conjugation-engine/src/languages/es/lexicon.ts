@@ -246,13 +246,13 @@ const words = (text: string): readonly string[] => text.split(/\s+/u).filter(Boo
 
 /** -iar verbs and root vowel groups whose close vowel is stressed on its own: envío, aíslo, reúno (§5.4). */
 export const hiatusVerbs: ReadonlySet<string> = new Set(words(`
-  aliar ampliar ansiar arriar ataviar averiar aviar chirriar confiar contrariar criar desafiar desataviar descarriar
-  desconfiar desliar desvariar desviar enfriar enviar escalofriar espiar esquiar estriar expiar extasiar extraviar fiar guiar
-  hastiar inventariar liar malcriar piar porfiar reenviar resfriar rociar vaciar variar amnistiar triar
+  aliar ampliar ansiar arriar ataviar averiar aviar chirriar confiar contrariar desafiar desataviar descarriar
+  desconfiar desliar desvariar desviar enfriar enviar escalofriar espiar esquiar estriar expiar extasiar extraviar
+  hastiar inventariar malcriar porfiar reenviar resfriar rociar vaciar variar amnistiar gloriar
   autografiar biografiar cablegrafiar caligrafiar cartografiar cinematografiar coreografiar fotografiar mecanografiar
   radiografiar taquigrafiar telegrafiar
   anticuar
-  ahijar ahilar ahincar ahitar ahuchar ahumar ahusar airar aislar amohinar arcaizar aullar aunar aupar cohibir descafeinar
+  ahijar ahilar ahincar ahitar ahuchar ahumar ahusar airar aislar sahumar amohinar arcaizar aullar aunar aupar cohibir descafeinar
   desenraizar embaular enraizar europeizar hebraizar homogeneizar judaizar maullar prohibir prohijar rehilar rehuir rehundir
   rehusar reunir sobrehilar`));
 

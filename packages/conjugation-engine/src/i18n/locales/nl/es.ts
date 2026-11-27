@@ -98,4 +98,5 @@ export const es = {
   'es.classify.both-stress': '{before} mag je beklemtonen zoals {diphthong} of zoals {hiatus}; allebei is goed.',
   'es.orth.both-stress': 'Dit werkwoord mag je op twee manieren beklemtonen; {reading, select, hiatus {in deze vorm krijgt de i of u zelf de klemtoon} other {in deze vorm vormt de i of u één lettergreep met de klinker erna}}: {after}.',
   'es.stem.hue': '{before} houdt de h van het grondwoord (hueso, huevo) als de stam de klemtoon heeft: {after}-.',
+  'es.classify.iar-single-vowel': 'De i van {before} heeft in de stam geen andere klinker ervoor die de klemtoon kan krijgen, dus die krijgt zelf de klemtoon als de stam beklemtoond is: {form}.',
 } as const satisfies Record<SpanishRuleId, string>;

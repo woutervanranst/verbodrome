@@ -88,6 +88,7 @@ export const spanishCitations = {
   'es.classify.hint': ngle('§4.10'),
   'es.classify.assume-regular': ngle('§4.6'),
   'es.classify.assume-glide': ngle('§4.9'),
+  'es.classify.iar-single-vowel': [ngle('§4.9'), { work: 'orto-novedades', locator: 'item 4' }],
   'es.classify.assume-diphthong': ngle('§4.9'),
   'es.classify.assume-zc': ngle('§4.11'),
   'es.stem.root': ngle('§4.3'),

@@ -18,6 +18,7 @@ export const spanishRules = defineRules({
   'es.classify.regional-variant': { stage: 'classify', kind: 'lexical', params: { region: 'text' } },
   'es.classify.oir': { stage: 'classify' },
   'es.classify.uar-stress': { stage: 'classify' },
+  'es.classify.iar-single-vowel': { stage: 'classify', params: { form: 'text' } },
   'es.classify.hint': { stage: 'classify', params: { hint: 'text' } },
   'es.classify.assume-regular': { stage: 'classify', kind: 'assumption' },
   'es.classify.assume-glide': { stage: 'classify', kind: 'assumption', params: { vowel: 'text' } },
