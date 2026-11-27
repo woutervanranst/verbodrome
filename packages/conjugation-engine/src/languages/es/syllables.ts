@@ -85,8 +85,18 @@ export function nuclei(word: string, stressed: number): number[][] {
   for (const index of vowelIndices(plainWord)) {
     const group = groups.at(-1);
     const previous = group?.at(-1);
-    if (group !== undefined && previous !== undefined && adjacent(plainWord, previous, index) && together(plainWord, previous, index, stressed)) group.push(index);
-    else groups.push([index]);
+    if (group !== undefined && previous !== undefined && adjacent(plainWord, previous, index) && together(plainWord, previous, index, stressed)) {
+      // ui / iu after an open vowel: Spanish has no open + close + close nucleus, so the pair starts its own (re-huí).
+      const closePair = !isOpenLetter(plainWord[previous]!) && !isOpenLetter(plainWord[index]!);
+      if (closePair && group.length > 1 && group.slice(0, -1).some(vowel => isOpenLetter(plainWord[vowel]!))) {
+        group.pop();
+        groups.push([previous, index]);
+      } else {
+        group.push(index);
+      }
+    } else {
+      groups.push([index]);
+    }
   }
   return groups;
 }

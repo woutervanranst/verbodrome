@@ -23,6 +23,9 @@ describe('Spanish vowel letters', () => {
     expect(nuclei('prohibir', 6)).toEqual([[2, 4], [6]]);
     expect(nuclei('construi', 7)).toEqual([[1], [6, 7]]);
     expect(nuclei('leer', 2)).toEqual([[1], [2]]);
+    expect(nuclei('rehui', 4)).toEqual([[1], [3, 4]]);
+    expect(nuclei('rehuid', 4)).toEqual([[1], [3, 4]]);
+    expect(nuclei('averiguais', 7)).toEqual([[0], [2], [4], [6, 7, 8]]);
   });
 });
 
@@ -40,6 +43,8 @@ describe('Spanish written accent', () => {
     ['estudieis', 6, 'estudiéis'], ['levantemonos', 6, 'levantémonos'], ['vestios', 4, 'vestíos'], ['vamonos', 1, 'vámonos'],
     ['deten', 3, 'detén'], ['rehice', 3, 'rehíce'], ['deshice', 4, 'deshice'], ['amo', 0, 'amo'], ['comio', 4, 'comió'],
     ['tuvieramos', 4, 'tuviéramos'], ['siguio', 5, 'siguió'], ['oimos', 1, 'oímos'], ['leido', 2, 'leído'], ['reir', 2, 'reír'],
+    // review C3: an open vowel before ui / iu does not join them (re-huí is two syllables)
+    ['rehui', 4, 'rehuí'], ['rehuis', 4, 'rehuís'], ['rehuid', 4, 'rehuid'], ['rehuyo', 3, 'rehúyo'], ['reuno', 2, 'reúno'],
   ] as const)('%s with stress at %i → %s', (word, stressed, written) => expect(writeAccent(word, stressed).written).toBe(written));
 
   it('keeps the diaeresis and re-writes a word that already has a tilde', () => {

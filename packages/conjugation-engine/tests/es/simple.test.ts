@@ -78,6 +78,10 @@ describe('Spanish simple tenses', () => {
     expect(row('evacuar', 'indicative', 'present')).toEqual(['evacuo / evacúo', 'evacuas / evacúas', 'evacua / evacúa', 'evacuamos', 'evacuáis', 'evacuan / evacúan']);
     expect(row('reunir', 'subjunctive', 'present')[0]).toBe('reúna');
     expect(row('prohibir', 'indicative', 'present')[0]).toBe('prohíbo');
+    expect(row('rehuir', 'indicative', 'simple_past')).toEqual(['rehuí', 'rehuiste', 'rehuyó', 'rehuimos', 'rehuisteis', 'rehuyeron']);
+    expect(row('rehuir', 'indicative', 'present')).toEqual(['rehúyo', 'rehúyes', 'rehúye', 'rehuimos', 'rehuís', 'rehúyen']);
+    expect(row('rehuir', 'imperative', 'present')[3]).toBe('rehuid');
+    expect(form('rehuir', 'imperative', 'present', 2, 'plural')[0]!.ruleIds).not.toContain('es.orth.monosyllable');
   });
 
   it('builds the imperfect and future subjunctive on the preterite', () => {
