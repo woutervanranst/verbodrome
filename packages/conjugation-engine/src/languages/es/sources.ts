@@ -83,6 +83,7 @@ export const spanishCitations = {
   'es.classify.eir': [ngle('§4.10'), dpd('reír')],
   'es.classify.both-stress': [ngle('§4.9'), dpd('averiguar'), { work: 'aml-minucias', locator: 'licuo y licúo' }],
   'es.classify.regional-variant': dpd('errar'),
+  'es.classify.variants': dle('the verb\'s conjugation table'),
   'es.classify.oir': [ngle('§4.11'), dpd('oír')],
   'es.classify.uar-stress': [ngle('§4.9'), dpd('averiguar'), { work: 'aml-minucias', locator: 'licuo y licúo' }],
   'es.classify.hint': ngle('§4.10'),

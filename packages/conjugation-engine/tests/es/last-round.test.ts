@@ -102,4 +102,57 @@ describe('C3: the i of a one-vowel -iar stem takes the stress by rule', () => {
   });
 });
 
+describe('I1: idos is the preferred form, iros a valid variant with its own step', () => {
+  it('puts idos first', () => {
+    const forms = one('irse', 'imperative', 'present', 2, 'plural');
+    expect(forms.map(form => form.text)).toEqual(['idos', 'iros']);
+    expect(forms.map(form => form.variant.pattern)).toEqual([null, 'iros']);
+    expect(forms[1]!.ruleIds).toContain('es.clause.iros');
+    expect(forms[0]!.preferred).toBe(true);
+  });
+});
+
+describe('I4 and I5: weather verbs and third-person-only verbs have no pronoun, in either slot set', () => {
+  it('shows llueve once with the feminine slots, and no pronoun on concernir', () => {
+    expect(texts('llover', { gender: 'feminine', mood: 'indicative', tense: 'present' })).toEqual(['llueve']);
+    expect(texts('llover', { subject: '3sg.f', mood: 'indicative', tense: 'perfect' })).toEqual(['ha llovido']);
+    expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['llueve']);
+    expect(texts('concernir', { mood: 'indicative', tense: 'present' })).toEqual(['concierne', 'conciernen']);
+    expect(texts('acontecer', { gender: 'feminine', mood: 'indicative', tense: 'simple_past' })).toEqual(['aconteció', 'acontecieron']);
+    expect(texts('acaecer', { mood: 'subjunctive', tense: 'present' })).toEqual(['que acaezca', 'que acaezcan']);
+    const unavailable = conjugated('llover', { subject: '2sg.formal', mood: 'indicative', tense: 'present' }).unavailableTargets[0]!;
+    expect(explained(unavailable)).toContain('has no subject');
+  });
+});
+
+describe('I6: a class hint that does not fit the stem is rejected', () => {
+  it.each([['ploldar', 'e-ie'], ['trondir', 'e-ie'], ['plandar', 'o-ue'], ['flantar', 'u-ue'], ['blandir', 'i-ie']])('%s + %s', (verb, hint) => {
+    expect(() => conjugated(verb, { classHint: hint })).toThrow(expect.objectContaining({ code: 'INVALID_HINT' }));
+  });
+  it('accepts a fitting hint', () => expect(row('plentar', 'indicative', 'present', { classHint: 'e-ie' })[0]).toBe('pliento'));
+});
+
+describe('I7 and M4: the lexical step says whether the entry was checked, and names variants', () => {
+  it('says the entry is not yet checked against the DLE, without a tautology', () => {
+    const en = explained(analysisOf('errar'));
+    expect(en).toContain('not yet checked against the DLE');
+    expect(en).not.toContain('conjugated like errar');
+    expect(explained(analysisOf('pensar'), 'nl')).toContain('nog niet nagekeken in het DLE');
+    expect(ids('engrosar')).toContain('es.classify.variants');
+    expect(ids('yacer')).toContain('es.classify.variants');
+    expect(ids('tener')).not.toContain('es.classify.variants');
+  });
+  it('M3: names Latin America in the regional step, in both locales', () => {
+    expect(explained(analysisOf('errar'))).toContain('much of Latin America');
+    expect(explained(analysisOf('errar'), 'nl')).toContain('Latijns-Amerika');
+  });
+  it('M2: labels the paradigms in Dutch', () => {
+    const titles = engine.explain('es', analysisOf('apostar'), 'nl').sections.map(section => section.title).join(' ');
+    expect(titles).not.toMatch(/\((regular|o-ue)\)/u);
+  });
+  it('M6: explains suppletive cells as listed forms', () => {
+    expect(explained(one('ir', 'indicative', 'imperfect', 1, 'singular')[0]!)).toContain('lists this form');
+  });
+});
+
 export { analysisOf, explained, ids, texts };

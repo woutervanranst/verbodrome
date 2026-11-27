@@ -4,17 +4,28 @@
  */
 import type { SpanishRuleId } from '../../../languages/es/rules.js';
 
+/** The texts of the pattern labels a paradigm title shows (apostar: regular / o-ue). */
+const labels = {
+  'es.label.pattern.regular': 'regular conjugation',
+  'es.label.pattern.irregular': 'irregular form',
+  'es.label.pattern.e-ie': 'with e → ie',
+  'es.label.pattern.o-ue': 'with o → ue',
+  'es.label.pattern.diphthong': 'stressed as a diphthong',
+  'es.label.pattern.hiatus': 'stressed with a hiatus',
+} as const;
+
 export const es = {
+  ...labels,
   'es.classify.conjugation': '{before} ends in {ending}, so its regular model is {model}.',
   'es.classify.reflexive': '{before} is reflexive: the verb is {base}, and every form takes a reflexive pronoun (me, te, se, nos, os).',
   'es.classify.restore-accent': 'Infinitives in -eír and -oír always have an accent on the i, so {before} is written {after}.',
-  'es.classify.lexicon': 'The dictionary lists {before}, which is conjugated like {model}.',
-  'es.classify.two-paradigms': '{before} has two conjugations with different meanings; this one is conjugated like {model}.',
+  'es.classify.lexicon': '{checked, select, yes {The DLE lists {before}} other {This pack\'s lexicon lists {before} (not yet checked against the DLE)}}{own, select, yes {: it is a model verb of its own} other {: it is conjugated like {model}}}.',
+  'es.classify.two-paradigms': '{checked, select, yes {The DLE lists {before}} other {This pack\'s lexicon lists {before} (not yet checked against the DLE)}} with two conjugations of different meaning; this one is conjugated like {model}.',
   'es.classify.prefixed': '{before} is {prefix} + {base}, so it has the same irregular forms as {base}.',
   'es.classify.family': 'Verbs ending in {suffix} share their irregular forms, so {before} is conjugated like {model}.',
   'es.classify.eir': '{before} ends in -eír, so it is conjugated like reír: its e becomes i where the stem is stressed (río) or the ending has no stressed i (rio).',
   'es.classify.oir': '{before} ends in -oír, so it is conjugated like oír (oigo, oyes).',
-  'es.classify.regional-variant': 'In {region}, {before} is also conjugated without the change of the stem vowel.',
+  'es.classify.regional-variant': '{region, select, America {In much of Latin America} other {In {region}}}, {before} is also conjugated without the change of the stem vowel.',
   'es.classify.uar-stress': 'In -uar verbs like {before} the u is stressed on its own when the stem is stressed (actúo), but not after g or c (averiguo).',
   'es.classify.hint': 'The hint {hint} decides how {before} is conjugated.',
   'es.classify.assume-regular': '{before} is not in the dictionary, so it is taken to be regular, with no vowel change in the stem.',
@@ -35,7 +46,7 @@ export const es = {
   'es.stem.future-lexical': '{before} has the short future and conditional stem {stem}-.',
   'es.stem.preterite-3pl': 'This tense is built on the ellos form of the preterite without -ron: {before} gives {base}-.',
   'es.stem.lexical': 'The dictionary gives {before} the stem {stem}- here.',
-  'es.cell.lexical': 'This form of {before} is irregular: {form}.',
+  'es.cell.lexical': 'The lexicon lists this form of {before} as a whole word: {form}.',
   'es.cell.imperative-short': 'The tú command of {before} is short: {form}.',
   'es.cell.participle': '{before} has an irregular participle: {form}.',
   'es.cell.gerund': '{before} has an irregular gerund: {form}.',
@@ -91,11 +102,12 @@ export const es = {
   'es.clause.enclitic-s-drop': 'The nosotros command loses its -s before nos: {before} becomes {after}.',
   'es.clause.enclitic-accent': 'The stress stays on the same vowel, which is now on {stress, select, final {the last syllable} penultimate {the second-to-last syllable} other {the third syllable from the end}}, so the longer word follows the accent rules: {before} becomes {after}.',
   'es.clause.iros': 'The RAE also accepts iros, the infinitive ir with os attached, as the vosotros command of irse: {before} becomes {after}.',
-  'es.avail.impersonal': 'This verb describes the weather and is used only in the third person singular (llueve).',
+  'es.avail.impersonal': 'This verb describes the weather and has no subject: only the third person singular, without a pronoun (llueve).',
   'es.avail.defective': '{kind, select, soler {{verb} has no future tenses (not even the future subjunctive), no conditional and no imperative} third {{verb} is used only in the third person: its subject is a thing or an event} other {{verb} has no forms with -zc-; balbucear is used instead}}.',
   'es.avail.no-imperative': 'haber as an auxiliary has no imperative.',
-  'es.classify.both-stress': '{before} can be stressed like {diphthong} or like {hiatus}; both are correct.',
+  'es.classify.both-stress': '{checked, select, yes {The DLE lists {before}} other {This pack\'s lexicon lists {before} (not yet checked against the DLE)}}: it can be stressed like {diphthong} or like {hiatus}, and both are correct.',
   'es.orth.both-stress': 'This verb has two accepted stresses; {reading, select, hiatus {in this form the i or u is stressed on its own} other {in this form the i or u shares a syllable with the next vowel}}: {after}.',
   'es.stem.hue': '{before} keeps the h of its base word (hueso, huevo) where the stem is stressed: {after}-.',
   'es.classify.iar-single-vowel': 'The i of {before} has no other vowel before it in the stem to give the stress to, so it is stressed on its own where the stem is stressed: {form}.',
-} as const satisfies Record<SpanishRuleId, string>;
+  'es.classify.variants': '{before} has more than one accepted form in some tenses; each extra form is tagged with its variant.',
+} as const satisfies Record<SpanishRuleId | keyof typeof labels, string>;

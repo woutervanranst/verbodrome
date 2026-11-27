@@ -41,7 +41,7 @@ function availability(lexeme: SpanishLexeme, target: ResolvedTarget): Unavailabi
     return { reason: 'noImperative', step: step(rules['es.avail.no-imperative'], null, null), source: 'https://www.rae.es/dpd/haber' };
   }
   // Weather verbs have no subject: only the third person singular, without a pronoun (llueve); no command.
-  if (entry.impersonal && target.person !== null && target.subject !== '3sg') {
+  if (entry.impersonal && target.person !== null && target.subject !== '3sg' && target.subject !== '3sg.f') {
     return { reason: 'impersonal', step: step(rules['es.avail.impersonal'], null, null), source: 'https://www.rae.es/dpd/llover' };
   }
   const defective = entry.defective;

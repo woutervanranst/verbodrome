@@ -52,7 +52,7 @@ const verbs: readonly (readonly [string, readonly (readonly [Query, readonly str
   ['sentarse', [[ind('present', 1), ['me siento']], [imp(2), ['siéntate']], [imp(1, 'plural'), ['sentémonos']], [imp(2, 'plural'), ['sentaos']], [gerund, ['sentándose']]]],
   ['reírse', [[ind('present', 1), ['me río']], [ind('simple_past', 3), ['se rio']], [imp(2), ['ríete']], [imp(1, 'plural'), ['riámonos']], [imp(2, 'plural'), ['reíos']], [gerund, ['riéndose']]]],
   ['dormirse', [[ind('present', 1), ['me duermo']], [ind('simple_past', 3), ['se durmió']], [imp(2), ['duérmete']], [imp(1, 'plural'), ['durmámonos']], [imp(2, 'plural'), ['dormíos']]]],
-  ['irse', [[ind('present', 1), ['me voy']], [imp(2), ['vete']], [imp(3), ['váyase']], [imp(1, 'plural'), ['vámonos', 'vayámonos']], [imp(2, 'plural'), ['iros', 'idos']], [gerund, ['yéndose']]]],
+  ['irse', [[ind('present', 1), ['me voy']], [imp(2), ['vete']], [imp(3), ['váyase']], [imp(1, 'plural'), ['vámonos', 'vayámonos']], [imp(2, 'plural'), ['idos', 'iros']], [gerund, ['yéndose']]]],
   ['cerrar', [[ind('present', 1), ['cierro']], [ind('present', 1, 'plural'), ['cerramos']]]],
   ['contar', [[ind('present', 1), ['cuento']], [ind('present', 1, 'plural'), ['contamos']]]],
   ['entender', [[ind('present', 1), ['entiendo']], [ind('present', 1, 'plural'), ['entendemos']]]],

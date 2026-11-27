@@ -58,10 +58,10 @@ function attach(word: ChainWord, pronoun: string, target: ResolvedTarget, lexeme
   let ways: Attachment[] = [{ verb, steps: [attached], tags: {} }];
   if (command && target.person === 2 && target.number === 'plural' && pronoun === 'os' && verb.endsWith('d')) {
     if (lexeme.infinitive === 'ir') {
-      // The RAE accepts iros, the infinitive ir with os, beside the older idos, which keeps its d.
+      // idos keeps its d and is the form the RAE recommends; iros (the infinitive ir with os) is valid too (RAE note «iros»).
       ways = [
+        { verb, steps: [attached], tags: {} },
         { verb: 'ir', steps: [step(rules['es.clause.iros'], verb, `ir${pronoun}`)], tags: { pattern: 'iros' } },
-        { verb, steps: [attached], tags: { pattern: 'idos' } },
       ];
     } else {
       const dropped = verb.slice(0, -1);
@@ -89,8 +89,9 @@ export const spanishClause: ClauseGrammar<SpanishLexeme> = {
       opening.push(grammaticalPart(rendering, 'moodMarker', 'que'));
       steps.push(step(rules['es.clause.que'], null, null));
     }
-    // A weather verb has no subject (llueve), so no pronoun.
-    if (subject !== null && subject.pronoun !== null && target.mood !== 'imperative' && !lexeme.entry.impersonal) {
+    // A weather verb has no subject (llueve), and a third-person-only verb a thing as its subject (concierne): no pronoun.
+    const pronounless = lexeme.entry.impersonal === true || lexeme.entry.defective === 'third-person';
+    if (subject !== null && subject.pronoun !== null && target.mood !== 'imperative' && !pronounless) {
       opening.push(grammaticalPart(rendering, 'subject', subject.pronoun, null, { person: subject.person, number: subject.number, gender: subject.gender ?? null }));
       steps.push(step(rules['es.clause.subject'], null, null, { pronoun: subject.pronoun }));
     }

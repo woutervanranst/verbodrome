@@ -141,24 +141,24 @@ describe('controller rulings on variants', () => {
     expect(row('bendecir', 'indicative', 'future')[0]).toBe('bendeciré');
   });
 
-  it('puts iros first and tags idos', () => {
+  it('puts idos first and tags iros (whole-pack review I1 reverses the earlier ruling)', () => {
     const forms = conjugated('irse', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' }).forms;
-    expect(forms.map(form => form.text)).toEqual(['iros', 'idos']);
-    expect(forms.map(form => form.variant.pattern)).toEqual(['iros', 'idos']);
-    expect(explained(forms[0]!)).toContain('infinitive ir');
+    expect(forms.map(form => form.text)).toEqual(['idos', 'iros']);
+    expect(forms.map(form => form.variant.pattern)).toEqual([null, 'iros']);
+    expect(explained(forms[1]!)).toContain('infinitive ir');
   });
 });
 
 describe('review I3 and rows 15-17: defective verbs (NGLE §4.14)', () => {
   const unavailable = (verb: string, options: Record<string, unknown>) => conjugated(verb, options).unavailableTargets;
   it('keeps only the third persons of concernir, atañer, acaecer and acontecer', () => {
-    for (const [verb, third] of [['concernir', ['él concierne', 'ellos conciernen']], ['atañer', ['él atañe', 'ellos atañen']],
-      ['acaecer', ['él acaece', 'ellos acaecen']], ['acontecer', ['él acontece', 'ellos acontecen']]] as const) {
+    for (const [verb, third] of [['concernir', ['concierne', 'conciernen']], ['atañer', ['atañe', 'atañen']],
+      ['acaecer', ['acaece', 'acaecen']], ['acontecer', ['acontece', 'acontecen']]] as const) {   // whole-pack review I5: no pronoun
       expect(texts(verb, { mood: 'indicative', tense: 'present' })).toEqual(third);
       expect(unavailable(verb, { mood: 'indicative', tense: 'present' }).map(u => u.reason)).toEqual(Array(4).fill('defective'));
       expect(unavailable(verb, { mood: 'imperative' })).toHaveLength(10);
     }
-    expect(texts('acaecer', { mood: 'subjunctive', tense: 'present', person: 3, number: 'singular' })).toEqual(['que él acaezca']);
+    expect(texts('acaecer', { mood: 'subjunctive', tense: 'present', person: 3, number: 'singular' })).toEqual(['que acaezca']);
     expect(texts('concernir', { mood: 'gerund', tense: 'present' })).toEqual(['concerniendo']);
   });
 
@@ -183,8 +183,8 @@ describe('review I4 and row 18: weather verbs have no subject', () => {
     expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['llueve']);
     expect(texts('llover', { mood: 'indicative', tense: 'perfect' })).toEqual(['ha llovido']);
     expect(texts('nevar', { mood: 'subjunctive', tense: 'present' })).toEqual(['que nieve']);
-    expect(conjugated('llover', { gender: 'feminine', mood: 'indicative', tense: 'present' }).forms).toEqual([]);
-    expect(conjugated('llover', { subject: '3sg.f', mood: 'indicative', tense: 'present' }).unavailableTargets.map(u => u.reason)).toEqual(['impersonal']);
+    expect(texts('llover', { gender: 'feminine', mood: 'indicative', tense: 'present' })).toEqual(['llueve']);   // whole-pack review I4
+    expect(texts('llover', { subject: '3sg.f', mood: 'indicative', tense: 'present' })).toEqual(['llueve']);   // whole-pack review I4
     expect(conjugated('llover', { subject: '2sg.formal', mood: 'indicative', tense: 'present' }).unavailableTargets.map(u => u.reason)).toEqual(['impersonal']);
     expect(conjugated('llover', { mood: 'indicative', tense: 'present', person: 3, number: 'singular' }).forms[0]!.ruleIds).not.toContain('es.clause.subject');
   });

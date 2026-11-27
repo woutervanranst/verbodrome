@@ -5,17 +5,28 @@
  */
 import type { SpanishRuleId } from '../../../languages/es/rules.js';
 
+/** The texts of the pattern labels a paradigm title shows (apostar: regular / o-ue). */
+const labels = {
+  'es.label.pattern.regular': 'regelmatige vervoeging',
+  'es.label.pattern.irregular': 'onregelmatige vorm',
+  'es.label.pattern.e-ie': 'met e → ie',
+  'es.label.pattern.o-ue': 'met o → ue',
+  'es.label.pattern.diphthong': 'beklemtoond als tweeklank',
+  'es.label.pattern.hiatus': 'beklemtoond met een hiaat',
+} as const;
+
 export const es = {
+  ...labels,
   'es.classify.conjugation': '{before} eindigt op {ending}, dus het regelmatige voorbeeldwerkwoord is {model}.',
   'es.classify.reflexive': '{before} is wederkerend: het werkwoord is {base}, en bij elke vorm hoort een wederkerend voornaamwoord (me, te, se, nos, os).',
   'es.classify.restore-accent': 'Een infinitief op -eír of -oír heeft altijd een accent op de i, dus {before} schrijf je {after}.',
-  'es.classify.lexicon': '{before} staat in het woordenboek en wordt vervoegd zoals {model}.',
-  'es.classify.two-paradigms': '{before} heeft twee vervoegingen met een verschillende betekenis; deze gaat zoals {model}.',
+  'es.classify.lexicon': '{checked, select, yes {Het DLE vermeldt {before}} other {Het lexicon van dit pakket vermeldt {before} (nog niet nagekeken in het DLE)}}{own, select, yes {: het is zelf een voorbeeldwerkwoord} other {: het wordt vervoegd zoals {model}}}.',
+  'es.classify.two-paradigms': '{checked, select, yes {Het DLE vermeldt {before}} other {Het lexicon van dit pakket vermeldt {before} (nog niet nagekeken in het DLE)}} met twee vervoegingen met een verschillende betekenis; deze gaat zoals {model}.',
   'es.classify.prefixed': '{before} is {prefix} + {base}, dus het heeft dezelfde onregelmatige vormen als {base}.',
   'es.classify.family': 'Werkwoorden op {suffix} hebben dezelfde onregelmatige vormen, dus {before} gaat zoals {model}.',
   'es.classify.eir': '{before} eindigt op -eír, dus het gaat zoals reír: de e van de stam wordt i als de stam de klemtoon heeft (río) of als de uitgang geen beklemtoonde i heeft (rio).',
   'es.classify.oir': '{before} eindigt op -oír, dus het gaat zoals oír (oigo, oyes).',
-  'es.classify.regional-variant': 'In {region} wordt {before} ook zonder klinkerwisseling in de stam vervoegd.',
+  'es.classify.regional-variant': '{region, select, America {In grote delen van Latijns-Amerika} other {In {region}}} wordt {before} ook zonder klinkerwisseling in de stam vervoegd.',
   'es.classify.uar-stress': 'Bij werkwoorden op -uar zoals {before} krijgt de u zelf de klemtoon als de stam beklemtoond is (actúo), maar niet na g of c (averiguo).',
   'es.classify.hint': 'De aanwijzing {hint} bepaalt hoe {before} vervoegd wordt.',
   'es.classify.assume-regular': '{before} staat niet in het woordenboek, dus we nemen aan dat het regelmatig is, zonder klinkerwisseling in de stam.',
@@ -36,7 +47,7 @@ export const es = {
   'es.stem.future-lexical': '{before} heeft een verkorte stam voor de futuro en de condicional: {stem}-.',
   'es.stem.preterite-3pl': 'Deze tijd bouw je op de ellos-vorm van de pretérito indefinido zonder -ron: {before} geeft {base}-.',
   'es.stem.lexical': 'Het woordenboek geeft {before} hier de stam {stem}-.',
-  'es.cell.lexical': 'Deze vorm van {before} is onregelmatig: {form}.',
+  'es.cell.lexical': 'Het lexicon geeft deze vorm van {before} als heel woord: {form}.',
   'es.cell.imperative-short': 'De imperativo voor tú van {before} is kort: {form}.',
   'es.cell.participle': '{before} heeft een onregelmatig participio: {form}.',
   'es.cell.gerund': '{before} heeft een onregelmatig gerundio: {form}.',
@@ -92,11 +103,12 @@ export const es = {
   'es.clause.enclitic-s-drop': 'De imperativo voor nosotros verliest zijn -s voor nos: {before} wordt {after}.',
   'es.clause.enclitic-accent': 'De klemtoon blijft op dezelfde klinker, die nu op {stress, select, final {de laatste lettergreep} penultimate {de voorlaatste lettergreep} other {de derde lettergreep van achteren}} staat, dus het langere woord volgt de accentregels: {before} wordt {after}.',
   'es.clause.iros': 'De RAE aanvaardt ook iros, de infinitief ir met os erachter, als imperativo voor vosotros van irse: {before} wordt {after}.',
-  'es.avail.impersonal': 'Dit werkwoord gaat over het weer en bestaat alleen in de derde persoon enkelvoud (llueve).',
+  'es.avail.impersonal': 'Dit werkwoord gaat over het weer en heeft geen onderwerp: alleen de derde persoon enkelvoud, zonder voornaamwoord (llueve).',
   'es.avail.defective': '{kind, select, soler {{verb} heeft geen toekomende tijden (ook niet de futuro van de subjuntivo), geen condicional en geen imperativo} third {{verb} bestaat alleen in de derde persoon: het onderwerp is een ding of een gebeurtenis} other {{verb} heeft geen vormen met -zc-; je gebruikt dan balbucear}}.',
   'es.avail.no-imperative': 'haber als hulpwerkwoord heeft geen imperativo.',
-  'es.classify.both-stress': '{before} mag je beklemtonen zoals {diphthong} of zoals {hiatus}; allebei is goed.',
+  'es.classify.both-stress': '{checked, select, yes {Het DLE vermeldt {before}} other {Het lexicon van dit pakket vermeldt {before} (nog niet nagekeken in het DLE)}}: je mag het beklemtonen zoals {diphthong} of zoals {hiatus}, en allebei is goed.',
   'es.orth.both-stress': 'Dit werkwoord mag je op twee manieren beklemtonen; {reading, select, hiatus {in deze vorm krijgt de i of u zelf de klemtoon} other {in deze vorm vormt de i of u één lettergreep met de klinker erna}}: {after}.',
   'es.stem.hue': '{before} houdt de h van het grondwoord (hueso, huevo) als de stam de klemtoon heeft: {after}-.',
   'es.classify.iar-single-vowel': 'De i van {before} heeft in de stam geen andere klinker ervoor die de klemtoon kan krijgen, dus die krijgt zelf de klemtoon als de stam beklemtoond is: {form}.',
-} as const satisfies Record<SpanishRuleId, string>;
+  'es.classify.variants': '{before} heeft in sommige tijden meer dan één goede vorm; elke extra vorm krijgt een label met zijn variant.',
+} as const satisfies Record<SpanishRuleId | keyof typeof labels, string>;

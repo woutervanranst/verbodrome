@@ -14,6 +14,7 @@ import {
 } from './lexicon.js';
 import type { Alternation, SpanishEntry, Variant } from './lexicon.js';
 import { spanishRules as rules } from './rules.js';
+import { lexiconVerification } from './verification.js';
 
 export type Conjugation = 'ar' | 'er' | 'ir';
 export type Stress = 'hiatus' | 'diphthong' | 'both';
@@ -96,6 +97,9 @@ function stressModel(stress: Stress, infinitive: string): string | null {
   return close === 'u' ? 'reunir' : 'prohibir';
 }
 
+/** Whether the lemma's lexicon entry was checked against its DLE page: a select value for the lexical steps. */
+const checked = (lemma: string): 'yes' | 'no' => lexiconVerification[lemma]?.raeRead === true ? 'yes' : 'no';
+
 const zcPattern = /[aeiouáéíóú]c(?:er|ir|ír)$/u;
 
 /** The prefix and strong base of a derivative (P + B, P from the closed list, possibly several), or null. */
@@ -152,7 +156,7 @@ function readingsOf(infinitive: string): Reading[] {
       const model = typeof alternation === 'string' ? alternationModel(alternation, infinitive, true) : regularModels[conjugationOf(infinitive)];
       return {
         ...none, entry, alternation, model, stress: null, listed: true,
-        steps: [step(rules['es.classify.two-paradigms'], infinitive, model, { model })], tags: { pattern, condition },
+        steps: [step(rules['es.classify.two-paradigms'], infinitive, model, { model, checked: checked(infinitive) })], tags: { pattern, condition },
       };
     });
   }
@@ -161,9 +165,9 @@ function readingsOf(infinitive: string): Reading[] {
     const model = modelOfListed(infinitive, listed);
     // A verb with both stresses says so, with the model of each (agriar: anunciar or enviar).
     const both = listed.stress === 'both'
-      ? step(rules['es.classify.both-stress'], infinitive, model, infinitive.endsWith('uar') ? { diphthong: 'averiguar', hiatus: 'actuar' } : { diphthong: 'anunciar', hiatus: 'enviar' })
+      ? step(rules['es.classify.both-stress'], infinitive, model, { ...infinitive.endsWith('uar') ? { diphthong: 'averiguar', hiatus: 'actuar' } : { diphthong: 'anunciar', hiatus: 'enviar' }, checked: checked(infinitive) })
       : null;
-    return [{ ...none, ...listed, model, listed: true, steps: [both ?? step(rules['es.classify.lexicon'], infinitive, model, { model })], tags: {} }];
+    return [{ ...none, ...listed, model, listed: true, steps: [both ?? step(rules['es.classify.lexicon'], infinitive, model, { model, checked: checked(infinitive), own: model === infinitive ? 'yes' : 'no' })], tags: {} }];
   }
   // A strong base through the closed prefix list, or a derivative the lexicon lists with its base.
   const strong = strongDerivation(infinitive);
@@ -176,7 +180,7 @@ function readingsOf(infinitive: string): Reading[] {
       entry: base?.entry ?? {}, alternation: base?.alternation ?? null, stress: base?.stress ?? null, family: base?.family ?? null, model,
       prefix: derivation.prefix, base: derivation.base, listed: true, source: 'lexicon', tags: {},
       steps: [strong === null
-        ? step(rules['es.classify.lexicon'], infinitive, model, { model })
+        ? step(rules['es.classify.lexicon'], infinitive, model, { model, checked: checked(infinitive), own: 'no' })
         : step(rules['es.classify.prefixed'], infinitive, model, { prefix: derivation.prefix, base: derivation.base })],
     }];
   }
@@ -212,6 +216,12 @@ function modelOfListed(infinitive: string, listed: NonNullable<ReturnType<typeof
   const { alternation } = listed;
   if (typeof alternation === 'string') return alternationModel(alternation, infinitive, listed.entry.raising !== false);
   return (listed.stress === null ? null : stressModel(listed.stress, infinitive)) ?? regularModels[conjugationOf(infinitive)];
+}
+
+/** Whether the stem has the vowel an alternation acts on (the silent u of gu / qu does not count). */
+function fits(alternation: Alternation, infinitive: string): boolean {
+  const root = infinitive.slice(0, -2).replace(/([gq])u(?=[ei])/gu, '$1');
+  return root.includes(alternation.slice(0, 1));
 }
 
 /** Whether a reading's alternation agrees with a class hint. */
@@ -263,9 +273,17 @@ function lexemeFor(parsed: Parsed, reading: Reading, query: Readonly<Record<stri
   // A regional variant of the conjugation (errar: erro in America) is part of the verb's class.
   const regional = Array.isArray(reading.alternation) ? (reading.alternation as readonly Variant<Alternation | null>[]).find(variant => variant.region !== undefined) : undefined;
   if (regional?.region !== undefined) steps.push(step(rules['es.classify.regional-variant'], infinitive, null, { region: regional.region }));
+  // A lemma whose entry lists more than one accepted form in some cells says so (engrosar, yacer, predecir).
+  const entryOf = reading.entry;
+  const hasVariants = Array.isArray(reading.alternation) || Array.isArray(entryOf.present1) || entryOf.regularToo !== undefined
+    || entryOf.participleDoublet === true || entryOf.infinitiveVariants !== undefined;
+  if (hasVariants) steps.push(step(rules['es.classify.variants'], infinitive, null));
   const hinted: DerivationStep[] = [];
 
   let alternation = reading.alternation;
+  if (classHint !== undefined && classHint !== 'regular' && !reading.listed && !fits(classHint, infinitive)) {
+    throw new ConjugationError('INVALID_HINT', `${infinitive} has no ${classHint.slice(0, 1)} in its stem for the ${classHint} alternation to act on.`);
+  }
   if (classHint !== undefined) {
     alternation = classHint === 'regular' ? null : typeof alternation === 'object' && alternation !== null
       ? alternation.find(variant => variant.value === classHint)?.value ?? null : classHint;
