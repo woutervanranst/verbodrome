@@ -37,7 +37,7 @@ export const essereVerbs: ReadonlySet<string> = new Set([
   'derivare', 'risultare', 'decrescere', 'sbocciare', 'tramontare', 'avvenire', 'divenire', 'intervenire', 'pervenire', 'provenire', 'svenire',
   'sopravvenire', 'sopravvivere', 'rifuggire', 'impazzire', 'arrossire', 'impallidire', 'dimagrire', 'svanire', 'appassire', 'sparire',
   'scomparire', 'riuscire', 'partire', 'fuggire', 'sfuggire', 'putrefare', 'sottostare', 'ammalare', 'coesistere', 'preesistere',
-  'riandare', 'ristare',
+  'riandare', 'ristare', 'rinascere', 'ricadere', 'decadere', 'riapparire', 'rivenire',
 ]);
 
 const tr = { lemma: 'avere', condition: 'transitive use, with a direct object' } as const;

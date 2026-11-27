@@ -1,3 +1,4 @@
+import { step } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
 import type { JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
@@ -36,8 +37,12 @@ const palatalIDrop: JunctureRule<SpellingContext> = {
  */
 const iMerge: JunctureRule<SpellingContext> = {
   info: R['it.orth.i-merge'],
-  apply: (j, { lexeme, cell }) => j.stem.endsWith('i') && j.ending.startsWith('i') && !(lexeme.stressedI && rootStressed(cell))
-    ? one({ stem: j.stem, ending: j.ending.slice(1) }) : null,
+  apply: (j, { lexeme, cell }) => {
+    if (!j.stem.endsWith('i') || !j.ending.startsWith('i')) return null;
+    // Rule 14's exception: a stressed i decides against the merge the learner would expect (studi, but invii).
+    if (lexeme.stressedI && rootStressed(cell)) return one(j, [step(R['it.orth.stressed-i-kept'], j.stem + j.ending, j.stem + j.ending)]);
+    return one({ stem: j.stem, ending: j.ending.slice(1) });
+  },
 };
 
 /** 4. A regular -ere past participle in -uto keeps a soft c with an i (conosciuto, taciuto). */

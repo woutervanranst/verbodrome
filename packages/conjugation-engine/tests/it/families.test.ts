@@ -59,8 +59,11 @@ describe('Italian derived verbs and families', () => {
     expect(texts('rinascere', 'indicative', 'perfect', { subject: '1sg' })).toEqual(['io sono rinato', 'io sono rinata']);
     expect(texts('ricadere', 'indicative', 'perfect', { subject: '1sg' })[0]).toBe('io sono ricaduto');
     expect(texts('riapparire', 'indicative', 'perfect', { subject: '1sg' })[0]).toBe('io sono riapparso');
-    expect(steps('rinascere').map(s => s.rule)).toContain('it.classify.inherit-auxiliary');
-    expect(explained('rinascere', 'en')).toContain('rinascere takes essere in its compound tenses, like nascere.');
+    // The auxiliary is per lemma (controller ruling C2): a listed derivative has its own, an unlisted one assumes essere.
+    expect(steps('rinascere').map(s => s.rule)).toContain('it.classify.auxiliary');
+    expect(steps('stravenire').filter(s => s.kind === 'assumption').map(s => s.rule)).toEqual(['it.classify.assume-family', 'it.classify.assume-inherit-auxiliary']);
+    expect(explained('stravenire', 'en')).toContain('Assuming stravenire takes essere in its compound tenses, like venire.');
+    expect(texts('stravenire', 'indicative', 'perfect', { subject: '1sg', auxiliary: 'avere' })).toEqual(['io ho stravenuto']);
     expect(texts('ripercorrere', 'indicative', 'perfect', { subject: '1sg' })).toEqual(['io ho ripercorso']); // correre is dual: not inherited
   });
 

@@ -1,6 +1,6 @@
 {
  "licence": "CC BY-SA 4.0",
- "attribution": "English Wiktionary contributors",
+ "attribution": "English Wiktionary contributors; adapted: the conjugation tables were parsed into cells and their stress marks removed",
  "retrieved": "2026-11-27",
  "modules": {
   "Module:it-verb": 88555991,

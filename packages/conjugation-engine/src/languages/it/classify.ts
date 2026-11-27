@@ -8,6 +8,10 @@ import { italianLexicon } from './lexicon.js';
 import type { Auxiliary, ItalianEntry, ItalianLexeme } from './lexicon.js';
 import { avereVerbs, dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
 import { italianRules as R } from './rules.js';
+import { readPages } from './verification.js';
+
+const onSideList = (lemma: string): boolean => [nonIscVerbs, iscVerbs, essereVerbs, avereVerbs, stressedIVerbs, palatalVerbs, impersonalVerbs]
+  .some(list => list.has(lemma)) || Object.hasOwn(iscBothVerbs, lemma) || Object.hasOwn(dualVerbs, lemma);
 import type { ItalianStemHints } from './spec.js';
 
 /** -ciare, -giare, -sciare, -gliare, -chiare, -ghiare: the i only marks the sound of the consonant before it. */
@@ -81,7 +85,8 @@ function lookUp(base: string, steps: DerivationStep[], hints: ItalianStemHints):
   steps.push(step(R['it.classify.conjugation'], base, conjugation, { ending: conjugation }));
   // Hints that give every strong part leave nothing to assume.
   const hinted = hints.past !== undefined && hints.participle !== undefined && (conjugation === 'are' || hints.future !== undefined);
-  if (!hinted) steps.push(step(R['it.classify.assume-regular'], base, null));
+  // A verb on a side list whose Vocabolario page was read is known to be regular apart from what its list says.
+  if (!hinted && !(onSideList(base) && Object.hasOwn(readPages, base))) steps.push(step(R['it.classify.assume-regular'], base, null));
   return { entry: null, family: null, listed: false, conjugation, root: base.slice(0, -3), classLabel: conjugation };
 }
 
@@ -140,12 +145,12 @@ function auxiliariesOf(base: string, known: Known, reflexive: boolean, hint: unk
   const listed = (known.family === null ? known.entry?.auxiliaries : undefined)
     ?? (Object.hasOwn(dualVerbs, base) ? dualVerbs[base] : essereVerbs.has(base) ? [{ lemma: 'essere' as const }]
       : avereVerbs.has(base) ? [{ lemma: 'avere' as const }] : undefined);
-  // A verb derived by prefix from a verb that takes only essere takes essere too (rinascere: sono rinato).
+  // The auxiliary is per lemma. Only an unlisted prefix derivative of a verb that takes essere only is assumed to take
+  // essere too (an assumption, which the hint overrides); a listed derivative has its own entry in the lists.
   const family = known.family;
-  const baseAuxiliaries = family !== null && family.suffix === null ? italianLexicon[family.base]?.auxiliaries : undefined;
-  if (listed === undefined && baseAuxiliaries !== undefined && baseAuxiliaries.every(auxiliary => auxiliary.lemma === 'essere')) {
-    steps.push(step(R['it.classify.inherit-auxiliary'], base, null, { auxiliary: 'essere', base: family!.base }));
-    if (hint !== undefined && hint !== 'essere') throw new ConjugationError('INVALID_HINT', `${base} forms its compound tenses with essere only.`);
+  const baseAuxiliaries = family !== null && family.suffix === null && family.assumed ? italianLexicon[family.base]?.auxiliaries : undefined;
+  if (listed === undefined && hint === undefined && baseAuxiliaries?.length && baseAuxiliaries.every(auxiliary => auxiliary.lemma === 'essere')) {
+    steps.push(step(R['it.classify.assume-inherit-auxiliary'], base, null, { auxiliary: 'essere', base: family!.base }));
     return [{ lemma: 'essere' }];
   }
   if (listed === undefined) {

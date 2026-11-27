@@ -65,7 +65,8 @@ describe('Italian compound tenses and clause', () => {
     expect(formWith('lavarsi', 'imperative', 'negative', '2sg').rules).toEqual(expect.arrayContaining(['it.clause.negative-infinitive', 'it.clause.reflexive-pronoun']));
     expect(bare('farsi', 'imperative', 'present')[0]).toBe('fatti');
     expect(formWith('farsi', 'imperative', 'present', '2sg').rules).toContain('it.clause.enclitic-doubling');
-    expect(formWith('farsi', 'imperative', 'present', '2sg').parts.map(p => [p.role, p.text])).toEqual([['lexicalVerb', 'fat'], ['reflexivePronoun', 'ti']]);
+    expect(formWith('farsi', 'imperative', 'present', '2sg').parts.map(p => [p.role, p.text])).toEqual([['lexicalVerb', 'fa'], ['reflexivePronoun', 'tti']]);
+    expect(formWith('farsi', 'imperative', 'present', '2sg').parts[1]!.lemma).toBe('ti');
     expect(bare('lavarsi', 'infinitive', 'present')).toEqual(['lavarsi']);
     expect(bare('porsi', 'infinitive', 'present')).toEqual(['porsi']);
     expect(bare('lavarsi', 'gerund', 'present')).toEqual(['lavandosi']);

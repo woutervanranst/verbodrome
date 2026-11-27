@@ -21,7 +21,7 @@ export const italianRules = defineRules({
   'it.classify.assume-isc': { stage: 'classify', kind: 'assumption' },
   'it.classify.auxiliary': { stage: 'classify', kind: 'lexical', params: { auxiliary: 'text' } },
   'it.classify.auxiliaries': { stage: 'classify', kind: 'lexical', params: { first: 'text', second: 'text' } },
-  'it.classify.inherit-auxiliary': { stage: 'classify', params: { auxiliary: 'text', base: 'text' } },
+  'it.classify.assume-inherit-auxiliary': { stage: 'classify', kind: 'assumption', params: { auxiliary: 'text', base: 'text' } },
   'it.classify.assume-avere': { stage: 'classify', kind: 'assumption' },
   'it.classify.stressed-i': { stage: 'classify', kind: 'lexical' },
   'it.classify.assume-unstressed-i': { stage: 'classify', kind: 'assumption' },
@@ -64,6 +64,7 @@ export const italianRules = defineRules({
   'it.orth.velar-h': { stage: 'orthography', params: { letter: 'text' } },
   'it.orth.palatal-i-drop': { stage: 'orthography' },
   'it.orth.i-merge': { stage: 'orthography' },
+  'it.orth.stressed-i-kept': { stage: 'orthography' },
   'it.orth.participle-ci': { stage: 'orthography' },
   'it.orth.final-accent': { stage: 'orthography' },
   // Compound tenses.

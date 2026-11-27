@@ -31,10 +31,6 @@ export const wiktionaryRules: readonly Rule[] = [
     reason: 'prendere is a transitive verb with avere; the table adds essere only for the idiom "to happen unexpectedly", which is not modelled.',
   },
   {
-    title: 'vedere', key: 'participle.present', edit: drop('veggente'), source: vocabolario('vedere'),
-    reason: 'The Vocabolario prints "part. pres. veggènte, soprattutto con uso di sost., accanto a vedènte": veggente is mainly a noun; the participle generated is vedente.',
-  },
-  {
     title: 'parere', key: 'participle.present', edit: unavailable, source: vocabolario('parere2'),
     reason: 'The Vocabolario: "Non è usato il part. pres. se non nell\'ant. forma parvènte"; the old parvente is not generated, and the cell has no current form.',
   },

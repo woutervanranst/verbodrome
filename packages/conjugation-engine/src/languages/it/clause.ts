@@ -65,11 +65,13 @@ function enclitic(word: ChainWord, pronoun: string, lexeme: ItalianLexeme, ctx: 
   const { rendering } = ctx;
   const steps: DerivationStep[] = [];
   let verb = word.text;
+  let clitic = pronoun;
   if (verb.endsWith("'")) {
-    // The doubled consonant is written on the verb (fat + ti), so the pronoun part stays the pronoun.
-    const doubled = `${verb.slice(0, -1)}${pronoun.charAt(0)}`;
-    steps.push(step(R['it.clause.enclitic-doubling'], verb, doubled + pronoun, { pronoun }));
-    verb = doubled;
+    // The apostrophe goes and the pronoun's consonant doubles on the pronoun (fa + tti); the verb part stays fa.
+    const doubled = `${pronoun.charAt(0)}${pronoun}`;
+    steps.push(step(R['it.clause.enclitic-doubling'], verb, verb.slice(0, -1) + doubled, { pronoun }));
+    verb = verb.slice(0, -1);
+    clitic = doubled;
   } else {
     const short = lexeme.entry?.cells?.['imperative.present.2.singular']?.some(form => form.text.endsWith("'")) ?? false;
     if (short && word.cell?.kind === 'finite' && word.cell.mood === 'imperative' && word.cell.person === 2 && word.cell.number === 'singular') return null;
@@ -80,7 +82,7 @@ function enclitic(word: ChainWord, pronoun: string, lexeme: ItalianLexeme, ctx: 
     }
     steps.push(step(R['it.clause.enclitic'], verb, verb + pronoun, { pronoun }));
   }
-  const pronounPart = grammaticalPart(rendering, 'reflexivePronoun', pronoun, null, {
+  const pronounPart = grammaticalPart(rendering, 'reflexivePronoun', clitic, pronoun, {
     person: ctx.target.person, number: ctx.target.number,
   }, 'attached');
   return { parts: [wordPart(rendering, { ...word, text: verb }, featuresOf(word)), pronounPart], steps };

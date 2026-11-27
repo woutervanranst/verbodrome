@@ -26,6 +26,7 @@ describe('Italian simple tenses', () => {
     expect(bareOf('studiare', 'indicative', 'present', '2sg')).toBe('studi');
     expect(form('studiare', 'indicative', 'present', '2sg').rules).toContain('it.orth.i-merge');
     expect(bareOf('inviare', 'indicative', 'present', '2sg')).toBe('invii');
+    expect(form('inviare', 'indicative', 'present', '2sg').rules).toContain('it.orth.stressed-i-kept');
     expect(bareOf('inviare', 'indicative', 'present', '1pl')).toBe('inviamo');
     expect(bareOf('sciare', 'subjunctive', 'present', '3pl')).toBe('sciino');
     expect(bareOf('sciare', 'indicative', 'future', '1sg')).toBe('scierò');

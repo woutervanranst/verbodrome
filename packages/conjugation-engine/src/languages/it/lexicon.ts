@@ -55,6 +55,8 @@ export interface ItalianEntry {
   readonly flags?: readonly EntryFlag[];
   /** Targets the verb lacks, `mood.tense`. */
   readonly defective?: readonly string[];
+  /** When a form named by its full text is used, where the Vocabolario says (veggente: mostly as a noun). */
+  readonly conditions?: Readonly<Record<string, string>>;
   /** The usage of a form named by its full text (essente: literary). */
   readonly usage?: Readonly<Record<string, 'literary' | 'dated'>>;
   /** Cells a derived verb does not take over from this one (dire: di' is not predi'). */
@@ -253,7 +255,10 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
     auxiliaries: [{ lemma: 'avere', condition: 'transitive use, and most intransitive uses' }, { lemma: 'essere', condition: 'some intransitive uses (rare)' }],
     past: ['mossi'], participle: ['mosso'],
   },
-  vedere: { class: 'ere', auxiliaries: [avere], past: ['vidi'], future: ['vedr'], participle: ['visto', '*'] },
+  vedere: {
+    class: 'ere', auxiliaries: [avere], past: ['vidi'], future: ['vedr'], participle: ['visto', '*'], presentParticiple: ['*', 'veggente'],
+    conditions: { veggente: 'mostly used as a noun (Vocabolario: "soprattutto con uso di sost.")' },
+  },
   provvedere: { class: 'ere', auxiliaries: [avere], past: ['provvidi'], participle: ['provvisto', '*'] },
   prevedere: { class: 'ere', auxiliaries: [avere], past: ['previdi'], future: ['prevedr', '*'], participle: ['previsto', '*'] },
   godere: { class: 'ere', auxiliaries: [avere], future: ['godr', '*'] },

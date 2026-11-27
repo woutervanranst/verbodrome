@@ -40,7 +40,7 @@ const subjectOf = (c: WiktionaryCell): string | undefined => c.subject === null 
 describe('en.wiktionary oracle', () => {
   it('has every pinned page, with its attribution', () => {
     expect(fixture.pages.map(page => [page.title, page.revid])).toEqual(wiktionaryPins.pages.map(page => [page.title, page.revid]));
-    expect([fixture.licence, fixture.attribution]).toEqual(['CC BY-SA 4.0', 'English Wiktionary contributors']);
+    expect([fixture.licence, fixture.attribution]).toEqual(['CC BY-SA 4.0', 'English Wiktionary contributors; adapted: the conjugation tables were parsed into cells and their stress marks removed']);
     for (const page of fixture.pages) expect(page.url).toBe(`https://en.wiktionary.org/w/index.php?title=${encodeURIComponent(page.title)}&oldid=${page.revid}`);
   });
 
@@ -85,4 +85,4 @@ describe('en.wiktionary oracle', () => {
 
 const OracleCells = 3361;
 const OracleUnmodelled = 6;
-const LedgerRules = 8;
+const LedgerRules = 7;

@@ -278,7 +278,8 @@ export function wholeCell(lexeme: ItalianLexeme, cell: Cell): Fork<string> | nul
       return listed.flatMap(text => {
         if (text === '*') return chain(unstressedStems(lexeme), stem => chain(endingOf(lexeme, cell, stem), end => one(stem + end)));
         const usage = entry?.usage?.[text];
-        return one(text, [step(R['it.cell.lexical'], null, text)], usage === undefined ? {} : { usage });
+        const condition = entry?.conditions?.[text];
+        return one(text, [step(R['it.cell.lexical'], null, text)], { ...(usage === undefined ? {} : { usage }), ...(condition === undefined ? {} : { condition }) });
       });
     }
     return null;

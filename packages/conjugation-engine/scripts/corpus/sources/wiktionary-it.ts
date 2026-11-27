@@ -144,6 +144,9 @@ export function parseWiktionaryItalian(html: string, title: string): Omit<Wiktio
   };
 }
 
+/** CC BY-SA 4.0 §3(a)(1)(B): the authors, and that the tables were modified. */
+export const attribution = 'English Wiktionary contributors; adapted: the conjugation tables were parsed into cells and their stress marks removed';
+
 // The fetching CLI: only when run directly.
 async function main(): Promise<void> {
   const { writeFileSync } = await import('node:fs');
@@ -168,6 +171,14 @@ async function main(): Promise<void> {
     }
     throw new Error('Too many retries.');
   }
+  const fixtureUrl = new URL('../../../tests/fixtures/wiktionary-it.json', import.meta.url);
+  // Rewrites the fixture's header (licence and attribution) without fetching anything.
+  if (process.argv.includes('--rewrite-attribution')) {
+    const { readFileSync } = await import('node:fs');
+    const fixture = JSON.parse(readFileSync(fixtureUrl, 'utf8')) as WiktionaryFixture;
+    writeFileSync(fixtureUrl, `${JSON.stringify({ ...fixture, attribution }, null, 1)}\n`);
+    return;
+  }
   const accept = process.argv.includes('--accept-modules');
   const onlyIndex = process.argv.indexOf('--only');
   const only = onlyIndex > 0 ? new Set(process.argv[onlyIndex + 1]!.split(',')) : null;
@@ -176,7 +187,6 @@ async function main(): Promise<void> {
   const current = Object.fromEntries(modules.query.pages.map(page => [page.title, page.revisions[0]!.revid]));
   const changed = Object.entries(wiktionaryPins.modules).filter(([name, revid]) => current[name] !== revid);
   if (changed.length && !accept) throw new Error(`Module revisions changed: ${changed.map(([name]) => `${name} ${current[name]}`).join(', ')}; compare and re-run with --accept-modules.`);
-  const fixtureUrl = new URL('../../../tests/fixtures/wiktionary-it.json', import.meta.url);
   const pages: WiktionaryPage[] = [];
   for (const { title, revid } of wiktionaryPins.pages) {
     if (only !== null && !only.has(title)) continue;
@@ -189,7 +199,7 @@ async function main(): Promise<void> {
     } as WiktionaryPage);
     process.stdout.write(`${title} `);
     const fixture: WiktionaryFixture = {
-      licence: 'CC BY-SA 4.0', attribution: 'English Wiktionary contributors', retrieved: new Date().toISOString().slice(0, 10),
+      licence: 'CC BY-SA 4.0', attribution, retrieved: new Date().toISOString().slice(0, 10),
       modules: Object.fromEntries(Object.keys(wiktionaryPins.modules).map(name => [name, current[name]!])), pages,
     };
     writeFileSync(fixtureUrl, `${JSON.stringify(fixture, null, 1)}\n`);
