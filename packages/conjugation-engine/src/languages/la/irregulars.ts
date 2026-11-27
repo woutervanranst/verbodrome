@@ -159,7 +159,8 @@ const fero: LatinEntry = {
 const athematic = (): Omit<LexicalForm, 'text'> => ({ pattern: 'athematic' });
 const edo: LatinEntry = {
   present: 'edō', infinitive: 'edere', perfect: ['ēdī'], supine: ['ēsum'], conjugation: 'irregular', stemClass: 'consonant',
-  gloss: 'eat', compound: { prefixes: [] }, cellsBeside: true,
+  // A&G §201 prints the principal parts edō, ēsse, ēdī, ēsum: ēsse answers to edō too.
+  gloss: 'eat', compound: { prefixes: [] }, cellsBeside: true, spellings: ['ēsse'],
   cells: {
     ...tense('indicative.present', '- ~ēs ~ēst - ~ēstis -', athematic),
     ...tense('subjunctive.present', '~edim ~edīs ~edit ~edīmus ~edītis ~edint', () => ({ usage: 'dated', pattern: 'edim' })),

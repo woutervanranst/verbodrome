@@ -13,6 +13,8 @@ export const la = {
   'la.classify.assume-second-deponent': 'Er staat geen lengteteken op de e van -eri: dit rijtje leest het werkwoord als deponens van de tweede vervoeging (-ērī); de lezing als deponens van de derde vervoeging (-ī) staat ernaast.',
   'la.classify.assume-third-deponent': 'Er staat geen lengteteken op de e van -eri: dit rijtje leest het werkwoord als deponens van de derde vervoeging (-ī); schrijf -ērī, of geef de eerste persoon op -eor, voor de tweede vervoeging.',
   'la.classify.assume-consonant-stem': 'Zonder eerste persoon op -iō wordt het werkwoord niet als werkwoord op -iō genomen.',
+  'la.classify.assume-spelling': 'Het lexicon kent dit werkwoord als {after}: de klinkerlengtes in {before} worden als vergissing opgevat.',
+  'la.classify.assume-deponent': '{before} staat niet in het lexicon: een werkwoord met een passieve infinitivus wordt als deponens opgevat; geef de actieve infinitivus voor het passief van een actief werkwoord.',
   'la.classify.assume-quantity': 'De lengte van de klinkers in de stam is niet bekend: klinkers zonder lengteteken blijven zonder lengteteken.',
   'la.classify.assume-passive': 'Aangenomen wordt dat het werkwoord een volledig passivum heeft, zoals een overgankelijk werkwoord.',
   'la.classify.assume-compound': 'Samengestelde werkwoorden van {base} verschillen; aangenomen wordt dat {prefix}- + {base} de vorm uit het lexicon volgt.',

@@ -60,6 +60,8 @@ export const latinCitations = {
   'la.classify.assume-third-deponent': ag('deponent-verbs', '§190'),
   'la.classify.assume-consonant-stem': ag('3rd-conjugation-io-verbs', '§188'),
   'la.classify.assume-quantity': ag('quantity-syllables', '§10'),
+  'la.classify.assume-spelling': [ag('quantity-syllables', '§10'), ag('four-conjugations', '§172')],
+  'la.classify.assume-deponent': [ag('deponent-verbs', '§190'), ag('verb-conjugations', '§156.b')],
   'la.classify.assume-passive': [ag('verb-conjugations', '§154.a'), ag('impersonal-verbs', '§208.d')],
   'la.classify.assume-compound': bennett(118, ' (4.a, Note 1)'),
   'la.classify.default-parts': ag('forms-conjugation', '§179.a.2, b.2, d'),

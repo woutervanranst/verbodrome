@@ -141,7 +141,7 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('blorpārī', 'gerund')).toEqual(['blorpandī']);
     expect(forms('blorpārī', 'supine')).toEqual(['blorpātum']);
     expect(conjugate({ language: 'la', infinitive: 'blorpārī', voice: 'passive' }).forms).toEqual([]);
-    expect(assumptions(analysis('blorpārī'))).toEqual(['assume-quantity', 'default-parts']);
+    expect(assumptions(analysis('blorpārī'))).toEqual(['assume-deponent', 'assume-quantity', 'default-parts']);
   });
 
   it('trapī', () => {
@@ -156,7 +156,7 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('trapī', 'participle', 'present')).toEqual(['trapēns']);
     expect(forms('trapī', 'participle', 'gerundive')[0]).toBe('trapendus');
     expect(forms('trapī', 'supine')).toEqual(['traptum']);
-    expect(assumptions(analysis('trapī'))).toEqual(['assume-consonant-stem', 'assume-quantity', 'default-sigmatic']);
+    expect(assumptions(analysis('trapī'))).toEqual(['assume-deponent', 'assume-consonant-stem', 'assume-quantity', 'default-sigmatic']);
   });
 
   it('mundīrī', () => {
@@ -169,7 +169,7 @@ describe('invented verbs (design §8.1)', () => {
     expect(forms('mundīrī', 'indicative', 'perfect', 'active', { subject: '1sg.m' })).toEqual(['mundītus sum']);
     expect(forms('mundīrī', 'participle', 'present')).toEqual(['mundiēns']);
     expect(forms('mundīrī', 'participle', 'gerundive')[0]).toBe('mundiendus');
-    expect(assumptions(analysis('mundīrī'))).toEqual(['assume-quantity', 'default-parts']);
+    expect(assumptions(analysis('mundīrī'))).toEqual(['assume-deponent', 'assume-quantity', 'default-parts']);
   });
 
   it('look-alikes stay regular', () => {

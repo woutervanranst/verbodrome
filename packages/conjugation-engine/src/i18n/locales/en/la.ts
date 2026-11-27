@@ -13,6 +13,8 @@ export const la = {
   'la.classify.assume-second-deponent': 'No macron marks the e of -eri: this paradigm reads the verb as a second-conjugation deponent (-ērī); the third-conjugation reading (-ī) is given beside it.',
   'la.classify.assume-third-deponent': 'No macron marks the e of -eri: this paradigm reads the verb as a third-conjugation deponent (-ī); write -ērī, or give the first person in -eor, for the second conjugation.',
   'la.classify.assume-consonant-stem': 'Without a first person in -iō the verb is not taken to be an -iō verb.',
+  'la.classify.assume-spelling': 'The lexicon has this verb as {after}: the vowel lengths written in {before} are taken to be a slip.',
+  'la.classify.assume-deponent': '{before} is not in the lexicon: a verb given with a passive infinitive is taken to be deponent; give its active infinitive for the passive of an active verb.',
   'la.classify.assume-quantity': 'The lengths of the stem vowels are not known: vowels written without a macron are left without one.',
   'la.classify.assume-passive': 'The verb is assumed to have a full passive, as a transitive verb does.',
   'la.classify.assume-compound': 'Compounds of {base} vary; {prefix}- + {base} is assumed to follow the listed compound form.',

@@ -15,6 +15,8 @@ export const latinRules = defineRules({
   'la.classify.assume-third-deponent': { stage: 'classify', kind: 'assumption' },
   'la.classify.assume-consonant-stem': { stage: 'classify', kind: 'assumption' },
   'la.classify.assume-quantity': { stage: 'classify', kind: 'assumption' },
+  'la.classify.assume-spelling': { stage: 'classify', kind: 'assumption' },
+  'la.classify.assume-deponent': { stage: 'classify', kind: 'assumption' },
   'la.classify.assume-passive': { stage: 'classify', kind: 'assumption' },
   'la.classify.assume-compound': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', base: 'text' } },
   'la.classify.default-parts': { stage: 'classify', kind: 'assumption', params: { conjugation: 'text' } },

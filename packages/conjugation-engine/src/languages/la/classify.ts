@@ -11,7 +11,7 @@ import { resolveCompound } from './compounds.js';
 import type { CompoundMatch } from './compounds.js';
 import { transitiveEoPrefixes } from './irregulars.js';
 import { hasQuantityMarks, latinKey } from './key.js';
-import { compoundGlosses, impersonalPassive, latinLexicon } from './lexicon.js';
+import { compoundGlosses, impersonalPassive, latinLexicon, rarerHomographs } from './lexicon.js';
 import type { LatinConjugation, LatinEntry, LatinLexeme, LatinStemClass, LexicalForm, PresentStem, StemSource } from './lexicon.js';
 import { latinRules } from './rules.js';
 import type { LatinClassHint, LatinStemHints } from './spec.js';
@@ -145,15 +145,22 @@ interface Candidate { readonly entry: LatinEntry; readonly match: CompoundMatch 
 
 /** Every lexicon paradigm `key` names (GD §3.2 step 2), narrowed by the macrons typed and by the hints. */
 function lexiconParadigms(typed: string, key: string, hints: LatinStemHints, classHint: LatinClassHint | undefined): Fork<LatinLexeme> {
-  const direct = (latinLexicon[key] ?? []).map((entry): Candidate => ({ entry, match: null }));
+  // An entry found under another key only by an alternative spelling (edō under ēsse) answers only to that spelling.
+  const keyed = (latinLexicon[key] ?? []).filter((entry, _, all) => latinKey(entry.infinitive) === key
+    || (entry.spellings ?? []).some(spelling => spelled(spelling) === spelled(typed)) || all.every(other => latinKey(other.infinitive) !== key));
+  const direct = keyed.map((entry): Candidate => ({ entry, match: null }));
   let candidates = direct.length ? direct : resolveCompound(key).map((match): Candidate => ({ entry: compoundEntry(match), match }));
+  candidates.sort((a, b) => Number(rarerHomographs.has(a.entry.present ?? '')) - Number(rarerHomographs.has(b.entry.present ?? '')));
   // Typed macrons choose: the spelling that equals the typed one, else one it fits (pārere fits pārēre only).
   const byMacrons = <T>(list: readonly T[], typedText: string, spellings: (item: T) => readonly string[]): readonly T[] => {
     if (!hasQuantityMarks(typedText)) return list;
     const equal = list.filter(item => spellings(item).some(spelling => spelled(spelling) === spelled(typedText)));
     return equal.length ? equal : list.filter(item => spellings(item).some(spelling => compatible(typedText, spelling)));
   };
-  candidates = [...byMacrons(candidates, typed, ({ entry }) => [entry.infinitive, ...entry.spellings ?? []])];
+  const fitting = byMacrons(candidates, typed, ({ entry }) => [entry.infinitive, ...entry.spellings ?? []]);
+  // Lengths that fit no spelling of a verb the lexicon knows are a slip: the lexicon verb, with an assumption that says so.
+  const misspelled = fitting.length === 0 && candidates.length > 0;
+  candidates = misspelled ? candidates : [...fitting];
   const present = hints.present;
   if (present !== undefined) {
     const keyed = candidates.filter(({ entry }) => entry.present !== null && latinKey(entry.present) === latinKey(present));
@@ -167,22 +174,36 @@ function lexiconParadigms(typed: string, key: string, hints: LatinStemHints, cla
       ...(several ? { ...(entry.present ? { pattern: entry.present } : {}), ...(entry.gloss ? { condition: entry.gloss } : {}) } : {}),
       ...(entry.usage ? { usage: entry.usage } : {}),
     };
-    return { value: lexeme, steps: lexiconSteps(typed, lexeme, match), tags };
+    const steps = lexiconSteps(typed, lexeme, match);
+    if (misspelled) steps.splice(1, 0, step(latinRules['la.classify.assume-spelling'], typed, lexeme.lemma));
+    return { value: lexeme, steps, tags };
   });
 }
 
 /** The spelling a typed word is compared in: NFC, lower case, j written i (GD §3.2 step 1). */
 const spelled = (text: string): string => text.normalize('NFC').toLowerCase().replace(/j/gu, 'i');
 
+/** A vowel typed with a breve (ĕ): the user says it is short. */
+const breved = (char: string): boolean => /\u0306/u.test(char.normalize('NFD'));
+
+/** `text` without breves: the pack writes long vowels only (GD §6.6), so a typed breve never reaches the output. */
+export const withoutBreves = (text: string): string => text.normalize('NFD').replace(/\u0306/gu, '').normalize('NFC');
+
 /**
- * Whether a typed spelling fits a lexicon spelling: the same letters, and every vowel typed with a macron long in the
- * lexicon too (a vowel typed without one is not a claim; pārere fits pārēre, not parere).
+ * Whether a typed spelling fits a lexicon spelling: the same letters, every vowel typed with a macron long in the
+ * lexicon too, and every vowel typed with a breve short there (a vowel typed without a mark is not a claim; pārere
+ * fits pārēre, not parere; capĕre fits capere).
  */
 export function compatible(typed: string, spelling: string): boolean {
   const a = [...spelled(typed)];
   const b = [...spelled(spelling)];
   if (a.length !== b.length) return false;
-  return a.every((char, index) => char === b[index] || latinKey(char) === latinKey(b[index]!) && latinKey(char) === char);
+  return a.every((char, index) => {
+    const other = b[index]!;
+    if (char === other) return true;
+    if (latinKey(char) !== latinKey(other)) return false;
+    return breved(char) ? latinKey(other) === other : latinKey(char) === char;
+  });
 }
 
 /** The lexicon's perfects by key (amāvī → amāre), to tell a perfect typed as an infinitive. */
@@ -341,7 +362,8 @@ function ruleParadigm(typed: string, reading: Reading, hints: LatinStemHints, cl
   const steps: DerivationStep[] = [
     step(latinRules['la.classify.conjugation'], typed, null, { ending: reading.ending, conjugation }),
   ];
-  if (deponent) steps.push(step(latinRules['la.classify.deponent'], typed, null));
+  // Not in the lexicon, a passive infinitive could also be the passive of an unknown active verb: deponent is assumed.
+  if (deponent) steps.push(step(latinRules['la.classify.assume-deponent'], typed, null));
   if (semiDeponent) steps.push(step(latinRules['la.classify.semi-deponent'], typed, null));
   if (io && classHint === undefined) steps.push(step(latinRules['la.classify.io'], null, presentHint!));
   if (assumption !== null) steps.push(step(latinRules[assumption], null, null));
@@ -389,21 +411,24 @@ export function classifyLatin(query: Readonly<Record<string, unknown>>): Fork<La
   const paradigms = lexiconParadigms(typed, key, hints, classHint);
   if (paradigms.length) return paradigms;
   rejectPassiveInfinitive(typed, key);
-  const reading = readEnding(typed, key, hints.present);
+  // A breve says "short" (the e of -ĕre: third conjugation); it is read, then dropped from the spelling built on.
+  const marked = readEnding(typed, key, hints.present);
+  const plain = withoutBreves(typed);
+  const reading = { ...marked, root: withoutBreves(marked.root), ending: withoutBreves(marked.ending) };
   if (classHint === undefined && reading.assumeThird) {
     // No macron on the e of -ere and no first person: both conjugations are possible, so both paradigms are returned.
     return [
-      ruleParadigm(typed, reading, hints, classHint, 'la.classify.assume-third'),
-      ruleParadigm(typed, { ...reading, conjugation: 'second' }, hints, classHint, 'la.classify.assume-second'),
+      ruleParadigm(plain, reading, hints, classHint, 'la.classify.assume-third'),
+      ruleParadigm(plain, { ...reading, conjugation: 'second' }, hints, classHint, 'la.classify.assume-second'),
     ];
   }
   if (classHint === undefined && reading.assumeSecondDeponent) {
     return [
-      ruleParadigm(typed, reading, hints, classHint, 'la.classify.assume-second-deponent'),
-      ruleParadigm(typed, { ...reading, conjugation: 'third', root: typed.slice(0, -1), ending: typed.slice(-1) }, hints, classHint, 'la.classify.assume-third-deponent'),
+      ruleParadigm(plain, reading, hints, classHint, 'la.classify.assume-second-deponent'),
+      ruleParadigm(plain, { ...reading, conjugation: 'third', root: plain.slice(0, -1), ending: plain.slice(-1) }, hints, classHint, 'la.classify.assume-third-deponent'),
     ];
   }
-  return [ruleParadigm(typed, reading, hints, classHint, null)];
+  return [ruleParadigm(plain, reading, hints, classHint, null)];
 }
 
 /** The lexeme of a verb a periphrasis names (esse, īre). */

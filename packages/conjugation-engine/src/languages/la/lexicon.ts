@@ -13,9 +13,23 @@ export type { LatinConjugation, LatinEntry, LatinFlag, LatinLack, LatinStemClass
 /** Every entry, in lexicon order (the order of the paradigms of a homograph). */
 export const latinEntries: readonly LatinEntry[] = [...irregularEntries, ...regularEntries];
 
+/**
+ * The rarer verb of a homograph pair, listed after the common one (data, not a rule): vēneō 'be sold' after veniō 'come',
+ * occidō 'fall' after occīdō 'kill'. Keyed by the first principal part.
+ */
+export const rarerHomographs: ReadonlySet<string> = new Set(['vēneō', 'occidō']);
+
+/** The entries of each key, the rarer homographs last; an alternative spelling with another key (ēsse) is indexed too. */
 function byKey(entries: readonly LatinEntry[]): Readonly<Record<string, readonly LatinEntry[]>> {
   const map: Record<string, LatinEntry[]> = {};
   for (const entry of entries) (map[latinKey(entry.infinitive)] ??= []).push(entry);
+  for (const entry of entries) {
+    for (const spelling of entry.spellings ?? []) {
+      const key = latinKey(spelling);
+      if (key !== latinKey(entry.infinitive)) (map[key] ??= []).push(entry);
+    }
+  }
+  for (const list of Object.values(map)) list.sort((a, b) => Number(rarerHomographs.has(a.present ?? '')) - Number(rarerHomographs.has(b.present ?? '')));
   return map;
 }
 

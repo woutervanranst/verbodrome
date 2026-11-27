@@ -25,11 +25,14 @@ unverified); `lexiconVerification` in `sources.ts` keys one record per entry.
 
 - **Classification** (`la.classify.*`), each decision a step:
   1. the input is normalised (NFC; j → i for look-up; macrons kept in the output);
-  2. principal parts, a first person, or the infinitive alone; deponents are recognised by their passive infinitive
-     (`-ārī, -ērī, -ī, -īrī`) or first person in -or; a passive infinitive of an active verb is rejected, not read as a
-     deponent;
+  2. principal parts, a first person, or the infinitive alone; a passive infinitive of a verb the lexicon has as active
+     is rejected, not read as a deponent; an unknown verb given with a passive infinitive (`-ārī, -ērī, -ī, -īrī`) or a
+     first person in -or is assumed to be deponent (`la.classify.assume-deponent`);
   3. the lexicon (461 look-up entries, 69 irregular, defective and impersonal verbs), looked up with macrons first, then
-     by the macron-insensitive key;
+     by the macron-insensitive key. A typed breve means "short" (*capĕre* is *capere*) and never reaches the output.
+     Lengths that fit no spelling of a verb the lexicon knows (*regēre*, *āmāre*) are taken as a slip: the lexicon verb,
+     with the assumption `la.classify.assume-spelling` naming its spelling. Of two homographs the common verb comes first
+     (*veniō* before *vēneō*, *occīdō* before *occidō*: the list `rarerHomographs`);
   4. compound families (33 with a form or prefix list of their own): the weakened compound form (`-cipiō, -cēpī,
      -ceptum`), prefix assimilation, the compounds of sum, ferō, eō, dō and stō; an unlisted prefix of a family that
      varies is an assumption;
@@ -131,6 +134,8 @@ reads. The perfect subjunctive has a long ī in *-erīs, -erīmus, -erītis* (Be
 | `la.classify.assume-third-deponent` | classify | assumption | No macron marks the e of -eri: this paradigm reads the verb as a third-conjugation deponent (-ī); write -ērī, or give the first person in -eor, for the second conjugation. | [A&G §190](https://dcc.dickinson.edu/grammar/latin/deponent-verbs) |
 | `la.classify.assume-consonant-stem` | classify | assumption | Without a first person in -iō the verb is not taken to be an -iō verb. | [A&G §188](https://dcc.dickinson.edu/grammar/latin/3rd-conjugation-io-verbs) |
 | `la.classify.assume-quantity` | classify | assumption | The lengths of the stem vowels are not known: vowels written without a macron are left without one. | [A&G §10](https://dcc.dickinson.edu/grammar/latin/quantity-syllables) |
+| `la.classify.assume-spelling` | classify | assumption | The lexicon has this verb as {after}: the vowel lengths written in {before} are taken to be a slip. | [A&G §10](https://dcc.dickinson.edu/grammar/latin/quantity-syllables); [A&G §172](https://dcc.dickinson.edu/grammar/latin/four-conjugations) |
+| `la.classify.assume-deponent` | classify | assumption | {before} is not in the lexicon: a verb given with a passive infinitive is taken to be deponent; give its active infinitive for the passive of an active verb. | [A&G §190](https://dcc.dickinson.edu/grammar/latin/deponent-verbs); [A&G §156.b](https://dcc.dickinson.edu/grammar/latin/verb-conjugations) |
 | `la.classify.assume-passive` | classify | assumption | The verb is assumed to have a full passive, as a transitive verb does. | [A&G §154.a](https://dcc.dickinson.edu/grammar/latin/verb-conjugations); [A&G §208.d](https://dcc.dickinson.edu/grammar/latin/impersonal-verbs) |
 | `la.classify.assume-compound` | classify | assumption | Compounds of {base} vary; {prefix}- + {base} is assumed to follow the listed compound form. | [Bennett §118 (4.a, Note 1)](https://www.gutenberg.org/files/15665/15665-h/15665-h.htm#sect118) |
 | `la.classify.default-parts` | classify | assumption | Not in the lexicon: the regular {conjugation, select, first {first-conjugation} second {second-conjugation} fourth {fourth-conjugation} other {}} perfect and supine are assumed. | [A&G §179.a.2, b.2, d](https://dcc.dickinson.edu/grammar/latin/forms-conjugation) |
