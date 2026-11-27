@@ -119,6 +119,14 @@ function classOf(lemma: string, options: FrenchConjugationOptions): ClassChoice 
   throw new ConjugationError('AMBIGUOUS_CLASSIFICATION', `No productive French model for ${lemma}; provide a compatible model or complete principal parts.`);
 }
 
+/** Whether the verb has compound tenses at all: a past participle in some paradigm, and no `compounds: 'none'`. */
+function hasCompounds(choice: ClassChoice, options: FrenchConjugationOptions): boolean {
+  if (choice.kind === 'productive') return true;
+  if (choice.kind === 'parts') return Boolean(options.stems?.pastParticiple);
+  const { family } = choice;
+  return family.flags.compounds !== 'none' && family.paradigms.some(paradigm => paradigm.parts.PP !== undefined);
+}
+
 /** One paradigm of the chosen class, with the tags that mark it when there are several. */
 interface Paradigm { readonly paradigm: FrenchLexeme['paradigm']; readonly tags: VariantTags }
 
@@ -170,11 +178,14 @@ export function classifyFrench(query: Readonly<Record<string, unknown>>): Fork<F
   if (auxiliary && (reflexive || source === 'lexicon' || etreVerbs.has(lemma) || knownAvoirVerbs.has(lemma)) && !possible.includes(auxiliary)) {
     throw invalidHint(`${lemma} does not accept auxiliary ${auxiliary} in this model.`);
   }
+  // The auxiliary is a lexical fact only for a verb a list names (each checked in the Académie's table); for any other
+  // verb it is an assumption. A verb without compound tenses (gésir, seoir, the infinitive-only verbs) records neither.
   const auxiliarySteps: DerivationStep[] = [];
   if (reflexive) auxiliarySteps.push(step(frenchRules['fr.classify.aux-pronominal'], lemma, null));
   else if (dualAuxiliary.has(lemma)) auxiliarySteps.push(step(frenchRules['fr.classify.aux-dual'], lemma, null));
   else if (etreVerbs.has(lemma)) auxiliarySteps.push(step(frenchRules['fr.classify.aux-etre'], lemma, null));
-  else if (source === 'lexicon' || knownAvoirVerbs.has(lemma)) auxiliarySteps.push(step(frenchRules['fr.classify.aux-avoir'], lemma, null));
+  else if (!hasCompounds(choice, options)) { /* no compound tense: no auxiliary to state */ }
+  else if (knownAvoirVerbs.has(lemma)) auxiliarySteps.push(step(frenchRules['fr.classify.aux-avoir'], lemma, null));
   else if (!auxiliary) auxiliarySteps.push(step(frenchRules['fr.classify.assume-avoir'], null, null));
   if (auxiliary) auxiliarySteps.push(step(frenchRules['fr.classify.aux-hint'], lemma, null, { auxiliary }));
 

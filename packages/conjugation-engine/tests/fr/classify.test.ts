@@ -74,3 +74,27 @@ describe('French classification', () => {
     expect(shadow.conjugate({ language: 'fr', infinitive: 's\'asseoir', mood: 'infinitive' }).verbId).toBe('s\'asseoir');
   });
 });
+
+describe('French auxiliaries (fix wave C2)', () => {
+  const perfect = (infinitive: string, query: Readonly<Record<string, unknown>> = {}) => shadow.conjugate({
+    language: 'fr', infinitive, mood: 'indicative', tense: 'perfect', person: 1, number: 'singular', gender: 'masculine', ...query,
+  }).forms.map(form => form.text);
+  const auxiliaryRules = (infinitive: string) => classifyFrench({ language: 'fr', infinitive })[0]!.steps
+    .map(step => step.rule).filter(rule => rule.includes('aux') || rule.includes('avoir'));
+
+  it('takes être or both auxiliaries where the Académie table says so', () => {
+    expect(perfect('redevenir')).toEqual(['je suis redevenu']);
+    expect(perfect('apparaître')).toEqual(['j\'ai apparu', 'je suis apparu']);
+    expect(perfect('éclore', { person: 3 })).toEqual(['il a éclos', 'il est éclos']);
+    expect(perfect('paraître')).toEqual(['j\'ai paru', 'je suis paru']);
+  });
+
+  it('states avoir as a lexical fact only for a listed verb, and assumes it otherwise', () => {
+    expect(auxiliaryRules('conduire')).toEqual(['fr.classify.aux-avoir']);
+    expect(auxiliaryRules('flaindre')).toEqual(['fr.classify.assume-avoir']);
+    expect(classifyFrench({ language: 'fr', infinitive: 'flaindre' })[0]!.steps[0]!.kind).toBe('assumption');
+    expect(auxiliaryRules('férir')).toEqual(['fr.classify.assume-avoir']);
+    // A verb without compound tenses states no auxiliary at all.
+    expect(auxiliaryRules('gésir')).toEqual([]);
+  });
+});
