@@ -97,7 +97,6 @@ const initialDiphthong: Rule = {
   info: rules['es.orth.initial-diphthong'],
   apply: (j, { lexeme }) => {
     if (lexeme.alternation === null) return null;
-    if (j.stem.startsWith('desue')) return one({ stem: `deshue${j.stem.slice(5)}`, ending: j.ending });
     if (j.stem.startsWith('ue')) return one({ stem: `h${j.stem}`, ending: j.ending });
     if (j.stem.startsWith('ie')) return one({ stem: `y${j.stem.slice(1)}`, ending: j.ending });
     return null;

@@ -39,6 +39,7 @@ export const spanishRules = defineRules({
   'es.stem.future-lexical': { stage: 'stem', kind: 'lexical', params: { stem: 'text' } },
   'es.stem.preterite-3pl': { stage: 'stem', params: { base: 'text' } },
   'es.stem.lexical': { stage: 'stem', kind: 'lexical', params: { stem: 'text' } },
+  'es.stem.hue': { stage: 'stem', kind: 'lexical' },
   'es.cell.lexical': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
   'es.cell.imperative-short': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },
   'es.cell.participle': { stage: 'stem', kind: 'lexical', params: { form: 'text' } },

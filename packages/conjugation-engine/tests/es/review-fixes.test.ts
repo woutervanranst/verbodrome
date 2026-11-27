@@ -207,8 +207,8 @@ describe('review E3-E12: explanations', () => {
     expect(text).toContain('like anunciar or like enviar');
   });
 
-  it('E5: names des- for deshueso', () => {
-    expect(explained(formOf('desosar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }))).toContain('after des-');
+  it('E5 (superseded by the whole-pack review C1): deshueso keeps the h of hueso, a lexical fact', () => {
+    expect(explained(formOf('desosar', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' }))).toContain('h of its base word');
   });
 
   it('E6, E7: the vosotros command and a verb without a stem', () => {

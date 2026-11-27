@@ -59,6 +59,10 @@ function alternated(lexeme: SpanishLexeme, cell: Cell, stem: string): Fork<strin
   const { alternation } = lexeme;
   if (alternation === null) return one(stem);
   const options = variantsOf<Alternation | null>(alternation);
+  if (isRootStressed(lexeme, cell) && lexeme.entry.hueStem !== undefined) {
+    const kept = lexeme.prefix + lexeme.entry.hueStem;
+    return one(kept, [step(rules['es.stem.hue'], stem, kept)]);
+  }
   if (isRootStressed(lexeme, cell)) {
     const outcomes = options.map(({ value, tags }) => {
       // A variant without the alternation (errar: erro) keeps the stem.

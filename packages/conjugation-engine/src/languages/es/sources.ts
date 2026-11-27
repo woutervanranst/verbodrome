@@ -104,6 +104,7 @@ export const spanishCitations = {
   'es.stem.future-lexical': [ngle('§4.15'), dle('the verb\'s conjugation table')],
   'es.stem.preterite-3pl': ngle('§4.5'),
   'es.stem.lexical': dle('the verb\'s conjugation table'),
+  'es.stem.hue': [dle('desosar, desovar'), { work: 'orto', locator: unread('the letters h and y') }],
   'es.cell.lexical': [ngle('§4.13'), dle('the verb\'s conjugation table')],
   'es.cell.imperative-short': [ngle('§4.15'), dle('the verb\'s conjugation table')],
   'es.cell.participle': ngle('§4.12'),

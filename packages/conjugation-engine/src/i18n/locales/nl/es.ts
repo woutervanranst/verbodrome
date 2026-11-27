@@ -67,7 +67,7 @@ export const es = {
   'es.orth.u-diaeresis-y': 'Voor een y heeft de u geen trema nodig: {before} wordt {after}.',
   'es.orth.i-y': 'Een onbeklemtoonde i tussen twee klinkers schrijf je als y: {before} wordt {after}.',
   'es.orth.i-absorbed': 'Na {letter} verdwijnt de onbeklemtoonde i van de uitgang: {before} wordt {after}.',
-  'es.orth.initial-diphthong': 'ue aan het begin van een woord (of na des-) schrijf je als hue, en ie aan het begin als ye: {before} wordt {after}.',
+  'es.orth.initial-diphthong': 'Een woord kan niet met ue of ie beginnen: ue aan het begin schrijf je als hue en ie als ye, dus {before} wordt {after}.',
   'es.orth.g-diphthong': 'Na g schrijf je de tweeklank ue als üe, zodat je de u blijft uitspreken: {before} wordt {after}.',
   'es.orth.accent-hiatus': 'De beklemtoonde i of u staat naast a, e of o in een eigen lettergreep (hiaat), dus die krijgt een accent: {before} wordt {after}.',
   'es.orth.accent-general': '{stress, select, final {De klemtoon ligt op de laatste lettergreep en het woord eindigt op een klinker, n of s} penultimate {De klemtoon ligt op de voorlaatste lettergreep en het woord eindigt niet op een klinker, n of s} other {De klemtoon ligt op de derde lettergreep van achteren}}, dus het woord krijgt een accent: {before} wordt {after}.',
@@ -97,4 +97,5 @@ export const es = {
   'es.avail.no-imperative': 'haber als hulpwerkwoord heeft geen imperativo.',
   'es.classify.both-stress': '{before} mag je beklemtonen zoals {diphthong} of zoals {hiatus}; allebei is goed.',
   'es.orth.both-stress': 'Dit werkwoord mag je op twee manieren beklemtonen; {reading, select, hiatus {in deze vorm krijgt de i of u zelf de klemtoon} other {in deze vorm vormt de i of u één lettergreep met de klinker erna}}: {after}.',
+  'es.stem.hue': '{before} houdt de h van het grondwoord (hueso, huevo) als de stam de klemtoon heeft: {after}-.',
 } as const satisfies Record<SpanishRuleId, string>;

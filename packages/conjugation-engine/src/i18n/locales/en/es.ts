@@ -66,7 +66,7 @@ export const es = {
   'es.orth.u-diaeresis-y': 'Before y the u needs no diaeresis: {before} becomes {after}.',
   'es.orth.i-y': 'An unstressed i between vowels is written y: {before} becomes {after}.',
   'es.orth.i-absorbed': 'After {letter} the unstressed i of the ending disappears: {before} becomes {after}.',
-  'es.orth.initial-diphthong': 'ue at the start of a word (or after des-) is written hue, and ie at the start is written ye: {before} becomes {after}.',
+  'es.orth.initial-diphthong': 'A word cannot begin with ue or ie: ue at the start is written hue, and ie is written ye, so {before} becomes {after}.',
   'es.orth.g-diphthong': 'After g the diphthong ue is written üe so that the u is pronounced: {before} becomes {after}.',
   'es.orth.accent-hiatus': 'The stressed i or u stands next to a, e or o in a syllable of its own, so it takes an accent: {before} becomes {after}.',
   'es.orth.accent-general': '{stress, select, final {The stress falls on the last syllable and the word ends in a vowel, n or s} penultimate {The stress falls on the second-to-last syllable and the word does not end in a vowel, n or s} other {The stress falls on the third syllable from the end}}, so it takes an accent: {before} becomes {after}.',
@@ -96,4 +96,5 @@ export const es = {
   'es.avail.no-imperative': 'haber as an auxiliary has no imperative.',
   'es.classify.both-stress': '{before} can be stressed like {diphthong} or like {hiatus}; both are correct.',
   'es.orth.both-stress': 'This verb has two accepted stresses; {reading, select, hiatus {in this form the i or u is stressed on its own} other {in this form the i or u shares a syllable with the next vowel}}: {after}.',
+  'es.stem.hue': '{before} keeps the h of its base word (hueso, huevo) where the stem is stressed: {after}-.',
 } as const satisfies Record<SpanishRuleId, string>;
