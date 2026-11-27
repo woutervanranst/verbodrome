@@ -1,8 +1,9 @@
 import type { Citation, Work } from '../../core/sources.js';
-import { listedFamilyMembers, noInherit } from './families.js';
+import { derivedDifferently, listedFamilyMembers, noInherit } from './families.js';
 import { italianLexicon } from './lexicon.js';
-import { dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
+import { avereVerbs, dualVerbs, essereVerbs, impersonalVerbs, iscBothVerbs, iscVerbs, nonIscVerbs, palatalVerbs, stressedIVerbs } from './lists.js';
 import type { italianRules } from './rules.js';
+import { readPages } from './verification.js';
 
 /** The works the Italian pack cites (grammar design §1.1). */
 export const italianWorks = {
@@ -153,53 +154,49 @@ export const italianCitations = {
   'it.clause.negative': grammar('imperativo', 'Imperativo'),
 } as const satisfies Record<keyof typeof italianRules, Citation | readonly Citation[]>;
 
-/** The Vocabolario page of an entry when it is not simply the lemma (homograph numbers, search-only entries). */
-const vocabolarioPages: Readonly<Record<string, string>> = {
-  essere: 'essere1', avere: 'avere2', andare: 'andare1', dare: 'dare2', fare: 'fare2', dovere: 'dovere2', potere: 'potere2',
-  volere: 'volere2', sapere: 'sapere2', sedere: 'sedere2', udire: 'udire2', piacere: 'piacere2', parere: 'parere2', sciare: 'sciare1',
-  apparire: 'apparire_res-9fe60ebd-000e-11de-9d89-0016357eee51', uccidere: 'uccidere_res-aff60ce9-0038-11de-9d89-0016357eee51',
-  esistere: 'esistere_res-2bada212-001b-11de-9d89-0016357eee51', agire: 'agire_res-e10c22ff-000c-11de-9d89-0016357eee51',
-  accorgere: 'accorgersi', pentire: 'pentirsi', disdire: 'disdire1', ridare: 'ridare1', ripartire: 'ripartire1', ardire: 'ardire1',
-  derivare: 'derivare1', avvenire: 'avvenire2', divenire: 'divenire2', dispiacere: 'dispiacere2', volare: 'volare2', avanzare: 'avanzare1',
-  sbocciare: 'sbocciare1',
+/**
+ * Facts about a verb that its Vocabolario header does not state, with where they come from: the grammar design (from
+ * memory, unverified), en.wiktionary (secondary), or the pack's reading of the entry's body.
+ */
+const otherSources: Readonly<Record<string, readonly { readonly fact: string; readonly source: 'grammar design' | 'en.wiktionary' | 'entry body' }[]>> = {
+  parere: [{ fact: 'no imperative', source: 'grammar design' }, { fact: 'no present participle ("Non è usato il part. pres.")', source: 'entry body' }],
+  sapere: [{ fact: 'no present participle ("Il part. pres. manca")', source: 'entry body' }],
+  solere: [{ fact: 'only the simple indicative (not the future), the subjunctive and the present infinitive ("negli altri tempi è sostituito dalla locuz. essere solito")', source: 'entry body' }],
+  sedere: [{ fact: 'no auxiliary stated: avere is assumed', source: 'grammar design' }],
+  provenire: [{ fact: 'auxiliary essere (the header says only "coniug. come venire")', source: 'grammar design' }],
+  bastare: [{ fact: 'auxiliary essere (not stated in the header)', source: 'grammar design' }],
+  soffrire: [{ fact: 'past participle sofferto (not in the header; used in the entry: "avrei sofferto")', source: 'entry body' }],
+  spingere: [{ fact: 'past participle spinto (not in the header; used in the entry)', source: 'entry body' }],
+  esistere: [{ fact: 'past participle esistito (not in the header; used in the entry: "non sono mai esistite")', source: 'entry body' }],
+  esigere: [{ fact: 'past participle esatto ("Part. pass. esatto, poco com.")', source: 'entry body' }],
+  espandere: [{ fact: 'past participle espanso ("Part. pass. espanso")', source: 'entry body' }],
+  fare: [{ fact: 'present participle faciente o più com. facente', source: 'entry body' }],
+  rifare: [{ fact: "imperative rifai, rifa' (the header says only \"coniug. come fare\")", source: 'en.wiktionary' }],
+  predire: [{ fact: 'imperative predici (contraddire, benedire, maledire print -dici; predire says "coniug. come dire")', source: 'en.wiktionary' }],
+  ridare: [{ fact: "imperative ridai, rida' (\"coniug. come dare\")", source: 'grammar design' }],
+  sottostare: [{ fact: "imperative sottostai, sottosta' (\"coniug. come stare\")", source: 'grammar design' }],
 };
-
-/** What the Vocabolario header does not state for an entry that is otherwise checked, and where it comes from. */
-const verificationNotes: Readonly<Record<string, string>> = {
-  parere: 'No imperative: from the grammar design and en.wiktionary (secondary); the header does not mention the imperative.',
-  solere: 'No future, conditional or imperative: from the grammar design and en.wiktionary (secondary). No auxiliary stated.',
-  sedere: 'No auxiliary stated in the entry: avere is assumed.',
-  piovere: 'The header prints only the 3rd person piovve; the verb is modelled as impersonal (3rd persons only).',
-  provenire: 'The header gives "coniug. come venire" but no auxiliary: essere is taken from the grammar design.',
-  bastare: 'The header states no auxiliary: essere is taken from the grammar design.',
-  fare: 'The Vocabolario prints "fo o faccio" without a label; faccio is ranked first and fo marked literary, as vo beside vado.',
-  dire: "The imperative di' is not passed on to derived verbs: contraddire, benedire and maledire print the imperative in -dici.",
-  sparire: 'The Vocabolario adds "per il resto coniug. come apparire"; only the regular -isc- forms (sparii, sparito) are generated.',
-  cuocere: 'The intransitive use with essere (sense 2) is not modelled: avere only.',
-};
-
-/** Lemmas that could not be checked in the Vocabolario. */
-const notInVocabolario: ReadonlySet<string> = new Set(['riavviare']);
 
 export interface LexiconVerification {
   readonly url: Url;
-  /** vocabolario: the Vocabolario header was read; secondary: only en.wiktionary; unverified: neither. */
-  readonly status: 'vocabolario' | 'secondary' | 'unverified';
-  readonly note?: string;
+  /** read: the Vocabolario page was read on `retrieved`; unread: it was not (the lemma has no page, or it was not fetched). */
+  readonly status: 'read' | 'unread';
+  readonly retrieved?: string;
+  readonly otherSources?: readonly { readonly fact: string; readonly source: 'grammar design' | 'en.wiktionary' | 'entry body' }[];
 }
 
-/**
- * How each lexicon entry and each side-list or family lemma was checked: its Vocabolario page (read on 2026-11-24 for this
- * pack), with a note for what the page does not state.
- */
+/** Every lemma the lexicon, the side lists and the family lists name, with how it was checked. */
 export const lexiconVerification: Readonly<Record<string, LexiconVerification>> = Object.fromEntries([
-  ...Object.keys(italianLexicon), ...nonIscVerbs, ...iscVerbs, ...Object.keys(iscBothVerbs), ...essereVerbs, ...Object.keys(dualVerbs),
-  ...stressedIVerbs, ...palatalVerbs, ...impersonalVerbs, ...listedFamilyMembers, ...noInherit.keys(),
-].map(lemma => [lemma, {
-  url: vocabolario(vocabolarioPages[lemma] ?? lemma),
-  status: notInVocabolario.has(lemma) ? 'unverified' : 'vocabolario',
-  ...(Object.hasOwn(verificationNotes, lemma) ? { note: verificationNotes[lemma]! } : {}),
-} satisfies LexiconVerification]));
+  ...Object.keys(italianLexicon), ...nonIscVerbs, ...iscVerbs, ...Object.keys(iscBothVerbs), ...essereVerbs, ...avereVerbs, ...Object.keys(dualVerbs),
+  ...stressedIVerbs, ...palatalVerbs, ...impersonalVerbs, ...listedFamilyMembers, ...noInherit.keys(), ...derivedDifferently.keys(),
+].map(lemma => {
+  const read = Object.hasOwn(readPages, lemma) ? readPages[lemma]! : null;
+  const facts = Object.hasOwn(otherSources, lemma) ? { otherSources: otherSources[lemma]! } : {};
+  const record: LexiconVerification = read === null
+    ? { url: vocabolario(lemma), status: 'unread', ...facts }
+    : { url: vocabolario(read[0]), status: 'read', retrieved: read[1], ...facts };
+  return [lemma, record];
+}));
 
-/** The Vocabolario page of a lemma, with the entry number or search id where the plain URL is not the verb. */
-export const vocabolarioOf = (lemma: string): Url => vocabolario(vocabolarioPages[lemma] ?? lemma);
+/** The Vocabolario page of a lemma: the one read for it, otherwise the plain lemma. */
+export const vocabolarioOf = (lemma: string): Url => vocabolario(Object.hasOwn(readPages, lemma) ? readPages[lemma]![0] : lemma);

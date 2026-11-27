@@ -52,7 +52,7 @@ interface Known {
 }
 
 /** Steps 3–6 of grammar design §3.2: lexicon, family, no-inherit list, ending. */
-function lookUp(base: string, steps: DerivationStep[]): Known {
+function lookUp(base: string, steps: DerivationStep[], hints: ItalianStemHints): Known {
   if (Object.hasOwn(italianLexicon, base)) {
     const entry = italianLexicon[base]!;
     const conjugation = entry.class === 'contracted' ? 'ere' : entry.class === 'irregular' ? endingOf(base) : entry.class;
@@ -79,7 +79,9 @@ function lookUp(base: string, steps: DerivationStep[]): Known {
   if (source !== undefined) steps.push(step(R['it.classify.derived-differently'], base, null, { base: source }));
   const conjugation = endingOf(base);
   steps.push(step(R['it.classify.conjugation'], base, conjugation, { ending: conjugation }));
-  steps.push(step(R['it.classify.assume-regular'], base, null));
+  // Hints that give every strong part leave nothing to assume.
+  const hinted = hints.past !== undefined && hints.participle !== undefined && (conjugation === 'are' || hints.future !== undefined);
+  if (!hinted) steps.push(step(R['it.classify.assume-regular'], base, null));
   return { entry: null, family: null, listed: false, conjugation, root: base.slice(0, -3), classLabel: conjugation };
 }
 
@@ -231,7 +233,7 @@ export function classifyItalian(query: Readonly<Record<string, unknown>>): Fork<
   const reflexive = reflexiveLemma || query.reflexive === true;
   const hints = (query.stems ?? {}) as ItalianStemHints;
 
-  const known = lookUp(base, steps);
+  const known = lookUp(base, steps, hints);
   if (known.entry?.class === 'contracted') steps.push(step(R['it.classify.contracted'], base, known.root, { stem: known.root }));
   const isc = iscOf(base, known, query.classHint, steps);
   const stressedI = stressedIOf(base, known, hints, steps);

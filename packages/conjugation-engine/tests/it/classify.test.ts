@@ -90,6 +90,7 @@ describe('Italian classification', () => {
     expect(analysis('correre', { auxiliary: 'avere' }).auxiliaries).toEqual(['avere']);
     expect(analysis('blorpare', { auxiliary: 'essere' })).toMatchObject({ auxiliaries: ['essere'], assumptions: ['it.classify.assume-regular'] });
     expect(analysis('trebiare', { stems: { stressedI: true } }).assumptions).not.toContain('it.classify.assume-unstressed-i');
+    expect(analysis('blendere', { stems: { past: 'blesi', participle: 'bleso', future: 'blendr' } }).assumptions).toEqual(['it.classify.assume-avere']);
     expect(() => analysis('venire', { auxiliary: 'avere' })).toThrow(expect.objectContaining({ code: 'INVALID_HINT' }));
     expect(() => analysis('parlare', { classHint: 'isc' })).toThrow(expect.objectContaining({ code: 'INVALID_HINT' }));
     expect(() => analysis('finire', { classHint: 'plain' })).toThrow(expect.objectContaining({ code: 'INVALID_HINT' }));
@@ -105,8 +106,9 @@ describe('Italian classification', () => {
   });
 
   it('verifies every lexicon lemma', () => {
-    for (const lemma of Object.keys(italianLexicon)) expect(lexiconVerification[lemma], lemma).toBeDefined();
-    expect(Object.values(lexiconVerification).filter(record => record.status !== 'vocabolario').map(record => record.url))
-      .toEqual(['https://www.treccani.it/vocabolario/riavviare/']);
+    for (const lemma of Object.keys(italianLexicon)) expect(lexiconVerification[lemma]?.status, lemma).toBe('read');
+    // Verification is a record of pages read, never a default: these lemmas were not read.
+    expect(Object.entries(lexiconVerification).filter(([, record]) => record.status !== 'read').map(([lemma]) => lemma).sort())
+      .toEqual(['riavviare']);
   });
 });

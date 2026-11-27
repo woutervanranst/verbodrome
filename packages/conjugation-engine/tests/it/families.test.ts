@@ -94,6 +94,22 @@ describe('Italian derived verbs and families', () => {
     expect(bareOf('ristare', 'indicative', 'present', '1sg')).toBe('ristò');
   });
 
+  it('gives soddisfare and disfare the regular present the Vocabolario prints (I6)', () => {
+    expect(bare('soddisfare', 'indicative', 'present')).toEqual([
+      'soddisfaccio/soddisfò/soddisfo', 'soddisfai/soddisfi', 'soddisfà/soddisfa', 'soddisfà/soddisfa', 'soddisfacciamo/soddisfiamo', 'soddisfate', 'soddisfanno/soddisfano']);
+    expect(bare('soddisfare', 'subjunctive', 'present')).toEqual([
+      'soddisfaccia/soddisfi', 'soddisfaccia/soddisfi', 'soddisfaccia/soddisfi', 'soddisfaccia/soddisfi', 'soddisfacciamo', 'soddisfacciate', 'soddisfacciano/soddisfino']);
+    expect(bareOf('disfare', 'subjunctive', 'present', '2pl')).toBe('disfacciate/disfiate');
+  });
+
+  it('records the prefix of a derived verb\'s irregular word (I7)', () => {
+    const rifa = conjugate({ language: 'it', infinitive: 'rifare', mood: 'indicative', tense: 'present', subject: '3sg.m' }).forms[0]!;
+    expect(rifa.ruleIds).toEqual(['it.clause.subject', 'it.cell.lexical', 'it.cell.prefix', 'it.orth.final-accent']);
+    expect(explain('it', rifa, 'en').sections.flatMap(s => s.steps.map(t => t.text))).toEqual([
+      'fa is an irregular form that has to be learnt.', 'rifa is the prefix ri- with fa, the irregular form of fare.',
+      'A word of several syllables stressed on its last vowel is written with an accent: rifa becomes rifà.', 'Subject pronoun lui; in Italian it is often left out.']);
+  });
+
   it('covers the common irregular verbs of the sweep (I9)', () => {
     expect(bare('spegnere', 'indicative', 'present')).toEqual(['spengo', 'spegni', 'spegne', 'spegne', 'spegniamo', 'spegnete', 'spengono']);
     for (const [verb, past, participle] of [['spegnere', 'spensi', 'spento'], ['assumere', 'assunsi', 'assunto'], ['dirigere', 'diressi', 'diretto'],

@@ -59,6 +59,8 @@ export interface ItalianEntry {
   readonly usage?: Readonly<Record<string, 'literary' | 'dated'>>;
   /** Cells a derived verb does not take over from this one (dire: di' is not predi'). */
   readonly familyDrops?: readonly string[];
+  /** Persons of the present (indicative, subjunctive) that also have the regular -are form (soddisfare: soddisfo). */
+  readonly regularAre?: Partial<Record<'indicative' | 'subjunctive', readonly Slot[]>>;
 }
 
 type Forms = string | WholeForm | readonly (string | WholeForm)[] | null;

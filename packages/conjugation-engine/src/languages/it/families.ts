@@ -154,11 +154,22 @@ function bySuffix(lemma: string): Family | null {
   return null;
 }
 
+/**
+ * The regular -are present forms the Vocabolario prints beside the forms of fare (soddisfare: "io soddisfàccio o
+ * soddisfò o soddisfo, tu soddisfài o soddisfi, ... noi soddisfacciamo e fam. soddisfiamo"; disfare likewise).
+ */
+const regularAre: Readonly<Record<string, ItalianEntry['regularAre']>> = {
+  soddisfare: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '3pl'] },
+  disfare: { indicative: ['1sg', '2sg', '3sg', '1pl', '3pl'], subjunctive: ['1sg', '2sg', '3sg', '1pl', '2pl', '3pl'] },
+};
+
 function byListedBase(lemma: string): Family | null {
   const base = Object.hasOwn(listedBases, lemma) ? listedBases[lemma]! : null;
   if (base === null) return null;
   const prefix = lemma.slice(0, -base.length);
-  return { prefix, base, suffix: null, doubled: false, entry: rebase(italianLexicon[base]!, '', prefix), assumed: false };
+  const entry = rebase(italianLexicon[base]!, '', prefix);
+  const extra = regularAre[lemma];
+  return { prefix, base, suffix: null, doubled: false, entry: extra === undefined ? entry : { ...entry, regularAre: extra }, assumed: false };
 }
 
 /** The ways `text` is one or two prefixes of the list; an elided prefix only before a vowel. */

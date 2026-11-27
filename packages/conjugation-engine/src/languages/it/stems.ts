@@ -227,18 +227,34 @@ function lexicalWords(lexeme: ItalianLexeme, forms: readonly WholeForm[]): Fork<
     const tags = usage === undefined ? {} : { usage };
     const lexical = step(R['it.cell.lexical'], null, text);
     if (lexeme.family === null) return [{ value: text, steps: [lexical], tags }];
-    const prefix = lexeme.family.prefix;
+    // A derived verb's word is its prefix before the base's irregular word (ri + fai), then the written accent (rifà).
+    const { prefix, base } = lexeme.family;
+    const prefixed = step(R['it.cell.prefix'], text, prefix + text, { prefix, base });
     return applyJunctureRules([finalAccent], { stem: prefix, ending: text }, { lexeme, cell: { kind: 'nonFinite', form: 'infinitive' } })
-      .map(outcome => ({ value: outcome.value.stem + outcome.value.ending, steps: [lexical, ...outcome.steps], tags }));
+      .map(outcome => ({ value: outcome.value.stem + outcome.value.ending, steps: [lexical, prefixed, ...outcome.steps], tags }));
   });
+}
+
+/**
+ * The regular -are forms some derived verbs of fare also have in the present (soddisfo, soddisfi; disfino): the
+ * Vocabolario prints them beside the forms of fare. Null for any other cell.
+ */
+function regularAreWords(lexeme: ItalianLexeme, cell: Finite): Fork<string> | null {
+  const slots = cell.mood === 'indicative' || cell.mood === 'subjunctive' ? lexeme.entry?.regularAre?.[cell.mood] : undefined;
+  if (cell.tense !== 'present' || slots === undefined || !slots.includes(slotOf(cell))) return null;
+  const asAre: ItalianLexeme = { ...lexeme, conjugation: 'are', root: lexeme.base.slice(0, -3), entry: null, family: null, isc: 'no' };
+  return derived(asAre, cell);
+}
+
+/** A cell derived by stem, ending and spelling rules. */
+function derived(lexeme: ItalianLexeme, cell: Cell): Fork<string> {
+  return chain(stemOf(lexeme, cell), stem => chain(endingOf(lexeme, cell, stem), end =>
+    chain(applyJunctureRules(italianSpelling, { stem, ending: end }, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending))));
 }
 
 /** One word of a cell: the whole word if the lexicon has it, otherwise stem, ending and spelling rules. */
 export function wordOf(lexeme: ItalianLexeme, cell: Cell): Fork<string> {
-  const whole = wholeCell(lexeme, cell);
-  if (whole !== null) return whole;
-  return chain(stemOf(lexeme, cell), stem => chain(endingOf(lexeme, cell, stem), end =>
-    chain(applyJunctureRules(italianSpelling, { stem, ending: end }, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending))));
+  return wholeCell(lexeme, cell) ?? derived(lexeme, cell);
 }
 
 /** Lei, noi and Loro (and voi of essere, avere, sapere, volere): the imperative is the present subjunctive. */
@@ -269,6 +285,8 @@ export function wholeCell(lexeme: ItalianLexeme, cell: Cell): Fork<string> | nul
   }
   const cells = entry?.cells;
   const own = cells?.[keyOf(cell)];
+  const regular = regularAreWords(lexeme, cell);
+  if (regular !== null) return [...(own === undefined ? derived(lexeme, cell) : lexicalWords(lexeme, own)), ...regular];
   if (own !== undefined) return lexicalWords(lexeme, own);
   if (cell.mood !== 'imperative') return null;
   const slot = slotOf(cell);
