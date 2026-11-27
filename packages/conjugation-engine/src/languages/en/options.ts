@@ -12,6 +12,7 @@ export const englishOptions: OptionSchema<OptionFieldsOf<EnglishSpec>> = {
     classHint: { kind: 'enum', values: ['regular', 'irregular'] },
     stress: { kind: 'enum', values: ['final', 'nonFinal'] },
     region: { kind: 'enum', values: ['GB', 'US'] },
+    sEnding: { kind: 'enum', values: ['s', 'es'] },
   },
   check(options) {
     const stems = options.stems as EnglishStemHints | undefined;

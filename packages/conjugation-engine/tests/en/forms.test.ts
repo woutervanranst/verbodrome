@@ -29,7 +29,7 @@ describe('English simple forms', () => {
     expect(steps(one('swim', 'indicative', 'past'))).toEqual(['en.cell.past-listed']);
     expect(steps(one('swim', 'participle', 'past'))).toEqual(['en.cell.participle-listed']);
     expect(one('stop', 'indicative', 'past').parts.at(-1)!.steps!.at(-1)).toMatchObject({ before: 'stoped', after: 'stopped', params: { consonant: 'p', reason: 'stressed' } });
-    expect(one('kidnap', 'participle', 'past').parts[0]!.steps!.at(-1)!.params).toEqual({ consonant: 'p', reason: 'listed' });
+    expect(one('kidnap', 'participle', 'past').parts[0]!.steps!.at(-1)!.params).toEqual({ consonant: 'p', reason: 'listed', ending: 'ed' });
     expect(one('walk', 'indicative', 'past').steps!.map(s => s.rule)).toEqual(['en.clause.subject']);
   });
 
@@ -45,7 +45,7 @@ describe('English simple forms', () => {
     expect(all('get', 'participle', 'past').map(f => f.variant.region)).toEqual([null, 'US']);
     expect(texts('learn', 'participle', 'past')).toEqual(['learned', 'learnt']);
     expect(texts('learn', 'participle', 'past', { region: 'US' })).toEqual(['learned']);
-    expect(texts('parallel', 'participle', 'past')).toEqual(['paralleled']);
+    expect(texts('parallel', 'participle', 'past')).toEqual(['paralleled', 'parallelled']); // LDOCE: also parallelled British English
     expect(texts('misspell', 'indicative', 'past')).toEqual(['he misspelt', 'he misspelled']);
     expect(texts('dive', 'indicative', 'past')).toEqual(['he dived', 'he dove']);
     expect(texts('bid', 'participle', 'past')).toEqual(['bid', 'bidden']);
@@ -85,9 +85,9 @@ describe('English simple forms', () => {
 
   it('names the regular forms in the lexicon step', () => {
     const analysis = conjugate(parseConjugationOptions({ language: 'en', infinitive: 'bet', mood: 'participle', tense: 'past' })).analysis;
-    expect(analysis.steps![0]).toMatchObject({ rule: 'en.classify.lexicon', params: { past: 'bet / betted', participle: 'bet / betted' } });
+    expect(analysis.steps![0]).toMatchObject({ rule: 'en.classify.lexicon', params: { past: 'bet / betted', participle: 'bet / betted', source: 'both' } });
     const thrive = conjugate(parseConjugationOptions({ language: 'en', infinitive: 'thrive', mood: 'participle', tense: 'past' })).analysis;
-    expect(thrive.steps![0]!.params).toEqual({ past: 'thrived / throve', participle: 'thrived / thriven' });
+    expect(thrive.steps![0]!.params).toEqual({ past: 'thrived / throve', participle: 'thrived / thriven', source: 'both' });
   });
 });
 
@@ -130,7 +130,7 @@ describe('English regular verbs outside the corpus (design §8b)', () => {
     ['kidnap', 'he kidnaps', ['he kidnapped', 'he kidnaped'], ['kidnapping', 'kidnaping']],
     ['program', 'he programs', ['he programmed', 'he programed'], ['programming', 'programing']],
     ['worship', 'he worships', ['he worshipped', 'he worshiped'], ['worshipping', 'worshiping']],
-    ['parallel', 'he parallels', ['he paralleled'], ['paralleling']],
+    ['parallel', 'he parallels', ['he paralleled', 'he parallelled'], ['paralleling', 'parallelling']],
     ['quiz', 'he quizzes', ['he quizzed'], ['quizzing']],
     ['veto', 'he vetoes', ['he vetoed'], ['vetoing']],
     ['echo', 'he echoes', ['he echoed'], ['echoing']],

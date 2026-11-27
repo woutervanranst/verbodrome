@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { parseConjugationOptions } from '../../src/index.js';
-import { packs } from '../../src/languages/index.js';
+import { conjugate, parseConjugationOptions } from '../../src/index.js';
 import { englishLexemeOf, needsStress, prefixParse, vowelGroups } from '../../src/languages/en/classify.js';
-import { finalStress, irregulars, noInherit, nonFinalStress } from '../../src/languages/en/lexicon.js';
-import { lexiconChecked, secondaryOnly, sideListsChecked } from '../../src/languages/en/sources.js';
+import {
+  consonantVariants, doublesUnstressed, finalStress, irregulars, keepsE, keepsEBritish, lNotDoubled, mostlyImperative, noDoubling,
+  noInherit, nonFinalStress, notModal, plainS, takesEs,
+} from '../../src/languages/en/lexicon.js';
+import { derivativesChecked, lexiconChecked, secondaryOnly, sideListsChecked } from '../../src/languages/en/sources.js';
 
-/** The analysis of a query as the English engine classifies it (before any form is built). */
-const analysis = (q: Record<string, unknown>) =>
-  packs.en.engine(parseConjugationOptions({ language: 'en', mood: 'participle', tense: 'past', ...q })).analysis;
+const analysis = (q: Record<string, unknown>) => conjugate(parseConjugationOptions({ language: 'en', mood: 'participle', tense: 'past', ...q })).analysis;
 const rules = (q: Record<string, unknown>) => analysis(q).steps!.map(s => s.rule);
 
 describe('English classification', () => {
@@ -30,7 +30,7 @@ describe('English classification', () => {
   });
 
   it('narrows a verb with regular and listed forms to the class the hint names', () => {
-    const learn = (classHint: string) => packs.en.engine(parseConjugationOptions({ language: 'en', infinitive: 'learn', classHint }));
+    const learn = (classHint: string) => conjugate(parseConjugationOptions({ language: 'en', infinitive: 'learn', classHint }));
     expect(learn('regular').analysis.steps!.map(s => s.rule)).toEqual(['en.classify.hint-regular']);
     expect(learn('irregular').analysis.steps![0]).toMatchObject({ rule: 'en.classify.lexicon', params: { past: 'learnt', participle: 'learnt' } });
     expect(rules({ infinitive: 'walk', classHint: 'regular' })).toEqual(['en.classify.hint-regular']);
@@ -44,9 +44,9 @@ describe('English classification', () => {
     expect(analysis({ infinitive: 'underlie' }).alternatives).toBeUndefined(); // only lay / lain
     expect(englishLexemeOf('underlie')).toMatchObject({ past: [{ form: 'underlay' }], participle: [{ form: 'underlain' }] });
     expect(englishLexemeOf('outbid')).toMatchObject({ past: [{ form: 'outbid' }], participle: [{ form: 'outbid' }] }); // not outbade
-    expect(englishLexemeOf('misspell').past).toEqual([{ form: 'misspelt', region: 'GB' }, { form: null, region: 'US' }]);
+    expect(englishLexemeOf('relearn')).toMatchObject({ classId: 'regular', past: [] }); // learnt is British: not inherited
     expect(rules({ infinitive: 'behave' })).toEqual(['en.classify.no-inherit']);
-    expect(analysis({ infinitive: 'behave' }).steps![0]!.params).toEqual({ prefix: 'be', base: 'have' });
+    expect(analysis({ infinitive: 'behave' }).steps![0]!.params).toEqual({ prefix: 'be', base: 'have', source: 'both' });
     expect(rules({ infinitive: 'relay' })).toEqual(['en.classify.no-inherit']);
     expect(rules({ infinitive: 'belay' })).toEqual(['en.classify.no-inherit']);
     expect(rules({ infinitive: 'forecast' })).toEqual(['en.classify.lexicon']); // listed, has forecasted
@@ -56,15 +56,18 @@ describe('English classification', () => {
   it('decides stress only when doubling depends on it', () => {
     expect(rules({ infinitive: 'walk' })).toEqual(['en.classify.assume-regular']);
     expect(rules({ infinitive: 'zamic' })).toEqual(['en.classify.assume-regular']);
-    expect(rules({ infinitive: 'prefer' })).toEqual(['en.classify.assume-regular', 'en.classify.stress-listed']);
-    expect(rules({ infinitive: 'enter' })).toEqual(['en.classify.assume-regular', 'en.classify.stress-listed']);
+    expect(rules({ infinitive: 'prefer' })).toEqual(['en.classify.listed-regular', 'en.classify.stress-listed']);
+    expect(rules({ infinitive: 'enter' })).toEqual(['en.classify.listed-regular', 'en.classify.stress-listed']);
     expect(rules({ infinitive: 'trimbit' })).toEqual(['en.classify.assume-regular', 'en.classify.assume-nonfinal-stress']);
     expect(rules({ infinitive: 'fuel' })).toContain('en.classify.assume-nonfinal-stress');
     expect(rules({ infinitive: 'trimbit', stress: 'final' })).toEqual(['en.classify.assume-regular', 'en.classify.stress-hint']);
     expect(rules({ infinitive: 'reblit', stress: 'nonFinal' })).toEqual(['en.classify.assume-regular', 'en.classify.stress-hint']);
     expect(rules({ infinitive: 'begin' })).toEqual(['en.classify.lexicon', 'en.classify.stress-listed']);
-    expect(rules({ infinitive: 'kidnap' })).toEqual(['en.classify.assume-regular', 'en.classify.doubles-unstressed']);
-    expect(analysis({ infinitive: 'reblit' }).assumptions).toEqual(['en.classify.assume-regular', 'en.classify.assume-final-stress']);
+    expect(rules({ infinitive: 'kidnap' })).toEqual(['en.classify.listed-regular', 'en.classify.doubles-unstressed']);
+    expect(analysis({ infinitive: 'reblit' }).assumptions).toEqual([
+      'Assuming reblit is regular (-ed): it is not in the list of irregular verbs.',
+      'Assuming the last syllable of reblit is stressed: it looks like the prefix re- plus a one-syllable root.',
+    ]);
   });
 
   it('pins the stress heuristic on the verified evidence verbs', () => {
@@ -94,11 +97,18 @@ describe('English classification', () => {
     expect(() => analysis({ infinitive: 'outswim', stems: { past: 'outswimmed', pastParticiple: 'outswimmed' } })).toThrow(expect.objectContaining({ code: 'INVALID_HINT' }));
   });
 
-  it('records where every lexicon entry and side-list verb was checked', () => {
-    expect(Object.keys(irregulars)).toHaveLength(177);
+  it('records where every lexicon entry and side-list verb was checked, verb by verb', () => {
+    expect(Object.keys(irregulars)).toHaveLength(186);
     expect(Object.keys(irregulars).filter(lemma => irregulars[lemma]!.paradigms.length > 1)).toEqual(['hang', 'lie', 'shine']);
-    expect(Object.keys(irregulars).filter(lemma => lexiconChecked[lemma] !== 'ldoce+ahd')).toEqual([]);
-    for (const lemma of [...finalStress, ...nonFinalStress, ...noInherit]) expect(sideListsChecked[lemma], lemma).toBeDefined();
-    expect(Object.keys(secondaryOnly)).toEqual(Object.keys(sideListsChecked).filter(lemma => sideListsChecked[lemma] !== 'ldoce+ahd'));
+    // The record is literal: every lexicon key has one, and it names no verb the lexicon does not have.
+    expect(Object.keys(lexiconChecked).sort()).toEqual(Object.keys(irregulars).sort());
+    const sideListed = [
+      ...finalStress, ...nonFinalStress, ...Object.keys(noInherit), ...doublesUnstressed, ...Object.keys(consonantVariants), ...noDoubling,
+      ...keepsE, ...keepsEBritish, ...plainS, ...takesEs, ...lNotDoubled, ...notModal, ...mostlyImperative,
+    ].filter(lemma => !Object.hasOwn(irregulars, lemma));
+    for (const lemma of sideListed) expect(sideListsChecked[lemma], lemma).toBeDefined();
+    const oneSource = [...Object.entries(lexiconChecked), ...Object.entries(sideListsChecked), ...Object.entries(derivativesChecked)]
+      .filter(([, check]) => check !== 'ldoce+ahd').map(([lemma]) => lemma);
+    expect(Object.keys(secondaryOnly).sort()).toEqual([...new Set(oneSource)].sort());
   });
 });

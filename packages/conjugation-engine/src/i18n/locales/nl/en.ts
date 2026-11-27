@@ -3,13 +3,25 @@
  * terms they know, the English tense names their textbooks use. Exported as `english`, like the English locale's.
  */
 import type { englishRules } from '../../../languages/en/rules.js';
+import type { englishLabels } from '../en/en.js';
+
+/** The texts of the paradigm labels of hang, lie and shine: the titles of their paradigms in an explanation. */
+const labels = {
+  'en.label.pattern.hung': 'hung: hangen, ophangen',
+  'en.label.pattern.hanged': 'hanged: iemand ophangen als straf',
+  'en.label.pattern.lay': 'lay: liggen',
+  'en.label.pattern.lied': 'lied: liegen',
+  'en.label.pattern.shone': 'shone: schijnen, stralen',
+  'en.label.pattern.shined': 'shined: poetsen',
+} as const satisfies Record<keyof typeof englishLabels, string>;
 
 export const english = {
-  'en.classify.lexicon': '{before} is een onregelmatig werkwoord: past simple {past}, voltooid deelwoord {participle}.',
-  'en.classify.suppletive': '{before} is helemaal onregelmatig: je leert elke vorm apart.',
-  'en.classify.homograph': 'Deze vormen van {before} horen bij de betekenis "{meaning}".',
-  'en.classify.prefixed': '{before} is {prefix}- + {base}, dus het heeft dezelfde onregelmatige vormen als {base}.',
-  'en.classify.no-inherit': '{before} lijkt op {prefix}- + {base}, maar is een regelmatig werkwoord.',
+  ...labels,
+  'en.classify.lexicon': '{before} staat in de lijst van onregelmatige werkwoorden: past simple {past}, voltooid deelwoord {participle}{source, select, ahd { (alleen nagekeken in het American Heritage Dictionary)} ldoce { (alleen nagekeken in het Longman-woordenboek)} other {}}.',
+  'en.classify.suppletive': '{before} is helemaal onregelmatig: elke vorm staat apart in de lijst.',
+  'en.classify.homograph': 'Deze vormen van {before} horen bij de betekenis "{paradigm, select, hung {hangen, ophangen} hanged {iemand ophangen als straf} lay {liggen} lied {liegen} shone {schijnen, stralen} shined {poetsen} other {{paradigm}}}".',
+  'en.classify.prefixed': '{before} is {prefix}- + {base}, dus het is onregelmatig zoals {base}: {prefix}- + de vormen van {base}.',
+  'en.classify.no-inherit': '{before} lijkt op {prefix}- + {base}, maar is een regelmatig werkwoord{source, select, ahd { (alleen nagekeken in het American Heritage Dictionary)} ldoce { (alleen nagekeken in het Longman-woordenboek)} other {}}.',
   'en.classify.assume-regular': 'We nemen aan dat {before} regelmatig is (-ed): het staat niet in de lijst van onregelmatige werkwoorden.',
   'en.classify.hint-regular': 'Je vroeg naar de regelmatige vormen van {before}.',
   'en.classify.hint-irregular': 'Je gaf de past simple {past} en het voltooid deelwoord {participle} van {before}.',
@@ -19,12 +31,18 @@ export const english = {
   'en.classify.assume-nonfinal-stress': 'We nemen aan dat de laatste lettergreep van {before} niet beklemtoond is: aan de spelling zie je de klemtoon niet.',
   'en.classify.keeps-e': '{before} houdt zijn e voor -ing.',
   'en.classify.doubles-unstressed': '{before} verdubbelt zijn laatste medeklinker, ook al is de laatste lettergreep niet beklemtoond.',
-  'en.classify.l-not-doubled': '{before} verdubbelt zijn laatste l nooit.',
+  'en.classify.l-not-doubled': '{before} houdt één l voor -ed en -ing; in Britse spelling mag de l ook verdubbeld worden.',
   'en.classify.plain-s': '{before} krijgt in de derde persoon enkelvoud alleen -s.',
+  'en.classify.listed-regular': '{before} is een regelmatig werkwoord (-ed); het staat in de lijst omwille van zijn spelling{source, select, ahd { (alleen nagekeken in het American Heritage Dictionary)} ldoce { (alleen nagekeken in het Longman-woordenboek)} other {}}.',
+  'en.classify.assume-es': '{letters, select, o {We nemen aan dat -s na de o van {before} als -es geschreven wordt: sommige werkwoorden op -o krijgen alleen -s (demos).} other {We nemen aan dat ch in {before} klinkt zoals in church, dus -s wordt -es: klinkt ch als k, dan krijgt het werkwoord alleen -s (stomachs).}}',
+  'en.classify.es-hint': 'Je gaf aan dat {before} in de derde persoon enkelvoud -{ending} krijgt.',
+  'en.classify.silent-consonant': 'De laatste letter van {before} spreek je niet uit, dus die wordt nooit verdubbeld.',
+  'en.classify.not-modal': '{before} wordt hier vervoegd als gewoon werkwoord ({before, select, can {voedsel inblikken} other {iets proberen te laten gebeuren door het heel sterk te willen}}), niet als modaal werkwoord.',
+  'en.classify.mostly-imperative': '{before} gebruik je vooral in de gebiedende wijs en de to-infinitive (Beware of the dog!); de andere vormen zijn zeldzaam.',
   'en.cell.past-listed': 'De past simple van {before} is {after}.',
   'en.cell.participle-listed': 'Het voltooid deelwoord van {before} is {after}.',
   'en.cell.has': 'De derde persoon enkelvoud van have in de present simple is {after}.',
-  'en.cell.be': 'be in de {tense}, {person} {number}, is {after}.',
+  'en.cell.be': '{tense} van be, {person} {number}: {after}.',
   'en.cell.irrealis-were': 'In de past subjunctive (aanvoegende wijs) is be voor elke persoon were.',
   'en.end.present-plain': 'Present simple, {person} {number}: het hele werkwoord zonder to, {after}, zonder uitgang.',
   'en.end.third-s': 'Present simple, derde persoon enkelvoud: zet -s achter {before}.',
@@ -41,9 +59,10 @@ export const english = {
   'en.orth.ie-to-y': 'ie wordt y voor -ing: {before} wordt {after}.',
   'en.orth.e-plus-ed': 'Het werkwoord eindigt al op e, dus -ed voegt alleen -d toe: {before} wordt {after}.',
   'en.orth.drop-e': 'De stomme e valt weg voor -ing: {before} wordt {after}.',
-  'en.orth.c-to-ck': 'Een c na één klinker aan het eind wordt ck voor -ed en -ing: {before} wordt {after}.',
-  'en.orth.double-consonant': 'Eén {consonant} na één klinker {reason, select, listed {aan het eind van dit werkwoord wordt altijd verdubbeld} other {aan het eind van een beklemtoonde lettergreep wordt verdubbeld}} voor -ed, -ing of -es: {before} wordt {after}.',
-  'en.orth.double-l-british': 'In Britse spelling wordt een l na één klinker aan het eind verdubbeld, ook zonder klemtoon: {before} wordt {after}.',
+  'en.orth.c-to-ck': 'Een c na een klinker aan het eind wordt ck voor -ed en -ing: {before} wordt {after}.',
+  'en.orth.double-consonant': 'Eén {consonant} na één klinker {reason, select, listed {aan het eind van dit werkwoord wordt altijd verdubbeld} other {aan het eind van een beklemtoonde lettergreep wordt verdubbeld}} voor -{ending}: {before} wordt {after}.',
+  'en.orth.double-l-british': 'In Britse spelling wordt een l na een klinker aan het eind verdubbeld, ook zonder klemtoon: {before} wordt {after}.',
+  'en.orth.spelling-variant': '{variant, select, single {De woordenboeken verkiezen hier één medeklinker: {after}.} dated {Een oudere spelling houdt één medeklinker: {after}.} keepE {In Britse spelling mag de e ook blijven: {after}.} other {Dit werkwoord schrijf je ook met alleen -s: {after}.}}',
   'en.orth.single-l-american': 'In Amerikaanse spelling blijft het één l: {after}.',
   'en.orth.single-consonant-american': 'In Amerikaanse spelling mag de medeklinker ook enkel blijven: {after}.',
   'en.periphrasis.perfect': 'Present perfect (voltooid tegenwoordige tijd): de present simple van have plus het voltooid deelwoord.',
@@ -66,4 +85,4 @@ export const english = {
   'en.periphrasis.to-infinitive': 'To-infinitive: to plus het hele werkwoord.',
   'en.clause.subject': 'Het onderwerp {pronoun} staat voor het werkwoord.',
   'en.clause.imperative-subject': 'De gebiedende wijs heeft geen onderwerp.',
-} as const satisfies Record<keyof typeof englishRules, string>;
+} as const satisfies Record<keyof typeof englishRules | keyof typeof labels, string>;

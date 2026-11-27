@@ -1,4 +1,4 @@
-import { synthesize, validateGrammar } from '../../core/staged.js';
+import { deriveWords, validateGrammar } from '../../core/staged.js';
 import type { Cell, StagedGrammar } from '../../core/staged.js';
 import type { ResolvedTarget } from '../../types.js';
 import { classifyEnglish, englishLexemeOf } from './classify.js';
@@ -36,7 +36,7 @@ export const englishGrammar: StagedGrammar<EnglishLexeme> = {
   cellOf,
   /** No English verb in scope is defective: modal verbs are rejected at classification instead (design D7). */
   availability: () => null,
-  cell: (lexeme, cell) => listedCell(lexeme, cell, regularCell => synthesize(englishGrammar, asRegular(lexeme), regularCell)),
+  cell: (lexeme, cell) => listedCell(lexeme, cell, regularCell => deriveWords(englishGrammar, asRegular(lexeme), regularCell)),
   stem: stemOf,
   ending: englishEnding,
   orthography: englishOrthography,

@@ -33,5 +33,7 @@ export interface EnglishSpec extends LanguageSpec<EnglishTenses> {
     readonly stress?: 'final' | 'nonFinal';
     /** Keeps only forms without a region or of this region, and ranks this region first. */
     readonly region?: 'GB' | 'US';
+    /** Whether a verb ending in consonant + o or in ch takes -s or -es, where spelling cannot tell (demos, vetoes). */
+    readonly sEnding?: 's' | 'es';
   };
 }

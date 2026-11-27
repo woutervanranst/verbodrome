@@ -3,11 +3,12 @@ import { defineRules } from '../../core/derivation.js';
 /** Every rule the English pack records (design §4). */
 export const englishRules = defineRules({
   // classify (design §4.1)
-  'en.classify.lexicon': { stage: 'classify', kind: 'lexical', params: { past: 'text', participle: 'text' } },
+  'en.classify.lexicon': { stage: 'classify', kind: 'lexical', params: { past: 'text', participle: 'text', source: 'text' } },
   'en.classify.suppletive': { stage: 'classify', kind: 'lexical' },
-  'en.classify.homograph': { stage: 'classify', kind: 'lexical', params: { meaning: 'text' } },
+  'en.classify.homograph': { stage: 'classify', kind: 'lexical', params: { paradigm: 'text' } },
   'en.classify.prefixed': { stage: 'classify', params: { prefix: 'text', base: 'text' } },
-  'en.classify.no-inherit': { stage: 'classify', kind: 'lexical', params: { prefix: 'text', base: 'text' } },
+  'en.classify.no-inherit': { stage: 'classify', kind: 'lexical', params: { prefix: 'text', base: 'text', source: 'text' } },
+  'en.classify.listed-regular': { stage: 'classify', kind: 'lexical', params: { source: 'text' } },
   'en.classify.assume-regular': { stage: 'classify', kind: 'assumption' },
   'en.classify.hint-regular': { stage: 'classify' },
   'en.classify.hint-irregular': { stage: 'classify', params: { past: 'text', participle: 'text' } },
@@ -19,6 +20,11 @@ export const englishRules = defineRules({
   'en.classify.doubles-unstressed': { stage: 'classify', kind: 'lexical' },
   'en.classify.l-not-doubled': { stage: 'classify', kind: 'lexical' },
   'en.classify.plain-s': { stage: 'classify', kind: 'lexical' },
+  'en.classify.assume-es': { stage: 'classify', kind: 'assumption', params: { letters: 'text' } },
+  'en.classify.es-hint': { stage: 'classify', params: { ending: 'text' } },
+  'en.classify.silent-consonant': { stage: 'classify', kind: 'lexical' },
+  'en.classify.not-modal': { stage: 'classify', kind: 'lexical' },
+  'en.classify.mostly-imperative': { stage: 'classify', kind: 'lexical' },
   // whole-word cells (design §4.2)
   'en.cell.past-listed': { stage: 'stem', kind: 'lexical' },
   'en.cell.participle-listed': { stage: 'stem', kind: 'lexical' },
@@ -43,10 +49,11 @@ export const englishRules = defineRules({
   'en.orth.e-plus-ed': { stage: 'orthography' },
   'en.orth.drop-e': { stage: 'orthography' },
   'en.orth.c-to-ck': { stage: 'orthography' },
-  'en.orth.double-consonant': { stage: 'orthography', params: { consonant: 'text', reason: 'text' } },
+  'en.orth.double-consonant': { stage: 'orthography', params: { consonant: 'text', reason: 'text', ending: 'text' } },
   'en.orth.double-l-british': { stage: 'orthography' },
   'en.orth.single-l-american': { stage: 'orthography' },
   'en.orth.single-consonant-american': { stage: 'orthography' },
+  'en.orth.spelling-variant': { stage: 'orthography', params: { variant: 'text' } },
   // periphrases (design §4.6)
   'en.periphrasis.perfect': { stage: 'periphrasis' },
   'en.periphrasis.pluperfect': { stage: 'periphrasis' },

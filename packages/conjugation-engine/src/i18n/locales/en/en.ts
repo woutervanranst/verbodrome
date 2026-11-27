@@ -4,12 +4,23 @@
  */
 import type { englishRules } from '../../../languages/en/rules.js';
 
+/** The texts of the paradigm labels of hang, lie and shine: the titles of their paradigms in an explanation. */
+export const englishLabels = {
+  'en.label.pattern.hung': 'hung: hang up, be suspended',
+  'en.label.pattern.hanged': 'hanged: kill by hanging',
+  'en.label.pattern.lay': 'lay: be flat, be situated',
+  'en.label.pattern.lied': 'lied: say something untrue',
+  'en.label.pattern.shone': 'shone: give out light',
+  'en.label.pattern.shined': 'shined: polish',
+} as const;
+
 export const english = {
-  'en.classify.lexicon': '{before} is an irregular verb: past {past}, past participle {participle}.',
+  ...englishLabels,
+  'en.classify.lexicon': '{before} is in the list of irregular verbs: past {past}, past participle {participle}{source, select, ahd { (checked in the American Heritage Dictionary only)} ldoce { (checked in the Longman Dictionary only)} other {}}.',
   'en.classify.suppletive': '{before} is completely irregular: its forms are listed one by one.',
-  'en.classify.homograph': 'This paradigm of {before} means "{meaning}".',
-  'en.classify.prefixed': '{before} is {prefix}- + {base}, so it has the irregular forms of {base}.',
-  'en.classify.no-inherit': '{before} looks like {prefix}- + {base} but is a regular verb.',
+  'en.classify.homograph': 'This paradigm of {before} means "{paradigm, select, hung {hang up, be suspended} hanged {kill by hanging} lay {be flat, be situated} lied {say something untrue} shone {give out light} shined {polish} other {{paradigm}}}".',
+  'en.classify.prefixed': '{before} is {prefix}- + {base}, so it is irregular like {base}: {prefix}- + the forms of {base}.',
+  'en.classify.no-inherit': '{before} looks like {prefix}- + {base} but is a regular verb{source, select, ahd { (checked in the American Heritage Dictionary only)} ldoce { (checked in the Longman Dictionary only)} other {}}.',
   'en.classify.assume-regular': 'Assuming {before} is regular (-ed): it is not in the list of irregular verbs.',
   'en.classify.hint-regular': 'You asked for the regular forms of {before}.',
   'en.classify.hint-irregular': 'You gave the past {past} and the past participle {participle} of {before}.',
@@ -19,12 +30,18 @@ export const english = {
   'en.classify.assume-nonfinal-stress': 'Assuming the last syllable of {before} is not stressed: spelling does not show stress.',
   'en.classify.keeps-e': '{before} keeps its final e before -ing.',
   'en.classify.doubles-unstressed': '{before} doubles its last consonant although its last syllable is not stressed.',
-  'en.classify.l-not-doubled': '{before} never doubles its final l.',
+  'en.classify.l-not-doubled': '{before} keeps one l before -ed and -ing; British spelling may also double it.',
   'en.classify.plain-s': '{before} takes only -s in the 3rd person singular.',
+  'en.classify.listed-regular': '{before} is a regular verb (-ed); the lexicon lists it for its spelling{source, select, ahd { (checked in the American Heritage Dictionary only)} ldoce { (checked in the Longman Dictionary only)} other {}}.',
+  'en.classify.assume-es': '{letters, select, o {Assuming -s is written -es after the final o of {before}: some verbs in -o take only -s (demos).} other {Assuming the ch of {before} sounds as in church, so -s is written -es: when ch sounds like k the verb takes only -s (stomachs).}}',
+  'en.classify.es-hint': 'You said {before} takes -{ending} in the 3rd person singular.',
+  'en.classify.silent-consonant': 'The last letter of {before} is not pronounced, so it is never doubled.',
+  'en.classify.not-modal': '{before} is conjugated here as an ordinary verb ({before, select, can {to put food in cans} other {to make something happen by wanting it very hard}}), not as the modal verb.',
+  'en.classify.mostly-imperative': '{before} is used mostly in the imperative and the to-infinitive (Beware of the dog!); its other forms are rare.',
   'en.cell.past-listed': 'The past of {before} is {after}.',
   'en.cell.participle-listed': 'The past participle of {before} is {after}.',
   'en.cell.has': 'The 3rd person singular present of have is {after}.',
-  'en.cell.be': 'be in the {tense}, {person} {number}, is {after}.',
+  'en.cell.be': '{tense} of be, {person} {number}: {after}.',
   'en.cell.irrealis-were': 'In the past subjunctive be is were for every person.',
   'en.end.present-plain': 'Present, {person} {number}: the plain form {after}, no ending.',
   'en.end.third-s': 'Present, 3rd person singular: add -s to {before}.',
@@ -41,9 +58,10 @@ export const english = {
   'en.orth.ie-to-y': 'ie becomes y before -ing: {before} becomes {after}.',
   'en.orth.e-plus-ed': 'The verb already ends in e, so -ed adds only -d: {before} becomes {after}.',
   'en.orth.drop-e': 'The silent e is dropped before -ing: {before} becomes {after}.',
-  'en.orth.c-to-ck': 'A final c after one vowel becomes ck before -ed and -ing: {before} becomes {after}.',
-  'en.orth.double-consonant': 'One {consonant} after one vowel {reason, select, listed {at the end of this verb is always doubled} other {at the end of a stressed syllable is doubled}} before -ed, -ing or -es: {before} becomes {after}.',
-  'en.orth.double-l-british': 'British spelling doubles a final l after one vowel even without stress: {before} becomes {after}.',
+  'en.orth.c-to-ck': 'A final c after a vowel becomes ck before -ed and -ing: {before} becomes {after}.',
+  'en.orth.double-consonant': 'One {consonant} after one vowel {reason, select, listed {at the end of this verb is always doubled} other {at the end of a stressed syllable is doubled}} before -{ending}: {before} becomes {after}.',
+  'en.orth.double-l-british': 'British spelling doubles a final l after a vowel even without stress: {before} becomes {after}.',
+  'en.orth.spelling-variant': '{variant, select, single {The dictionaries prefer one consonant here: {after}.} dated {An older spelling keeps one consonant: {after}.} keepE {British spelling may also keep the e: {after}.} other {This verb is also written with -s only: {after}.}}',
   'en.orth.single-l-american': 'American spelling keeps one l: {after}.',
   'en.orth.single-consonant-american': 'American spelling may keep one consonant: {after}.',
   'en.periphrasis.perfect': 'Present perfect: the present of have plus the past participle.',
@@ -66,4 +84,4 @@ export const english = {
   'en.periphrasis.to-infinitive': 'To-infinitive: to plus the plain form.',
   'en.clause.subject': 'The subject {pronoun} comes before the verb.',
   'en.clause.imperative-subject': 'The imperative is used without a subject.',
-} as const satisfies Record<keyof typeof englishRules, string>;
+} as const satisfies Record<keyof typeof englishRules | keyof typeof englishLabels, string>;
