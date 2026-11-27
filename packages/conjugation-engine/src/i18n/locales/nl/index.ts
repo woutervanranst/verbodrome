@@ -7,6 +7,7 @@ import { de } from './de.js';
 import { es } from './es.js';
 import { it } from './it.js';
 import { la } from './la.js';
+import { equivalence } from './equivalence/index.js';
 
-/** The Dutch catalog: the core messages plus each built-in language's messages (spread them in here as languages migrate). */
-export const nl: Catalog = { ...core, ...dutch, ...fr, ...english, ...de, ...es, ...it, ...la };
+/** The Dutch catalog: the core messages plus each built-in language's messages (spread them in here as languages migrate), and the tense equivalence notes. */
+export const nl: Catalog = { ...core, ...dutch, ...fr, ...english, ...de, ...es, ...it, ...la, ...equivalence };
