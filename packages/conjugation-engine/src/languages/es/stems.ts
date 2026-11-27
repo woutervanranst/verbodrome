@@ -219,7 +219,9 @@ type Derive = (cell: Cell) => Fork<string>;
 export function lexicalCell(lexeme: SpanishLexeme, cell: Cell, derive: Derive = other => derivedWords(lexeme, other)): Fork<string> | null {
   const { entry } = lexeme;
   if (cell.kind === 'nonFinite' && cell.form === 'infinitive' && entry.infinitiveVariants !== undefined) {
-    return [...derive(cell), ...lexicalWords(lexeme, entry.infinitiveVariants, 'es.cell.infinitive-variant')];
+    // Both infinitives carry their spelling as a pattern, so neither is an untagged extra beside the other.
+    const derived = derive(cell).map(outcome => ({ ...outcome, tags: { ...outcome.tags, pattern: outcome.value } }));
+    return [...derived, ...lexicalWords(lexeme, entry.infinitiveVariants, 'es.cell.infinitive-variant')];
   }
   if (cell.kind === 'finite') {
     const listed = entry.cells?.[cellKey(cell)];

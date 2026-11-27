@@ -62,7 +62,7 @@ describe('review C1: pudrir and podrir are one verb', () => {
       expect(row(verb, 'indicative', 'future')[0]).toBe('pudriré');
       expect(row(verb, 'imperative', 'present')[3]).toBe('pudrid');
     }
-    expect(conjugated('pudrir', { mood: 'infinitive', tense: 'present' }).forms.map(form => form.variant.pattern)).toEqual([null, 'podrir']);
+    expect(conjugated('pudrir', { mood: 'infinitive', tense: 'present' }).forms.map(form => form.variant.pattern)).toEqual(['pudrir', 'podrir']);
     expect(analysisOf('podrir').classification).toBe('pudrir');
   });
 });

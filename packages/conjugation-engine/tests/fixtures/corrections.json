@@ -34326,5 +34326,2207 @@
       "agreement": null
     },
     "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 0,
+    "original": "-",
+    "expected": [
+      "yo abolo"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 1,
+    "original": "-",
+    "expected": [
+      "tú aboles"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 2,
+    "original": "-",
+    "expected": [
+      "él abole"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 5,
+    "original": "-",
+    "expected": [
+      "ellos abolen"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 6,
+    "original": "-",
+    "expected": [
+      "yo he abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 7,
+    "original": "-",
+    "expected": [
+      "tú has abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 8,
+    "original": "-",
+    "expected": [
+      "él ha abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 11,
+    "original": "-",
+    "expected": [
+      "ellos han abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 60,
+    "original": "-",
+    "expected": [
+      "abole"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 61,
+    "original": "-",
+    "expected": [
+      "abola"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 62,
+    "original": "-",
+    "expected": [
+      "abolamos"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 64,
+    "original": "-",
+    "expected": [
+      "abolan"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 65,
+    "original": "-",
+    "expected": [
+      "no abolas"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 66,
+    "original": "-",
+    "expected": [
+      "no abola"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 67,
+    "original": "-",
+    "expected": [
+      "no abolamos"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 68,
+    "original": "no abol-",
+    "expected": [
+      "no aboláis"
+    ],
+    "unavailable": false,
+    "reason": "The page cuts the vosotros form off after the stem; it is the present subjunctive aboláis (DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir).",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 69,
+    "original": "-",
+    "expected": [
+      "no abolan"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 70,
+    "original": "-",
+    "expected": [
+      "que yo abola"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 71,
+    "original": "-",
+    "expected": [
+      "que tú abolas"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 72,
+    "original": "-",
+    "expected": [
+      "que él abola"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 73,
+    "original": "-",
+    "expected": [
+      "que nosotros abolamos"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 74,
+    "original": "-",
+    "expected": [
+      "que vosotros aboláis"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 75,
+    "original": "-",
+    "expected": [
+      "que ellos abolan"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 76,
+    "original": "-",
+    "expected": [
+      "que yo haya abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 77,
+    "original": "-",
+    "expected": [
+      "que tú hayas abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 78,
+    "original": "-",
+    "expected": [
+      "que él haya abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 79,
+    "original": "-",
+    "expected": [
+      "que nosotros hayamos abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 80,
+    "original": "-",
+    "expected": [
+      "que vosotros hayáis abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/abolir",
+    "cell": 81,
+    "original": "-",
+    "expected": [
+      "que ellos hayan abolido"
+    ],
+    "unavailable": false,
+    "reason": "abolir is now conjugated in full, its forms with a stressed root included (NGLE 2009; DPD «abolir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/abolir, which prints yo abolo, tú aboles); the page leaves them empty.",
+    "source": "https://www.rae.es/dpd/abolir",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/adquirir",
+    "cell": 25,
+    "original": "tú adquiste",
+    "expected": [
+      "tú adquiriste"
+    ],
+    "unavailable": false,
+    "reason": "The preterite keeps the whole stem adquir-: adquiriste; adquiste drops a syllable (DLE adquirir) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/adquirir).",
+    "source": "https://dle.rae.es/adquirir",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/adquirir",
+    "cell": 28,
+    "original": "vosotros adquisteis",
+    "expected": [
+      "vosotros adquiristeis"
+    ],
+    "unavailable": false,
+    "reason": "The preterite keeps the whole stem adquir-: adquiristeis; adquisteis drops a syllable (DLE adquirir) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/adquirir).",
+    "source": "https://dle.rae.es/adquirir",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 0,
+    "original": "yo ahinco",
+    "expected": [
+      "yo ahínco"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 1,
+    "original": "tú ahincas",
+    "expected": [
+      "tú ahíncas"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 2,
+    "original": "él ahinca",
+    "expected": [
+      "él ahínca"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 5,
+    "original": "ellos ahincan",
+    "expected": [
+      "ellos ahíncan"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 60,
+    "original": "ahinca",
+    "expected": [
+      "ahínca"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 61,
+    "original": "ahinque",
+    "expected": [
+      "ahínque"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 64,
+    "original": "ahinquen",
+    "expected": [
+      "ahínquen"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 65,
+    "original": "no ahinques",
+    "expected": [
+      "no ahínques"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 66,
+    "original": "no ahinque",
+    "expected": [
+      "no ahínque"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 69,
+    "original": "no ahinquen",
+    "expected": [
+      "no ahínquen"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 70,
+    "original": "que yo ahinque",
+    "expected": [
+      "que yo ahínque"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 71,
+    "original": "que tú ahinques",
+    "expected": [
+      "que tú ahínques"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 72,
+    "original": "que él ahinque",
+    "expected": [
+      "que él ahínque"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/ahincar",
+    "cell": 75,
+    "original": "que ellos ahinquen",
+    "expected": [
+      "que ellos ahínquen"
+    ],
+    "unavailable": false,
+    "reason": "A stressed i next to a vowel takes the tilde even with an h between them (Ortografía 2010, DPD «tilde²» §2.2.2; DLE ahincar) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/ahincar: ahínco, ahíncan, ahínque).",
+    "source": "https://dle.rae.es/ahincar",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/elegir",
+    "cell": 123,
+    "original": "electo",
+    "expected": [],
+    "unavailable": true,
+    "reason": "electo is an adjective (el presidente electo), not a participle of elegir; only freír, imprimir and proveer have two participles in use (NGLE §4.12) (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/elegir: compound tenses take only elegido).",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/",
+    "target": {
+      "mood": "participle",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/guiar",
+    "cell": 4,
+    "original": "vosotros guiáis",
+    "expected": [
+      "vosotros guiais"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/guiar",
+    "cell": 24,
+    "original": "yo guié",
+    "expected": [
+      "yo guie"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/guiar",
+    "cell": 26,
+    "original": "él guió",
+    "expected": [
+      "él guio"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/guiar",
+    "cell": 68,
+    "original": "no guiéis",
+    "expected": [
+      "no guieis"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/guiar",
+    "cell": 74,
+    "original": "que vosotros guiéis",
+    "expected": [
+      "que vosotros guieis"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 2,
+    "original": "él llueve",
+    "expected": [
+      "llueve"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 8,
+    "original": "él ha llovido",
+    "expected": [
+      "ha llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 14,
+    "original": "él llovía",
+    "expected": [
+      "llovía"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "imperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 20,
+    "original": "él había llovido",
+    "expected": [
+      "había llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 26,
+    "original": "él llovió",
+    "expected": [
+      "llovió"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 32,
+    "original": "él hubo llovido",
+    "expected": [
+      "hubo llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 38,
+    "original": "él lloverá",
+    "expected": [
+      "lloverá"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 44,
+    "original": "él habrá llovido",
+    "expected": [
+      "habrá llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 50,
+    "original": "él llovería",
+    "expected": [
+      "llovería"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "conditional",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 56,
+    "original": "él habría llovido",
+    "expected": [
+      "habría llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "conditional",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 72,
+    "original": "que él llueva",
+    "expected": [
+      "que llueva"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 78,
+    "original": "que él haya llovido",
+    "expected": [
+      "que haya llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 84,
+    "original": "que él lloviera",
+    "expected": [
+      "que lloviera"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "imperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 90,
+    "original": "que él hubiera llovido",
+    "expected": [
+      "que hubiera llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 96,
+    "original": "que él lloviese",
+    "expected": [
+      "que lloviese"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "imperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 102,
+    "original": "que él hubiese llovido",
+    "expected": [
+      "que hubiese llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 108,
+    "original": "que él lloviere",
+    "expected": [
+      "que lloviere"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "future",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/llover",
+    "cell": 114,
+    "original": "que él hubiere llovido",
+    "expected": [
+      "que hubiere llovido"
+    ],
+    "unavailable": false,
+    "reason": "A weather verb has no subject, so its forms take no pronoun: llueve, ha llovido, que llueva (NGLE §4.14; DPD «llover») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/llover, which labels it impersonal).",
+    "source": "https://www.rae.es/dpd/llover",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "future_perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/podrir",
+    "cell": 24,
+    "original": "yo pudrí/podrí",
+    "expected": [
+      "yo pudrí"
+    ],
+    "unavailable": false,
+    "reason": "pudrir and podrir are one verb with pudr- in every form but the participle podrido (DPD «pudrir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/pudrir: pudrí, pudriré); podrí is a regional variant the engine does not generate.",
+    "source": "https://www.rae.es/dpd/pudrir",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/podrir",
+    "cell": 36,
+    "original": "yo pudriré/podriré",
+    "expected": [
+      "yo pudriré"
+    ],
+    "unavailable": false,
+    "reason": "pudrir and podrir are one verb with pudr- in every form but the participle podrido (DPD «pudrir») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/pudrir: pudrí, pudriré); podriré is a regional variant the engine does not generate.",
+    "source": "https://www.rae.es/dpd/pudrir",
+    "target": {
+      "mood": "indicative",
+      "tense": "future",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/reír",
+    "cell": 26,
+    "original": "él rió",
+    "expected": [
+      "él rio"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "indicative",
+      "tense": "simple_past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/reír",
+    "cell": 68,
+    "original": "no riáis",
+    "expected": [
+      "no riais"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "imperative",
+      "tense": "negative",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/reír",
+    "cell": 74,
+    "original": "que vosotros riáis",
+    "expected": [
+      "que vosotros riais"
+    ],
+    "unavailable": false,
+    "reason": "Since the Ortografía of 2010 a word with a diphthong or triphthong that is one written syllable takes no tilde (guie, guio, guiais, rio, riais): the RAE summary of the novedades, item 4, read.",
+    "source": "https://www.edu.xunta.gal/centros/cpicovaterrena/system/files/Principales%20novedades%20de%20la%20Ortograf%C3%ADa%20de%20la%20RAE.pdf",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "present",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/salir",
+    "cell": 49,
+    "original": "tú saldías",
+    "expected": [
+      "tú saldrías"
+    ],
+    "unavailable": false,
+    "reason": "The conditional is built on the future stem saldr- (saldré, saldría): saldrías; the page drops the r (DLE salir) (RAE page not read: rae.es refuses automated reading; read instead: none; the other five persons on the page have saldr-).",
+    "source": "https://dle.rae.es/salir",
+    "target": {
+      "mood": "conditional",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 6,
+    "original": "-",
+    "expected": [
+      "yo he solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 7,
+    "original": "-",
+    "expected": [
+      "tú has solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 8,
+    "original": "-",
+    "expected": [
+      "él ha solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 9,
+    "original": "-",
+    "expected": [
+      "nosotros hemos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 10,
+    "original": "-",
+    "expected": [
+      "vosotros habéis solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 11,
+    "original": "-",
+    "expected": [
+      "ellos han solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "perfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 18,
+    "original": "-",
+    "expected": [
+      "yo había solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 19,
+    "original": "-",
+    "expected": [
+      "tú habías solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 20,
+    "original": "-",
+    "expected": [
+      "él había solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 21,
+    "original": "-",
+    "expected": [
+      "nosotros habíamos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 22,
+    "original": "-",
+    "expected": [
+      "vosotros habíais solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 23,
+    "original": "-",
+    "expected": [
+      "ellos habían solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 30,
+    "original": "-",
+    "expected": [
+      "yo hube solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 31,
+    "original": "-",
+    "expected": [
+      "tú hubiste solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 32,
+    "original": "-",
+    "expected": [
+      "él hubo solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 33,
+    "original": "-",
+    "expected": [
+      "nosotros hubimos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 34,
+    "original": "-",
+    "expected": [
+      "vosotros hubisteis solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 35,
+    "original": "-",
+    "expected": [
+      "ellos hubieron solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 76,
+    "original": "-",
+    "expected": [
+      "que yo haya solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 77,
+    "original": "-",
+    "expected": [
+      "que tú hayas solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 78,
+    "original": "-",
+    "expected": [
+      "que él haya solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 79,
+    "original": "-",
+    "expected": [
+      "que nosotros hayamos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 80,
+    "original": "-",
+    "expected": [
+      "que vosotros hayáis solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 81,
+    "original": "-",
+    "expected": [
+      "que ellos hayan solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 88,
+    "original": "-",
+    "expected": [
+      "que yo hubiera solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 89,
+    "original": "-",
+    "expected": [
+      "que tú hubieras solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 90,
+    "original": "-",
+    "expected": [
+      "que él hubiera solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 91,
+    "original": "-",
+    "expected": [
+      "que nosotros hubiéramos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 92,
+    "original": "-",
+    "expected": [
+      "que vosotros hubierais solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 93,
+    "original": "-",
+    "expected": [
+      "que ellos hubieran solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 100,
+    "original": "-",
+    "expected": [
+      "que yo hubiese solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 101,
+    "original": "-",
+    "expected": [
+      "que tú hubieses solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 102,
+    "original": "-",
+    "expected": [
+      "que él hubiese solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 103,
+    "original": "-",
+    "expected": [
+      "que nosotros hubiésemos solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 1,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 104,
+    "original": "-",
+    "expected": [
+      "que vosotros hubieseis solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 2,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 105,
+    "original": "-",
+    "expected": [
+      "que ellos hubiesen solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "subjunctive",
+      "tense": "pluperfect",
+      "person": 3,
+      "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 119,
+    "original": "-",
+    "expected": [
+      "haber solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "infinitive",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 120,
+    "original": "-",
+    "expected": [
+      "soliendo"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "gerund",
+      "tense": "present",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 121,
+    "original": "-",
+    "expected": [
+      "habiendo solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "gerund",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/soler",
+    "cell": 122,
+    "original": "-",
+    "expected": [
+      "solido"
+    ],
+    "unavailable": false,
+    "reason": "soler lacks only the future, the conditional and the imperative; its compound tenses, gerund and participle exist though they are rare (DPD «soler») (RAE page not read: rae.es refuses automated reading; read instead: en.wiktionary.org/wiki/soler, which lists soliendo and solido as rare but acceptable).",
+    "source": "https://www.rae.es/dpd/soler",
+    "target": {
+      "mood": "participle",
+      "tense": "past",
+      "person": null,
+      "number": null,
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "es/valer",
+    "cell": 49,
+    "original": "tú valdías",
+    "expected": [
+      "tú valdrías"
+    ],
+    "unavailable": false,
+    "reason": "The conditional is built on the future stem valdr- (valdré, valdría): valdrías; the page drops the r (DLE valer) (RAE page not read: rae.es refuses automated reading; read instead: none; the other five persons on the page have valdr-).",
+    "source": "https://dle.rae.es/valer",
+    "target": {
+      "mood": "conditional",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
   }
 ]

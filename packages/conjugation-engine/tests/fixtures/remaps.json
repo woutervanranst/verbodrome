@@ -86,5 +86,71 @@
     },
     "reason": "würde + Infinitiv Perfekt (ich würde gebacken haben) is the past würde-form of Konjunktiv II: the catalogue conditional past.",
     "source": "https://grammis.ids-mannheim.de/systematische-grammatik/312"
+  },
+  {
+    "language": "es",
+    "heading": "Indicative/Past perfect",
+    "occurrence": 0,
+    "target": {
+      "mood": "indicative",
+      "tense": "past_anterior"
+    },
+    "reason": "The column holds hube amado, the pretérito anterior; \"past perfect\" would name the pluperfect, which the page lists separately. The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "es",
+    "heading": "Indicative/Past future",
+    "occurrence": 0,
+    "target": {
+      "mood": "indicative",
+      "tense": "future_perfect"
+    },
+    "reason": "The column holds habré amado, the futuro compuesto (future perfect), not a future in the past. The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "es",
+    "heading": "Subjunctive/Past",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "past"
+    },
+    "reason": "The column holds haya amado, the pretérito perfecto compuesto of the subjunctive, whereas \"past subjunctive\" usually means amara. The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "es",
+    "heading": "Subjunctive/Past future",
+    "occurrence": 0,
+    "target": {
+      "mood": "subjunctive",
+      "tense": "future_perfect"
+    },
+    "reason": "The column holds hubiere amado, the futuro compuesto of the subjunctive (future perfect). The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "es",
+    "heading": "Gerundive/Present",
+    "occurrence": 0,
+    "target": {
+      "mood": "gerund",
+      "tense": "present"
+    },
+    "reason": "The column holds amando, the gerundio; a gerundive is a Latin verbal adjective, which Spanish does not have. The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
+  },
+  {
+    "language": "es",
+    "heading": "Gerundive/Past",
+    "occurrence": 0,
+    "target": {
+      "mood": "gerund",
+      "tense": "past"
+    },
+    "reason": "The column holds habiendo amado, the gerundio compuesto (perfect gerund). The NGLE page was not read (rae.es refuses automated reading); the tense names are those of the grammar design §2.1.",
+    "source": "https://www.rae.es/gram%C3%A1tica/morfolog%C3%ADa/"
   }
 ]
