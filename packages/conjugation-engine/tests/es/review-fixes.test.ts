@@ -88,4 +88,15 @@ describe('review M3: models and assumptions', () => {
   });
 });
 
+describe('review C2 and E1: the regular participle of a doublet is derived, not listed', () => {
+  it('explains freído by the participle rule and frito as the listed word', () => {
+    const [frito, freido] = conjugated('freír', { mood: 'participle' }).forms;
+    expect(explained(freido!)).toContain('Participle: add -ido to fre-');
+    expect(explained(freido!)).not.toContain('irregular');
+    expect(freido!.ruleIds).toEqual(['es.stem.root', 'es.end.participle', 'es.orth.accent-hiatus']);
+    expect(frito!.ruleIds).toEqual(['es.cell.participle']);
+    expect(explained(conjugated('imprimir', { mood: 'participle' }).forms[1]!, 'nl')).toContain('Participio: voeg -ido toe aan imprim-');
+  });
+});
+
 export { analysisOf, bare, conjugated, explained, ids, row, texts };

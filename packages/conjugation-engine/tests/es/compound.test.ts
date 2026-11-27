@@ -43,10 +43,15 @@ describe('Spanish compound tenses and non-finite forms', () => {
     expect(texts('freír', { mood: 'participle' })).toEqual(['frito', 'freído']);
     expect(forms('freír', { mood: 'participle' }).map(form => form.variant.pattern)).toEqual(['irregular', 'regular']);
     expect(texts('freír', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['yo he frito', 'yo he freído']);
-    expect(texts('elegir', { mood: 'participle' })).toEqual(['elegido', 'electo']);
-    expect(forms('elegir', { mood: 'participle' })[1]!.variant).toMatchObject({ pattern: 'irregular', condition: 'adjectival' });
+    // NGLE §4.12 (controller ruling): electo, preso, bendito and maldito are adjectives, not participles of the verb.
+    expect(texts('elegir', { mood: 'participle' })).toEqual(['elegido']);
+    expect(texts('prender', { mood: 'participle' })).toEqual(['prendido']);
+    expect(texts('bendecir', { mood: 'participle' })).toEqual(['bendecido']);
     expect(texts('elegir', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['yo he elegido']);
-    expect(forms('elegir', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })[0]!.variant.pattern).toBeNull();
+    expect(texts('imprimir', { mood: 'participle' })).toEqual(['impreso', 'imprimido']);
+    expect(texts('proveer', { mood: 'participle' })).toEqual(['provisto', 'proveído']);
+    expect(texts('sofreír', { mood: 'participle' })).toEqual(['sofrito', 'sofreído']);
+    expect(texts('reimprimir', { mood: 'participle' })).toEqual(['reimpreso', 'reimprimido']);
   });
 
   it('builds the negative imperative on the present subjunctive', () => {

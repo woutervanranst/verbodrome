@@ -25,8 +25,6 @@ export interface Variant<T> {
   readonly condition?: string;
 }
 
-/** A participle variant; `compound: false` keeps it out of the compound tenses (electo: he elegido, never he electo). */
-export type ParticipleVariant = Variant<string> & { readonly compound?: false };
 
 export interface SpanishEntry {
   /** The model shown to learners (`analysis.classification`); default: the lemma itself. */
@@ -47,7 +45,13 @@ export interface SpanishEntry {
   readonly future?: string | readonly Variant<string>[];
   /** The whole tú command, where it is not the él form of the present (pon). */
   readonly imperative2sg?: string | readonly Variant<string>[];
-  readonly participle?: string | readonly ParticipleVariant[];
+  /** The irregular participle (puesto). */
+  readonly participle?: string;
+  /**
+   * The regular participle is in use too, also after haber (NGLE §4.12: freír, imprimir, proveer): the stored one comes
+   * first and the regular one is derived by the participle rule.
+   */
+  readonly participleDoublet?: true;
   readonly gerund?: string;
   /** The imperfect stem (ver: ve-ía). */
   readonly imperfect?: string;
@@ -133,25 +137,13 @@ export const entries: Readonly<Record<string, SpanishEntry>> = {
   // One verb with two infinitives (DPD «pudrir»): pudr- in every form except the participle podrido.
   pudrir: { participle: 'podrido', infinitiveVariants: [{ value: 'podrir', pattern: 'podrir' }] },
   podrir: { model: 'pudrir', root: 'pudr', participle: 'podrido', infinitiveVariants: [{ value: 'podrir', pattern: 'podrir' }] },
-  freír: {
-    model: 'reír', alternation: 'e-i',
-    participle: [{ value: 'frito', pattern: 'irregular' }, { value: 'freído', pattern: 'regular' }],
-  },
-  elegir: {
-    model: 'pedir', alternation: 'e-i',
-    participle: [{ value: 'elegido', pattern: 'regular' }, { value: 'electo', pattern: 'irregular', condition: 'adjectival', compound: false }],
-  },
-  reelegir: {
-    model: 'pedir', alternation: 'e-i',
-    participle: [{ value: 'reelegido', pattern: 'regular' }, { value: 'reelecto', pattern: 'irregular', condition: 'adjectival', compound: false }],
-  },
-  prender: { participle: [{ value: 'prendido', pattern: 'regular' }, { value: 'preso', pattern: 'irregular', compound: false }] },
+  freír: { model: 'reír', alternation: 'e-i', participle: 'frito', participleDoublet: true },
   morir: { alternation: 'o-ue', participle: 'muerto' },
   abrir: { participle: 'abierto' },
   cubrir: { participle: 'cubierto' },
   romper: { participle: 'roto' },
-  imprimir: { participle: [{ value: 'impreso', pattern: 'irregular' }, { value: 'imprimido', pattern: 'regular' }] },
-  proveer: { participle: [{ value: 'provisto', pattern: 'irregular' }, { value: 'proveído', pattern: 'regular' }] },
+  imprimir: { participle: 'impreso', participleDoublet: true },
+  proveer: { participle: 'provisto', participleDoublet: true },
   volver: { alternation: 'o-ue', participle: 'vuelto' },
   resolver: { alternation: 'o-ue', participle: 'resuelto' },
   absolver: { model: 'resolver', alternation: 'o-ue', participle: 'absuelto' },
@@ -208,8 +200,8 @@ export const alternations: Readonly<Record<string, Alternation>> = {
     renovar reprobar rodar rogar soldar soltar sonar soñar tostar trocar tronar volar volcar`),
   ...listed('o-ue', 'cocer conmover doler escocer moler morder mover oler promover remover retorcer torcer'),
   ...listed('o-ue', 'dormir'),
-  ...listed('e-i', `ceñir colegir competir concebir conseguir constreñir corregir derretir desteñir despedir embestir expedir
-    gemir henchir impedir investir medir pedir perseguir proseguir regir rendir reñir repetir revestir seguir servir
+  ...listed('e-i', `ceñir colegir competir concebir conseguir constreñir corregir derretir desteñir despedir elegir embestir expedir
+    gemir henchir impedir investir medir pedir perseguir proseguir reelegir regir rendir reñir repetir revestir seguir servir
     teñir travestir vestir`),
   ...listed('u-ue', 'jugar'),
 };

@@ -233,12 +233,11 @@ export function lexicalCell(lexeme: SpanishLexeme, cell: Cell, derive: Derive = 
     return lexicalWords(lexeme, `${lexeme.infinitive.slice(0, -3)}to`, 'es.cell.participle');
   }
   if ((cell.form === 'participle' || cell.form === 'compound-participle') && entry.participle !== undefined) {
-    const { participle } = entry;
-    const kept = typeof participle === 'string' ? participle
-      : participle.filter(variant => cell.form === 'participle' || variant.compound !== false);
-    // Tags tell the two participles of a doublet apart; a single participle has none.
-    const single = typeof kept === 'string' ? kept : kept.length === 1 ? kept[0]!.value : kept;
-    return lexicalWords(lexeme, single, 'es.cell.participle');
+    const listed = lexicalWords(lexeme, entry.participle, 'es.cell.participle');
+    if (!entry.participleDoublet) return listed;
+    // A doublet (frito / freído): the listed word, then the regular participle by rule, each tagged.
+    const tagged = (fork: Fork<string>, pattern: string): Fork<string> => fork.map(outcome => ({ ...outcome, tags: { ...outcome.tags, pattern } }));
+    return [...tagged(listed, 'irregular'), ...tagged(derive(cell), 'regular')];
   }
   return null;
 }
