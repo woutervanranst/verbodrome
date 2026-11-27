@@ -114,12 +114,13 @@ function sharedKeys(sources: readonly (readonly [string, readonly string[]])[]):
 }
 
 /**
- * The registered packs that have not migrated to the staged engine and so declare no `rules`. Every other registered pack
- * must declare them: without `rules` the gate below has nothing to check, assumptions and unavailability reasons stay
- * rule ids, and nothing can be explained. Remove a language from this list when its pack migrates (the test below fails
- * for a listed pack that has rules).
+ * The registered packs that have not started migrating to the staged engine and so declare no `rules`. Every other
+ * registered pack must declare them: without `rules` the gate below has nothing to check, assumptions and unavailability
+ * reasons stay rule ids, and nothing can be explained. Remove a language from this list when its pack first declares
+ * rules, which a pack can do while its legacy resolver still serves it, as Dutch does (the test below fails for a listed
+ * pack that has rules).
  */
-const legacyPacks: readonly string[] = ['fr', 'nl'];
+const legacyPacks: readonly string[] = [];
 
 /** What is wrong with the registered packs' use of `rules`: a pack without them that is not legacy, a legacy pack with them. */
 function rulesProblems(registered: Readonly<Record<string, LanguagePack>>, legacy: readonly string[]): string[] {
@@ -138,8 +139,9 @@ describe('rule catalogs are complete', () => {
   it('finds a registered pack that forgot its rules, and a legacy entry that is stale', () => {
     const { rules: _, ...forgetful } = toyPack;
     expect(rulesProblems({ ...packs, xx: forgetful }, legacyPacks)).toEqual([expect.stringContaining('xx declares no rules')]);
-    // Without the legacy list, the unmigrated registered packs fail: that is the list's only job.
-    expect(rulesProblems(packs, [])).toEqual([expect.stringContaining('fr declares no rules'), expect.stringContaining('nl declares no rules')]);
+    // Every registered pack has migrated: none needs the legacy list, and a pack listed there that has rules fails.
+    expect(rulesProblems(packs, [])).toEqual([]);
+    expect(rulesProblems(packs, ['fr'])).toEqual(['fr declares rules: remove it from the legacy list']);
     expect(rulesProblems({ xx: toyPack }, legacyPacks)).toEqual([]);
     expect(rulesProblems({ xx: toyPack }, ['xx'])).toEqual(['xx declares rules: remove it from the legacy list']);
   });

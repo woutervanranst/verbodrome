@@ -9,6 +9,7 @@ export const dutch: CorpusLanguage = {
   encoding: 'utf-8',
   expectedFiles: 207,
   cellsPerFile: dutchCellsPerFile,
+  fixturesWithoutSubjects: true,
   parse: parseDutch,
   context: name => ({
     infinitive: infinitiveFromFileName(name),

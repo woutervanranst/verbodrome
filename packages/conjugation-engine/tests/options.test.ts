@@ -39,7 +39,7 @@ describe('grammatical options', () => {
 
   it('names the registered languages when rejecting another', () => {
     expect(() => parseConjugationOptions({ language: 'xx', infinitive: 'aimer' }))
-      .toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl, de.' }));
+      .toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl, en, de.' }));
   });
 
   it('normalizes spelling without dropping accents', () => {

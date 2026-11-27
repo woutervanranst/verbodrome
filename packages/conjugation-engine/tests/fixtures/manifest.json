@@ -3861,6 +3861,1311 @@
       "auxiliary": null,
       "pattern": "default",
       "templatePlaceholders": 5
+    },
+    {
+      "file": "en/arise",
+      "language": "en",
+      "infinitive": "arise",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/be",
+      "language": "en",
+      "infinitive": "be",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bear",
+      "language": "en",
+      "infinitive": "bear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/beat",
+      "language": "en",
+      "infinitive": "beat",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/become",
+      "language": "en",
+      "infinitive": "become",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/begin",
+      "language": "en",
+      "infinitive": "begin",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bend",
+      "language": "en",
+      "infinitive": "bend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bet",
+      "language": "en",
+      "infinitive": "bet",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bid",
+      "language": "en",
+      "infinitive": "bid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bind",
+      "language": "en",
+      "infinitive": "bind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bite",
+      "language": "en",
+      "infinitive": "bite",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bleed",
+      "language": "en",
+      "infinitive": "bleed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/blow",
+      "language": "en",
+      "infinitive": "blow",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/break",
+      "language": "en",
+      "infinitive": "break",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/breed",
+      "language": "en",
+      "infinitive": "breed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/bring",
+      "language": "en",
+      "infinitive": "bring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/build",
+      "language": "en",
+      "infinitive": "build",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/burst",
+      "language": "en",
+      "infinitive": "burst",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/buy",
+      "language": "en",
+      "infinitive": "buy",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cast",
+      "language": "en",
+      "infinitive": "cast",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/catch",
+      "language": "en",
+      "infinitive": "catch",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/choose",
+      "language": "en",
+      "infinitive": "choose",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cling",
+      "language": "en",
+      "infinitive": "cling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/come",
+      "language": "en",
+      "infinitive": "come",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cost",
+      "language": "en",
+      "infinitive": "cost",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/creep",
+      "language": "en",
+      "infinitive": "creep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/cut",
+      "language": "en",
+      "infinitive": "cut",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/deal",
+      "language": "en",
+      "infinitive": "deal",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/dig",
+      "language": "en",
+      "infinitive": "dig",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/do",
+      "language": "en",
+      "infinitive": "do",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/draw",
+      "language": "en",
+      "infinitive": "draw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/drink",
+      "language": "en",
+      "infinitive": "drink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/drive",
+      "language": "en",
+      "infinitive": "drive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/eat",
+      "language": "en",
+      "infinitive": "eat",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fall",
+      "language": "en",
+      "infinitive": "fall",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/feed",
+      "language": "en",
+      "infinitive": "feed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/feel",
+      "language": "en",
+      "infinitive": "feel",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fight",
+      "language": "en",
+      "infinitive": "fight",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/find",
+      "language": "en",
+      "infinitive": "find",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fit",
+      "language": "en",
+      "infinitive": "fit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/flee",
+      "language": "en",
+      "infinitive": "flee",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fling",
+      "language": "en",
+      "infinitive": "fling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/fly",
+      "language": "en",
+      "infinitive": "fly",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forbid",
+      "language": "en",
+      "infinitive": "forbid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forecast",
+      "language": "en",
+      "infinitive": "forecast",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forget",
+      "language": "en",
+      "infinitive": "forget",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forgive",
+      "language": "en",
+      "infinitive": "forgive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/forsake",
+      "language": "en",
+      "infinitive": "forsake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/freeze",
+      "language": "en",
+      "infinitive": "freeze",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/get",
+      "language": "en",
+      "infinitive": "get",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/give",
+      "language": "en",
+      "infinitive": "give",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/go",
+      "language": "en",
+      "infinitive": "go",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/grind",
+      "language": "en",
+      "infinitive": "grind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/grow",
+      "language": "en",
+      "infinitive": "grow",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hang",
+      "language": "en",
+      "infinitive": "hang",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/have",
+      "language": "en",
+      "infinitive": "have",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hear",
+      "language": "en",
+      "infinitive": "hear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hide",
+      "language": "en",
+      "infinitive": "hide",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hit",
+      "language": "en",
+      "infinitive": "hit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hold",
+      "language": "en",
+      "infinitive": "hold",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/hurt",
+      "language": "en",
+      "infinitive": "hurt",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/keep",
+      "language": "en",
+      "infinitive": "keep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/kneel",
+      "language": "en",
+      "infinitive": "kneel",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/know",
+      "language": "en",
+      "infinitive": "know",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lay",
+      "language": "en",
+      "infinitive": "lay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lead",
+      "language": "en",
+      "infinitive": "lead",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/leave",
+      "language": "en",
+      "infinitive": "leave",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lend",
+      "language": "en",
+      "infinitive": "lend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/let",
+      "language": "en",
+      "infinitive": "let",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lie",
+      "language": "en",
+      "infinitive": "lie",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/lose",
+      "language": "en",
+      "infinitive": "lose",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/make",
+      "language": "en",
+      "infinitive": "make",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mean",
+      "language": "en",
+      "infinitive": "mean",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/meet",
+      "language": "en",
+      "infinitive": "meet",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mislay",
+      "language": "en",
+      "infinitive": "mislay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/mistake",
+      "language": "en",
+      "infinitive": "mistake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/overcome",
+      "language": "en",
+      "infinitive": "overcome",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/overtake",
+      "language": "en",
+      "infinitive": "overtake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/pay",
+      "language": "en",
+      "infinitive": "pay",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/plead",
+      "language": "en",
+      "infinitive": "plead",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/put",
+      "language": "en",
+      "infinitive": "put",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/quit",
+      "language": "en",
+      "infinitive": "quit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/read",
+      "language": "en",
+      "infinitive": "read",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/rid",
+      "language": "en",
+      "infinitive": "rid",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/ride",
+      "language": "en",
+      "infinitive": "ride",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/ring",
+      "language": "en",
+      "infinitive": "ring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/rise",
+      "language": "en",
+      "infinitive": "rise",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/run",
+      "language": "en",
+      "infinitive": "run",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/say",
+      "language": "en",
+      "infinitive": "say",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/see",
+      "language": "en",
+      "infinitive": "see",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/seek",
+      "language": "en",
+      "infinitive": "seek",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sell",
+      "language": "en",
+      "infinitive": "sell",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/send",
+      "language": "en",
+      "infinitive": "send",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/set",
+      "language": "en",
+      "infinitive": "set",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shake",
+      "language": "en",
+      "infinitive": "shake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shed",
+      "language": "en",
+      "infinitive": "shed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shine",
+      "language": "en",
+      "infinitive": "shine",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shoot",
+      "language": "en",
+      "infinitive": "shoot",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shrink",
+      "language": "en",
+      "infinitive": "shrink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/shut",
+      "language": "en",
+      "infinitive": "shut",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sing",
+      "language": "en",
+      "infinitive": "sing",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sink",
+      "language": "en",
+      "infinitive": "sink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sit",
+      "language": "en",
+      "infinitive": "sit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sleep",
+      "language": "en",
+      "infinitive": "sleep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/slide",
+      "language": "en",
+      "infinitive": "slide",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sling",
+      "language": "en",
+      "infinitive": "sling",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/slit",
+      "language": "en",
+      "infinitive": "slit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/speak",
+      "language": "en",
+      "infinitive": "speak",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/speed",
+      "language": "en",
+      "infinitive": "speed",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spend",
+      "language": "en",
+      "infinitive": "spend",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spin",
+      "language": "en",
+      "infinitive": "spin",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spit",
+      "language": "en",
+      "infinitive": "spit",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/split",
+      "language": "en",
+      "infinitive": "split",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/spread",
+      "language": "en",
+      "infinitive": "spread",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/stand",
+      "language": "en",
+      "infinitive": "stand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/steal",
+      "language": "en",
+      "infinitive": "steal",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/stink",
+      "language": "en",
+      "infinitive": "stink",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/strike",
+      "language": "en",
+      "infinitive": "strike",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/string",
+      "language": "en",
+      "infinitive": "string",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/strive",
+      "language": "en",
+      "infinitive": "strive",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swear",
+      "language": "en",
+      "infinitive": "swear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/sweep",
+      "language": "en",
+      "infinitive": "sweep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swim",
+      "language": "en",
+      "infinitive": "swim",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/swing",
+      "language": "en",
+      "infinitive": "swing",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/take",
+      "language": "en",
+      "infinitive": "take",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/teach",
+      "language": "en",
+      "infinitive": "teach",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tear",
+      "language": "en",
+      "infinitive": "tear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tell",
+      "language": "en",
+      "infinitive": "tell",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/think",
+      "language": "en",
+      "infinitive": "think",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/throw",
+      "language": "en",
+      "infinitive": "throw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/thrust",
+      "language": "en",
+      "infinitive": "thrust",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/tread",
+      "language": "en",
+      "infinitive": "tread",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/understand",
+      "language": "en",
+      "infinitive": "understand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/undertake",
+      "language": "en",
+      "infinitive": "undertake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/upset",
+      "language": "en",
+      "infinitive": "upset",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wake",
+      "language": "en",
+      "infinitive": "wake",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wear",
+      "language": "en",
+      "infinitive": "wear",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/weave",
+      "language": "en",
+      "infinitive": "weave",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/weep",
+      "language": "en",
+      "infinitive": "weep",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/win",
+      "language": "en",
+      "infinitive": "win",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wind",
+      "language": "en",
+      "infinitive": "wind",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/withdraw",
+      "language": "en",
+      "infinitive": "withdraw",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/withstand",
+      "language": "en",
+      "infinitive": "withstand",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/wring",
+      "language": "en",
+      "infinitive": "wring",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
+    },
+    {
+      "file": "en/write",
+      "language": "en",
+      "infinitive": "write",
+      "gender": null,
+      "auxiliary": null,
+      "pattern": "default",
+      "templatePlaceholders": 3
     }
   ],
   "fixtures": {
@@ -3868,11 +5173,11 @@
       "files": 222,
       "baseInfinitives": 84,
       "cells": 26196,
-      "targets": 24804,
-      "availableCells": 23963,
-      "unavailableCells": 2233,
-      "expectedForms": 23995,
-      "correctionCount": 125,
+      "targets": 24777,
+      "availableCells": 23759,
+      "unavailableCells": 2437,
+      "expectedForms": 23791,
+      "correctionCount": 460,
       "templatePlaceholders": 0,
       "checksum": "2a9fd8a573e77048e7993683035c8795326ed47eafff3a6717c0f981b392425d"
     },
@@ -3887,10 +5192,23 @@
       "correctionCount": 406,
       "templatePlaceholders": 1030,
       "checksum": "8c5414e89eaa923f54389cc2afe20ebbeb6a2ce019e7f28f994059ee829a82fd"
+    },
+    "en": {
+      "files": 145,
+      "baseInfinitives": 145,
+      "cells": 18270,
+      "targets": 18270,
+      "availableCells": 18270,
+      "unavailableCells": 0,
+      "expectedForms": 19005,
+      "correctionCount": 480,
+      "templatePlaceholders": 435,
+      "remaps": 3,
+      "checksum": "8abe93fff5530a83ba990c028bce433e09f8cf22f14db4f6f79d25c9f5496faf"
     }
   },
   "corrections": {
-    "count": 531,
-    "checksum": "b09799ea0f7646186f78953f7d059758c2afdb1a6bfd8166556b6a817c94177c"
+    "count": 1346,
+    "checksum": "dc88f21c299bea954bf5f314819c0054ad861b1c92a3e12309c7edb243521e4b"
   }
 }

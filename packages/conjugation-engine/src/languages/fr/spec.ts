@@ -24,6 +24,12 @@ export interface FrenchAgreement {
   readonly number: GrammaticalNumber;
 }
 
+/**
+ * The French subject slots: je, tu, il, nous, vous, ils, all without a gender (the clause shows il/elle and an agreeing
+ * participle's gender form by form).
+ */
+export type FrenchSubject = '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl';
+
 export interface FrenchStemHints {
   readonly singular?: string;
   readonly plural?: string;
@@ -40,7 +46,7 @@ export interface FrenchSpec extends LanguageSpec<FrenchTenses> {
   auxiliary: 'avoir' | 'être';
   classHint: FrenchClassHint;
   stems: FrenchStemHints;
-  subject: never;
+  subject: FrenchSubject;
   context: {
     readonly gender?: FrenchGender;
     readonly agreement?: Partial<FrenchAgreement>;
