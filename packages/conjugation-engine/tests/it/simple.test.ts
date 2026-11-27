@@ -65,6 +65,10 @@ describe('Italian simple tenses', () => {
     expect(bare('vedere', 'indicative', 'future')[0]).toBe('vedrò');
     expect(bareOf('bere', 'conditional', 'present', '3pl')).toBe('berrebbero');
     expect(bareOf('morire', 'indicative', 'future', '1sg')).toBe('morirò/morrò');
+    // Found by the en.wiktionary oracle: a regular stem beside an alternative one outside the stress.
+    expect(bareOf('cuocere', 'indicative', 'future', '1sg')).toBe('cuocerò/cocerò');
+    expect(bareOf('muovere', 'conditional', 'present', '3pl')).toBe('muoverebbero/moverebbero');
+    expect(bare('udire', 'participle', 'present')).toEqual(['udente/udiente']);
     expect(bareOf('tradurre', 'indicative', 'imperfect', '1sg')).toBe('traducevo');
     expect(bareOf('porre', 'indicative', 'present', '1sg')).toBe('pongo');
     expect(bareOf('porre', 'indicative', 'future', '1sg')).toBe('porrò');

@@ -49,7 +49,7 @@ const weather = [{ lemma: 'essere' }, { lemma: 'avere' }] as const;
 export const dualVerbs: Readonly<Record<string, readonly Auxiliary[]>> = {
   cominciare: [tr, intr], iniziare: [tr, intr], finire: [tr, intr], terminare: [tr, intr], continuare: [tr, intr], cambiare: [tr, intr],
   aumentare: [tr, intr], migliorare: [tr, intr], peggiorare: [tr, intr], bruciare: [tr, intr], affondare: [tr, intr], guarire: [tr, intr],
-  diminuire: [tr, intr], gelare: [intrFirst, tr], passare: [intrFirst, tr], risalire: [intrFirst, tr], mancare: [
+  diminuire: [tr, intr], seguire: [tr, intr], gelare: [intrFirst, tr], passare: [intrFirst, tr], risalire: [intrFirst, tr], mancare: [
     { lemma: 'essere', condition: 'to be lacking, to be missing' }, { lemma: 'avere', condition: 'to fail in something, to fall short' },
   ],
   servire: [{ lemma: 'avere', condition: 'most senses' }, { lemma: 'essere', condition: 'to be of use, to be needed' }],

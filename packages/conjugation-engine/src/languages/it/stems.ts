@@ -123,7 +123,7 @@ function futureStems(lexeme: ItalianLexeme): Fork<string> {
   if (lexeme.conjugation === 'are') return rootStem(lexeme);
   const unstressed = lexeme.entry?.unstressed;
   if (unstressed === undefined) return one(infinitive, [step(R['it.stem.future'], lexeme.base, infinitive)]);
-  return unstressed.flatMap(stem => `${stem}er` === infinitive
+  return unstressed.map(stem => stem === '*' ? lexeme.root : stem).flatMap(stem => `${stem}er` === infinitive
     ? one(infinitive, [step(R['it.stem.future'], lexeme.base, infinitive)]) : lexicalStems(lexeme, [`${stem}er`]));
 }
 

@@ -42,6 +42,11 @@ describe('Italian compound tenses and clause', () => {
     expect(forms.every(f => f.variant.condition)).toBe(true);
     expect(forms.map(f => f.variant.condition)).toEqual(['towards a goal', 'towards a goal', 'the action in itself']);
     expect(texts('correre', 'indicative', 'perfect', { subject: '1sg', auxiliary: 'avere' })).toEqual(['io ho corso']);
+    expect(texts('cuocere', 'indicative', 'perfect', { subject: '3sg.m' })).toEqual(['lui ha cotto', 'lui è cotto']);
+    expect(texts('sedere', 'indicative', 'perfect', { subject: '3sg.m' })).toEqual(['lui è seduto']);
+    expect(texts('seguire', 'indicative', 'perfect', { subject: '3sg.m' })).toEqual(['lui ha seguito', 'lui è seguito']);
+    expect([bare('dormire', 'participle', 'present'), bare('offrire', 'participle', 'present')]).toEqual([['dormiente/dormente'], ['offerente']]);
+    expect(conjugate({ language: 'it', infinitive: 'solere', mood: 'infinitive', tense: 'present' }).analysis.auxiliaries).toEqual([]);
   });
 
   it('builds reflexive forms', () => {

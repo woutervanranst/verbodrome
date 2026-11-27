@@ -205,13 +205,13 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   condurre: { class: 'contracted', long: 'conduc', auxiliaries: [avere], past: ['condussi'], participle: ['condotto'] },
   tradurre: { class: 'contracted', long: 'traduc', auxiliaries: [avere], past: ['tradussi'], participle: ['tradotto'] },
   uscire: { class: 'ire', isc: 'no', auxiliaries: [essere], present: stressed(['esc']) },
-  udire: { class: 'ire', isc: 'no', auxiliaries: [avere], present: stressed(['od']), future: ['*', 'udr'] },
+  udire: { class: 'ire', isc: 'no', auxiliaries: [avere], present: stressed(['od']), future: ['*', 'udr'], presentParticiple: ['*', 'udiente'] },
   morire: {
     class: 'ire', isc: 'no', auxiliaries: [essere], present: { '1sg': ['muoi'], '2sg': ['muor'], '3sg': ['muor'], '3pl': ['muoi'] },
     future: ['*', 'morr'], participle: ['morto'],
   },
-  sedere: { class: 'ere', present: stressed(['sied']), pastSeries: ['ei', 'etti'], future: ['*', 'sieder'] },
-  cuocere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
+  sedere: { class: 'ere', auxiliaries: [essere], present: stressed(['sied']), pastSeries: ['ei', 'etti'], future: ['*', 'sieder'] },
+  cuocere: { class: 'ere', auxiliaries: [transitive, intransitive], unstressed: ['*', 'coc'], past: ['cossi'], participle: ['cotto'], flags: ['palatal'] },
   piacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['piacci'], '1pl': ['piacc'], '3pl': ['piacci'] }, past: ['piacqui'] },
   tacere: { class: 'ere', auxiliaries: [avere], present: { '1sg': ['tacci'], '1pl': ['tacc'], '3pl': ['tacci'] }, past: ['tacqui'] },
   giacere: { class: 'ere', auxiliaries: [essere], present: { '1sg': ['giacci'], '1pl': ['giacc'], '3pl': ['giacci'] }, past: ['giacqui'] },
@@ -229,7 +229,7 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   },
   solere: {
     class: 'ere', present: { '1sg': ['sogli'], '2sg': ['suol'], '3sg': ['suol'], '1pl': ['sogl'], '3pl': ['sogli'] },
-    pastSeries: ['ei'], participle: ['solito'], flags: ['noImperative'],
+    pastSeries: ['ei'], participle: ['solito'], flags: ['noImperative'], auxiliaries: [],
     // Vocabolario: used in the simple tenses of the indicative (not the future), the subjunctive and the present infinitive;
     // "negli altri tempi è sostituito dalla locuz. essere solito".
     defective: [
@@ -248,7 +248,11 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
     present: { '1sg': ['*isc', 'compai'], '2sg': ['*isc', '*'], '3sg': ['*isc', '*'], '3pl': ['*isc', 'compai'] },
     pastSeries: ['=comparvi', 'weak', '=comparsi'], participle: ['comparso'],
   },
-  muovere: { class: 'ere', auxiliaries: [avere], unstressed: ['*', 'mov'], past: ['mossi'], participle: ['mosso'] },
+  muovere: {
+    class: 'ere', unstressed: ['*', 'mov'],
+    auxiliaries: [{ lemma: 'avere', condition: 'transitive use, and most intransitive uses' }, { lemma: 'essere', condition: 'some intransitive uses (rare)' }],
+    past: ['mossi'], participle: ['mosso'],
+  },
   vedere: { class: 'ere', auxiliaries: [avere], past: ['vidi'], future: ['vedr'], participle: ['visto', '*'] },
   provvedere: { class: 'ere', auxiliaries: [avere], past: ['provvidi'], participle: ['provvisto', '*'] },
   prevedere: { class: 'ere', auxiliaries: [avere], past: ['previdi'], future: ['prevedr', '*'], participle: ['previsto', '*'] },
@@ -263,7 +267,10 @@ export const italianLexicon: Readonly<Record<string, ItalianEntry>> = {
   accendere: { class: 'ere', auxiliaries: [avere], past: ['accesi'], participle: ['acceso'] },
   aprire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=apersi'], participle: ['aperto'] },
   coprire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=copersi'], participle: ['coperto'] },
-  offrire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=offersi'], participle: ['offerto'] },
+  // Vocabolario offerente: "funge anche da part. pres. di offrire, non essendo in uso offrente".
+  offrire: { class: 'ire', isc: 'no', auxiliaries: [avere], pastSeries: ['weak', '=offersi'], participle: ['offerto'], presentParticiple: ['offerente'] },
+  // Vocabolario dormiente: "part. pres. di dormire ... è in uso anche la forma dormente".
+  dormire: { class: 'ire', isc: 'no', auxiliaries: [avere], presentParticiple: ['dormiente', '*'] },
   costruire: { class: 'ire', isc: 'yes', auxiliaries: [avere], pastSeries: ['weak', '=costrussi'], participle: ['*', 'costrutto'] },
   prendere: { class: 'ere', auxiliaries: [avere], past: ['presi'], participle: ['preso'] },
   chiudere: { class: 'ere', auxiliaries: [avere], past: ['chiusi'], participle: ['chiuso'] },
