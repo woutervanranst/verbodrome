@@ -356,7 +356,9 @@ function ruleParadigm(typed: string, reading: Reading, hints: LatinStemHints, cl
 
   const voiceClass = deponent ? 'deponent' : semiDeponent ? 'semiDeponent' : 'active';
   const participle = supines[0] && `${supines[0].stem}us`;
-  const parts = [presentHint ?? present.stem + (deponent ? 'or' : 'ō'), lemma,
+  // The first person: the a of the first conjugation is lost, a long ē or ī is short before the vowel (A&G §§10.a, 179.a.1).
+  const firstPerson = (conjugation === 'first' ? present.stem.replace(/ā$/u, '') : present.stem.replace(/ē$/u, 'e').replace(/ī$/u, 'i')) + (deponent ? 'or' : 'ō');
+  const parts = [presentHint ?? firstPerson, lemma,
     ...(perfectSystem === 'participle' ? participle ? [`${participle} sum`] : [] : [`${perfects[0]!.stem}ī`, `${supines[0]!.stem}um`])];
   const lexeme: LatinLexeme = {
     lemma, verbId: lemma, classId: `${conjugation}${deponent ? '-deponent' : semiDeponent ? '-semi-deponent' : ''}`,
