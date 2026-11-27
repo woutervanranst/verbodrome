@@ -18,6 +18,11 @@ intended differences of the switch, the open questions for the user and its limi
 Dutch runs on the staged core. Its rule inventory with sources, its defaults and assumptions, the two behaviour changes
 of the switch and its limits are in [grammar/nl.md](grammar/nl.md).
 
+## English
+
+English runs on the staged core. Its rule inventory with sources, its labelling policy, side lists, defaults and
+assumptions, the dictionary checks of its lexicon, its corpus corrections and its limits are in [grammar/en.md](grammar/en.md).
+
 ## Shared scope
 
 The engine generates active conjugated phrases, including supported non-finite and compound constructions. Passive voice, negation, arbitrary complements, attributive/adjectival participles, general sentence generation, dialect inventories, distractor generation, exercise persistence, and UI are outside this package's current scope.
@@ -30,6 +35,7 @@ Reference repository: [woutervanranst/VerbodromeX](https://github.com/woutervanr
 
 - [French source facts](https://github.com/woutervanranst/VerbodromeX/tree/3a9a01de3982049f9267326b4a4bd94f468d9439/code/VerbodromeX.Database.Parsers/SourceFiles/Fran%C3%A7ais): Le Conjugueur / Le Figaro, decoded as Windows-1252.
 - [Dutch source facts](https://github.com/woutervanranst/VerbodromeX/tree/3a9a01de3982049f9267326b4a4bd94f468d9439/code/VerbodromeX.Database.Parsers/SourceFiles/Nederlands): Verbix, decoded as UTF-8.
+- [English source facts](https://github.com/woutervanranst/VerbodromeX/tree/3a9a01de3982049f9267326b4a4bd94f468d9439/code/VerbodromeX.Database.Parsers/SourceFiles/English): decoded as UTF-8.
 
 Only normalized grammatical facts, contextual metadata, fixture checksums, and correction provenance are included in development fixtures. Original HTML, site prose, advertisements, and page layouts are not redistributed in the package. Source attribution remains with the respective sites; this project does not assign a new license to their original material.
 
@@ -39,6 +45,7 @@ Only normalized grammatical facts, contextual metadata, fixture checksums, and c
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | `fr` | 222 | 26,196 | 24,804 | 23,963 | 2,233 | 23,995 | 125 | 0 |
 | `nl` | 207 | 10,764 | 10,764 | 10,646 | 118 | 10,994 | 406 | 1,030 |
+| `en` | 145 | 18,270 | 18,270 | 18,270 | 0 | 19,005 | 480 | 435 |
 
 Targets in this report are distinct corrected grammatical identities **within each source-file context**; they are not the public base-catalogue count. Form expectations count accepted alternatives for available cells, including repeated contexts, not unique global strings.
 

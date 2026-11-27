@@ -19,7 +19,7 @@ import {
 import type { ConjugationOptions, ConjugationResult, ConjugationPart } from 'conjugation-engine';
 ```
 
-`conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French and Dutch requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
+`conjugate(options: ConjugationOptions): ConjugationResult` is synchronous and has no I/O or production dependencies. `ConjugationOptions` is a discriminated union of French, Dutch and English requests. `parseConjugationOptions(unknown)` validates an incoming payload before passing it to the same engine.
 
 Each language is a pack: its catalogue, rendering rules and resolver. `languages` lists the built-in ones (`['fr', 'nl']`); an unknown language throws `UNSUPPORTED_LANGUAGE` naming them. `createEngine(packs, catalogs?)` (with the built-in `packs` and `locales` exported beside it, so an engine can take a subset of the languages or extra ones) builds an engine with the same `conjugate`, `getCatalogue`, `renderParts` and `expandTargets`, plus `explain`, over a chosen set of packs, accepting only those languages. `catalogs` maps a locale to its message catalog (see Explanations); without them the engine cannot `explain`.
 

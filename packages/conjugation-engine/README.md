@@ -1,6 +1,6 @@
 # conjugation-engine
 
-A rule-based TypeScript conjugation engine for **French (`fr`)** and **Dutch (`nl`)**, with a small Node CLI and a browser-safe ESM API.
+A rule-based TypeScript conjugation engine for **French (`fr`)**, **Dutch (`nl`)** and **English (`en`)**, with a small Node CLI and a browser-safe ESM API.
 
 French and Dutch forms are derived by recorded rules from stems (French verb families keep their principal parts), endings and spelling rules, and every form explains itself step by step in English and Dutch (`explain`, CLI `--explain`); see `docs/grammar/fr.md` and `docs/grammar/nl.md`. Both languages build compound tenses from auxiliary constructions, and compact lexical data supplies auxiliaries and grammatical restrictions. The production engine does **not** import the test corpus, read fixtures, or call an external service. Invented verbs work within the productive models.
 
@@ -96,6 +96,7 @@ The test oracle is pinned to VerbodromeX commit `3a9a01de3982049f9267326b4a4bd94
 |---|---:|---:|---:|---:|---:|
 | French | 222 | 84 | 26,196 | 23,995 | 2,233 |
 | Dutch | 207 | 207 | 10,764 | 10,994 | 118 |
+| English | 145 | 145 | 18,270 | 19,005 | 0 |
 
 All **36,960 cells** are accounted for, including unavailable forms. The Dutch parser also accounts for **1,030 structural imperative placeholders**. A separate reproducible ledger contains **531 sourced correction/provenance records**; mistakes are corrected explicitly rather than skipped. Independent invented-verb goldens, accepted-variant sets, component recombination, and wildcard equivalence complement corpus inclusion assertions.
 
