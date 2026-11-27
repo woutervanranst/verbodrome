@@ -38,4 +38,40 @@ describe('German Konjunktiv II and usage labels (an explicit mark in either dict
   });
 });
 
-export { analysis, er, ich, participle, ruleIds };
+describe('German explanation steps that were false', () => {
+  it('reads bedauern, behindern, verhindern as prefix + verb, not as nouns', () => {
+    for (const lemma of ['bedauern', 'behindern', 'verhindern']) {
+      expect(ruleIds(lemma), lemma).not.toContain('de.classify.denominal');
+      expect(ruleIds(lemma), lemma).toContain('de.classify.inseparable');
+    }
+    expect(participle('bedauern')).toEqual(['bedauert']);
+  });
+
+  it('does not split a loan in -ieren into a prefix and a remainder', () => {
+    for (const lemma of ['generieren', 'verifizieren', 'zertifizieren', 'eruieren', 'gestikulieren']) {
+      const ids = ruleIds(lemma);
+      expect(ids, lemma).toContain('de.classify.ieren');
+      expect(ids.filter(id => id.includes('inseparable')), lemma).toEqual([]);
+    }
+    expect(participle('generieren')).toEqual(['generiert']);
+  });
+
+  it('records a prefix of an unknown remainder as an assumption, which the stress option undoes', () => {
+    expect(ruleIds('beamen')).toContain('de.classify.assume-inseparable');
+    expect(ruleIds('beamen')).not.toContain('de.classify.inseparable');
+    expect(participle('beamen', { stems: { unstressedFirstSyllable: false } })).toEqual(['gebeamt']);
+  });
+
+  it('names the real guess for an unlisted compound: that it is not split', () => {
+    expect(ruleIds('heiraten')[0]).toBe('de.classify.assume-unsplit');
+    expect(analysis('heiraten').steps!.find(s => s.rule === 'de.classify.assume-unsplit')!.params).toEqual({ root: 'raten' });
+    expect(ich('heiraten', 'perfect')).toEqual(['ich habe geheiratet']);
+  });
+
+  it('records the haben assumption for a verb formed from a noun', () => {
+    expect(ruleIds('beantragen')).toEqual(expect.arrayContaining(['de.classify.default-haben', 'de.classify.denominal']));
+    expect(analysis('beantragen').assumptions).toHaveLength(1);
+  });
+});
+
+export { er };

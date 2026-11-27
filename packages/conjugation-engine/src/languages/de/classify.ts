@@ -133,10 +133,24 @@ interface BaseAnalysis {
 
 const prefixOf = (base: BaseAnalysis): string | null => base.prefixes.length ? base.prefixes.join('') : null;
 
+/**
+ * The listed verb an unlisted word ends in behind a first element of two letters or more (teilnehmen: nehmen), or null:
+ * such a word is not split unless it is listed as a particle verb, and the analysis says so.
+ */
+function embeddedVerb(word: string): string | null {
+  for (let start = 2; start <= word.length - 4; start++) {
+    const rest = word.slice(start);
+    if (isListed(rest)) return rest;
+  }
+  return null;
+}
+
 function denominal(word: string): string | null {
   for (const prefix of denominalPrefixes) {
     if (!word.startsWith(prefix)) continue;
     const rest = word.slice(prefix.length);
+    // be-dauern, ver-hindern: the rest is a verb of its own, so this is a prefix verb, not a noun with a particle.
+    if (isListed(rest)) continue;
     if (sep.some(particle => rest.startsWith(particle) && isPlausibleRoot(rest.slice(particle.length), germanParticles))) return prefix;
   }
   return null;
@@ -183,7 +197,11 @@ function analyseBase(word: string): BaseAnalysis {
         lead: inner.lead, chain: [...derivative, ...layer, ...inner.chain], word: split.prefix + inner.word,
       };
     }
-    unknown ??= { ...inner, prefixes: [split.prefix, ...inner.prefixes], kind: 'unlisted', chain: [...layer, ...inner.chain], word };
+    // An unknown remainder: the prefix is a guess (bereit-stellen is not be- + reitstellen), and a loan in -ieren
+    // (generieren, verifizieren) is not split at all.
+    if (isIeren(word)) continue;
+    const assumed = [step(rules['de.classify.assume-inseparable'], word, null, { prefix: split.prefix })];
+    unknown ??= { ...inner, prefixes: [split.prefix, ...inner.prefixes], kind: 'unlisted', chain: [...assumed, ...inner.chain], word };
   }
   return unknown ?? { prefixes: [], root: word, known: false, kind: 'unlisted', lead: [], chain: [], word };
 }
@@ -263,9 +281,19 @@ function unknownParticles(word: string): Particles | null {
   return inner === null ? { particles: [split.particle!], base: analyseBase(split.root) } : { particles: [split.particle!, ...inner.particles], base: inner.base };
 }
 
+/** How stacked particles stand at the end of the clause: as one word (stimmt überein), apart only after wieder (stellt wieder her). */
+function particleWordsOf(particles: readonly string[]): readonly string[] {
+  const words: string[] = [];
+  for (const particle of particles) {
+    if (words.length && words.at(-1) !== 'wieder') words[words.length - 1] += particle;
+    else words.push(particle);
+  }
+  return words;
+}
+
 function particleSegmentation(lemma: string, { particles, base }: Particles, known: boolean): Segmentation {
   const steps = particles.map(particle => separableStep(lemma, particle, !known || (dual.includes(particle) && !isListed(lemma))));
-  return { ...segment(lemma, { text: particles.join(''), separable: true }, base, steps), particleWords: particles };
+  return { ...segment(lemma, { text: particles.join(''), separable: true }, base, steps), particleWords: particleWordsOf(particles) };
 }
 
 /** The two readings of a lemma whose particle is separable in one sense and inseparable in another. */
@@ -453,7 +481,9 @@ function auxiliariesOf(segmentation: Segmentation, paradigm: RootParadigm, rootL
   const exact = particle === null && base.prefixes.length === 0;
   if (exact && (rootListed || base.known || segmentation.listed)) return { uses: paradigm.auxiliaries, assumed: null };
   if (!base.known && !segmentation.listed) return { uses: [{ verb: 'haben' }], assumed: step(rules['de.classify.default-haben'], lemma, null) };
-  if (base.prefixes.length > 0 && base.kind !== 'notDerived' && base.kind !== 'denominal' && !Object.hasOwn(listedAuxiliariesOf, base.word)) {
+  // A verb formed from a noun (beantragen, vereinsamen unlisted) has no root to take an auxiliary from.
+  if (base.kind === 'denominal') return { uses: [{ verb: 'haben' }], assumed: step(rules['de.classify.default-haben'], lemma, null) };
+  if (base.prefixes.length > 0 && base.kind !== 'notDerived' && !Object.hasOwn(listedAuxiliariesOf, base.word)) {
     return { uses: [{ verb: 'haben' }], assumed: step(rules['de.classify.assume-prefix-haben'], lemma, null) };
   }
   if (particle !== null) {
@@ -482,7 +512,11 @@ function build(segmentation: Segmentation, hints: Hints): Built[] {
     if (rootListed && base.kind === 'root' && particle === null) steps.push(step(rules['de.classify.lexicon'], lemma, paradigm.conjugation));
     // A listed lemma that DWDS has no table for rests on Duden alone, and says so.
     if (verification[lemma]?.dwds === null) steps.push(step(rules['de.classify.duden-only'], lemma, null));
-    if (!base.known && !segmentation.listed) steps.push(step(rules['de.classify.default-weak'], lemma, null));
+    if (!base.known && !segmentation.listed) {
+      const embedded = particle === null && base.prefixes.length === 0 && !segmentation.hinted ? embeddedVerb(lemma) : null;
+      if (embedded !== null) steps.push(step(rules['de.classify.assume-unsplit'], lemma, null, { root: embedded }));
+      steps.push(step(rules['de.classify.default-weak'], lemma, null));
+    }
     const { uses, assumed } = auxiliariesOf(segmentation, paradigm, rootListed);
     const ownPrefixOfRoot = paradigm.entry === null ? null : ownPrefix(base.root, firstText(paradigm.entry.participle));
     const weakOwnPrefix = paradigm.entry === null && rootListed && base.prefixes.length === 0 ? ownPrefix(base.root, null) : null;
@@ -565,6 +599,12 @@ function applyHints(built: Built, segmentation: Segmentation, hints: Hints, assu
   if (unstressed !== undefined) hint('stems.unstressedFirstSyllable', String(unstressed));
   let geBlocked: GermanLexeme['geBlocked'] = null;
   let participleWithGe: string | null = null;
+  // A stressed first syllable undoes an assumed prefix (beamen is not be- + amen): the verb takes ge-.
+  const assumedPrefix = steps.some(s => s.rule === 'de.classify.assume-inseparable');
+  if (unstressed === false && assumedPrefix) {
+    lexeme = { ...lexeme, prefix: null };
+    steps = steps.filter(s => s.rule !== 'de.classify.assume-inseparable');
+  }
   if (lexeme.prefix !== null) geBlocked = 'prefix';
   else if (unstressed !== undefined) geBlocked = unstressed ? 'stress' : null;
   else if (isIeren(lexeme.base)) {

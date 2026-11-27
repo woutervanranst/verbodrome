@@ -92,7 +92,7 @@ describe('German invented verbs', () => {
   it('verschlinken: an inseparable prefix on an unknown root', () => {
     expect([present('verschlinken', 1, 'singular'), past('verschlinken', 1, 'singular'), perfect('verschlinken')].flat())
       .toEqual(['ich verschlinke', 'ich verschlinkte', 'ich habe verschlinkt']);
-    expect((analysis('verschlinken').steps ?? []).find(s => s.rule === 'de.classify.inseparable')?.params).toEqual({ prefix: 'ver' });
+    expect((analysis('verschlinken').steps ?? []).find(s => s.rule === 'de.classify.assume-inseparable')?.params).toEqual({ prefix: 'ver' });
   });
 
   it('aufschlinken: an unknown verb with a separable particle', () => {

@@ -72,7 +72,8 @@ describe('German classification', () => {
     expect(ids('umschlinken', { inseparablePrefix: 'um' })).toContain('de.classify.hint');
     expect(ids('umschlinken', { inseparablePrefix: 'um' })).not.toContain('de.classify.assume-separable');
     expect(analysis('umschlinken', { inseparablePrefix: 'um' }).classificationSource).toBe('explicitHint');
-    expect(ids('verschlinken')).toEqual(['de.classify.default-weak', 'de.classify.default-haben', 'de.classify.inseparable']);
+    // The prefix of an unknown remainder is a guess (bereitstellen is not be- + reitstellen): an assumption, first.
+    expect(ids('verschlinken')).toEqual(['de.classify.assume-inseparable', 'de.classify.default-weak', 'de.classify.default-haben']);
   });
 
   it('knows inseparable readings, lookalikes, denominal and non-derived verbs', () => {
