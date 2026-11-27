@@ -185,7 +185,7 @@ locales.nl[matches[1]!.notes[0]!]; // In gesproken taal is de passé composé de
 `tense` is a `{ mood, tense }` of the source language (a tense it does not have is a type error, and `INVALID_TARGET` at run time); an unknown language is `UNSUPPORTED_LANGUAGE`. The result is frozen. Each match has:
 
 - `tense`: a `{ mood, tense }` of the target language, typed for it.
-- `match`: `exact` (both tenses express the same concept), `approximate` (the target expresses it less precisely: `relaxed` names what was given up, in the order `register`, `remoteness`, `aspect`, `mood`, or the match is a stand-in such as the Dutch past participle for a French perfect infinitive), or `override` (a correction for one pair of languages; `score` 1).
+- `match`: `exact` (both tenses express the same concept), `approximate` (the target expresses it less precisely: `relaxed` names what was given up, in the order of the ladder: `remoteness`, `aspect` (never to a progressive tense from a plain one), `mood` (a subjunctive or conditional to the indicative), and last `register` (a dated tense, offered only when nothing else corresponds), or the match is a stand-in such as the Dutch past participle for a French perfect infinitive), or `override` (a correction for one pair of languages; `score` 1).
 - `score`: how close the two tenses are, from 1 down; `rank`: the position, from 1.
 - `register`: `standard`, `literary` or `dated`, the target tense's.
 - `via`: the source and target concepts the match went through (`null` for an override).

@@ -56,15 +56,15 @@ de	subjunctive.perfect	it	subjunctive.past 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.perfect	la	subjunctive.perfect 1.00 exact	eq.de.subjunctive-reported
 de	subjunctive.perfect	nl	indicative.perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future	de	subjunctive.future 1.00 exact	-
-de	subjunctive.future	en	indicative.future 1.00 approximate(mood) | indicative.future_progressive 1.00 approximate(aspect+mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.note.relaxed-aspect,eq.note.no-subjunctive
-de	subjunctive.future	es	subjunctive.future 1.00 approximate(register)	eq.de.subjunctive-reported,eq.note.relaxed-register
+de	subjunctive.future	en	indicative.future 1.00 approximate(mood) | indicative.future_progressive 0.90 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.en.progressive,eq.note.no-subjunctive
+de	subjunctive.future	es	indicative.future 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.es.future-conjecture,eq.note.no-subjunctive
 de	subjunctive.future	fr	indicative.future 1.00 approximate(mood) | indicative.near_future 0.60 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future	it	indicative.future 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.it.future-supposition,eq.note.no-subjunctive
 de	subjunctive.future	la	indicative.future 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future	nl	indicative.future 1.00 approximate(mood) | indicative.present 0.40 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.nl.present-future,eq.note.no-subjunctive
 de	subjunctive.future_perfect	de	subjunctive.future_perfect 1.00 exact	-
-de	subjunctive.future_perfect	en	indicative.future_perfect 1.00 approximate(mood) | indicative.future_perfect_progressive 1.00 approximate(aspect+mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.note.relaxed-aspect,eq.note.no-subjunctive
-de	subjunctive.future_perfect	es	subjunctive.future_perfect 1.00 approximate(register)	eq.de.subjunctive-reported,eq.note.relaxed-register
+de	subjunctive.future_perfect	en	indicative.future_perfect 1.00 approximate(mood) | indicative.future_perfect_progressive 0.90 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive | eq.de.subjunctive-reported,eq.en.progressive,eq.note.no-subjunctive
+de	subjunctive.future_perfect	es	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future_perfect	fr	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future_perfect	it	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
 de	subjunctive.future_perfect	la	indicative.future_perfect 1.00 approximate(mood)	eq.de.subjunctive-reported,eq.note.no-subjunctive
@@ -336,7 +336,7 @@ es	indicative.simple_past	it	indicative.perfect 1.00 override | indicative.simpl
 es	indicative.simple_past	la	indicative.perfect 1.00 exact	eq.la.perfect-both
 es	indicative.simple_past	nl	indicative.past 0.70 exact | indicative.perfect 0.60 exact	- | eq.nl.perfect.spoken-past
 es	indicative.past_anterior	de	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
-es	indicative.past_anterior	en	indicative.pluperfect 1.00 approximate(aspect) | indicative.pluperfect_progressive 1.00 approximate(aspect)	eq.note.relaxed-aspect | eq.note.relaxed-aspect
+es	indicative.past_anterior	en	indicative.pluperfect 1.00 approximate(aspect) | indicative.pluperfect_progressive 0.50 approximate(aspect)	eq.note.relaxed-aspect | eq.en.duration,eq.note.relaxed-aspect
 es	indicative.past_anterior	es	indicative.past_anterior 1.00 exact	-
 es	indicative.past_anterior	fr	indicative.past_anterior 1.00 exact	-
 es	indicative.past_anterior	it	indicative.past_anterior 1.00 exact	-
@@ -399,14 +399,14 @@ es	subjunctive.pluperfect	it	subjunctive.pluperfect 1.00 exact | conditional.pas
 es	subjunctive.pluperfect	la	subjunctive.pluperfect 1.00 exact	-
 es	subjunctive.pluperfect	nl	indicative.pluperfect 1.00 override | conditional.past 0.50 exact	eq.pair.subjunctive-clause | eq.es.subjunctive-pluperfect-conditional
 es	subjunctive.future	de	subjunctive.future 1.00 exact	eq.de.subjunctive-reported
-es	subjunctive.future	en	indicative.future 1.00 approximate(mood) | indicative.future_progressive 1.00 approximate(aspect+mood)	eq.note.no-subjunctive | eq.note.relaxed-aspect,eq.note.no-subjunctive
+es	subjunctive.future	en	indicative.future 1.00 approximate(mood) | indicative.future_progressive 0.90 approximate(mood)	eq.note.no-subjunctive | eq.en.progressive,eq.note.no-subjunctive
 es	subjunctive.future	es	subjunctive.future 1.00 exact	-
 es	subjunctive.future	fr	indicative.future 1.00 approximate(mood) | indicative.near_future 0.60 approximate(mood)	eq.note.no-subjunctive | eq.note.no-subjunctive
 es	subjunctive.future	it	indicative.future 1.00 approximate(mood)	eq.it.future-supposition,eq.note.no-subjunctive
 es	subjunctive.future	la	indicative.future 1.00 approximate(mood)	eq.note.no-subjunctive
 es	subjunctive.future	nl	indicative.future 1.00 approximate(mood) | indicative.present 0.40 approximate(mood)	eq.note.no-subjunctive | eq.nl.present-future,eq.note.no-subjunctive
 es	subjunctive.future_perfect	de	subjunctive.future_perfect 1.00 exact	eq.de.subjunctive-reported
-es	subjunctive.future_perfect	en	indicative.future_perfect 1.00 approximate(mood) | indicative.future_perfect_progressive 1.00 approximate(aspect+mood)	eq.note.no-subjunctive | eq.note.relaxed-aspect,eq.note.no-subjunctive
+es	subjunctive.future_perfect	en	indicative.future_perfect 1.00 approximate(mood) | indicative.future_perfect_progressive 0.90 approximate(mood)	eq.note.no-subjunctive | eq.en.progressive,eq.note.no-subjunctive
 es	subjunctive.future_perfect	es	subjunctive.future_perfect 1.00 exact	-
 es	subjunctive.future_perfect	fr	indicative.future_perfect 1.00 approximate(mood)	eq.note.no-subjunctive
 es	subjunctive.future_perfect	it	indicative.future_perfect 1.00 approximate(mood)	eq.note.no-subjunctive
@@ -497,7 +497,7 @@ fr	indicative.simple_past	it	indicative.simple_past 1.00 exact | indicative.perf
 fr	indicative.simple_past	la	indicative.perfect 1.00 exact	eq.la.perfect-both
 fr	indicative.simple_past	nl	indicative.past 0.70 exact | indicative.perfect 0.60 exact	- | eq.nl.perfect.spoken-past
 fr	indicative.past_anterior	de	indicative.pluperfect 1.00 approximate(aspect)	eq.note.relaxed-aspect
-fr	indicative.past_anterior	en	indicative.pluperfect 1.00 approximate(aspect) | indicative.pluperfect_progressive 1.00 approximate(aspect)	eq.note.relaxed-aspect | eq.note.relaxed-aspect
+fr	indicative.past_anterior	en	indicative.pluperfect 1.00 approximate(aspect) | indicative.pluperfect_progressive 0.50 approximate(aspect)	eq.note.relaxed-aspect | eq.en.duration,eq.note.relaxed-aspect
 fr	indicative.past_anterior	es	indicative.past_anterior 1.00 exact	-
 fr	indicative.past_anterior	fr	indicative.past_anterior 1.00 exact	-
 fr	indicative.past_anterior	it	indicative.past_anterior 1.00 exact	-

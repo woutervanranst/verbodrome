@@ -5,8 +5,9 @@
  *
  * 1. The source links are the links of the source tense that are not `only: 'target'`.
  * 2. Every target tense is scored over the pairs (source link, target link that is not `only: 'source'`) that are
- *    compatible at a level of the ladder: 0 exact, 1 register (a `dated` target link), 2 remoteness, 3 aspect,
- *    4 mood (subjunctive or conditional to indicative). Finiteness, time, relative time and polarity never relax.
+ *    compatible at a level of the ladder: 0 exact, 1 remoteness, 2 aspect, 3 mood (subjunctive or conditional to
+ *    indicative), 4 register (a `dated` target link, for a source link that is not dated). Finiteness, time, relative
+ *    time and polarity never relax, and aspect never relaxes to `progressive` from a source that is not progressive.
  *    Its score is the best `weight × weight`, rounded to two decimals. The first level that scores a tense is the
  *    result; within one language only level 0 runs, and the tense itself comes first.
  * 3. Candidates sort by score, then by the register of the target link, then by catalogue (map) order.
@@ -20,7 +21,7 @@ import { concepts, moodRelaxation } from './concepts.js';
 import type { ConceptDef, ConceptId, ConceptLink, ConceptMood, NoteKey, Register } from './concepts.js';
 
 /** A dimension the ladder relaxed to reach a match, in ladder order. */
-export type Relaxation = 'register' | 'remoteness' | 'aspect' | 'mood';
+export type Relaxation = 'remoteness' | 'aspect' | 'mood' | 'register';
 /** `exact`: a shared concept; `approximate`: a relaxed one or a stand-in; `override`: a pair override's answer. */
 export type MatchType = 'exact' | 'approximate' | 'override';
 
@@ -73,8 +74,12 @@ export interface EquivalenceOptions {
   readonly voice?: 'active' | 'passive';
 }
 
-/** The highest level of the ladder: exact, register, remoteness, aspect, mood. */
-const MOOD_LEVEL = 4;
+/** The levels of the ladder: 0 exact, then one dimension more each step. */
+const REMOTENESS_LEVEL = 1;
+const ASPECT_LEVEL = 2;
+const MOOD_LEVEL = 3;
+/** The last rung: a dated tense is offered only when even relaxing the mood finds nothing. */
+const REGISTER_LEVEL = 4;
 
 const registerRank: Readonly<Record<Register, number>> = { standard: 0, literary: 1, dated: 2 };
 
@@ -102,11 +107,12 @@ function conceptDifferences(source: ConceptDef, target: ConceptDef, level: numbe
     || source.polarity !== target.polarity) return null;
   const relaxed: Relaxation[] = [];
   if (source.remoteness !== target.remoteness) {
-    if (level < 2) return null;
+    if (level < REMOTENESS_LEVEL) return null;
     relaxed.push('remoteness');
   }
   if (source.aspect !== target.aspect) {
-    if (level < 3) return null;
+    // A progressive is never the answer for a plain tense: "j'eus mangé" is not "I had been eating".
+    if (level < ASPECT_LEVEL || target.aspect === 'progressive') return null;
     relaxed.push('aspect');
   }
   if (source.mood !== target.mood) {
@@ -119,10 +125,10 @@ function conceptDifferences(source: ConceptDef, target: ConceptDef, level: numbe
 /** What a pair of links relaxes at `level`, or `null` when the pair is not compatible there. */
 function pairDifferences(source: ConceptLink, target: ConceptLink, level: number): Relaxation[] | null {
   const datedTarget = registerOf(target) === 'dated' && registerOf(source) !== 'dated';
-  if (datedTarget && level < 1) return null;
+  if (datedTarget && level < REGISTER_LEVEL) return null;
   const relaxed = conceptDifferences(concepts[source.concept], concepts[target.concept], level);
   if (relaxed === null) return null;
-  return datedTarget ? ['register', ...relaxed] : relaxed;
+  return datedTarget ? [...relaxed, 'register'] : relaxed;
 }
 
 const round2 = (value: number): number => Math.round(value * 100) / 100;
@@ -214,7 +220,7 @@ export function deriveEquivalents(data: EquivalenceData, from: string, to: strin
   const same = from === to;
 
   let candidates: Candidate[] = [];
-  for (let level = 0; level <= (same ? 0 : MOOD_LEVEL) && candidates.length === 0; level++) {
+  for (let level = 0; level <= (same ? 0 : REGISTER_LEVEL) && candidates.length === 0; level++) {
     candidates = scoreLevel(sources, target, same ? tense : null, level);
   }
   candidates.sort((a, b) => b.score - a.score || registerRank[registerOf(a.target)] - registerRank[registerOf(b.target)] || a.order - b.order);

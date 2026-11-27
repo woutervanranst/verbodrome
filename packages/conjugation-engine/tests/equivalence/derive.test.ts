@@ -93,6 +93,28 @@ describe('deriveEquivalents', () => {
     expect(result.matches[0]?.via).toEqual(['SUBJ_IMPERFECT', 'PAST_PERFECTIVE']);
   });
 
+  it('never relaxes aspect to a progressive from a source that is not progressive', () => {
+    expect(run([link('PAST_ANTERIOR', 1)], { p: [link('PLUPERFECT_PROGRESSIVE', 1)] })).toEqual(none());
+    expect(rows(run([link('PAST_ANTERIOR', 1)], { p: [link('PLUPERFECT_PROGRESSIVE', 1)], q: [link('PLUPERFECT', 0.5)] })))
+      .toEqual([['q', 0.5, 'approximate', ['aspect'], ['eq.note.relaxed-aspect']]]);
+  });
+
+  it('relaxes aspect from a progressive source to a plain tense', () => {
+    expect(rows(run([link('PRESENT_PROGRESSIVE', 1)], { p: [link('PRESENT', 1)] })))
+      .toEqual([['p', 1, 'approximate', ['aspect'], ['eq.note.relaxed-aspect']]]);
+  });
+
+  it('offers a dated target only when even relaxing the mood finds nothing', () => {
+    const target = { old: [link('SUBJ_FUTURE', 1, { register: 'dated' })], plain: [link('FUTURE', 1)] };
+    expect(rows(run([link('SUBJ_FUTURE', 1)], target))).toEqual([['plain', 1, 'approximate', ['mood'], ['eq.note.no-subjunctive']]]);
+    expect(rows(run([link('SUBJ_FUTURE', 1)], { old: target.old }))).toEqual([['old', 1, 'approximate', ['register'], ['eq.note.relaxed-register']]]);
+  });
+
+  it('relaxes the register last, after the other dimensions', () => {
+    expect(rows(run([link('SUBJ_FUTURE', 1)], { old: [link('FUTURE', 1, { register: 'dated' })] })))
+      .toEqual([['old', 1, 'approximate', ['mood', 'register'], ['eq.note.no-subjunctive', 'eq.note.relaxed-register']]]);
+  });
+
   it('stops at the first level with a result', () => {
     const target = { p: [link('PAST_IMPERFECTIVE', 0.5)], q: [link('PAST_PERFECTIVE', 1)] };
     expect(rows(run([link('SUBJ_IMPERFECT', 1)], target))).toEqual([

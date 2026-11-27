@@ -5,7 +5,8 @@ export const expectations: readonly Expectation[] = [
   ['fr', 'indicative.perfect', 'es', 'indicative.simple_past', 1, 'exact', { notes: ['eq.fr.perfect.spoken-past'], second: 'indicative.perfect' }],
   ['es', 'indicative.simple_past', 'fr', 'indicative.perfect', 1, 'exact', { notes: ['eq.fr.perfect.spoken-past'], second: 'indicative.simple_past' }],
   ['es', 'subjunctive.future', 'fr', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.note.no-subjunctive'], second: 'indicative.near_future' }],
-  ['de', 'subjunctive.future', 'es', 'subjunctive.future', 1, 'approximate', { relaxed: ['register'], notes: ['eq.de.subjunctive-reported', 'eq.note.relaxed-register'] }],
+  // Ruling I6 (replaces the plan's dated subjunctive future): reported speech is the indicative future (dice que vendrá).
+  ['de', 'subjunctive.future', 'es', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.de.subjunctive-reported', 'eq.es.future-conjecture', 'eq.note.no-subjunctive'] }],
   ['es', 'imperative.negative', 'it', 'imperative.negative', 1, 'exact', { second: 'imperative.present' }],
   ['es', 'imperative.negative', 'fr', 'imperative.present', 0.6, 'exact', { notes: ['eq.note.negation-added'] }],
   ['es', 'subjunctive.pluperfect', 'nl', 'indicative.pluperfect', 1, 'override', { notes: ['eq.pair.subjunctive-clause'], second: 'conditional.past' }],
