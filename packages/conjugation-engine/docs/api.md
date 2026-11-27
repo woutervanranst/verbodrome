@@ -193,9 +193,16 @@ locales.nl[matches[1]!.notes[0]!]; // In gesproken taal is de passé composé de
 
 `matches` is empty when the target has no tense that corresponds (a Latin supine in any other language, a French gérondif in German); the result's own `notes` then say why (`eq.note.no-counterpart`, followed by the source tense's notes). They are empty whenever there is a match. Within one language, the tense itself is first.
 
-`options.voice` is `'active'` (the default) or `'passive'`. A passive lookup is valid only from a language whose passive is modelled (Latin); into a language without one, the active tenses are given, every exact match becomes approximate and gets the note `eq.note.passive-not-modelled`.
+`options.voice` is `'active'` (the default) or `'passive'`. A passive lookup is valid only from a language whose passive is modelled (Latin; anything else is `INVALID_REQUEST`), and a Latin tense without a voice (a participle, the gerund, the supine) is looked up as active. Into a language without a modelled passive the active tenses are given: every exact match becomes approximate, and every match, overrides and approximate ones included, gets the note `eq.note.passive-not-modelled` (form the passive with the auxiliary in the tense given).
 
-For a trainer: ask for `matches[0]` when its `match` is `exact` or `override`; treat `approximate` as "ask, but show the note"; treat an empty `matches` as "compose the prompt by hand, or skip the form"; offer a `literary` or `dated` tense only when the learner asked for one. Lower matches with small scores are close relatives, not alternatives: a trainer can ignore everything under 0.3.
+For a trainer, the tense to ask for:
+
+1. If `matches` is empty, there is no tense to ask for: show the result's `notes`, and compose the prompt by hand or skip the form.
+2. Leave out the `literary` and `dated` matches, unless the learner asked for them.
+3. Ask for the first match that remains. If none remains (a literary tense whose only counterparts are literary, such as the French passé antérieur into Spanish or Italian), ask for `matches[0]` and show its register.
+4. Show the notes of that match: an `approximate` match always has one that says how its tense stands in, and an `exact` one may have one (the passé composé is the spoken past).
+
+The first match that remains never scores below 0.3. Below 0.3 there are only a few weak relatives (the Dutch present into the French near future, 0.24), which a trainer that offers alternatives can leave out.
 
 ## Components and rendering
 

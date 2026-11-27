@@ -10,7 +10,9 @@ export const expectations: readonly Expectation[] = [
   ['fr', 'indicative.recent_past', 'es', 'indicative.perfect', 0.5, 'exact', { notes: ['eq.fr.recent-past', 'eq.es.perfect-spain'], second: null }],
   // Ruling I6 (replaces the plan's dated subjunctive future): reported speech is the indicative future (dice que vendrá).
   ['de', 'subjunctive.future', 'es', 'indicative.future', 1, 'approximate', { relaxed: ['mood'], notes: ['eq.de.subjunctive-reported', 'eq.es.future-conjecture', 'eq.note.no-subjunctive'], second: null }],
-  ['es', 'imperative.negative', 'it', 'imperative.negative', 1, 'exact', { second: 'imperative.present' }],
+  // The second match (the plain imperative plus a negation word) is not pinned: the Italian 2sg forbids with non plus
+  // the infinitive (non parlare).
+  ['es', 'imperative.negative', 'it', 'imperative.negative', 1, 'exact'],
   ['es', 'imperative.negative', 'fr', 'imperative.present', 0.6, 'exact', { notes: ['eq.note.negation-added'], second: null }],
   ['es', 'subjunctive.pluperfect', 'nl', 'indicative.pluperfect', 1, 'override', { notes: ['eq.pair.subjunctive-clause'], second: 'conditional.past' }],
   // Review I3: si tuviera is si j’avais, never the literary qu’il eût.
