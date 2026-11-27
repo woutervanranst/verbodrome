@@ -1,57 +1,92 @@
-import { itemAt, personIndex } from '../../parts.js';
-import type { DutchConjugationOptions, ResolvedTarget } from '../../types.js';
-import type { DutchLexeme } from './exceptions.js';
-import type { DutchStem } from './orthography.js';
-import { gePrefix, strongPastPlural, weakSuffixes } from './orthography.js';
+/**
+ * Every rule the Dutch staged grammar records, keyed by id (`nl.<stage>.<name>`). Messages live in
+ * `src/i18n/locales/{en,nl}/nl.ts`, citations in `sources.ts`. The four `default-*` rules and the four `assume-*` rules
+ * are the assumptions made for a verb the lexicon does not know, and the four `avail` rules say why a form does not
+ * exist; the English messages of the `avail` rules and of three `default-*` rules are the sentences the analysis and the
+ * unavailable targets showed before the staged grammar (`default-unprefixed` was reworded when it stopped being true).
+ */
+import { defineRules } from '../../core/derivation.js';
 
-export function presentForms(
-  lemma: string, lexical: DutchLexeme, stem: DutchStem, target: ResolvedTarget, options: DutchConjugationOptions,
-): string[] {
-  const index = personIndex(target);
-  if (options.pronoun === 'u' && index === 1 && lexical.formalPresent) return [...lexical.formalPresent];
-  if (index > 2) return [lemma];
-  const ending = index > 0 && !stem.written.endsWith('t') ? 't' : '';
-  const root = ending && /(^|[^a])a$/u.test(stem.written) ? stem.written + 'a' : stem.written;
-  const word = lexical.presentCells?.[index] ?? root + ending;
-  let forms = [word, ...(lexical.presentAlternatives?.[index] ?? [])];
-  if (options.inversion && index === 1 && options.pronoun !== 'u') {
-    forms = lexical.presentCells?.[index]
-      ? forms.map(form => form === 'bent' ? 'ben' : form.replace(/t$/u, ''))
-      : [stem.written, ...(lexical.presentAlternatives?.[0] ?? []), ...(lexical.presentAlternatives?.[index] ?? [])];
-  }
-  return [...new Set(forms)];
-}
+/** The text of the form an unavailable target names, `<mood>/<tense>`. */
+const unavailable = { stage: 'availability', kind: 'unavailable', params: { form: 'text' } } as const;
+/** The perfect auxiliary a compound tense uses. */
+const withAuxiliary = { stage: 'periphrasis', params: { auxiliary: 'text' } } as const;
 
-export function pastForms(lexical: DutchLexeme, stem: DutchStem, target: ResolvedTarget, options: DutchConjugationOptions, loanSuffix?: 'd' | 't' | 'both'): string[] {
-  if (target.number === 'plural' && options.stems?.pastPlural) return [options.stems.pastPlural];
-  const suffixes = weakSuffixes(stem.underlying, options.stems?.pastSuffix ?? loanSuffix);
-  const weak = suffixes.map(suffix => stem.written + suffix + 'e' + (target.number === 'plural' ? 'n' : ''));
-  if (options.stems?.pastSingular) {
-    return target.number === 'singular' ? [options.stems.pastSingular]
-      : [options.stems.pastPlural ?? strongPastPlural(options.stems.pastSingular)];
-  }
-  if (!lexical.pastSingular) return weak;
-  const forms = target.number === 'singular' ? [...lexical.pastSingular]
-    : lexical.pastSingular.map((singular, index) => lexical.pastPlural?.[index] ?? strongPastPlural(singular));
-  return [...new Set([...forms, ...(lexical.alsoWeakPast ? weak : [])])];
-}
-
-export function participles(
-  lexical: DutchLexeme, stem: DutchStem, options: DutchConjugationOptions,
-  inseparable: string, loanSuffix?: 'd' | 't' | 'both',
-): string[] {
-  if (options.stems?.pastParticiple) return [options.stems.pastParticiple];
-  const weak = weakSuffixes(stem.underlying, options.stems?.pastSuffix ?? loanSuffix).map(suffix => {
-    const word = stem.written + (stem.written.endsWith(suffix) ? '' : suffix);
-    return inseparable ? word : gePrefix(word);
-  });
-  return [...new Set(lexical.participles ? [...lexical.participles, ...(lexical.alsoWeakParticiple ? weak : [])] : weak)];
-}
-
-export function imperativeForms(lexical: DutchLexeme, stem: DutchStem): string[] {
-  return [lexical.imperative ?? stem.written, ...(lexical.presentAlternatives?.[0] ?? [])];
-}
-
-export function auxiliaryPresent(lemma: string, target: ResolvedTarget, options: DutchConjugationOptions, lexical: DutchLexeme, stem: DutchStem): string {
-  return itemAt(presentForms(lemma, lexical, stem, target, options), 0);
-}
+export const dutchRules = defineRules({
+  // classify: {before} is the lemma, or the base verb of a derivative.
+  // {after}: the listed past tense or past participle; {detail}: what the list records about a weak verb.
+  'nl.classify.irregular': { stage: 'classify', kind: 'lexical' },
+  'nl.classify.half-irregular': { stage: 'classify', kind: 'lexical' },
+  'nl.classify.listed-weak': { stage: 'classify', kind: 'lexical', params: { detail: 'text' } },
+  'nl.classify.loan': { stage: 'classify' },
+  'nl.classify.separable': { stage: 'classify', params: { particle: 'text' } },
+  'nl.classify.inseparable': { stage: 'classify', params: { prefix: 'text' } },
+  // An infinitive that is another infinitive of a listed verb (wezen: zijn): {before} is the written one, {after} the verb.
+  'nl.classify.alternative-infinitive': { stage: 'classify', kind: 'lexical' },
+  'nl.classify.default-weak': { stage: 'classify', kind: 'assumption' },
+  'nl.classify.default-syllables': { stage: 'classify', kind: 'assumption' },
+  'nl.classify.default-hebben': { stage: 'classify', kind: 'assumption' },
+  // A verb read as the derivative of a listed base, which gives the perfect auxiliary: {base} is that verb.
+  'nl.classify.auxiliary-inherited': { stage: 'classify', kind: 'assumption', params: { base: 'text', auxiliary: 'text' } },
+  'nl.classify.default-unprefixed': { stage: 'classify', kind: 'assumption' },
+  'nl.classify.assume-separable': { stage: 'classify', kind: 'assumption', params: { particle: 'text' } },
+  // A dual prefix read by its default (`dualPrefixCounts`): separable, or kept on the verb; {why} is most, close or rest.
+  'nl.classify.assume-dual-separable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
+  'nl.classify.assume-inseparable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', why: 'text' } },
+  // A verb or the rest of a separable verb, not in the lexicon, read with the unstressed prefix it starts with (vermoeien,
+  // bereiden in voorbereiden); {split} is yes in a separable verb, whose override also needs the separable prefix.
+  'nl.classify.assume-rest-prefix': { stage: 'classify', kind: 'assumption', params: { prefix: 'text', split: 'text' } },
+  // availability: {before} is the lemma.
+  'nl.avail.impersonal': unavailable,
+  'nl.avail.singular-only': unavailable,
+  'nl.avail.no-imperative': unavailable,
+  'nl.avail.no-compound': unavailable,
+  // stem: {before} and {after} are the stem before and after the rule.
+  'nl.stem.drop-en': { stage: 'stem' },
+  'nl.stem.undouble-consonant': { stage: 'stem' },
+  'nl.stem.lengthen-vowel': { stage: 'stem' },
+  // {inferred}: yes when the stress is taken from the spelling, not from the lexicon or a hint.
+  'nl.stem.unstressed-e': { stage: 'stem', params: { inferred: 'text' } },
+  'nl.stem.devoice': { stage: 'stem' },
+  'nl.stem.no-trema': { stage: 'stem' },
+  'nl.stem.lexical': { stage: 'stem', kind: 'lexical' },
+  // Whole forms the lexicon lists: {before} is the verb, {after} the form.
+  'nl.cell.lexical': { stage: 'stem', kind: 'lexical' },
+  'nl.cell.d-dropped': { stage: 'stem', kind: 'lexical' },
+  'nl.cell.spoken-infinitive': { stage: 'stem', kind: 'lexical' },
+  'nl.cell.formal': { stage: 'stem', kind: 'lexical' },
+  // ending: {before} is the stem, {after} the word with its ending.
+  'nl.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
+  'nl.end.present-t-drop': { stage: 'ending' },
+  'nl.end.inversion-t-drop': { stage: 'ending' },
+  'nl.end.past-weak': { stage: 'ending', params: { ending: 'text' } },
+  'nl.end.past-strong': { stage: 'ending', kind: 'lexical' },
+  'nl.end.past-plural-strong': { stage: 'ending' },
+  'nl.imp.stem': { stage: 'ending' },
+  'nl.part.present': { stage: 'ending' },
+  'nl.part.weak': { stage: 'ending', params: { ending: 'text' } },
+  'nl.part.weak-no-ending': { stage: 'ending', params: { dental: 'text' } },
+  'nl.part.strong': { stage: 'ending', kind: 'lexical' },
+  'nl.part.ge-blocked': { stage: 'ending', params: { prefix: 'text' } },
+  'nl.part.ge-prefix': { stage: 'orthography' },
+  'nl.part.ge-diaeresis': { stage: 'orthography', params: { vowel: 'text' } },
+  'nl.orth.dental-kofschip': { stage: 'orthography', params: { sound: 'text', dental: 'text' } },
+  'nl.orth.dental-voiceless': { stage: 'orthography', params: { sound: 'text' } },
+  'nl.orth.dental-given': { stage: 'orthography', params: { dental: 'text' } },
+  'nl.orth.double-a': { stage: 'orthography' },
+  // periphrasis
+  'nl.periphrasis.perfect': withAuxiliary,
+  'nl.periphrasis.pluperfect': withAuxiliary,
+  'nl.periphrasis.future': { stage: 'periphrasis' },
+  'nl.periphrasis.future-perfect': withAuxiliary,
+  'nl.periphrasis.conditional': { stage: 'periphrasis' },
+  'nl.periphrasis.conditional-perfect': withAuxiliary,
+  // clause
+  'nl.clause.subject': { stage: 'clause', params: { pronoun: 'text' } },
+  'nl.clause.impersonal-subject': { stage: 'clause' },
+  'nl.clause.inversion': { stage: 'clause', params: { pronoun: 'text' } },
+  'nl.clause.reflexive': { stage: 'clause', params: { pronoun: 'text' } },
+  'nl.clause.particle-final': { stage: 'clause', params: { particle: 'text' } },
+  'nl.clause.particle-attached': { stage: 'clause', params: { particle: 'text' } },
+  'nl.clause.prefix-attached': { stage: 'clause', params: { prefix: 'text' } },
+});

@@ -1,46 +1,49 @@
 import { describe, expect, it } from 'vitest';
 import { conjugate } from '../src/index.js';
-import { frenchModels, selectModel } from '../src/languages/fr/models.js';
-import { cellTexts, parseTable } from '../src/languages/fr/table.js';
+import { elerEterClass } from '../src/languages/fr/paradigms.js';
+import { familyFor, labelOf } from '../src/languages/fr/classify.js';
+import { frenchFamilies } from '../src/languages/fr/families.js';
 import type { FrenchConjugationOptions } from '../src/types.js';
 
 function texts(options: FrenchConjugationOptions): string[] {
   return conjugate({ gender: 'masculine', ...options }).forms.map(form => form.text);
 }
 
-describe('French model inventory', () => {
-  it('keeps every model internally consistent', () => {
+describe('French family lexicon', () => {
+  it('keeps every family internally consistent', () => {
     const ids = new Set<string>();
-    // A listed lemma may equal another model's suffix (dire vs -dire): the listed lemma wins.
+    // A listed lemma may equal another family's suffix (dire vs -dire): the listed lemma wins.
     const claimed = { suffixes: new Map<string, string>(), lemmas: new Map<string, string>() };
-    for (const model of frenchModels) {
-      expect(ids.has(model.id), model.id).toBe(false);
-      ids.add(model.id);
-      expect(model.paradigms.length, model.id).toBeGreaterThan(0);
+    for (const family of frenchFamilies) {
+      expect(ids.has(family.id), family.id).toBe(false);
+      ids.add(family.id);
+      expect(family.paradigms.length, family.id).toBeGreaterThan(0);
       for (const kind of ['suffixes', 'lemmas'] as const) {
-        for (const selector of model[kind]) {
-          expect(model.strip, `${model.id} strips more than ${selector}`).toBeLessThanOrEqual(selector.length);
-          expect(claimed[kind].get(selector), `${selector} is claimed by two models`).toBeUndefined();
-          claimed[kind].set(selector, model.id);
+        for (const selector of family[kind]) {
+          expect(family.strip, `${family.id} strips more than ${selector}`).toBeLessThanOrEqual(selector.length);
+          expect(claimed[kind].get(selector), `${selector} is claimed by two families`).toBeUndefined();
+          claimed[kind].set(selector, family.id);
         }
       }
     }
   });
 
   it('prefers listed lemmas, then the longest suffix, and honours exclusions', () => {
-    expect(selectModel('naître')?.model.id).toBe('naître');
-    expect(selectModel('connaître')?.model.id).toBe('connaître');
-    expect(selectModel('prévaloir')?.model.id).toBe('prévaloir');
-    expect(selectModel('équivaloir')?.model.id).toBe('valoir');
-    expect(selectModel('racheter')?.model.id).toBe('lever');
-    expect(selectModel('cacheter')?.model.id).toBe('feuilleter');
-    expect(selectModel('dépecer')?.model.id).toBe('dépecer');
-    expect(selectModel('placer')?.model.id).toBe('placer');
-    expect(selectModel('ressentir')?.model.id).toBe('partir');
-    expect(selectModel('assortir')?.model.id).toBe('finir');
-    expect(selectModel('asservir')?.model.id).toBe('finir');
-    expect(selectModel('appauvrir')?.model.id).toBe('finir');
-    expect(selectModel('glouloir')).toBeUndefined();
+    expect(labelOf('naître')).toBe('naître');
+    expect(labelOf('connaître')).toBe('connaître');
+    expect(labelOf('prévaloir')).toBe('prévaloir');
+    expect(labelOf('équivaloir')).toBe('valoir');
+    expect(labelOf('racheter')).toBe('lever');
+    expect(labelOf('cacheter')).toBe('feuilleter');
+    expect(labelOf('dépecer')).toBe('dépecer');
+    expect(labelOf('placer')).toBe('placer');
+    expect(labelOf('ressentir')).toBe('partir');
+    expect(labelOf('assortir')).toBe('finir');
+    expect(labelOf('asservir')).toBe('finir');
+    expect(labelOf('appauvrir')).toBe('finir');
+    expect(labelOf('glouloir')).toBeNull();
+    expect(familyFor('redire')?.family.id).toBe('dire');
+    expect(familyFor('contredire')?.family.id).toBe('interdire');
   });
 
   it('reports the conjugation model, which the model hint accepts back', () => {
@@ -63,25 +66,14 @@ describe('French model inventory', () => {
     }
   });
 
-  it('parses alternatives, spellings, grave stems and empty endings', () => {
-    const paradigm = parseTable(`
-      ^e t:erai/r:^erai 0 - a/b ez
-      a a a a a a
-      a a a a a a
-      a a a a a a
-      a a a a a a
-      a a a a a a
-      a a a a a a
-      a a a a a a a a er
-    `);
-    expect(cellTexts('céd', paradigm.cells[0] ?? null, 'traditional', true)).toEqual(['cède']);
-    expect(cellTexts('céd', paradigm.cells[1] ?? null, 'traditional', true)).toEqual(['céderai']);
-    expect(cellTexts('céd', paradigm.cells[1] ?? null, 'rectified', true)).toEqual(['cèderai']);
-    expect(cellTexts('rend', paradigm.cells[2] ?? null, 'rectified', false)).toEqual(['rend']);
-    expect(cellTexts('x', paradigm.cells[3] ?? null, 'rectified', false)).toBeNull();
-    expect(cellTexts('x', paradigm.cells[4] ?? null, 'rectified', false)).toEqual(['xa', 'xb']);
-    expect(cellTexts('traîn', paradigm.cells[5] ?? null, 'rectified', true)).toEqual(['trainez']);
-    expect(() => parseTable('e es e')).toThrow(/Malformed/u);
+  it('classes -eler and -eter verbs by listed lemma, then longest suffix', () => {
+    expect(elerEterClass('rappeler')).toBe('double');
+    expect(elerEterClass('projeter')).toBe('double');
+    expect(elerEterClass('amonceler')).toBe('fork');
+    expect(elerEterClass('cacheter')).toBe('fork');
+    expect(elerEterClass('peler')).toBe('grave');
+    expect(elerEterClass('épeler')).toBe('fork');
+    expect(elerEterClass('racheter')).toBe('grave');
   });
 });
 

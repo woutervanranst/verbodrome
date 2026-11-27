@@ -1,0 +1,142 @@
+{
+ "source": {
+  "work": "treccani-lgi",
+  "entry": "Incoativi, verbi",
+  "url": "https://www.treccani.it/enciclopedia/verbi-incoativi_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "finire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "finisco"
+   ],
+   "printed": "fin-isc-o"
+  },
+  {
+   "lemma": "capire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "capisci"
+   ],
+   "printed": "cap-isc-i"
+  },
+  {
+   "lemma": "preferire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "preferisce"
+   ],
+   "printed": "prefer-isc-e"
+  },
+  {
+   "lemma": "contribuire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "contribuiscono"
+   ],
+   "printed": "contribu-isc-ono"
+  },
+  {
+   "lemma": "definire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "definisca"
+   ],
+   "printed": "defin-isc-a"
+  },
+  {
+   "lemma": "favorire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "favorisca"
+   ],
+   "printed": "favor-isc-a"
+  },
+  {
+   "lemma": "obbedire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "obbedisca"
+   ],
+   "printed": "obbed-isc-a"
+  },
+  {
+   "lemma": "smentire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "smentiscano"
+   ],
+   "printed": "sment-isc-ano"
+  },
+  {
+   "lemma": "inserire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "inserisci"
+   ],
+   "printed": "inser-isc-i"
+  },
+  {
+   "lemma": "guarire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "3sg.formal"
+   },
+   "forms": [
+    "guarisca"
+   ],
+   "printed": "guar-isc-a"
+  },
+  {
+   "lemma": "reagire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "3pl.formal"
+   },
+   "forms": [
+    "reagiscano"
+   ],
+   "printed": "reag-isc-ano"
+  }
+ ]
+}

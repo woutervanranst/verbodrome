@@ -180,14 +180,15 @@ describe('explain', () => {
     expect(() => toy.explain('xx', null as unknown as ConjugatedForm, 'en')).toThrow(expect.objectContaining({ code: 'INVALID_REQUEST' }));
   });
 
-  it('returns no sections for a pack that records no steps yet', () => {
-    const aimer = conjugate({ language: 'fr', infinitive: 'aimer', mood: 'infinitive' });
-    expect(explain('fr', aimer.forms[0]!, 'en').sections).toEqual([]);
-    expect(explain('fr', aimer.forms[0]!, 'en').summary).toBe('aimer: Infinitif, Présent');
-    expect(explain('fr', aimer.analysis, 'nl').sections).toEqual([]);
-    const falloir = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' });
-    expect(explain('fr', falloir.unavailableTargets[0] as UnavailableTarget, 'en').sections).toEqual([]);
+  it('returns no sections for a form that records no steps, and explains a French form step by step', () => {
     expect(explain('nl', conjugate({ language: 'nl', infinitive: 'werken', mood: 'infinitive' }).forms[0]!, 'nl').sections).toEqual([]);
+    const aimer = conjugate({ language: 'fr', infinitive: 'aimer', mood: 'infinitive' });
+    expect(explain('fr', aimer.forms[0]!, 'en').summary).toBe('aimer: Infinitif, Présent');
+    expect(explain('fr', aimer.forms[0]!, 'en').sections.flatMap(section => section.steps.map(step => step.rule)))
+      .toEqual(['fr.stem.group-stem', 'fr.end.infinitive']);
+    const falloir = conjugate({ language: 'fr', infinitive: 'falloir', mood: 'indicative', tense: 'present', person: 1, number: 'singular' });
+    expect(explain('fr', falloir.unavailableTargets[0] as UnavailableTarget, 'en').sections.flatMap(section => section.steps.map(step => step.rule)))
+      .toEqual(['fr.avail.impersonal']);
   });
 });
 

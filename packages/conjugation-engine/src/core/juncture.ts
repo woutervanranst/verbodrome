@@ -1,6 +1,6 @@
 import { step } from './derivation.js';
 import type { RuleInfo, StepParam } from './derivation.js';
-import { mergeTags, one } from './fork.js';
+import { mergeMarks, mergeTags, one, withMarks } from './fork.js';
 import type { Fork, Outcome } from './fork.js';
 
 /** The stem/ending boundary where spelling rules operate. */
@@ -39,7 +39,7 @@ function applyRule<C>(rule: JunctureRule<C>, branches: Fork<Juncture>, context: 
       const recorded = before === after
         ? []
         : [step(rule.info, before, after, rule.describe?.(branch.value, result.value, context))];
-      next.push({ value: result.value, steps: [...branch.steps, ...result.steps, ...recorded], tags });
+      next.push({ value: result.value, steps: [...branch.steps, ...result.steps, ...recorded], tags, ...withMarks(mergeMarks(branch.marks, result.marks)) });
     }
   }
   return next;

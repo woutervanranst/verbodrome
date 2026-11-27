@@ -1,0 +1,189 @@
+{
+ "source": {
+  "work": "treccani-edi",
+  "entry": "Coniugazione verbale",
+  "url": "https://www.treccani.it/enciclopedia/coniugazione-verbale_(Enciclopedia-dell'Italiano)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "partire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "parto"
+   ],
+   "printed": "parto"
+  },
+  {
+   "lemma": "partire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "parti"
+   ],
+   "printed": "parti"
+  },
+  {
+   "lemma": "partire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "parte"
+   ],
+   "printed": "parte"
+  },
+  {
+   "lemma": "partire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "partono"
+   ],
+   "printed": "partono"
+  },
+  {
+   "lemma": "togliere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tolgo"
+   ],
+   "printed": "tolgo"
+  },
+  {
+   "lemma": "togliere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tolsi"
+   ],
+   "printed": "tolsi"
+  },
+  {
+   "lemma": "togliere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "tolto"
+   ],
+   "printed": "tolto"
+  },
+  {
+   "lemma": "prendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "prendo"
+   ],
+   "printed": "prendo"
+  },
+  {
+   "lemma": "prendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "presi"
+   ],
+   "printed": "presi"
+  },
+  {
+   "lemma": "rompere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ruppi"
+   ],
+   "printed": "ruppi"
+  },
+  {
+   "lemma": "muovere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mossi"
+   ],
+   "printed": "mossi"
+  },
+  {
+   "lemma": "cadere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "caddi"
+   ],
+   "printed": "caddi"
+  },
+  {
+   "lemma": "bere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "bevvi"
+   ],
+   "printed": "bevvi"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tenni"
+   ],
+   "printed": "tenni"
+  },
+  {
+   "lemma": "finire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "finiscono"
+   ],
+   "printed": "finiscono"
+  }
+ ]
+}

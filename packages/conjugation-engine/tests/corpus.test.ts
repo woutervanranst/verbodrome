@@ -14,6 +14,10 @@ const pinned: Readonly<Partial<Record<Language, {
 }>>> = {
   fr: { files: 222, infinitives: 84, cells: 26_196, modelled: 26_196, unmodelled: 0, placeholders: 0, remaps: 0 },
   nl: { files: 207, infinitives: 207, cells: 10_764, modelled: 10_764, unmodelled: 0, placeholders: 1_030, remaps: 0 },
+  en: { files: 145, infinitives: 145, cells: 18_270, modelled: 18_270, unmodelled: 0, placeholders: 435, remaps: 3 },
+  de: { files: 139, infinitives: 139, cells: 12_788, modelled: 12_788, unmodelled: 0, placeholders: 0, remaps: 5 },
+  es: { files: 89, infinitives: 89, cells: 11_036, modelled: 11_036, unmodelled: 0, placeholders: 356, remaps: 6 },
+  it: { files: 20, infinitives: 20, cells: 1_920, modelled: 1_900, unmodelled: 20, placeholders: 20, remaps: 3 },
 };
 
 const read = (name: string): string => readFileSync(new URL(`./fixtures/${name}.json`, import.meta.url), 'utf8');
@@ -28,15 +32,25 @@ const languageOf = (file: CorpusFile) => {
   return language;
 };
 
-/** Forms generated for the cell's (corrected) grammatical target, voice and subject; the language narrows them further. */
-function targetForms(target: CorpusCell['target'], cell: CorpusCell, forms: readonly ConjugatedForm[]): ConjugatedForm[] {
+/**
+ * Forms generated for the cell's (corrected) grammatical target, voice and subject; the language narrows them further.
+ * For a language whose fixtures carry no subject ids (`fixturesWithoutSubjects`), a cell without one answers the forms
+ * of its person and number whichever slot the engine gives them; otherwise the slot must match too.
+ */
+function targetForms(language: Pick<CorpusLanguage, 'fixturesWithoutSubjects'>, target: CorpusCell['target'], cell: CorpusCell, forms: readonly ConjugatedForm[]): ConjugatedForm[] {
   const wanted: ResolvedTarget = {
     ...target, gender: null,
     ...(cell.voice ? { voice: cell.voice } : {}),
     ...(cell.subject ? { subject: cell.subject } : {}),
   };
+  const anySlot = language.fixturesWithoutSubjects === true && cell.subject === undefined;
+  const keyOf = (form: ConjugatedForm): string => {
+    if (!anySlot) return targetKey(form.target);
+    const { subject: _, ...withoutSubject } = form.target;
+    return targetKey(withoutSubject);
+  };
   return forms.filter(form => {
-    if (targetKey(form.target) !== targetKey(wanted)) return false;
+    if (keyOf(form) !== targetKey(wanted)) return false;
     const agreement = form.target.agreement;
     return !target.agreement || (agreement !== null && agreement.gender === target.agreement.gender
       && agreement.number === target.agreement.number && agreement.case === target.agreement.case);
@@ -157,7 +171,7 @@ describe('complete pinned corpus accounting', () => {
       const expected = correction?.expected ?? cell.expected;
       const unavailable = correction?.unavailable ?? cell.sourceUnavailable;
       const target = correction?.correctedTarget ?? cell.target;
-      const byLabel = new Map([...generated].map(([label, forms]) => [label, targetForms(target, cell, forms)] as const));
+      const byLabel = new Map([...generated].map(([label, forms]) => [label, targetForms(language, target, cell, forms)] as const));
       const candidates = candidateForms(language, file, cell, byLabel);
       const location = `${file.file}:${index} ${target.mood}/${target.tense}/${target.person ?? '-'}/${target.number ?? '-'} ${cell.original}`;
       if (!unavailable) expect(expected.length, location).toBeGreaterThan(0);
@@ -195,6 +209,15 @@ describe('how a cell is compared with the engine', () => {
     expect(onlyB.map(candidate => candidate.text)).toEqual(['y']);
     expect(onlyB.some(candidate => candidate.text === cell.expected[0])).toBe(false);
     expect(candidateForms({ applicable: answers('c') }, file, cell, byLabel)).toEqual([]);
+  });
+
+  it('lets a cell without a subject id answer any slot only for a language whose fixtures carry none', () => {
+    const slotted: ConjugatedForm = { ...form('x'), target: { ...target, subject: '1sg' } };
+    expect(targetForms({ fixturesWithoutSubjects: true }, target, cell, [slotted])).toEqual([slotted]);
+    expect(targetForms({}, target, cell, [slotted])).toEqual([]);
+    // A cell that names its slot answers only that slot, flag or not.
+    expect(targetForms({ fixturesWithoutSubjects: true }, target, { ...cell, subject: '1sg' }, [slotted])).toEqual([slotted]);
+    expect(targetForms({ fixturesWithoutSubjects: true }, target, { ...cell, subject: '3sg' }, [slotted])).toEqual([]);
   });
 
   it('takes the forms of every label that accepts the cell together', () => {

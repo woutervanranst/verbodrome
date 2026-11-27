@@ -9,7 +9,8 @@ import { isLocale, locales } from './i18n/locales/index.js';
 import { packs } from './languages/index.js';
 import type { ConjugatedForm } from './types.js';
 import { labelsFor, resolvedTargetKey } from './catalogue.js';
-import { formLabel, targetLabel } from './cli-labels.js';
+import { formLabel, unavailableLine } from './cli-labels.js';
+import type { PersonLabel } from './cli-labels.js';
 
 /** Short flag names for fields whose kebab-case spelling is not the one users know. */
 const aliases: Readonly<Record<string, string>> = { classHint: 'class', preferredOrthography: 'orthography' };
@@ -23,7 +24,7 @@ const commonHelp = [
   ['--json', 'Complete structured result'],
   ['--bare', 'Omit the finite subject and any conjunction such as the French subjunctive que'],
   ['--explain', 'Print the rule behind each step of a form, indented under it (JSON: an explanation per form)'],
-  [`--locale <${Object.keys(locales).join('|')}>`, 'Language of --explain (default en)'],
+  [`--locale <${Object.keys(locales).join('|')}>`, 'Language of --explain and of the reason a form is unavailable (default en)'],
   ['--help', ''],
 ] as const;
 
@@ -136,6 +137,10 @@ try {
     const locale = typeof values.locale === 'string' ? values.locale : 'en';
     if (!isLocale(locale)) throw new ConjugationError('INVALID_REQUEST', `Locale must be one of: ${Object.keys(locales).join(', ')}.`);
     const result = conjugate(parseConjugationOptions(options));
+    // With a chosen locale other than the default, person and number are worded in that locale's terms.
+    const terms = locales[locale] as Readonly<Record<string, string>>;
+    const person: PersonLabel | undefined = locale === 'en' ? undefined
+      : (p, n) => `${terms[`term.person.${p}`] ?? p} ${terms[`term.number.${n}`] ?? n}`;
     if (values.json) {
       const forms = values.explain ? result.forms.map(form => ({ ...form, explanation: explain(result.language, form, locale) })) : result.forms;
       console.log(JSON.stringify({ ...result, forms }, null, 2));
@@ -152,12 +157,13 @@ try {
         steps(preferred);
       } else {
         for (const form of result.forms) {
-          console.log(`${formLabel(form)}: ${display(form)}`);
+          console.log(`${formLabel(form, person)}: ${display(form)}`);
           steps(form);
         }
       }
       for (const unavailable of result.unavailableTargets) {
-        console.log(`${targetLabel(unavailable.target, labelsFor(result.language, unavailable.target))}: unavailable (${unavailable.explanation})`);
+        // The reason in the chosen locale, from the rule the target records.
+        console.log(unavailableLine(unavailable, labelsFor(result.language, unavailable.target), explain(result.language, unavailable, locale), person));
       }
     }
     if (result.status === 'unavailable') process.exitCode = 3;

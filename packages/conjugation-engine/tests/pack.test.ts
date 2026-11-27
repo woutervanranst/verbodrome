@@ -22,20 +22,23 @@ describe('catalogue entries from moodEntries', () => {
     expect(moodEntries('imperative', 'Imperative', [[2, 'singular']], tenses, { slots: ['2sg'] })[0]).toMatchObject({ finite: true, slots: ['2sg'] });
   });
 
-  it('leaves the French and Dutch catalogues as they were', () => {
+  it('leaves the French and Dutch catalogues as they were, apart from the French imperative slots', () => {
     for (const language of ['fr', 'nl'] as const) {
       const catalogue = getCatalogue(language);
       expect(catalogue.filter(entry => entry.finite === (entry.persons.length > 0))).toHaveLength(catalogue.length);
-      expect(catalogue.some(entry => 'slots' in entry)).toBe(false);
     }
+    expect(getCatalogue('nl').some(entry => 'slots' in entry)).toBe(false);
+    expect(getCatalogue('fr').filter(entry => 'slots' in entry).map(entry => [entry.mood, entry.tense, entry.slots])).toEqual([
+      ['imperative', 'present', ['2sg', '1pl', '2pl']], ['imperative', 'past', ['2sg', '1pl', '2pl']],
+    ]);
   });
 });
 
 describe('language packs', () => {
   it('lists registered languages and rejects others by name', () => {
-    expect(languages).toEqual(['fr', 'nl', 'la']);
+    expect(languages).toEqual(['fr', 'nl', 'en', 'de', 'es', 'it', 'la']);
     for (const call of [() => conjugate({ language: 'xx', infinitive: 'a' } as never), () => getCatalogue('xx' as never), () => renderParts('xx' as never, [])]) {
-      expect(call).toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl, la.' }));
+      expect(call).toThrow(expect.objectContaining({ code: 'UNSUPPORTED_LANGUAGE', message: 'Language must be one of: fr, nl, en, de, es, it, la.' }));
     }
   });
 

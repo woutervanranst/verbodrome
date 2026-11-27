@@ -1,0 +1,879 @@
+{
+ "source": {
+  "work": "treccani-voc",
+  "entry": "Vocabolario, the headers of the verbs changed in the last round",
+  "url": "https://www.treccani.it/vocabolario/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "riempire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "riempio"
+   ],
+   "printed": "rïémpio",
+   "page": "https://www.treccani.it/vocabolario/riempire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empio"
+   ],
+   "printed": "émpio",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "empi"
+   ],
+   "printed": "émpi",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "empie"
+   ],
+   "printed": "émpie",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "empiamo"
+   ],
+   "printed": "empiamo",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "empite"
+   ],
+   "printed": "empite",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3pl"
+   },
+   "forms": [
+    "empiono"
+   ],
+   "printed": "émpiono",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empia"
+   ],
+   "printed": "émpia",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "empi"
+   ],
+   "printed": "émpi",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "empite"
+   ],
+   "printed": "empite",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empii"
+   ],
+   "printed": "empìi",
+   "page": "https://www.treccani.it/vocabolario/empire/",
+   "excluded": [
+    {
+     "form": "empiei",
+     "reason": "The Vocabolario prints the -ei series as \"più raro\"; not generated (the pack has no second weak series for -ire verbs)."
+    }
+   ]
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "empito",
+    "empiuto"
+   ],
+   "printed": "empito; empiuto",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "gerund",
+    "tense": "present"
+   },
+   "forms": [
+    "empiendo"
+   ],
+   "printed": "empièndo",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "imperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empivo"
+   ],
+   "printed": "empivo",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "indicative",
+    "tense": "future",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empirò"
+   ],
+   "printed": "empirò",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "conditional",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empirei"
+   ],
+   "printed": "empirèi",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "empire",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "imperfect",
+    "subject": "1sg"
+   },
+   "forms": [
+    "empissi"
+   ],
+   "printed": "empissi",
+   "page": "https://www.treccani.it/vocabolario/empire/"
+  },
+  {
+   "lemma": "compiere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "compio"
+   ],
+   "printed": "cómpio",
+   "page": "https://www.treccani.it/vocabolario/compiere/"
+  },
+  {
+   "lemma": "compiere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "compii"
+   ],
+   "printed": "compìi",
+   "page": "https://www.treccani.it/vocabolario/compiere/"
+  },
+  {
+   "lemma": "compiere",
+   "query": {
+    "mood": "gerund",
+    "tense": "present"
+   },
+   "forms": [
+    "compiendo"
+   ],
+   "printed": "compièndo",
+   "page": "https://www.treccani.it/vocabolario/compiere/"
+  },
+  {
+   "lemma": "compiere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "compiuto"
+   ],
+   "printed": "compiuto",
+   "page": "https://www.treccani.it/vocabolario/compiere/"
+  },
+  {
+   "lemma": "adempiere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "adempio",
+    "adempisco"
+   ],
+   "printed": "adémpio; adempisco",
+   "page": "https://www.treccani.it/vocabolario/adempiere/"
+  },
+  {
+   "lemma": "adempiere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "adempi",
+    "adempisci"
+   ],
+   "printed": "adémpi; adempisci",
+   "page": "https://www.treccani.it/vocabolario/adempiere/"
+  },
+  {
+   "lemma": "adempiere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "adempiuto",
+    "adempito"
+   ],
+   "printed": "adempiuto; adempito",
+   "page": "https://www.treccani.it/vocabolario/adempiere/"
+  },
+  {
+   "lemma": "assalire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "assalgo",
+    "assalisco"
+   ],
+   "printed": "assalgo; assalisco",
+   "page": "https://www.treccani.it/vocabolario/assalire/"
+  },
+  {
+   "lemma": "assalire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "assali",
+    "assalisci"
+   ],
+   "printed": "assali; assalisci",
+   "page": "https://www.treccani.it/vocabolario/assalire/"
+  },
+  {
+   "lemma": "assalire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "assalii",
+    "assalsi"
+   ],
+   "printed": "assalìi; assalsi",
+   "page": "https://www.treccani.it/vocabolario/assalire/"
+  },
+  {
+   "lemma": "svestire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "svesto"
+   ],
+   "printed": "svèsto",
+   "page": "https://www.treccani.it/vocabolario/svestire/"
+  },
+  {
+   "lemma": "susseguire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "susseguo"
+   ],
+   "printed": "susséguo",
+   "page": "https://www.treccani.it/vocabolario/susseguire/"
+  },
+  {
+   "lemma": "trasparire",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "trasparito"
+   ],
+   "printed": "trasparito",
+   "page": "https://www.treccani.it/vocabolario/trasparire/"
+  },
+  {
+   "lemma": "trasparire",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "trasparsi",
+    "trasparvi"
+   ],
+   "printed": "trasparsi; trasparvi",
+   "page": "https://www.treccani.it/vocabolario/trasparire/"
+  },
+  {
+   "lemma": "prescindere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "prescindei",
+    "prescissi"
+   ],
+   "printed": "prescindéi; prescissi",
+   "page": "https://www.treccani.it/vocabolario/prescindere/"
+  },
+  {
+   "lemma": "prescindere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "prescisso"
+   ],
+   "printed": "prescisso",
+   "page": "https://www.treccani.it/vocabolario/prescindere/"
+  },
+  {
+   "lemma": "flettere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "fletto"
+   ],
+   "printed": "flètto",
+   "page": "https://www.treccani.it/vocabolario/flettere/"
+  },
+  {
+   "lemma": "flettere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "flettei",
+    "flessi"
+   ],
+   "printed": "flettéi; flèssi",
+   "page": "https://www.treccani.it/vocabolario/flettere/"
+  },
+  {
+   "lemma": "flettere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "flesso",
+    "flettuto"
+   ],
+   "printed": "flèsso; flettuto",
+   "page": "https://www.treccani.it/vocabolario/flettere/"
+  },
+  {
+   "lemma": "transigere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "transigo"
+   ],
+   "printed": "transigo",
+   "page": "https://www.treccani.it/vocabolario/transigere/"
+  },
+  {
+   "lemma": "transigere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "transigei",
+    "transigetti"
+   ],
+   "printed": "transigéi; transigètti",
+   "page": "https://www.treccani.it/vocabolario/transigere/"
+  },
+  {
+   "lemma": "transigere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "transatto"
+   ],
+   "printed": "transatto",
+   "page": "https://www.treccani.it/vocabolario/transigere/"
+  },
+  {
+   "lemma": "prefiggere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "prefisso"
+   ],
+   "printed": "prefisso",
+   "page": "https://www.treccani.it/vocabolario/prefiggere/"
+  },
+  {
+   "lemma": "affiggere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "affissi"
+   ],
+   "printed": "affissi",
+   "page": "https://www.treccani.it/vocabolario/affiggere/"
+  },
+  {
+   "lemma": "figgere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "fissi"
+   ],
+   "printed": "fissi",
+   "page": "https://www.treccani.it/vocabolario/figgere/"
+  },
+  {
+   "lemma": "figgere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "fitto"
+   ],
+   "printed": "fitto",
+   "page": "https://www.treccani.it/vocabolario/figgere/"
+  },
+  {
+   "lemma": "dissuadere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "dissuasi"
+   ],
+   "printed": "dissüaṡi",
+   "page": "https://www.treccani.it/vocabolario/dissuadere/"
+  },
+  {
+   "lemma": "dissuadere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "dissuaso"
+   ],
+   "printed": "dissüaṡo",
+   "page": "https://www.treccani.it/vocabolario/dissuadere/"
+  },
+  {
+   "lemma": "fungere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "funsi"
+   ],
+   "printed": "funsi",
+   "page": "https://www.treccani.it/vocabolario/fungere/"
+  },
+  {
+   "lemma": "fungere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "funto"
+   ],
+   "printed": "funto",
+   "page": "https://www.treccani.it/vocabolario/fungere/"
+  },
+  {
+   "lemma": "convergere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "conversi"
+   ],
+   "printed": "convèrsi",
+   "page": "https://www.treccani.it/vocabolario/convergere/"
+  },
+  {
+   "lemma": "convergere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "converso"
+   ],
+   "printed": "convèrso",
+   "page": "https://www.treccani.it/vocabolario/convergere/"
+  },
+  {
+   "lemma": "aspergere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "aspersi"
+   ],
+   "printed": "aspèrsi",
+   "page": "https://www.treccani.it/vocabolario/aspergere/"
+  },
+  {
+   "lemma": "aspergere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "asperso"
+   ],
+   "printed": "aspèrso",
+   "page": "https://www.treccani.it/vocabolario/aspergere/"
+  },
+  {
+   "lemma": "tergere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "tersi"
+   ],
+   "printed": "tèrsi",
+   "page": "https://www.treccani.it/vocabolario/tergere/"
+  },
+  {
+   "lemma": "tergere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "terso"
+   ],
+   "printed": "tèrso",
+   "page": "https://www.treccani.it/vocabolario/tergere/"
+  },
+  {
+   "lemma": "ergere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "ersi"
+   ],
+   "printed": "èrsi",
+   "page": "https://www.treccani.it/vocabolario/ergere/"
+  },
+  {
+   "lemma": "ergere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "erto"
+   ],
+   "printed": "érto",
+   "page": "https://www.treccani.it/vocabolario/ergere/"
+  },
+  {
+   "lemma": "intridere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "intrisi"
+   ],
+   "printed": "intriṡi",
+   "page": "https://www.treccani.it/vocabolario/intridere/"
+  },
+  {
+   "lemma": "intridere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "intriso"
+   ],
+   "printed": "intriṡo",
+   "page": "https://www.treccani.it/vocabolario/intridere/"
+  },
+  {
+   "lemma": "elidere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "elisi"
+   ],
+   "printed": "eliṡi",
+   "page": "https://www.treccani.it/vocabolario/elidere/"
+  },
+  {
+   "lemma": "elidere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "eliso"
+   ],
+   "printed": "eliṡo",
+   "page": "https://www.treccani.it/vocabolario/elidere/"
+  },
+  {
+   "lemma": "indulgere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "indulsi"
+   ],
+   "printed": "indulsi",
+   "page": "https://www.treccani.it/vocabolario/indulgere/"
+  },
+  {
+   "lemma": "indulgere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "indulto"
+   ],
+   "printed": "indulto",
+   "page": "https://www.treccani.it/vocabolario/indulgere/"
+  },
+  {
+   "lemma": "urgere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "urgo"
+   ],
+   "printed": "urgo",
+   "page": "https://www.treccani.it/vocabolario/urgere/"
+  },
+  {
+   "lemma": "ravvedersi",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "ravveduto"
+   ],
+   "printed": "ravveduto",
+   "page": "https://www.treccani.it/vocabolario/ravvedersi/"
+  },
+  {
+   "lemma": "riflettere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "riflesso",
+    "riflettuto"
+   ],
+   "printed": "riflèsso; riflettuto",
+   "page": "https://www.treccani.it/vocabolario/riflettere/"
+  },
+  {
+   "lemma": "ripartire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "riparto"
+   ],
+   "printed": "riparto",
+   "page": "https://www.treccani.it/vocabolario/ripartire2/"
+  },
+  {
+   "lemma": "sfare",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "sfaccio",
+    "sfò"
+   ],
+   "printed": "sfàccio; sfò",
+   "page": "https://www.treccani.it/vocabolario/sfare/"
+  },
+  {
+   "lemma": "confarsi",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "si confà"
+   ],
+   "printed": "confà",
+   "page": "https://www.treccani.it/vocabolario/confarsi/"
+  }
+ ]
+}

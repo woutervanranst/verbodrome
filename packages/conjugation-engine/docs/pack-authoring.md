@@ -25,7 +25,7 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
 }
 ```
 
-The order for one target of one paradigm: `availability` (is there a form at all?), `cellOf` (is it one word, and which?), then per cell `cell` / `stem` -> `ending` -> `orthography`; for a periphrasis, the cells of its verbs the same way, then `clause.agreements` and `clause.assemble`. The hook names below are checked against the toy grammar by `tests/docs.test.ts`.
+The order for one target of one paradigm: `availability` (is there a form at all?), `cellOf` (is it one word, and which?), then per cell `cell` / `stem` -> `ending` -> `orthography`; for a periphrasis, the cells of its verbs the same way, then `clause.subjectGenders` (optional), `clause.agreements` and `clause.assemble`. The hook names below are checked against the toy grammar by `tests/docs.test.ts`.
 
 A hook that has nothing to say returns `one(value)` (a one-outcome fork without steps), `null` where the type allows it, or `[]` where an empty fork is meaningful. An empty fork never means "this form does not exist" (see section 7).
 
@@ -163,14 +163,20 @@ availability(lexeme, target) {
 cell?(lexeme: X, cell: Cell): Fork<string> | null;
 ```
 
-Optional whole-word override (suppletive verbs): the form of the cell as a lexical fact, or `null` to derive it by the stages. `[]` is no word at all, not a missing form.
+Optional whole-word override (suppletive verbs): the form of the cell as a lexical fact, or `null` to derive it by the stages. `[]` is no word at all, not a missing form. The toy's (its formal 3sg form is marked, see Marks in section 4):
 
 ```ts toy
 cell(lexeme, cell) {
   if (!lexeme.present || cell.kind !== 'finite' || cell.mood !== 'indicative' || cell.tense !== 'present' || cell.voice === 'passive') return null;
   const word = itemAt(lexeme.present, slot(cell));
-  return one(word, [step(toyRules['xx.lex.present'], lexeme.lemma, word)]);
-},
+  const steps = [step(toyRules['xx.lex.present'], lexeme.lemma, word)];
+  if (lexeme.formal === null || slot(cell) !== 2) return one(word, steps);
+```
+
+A cell that mixes listed words with derived ones (a listed alternative beside the regular form, a strong past beside a weak one) returns them all from `cell`, and takes the derived ones from the same stem → ending → orthography path the engine runs for a cell without listed words:
+
+```ts signature src/core/staged.ts
+export function deriveWords<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Fork<string>
 ```
 
 ### `stem`
@@ -229,13 +235,29 @@ The compound tenses, as recipes (section 6). A grammar with no compound tenses h
 periphrases,
 ```
 
+### `clause.subjectGenders`
+
+```ts signature src/core/clause.ts
+subjectGenders?(context: ClauseContext<X>): Fork<Gender | null>;
+```
+
+Optional. The subject genders a form shows when its subject slot has none: French `il` / `elle` in the third person, and `je suis allé` / `je suis allée` where a participle agrees with a genderless subject. It runs for every target, finite or not, after the periphrasis step and before `agreements`; each outcome becomes the form's `target.gender` and the target `agreements` and `assemble` see, and its steps are form-level steps (so `explain` lists them with the form). A gender is a target dimension, not a variant: the outcomes are separate targets of one slot, each with its own preferred form. Without the hook the form keeps the target's own gender (the slot's, in a pack with `genderedTargets`), with no step, so a pack that does not define it is unaffected. Return `one(target.gender)` where nothing forks (an impersonal subject has no gender to show); an empty fork leaves the target without a form, a GENERATION_FAILURE naming the `subjectGenders` stage. Why not one slot per gender (`il`, `elle`): a target that is unavailable, or a form that does not show the gender, would then come twice. The toy forks its genderless `mi` in a perfect with esta:
+
+```ts toy
+subjectGenders({ target, auxiliary }) {
+  if (target.subject !== '1sg' || auxiliary !== 'esta') return one(target.gender);
+  return genders.flatMap(gender =>
+    one(gender, [step(toyRules['xx.clause.subject-gender'], null, null, { gender: { term: 'gender', id: gender } })]));
+},
+```
+
 ### `clause.agreements`
 
 ```ts signature src/core/clause.ts
 agreements(context: ClauseContext<X>): Fork<Agreement | null>;
 ```
 
-For a target with agreeing cells (`context.agreeing` is not empty), the agreements to generate: a fork of `{ gender, number, case? }` (each outcome a separate form), with the rule that explains the choice. `one(null)` when nothing agrees. It is not called when `agreeing` is empty.
+For a target with agreeing cells (`context.agreeing` is not empty), the agreements to generate: a fork of `{ gender, number, case? }` (each outcome a separate form), with the rule that explains the choice. `one(null)` when nothing agrees. It is not called when `agreeing` is empty. Its `context.target` has the gender `subjectGenders` chose, which a participle that agrees with the subject follows.
 
 ```ts toy
 agreements({ target, agreeing, auxiliary }) {
@@ -244,7 +266,8 @@ agreements({ target, agreeing, auxiliary }) {
   const pastParticiple = agreeing.some(cell => cell.kind === 'nonFinite' && cell.form === 'participle');
   if (!pastParticiple || (auxiliary !== null && auxiliary !== 'esta')) return one(null);
   const number = target.number ?? 'singular';
-  return genders.flatMap(gender =>
+  // A subject gender (from `subjectGenders`) decides the participle's; a target without one has both.
+  return (target.gender === null ? genders : [target.gender]).flatMap(gender =>
     one({ gender, number }, [step(toyRules['xx.agree.gender'], null, null, { gender: { term: 'gender', id: gender } })]));
 },
 ```
@@ -327,7 +350,7 @@ Registering a language is one line or one import in each of these shared files. 
 | `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
 | `README.md`, `docs/api.md` | the list of languages the package conjugates |
 
-`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, `nl`, the packs not yet migrated to the staged engine) names languages, and a new pack is never added to it.
+`tests/i18n/completeness.test.ts` needs no edit for a new language: it runs over every registered pack, and it fails for a registered pack that declares no `rules`. Only its list of legacy packs (`fr`, the pack that has not started migrating to the staged engine) names languages, and a new pack is never added to it.
 
 A registered pack's option schema is typed against its spec (section 3); the toy `xx` is not registered, so it uses the generic `OptionSchema`.
 
@@ -379,7 +402,7 @@ export const toyPack: LanguagePack<'xx'> = {
 };
 ```
 
-`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` and `nl` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
+`language` is the code the pack is registered under (`createEngine` rejects a pack registered under another code); `label` is its English name in CLI help. `rules` is mandatory for a staged pack. Without it `explain` has nothing to resolve, assumptions and unavailability reasons stay rule ids instead of becoming sentences, and `tests/i18n/completeness.test.ts` does not check the pack's messages and citations at all: that gate skips a pack without `rules`, which is why it now fails for a registered pack that has none (only the legacy `fr` may). `works` and `citations` give every rule its source (section 8). `subjects` is omitted for a language without subject slots.
 
 ### Testing a pack
 
@@ -395,6 +418,30 @@ const catalogs = { en: { ...locales.en, ...toyEn }, nl: { ...locales.nl, ...toyN
 const toy = createEngine({ xx: toyPack }, catalogs);
 const forms = toy.conjugate({ language: 'xx', infinitive: 'placa', mood: 'indicative', tense: 'present', voice: 'active' }).forms;
 ```
+
+### The characterization ledger
+
+A language that existed before the staged core has a frozen snapshot of its old output: `tests/characterization/<language>.queries.json` (the queries) and `<language>.tsv.gz` (the complete output of `conjugate` for each, written once by `npm run characterize:write`, never regenerated and never edited). To inspect it: `gunzip -c tests/characterization/<language>.tsv.gz | less`. Each query is a block: the header line `# {query as JSON, keys sorted}`, then an `A` line (analysis), `F` lines (forms, in engine order) and `U` lines (unavailable targets), or a single `E` line with the error code. `tests/characterization.test.ts` requires the current engine to reproduce every block exactly, apart from the intended differences in `tests/characterization/intended-diffs.json`. Each entry has a `reason` of more than 30 characters, saying which approved change or which correction it records and why, and an `https://` `source` (the authority: e-ANS, the Leidraad, woordenlijst.org, ...). The file lists the line-level and block-level entries sorted by `query`, then the sentence-level entries sorted by the sentence they reword. An entry takes one of three forms:
+
+- **Line-level**, for a block that changes in a few lines: `was` is the frozen line and `now` the line that replaces it; `was: null` adds `now` (after the line given in `after`, directly after the `A` line when `after` is `null`, at the end of the block when `after` is absent); `now: null` removes `was`. A reorder is a removal plus an insertion.
+
+```json
+{ "query": "# {\"infinitive\":\"zorpen\",\"language\":\"nl\"}", "was": "F\t...\tgezorpt\t...", "now": "F\t...\tgezorpd\t...", "reason": "...", "source": "https://..." }
+```
+
+- **Block-level**, for a block that changes throughout (most of its lines, or an `E` block that becomes a paradigm): the whole frozen block of `query` is superseded by the block with the same header in `tests/characterization/<language>.accepted.tsv.gz`, which has the line format and gzip of the frozen file.
+
+```json
+{ "query": "# {\"infinitive\":\"voorkomen\",\"language\":\"nl\"}", "block": true, "reason": "...", "source": "https://..." }
+```
+
+- **Sentence-level**, for one assumption sentence reworded or removed throughout the snapshot (a message that stopped being true): in the analysis (`A`) line of every block that lists the sentence `was` among its assumptions, it becomes `now`, or is removed when `now` is null. It is applied after the line-level entries of a block and never to an accepted block, so the new text must not depend on the verb (no `{before}`), and it must apply to at least one block. A sentence that disappears from only some blocks (because those verbs are now listed) is not a sentence-level change: give those blocks line-level entries for their `A` line.
+
+```json
+{ "sentence": { "was": "Old sentence.", "now": "New sentence." }, "reason": "...", "source": "https://..." }
+```
+
+After adding or removing a block-level entry, or after an intended change to the output of a query that has one, run `npm run characterize:accept`: it writes each language's accepted file from the current engine for exactly the block-level entries' queries (and removes the file of a language without any), so read the accepted blocks it wrote before you commit them. The test enforces: a query has one block-level entry or only line-level ones; every accepted block has exactly one block-level entry and every block-level entry an accepted block; every line-level and block-level entry is applied exactly once and every sentence-level entry at least once (an unused entry fails). The number of entries of each form is pinned (`LINE_ENTRY_COUNT`, `BLOCK_ENTRY_COUNT`, `SENTENCE_ENTRY_COUNT`); raise them in the commit that adds the entries. A language with no frozen snapshot has no ledger; its tests are its own.
 
 ## 3. Catalogue, subjects, options, rendering and rank
 
@@ -443,7 +490,7 @@ export interface SubjectSlot {
 }
 ```
 
-A pack with `subjects` gets one target per selected slot and accepts the common `subject` option (a slot id). The verb agrees with the slot's `person` and `number`, which need not be what the subject addresses: the toy's formal `Vu` is a slot with person 3. `pronoun` is `null` for a pro-drop language's unmarked subject. `register` is data for the clause and the app; the core does not read it. The slot's `gender` becomes `target.gender` only when the pack sets `genderedTargets: true` (French, Italian, Latin: the verb phrase changes with it); otherwise it is for the clause to read through `ClauseContext.subject`.
+A pack with `subjects` gets one target per selected slot and accepts the common `subject` option (a slot id). The verb agrees with the slot's `person` and `number`, which need not be what the subject addresses: the toy's formal `Vu` is a slot with person 3. `pronoun` is `null` for a pro-drop language's unmarked subject. `register` is data for the clause and the app; the core does not read it. The slot's `gender` becomes `target.gender` only when the pack sets `genderedTargets: true` (French, Italian, Latin: the verb phrase changes with it); otherwise it is for the clause to read through `ClauseContext.subject`. A slot without a gender can still show one form by form: `clause.subjectGenders` (section 1) forks it.
 
 - `default`: the slot is part of a query that names no subject. Within one person and number, slots expand in the order of `pack.subjects`.
 - `subjectsFor(query)` (optional): the slots to expand for this query, out of `subjects`; the person and number filters apply afterwards. The default is `defaultSubjectsFor(subjects, query)`: the slot the `subject` option names, else every default slot. Whatever order it returns, the core uses the pack's order, and a slot it returns that the pack did not declare is a GENERATION_FAILURE.
@@ -600,13 +647,14 @@ export interface Outcome<T> {
   readonly value: T;
   readonly steps: readonly DerivationStep[];
   readonly tags: VariantTags;
+  readonly marks?: Marks;
 }
 ```
 ```ts signature src/core/fork.ts
 export type Fork<T> = readonly Outcome<T>[];
 ```
 ```ts signature src/core/fork.ts
-export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}): Fork<T>
+export function one<T>(value: T, steps: readonly DerivationStep[] = [], tags: VariantTags = {}, marks: Marks = []): Fork<T>
 ```
 ```ts signature src/core/fork.ts
 export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B>
@@ -615,7 +663,35 @@ export function chain<A, B>(fork: Fork<A>, next: (value: A) => Fork<B>): Fork<B>
 export function combine<T extends readonly unknown[]>(forks: { [K in keyof T]: Fork<T[K]> }): Fork<T>
 ```
 
-A `Fork` is every way a rule can come out; each outcome carries its value, the steps taken and its variant tags. `one(value, steps?, tags?)` is a single outcome. `chain(fork, next)` continues every outcome through `next`, concatenating steps and merging tags; `combine([forkA, forkB])` is the product of forks in order. Branches whose tags conflict are dropped. More than one outcome in a hook's fork means more than one accepted form (variants), and the engine removes forms that come out identical.
+A `Fork` is every way a rule can come out; each outcome carries its value, the steps taken, its variant tags and its marks. `one(value, steps?, tags?, marks?)` is a single outcome. `chain(fork, next)` continues every outcome through `next`, concatenating steps and merging tags and marks; `combine([forkA, forkB])` is the product of forks in order. Branches whose tags conflict are dropped. More than one outcome in a hook's fork means more than one accepted form (variants), and the engine removes forms that come out identical.
+
+### Marks
+
+```ts signature src/core/fork.ts
+export type Marks = readonly string[];
+```
+```ts signature src/core/fork.ts
+export function mergeMarks(a: Marks | undefined, b: Marks | undefined): Marks
+```
+
+A cell sometimes has words that only some clauses use, and the cell cannot tell which clause it is in: the cell of an auxiliary is not given the subject, and a word-order option is the clause's. Dutch gives the 2nd person singular present a form after the verb (werk jij) and an extra formal form (u heeft). Such a cell returns every word and marks each one; the clause reads the marks on its words (`ChainWord.marks`) and returns `[]` for a combination that is not its own. Because the filter only removes combinations, the forms keep the order of the words. Marks are names the pack chooses. They merge as a set (both sides' marks, the first side's first, each once: `mergeMarks`), they move from the word's outcome into the `ChainWord`, and they never reach a form, its variant or its steps. Never use a step or a variant tag to signal the clause: a step is an explanation and a tag is part of the form. The toy marks esa's 3sg present, whose formal form esu is Vu's, and its clause keeps the word marked for its subject:
+
+```ts toy
+return [...one(word, steps, {}, ['informal']), ...one(lexeme.formal, [step(toyRules['xx.lex.formal'], lexeme.lemma, lexeme.formal)], {}, ['formal'])];
+```
+```ts toy
+const unmarked = subject?.register === 'formal' ? 'informal' : 'formal';
+if (words.some(word => word.marks?.includes(unmarked))) return [];
+```
+
+How to use marks, step by step:
+
+1. Name the marks as constants the cell and the clause share (Dutch: `afterVerb = 'after-verb'`, `formal = 'formal'` and `spoken = 'spoken'` in `src/languages/nl/paradigms.ts`).
+2. Set them where the word is made: the fourth argument of `one(value, steps, tags, marks)`, or `marks` on an `Outcome` you build yourself, in `cell`, `stem`, `ending` or a juncture rule. A word made by `deriveWords` or the engine's stem → ending → orthography carries the marks of every outcome it was made from (`chain`, `combine` and the juncture rules merge them with `mergeMarks`), so a mark set on an ending reaches the finished word.
+3. Read them in `clause.assemble`, from `ChainWord.marks` of each word, and return `[]` for a combination the clause does not use, or set the variant condition a mark stands for (Dutch: the clause keeps the forms marked `after-verb` only after inversion with jij or je, the forms marked `formal` only for u, and labels the infinitive marked `spoken` with its condition: `src/languages/nl/clause.ts`).
+4. Leave the steps alone: a marked word records the steps of the rules that made it, as any other word. A mark is never shown, never reaches a form, its variant or its explanation, and never replaces a step: if a learner should see why a word is used, that is a rule with a message.
+
+An outcome without marks has no `marks` key, so existing deep-equal tests do not change. `tests/core/derivation.test.ts` (merging) and `tests/core/subjects.test.ts` (the toy's clause filtering by marks) show the behaviour.
 
 ### Variant tags
 
@@ -772,7 +848,7 @@ export interface ClauseContext<X extends LexemeBase> {
 }
 ```
 
-`query` is the parsed query; `lexeme` the queried verb in the paradigm being built; `target` the target being built (in `assemble`, with the `agreement` chosen for this form in `target.agreement`); `subject` the slot `target.subject` names, with its pronoun and its gender even where the target has none (`null` without slots); `agreeing` the cells that take the agreement: for a periphrasis the cells of its `agree` elements, for a simple non-finite target its own cell, empty otherwise (the cells carry no agreement yet, also in `assemble`); `auxiliary` the perfect auxiliary this run uses, or `null`; `rendering` the pack's rendering, for building parts.
+`query` is the parsed query; `lexeme` the queried verb in the paradigm being built; `target` the target being built (in `agreements` and `assemble`, with the gender `subjectGenders` chose for this form in `target.gender`, and in `assemble` with the `agreement` chosen for it in `target.agreement`); `subject` the slot `target.subject` names, with its pronoun and its gender even where the target has none (`null` without slots); `agreeing` the cells that take the agreement: for a periphrasis the cells of its `agree` elements, for a simple non-finite target its own cell, empty otherwise (the cells carry no agreement yet, also in `assemble`); `auxiliary` the perfect auxiliary this run uses, or `null`; `rendering` the pack's rendering, for building parts.
 
 ### Words and parts
 
@@ -785,11 +861,12 @@ export interface ChainWord {
   readonly lemma: string | null;
   readonly cell: Cell | null;
   readonly steps: readonly DerivationStep[];
+  readonly marks?: Marks;
   readonly voice?: Voice;
 }
 ```
 
-`cell` and `lemma` are `null` for literal words; `steps` are the word's own (stem, ending, spelling). `voice` is set by the engine on the verb words of a periphrasis that declares a marked voice. `wordPart` builds the part of a word:
+`cell` and `lemma` are `null` for literal words; `steps` are the word's own (stem, ending, spelling); `marks` are the marks of the outcome the word was synthesised as (section 4). `voice` is set by the engine on the verb words of a periphrasis that declares a marked voice. `wordPart` builds the part of a word:
 
 ```ts signature src/core/clause.ts
 export function wordPart(rendering: PackRendering, word: ChainWord, features?: Partial<PartFeatures>, options?: WordPartOptions): ConjugationPart;
@@ -900,7 +977,7 @@ export interface Citation {
 const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator });
 ```
 
-`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr` and `nl`.
+`tests/i18n/completeness.test.ts` is the gate every pack with rules passes: each rule id starts with `<language>.` (`core.` is the core's); no two packs, and no pack and the core, define the same key; every rule has a well-formed message in every locale (it parses, formats, uses only the rule's params and `before` / `after`, treats a number param as a number, has no apostrophe directly before a placeholder); `en` and `nl` define the same keys; every rule has a citation to a listed work; every work and citation url is `https`; and every registered pack declares `rules`, except the legacy `fr`.
 
 ## 9. The rules a pack must follow
 
@@ -915,8 +992,9 @@ const grammarCitation = (locator: string): Citation => ({ work: 'toy', locator }
 9. A periphrasis whose chain uses `perfectAuxiliary` has a rule with exactly one text param `auxiliary`; one that does not has a rule with no params.
 10. A periphrasis built on a named auxiliary reports that auxiliary as `variant.auxiliary` unless it declares `reports`.
 11. A cell speaks the pack's own ids; an active cell has no `voice`; an active periphrasis in a pack with voices says `voice: 'active'`.
-12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`.
+12. Nothing under `src/` imports `node:*` (except `src/cli.ts`), `scripts/` or `tests/`, and the engine has no runtime dependencies. The characterization snapshots stay green except for entries in `tests/characterization/intended-diffs.json`, line-level or block-level, each with its reason and source (section 2, "The characterization ledger").
 13. A staged pack declares `rules`, `works` and `citations`.
+14. A step explains what a rule did to this form, and only that: a rule that changed nothing records no step, and a step is never a signal for another stage. A clause that must tell words of one cell apart reads their marks (section 4), never their steps or variant tags. One named exception: a spelling rule that decides *against* a change the learner would expect (Spanish *guio* takes no tilde because it is one syllable; *agrio* is the accepted form without the hiatus tilde) may record its step on the unchanged word. It does so by putting the step in the outcome it returns (`one(juncture, [step(...)])`), which the runner keeps although the text did not change; it never does so to signal another stage.
 
 ## 10. Corpus
 

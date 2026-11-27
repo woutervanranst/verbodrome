@@ -4,7 +4,7 @@ import type {
 } from '../types.js';
 import type { ChainWord, ClauseContext, ClauseGrammar } from './clause.js';
 import type { DerivationStep } from './derivation.js';
-import { chain, combine, one } from './fork.js';
+import { chain, combine, one, withMarks } from './fork.js';
 import type { Fork, Outcome, VariantTags } from './fork.js';
 import type { Agreement, GrammaticalNumber, LexemeBase, Person, Voice } from './grammar.js';
 import { applyJunctureRules } from './juncture.js';
@@ -78,14 +78,13 @@ export interface StagedGrammar<X extends LexemeBase = LexemeBase> {
 }
 
 /** The stages whose hooks can leave an available target without a form. */
-type FormStage = 'cell' | 'stem' | 'ending' | 'orthography' | 'agreements' | 'assemble';
+type FormStage = 'cell' | 'stem' | 'ending' | 'orthography' | 'subjectGenders' | 'agreements' | 'assemble';
 
 /** One word's outcomes, and the stage that left it none when there are none. */
 interface Synthesis { readonly words: Fork<string>; readonly emptyAt: FormStage | null }
 
-function synthesis<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Synthesis {
-  const lexical = grammar.cell?.(lexeme, cell) ?? null;
-  if (lexical !== null) return { words: lexical, emptyAt: lexical.length ? null : 'cell' };
+/** The stem → ending → spelling derivation of a cell, and the stage that left it no word when it has none. */
+function derivation<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Synthesis {
   const stems = grammar.stem(lexeme, cell);
   if (!stems.length) return { words: [], emptyAt: 'stem' };
   const junctures = chain(stems, stem => chain(grammar.ending(lexeme, cell, stem), ending => one({ stem, ending })));
@@ -93,6 +92,20 @@ function synthesis<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, c
   const words = chain(junctures, juncture =>
     chain(applyJunctureRules(grammar.orthography, juncture, { lexeme, cell }), spelled => one(spelled.stem + spelled.ending)));
   return { words, emptyAt: words.length ? null : 'orthography' };
+}
+
+function synthesis<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Synthesis {
+  const lexical = grammar.cell?.(lexeme, cell) ?? null;
+  if (lexical !== null) return { words: lexical, emptyAt: lexical.length ? null : 'cell' };
+  return derivation(grammar, lexeme, cell);
+}
+
+/**
+ * The words of a cell derived from its stem: `stem` → `ending` → `orthography`, exactly as the engine derives a cell
+ * whose `cell` hook returns null. A `cell` hook that mixes listed words with derived ones calls it for the derived ones.
+ */
+export function deriveWords<X extends LexemeBase>(grammar: StagedGrammar<X>, lexeme: X, cell: Cell): Fork<string> {
+  return derivation(grammar, lexeme, cell).words;
 }
 
 /**
@@ -299,8 +312,12 @@ export function stagedEngine<X extends LexemeBase>(
     const cell: Cell = slot.agree && agreement !== null && slot.cell.kind === 'nonFinite' ? { ...slot.cell, agreement } : slot.cell;
     const { words, emptyAt } = synth(slot.lexeme, cell);
     if (emptyAt !== null) noteEmpty(emptyAt, slot.lexeme.lemma);
+    // The word's marks move into the word with its steps, so the clause reads them and the form never does.
     return words.map(outcome => ({
-      value: { role: slot.role, text: outcome.value, lemma: slot.lexeme.lemma, cell, steps: outcome.steps, ...(voice === undefined ? {} : { voice }) },
+      value: {
+        role: slot.role, text: outcome.value, lemma: slot.lexeme.lemma, cell, steps: outcome.steps,
+        ...withMarks(outcome.marks ?? []), ...(voice === undefined ? {} : { voice }),
+      },
       steps: [],
       tags: outcome.tags,
     }));
@@ -320,13 +337,18 @@ export function stagedEngine<X extends LexemeBase>(
     const periphrasisVoice = periphrasis?.voice === undefined || periphrasis.voice === 'active' ? undefined : periphrasis.voice;
     const agreeing = slots.flatMap(slot => slot.kind === 'verb' && slot.agree ? [slot.cell] : []);
     const context: ClauseContext<X> = { query, lexeme, target, subject, agreeing, auxiliary, rendering };
-    const agreements = agreeing.length ? grammar.clause.agreements(context) : one(null);
     // The paradigm's tags apply to every form of it; the periphrasis step opens the form-level steps.
     const opening = one(null, periphrasis ? [periphrasisStep(periphrasis, auxiliary)] : [], paradigm.tags);
-    const agreed = chain(opening, () => agreements);
-    if (!agreed.length) noteEmpty('agreements', lexeme.lemma);
-    const assembled = chain(agreed, agreement => {
-      const resolved: ResolvedTarget = agreement === null ? target : { ...target, agreement };
+    // One branch per subject gender the form shows: the clause's choice, or the target's own when it has no hook.
+    const gendered = chain(opening, () => grammar.clause.subjectGenders?.(context) ?? one(target.gender));
+    if (!gendered.length) noteEmpty('subjectGenders', lexeme.lemma);
+    const agreed = chain(gendered, gender => {
+      const shown = gender === target.gender ? context : { ...context, target: { ...target, gender } };
+      return chain(agreeing.length ? grammar.clause.agreements(shown) : one(null), agreement => one({ shown: shown.target, agreement }));
+    });
+    if (gendered.length && !agreed.length) noteEmpty('agreements', lexeme.lemma);
+    const assembled = chain(agreed, ({ shown, agreement }) => {
+      const resolved: ResolvedTarget = agreement === null ? shown : { ...shown, agreement };
       const words = combine<ChainWord[]>(slots.map(slot => wordsFor(slot, agreement, periphrasisVoice, noteEmpty)));
       // Words whose tags cannot combine leave nothing to assemble, which counts against the assemble stage.
       const forms = chain(words, chainWords => chain(grammar.clause.assemble(chainWords, { ...context, target: resolved }), parts =>

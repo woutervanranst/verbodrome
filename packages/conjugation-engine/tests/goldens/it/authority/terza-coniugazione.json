@@ -1,0 +1,70 @@
+{
+ "source": {
+  "work": "treccani-lgi",
+  "entry": "Terza coniugazione",
+  "url": "https://www.treccani.it/enciclopedia/terza-coniugazione_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "mentire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mento"
+   ],
+   "printed": "mento"
+  },
+  {
+   "lemma": "mentire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mentisco"
+   ],
+   "printed": "mentisco"
+  },
+  {
+   "lemma": "inghiottire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "inghiotti"
+   ],
+   "printed": "inghiotti"
+  },
+  {
+   "lemma": "inghiottire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "inghiottisci"
+   ],
+   "printed": "inghiottisci"
+  },
+  {
+   "lemma": "insignire",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "insigniamo"
+   ],
+   "printed": "insigniamo"
+  }
+ ]
+}
