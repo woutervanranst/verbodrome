@@ -123,13 +123,21 @@ both locales have the same keys, and that every rule has a citation to a listed 
 
 A finite target is a **subject slot** (`1sg`, `3sg.f`, `2sg.u`, `2.formal`, ...): its person, number, pronoun, an
 optional gender and register, and whether it belongs to a query that names no subject (`default`). Non-default slots
-(Dutch u, German Sie, Spanish usted, English she) are returned only when asked for with `subject` or a pack option.
+(Dutch u, German Sie, Spanish usted, Italian Lei, English she) are returned only when asked for with `subject` or a pack
+option. Formal address in particular comes only by `subject`, in every pack and in the imperative too; a consumer finds
+the formal slots of a language by their `register: 'formal'`.
 
-Gender is a target dimension. Where it changes the verb phrase it is returned without being asked for: French forks
-the subject's gender form by form (`clause.subjectGenders`: il / elle, and je suis allé / allée where the participle
-agrees); Italian carries it on its gendered subject slots (lui, lei: è andato, è andata); Latin declines the participle
-of its compound forms in all three genders (amātus, amāta, amātum sum), with gendered slots on request. A query with
-`gender` keeps one. Each form's `target.gender` and `target.agreement` say which it is.
+Gender is a target dimension, with one rule in every pack: **`target.gender` is the subject gender a form shows**, and
+`null` when it shows none. It comes from one of two places. A slot with a gender gives it to its forms
+(`genderedTargets`: Italian lui / lei, Spanish él / ella / nosotras, German er / sie / es, English he / she / it, the Latin
+gendered slots). A slot without one is
+forked form by form by the clause's `subjectGenders` where the form shows the subject's gender: the French il / elle,
+and, in French, Italian and Latin, a compound whose participle agrees with the subject (je suis allé / allée, sono
+andato / andata, amātus / amāta / amātum sum). Where gender changes the verb phrase, every gender is returned without
+being asked for; a query with `gender` keeps one. A consumer looking for the feminine twin of a form therefore looks for
+`target.gender === 'feminine'` in any language; `target.agreement` is the participle's own agreement (a bare participle
+has one without a subject gender). Dutch is the one exception: its forms keep `target.gender: null`, because its output
+is frozen by the characterization snapshot, and its pronoun genders are those of its subject slots.
 
 ## Variants, region and usage
 

@@ -26,6 +26,8 @@ export const englishPack: LanguagePack<'en'> = {
   catalogue: englishCatalogue,
   rendering: englishRendering,
   subjects: englishSubjects,
+  /** The gendered third person singular slots (er / sie / es, he / she / it) give their gender to their forms' `target.gender`. */
+  genderedTargets: true,
   options: englishOptions,
   /** With a `region`, a form spelled for the other region is left out; a form without a region stays. */
   acceptsForm: (query, form) => query.region === undefined || inRegion(form.variant.region, query.region),

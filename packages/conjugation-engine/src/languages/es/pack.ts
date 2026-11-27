@@ -18,20 +18,17 @@ export const spanishPack: LanguagePack<'es'> = {
   options: spanishOptions,
   subjects: spanishSubjects,
   /**
-   * The slot `subject` names; else, with `gender`, every slot of that gender or of none (feminine: yo, tú, ella, usted,
-   * nosotras, vosotras, ellas, ustedes); else the default slots plus usted and ustedes, so that an unfiltered query
-   * has the formal commands.
+   * The slot `subject` names; else, with `gender`, every slot of that gender or of none (feminine: yo, tú, ella, nosotras,
+   * vosotras, ellas); else the default slots. usted and ustedes are formal address: as in every pack, they come only when
+   * `subject` names them, in the imperative too.
    */
   subjectsFor(query) {
     if (query.subject !== undefined) return spanishSubjects.filter(slot => slot.id === query.subject);
-    if (query.gender !== undefined) return spanishSubjects.filter(slot => slot.gender === undefined || slot.gender === query.gender);
-    return spanishSubjects.filter(slot => slot.default || formal(slot));
+    if (query.gender !== undefined) return spanishSubjects.filter(slot => !formal(slot) && (slot.gender === undefined || slot.gender === query.gender));
+    return spanishSubjects.filter(slot => slot.default);
   },
-  /** Without a `subject`, usted and ustedes appear only in the imperative: elsewhere they repeat the third person. */
-  acceptsTarget(query, target) {
-    if (query.subject !== undefined || target.mood === 'imperative') return true;
-    return !spanishSubjects.some(slot => slot.id === target.subject && formal(slot));
-  },
+  /** The gendered slots (él, ella, nosotros, nosotras ...) give their gender to their forms' `target.gender`. */
+  genderedTargets: true,
   rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(spanishGrammar, spanishRendering, query),
   rules: spanishRules,

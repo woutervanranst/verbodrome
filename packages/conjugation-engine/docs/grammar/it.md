@@ -37,7 +37,7 @@ numbers are unverified. The DOP was not consulted.
 
 ## Subjects and gender
 
-Only lui and lei carry a gender (`genderedTargets`). Every other slot shows gender only in an agreeing participle, which the clause forks. Italian does not use the core's `clause.subjectGenders`, because its gender-bearing subjects are separate slots (lui, lei). With `gender: 'feminine'`, lui and the masculine agreements are left out.
+lui and lei are slots with a gender (`genderedTargets`), which their forms carry as `target.gender`. Every other slot (io, tu, noi, voi, loro, Lei, Loro) shows a gender only where its participle agrees with the subject (essere, reflexive verbs): the clause's `subjectGenders` forks such a form into a masculine and a feminine one (sono andato, sono andata), each with its `target.gender`, as French does; a form that shows no gender (ho parlato) has none. With `gender: 'feminine'`, lui and the masculine forms are left out.
 
 ## Defaults and assumptions
 

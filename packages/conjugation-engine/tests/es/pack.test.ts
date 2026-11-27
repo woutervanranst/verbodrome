@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { createEngine } from '../../src/core/engine.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import { conjugate, getCatalogue, getSubjects, languages } from '../../src/index.js';
+import { spanishSubjects } from '../../src/languages/es/catalogue.js';
 import { packs } from '../../src/languages/index.js';
 
 const engine = createEngine(packs, locales);
@@ -35,14 +36,17 @@ describe('Spanish pack skeleton', () => {
     });
   });
 
-  it('expands an unfiltered query to 111 targets with formal imperatives', () => {
+  it('expands an unfiltered query to 107 targets: formal address only on request, the imperative included', () => {
     const all = targets({});
-    expect(all).toHaveLength(111);
+    expect(all).toHaveLength(107);
     expect(all.filter(t => t.mood === 'indicative' && t.tense === 'present').map(t => t.subject)).toEqual(['1sg', '2sg', '3sg', '1pl', '2pl', '3pl']);
-    expect(all.filter(t => t.mood === 'imperative' && t.tense === 'present').map(t => t.subject)).toEqual(['2sg', '2sg.formal', '1pl', '2pl', '2pl.formal']);
+    expect(all.filter(t => t.mood === 'imperative' && t.tense === 'present').map(t => t.subject)).toEqual(['2sg', '1pl', '2pl']);
     expect(all.filter(t => t.mood === 'imperative' && t.tense === 'present').map(t => `${t.person}${t.number}`))
-      .toEqual(['2singular', '3singular', '1plural', '2plural', '3plural']);
-    expect(all.every(t => t.gender === null)).toBe(true);
+      .toEqual(['2singular', '1plural', '2plural']);
+    // A gendered slot gives its gender to the target (él, nosotros, vosotros, ellos); yo and tú show none.
+    expect(all.every(t => t.gender === (spanishSubjects.find(slot => slot.id === t.subject)?.gender ?? null))).toBe(true);
+    expect(all.filter(t => t.mood === 'indicative' && t.tense === 'present').map(t => t.gender))
+      .toEqual([null, null, 'masculine', 'masculine', 'masculine', 'masculine']);
   });
 
   it('selects formal and feminine slots on request', () => {
@@ -50,8 +54,10 @@ describe('Spanish pack skeleton', () => {
     expect(targets({ subject: '2sg.formal', mood: 'indicative', tense: 'present' }).map(t => `${t.subject} ${t.person}${t.number}`))
       .toEqual(['2sg.formal 3singular']);
     expect(targets({ gender: 'feminine', mood: 'indicative', tense: 'present' }).map(t => t.subject)).toEqual(['1sg', '2sg', '3sg.f', '1pl.f', '2pl.f', '3pl.f']);
-    expect(targets({ gender: 'masculine', mood: 'imperative', tense: 'present' }).map(t => t.subject)).toEqual(['2sg', '2sg.formal', '1pl', '2pl', '2pl.formal']);
-    expect(targets({ gender: 'feminine', mood: 'imperative', tense: 'negative' }).map(t => t.subject)).toEqual(['2sg', '2sg.formal', '1pl.f', '2pl.f', '2pl.formal']);
+    expect(targets({ gender: 'masculine', mood: 'imperative', tense: 'present' }).map(t => t.subject)).toEqual(['2sg', '1pl', '2pl']);
+    expect(targets({ gender: 'feminine', mood: 'imperative', tense: 'negative' }).map(t => t.subject)).toEqual(['2sg', '1pl.f', '2pl.f']);
+    expect(targets({ gender: 'feminine', mood: 'imperative', tense: 'negative' }).map(t => t.gender)).toEqual([null, 'feminine', 'feminine']);
+    expect(targets({ subject: '2pl.formal', mood: 'imperative' }).map(t => `${t.tense} ${t.person}${t.number}`)).toEqual(['present 3plural', 'negative 3plural']);
   });
 
   it('rejects a subject the tense does not have', () => {

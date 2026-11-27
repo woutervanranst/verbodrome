@@ -83,7 +83,7 @@ Wildcards enumerate grammatical targets and accepted morphological variants in t
 | Dutch | `nl` | 12 | 53 |
 | English | `en` | 24 | 126 |
 | German | `de` | 19 | 91 |
-| Spanish | `es` | 23 | 111 |
+| Spanish | `es` | 23 | 107 |
 | Italian | `it` | 22 | 110 |
 | Latin | `la` | 21 | 144 |
 ### French (`fr`)
@@ -240,11 +240,11 @@ German options: `auxiliary` (`haben` | `sein`) keeps the forms with that perfect
 
 ## Spanish context and lexical hints
 
-Spanish options: `auxiliary` (`haber`); `classHint` (`regular`, `e-ie`, `o-ue`, `u-ue`, `i-ie`, `e-i`) gives an unknown verb its vowel alternation; `stems` has `stress` (`hiatus` | `diphthong`, for -iar / -uar and root vowel groups) and `zc` (force or block the zc of vowel + -cer/-cir); `reflexive` conjugates the verb with its pronoun; `gender` keeps the subjects of that gender. Targets are subject slots: `1sg 2sg 3sg 1pl 2pl 3pl` by default, and `3sg.f` (ella), `2sg.formal` (usted), `1pl.f`, `2pl.f`, `3pl.f` and `2pl.formal` (ustedes) on request. The imperative has `imperative.negative`, and the imperfect and pluperfect subjunctive carry the `ra` / `se` variants as patterns. See [grammar/es.md](grammar/es.md).
+Spanish options: `auxiliary` (`haber`); `classHint` (`regular`, `e-ie`, `o-ue`, `u-ue`, `i-ie`, `e-i`) gives an unknown verb its vowel alternation; `stems` has `stress` (`hiatus` | `diphthong`, for -iar / -uar and root vowel groups) and `zc` (force or block the zc of vowel + -cer/-cir); `reflexive` conjugates the verb with its pronoun; `gender` keeps the subjects of that gender. Targets are subject slots: `1sg 2sg 3sg 1pl 2pl 3pl` by default, and `3sg.f` (ella), `1pl.f`, `2pl.f` and `3pl.f` with `gender: 'feminine'` or `subject`; `2sg.formal` (usted) and `2pl.formal` (ustedes) only with `subject`, the imperative included. A gendered slot's gender is its forms' `target.gender`. The imperative has `imperative.negative`, and the imperfect and pluperfect subjunctive carry the `ra` / `se` variants as patterns. See [grammar/es.md](grammar/es.md).
 
 ## Italian context and lexical hints
 
-Italian options: `auxiliary` (`avere` | `essere`); `classHint` (`isc` | `plain`, whether an -ire verb takes -isc-); `stems` (`past`, the strong passato remoto 1sg; `participle`; `future`, the future stem with its r; `stressedI`, the stress of the i of -iare); `reflexive`; `gender` keeps the subjects and participle agreements of that gender. Targets are subject slots `1sg 2sg 3sg.m 3sg.f 1pl 2pl 3pl` by default, with `3sg.formal` (Lei) and `3pl.formal` (Loro) on request; a participle after essere agrees with the subject. The imperative has `imperative.negative`. See [grammar/it.md](grammar/it.md).
+Italian options: `auxiliary` (`avere` | `essere`); `classHint` (`isc` | `plain`, whether an -ire verb takes -isc-); `stems` (`past`, the strong passato remoto 1sg; `participle`; `future`, the future stem with its r; `stressedI`, the stress of the i of -iare); `reflexive`; `gender` keeps the subjects and participle agreements of that gender. Targets are subject slots `1sg 2sg 3sg.m 3sg.f 1pl 2pl 3pl` by default, with `3sg.formal` (Lei) and `3pl.formal` (Loro) on request; a participle after essere agrees with the subject, and the form of a slot without a gender comes in both genders, each with its `target.gender` (sono andato, sono andata). The imperative has `imperative.negative`. See [grammar/it.md](grammar/it.md).
 
 ## Latin context and lexical hints
 
@@ -253,6 +253,10 @@ Latin options: `voice` (`active` | `passive`); `gender` (`masculine` | `feminine
 ## Results, variants, and errors
 
 `ConjugationResult` contains `language`, normalized `verbId`, cloned `query`, `status`, flat `forms`, `unavailableTargets`, and `analysis`. `analysis` identifies the lexical lemma, classification, source (`lexicon`, `regularRule`, or `explicitHint`), reflexivity, auxiliaries, and regular-default assumptions. For French, `classification` is the conjugation model the verb follows (`aimer`, `placer`, `finir`, `rendre`, `venir`, …); passing it back as `model` selects the same inflection. Use `classificationSource === 'regularRule'` to tell productive models from irregular families. A lemma with several complete paradigms (on a staged pack, such as a verb that is separable in one sense and inseparable in another) has the first paradigm's analysis, with the others in `analysis.alternatives`; each paradigm's forms come after the previous paradigm's and carry its `variant.pattern` and `variant.condition`. Each paradigm's analysis also has its `pattern` and `condition` when it is tagged with them. `alternatives`, `pattern` and `condition` are absent for a lemma with one paradigm.
+
+Subject gender is one rule in every language: `target.gender` is the subject gender the form shows, or `null` when it shows none. `je suis allée`, `io sono andata`, `amāta sum` and `nosotras hemos ido` have `target.gender: 'feminine'`; `j'ai mangé`, `io ho parlato`, `amāvī` and `yo he ido` have `null`. Where gender changes the verb phrase (French, Italian and Latin compounds whose participle agrees with the subject, the French and Italian third person) an unfiltered query returns every gender, each as its own target with its own preferred form; where only the pronoun shows it (Spanish ella / nosotras, German sie / es, English she / it) the gendered slots come on request, and their forms carry the slot's gender (er, he, él: masculine). To accept the feminine answer of a form, look for its twin with `target.gender === 'feminine'`. `target.agreement` is the agreement of a participle, which a bare participle has without a subject gender. One exception: Dutch keeps `target.gender: null` on every form, because its output is frozen by the characterization snapshot; the gender of a Dutch pronoun (zij, het) is the `gender` of its subject slot in `getSubjects('nl')`.
+
+Subject slots (`getSubjects(language)`) differ in their ids from language to language: select formal address by `register: 'formal'` (Dutch `2sg.u`, German `2.formal`, Spanish `2sg.formal` and `2pl.formal`, Italian `3sg.formal` and `3pl.formal`), never by id. Formal slots are returned only when `subject` names them, in the imperative too.
 
 Each form contains:
 

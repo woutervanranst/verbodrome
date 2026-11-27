@@ -89,9 +89,10 @@ edō (*comedō, exedō* are not modelled: a limit).
 ## Subjects, gender and agreement
 
 There are 24 subject slots, none with a pronoun (Latin is pro-drop): for each of the six persons an ungendered slot
-(`1sg`, the default), which the simple forms use, and a masculine, feminine and neuter slot (`1sg.m`, `1sg.f`, `1sg.n`),
-which the compound forms use because their participle agrees with the subject (*amātus sum, amāta sum, amātum est*).
-Without a gender every gender is generated; `gender: 'feminine'` keeps the feminine slots.
+(`1sg`, the default) and a masculine, feminine and neuter slot (`1sg.m`, `1sg.f`, `1sg.n`) on request. A compound form
+shows the subject's gender in its participle (*amātus sum, amāta sum, amātum sum*): for an ungendered slot the clause's
+`subjectGenders` gives one form per gender, each with its `target.gender`, as French does; a simple form has none.
+`gender: 'feminine'` keeps the feminine slots.
 
 Declined forms (participles, gerundive, gerund, supine, the participle in an infinitive) default to the citation form:
 nominative masculine singular (*amāns, amātūrus esse*), the genitive of the gerund (*amandī*), the supine in -um. The

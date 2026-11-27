@@ -17,7 +17,9 @@ const assumptions = (infinitive: string, options: Query = {}): string[] =>
 type Row = readonly [Query, readonly string[]];
 const ind = (tense: string, person: 1 | 2 | 3, number: 'singular' | 'plural' = 'singular') => at('indicative', tense, person, number);
 const sub = (tense: string, person: 1 | 2 | 3, number: 'singular' | 'plural' = 'singular') => at('subjunctive', tense, person, number);
-const imp = (person: 1 | 2 | 3, number: 'singular' | 'plural' = 'singular') => at('imperative', 'present', person, number);
+/** A command; the third person is usted or ustedes, which formal address gives only when its slot is asked for. */
+const imp = (person: 1 | 2 | 3, number: 'singular' | 'plural' = 'singular'): Query =>
+  ({ ...at('imperative', 'present', person, number), ...(person === 3 ? { subject: number === 'singular' ? '2sg.formal' : '2pl.formal' } : {}) });
 
 const verbs: readonly { verb: string; options?: Query; rows: readonly Row[]; steps?: readonly string[]; absent?: readonly string[] }[] = [
   {

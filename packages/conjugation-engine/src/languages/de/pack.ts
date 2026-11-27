@@ -16,6 +16,8 @@ export const germanPack: LanguagePack<'de'> = {
   rendering: germanRendering,
   options: germanOptions,
   subjects: germanSubjects,
+  /** The gendered third person singular slots (er / sie / es, he / she / it) give their gender to their forms' `target.gender`. */
+  genderedTargets: true,
   rank: form => variantRank(form.variant, 'rectified'),
   engine: query => stagedEngine(germanGrammar, germanRendering, query),
   rules: germanRules,

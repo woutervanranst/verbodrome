@@ -55,8 +55,13 @@ describe('Spanish compound tenses and non-finite forms', () => {
   });
 
   it('builds the negative imperative on the present subjunctive', () => {
-    expect(texts('amar', { mood: 'imperative', tense: 'negative' })).toEqual(['no ames', 'no ame', 'no amemos', 'no améis', 'no amen']);
-    expect(texts('ir', { mood: 'imperative', tense: 'negative' })).toEqual(['no vayas', 'no vaya', 'no vayamos', 'no vayáis', 'no vayan']);
+    // Formal address comes only on request: usted and ustedes are asked for by their slots.
+    expect(texts('amar', { mood: 'imperative', tense: 'negative' })).toEqual(['no ames', 'no amemos', 'no améis']);
+    expect(texts('amar', { mood: 'imperative', tense: 'negative', subject: '2sg.formal' })).toEqual(['no ame']);
+    expect(texts('amar', { mood: 'imperative', tense: 'negative', subject: '2pl.formal' })).toEqual(['no amen']);
+    expect(texts('ir', { mood: 'imperative', tense: 'negative' })).toEqual(['no vayas', 'no vayamos', 'no vayáis']);
+    expect(texts('ir', { mood: 'imperative', tense: 'negative', subject: '2sg.formal' })).toEqual(['no vaya']);
+    expect(texts('ir', { mood: 'imperative', tense: 'negative', subject: '2pl.formal' })).toEqual(['no vayan']);
     expect(forms('amar', { mood: 'imperative', tense: 'negative', person: 2, number: 'singular' })[0]!.variant.auxiliary).toBeNull();
     expect(engine.renderParts('es', forms('amar', { mood: 'imperative', tense: 'negative', person: 2, number: 'singular' })[0]!.parts, { bare: true })).toBe('no ames');
   });
@@ -65,16 +70,21 @@ describe('Spanish compound tenses and non-finite forms', () => {
     expect(unavailable('llover', { mood: 'indicative', tense: 'present' }).map(u => u.reason)).toEqual(Array(5).fill('impersonal'));
     expect(texts('llover', { mood: 'indicative', tense: 'present' })).toEqual(['llueve']);       // review I4: no subject
     expect(texts('llover', { mood: 'indicative', tense: 'perfect' })).toEqual(['ha llovido']);
-    expect(unavailable('llover', { mood: 'imperative' }).map(u => u.reason)).toEqual(Array(10).fill('impersonal'));
+    expect(unavailable('llover', { mood: 'imperative' }).map(u => u.reason)).toEqual(Array(6).fill('impersonal'));
+    expect(unavailable('llover', { mood: 'imperative', subject: '2sg.formal' }).map(u => u.reason)).toEqual(Array(2).fill('impersonal'));
     expect(texts('llover', { mood: 'gerund', tense: 'present' })).toEqual(['lloviendo']);
-    expect(unavailable('haber', { mood: 'imperative' })).toHaveLength(10);
+    expect(unavailable('haber', { mood: 'imperative' })).toHaveLength(6);
     expect(unavailable('haber', { mood: 'imperative' }).every(u => u.reason === 'noImperative')).toBe(true);
+    expect(unavailable('haber', { mood: 'imperative', subject: '2pl.formal' }).map(u => u.reason)).toEqual(['noImperative', 'noImperative']);
     expect(texts('abolir', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual(['yo abolo']);
     expect(texts('soler', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['yo he solido']);
     expect(texts('soler', { mood: 'gerund', tense: 'present' })).toEqual(['soliendo']);
     expect(texts('soler', { mood: 'indicative', tense: 'present', person: 1, number: 'singular' })).toEqual(['yo suelo']);
     expect(unavailable('soler', {}).map(u => `${u.target.mood}.${u.target.tense}`)).toEqual(expect.arrayContaining(['indicative.future', 'conditional.past', 'imperative.present', 'subjunctive.future_perfect']));
-    expect(unavailable('soler', {})).toHaveLength(46);   // GD §5.6
+    // GD §5.6: 46 gaps with usted and ustedes, whose two commands each are asked for by their slots.
+    expect(unavailable('soler', {})).toHaveLength(42);
+    expect(unavailable('soler', { mood: 'imperative', subject: '2sg.formal' })).toHaveLength(2);
+    expect(unavailable('soler', { mood: 'imperative', subject: '2pl.formal' })).toHaveLength(2);
     expect(unavailable('soler', {}).every(u => u.reason === 'defective')).toBe(true);
     expect(unavailable('soler', {})[0]!.source).toMatch(/^https:\/\//u);
   });

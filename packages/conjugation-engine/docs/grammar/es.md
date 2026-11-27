@@ -49,6 +49,15 @@ section "Unverified against the RAE" below lists the pages to open by hand.
    - embaír: only the forms whose ending begins with i;
    - haber: no imperative.
 
+## Subjects and gender
+
+The default subjects are yo, tú, él, nosotros, vosotros and ellos (slots `1sg` … `3pl`). ella, nosotras, vosotras and
+ellas (`3sg.f`, `1pl.f`, `2pl.f`, `3pl.f`) come with `gender: 'feminine'` or by `subject`. usted and ustedes
+(`2sg.formal`, `2pl.formal`, `register: 'formal'`) are formal address and, as in every pack, come only when `subject`
+names them, in the imperative too (`subject: '2sg.formal', mood: 'imperative'` gives hable). A slot's gender is its
+forms' `target.gender` (él, nosotros: masculine; ella, nosotras: feminine; yo, tú, usted: none): the participle after
+haber does not agree, so the subject is the only place a Spanish form shows gender.
+
 ## The written accent (`syllables.ts`)
 
 - **Vowel letters.** The vowel letters are a e i o u ü, with their accented forms. These are not vowels:

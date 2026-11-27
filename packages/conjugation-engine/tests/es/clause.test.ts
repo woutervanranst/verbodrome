@@ -13,14 +13,21 @@ const ruleIdsOfForm = (infinitive: string, mood: string, tense: string, person: 
 
 describe('Spanish clause', () => {
   it('places and re-accents reflexive pronouns', () => {
-    expect(texts('levantarse', { mood: 'imperative', tense: 'present' })).toEqual(['levántate', 'levántese', 'levantémonos', 'levantaos', 'levántense']);
-    expect(texts('levantarse', { mood: 'imperative', tense: 'negative' })).toEqual(['no te levantes', 'no se levante', 'no nos levantemos', 'no os levantéis', 'no se levanten']);
+    // Formal address comes only on request: usted and ustedes are asked for by their slots.
+    expect(texts('levantarse', { mood: 'imperative', tense: 'present' })).toEqual(['levántate', 'levantémonos', 'levantaos']);
+    expect(texts('levantarse', { mood: 'imperative', tense: 'present', subject: '2sg.formal' })).toEqual(['levántese']);
+    expect(texts('levantarse', { mood: 'imperative', tense: 'present', subject: '2pl.formal' })).toEqual(['levántense']);
+    expect(texts('levantarse', { mood: 'imperative', tense: 'negative' })).toEqual(['no te levantes', 'no nos levantemos', 'no os levantéis']);
+    expect(texts('levantarse', { mood: 'imperative', tense: 'negative', subject: '2sg.formal' })).toEqual(['no se levante']);
+    expect(texts('levantarse', { mood: 'imperative', tense: 'negative', subject: '2pl.formal' })).toEqual(['no se levanten']);
     expect(texts('levantarse', { mood: 'indicative', tense: 'perfect', person: 1, number: 'singular' })).toEqual(['yo me he levantado']);
     expect(texts('levantarse', { mood: 'indicative', tense: 'present' })).toEqual(['yo me levanto', 'tú te levantas', 'él se levanta', 'nosotros nos levantamos', 'vosotros os levantáis', 'ellos se levantan']);
     expect(texts('levantarse', { mood: 'gerund' })).toEqual(['levantándose', 'habiéndose levantado']);
     expect(texts('levantarse', { mood: 'infinitive' })).toEqual(['levantarse', 'haberse levantado']);
     expect(texts('levantarse', { mood: 'participle' })).toEqual(['levantado']);
-    expect(texts('irse', { mood: 'imperative', tense: 'present' })).toEqual(['vete', 'váyase', 'vámonos', 'vayámonos', 'idos', 'iros', 'váyanse']);   // iros: GD §11 row 3
+    expect(texts('irse', { mood: 'imperative', tense: 'present' })).toEqual(['vete', 'vámonos', 'vayámonos', 'idos', 'iros']);   // iros: GD §11 row 3
+    expect(texts('irse', { mood: 'imperative', tense: 'present', subject: '2sg.formal' })).toEqual(['váyase']);
+    expect(texts('irse', { mood: 'imperative', tense: 'present', subject: '2pl.formal' })).toEqual(['váyanse']);
     expect(texts('reírse', { mood: 'imperative', tense: 'present', person: 2, number: 'plural' })).toEqual(['reíos']);
     expect(texts('reírse', { mood: 'imperative', tense: 'present', person: 2, number: 'singular' })).toEqual(['ríete']);
     expect(texts('vestirse', { mood: 'imperative', tense: 'present', person: 1, number: 'plural' })).toEqual(['vistámonos']);

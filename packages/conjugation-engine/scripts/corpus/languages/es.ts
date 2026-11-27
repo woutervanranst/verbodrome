@@ -1,7 +1,8 @@
 /**
- * The Spanish corpus (grammar design §9): 89 one-verb pages, 124 cells each, under `Español`. One unfiltered query per
- * file answers every cell: its subjects are the default slots plus usted and ustedes, which only the commands keep. A
- * cell of a variant column (-ra / -se, the second participle) is answered by the forms of that pattern only.
+ * The Spanish corpus (grammar design §9): 89 one-verb pages, 124 cells each, under `Español`. The unfiltered query
+ * answers every cell but the commands of usted and ustedes, which formal address gives only on request: two imperative
+ * queries name those slots (as the German corpus asks for Sie). A cell of a variant column (-ra / -se, the second
+ * participle) is answered by the forms of that pattern only.
  */
 import { spanishCorrection } from '../corrections/es.ts';
 import { spanishCellsPerFile, parseSpanish } from '../parsers/es.ts';
@@ -54,9 +55,18 @@ export const spanish: CorpusLanguage = {
   ],
   unmodelled: {},
   requireTaggedExtras: true,
-  query: file => [{ label: 'default', options: { language: 'es', infinitive: file.infinitive } }],
-  /** A variant column (ra, se, irregular) takes the forms of its pattern; every other cell all the forms of its target. */
-  applicable: (_file, cell, forms) => {
+  query: file => [
+    { label: 'default', options: { language: 'es', infinitive: file.infinitive } },
+    { label: 'usted', options: { language: 'es', infinitive: file.infinitive, mood: 'imperative', subject: '2sg.formal' } },
+    { label: 'ustedes', options: { language: 'es', infinitive: file.infinitive, mood: 'imperative', subject: '2pl.formal' } },
+  ],
+  /**
+   * A command of usted or ustedes is answered by the query that names its slot, every other cell by the default query; a
+   * variant column (ra, se, irregular) takes the forms of its pattern, every other cell all the forms of its target.
+   */
+  applicable: (_file, cell, forms, label) => {
+    const own = cell.subject === '2sg.formal' ? 'usted' : cell.subject === '2pl.formal' ? 'ustedes' : 'default';
+    if (label !== own) return [];
     const pattern = cell.variant?.pattern;
     return pattern === undefined ? forms : forms.filter(form => (form.variant.pattern ?? '').split('.').includes(pattern));
   },

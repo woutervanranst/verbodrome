@@ -4,7 +4,7 @@ import { step } from '../../core/derivation.js';
 import type { DerivationStep } from '../../core/derivation.js';
 import { one } from '../../core/fork.js';
 import type { Fork, VariantTags } from '../../core/fork.js';
-import type { Agreement, GrammaticalNumber } from '../../core/grammar.js';
+import type { Agreement, Gender, GrammaticalNumber } from '../../core/grammar.js';
 import { grammaticalPart } from '../../parts.js';
 import type { ConjugationPart, PartFeatures } from '../../types.js';
 import type { ItalianLexeme } from './lexicon.js';
@@ -45,10 +45,25 @@ function agreementsOf({ lexeme, target, agreeing, auxiliary, query, subject }: C
   // An impersonal (weather) verb has no subject and only the masculine singular (è piovuto, essendo piovuto), whatever `gender`.
   if (lexeme.impersonal) return agreement('masculine', 'singular');
   if (target.number !== null) {
-    const slotGender = subject?.gender === 'masculine' || subject?.gender === 'feminine' ? subject.gender : undefined;
-    return (slotGender === undefined ? allowed : [slotGender]).flatMap(gender => agreement(gender, target.number!));
+    // The subject's gender: the slot's (lui, lei), or the one `subjectGenders` chose for a slot without one.
+    const shown = target.gender ?? subject?.gender;
+    const chosen = shown === 'masculine' || shown === 'feminine' ? shown : undefined;
+    return (chosen === undefined ? allowed : [chosen]).flatMap(gender => agreement(gender, target.number!));
   }
   return numbers.flatMap(number => allowed.flatMap(gender => agreement(gender, number)));
+}
+
+/**
+ * The subject gender a form shows, as in French: a finite form of a slot without a gender (io, tu, noi, voi, loro, Lei,
+ * Loro) shows both where its participle agrees with the subject (essere, reflexive verbs: sono andato, sono andata), or
+ * the one `gender` keeps. A slot with a gender (lui, lei), an impersonal verb and every other form keep the target's own.
+ * The agreement step that follows says why the participle changes, so this records no step of its own.
+ */
+function subjectGendersOf({ lexeme, target, agreeing, auxiliary, query }: ClauseContext<ItalianLexeme>): Fork<Gender | null> {
+  if (target.gender !== null || target.person === null || lexeme.impersonal) return one(target.gender);
+  const participle = agreeing.some(cell => cell.kind === 'nonFinite' && cell.form === 'participle');
+  if (!participle || auxiliary === 'avere') return one(target.gender);
+  return genders.filter(gender => query.gender === undefined || query.gender === gender).flatMap(gender => one<Gender | null>(gender));
 }
 
 /** One way to assemble a form: its parts, its clause steps and its tags. */
@@ -116,6 +131,7 @@ function reflexiveOrders(words: readonly ChainWord[], ctx: ClauseContext<Italian
 }
 
 export const italianClause: ClauseGrammar<ItalianLexeme> = {
+  subjectGenders: subjectGendersOf,
   agreements: agreementsOf,
   /**
    * The subject pronoun of a finite form (none in the imperative, none for an impersonal verb), then non in a negative

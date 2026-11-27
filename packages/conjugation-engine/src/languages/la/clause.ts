@@ -34,6 +34,19 @@ const nonFiniteFeatures: Readonly<Record<string, Partial<PartFeatures>>> = {
 const unagreeing = new Set(['presentInfinitive', 'presentInfinitivePassive', 'perfectInfinitive']);
 
 export const latinClause: ClauseGrammar<LatinLexeme> = {
+  /**
+   * The subject gender a form shows, as in French: a compound finite form of an ungendered slot (the perfect passive, a
+   * deponent's perfect) shows the three genders of its participle (amātus, amāta, amātum sum). A gendered slot, an
+   * impersonal form and every other form keep the target's own. The agreement step says why, so this records no step.
+   */
+  subjectGenders({ lexeme, target, agreeing }): Fork<Gender | null> {
+    if (target.gender !== null || target.person === null || target.number === null) return one(target.gender);
+    const [cell] = agreeing;
+    if (cell === undefined || cell.kind !== 'nonFinite' || unagreeing.has(cell.form)) return one(target.gender);
+    if ((lexeme.passive === 'impersonal' && target.voice === 'passive') || lexeme.impersonal) return one(target.gender);
+    return genders.flatMap(gender => one<Gender | null>(gender));
+  },
+
   agreements({ query, lexeme, target, subject, agreeing }): Fork<Agreement | null> {
     const [cell] = agreeing;
     if (cell === undefined || cell.kind !== 'nonFinite' || unagreeing.has(cell.form)) return one(null);

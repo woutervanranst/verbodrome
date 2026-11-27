@@ -106,7 +106,6 @@ The grammar page of each language lists its limits in full. In short:
   - sedere with essere rests on a secondary source.
   - Not every lexicon entry is pinned against its dictionary entry.
   - A few explanations contain a redundant sentence.
-  - Subject gender is carried by the subject slots (lui, lei), while French forks it form by form: a consumer cannot treat the two alike.
   - There are no authority cells from Serianni's grammar.
 - **Latin**
   - Archaic forms are not generated.

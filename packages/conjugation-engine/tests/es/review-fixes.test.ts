@@ -7,6 +7,7 @@ import { createEngine } from '../../src/core/engine.js';
 import { resolvedTargetKey } from '../../src/core/target.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import { parseConjugationOptions } from '../../src/index.js';
+import { spanishSubjects } from '../../src/languages/es/catalogue.js';
 import { packs } from '../../src/languages/index.js';
 import type { ConjugatedForm } from '../../src/types.js';
 
@@ -14,9 +15,16 @@ const engine = createEngine(packs, locales);
 const conjugated = (infinitive: string, options: Record<string, unknown> = {}) => engine.conjugate({ language: 'es', infinitive, ...options });
 const bare = (form: ConjugatedForm) => engine.renderParts('es', form.parts, { bare: true });
 const texts = (infinitive: string, options: Record<string, unknown>) => conjugated(infinitive, options).forms.map(form => form.text);
+const formalCommands = (mood: string): Record<string, unknown>[] => mood === 'imperative' ? [{ subject: '2sg.formal' }, { subject: '2pl.formal' }] : [];
+const slotOrder = (form: ConjugatedForm): number => spanishSubjects.findIndex(slot => slot.id === form.target.subject);
+/**
+ * Per target, the bare texts of its forms joined with ' / ', in the order of the subject slots. Formal address comes only
+ * on request, so an imperative row also asks for usted and ustedes (`subject`), as a table prints them.
+ */
 function row(infinitive: string, mood: string, tense: string): string[] {
   const byTarget = new Map<string, string[]>();
-  for (const form of conjugated(infinitive, { mood, tense }).forms) {
+  const forms = [{}, ...formalCommands(mood)].flatMap(query => conjugated(infinitive, { mood, tense, ...query }).forms);
+  for (const form of [...forms].sort((a, b) => slotOrder(a) - slotOrder(b))) {
     const key = resolvedTargetKey(form.target);
     byTarget.set(key, [...byTarget.get(key) ?? [], bare(form)]);
   }
@@ -156,7 +164,10 @@ describe('review I3 and rows 15-17: defective verbs (NGLE §4.14)', () => {
       ['acaecer', ['acaece', 'acaecen']], ['acontecer', ['acontece', 'acontecen']]] as const) {   // whole-pack review I5: no pronoun
       expect(texts(verb, { mood: 'indicative', tense: 'present' })).toEqual(third);
       expect(unavailable(verb, { mood: 'indicative', tense: 'present' }).map(u => u.reason)).toEqual(Array(4).fill('defective'));
-      expect(unavailable(verb, { mood: 'imperative' })).toHaveLength(10);
+      // Formal address only on request: the default imperative has tú, nosotros and vosotros; usted and ustedes, asked for, are gaps too.
+      expect(unavailable(verb, { mood: 'imperative' })).toHaveLength(6);
+      expect(unavailable(verb, { mood: 'imperative', subject: '2sg.formal' })).toHaveLength(2);
+      expect(unavailable(verb, { mood: 'imperative', subject: '2pl.formal' })).toHaveLength(2);
     }
     expect(texts('acaecer', { mood: 'subjunctive', tense: 'present', person: 3, number: 'singular' })).toEqual(['que acaezca']);
     expect(texts('concernir', { mood: 'gerund', tense: 'present' })).toEqual(['concerniendo']);
@@ -167,7 +178,11 @@ describe('review I3 and rows 15-17: defective verbs (NGLE §4.14)', () => {
     expect(texts('balbucir', { mood: 'indicative', tense: 'present', person: 2, number: 'singular' })).toEqual(['tú balbuces']);
     expect(unavailable('balbucir', { mood: 'subjunctive', tense: 'present' })).toHaveLength(6);
     expect(texts('balbucir', { mood: 'imperative', tense: 'present' })).toEqual(['balbuce', 'balbucid']);
-    expect(unavailable('balbucir', { mood: 'imperative', tense: 'negative' })).toHaveLength(5);
+    expect(unavailable('balbucir', { mood: 'imperative', tense: 'negative' })).toHaveLength(3);
+    for (const subject of ['2sg.formal', '2pl.formal']) {
+      expect(texts('balbucir', { mood: 'imperative', subject })).toEqual([]);
+      expect(unavailable('balbucir', { mood: 'imperative', subject })).toHaveLength(2);
+    }
   });
 
   it('explains each kind of gap, the future subjunctive of soler included', () => {

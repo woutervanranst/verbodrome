@@ -13,7 +13,9 @@ const bare = (infinitive: string, options: Query): string[] =>
   conjugate({ language: 'es', infinitive, ...options } as never).forms.map(form => renderParts('es', form.parts, { bare: true }));
 const ind = (tense: string, person: Person, number: Number = 'singular'): Query => ({ mood: 'indicative', tense, person, number });
 const sub = (tense: string, person: Person, number: Number = 'singular'): Query => ({ mood: 'subjunctive', tense, person, number });
-const imp = (person: Person, number: Number = 'singular'): Query => ({ mood: 'imperative', tense: 'present', person, number });
+/** A command; the third person is usted or ustedes, which formal address gives only when its slot is asked for. */
+const imp = (person: Person, number: Number = 'singular'): Query =>
+  ({ mood: 'imperative', tense: 'present', person, number, ...(person === 3 ? { subject: number === 'singular' ? '2sg.formal' : '2pl.formal' } : {}) });
 const gerund: Query = { mood: 'gerund', tense: 'present' };
 const participle: Query = { mood: 'participle' };
 

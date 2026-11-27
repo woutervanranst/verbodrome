@@ -3,6 +3,7 @@ import { createEngine } from '../../src/core/engine.js';
 import { resolvedTargetKey } from '../../src/core/target.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import { parseConjugationOptions } from '../../src/index.js';
+import { spanishSubjects } from '../../src/languages/es/catalogue.js';
 import { packs } from '../../src/languages/index.js';
 import type { ConjugatedForm, GrammaticalNumber, Person } from '../../src/types.js';
 
@@ -10,10 +11,16 @@ const engine = createEngine(packs, locales);
 const conjugated = (infinitive: string, options: Record<string, unknown>) => engine.conjugate({ language: 'es', infinitive, ...options }).forms;
 const bare = (form: ConjugatedForm) => engine.renderParts('es', form.parts, { bare: true });
 
-/** Per target, in catalogue order, the bare texts of its forms joined with ' / '. */
+const formalCommands = (mood: string): Record<string, unknown>[] => mood === 'imperative' ? [{ subject: '2sg.formal' }, { subject: '2pl.formal' }] : [];
+const slotOrder = (form: ConjugatedForm): number => spanishSubjects.findIndex(slot => slot.id === form.target.subject);
+/**
+ * Per target, the bare texts of its forms joined with ' / ', in the order of the subject slots. Formal address comes only
+ * on request, so an imperative row also asks for usted and ustedes (`subject`), as a table prints them.
+ */
 function row(infinitive: string, mood: string, tense: string, extra: Record<string, unknown> = {}): string[] {
   const byTarget = new Map<string, string[]>();
-  for (const form of conjugated(infinitive, { mood, tense, ...extra })) {
+  const forms = [{}, ...formalCommands(mood)].flatMap(query => conjugated(infinitive, { mood, tense, ...extra, ...query }));
+  for (const form of [...forms].sort((a, b) => slotOrder(a) - slotOrder(b))) {
     const key = resolvedTargetKey(form.target);
     byTarget.set(key, [...byTarget.get(key) ?? [], bare(form)]);
   }
