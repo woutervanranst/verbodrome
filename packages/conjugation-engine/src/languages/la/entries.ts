@@ -12,18 +12,24 @@ export type LatinConjugation = 'first' | 'second' | 'third' | 'thirdIo' | 'fourt
 export type LatinStemClass = 'a' | 'e' | 'consonant' | 'io' | 'i';
 /** What a verb lacks; `supine` is the supine itself where the stem exists for the participle (fīō: factus, factum īrī). */
 export type LatinLack = 'present' | 'perfect' | 'supineStem' | 'supine' | 'imperative' | 'presentParticiple' | 'futureParticiple' | 'gerund';
-export type LatinFlag = 'shortImperative' | 'athematic' | 'eoRoot' | 'longBeforeVowel' | 'fore' | 'passiveIsFio';
+/** `intransitive`: a deponent or semi-deponent whose gerundive is only impersonal (moriendum est, A&G §190.d). */
+export type LatinFlag = 'shortImperative' | 'athematic' | 'eoRoot' | 'longBeforeVowel' | 'fore' | 'passiveIsFio' | 'intransitive';
 
 export interface LexicalForm {
   readonly text: string;
   readonly usage?: 'standard' | 'literary' | 'dated';
   readonly pattern?: string;
+  /** Marks a clause reads to keep a word out of a construction (forem is not used in the compound tenses). */
+  readonly marks?: readonly string[];
 }
 
-/** How an entry was checked: the 1903 A&G scan, the A&G text of the DCC edition, Lewis & Short, or a secondary source. */
+/**
+ * What was read to check an entry: the 1903 A&G scan, the A&G text of the DCC edition, the Lewis & Short entry, or
+ * Bennett only (`secondary`); `unverified` when nothing was read (the default for a new entry).
+ */
 export interface LexiconCheck {
-  readonly url: `https://${string}`;
-  readonly status: 'ag-print' | 'ag-text' | 'ls' | 'secondary';
+  readonly url?: `https://${string}`;
+  readonly status: 'ag-print' | 'ag-text' | 'ls' | 'secondary' | 'unverified';
 }
 
 /** The weakened form a family's compounds take (A&G §267 Note 2): `-cipiō, -cipere, -cēpī, -ceptum` for capiō. */
@@ -36,6 +42,20 @@ export interface CompoundForm {
   readonly prefixes?: readonly string[];
   /** Compounds disagree (currō: -currī / -cucurrī): inheriting is an assumption. */
   readonly vary?: true;
+  /** The prefixes (table ids) whose compounds keep the simple verb's form beside the weakened ones (perlegō, relegō). */
+  readonly simplePrefixes?: readonly string[];
+  /** A compound's own perfect and supine, by prefix id (ferō: ad- attulī allātum, A&G §200.a). */
+  readonly overrides?: Readonly<Record<string, { readonly perfect: readonly string[]; readonly supine: readonly string[] }>>;
+  /** A compound with a prefix the overrides do not list is assumed to follow the simple verb (an assumption step). */
+  readonly assumeUnlisted?: true;
+}
+
+/** A compound of sum: the prefix before a form of sum that starts with a vowel or a consonant (prōd-es, prō-sum). */
+export interface SumCompound {
+  readonly vowel: string;
+  readonly consonant: string;
+  /** possum: pot- before a vowel, pos- before s, and potess- shortened to poss- (A&G §198.b). */
+  readonly pot?: true;
 }
 
 export interface LatinEntry {
@@ -67,6 +87,22 @@ export interface LatinEntry {
   readonly gloss?: string;
   /** A paradigm-level label (lavere, literary). */
   readonly usage?: 'literary' | 'dated';
+  /** Other spellings of the infinitive the entry answers to (dēesse beside deesse). */
+  readonly spellings?: readonly string[];
+  /** The usage of the perfects after the first (eō: īvī beside iī, A&G §203 note b). */
+  readonly alternativeUsage?: 'literary' | 'dated';
+  /** Listed cells are added beside the derived word, not instead of it (edō: ēs beside edis). */
+  readonly cellsBeside?: true;
+  /** A compound of sum, whose present system is built from sum's forms. */
+  readonly sumCompound?: SumCompound;
+  /** Targets (`indicative.present.active.1s`, `participle.present`, `infinitive.present.active`) the grammar prints; no others exist. */
+  readonly attested?: readonly string[];
+  /** Targets the grammar prints as missing although the verb has the rest (dō: no 1sg present passive). */
+  readonly notAttested?: readonly string[];
+  /** The cases a declined form is attested in (fārī: gerund fandī, fandō). */
+  readonly attestedCases?: Readonly<Record<string, readonly ('nominative' | 'genitive' | 'dative' | 'accusative' | 'ablative' | 'vocative')[]>>;
+  /** Targets whose forms are dated (fīō: fīmus, fītis, the imperatives; A&G p. 115 brackets). */
+  readonly dated?: readonly string[];
   readonly source: { readonly work: 'ag' | 'bennett' | 'ls'; readonly locator: string };
   readonly checked: LexiconCheck;
 }
@@ -163,13 +199,13 @@ const first209: LatinEntry[] = list('first', 'A&G §209.a', ag(121), [
   ['crepō', 'crepuī', 'crepit'], ['cubō', 'cubuī', 'cubit'], ['domō', 'domuī', 'domit'], ['fricō', 'fricuī', 'frict'],
   ['iuvō', 'iūvī', 'iūt', { fp: 'iūtūrus|iuvātūrus' }], ['micō', 'micuī', ''], ['necō', 'necāvī', 'necāt'],
   ['pōtō', 'pōtāvī', 'pōt'], ['secō', 'secuī', 'sect', { fp: 'sectūrus|secātūrus' }],
-  ['sonō', 'sonuī', 'sonit', { fp: 'sonitūrus|sonātūrus' }], ['tonō', 'tonuī', 'tonit'], ['vetō', 'vetuī', 'vetit'],
+  ['sonō', 'sonuī', 'sonit', { fp: 'sonitūrus|sonātūrus' }], ['tonō', 'tonuī', 'tonit', { gloss: 'thunder' }], ['vetō', 'vetuī', 'vetit'],
 ]);
 
 // A&G §210, pp. 121–122: second conjugation.
 const second210: LatinEntry[] = [
   ...list('second', 'A&G §210.a', ag(122), [
-    ['arceō', 'arcuī', ''], ['careō', 'caruī', ''], ['egeō', 'eguī', ''], ['timeō', 'timuī', ''], ['maereō', '', ''],
+    ['arceō', 'arcuī', ''], ['careō', 'caruī', '', { fp: 'caritūrus' }], ['egeō', 'eguī', ''], ['timeō', 'timuī', ''], ['maereō', '', ''],
   ]),
   ...list('second', 'A&G §210.b', ag(122), [
     ['dēleō', 'dēlēvī', 'dēlēt'], ['fleō', 'flēvī', 'flēt'], ['neō', 'nēvī', 'nēt'], ['vieō', 'viēvī', 'viēt'],
@@ -216,11 +252,11 @@ const third211: LatinEntry[] = [
     ['quatiō', '', 'quass', { ...io, compound: { present: 'cutiō', perfect: ['cussī'], supine: ['cussum'] } }],
     ['rādō', 'rāsī', 'rās'], ['regō', 'rēxī', 'rēct', { compound: { present: 'rigō', perfect: ['rēxī'], supine: ['rēctum'] } }],
     ['rēpō', 'rēpsī', ''], ['rōdō', 'rōsī', 'rōs'], ['scalpō', 'scalpsī', 'scalpt'], ['scrībō', 'scrīpsī', 'scrīpt'],
-    ['sculpō', 'sculpsī', 'sculpt'], ['serpō', 'serpsī', ''], ['spargō', 'sparsī', 'spars', { compound: { prefixes: [] } }],
+    ['sculpō', 'sculpsī', 'sculpt'], ['serpō', 'serpsī', ''], ['spargō', 'sparsī', 'spars', { compound: { present: 'spergō', perfect: ['spersī'], supine: ['spersum'] } }],
     ['spiciō', 'spexī', 'spect', { ...io, familyOnly: true }], ['stinguō', 'stīnxī', 'stīnct', { familyOnly: true }],
     ['stringō', 'strīnxī', 'strict'], ['struō', 'strūxī', 'strūct'], ['sūgō', 'sūxī', 'sūct'], ['sūmō', 'sūmpsī', 'sūmpt'],
     ['surgō', 'surrēxī', 'surrēct'], ['tegō', 'tēxī', 'tēct'], ['temnō', 'tempsī', 'tempt'], ['tergō', 'tersī', 'ters'],
-    ['tingō', 'tīnxī', 'tīnct'], ['trahō', 'trāxī', 'trāct'], ['trūdō', 'trūsī', 'trūs'], ['unguō', 'ūnxī', 'ūnct'],
+    ['tingō', 'tīnxī', 'tīnct', { compound: { prefixes: [] } }], ['trahō', 'trāxī', 'trāct'], ['trūdō', 'trūsī', 'trūs'], ['unguō', 'ūnxī', 'ūnct'],
     ['ūrō', 'ussī', 'ust'], ['vādō', 'vāsī', 'vās'], ['vehō', 'vēxī', 'vect'], ['vīvō', 'vīxī', 'vīct'],
   ]),
   ...list('third', 'A&G §211.b', ag(123), [
@@ -262,14 +298,14 @@ const third211: LatinEntry[] = [
     ['rudō', 'rudīvī', ''], ['sapiō', 'sapīvī', '', io], ['terō', 'trīvī', 'trīt'],
   ]),
   ...list('third', 'A&G §211.e', ag(124), [
-    ['agō', 'ēgī', 'āct', { compound: { present: 'igō', perfect: ['ēgī'], supine: ['āctum'], prefixes: ['ab', 'ad', 'ex', 'red', 'sub', 'trāns'] } }],
+    ['agō', 'ēgī', 'āct', { compound: { present: 'igō', perfect: ['ēgī'], supine: ['āctum'], prefixes: ['ab', 'ad', 'ex', 're', 'sub', 'trāns'] } }],
     ['capiō', 'cēpī', 'capt', { ...io, compound: { present: 'cipiō', perfect: ['cēpī'], supine: ['ceptum'] } }],
-    ['emō', 'ēmī', 'ēmpt', { compound: { present: 'imō', perfect: ['ēmī'], supine: ['ēmptum'], prefixes: ['ad', 'dis', 'ex', 'inter', 'per', 'red'] } }],
-    ['faciō', 'fēcī', 'fact', { ...io, flags: ['shortImperative', 'passiveIsFio'], compound: { present: 'ficiō', perfect: ['fēcī'], supine: ['fectum'] } }],
-    ['fodiō', 'fōdī', 'foss', io], ['frangō', 'frēgī', 'frāct', { compound: { prefixes: [] } }], ['fugiō', 'fūgī', '', { ...io, fp: 'fugitūrus' }],
+    ['emō', 'ēmī', 'ēmpt', { compound: { present: 'imō', perfect: ['ēmī'], supine: ['ēmptum'], prefixes: ['ad', 'dis', 'ex', 'inter', 'per', 're'] } }],
+    ['faciō', 'fēcī', 'fact', { ...io, flags: ['shortImperative', 'passiveIsFio'], stems: { fio: '' }, compound: { present: 'ficiō', perfect: ['fēcī'], supine: ['fectum'] } }],
+    ['fodiō', 'fōdī', 'foss', io], ['frangō', 'frēgī', 'frāct', { compound: { present: 'fringō', perfect: ['frēgī'], supine: ['frāctum'] } }], ['fugiō', 'fūgī', '', { ...io, fp: 'fugitūrus' }],
     ['fundō', 'fūdī', 'fūs'],
     ['iaciō', 'iēcī', 'iact', { ...io, gloss: 'throw', compound: { present: 'iciō', perfect: ['iēcī'], supine: ['iectum'] } }],
-    ['legō', 'lēgī', 'lēct', { compound: { present: 'ligō', perfect: ['lēgī'], supine: ['lēctum'] } }],
+    ['legō', 'lēgī', 'lēct', { compound: { present: 'ligō', perfect: ['lēgī'], supine: ['lēctum'], simplePrefixes: ['per', 're'] } }],
     ['linō', 'lēvī|līvī', 'lit'], ['linquō', 'līquī', 'lict'], ['nōscō', 'nōvī', 'nōt'], ['rumpō', 'rūpī', 'rupt'],
     ['scabō', 'scābī', ''], ['vincō', 'vīcī', 'vict'],
   ]),
@@ -313,12 +349,12 @@ const deponents191: LatinEntry[] = [
   ...list('third', 'A&G §191', ag(105), [
     ['apīscor', '', 'aptus', { ...dep, compound: { present: 'ipīscor', supine: ['eptum'] } }], ['dēfetīscor', '', 'dēfessus', dep],
     ['expergīscor', '', 'experrēctus', dep], ['fruor', '', 'frūctus|fruitus', { ...dep, fp: 'fruitūrus' }], ['fungor', '', 'fūnctus', dep],
-    ['gradior', '', 'gressus', { ...dep, ...io, compound: { present: 'gredior', supine: ['gressum'] } }], ['īrāscor', '', 'īrātus', dep],
-    ['lābor', '', 'lāpsus', dep], ['loquor', '', 'locūtus', dep], ['minīscor', '', 'mentus', { ...dep, familyOnly: true }],
-    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus' }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', dep],
+    ['gradior', '', 'gressus', { ...dep, ...io, flags: ['intransitive'], compound: { present: 'gredior', supine: ['gressum'] } }], ['īrāscor', '', 'īrātus', dep],
+    ['lābor', '', 'lāpsus', { ...dep, flags: ['intransitive'] }], ['loquor', '', 'locūtus', dep], ['minīscor', '', 'mentus', { ...dep, familyOnly: true }],
+    ['morior', '', 'mortuus', { ...dep, ...io, fp: 'moritūrus', flags: ['intransitive'] }], ['nancīscor', '', 'nactus|nānctus', dep], ['nāscor', '', 'nātus', dep],
     ['nītor', '', 'nīsus|nīxus', dep], ['oblīvīscor', '', 'oblītus', dep], ['orior', '', 'ortus', { ...dep, ...io, fp: 'oritūrus', infinitive: 'orīrī', cells: { presentInfinitivePassive: [{ text: 'orīrī' }] } }],
     ['pacīscor', '', 'pactus', dep], ['patior', '', 'passus', { ...dep, ...io, compound: { present: 'petior', supine: ['pessum'] } }],
-    ['plector', '', 'plexus', { ...dep, familyOnly: true }], ['proficīscor', '', 'profectus', dep], ['queror', '', 'questus', dep],
+    ['plector', '', 'plexus', { ...dep, familyOnly: true }], ['proficīscor', '', 'profectus', { ...dep, flags: ['intransitive'] }], ['queror', '', 'questus', dep],
     ['revertor', '', 'reversus', dep], ['ringor', '', 'rictus', dep], ['sequor', '', 'secūtus', dep], ['ulcīscor', '', 'ultus', dep],
     ['ūtor', '', 'ūsus', dep],
   ]),
@@ -327,7 +363,7 @@ const deponents191: LatinEntry[] = [
     ['ōrdior', '', 'ōrsus', dep],
   ]),
   ...list('second', 'A&G §191', ag(105), [
-    ['fateor', '', 'fassus', dep], ['reor', '', 'ratus', dep], ['tueor', '', 'tuitus|tūtus', dep],
+    ['fateor', '', 'fassus', { ...dep, compound: { present: 'fiteor', supine: ['fessum'] } }], ['reor', '', 'ratus', dep], ['tueor', '', 'tuitus|tūtus', dep],
   ]),
   // §191.a, p. 106: no supine stem.
   ...list('third', 'A&G §191.a', ag(106), [
@@ -335,10 +371,10 @@ const deponents191: LatinEntry[] = [
   ]),
   ...list('second', 'A&G §191.a', ag(106), [['diffiteor', '', '', dep], ['medeor', '', '', dep]]),
   ...list('second', 'A&G §192', ag(106), [
-    ['audeō', '', 'ausus', { voice: 'semiDeponent' }], ['gaudeō', '', 'gāvīsus', { voice: 'semiDeponent' }],
-    ['soleō', '', 'solitus', { voice: 'semiDeponent' }],
+    ['audeō', '', 'ausus', { voice: 'semiDeponent', lacks: ['supine'] }], ['gaudeō', '', 'gāvīsus', { voice: 'semiDeponent', lacks: ['supine'] }],
+    ['soleō', '', 'solitus', { voice: 'semiDeponent', lacks: ['supine'] }],
   ]),
-  ...list('third', 'A&G §192', ag(106), [['fīdō', '', 'fīsus', { voice: 'semiDeponent' }]]),
+  ...list('third', 'A&G §192', ag(106), [['fīdō', '', 'fīsus', { voice: 'semiDeponent', lacks: ['supine'], flags: ['intransitive'] }]]),
 ];
 
 /**
@@ -364,6 +400,28 @@ const groupK: LatinEntry[] = [
   ...list('second', 'L&S s.v. iaceo', lsCheck('iaceo'), [['iaceō', 'iacuī', 'iacit', { gloss: 'lie' }]], 'ls'),
   ...list('second', 'L&S s.v. pareo', lsCheck('pareo'), [['pāreō', 'pāruī', 'pārit', { gloss: 'obey' }]], 'ls'),
   ...list('second', 'L&S s.v. noceo', lsCheck('noceo'), [['noceō', 'nocuī', 'nocit']], 'ls'),
+  // Common second-conjugation verbs, so that a spelling without macrons finds them (L&S, each its own entry).
+  ...([
+    ['habeō', 'habuī', 'habit', { compound: { present: 'hibeō', perfect: ['hibuī'], supine: ['hibitum'], prefixes: ['ad', 'ex', 'com', 'in'] } }],
+    ['prohibeō', 'prohibuī', 'prohibit'], ['dēbeō', 'dēbuī', 'dēbit'], ['praebeō', 'praebuī', 'praebit'],
+    ['placeō', 'placuī', 'placit', { compound: { present: 'pliceō', perfect: ['plicuī'], supine: ['plicitum'], prefixes: ['dis'] } }],
+    ['valeō', 'valuī', 'valit'], ['taceō', 'tacuī', 'tacit'], ['terreō', 'terruī', 'territ'], ['doleō', 'doluī', 'dolit'],
+    ['studeō', 'studuī', ''], ['pateō', 'patuī', ''], ['lateō', 'latuī', ''], ['exerceō', 'exercuī', 'exercit'],
+    ['coerceō', 'coercuī', 'coercit'], ['mereō', 'meruī', 'merit'], ['caleō', 'caluī', '', { fp: 'calitūrus' }], ['sileō', 'siluī', ''],
+    ['horreō', 'horruī', ''], ['flōreō', 'flōruī', ''], ['niteō', '', ''], ['rubeō', '', ''],
+  ] as const).flatMap(([lemma, perfect, supine, extra]) =>
+    list('second', `L&S s.v. ${lemma.normalize('NFD').replace(/\u0304/gu, '')}`, lsCheck(lemma.normalize('NFD').replace(/\u0304/gu, '')), [[lemma, perfect, supine, extra ?? {}] as Row], 'ls')),
+  // cōgō, dēgō: contracted compounds of agō (L&S cōgo, coēgi, coactum; dēgo, dēgi).
+  ...list('third', 'L&S s.v. cogo', lsCheck('cogo'), [['cōgō', 'coēgī', 'coāct']], 'ls'),
+  ...list('third', 'L&S s.v. dego', lsCheck('dego'), [['dēgō', 'dēgī', '']], 'ls'),
+  // profiteor: pro- short (L&S prŏfĭtĕor, fessus); the other compounds of fateor are the -fiteor family.
+  ...list('second', 'L&S s.v. profiteor', lsCheck('profiteor'), [['profiteor', '', 'professus', dep]], 'ls'),
+  // -faciō compounds that keep a and take -fīō in the passive (A&G §204.b; L&S calefacio, satisfacio).
+  ...list('thirdIo', 'A&G §204.b; L&S s.v. calefacio', ag(115), [
+    ['calefaciō', 'calefēcī', 'calefact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'cale' }, compound: { prefixes: [] } }],
+    ['benefaciō', 'benefēcī', 'benefact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'bene' }, compound: { prefixes: [] } }],
+    ['satisfaciō', 'satisfēcī', 'satisfact', { flags: ['shortImperative', 'passiveIsFio'], stems: { fio: 'satis' }, compound: { prefixes: [] } }],
+  ]),
   // lavō: first conjugation with lāvī and three supines, and the parallel literary lavere (A&G §§189, 211.e; L&S lavo).
   ...list('first', 'A&G §211.e; L&S s.v. lavo', ag(124), [['lavō', 'lāvī', 'laut|lōt|lavāt', { fp: 'lavātūrus' }]]),
 ];

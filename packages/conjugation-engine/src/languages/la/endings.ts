@@ -85,16 +85,11 @@ function presentEnding(lexeme: LatinLexeme, cell: FiniteCell, stem: string): For
   if (lexeme.flags.has('athematic')) {
     // ferō: an ending of the long-stem column that starts with s, t or r goes straight on the root (A&G §200 fn. 3).
     const long = endingsFor('i', key)[slot]!;
-    if (/^[str]/u.test(long)) return withReVariant(cell, stem, long, [step(latinRules['la.end.athematic'], stem, stem + long)]);
+    if (/^[str]/u.test(long)) return withReVariant(cell, stem, long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long })]);
   }
   const ending = endingsFor(lexeme.flags.has('athematic') ? 'c' : column, key)[slot]!;
   if (ending === 'x') return [];
   const steps = [presentStep(cell, lexeme.flags.has('athematic') ? 'c' : column, stem, ending)];
-  if (cell.mood === 'imperative' && cell.tense === 'present' && cell.voice === undefined && slot === 0
-    && lexeme.flags.has('shortImperative') && !lexeme.weakened) {
-    // dīc, dūc, fac, fer and their compounds, but not the compounds in -ficiō (A&G §182).
-    return one('', [...steps, step(latinRules['la.end.short-imperative'], lexeme.lemma, null)]);
-  }
   return withReVariant(cell, stem, ending, steps);
 }
 
@@ -132,7 +127,7 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       const passive = cell.form === 'presentInfinitivePassive';
       if (lexeme.flags.has('athematic')) {
         const long = infinitiveEnding('i', passive);
-        return one(long, [step(latinRules['la.end.athematic'], stem, stem + long)]);
+        return one(long, [step(latinRules['la.end.athematic'], stem, stem + long, { ending: long })]);
       }
       const ending = infinitiveEnding(column, passive);
       return one(ending, [step(latinRules['la.end.infinitive'], stem, stem + ending, { ending, tense: { term: 'tense', id: 'present' } })]);
@@ -154,7 +149,8 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       }
       const nd = `${vowel}nd`;
       const main = declineUs(stem, nd, agreement, [step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` })]);
-      if (vowel === '') return main;
+      // -undus is not formed after qu (sequendus; secundus is an adjective of its own).
+      if (vowel === '' || stem.endsWith('qu')) return main;
       return withUndus(main, declineUs(stem, 'und', agreement, [
         step(latinRules['la.end.gerundive'], stem, `${stem}${nd}us`, { ending: `${nd}us` }), step(latinRules['la.end.undus'], `${stem}${nd}us`, `${stem}undus`),
       ]));
@@ -164,7 +160,7 @@ export function nonFiniteEnding(lexeme: LatinLexeme, cell: NonFiniteCell, stem: 
       if (stem === lexeme.stems.gerund) return one(caseEnding, [step(latinRules['la.end.gerund'], stem, stem + caseEnding, { ending: caseEnding })]);
       const ending = `${vowel}nd${caseEnding}`;
       const main = one(ending, [step(latinRules['la.end.gerund'], stem, stem + ending, { ending })]);
-      if (vowel === '') return main;
+      if (vowel === '' || stem.endsWith('qu')) return main;
       return withUndus(main, one(`und${caseEnding}`, [
         step(latinRules['la.end.gerund'], stem, stem + ending, { ending }), step(latinRules['la.end.undus'], stem + ending, `${stem}und${caseEnding}`),
       ]));

@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { ConjugationError, parseConjugationOptions } from '../../src/index.js';
 import { irregularEntries } from '../../src/languages/la/irregulars.js';
-import { familyCount, latinLexicon } from '../../src/languages/la/lexicon.js';
+import { familyCount, latinEntries, latinLexicon } from '../../src/languages/la/lexicon.js';
 import { latinPack } from '../../src/languages/la/pack.js';
-import { lexiconVerification } from '../../src/languages/la/sources.js';
+import { lexiconVerification, verificationKey } from '../../src/languages/la/sources.js';
 import type { VerbAnalysis } from '../../src/types.js';
 
 const analysis = (infinitive: string, extra: Record<string, unknown> = {}): VerbAnalysis =>
@@ -62,17 +62,18 @@ describe('Latin classification', () => {
     expect(() => analysis('trānsesse')).toThrow(ConjugationError);
   });
 
-  it('keeps the lexicon verified', () => {
+  it('keeps the lexicon verified, one record per entry', () => {
     let entries = 0;
     for (const [key, list] of Object.entries(latinLexicon)) {
       for (const entry of list) {
         entries += 1;
-        expect(lexiconVerification[entry.present ?? entry.infinitive], key).toBeDefined();
+        expect(lexiconVerification[verificationKey(entry)], key).toBeDefined();
       }
     }
-    // Pinned after transcription: 65 irregular, defective and impersonal entries (with the listed compounds of sum, ferō
-    // and stō), 365 principal-part entries from A&G §§172, 190–192, 209–212 and Lewis & Short (the family-only bases such
-    // as -cutiō are not counted), and 27 families with a weakened form or a prefix list of their own.
-    expect({ entries, irregular: irregularEntries.length, families: familyCount }).toEqual({ entries: 430, irregular: 65, families: 27 });
+    expect(Object.keys(lexiconVerification)).toHaveLength(latinEntries.length);
+    // Pinned: 69 irregular, defective and impersonal entries (with the listed compounds of sum, dō and stō),
+    // the principal-part entries of A&G §§172, 190–192, 209–212 and Lewis & Short (the family-only bases such as
+    // -cutiō are not counted), and the families with a weakened form or a prefix list of their own.
+    expect({ entries, irregular: irregularEntries.length, families: familyCount }).toEqual({ entries: 461, irregular: 69, families: 33 });
   });
 });

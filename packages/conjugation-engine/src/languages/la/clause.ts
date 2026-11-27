@@ -11,6 +11,7 @@ import type { Fork } from '../../core/fork.js';
 import type { Agreement, Gender } from '../../core/grammar.js';
 import type { PartFeatures } from '../../types.js';
 import { agreementsFor } from './declension.js';
+import { foremMark } from './irregulars.js';
 import type { LatinLexeme } from './lexicon.js';
 import { latinRules } from './rules.js';
 
@@ -36,7 +37,8 @@ export const latinClause: ClauseGrammar<LatinLexeme> = {
   agreements({ query, lexeme, target, subject, agreeing }): Fork<Agreement | null> {
     const [cell] = agreeing;
     if (cell === undefined || cell.kind !== 'nonFinite' || unagreeing.has(cell.form)) return one(null);
-    const impersonal = lexeme.passive === 'impersonal' && target.voice === 'passive';
+    // An impersonal passive (itum est) and an impersonal verb (licitūrum esse, A&G §207) stand in the neuter singular.
+    const impersonal = (lexeme.passive === 'impersonal' && target.voice === 'passive') || lexeme.impersonal;
     if (target.person !== null && target.number !== null) {
       // A compound finite form agrees with its subject; an impersonal passive stands in the neuter singular.
       if (impersonal) return one({ gender: 'neuter', number: 'singular', case: 'nominative' }, [step(latinRules['la.clause.agree-impersonal'], null, null)]);
@@ -58,8 +60,8 @@ export const latinClause: ClauseGrammar<LatinLexeme> = {
   },
 
   assemble(words, { lexeme, target, rendering }) {
-    // forem is not used in the compound tenses (they are built with essem, GD §2.4).
-    if (words.some(word => word.role === 'auxiliary' && word.lemma === 'esse' && /^for/u.test(word.text))) return [];
+    // forem is not used in the compound tenses (they are built with essem, GD §2.4): sum's cell marks it.
+    if (words.some(word => word.role === 'auxiliary' && word.marks?.includes(foremMark))) return [];
     const parts = words.map(word => wordPart(rendering, word, word.cell?.kind === 'nonFinite' ? nonFiniteFeatures[word.cell.form] ?? {} : {}));
     const active = target.voice === 'active';
     const steps: DerivationStep[] = [];

@@ -29,13 +29,13 @@ function respelled(stem: string, ending: string, change: (word: string) => strin
   return changed === word ? null : { stem: changed.slice(0, stem.length), ending: changed.slice(stem.length) };
 }
 
-/** Verbs in -iō drop the stem's i before a consonant, ĭ, ī or ĕ (and at the end of a word): capi + is → capis. */
+/** Verbs in -iō drop the stem's i before a consonant, ĭ, ī or ĕ: capi + is → capis, faci + e → face. */
 const ioDropI: JunctureRule<Context> = {
   info: latinRules['la.orth.io-drop-i'],
   apply(j, { lexeme, cell }) {
     if (lexeme.stemClass !== 'io' || !j.stem.endsWith('i') || !onPresentStem(cell)) return null;
     if (cell.kind === 'nonFinite' && ['gerund', 'gerundive', 'presentParticiple'].includes(cell.form)) return null;
-    if (j.ending !== '' && !/^(?:[^aeiouāēīōū]|[iīe])/u.test(j.ending)) return null;
+    if (!/^(?:[^aeiouāēīōū]|[iīe])/u.test(j.ending)) return null;
     return one({ stem: j.stem.slice(0, -1), ending: j.ending });
   },
 };
@@ -64,11 +64,19 @@ const shortBeforeVowel: JunctureRule<Context> = {
   },
 };
 
+/**
+ * Replaces the matches of `pattern` that lie at the junction, from the stem's last letter on: a rule of the junction
+ * never changes a stem vowel the lexicon or the user gives (nūntiō keeps its ū before nt; L&S nuntio, A&G §10.e).
+ */
+function atJunction(stem: string, ending: string, pattern: RegExp, change: (vowel: string) => string): { stem: string; ending: string } | null {
+  return respelled(stem, ending, word => word.replace(pattern, (vowel, offset: number) => offset >= stem.length - 1 ? change(vowel) : vowel));
+}
+
 /** A vowel before nt or nd is short: amā + nt → amant, teg + ēnt → tegent. */
 const shortBeforeNt: JunctureRule<Context> = {
   info: latinRules['la.orth.short-before-nt'],
   apply: j => {
-    const result = respelled(j.stem, j.ending, word => word.replace(/[āēīōū](?=n[td])/gu, long => shortOf[long]!));
+    const result = atJunction(j.stem, j.ending, /[āēīōū](?=n[td])/gu, long => shortOf[long]!);
     return result ? one(result) : null;
   },
 };
@@ -86,21 +94,38 @@ const shortFinal: JunctureRule<Context> = {
 const longBeforeNs: JunctureRule<Context> = {
   info: latinRules['la.orth.long-before-ns'],
   apply: j => {
-    const result = respelled(j.stem, j.ending, word => word.replace(/[aeiou](?=n[sf])/gu, short => longOf[short]!));
+    const result = atJunction(j.stem, j.ending, /[aeiou](?=n[sf])/gu, short => longOf[short]!);
     return result ? one(result) : null;
   },
 };
 
-/** The seven rules of GD §4.4, in order. */
-export const latinOrthography: readonly JunctureRule<Context>[] = [ioDropI, eoRoot, aLost, shortBeforeVowel, shortBeforeNt, shortFinal, longBeforeNs];
+/** In the perfect of eō and its compounds, ii before s contracts to ī: i + istī → īstī, i + isse → īsse (A&G §203.c). */
+const iiContraction: JunctureRule<Context> = {
+  info: latinRules['la.orth.ii-contraction'],
+  apply: (j, { lexeme, cell }) => lexeme.flags.has('eoRoot') && !onPresentStem(cell) && /(?:^|[^ī])i$/u.test(j.stem) && j.ending.startsWith('is')
+    ? one({ stem: `${j.stem.slice(0, -1)}ī`, ending: j.ending.slice(1) }) : null,
+};
+
+/** dīc, dūc, fac, fer and their compounds, but not the compounds in -ficiō (A&G §182): face → fac. */
+const shortImperative: JunctureRule<Context> = {
+  info: latinRules['la.end.short-imperative'],
+  apply: (j, { lexeme, cell }) => cell.kind === 'finite' && cell.mood === 'imperative' && cell.tense === 'present' && cell.voice === undefined
+    && cell.number === 'singular' && lexeme.flags.has('shortImperative') && !lexeme.weakened && j.ending === 'e'
+    ? one({ stem: j.stem, ending: '' }) : null,
+};
+
+/** The rules of GD §4.4 in order, with the eō contraction and the short imperative after the vowel rules. */
+export const latinOrthography: readonly JunctureRule<Context>[] = [ioDropI, eoRoot, aLost, shortBeforeVowel, shortBeforeNt, shortFinal, longBeforeNs, iiContraction, shortImperative];
 
 /**
  * What breaks the quantity rules in `word` (GD §4.4 lint): a long vowel before nt, nd or another vowel (fī- before a
  * vowel other than er excepted), or a short vowel before ns or nf. Empty when the word is sound.
  */
-export function quantityProblems(word: string, _lexeme?: LatinLexeme): string[] {
+export function quantityProblems(word: string, stem?: string): string[] {
   const problems: string[] = [];
   const text = word.normalize('NFC');
+  // With the stem given, only the junction and the ending are checked: a stem's hidden quantity (nūntiō) is lexical.
+  if (stem !== undefined && text.startsWith(stem)) return quantityProblems(text.slice(Math.max(0, stem.length - 1)));
   for (const match of text.matchAll(/[āēīōū](?=n[td])/gu)) problems.push(`long ${match[0]} before n${text[match.index + 2]!} at ${match.index}`);
   for (const match of text.matchAll(/[āēīōū](?=[aeiouāēīōū])/gu)) {
     const fi = match[0] === 'ī' && text[match.index - 1] === 'f' && !text.startsWith('er', match.index + 1);

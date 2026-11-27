@@ -4,7 +4,7 @@
  * (conficere → cōnficere, A&G §10.d).
  */
 import { latinKey } from './key.js';
-import { latinFamilies, noInherit } from './lexicon.js';
+import { latinEntries, latinFamilies, noInherit } from './lexicon.js';
 import type { LatinFamily } from './lexicon.js';
 
 export interface PrefixAllomorph {
@@ -24,7 +24,7 @@ const table: readonly (readonly [string, string, RegExp?])[] = [
   ['per', 'pel', /^l/u], ['per', 'per'], ['post', 'post'], ['prae', 'prae'], ['praeter', 'praeter'], ['super', 'super'],
   ['com', 'co', /^[aeiouh]/u], ['com', 'col', /^l/u], ['com', 'cor', /^r/u], ['com', 'com', /^[bpm]/u], ['com', 'cōn', /^[fs]/u], ['com', 'con'],
   ['dē', 'dē'],
-  ['ex', 'ē', /^[bdglmnrv]/u], ['ex', 'ef', /^f/u], ['ex', 'ex'],
+  ['ex', 'ē', /^[bdgilmnrv]/u], ['ex', 'ef', /^f/u], ['ex', 'ex'],
   ['dis', 'dī', /^[dglmrv]/u], ['dis', 'dif', /^f/u], ['dis', 'dir', /^[aeiou]/u], ['dis', 'dis'],
   ['in', 'im', /^[bmp]/u], ['in', 'il', /^l/u], ['in', 'ir', /^r/u], ['in', 'īn', /^[fs]/u], ['in', 'in'],
   ['ob', 'oc', /^c/u], ['ob', 'of', /^f/u], ['ob', 'og', /^g/u], ['ob', 'op', /^p/u], ['ob', 'o', /^m/u], ['ob', 'ob'],
@@ -34,6 +34,8 @@ const table: readonly (readonly [string, string, RegExp?])[] = [
   ['sub', 'suc', /^c/u], ['sub', 'suf', /^f/u], ['sub', 'sug', /^g/u], ['sub', 'sum', /^m/u], ['sub', 'sup', /^p/u], ['sub', 'sur', /^r/u],
   ['sub', 'sus', /^[cpt]/u], ['sub', 'sub'],
   ['trāns', 'trā', /^[dilmn]/u], ['trāns', 'trāns'],
+  // The inseparable por- (A&G §267.b): pos- before s (possideō), por- elsewhere (porrigō).
+  ['por', 'pos', /^s/u], ['por', 'por'],
 ];
 
 /** The closed prefix list with assimilation, longest allomorph first and, at one length, onset-bound before elsewhere. */
@@ -48,9 +50,18 @@ export interface CompoundMatch {
   readonly family: LatinFamily;
 }
 
+/** Every family lists its prefixes by the ids of the table above (re, not red): a typo would silently match nothing. */
+const prefixIds = new Set(table.map(([prefix]) => prefix));
+for (const entry of latinEntries) {
+  for (const prefix of [...entry.compound?.prefixes ?? [], ...entry.compound?.simplePrefixes ?? [], ...Object.keys(entry.compound?.overrides ?? {})]) {
+    if (!prefixIds.has(prefix)) throw new Error(`Latin lexicon: ${entry.infinitive} lists the prefix ${prefix}, which is not a prefix id of the table.`);
+  }
+}
+
 /**
  * The families `key` is a compound of, through the first allomorph (longest first) that yields any; [] for a key on the
- * no-inherit list or none. A family with a weakened form is matched only in that form (recapere is not capiō's).
+ * no-inherit list or none. A family with a weakened form is matched only in that form (recapere is not capiō's), and
+ * where a weakened form and a simple verb share a key (-tingō of tangō, tingō 'dye'), the weakened form wins.
  */
 export function resolveCompound(key: string): readonly CompoundMatch[] {
   if (noInherit.has(key)) return [];
@@ -62,6 +73,8 @@ export function resolveCompound(key: string): readonly CompoundMatch[] {
     const matches = (latinFamilies[rest] ?? [])
       .filter(family => family.prefixes === undefined || family.prefixes.includes(allomorph.prefix))
       .map(family => ({ prefix: allomorph.prefix, allomorph: allomorph.form, family }));
+    const weakened = matches.filter(match => match.family.weakened);
+    if (weakened.length) return weakened;
     if (matches.length) return matches;
   }
   return [];

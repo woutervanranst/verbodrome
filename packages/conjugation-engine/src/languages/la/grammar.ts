@@ -1,7 +1,7 @@
 import { step } from '../../core/derivation.js';
-import type { Fork } from '../../core/fork.js';
+import type { Fork, Outcome } from '../../core/fork.js';
 import type { Cell, StagedGrammar } from '../../core/staged.js';
-import { synthesize, validateGrammar } from '../../core/staged.js';
+import { deriveWords, validateGrammar } from '../../core/staged.js';
 import type { ResolvedTarget } from '../../types.js';
 import { classifyLatin, lexemeOfLatin } from './classify.js';
 import { latinAvailability } from './availability.js';
@@ -9,6 +9,7 @@ import { cellKeyOf } from './cells.js';
 import { latinClause } from './clause.js';
 import { isOblique } from './declension.js';
 import { finiteEnding, nonFiniteEnding } from './endings.js';
+import { foremMark, sumCells } from './irregulars.js';
 import type { LatinLexeme } from './lexicon.js';
 import { latinOrthography, onPresentStem } from './orthography.js';
 import { isPerfectTense } from './paradigms.js';
@@ -46,25 +47,59 @@ function cellOf(target: ResolvedTarget, lexeme: LatinLexeme): Cell | null {
   return passive || lexeme.voiceClass === 'deponent' ? { ...base, voice: 'passive' } : base;
 }
 
-/** Whole words the lexicon lists for a cell (`la.lex.cell`); faciō takes the passive of its present system from fīō. */
+/** A word of sum behind the prefix of one of its compounds (A&G §198), or pot-/pos- for possum (§198.b). */
+function sumCompoundWord(lexeme: LatinLexeme, word: string): Outcome<string> {
+  const { vowel, consonant, pot } = lexeme.entry!.sumCompound!;
+  if (pot) {
+    const text = word.startsWith('ess') ? `po${word.slice(1)}` : word.startsWith('s') ? `pos${word}` : `pot${word}`;
+    return { value: text, steps: [step(latinRules['la.lex.pot-sum'], word, text)], tags: {} };
+  }
+  const prefix = /^[aeiouāēīōū]/u.test(word) ? vowel : consonant;
+  return { value: prefix + word, steps: [step(latinRules['la.lex.sum-compound'], word, prefix + word, { prefix })], tags: {} };
+}
+
+/**
+ * Whole words the lexicon gives for a cell (`la.lex.cell`), beside the derived words where the entry says so (edō's ēs
+ * beside edis); the present system of sum's compounds and possum from sum's words; and faciō's present-system passive,
+ * which is fīō's active (A&G §204), with the step that says so.
+ */
 function lexicalCell(lexeme: LatinLexeme, cell: Cell): Fork<string> | null {
-  const listed = lexeme.cells[cellKeyOf(cell)];
+  const key = cellKeyOf(cell);
+  const entry = lexeme.entry;
+  if (entry?.sumCompound && cell.voice === undefined && (cell.kind === 'finite' ? onPresentStem(cell) : cell.form === 'presentInfinitive')) {
+    const words = sumCells[key];
+    // forem is sum's own: the compounds are listed with essem only.
+    if (words) return words.filter(form => !form.marks?.includes(foremMark)).map(form => sumCompoundWord(lexeme, form.text));
+  }
+  const listed = lexeme.cells[key];
   if (listed) {
-    return listed.map(form => ({
+    const words: Fork<string> = listed.map(form => ({
       value: form.text,
       steps: [step(latinRules['la.lex.cell'], lexeme.lemma, form.text)],
       tags: { ...(form.usage && form.usage !== 'standard' ? { usage: form.usage } : {}), ...(form.pattern ? { pattern: form.pattern } : {}) },
+      ...(form.marks ? { marks: form.marks } : {}),
     }));
+    return entry?.cellsBeside ? [...deriveWords(latinGrammar, lexeme, cell), ...words] : words;
   }
   const passivePresent = cell.kind === 'finite' ? cell.voice === 'passive' && onPresentStem(cell) : cell.form === 'presentInfinitivePassive';
   if (lexeme.flags.has('passiveIsFio') && passivePresent) {
-    // A&G §204: "The passive of faciō is fīō": the active forms of fīō.
-    const { voice: _voice, ...active } = cell;
     const fio = lexemeOfLatin('fierī');
-    return synthesize(latinGrammar, fio, cell.kind === 'nonFinite' && cell.form === 'presentInfinitivePassive'
-      ? { kind: 'nonFinite', form: 'presentInfinitive' } : active as Cell);
+    const active: Cell = cell.kind === 'nonFinite' ? { kind: 'nonFinite', form: 'presentInfinitive' }
+      : { kind: 'finite', mood: cell.mood, tense: cell.tense, person: cell.person, number: cell.number };
+    const prefix = lexeme.stems.fio ?? '';
+    const words = lexicalCell(fio, active) ?? deriveWords(latinGrammar, fio, active);
+    return words.map(outcome => ({
+      ...outcome, value: prefix + outcome.value,
+      steps: [...outcome.steps, step(latinRules['la.lex.passive-fio'], lexeme.lemma, prefix + outcome.value)],
+    }));
   }
   return null;
+}
+
+/** The tags of a cell's words: fīō's bracketed forms are dated (A&G p. 115). */
+function withDated(lexeme: LatinLexeme, cell: Cell, words: Fork<string>): Fork<string> {
+  if (!lexeme.entry?.dated?.includes(cellKeyOf(cell))) return words;
+  return words.map(outcome => ({ ...outcome, tags: { ...outcome.tags, usage: 'dated' as const } }));
 }
 
 function stemOf(lexeme: LatinLexeme, cell: Cell): Fork<string> {
@@ -96,7 +131,7 @@ export const latinGrammar: StagedGrammar<LatinLexeme> = {
   availability: latinAvailability,
   cell: lexicalCell,
   stem: stemOf,
-  ending: (lexeme, cell, stem) => cell.kind === 'finite' ? finiteEnding(lexeme, cell, stem) : nonFiniteEnding(lexeme, cell, stem),
+  ending: (lexeme, cell, stem) => withDated(lexeme, cell, cell.kind === 'finite' ? finiteEnding(lexeme, cell, stem) : nonFiniteEnding(lexeme, cell, stem)),
   orthography: latinOrthography,
   periphrases: latinPeriphrases,
   clause: latinClause,

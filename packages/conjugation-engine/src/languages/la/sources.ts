@@ -1,5 +1,5 @@
 import type { Citation, Work } from '../../core/sources.js';
-import type { LexiconCheck } from './entries.js';
+import type { LatinEntry, LexiconCheck } from './entries.js';
 import { latinEntries } from './lexicon.js';
 import type { latinRules } from './rules.js';
 
@@ -56,6 +56,8 @@ export const latinCitations = {
   'la.classify.semi-deponent': [ag('deponent-verbs', '§192'), bennett(114)],
   'la.classify.assume-third': ag('four-conjugations', '§171'),
   'la.classify.assume-second-deponent': ag('deponent-verbs', '§190'),
+  'la.classify.assume-second': ag('four-conjugations', '§171'),
+  'la.classify.assume-third-deponent': ag('deponent-verbs', '§190'),
   'la.classify.assume-consonant-stem': ag('3rd-conjugation-io-verbs', '§188'),
   'la.classify.assume-quantity': ag('quantity-syllables', '§10'),
   'la.classify.assume-passive': [ag('verb-conjugations', '§154.a'), ag('impersonal-verbs', '§208.d')],
@@ -73,6 +75,12 @@ export const latinCitations = {
   'la.stem.s-junction': [ag('phonetic-changes', '§15'), bennett(118, ' (3.a)')],
   'la.stem.t-junction': [ag('formation-supine', '§178 Note 1'), bennett(119, ' (1.a)')],
   'la.stem.lexical': [ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§§202–203'), ag('irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D', '§199')],
+  'la.stem.participle': [ag('deponent-verbs', '§190'), ag('four-conjugations', '§172')],
+  'la.lex.sum-compound': [ag('irregular-verbs-compounds-sum', '§198'), bennett(125)],
+  'la.lex.pot-sum': [ag('irregular-verbs-compounds-sum', '§198.b'), agPage(109)],
+  'la.lex.passive-fio': [ag('irregular-verbs-f%C4%AB%C5%8D', '§204'), agPage(115)],
+  'la.orth.ii-contraction': [ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§203.c'), agPage(114)],
+  'la.avail.not-attested': [ag('defective-verbs', '§206'), agPage(113), agPage(115)],
   'la.lex.cell': [ag('sum', '§170'), ag('irregular-verbs-compounds-sum', '§198'), ag('irregular-verbs-vol%C5%8D-n%C5%8Dl%C5%8D-m%C4%81l%C5%8D', '§199'), ag('irregular-verbs-d%C5%8D-e%C5%8D-and-ade%C5%8D', '§§202–203'), ag('irregular-verbs-f%C4%AB%C5%8D', '§204'), bennett(100)],
   'la.end.personal': [ag('personal-endings', '§163'), agPage(89)],
   'la.end.thematic': [ag('forms-conjugation', '§179.c.1, d'), ag('present-stem', '§176.b')],
@@ -136,11 +144,16 @@ export const latinCitations = {
   'la.avail.no-future-imperative-plural': [ag('personal-endings', '§163.b'), agPage(94), agPage(104)],
 } as const satisfies Record<keyof typeof latinRules, Citation | readonly Citation[]>;
 
+/** The key an entry's verification is listed under: its infinitive, with the gloss of a homograph (claudere (limp)). */
+export function verificationKey(entry: LatinEntry): string {
+  return entry.gloss ? `${entry.infinitive} (${entry.gloss})` : entry.infinitive;
+}
+
 /**
- * How each lexicon entry was checked, keyed by its first principal part (or its infinitive for coepī, ōdī, meminī):
- * `ag-print` against the 1903 A&G page scan, `ag-text` against the DCC text of A&G only (a page whose scan is missing,
- * or a model verb of §172), `ls` against Lewis & Short via Logeion, `secondary` against Bennett only.
+ * What was read to check each lexicon entry (one per entry): `ag-print` the 1903 A&G page scan, `ag-text` the DCC
+ * text of A&G only (a page whose scan is missing, or a model verb of §172), `ls` the Lewis & Short entry via Logeion,
+ * `secondary` Bennett only, `unverified` nothing. The entry's `source.locator` names the section or entry read.
  */
-export const lexiconVerification: Readonly<Record<string, LexiconCheck>> = Object.fromEntries(
-  latinEntries.map(entry => [entry.present ?? entry.infinitive, entry.checked]),
+export const lexiconVerification: Readonly<Record<string, LexiconCheck & { readonly locator: string }>> = Object.fromEntries(
+  latinEntries.map(entry => [verificationKey(entry), { ...entry.checked, locator: entry.source.locator }]),
 );

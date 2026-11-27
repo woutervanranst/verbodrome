@@ -12,7 +12,7 @@ import type { CompoundMatch } from './compounds.js';
 import { transitiveEoPrefixes } from './irregulars.js';
 import { hasQuantityMarks, latinKey } from './key.js';
 import { compoundGlosses, impersonalPassive, latinLexicon } from './lexicon.js';
-import type { LatinConjugation, LatinEntry, LatinLexeme, LatinStemClass, PresentStem, StemSource } from './lexicon.js';
+import type { LatinConjugation, LatinEntry, LatinLexeme, LatinStemClass, LexicalForm, PresentStem, StemSource } from './lexicon.js';
 import { latinRules } from './rules.js';
 import type { LatinClassHint, LatinStemHints } from './spec.js';
 
@@ -22,15 +22,22 @@ const stemClassOf: Readonly<Record<Exclude<LatinConjugation, 'irregular'>, Latin
 
 const without = (word: string, ending: string): string => word.slice(0, word.length - ending.length);
 
-/** A listed principal part as a stem source: tēxī → tēx, amātum → amāt, moritūrus → morit. */
-function listed(parts: readonly string[] | undefined, ending: (part: string) => string, hinted = false): StemSource[] {
+/**
+ * A listed principal part as a stem source: tēxī → tēx, amātum → amāt, moritūrus → morit. An alternative after the
+ * first is tagged with its own spelling as pattern (and `usage` where the entry says so).
+ */
+function listed(parts: readonly string[] | undefined, ending: (part: string) => string, hinted = false,
+  extra: { usage?: LexicalForm['usage']; participle?: boolean } = {}): StemSource[] {
   return (parts ?? []).map((part, index) => ({
     kind: 'listed', part, stem: without(part, ending(part)), hinted,
-    ...(index === 0 ? {} : { pattern: part }),
+    ...(index === 0 ? {} : { pattern: part, ...(extra.usage ? { usage: extra.usage } : {}) }),
+    ...(extra.participle ? { participle: true } : {}),
   }));
 }
 
 const perfectEnding = (part: string): string => part.endsWith('ī') ? 'ī' : 'i';
+/** An impersonal verb's perfect is printed in the third person singular (licuit): its stem is that minus -it. */
+const impersonalPerfectEnding = (part: string): string => part.endsWith('it') ? 'it' : perfectEnding(part);
 const supineEnding = (part: string): string => part.endsWith('us') ? 'us' : 'um';
 
 /** The present stem of an entry (GD §4.2): from the infinitive for a, e, i and consonant stems, from the 1sg for -iō verbs. */
@@ -75,8 +82,11 @@ export function lexemeFromEntry(entry: LatinEntry, hints: LatinStemHints = {}, e
     key: latinKey(entry.infinitive), entry, family: null, conjugation: entry.conjugation, stemClass, voiceClass, perfectSystem,
     presentStem: presentOf(entry, stemClass, deponent),
     perfectStems: perfectSystem === 'stem' && !lacks.has('perfect')
-      ? hints.perfect ? listed([hints.perfect], perfectEnding, true) : listed(entry.perfect, perfectEnding) : [],
-    supineStems: hints.supine ? listed([hints.supine], supineEnding, true) : lacks.has('supineStem') ? [] : listed(entry.supine, supineEnding),
+      ? hints.perfect ? listed([hints.perfect], perfectEnding, true)
+      : listed(entry.perfect, entry.impersonal ? impersonalPerfectEnding : perfectEnding, false, { ...(entry.alternativeUsage ? { usage: entry.alternativeUsage } : {}) })
+      : [],
+    supineStems: hints.supine ? listed([hints.supine], supineEnding, true, { participle: voiceClass !== 'active' })
+      : lacks.has('supineStem') ? [] : listed(entry.supine, supineEnding, false, { participle: voiceClass !== 'active' && !entry.impersonal }),
     futureParticipleStems: listed(entry.futureParticiple, () => 'ūrus'),
     passive, impersonal: entry.impersonal === true, lacks, flags: new Set(entry.flags ?? []), cells: entry.cells ?? {},
     stems: entry.stems ?? {}, principalParts: principalParts(entry, perfectSystem === 'participle'), weakened: false,
@@ -88,18 +98,21 @@ export function lexemeFromEntry(entry: LatinEntry, hints: LatinStemHints = {}, e
 function compoundEntry({ prefix, allomorph, family }: CompoundMatch): LatinEntry {
   const base = family.base;
   const join = (word: string): string => allomorph + word;
+  const own = family.overrides[prefix];
   const eoFamily = base.flags?.includes('eoRoot') === true;
   const present = join(family.present);
   const lacks = (base.lacks ?? []).filter(lack => !family.weakened || (lack !== 'perfect' && lack !== 'supineStem'));
   if (family.weakened && !family.perfect && base.voice === undefined) lacks.push('perfect');
   if (family.weakened && !family.supine) lacks.push('supineStem');
   const passive = eoFamily ? transitiveEoPrefixes.has(prefix) ? undefined : 'impersonal' : base.passive === 'none' ? 'none' : undefined;
-  const flags = (base.flags ?? []).filter(flag => !family.weakened || (flag !== 'shortImperative' && flag !== 'passiveIsFio'));
+  // A compound may well be transitive where its simple verb is not (ēgredior urbem): `intransitive` is not inherited.
+  const flags = (base.flags ?? []).filter(flag => flag !== 'intransitive' && (!family.weakened || (flag !== 'shortImperative' && flag !== 'passiveIsFio')));
   const gloss = compoundGlosses[present];
   return {
     present, infinitive: join(family.infinitive), conjugation: base.conjugation,
-    ...(family.perfect ? { perfect: family.perfect.map(join) } : {}),
-    ...(family.supine ? { supine: family.supine.map(join) } : {}),
+    ...(own ? { perfect: own.perfect } : family.perfect ? { perfect: family.perfect.map(join) } : {}),
+    ...(own ? { supine: own.supine } : family.supine ? { supine: family.supine.map(join) } : {}),
+    ...(base.alternativeUsage ? { alternativeUsage: base.alternativeUsage } : {}),
     ...(!family.weakened && base.futureParticiple ? { futureParticiple: base.futureParticiple.map(join) } : {}),
     ...(base.stemClass ? { stemClass: base.stemClass } : {}), ...(base.voice ? { voice: base.voice } : {}),
     ...(passive ? { passive } : {}), ...(lacks.length ? { lacks } : {}), ...(flags.length ? { flags } : {}),
@@ -122,7 +135,7 @@ function lexiconSteps(typed: string, lexeme: LatinLexeme, match: CompoundMatch |
     : [step(latinRules['la.classify.compound'], typed, lexeme.lemma, { prefix: match.allomorph, base: match.family.base.present!, parts: compoundParts(match) })];
   if (lexeme.voiceClass === 'deponent') steps.push(step(latinRules['la.classify.deponent'], lexeme.lemma, null));
   if (lexeme.voiceClass === 'semiDeponent') steps.push(step(latinRules['la.classify.semi-deponent'], lexeme.lemma, null));
-  if (match?.family.vary) {
+  if (match && (match.family.vary || (match.family.assumeUnlisted && !match.family.overrides[match.prefix]))) {
     steps.push(step(latinRules['la.classify.assume-compound'], null, null, { prefix: match.allomorph, base: match.family.base.present! }));
   }
   return steps;
@@ -134,21 +147,56 @@ interface Candidate { readonly entry: LatinEntry; readonly match: CompoundMatch 
 function lexiconParadigms(typed: string, key: string, hints: LatinStemHints, classHint: LatinClassHint | undefined): Fork<LatinLexeme> {
   const direct = (latinLexicon[key] ?? []).map((entry): Candidate => ({ entry, match: null }));
   let candidates = direct.length ? direct : resolveCompound(key).map((match): Candidate => ({ entry: compoundEntry(match), match }));
-  if (hasQuantityMarks(typed)) candidates = candidates.filter(({ entry }) => entry.infinitive.normalize('NFC') === typed);
+  // Typed macrons choose: the spelling that equals the typed one, else one it fits (pārere fits pārēre only).
+  const byMacrons = <T>(list: readonly T[], typedText: string, spellings: (item: T) => readonly string[]): readonly T[] => {
+    if (!hasQuantityMarks(typedText)) return list;
+    const equal = list.filter(item => spellings(item).some(spelling => spelled(spelling) === spelled(typedText)));
+    return equal.length ? equal : list.filter(item => spellings(item).some(spelling => compatible(typedText, spelling)));
+  };
+  candidates = [...byMacrons(candidates, typed, ({ entry }) => [entry.infinitive, ...entry.spellings ?? []])];
   const present = hints.present;
-  if (present !== undefined) candidates = candidates.filter(({ entry }) => entry.present !== null && latinKey(entry.present) === latinKey(present));
+  if (present !== undefined) {
+    const keyed = candidates.filter(({ entry }) => entry.present !== null && latinKey(entry.present) === latinKey(present));
+    candidates = [...byMacrons(keyed, present, ({ entry }) => [entry.present!])];
+  }
   if (classHint !== undefined) candidates = candidates.filter(({ entry }) => entry.conjugation === classHint);
   const several = candidates.length > 1;
   return candidates.map(({ entry, match }): Outcome<LatinLexeme> => {
     const lexeme = lexemeFromEntry(entry, hints, match ? { family: { prefix: match.allomorph, base: match.family.base.present! }, weakened: match.family.weakened } : {});
-    const tags: VariantTags = several ? { ...(entry.present ? { pattern: entry.present } : {}), ...(entry.gloss ? { condition: entry.gloss } : {}) } : {};
+    const tags: VariantTags = {
+      ...(several ? { ...(entry.present ? { pattern: entry.present } : {}), ...(entry.gloss ? { condition: entry.gloss } : {}) } : {}),
+      ...(entry.usage ? { usage: entry.usage } : {}),
+    };
     return { value: lexeme, steps: lexiconSteps(typed, lexeme, match), tags };
   });
 }
 
-/** A passive infinitive of a verb the lexicon has (amārī, tegī) is not a deponent: GD §3.2 step 3. */
+/** The spelling a typed word is compared in: NFC, lower case, j written i (GD §3.2 step 1). */
+const spelled = (text: string): string => text.normalize('NFC').toLowerCase().replace(/j/gu, 'i');
+
+/**
+ * Whether a typed spelling fits a lexicon spelling: the same letters, and every vowel typed with a macron long in the
+ * lexicon too (a vowel typed without one is not a claim; pārere fits pārēre, not parere).
+ */
+export function compatible(typed: string, spelling: string): boolean {
+  const a = [...spelled(typed)];
+  const b = [...spelled(spelling)];
+  if (a.length !== b.length) return false;
+  return a.every((char, index) => char === b[index] || latinKey(char) === latinKey(b[index]!) && latinKey(char) === char);
+}
+
+/** The lexicon's perfects by key (amāvī → amāre), to tell a perfect typed as an infinitive. */
+const perfectsByKey: ReadonlyMap<string, LatinEntry> = new Map(Object.values(latinLexicon).flat()
+  .flatMap(entry => entry.impersonal ? [] : (entry.perfect ?? []).map(perfect => [latinKey(perfect), entry] as const)));
+
+/**
+ * A passive infinitive of a verb the lexicon has (amārī, tegī, gerī, quaerī) is not a deponent, and a perfect (amāvī)
+ * is not an infinitive: GD §3.2 step 3. The query is rejected and the message names the verb to conjugate.
+ */
 function rejectPassiveInfinitive(typed: string, key: string): void {
-  const active = key.endsWith('ri') ? [`${key.slice(0, -2)}re`] : key.endsWith('i') ? [`${key.slice(0, -1)}ere`] : [];
+  const perfect = perfectsByKey.get(key);
+  if (perfect) throw new ConjugationError('INVALID_INFINITIVE', `${typed} is the perfect of ${perfect.infinitive}: give the infinitive ${perfect.infinitive}.`);
+  const active = [...key.endsWith('ri') ? [`${key.slice(0, -2)}re`] : [], ...key.endsWith('i') ? [`${key.slice(0, -1)}ere`] : []];
   for (const candidate of active) {
     const entries = latinLexicon[candidate] ?? resolveCompound(candidate).map(compoundEntry);
     const verb = entries.find(entry => entry.voice !== 'deponent');
@@ -188,7 +236,8 @@ function readEnding(typed: string, key: string, present: string | undefined): Re
   }
   if (key.endsWith('ari')) return read('first', true, 3);
   if (key.endsWith('iri')) return read('fourth', true, 3);
-  if (key.endsWith('eri')) {
+  // A diphthong ae, oe before -ri is not the ē of -ērī (blaerī: third conjugation).
+  if (key.endsWith('eri') && !/[ao]eri$/u.test(key)) {
     if (/ēr[īi]$/u.test(typed) || presentKey?.endsWith('eor')) return read('second', true, 3);
     if (marks || (presentKey?.endsWith('or') && !presentKey.endsWith('eor'))) return read('third', true, 1);
     return read('second', true, 3, { assumeSecondDeponent: true });
@@ -264,9 +313,13 @@ const canonicalEnding: Readonly<Record<Reading['conjugation'], readonly [string,
 
 const vowelOf: Readonly<Record<Reading['conjugation'], string>> = { first: 'ā', second: 'ē', third: '', thirdIo: 'i', fourth: 'ī' };
 
-/** The paradigm of a verb the lexicon does not have (GD §3.2 step 4 and 5). */
-function ruleParadigm(typed: string, key: string, hints: LatinStemHints, classHint: LatinClassHint | undefined): Outcome<LatinLexeme> {
-  const reading = readEnding(typed, key, hints.present);
+type ReadingAssumption = 'la.classify.assume-third' | 'la.classify.assume-second' | 'la.classify.assume-second-deponent' | 'la.classify.assume-third-deponent';
+
+/**
+ * The paradigm of a verb the lexicon does not have (GD §3.2 steps 4 and 5) in one reading of its ending; `assumption`
+ * names the reading when the spelling allows another (no macron on the e of -ere or -eri).
+ */
+function ruleParadigm(typed: string, reading: Reading, hints: LatinStemHints, classHint: LatinClassHint | undefined, assumption: ReadingAssumption | null): Outcome<LatinLexeme> {
   const presentHint = hints.present;
   const presentKey = presentHint === undefined ? undefined : latinKey(presentHint);
   const io = presentKey !== undefined && /io(?:r)?$/u.test(presentKey) && (reading.conjugation === 'third' || classHint === 'thirdIo');
@@ -291,8 +344,7 @@ function ruleParadigm(typed: string, key: string, hints: LatinStemHints, classHi
   if (deponent) steps.push(step(latinRules['la.classify.deponent'], typed, null));
   if (semiDeponent) steps.push(step(latinRules['la.classify.semi-deponent'], typed, null));
   if (io && classHint === undefined) steps.push(step(latinRules['la.classify.io'], null, presentHint!));
-  if (classHint === undefined && reading.assumeThird && conjugation === 'third') steps.push(step(latinRules['la.classify.assume-third'], null, null));
-  if (classHint === undefined && reading.assumeSecondDeponent) steps.push(step(latinRules['la.classify.assume-second-deponent'], null, null));
+  if (assumption !== null) steps.push(step(latinRules[assumption], null, null));
   if (classHint === undefined && conjugation === 'third') steps.push(step(latinRules['la.classify.assume-consonant-stem'], null, null));
   steps.push(step(latinRules['la.classify.assume-quantity'], null, null));
   if (!deponent && !semiDeponent) steps.push(step(latinRules['la.classify.assume-passive'], null, null));
@@ -314,8 +366,17 @@ function ruleParadigm(typed: string, key: string, hints: LatinStemHints, classHi
     passive: voiceClass === 'active' ? 'personal' : 'none', impersonal: false, lacks: new Set(), flags: new Set(), cells: {}, stems: {},
     principalParts: parts.join(', '), weakened: false,
   };
-  return { value: lexeme, steps, tags: {} };
+  const tags: VariantTags = assumption === null ? {} : { pattern: parts[0]!, condition: conditionOf[assumption] };
+  return { value: lexeme, steps, tags };
 }
+
+/** The condition of each reading of an ending without macrons. */
+const conditionOf: Readonly<Record<ReadingAssumption, string>> = {
+  'la.classify.assume-third': 'read as third conjugation (-ere)',
+  'la.classify.assume-second': 'read as second conjugation (-ēre)',
+  'la.classify.assume-second-deponent': 'read as second-conjugation deponent (-ērī)',
+  'la.classify.assume-third-deponent': 'read as third-conjugation deponent (-ī)',
+};
 
 /** The paradigms of the queried verb (GD §3.2). */
 export function classifyLatin(query: Readonly<Record<string, unknown>>): Fork<LatinLexeme> {
@@ -326,7 +387,21 @@ export function classifyLatin(query: Readonly<Record<string, unknown>>): Fork<La
   const paradigms = lexiconParadigms(typed, key, hints, classHint);
   if (paradigms.length) return paradigms;
   rejectPassiveInfinitive(typed, key);
-  return [ruleParadigm(typed, key, hints, classHint)];
+  const reading = readEnding(typed, key, hints.present);
+  if (classHint === undefined && reading.assumeThird) {
+    // No macron on the e of -ere and no first person: both conjugations are possible, so both paradigms are returned.
+    return [
+      ruleParadigm(typed, reading, hints, classHint, 'la.classify.assume-third'),
+      ruleParadigm(typed, { ...reading, conjugation: 'second' }, hints, classHint, 'la.classify.assume-second'),
+    ];
+  }
+  if (classHint === undefined && reading.assumeSecondDeponent) {
+    return [
+      ruleParadigm(typed, reading, hints, classHint, 'la.classify.assume-second-deponent'),
+      ruleParadigm(typed, { ...reading, conjugation: 'third', root: typed.slice(0, -1), ending: typed.slice(-1) }, hints, classHint, 'la.classify.assume-third-deponent'),
+    ];
+  }
+  return [ruleParadigm(typed, reading, hints, classHint, null)];
 }
 
 /** The lexeme of a verb a periphrasis names (esse, īre). */

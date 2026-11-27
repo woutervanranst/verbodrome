@@ -19,6 +19,14 @@ function unavailable(rule: AvailabilityRule, reason: Unavailability['reason'], l
   return { reason, step: step(latinRules[rule], lexeme.lemma, null, params), source: first.url ?? first.locator };
 }
 
+/** The key of a target in an entry's `attested` and `notAttested` lists: `indicative.present.active.1s`, `participle.present`. */
+export function targetKeyOf(target: ResolvedTarget): string {
+  if (target.person !== null && target.number !== null) {
+    return `${target.mood}.${target.tense}.${target.voice ?? 'active'}.${target.person}${target.number === 'singular' ? 's' : 'p'}`;
+  }
+  return target.voice ? `${target.mood}.${target.tense}.${target.voice}` : `${target.mood}.${target.tense}`;
+}
+
 const presentNonFinite = (target: ResolvedTarget): boolean =>
   (target.mood === 'infinitive' && target.tense === 'present') || (target.mood === 'participle' && (target.tense === 'present' || target.tense === 'gerundive')) || target.mood === 'gerund';
 
@@ -35,25 +43,37 @@ function needsSupine(lexeme: LatinLexeme, target: ResolvedTarget): boolean {
   return isPerfectTense(target.mood, target.tense) && (passive || lexeme.perfectSystem === 'participle');
 }
 
+/** Why a verb has no passive, for the message: what it is, not a guess (volō is neither deponent nor intransitive). */
+function noPassiveReason(lexeme: LatinLexeme): string {
+  if (lexeme.voiceClass === 'deponent') return 'deponent';
+  if (lexeme.voiceClass === 'semiDeponent') return 'semiDeponent';
+  return lexeme.impersonal ? 'impersonal' : 'none';
+}
+
 export function latinAvailability(lexeme: LatinLexeme, target: ResolvedTarget): Unavailability | null {
-  const finite = target.person !== null;
+  const finite = target.person !== null && target.number !== null;
   const passive = target.voice === 'passive';
-  const perfectSystem = isPerfectTense(target.mood, target.tense) || (target.mood === 'infinitive' && target.tense === 'perfect');
-  if (lexeme.lacks.has('present') && ((finite && !isPerfectTense(target.mood, target.tense) && !lexeme.cells[cellKeyOf({
+  const perfectTense = isPerfectTense(target.mood, target.tense);
+  const perfectSystem = perfectTense || (target.mood === 'infinitive' && target.tense === 'perfect');
+  const entry = lexeme.entry;
+  const key = targetKeyOf(target);
+  if (lexeme.lacks.has('present') && ((finite && !perfectTense && !lexeme.cells[cellKeyOf({
     kind: 'finite', mood: target.mood, tense: target.tense, person: target.person!, number: target.number!,
   })]) || presentNonFinite(target))) return unavailable('la.avail.no-present', 'defective', lexeme);
   if (lexeme.impersonal && finite && (target.person !== 3 || target.number !== 'singular')) return unavailable('la.avail.impersonal', 'impersonal', lexeme);
-  if (passive && lexeme.passive === 'none') return unavailable('la.avail.no-passive', 'noPassive', lexeme);
+  if (passive && lexeme.passive === 'none') return unavailable('la.avail.no-passive', 'noPassive', lexeme, { reason: noPassiveReason(lexeme) });
   if (lexeme.passive === 'impersonal' && ((passive && (target.mood === 'imperative' || (finite && (target.person !== 3 || target.number !== 'singular'))))
     || (target.mood === 'participle' && target.tense === 'perfect'))) return unavailable('la.avail.impersonal-passive', 'impersonal', lexeme);
+  // Only the forms the grammar prints (āiō, inquam …), or all but the ones it prints as missing (dō: no dor, der).
+  if ((entry?.attested && !entry.attested.includes(key)) || entry?.notAttested?.includes(key)) return unavailable('la.avail.not-attested', 'defective', lexeme);
+  // An impersonal verb has its infinitives and only the participles the grammar names (paenitendus, pudendus, paenitūrus).
+  if (lexeme.impersonal && !finite && target.mood !== 'infinitive'
+    && !(target.mood === 'participle' && target.tense === 'gerundive' && lexeme.stems.gerund !== undefined)
+    && !(target.mood === 'participle' && target.tense === 'future' && lexeme.futureParticipleStems.length > 0)) {
+    return unavailable('la.avail.not-attested', 'defective', lexeme);
+  }
   if (target.mood === 'imperative') {
-    // A verb that lists some imperatives of a tense (fīō, A&G p. 115: fī, fīte, fītō) has no others.
-    const voice = passive ? 'passive' : 'active';
-    const listed = Object.keys(lexeme.cells).filter(key => key.startsWith(`imperative.${target.tense}.${voice}.`));
-    const key = cellKeyOf({ kind: 'finite', mood: 'imperative', tense: target.tense, person: target.person!, number: target.number!, ...(passive ? { voice: 'passive' as const } : {}) });
-    if (lexeme.lacks.has('imperative') || (listed.length > 0 && !lexeme.cells[key] && !lexeme.lacks.has('present'))) {
-      return unavailable('la.avail.no-imperative', 'noImperative', lexeme);
-    }
+    if (lexeme.lacks.has('imperative')) return unavailable('la.avail.no-imperative', 'noImperative', lexeme);
     if (target.tense === 'future' && target.person === 2 && target.number === 'plural' && (passive || lexeme.voiceClass === 'deponent')) {
       return unavailable('la.avail.no-future-imperative-plural', 'defective', lexeme);
     }

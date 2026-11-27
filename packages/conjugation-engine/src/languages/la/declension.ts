@@ -104,7 +104,17 @@ function every(genderList: readonly Gender[], numberList: readonly GrammaticalNu
  * and the accusative; an impersonal passive and an impersonal gerundive (eundum) stand in the neuter singular.
  */
 export function agreementsFor(form: string, query: Readonly<Record<string, unknown>>, lexeme: LatinLexeme, infinitive: boolean, impersonalPassive: boolean): readonly Agreement[] {
-  const declined = query.agreement !== undefined;
+  const all = agreementsOf(form, query.agreement !== undefined, lexeme, infinitive, impersonalPassive);
+  // A form attested in some cases only (fārī: gerund fandī, fandō; supine fātū) has those, and its citation is the first.
+  const attested = lexeme.entry?.attestedCases?.[form];
+  if (!attested) return all;
+  const kept = all.filter(agreement => attested.includes(agreement.case ?? 'nominative'));
+  if (kept.length) return kept;
+  const [first] = all;
+  return first ? [{ ...first, case: attested[0]! }] : [];
+}
+
+function agreementsOf(form: string, declined: boolean, lexeme: LatinLexeme, infinitive: boolean, impersonalPassive: boolean): readonly Agreement[] {
   if (infinitive) {
     if (impersonalPassive) return every(['neuter'], ['singular'], declined ? ['nominative', 'accusative'] : ['nominative']);
     return declined ? every(genders, numbers, ['nominative', 'accusative']) : [citation];
@@ -113,7 +123,8 @@ export function agreementsFor(form: string, query: Readonly<Record<string, unkno
     case 'gerund': return every(['neuter'], ['singular'], declined ? ['genitive', 'dative', 'accusative', 'ablative'] : ['genitive']);
     case 'supine': return every(['masculine'], ['singular'], declined ? ['accusative', 'ablative'] : ['accusative']);
     case 'gerundive':
-      if (lexeme.passive === 'impersonal') return every(['neuter'], ['singular'], declined ? ['nominative', 'accusative'] : ['nominative']);
+      // The gerundive of an intransitive verb is only impersonal: eundum, moriendum est (A&G §190.d).
+      if (lexeme.passive === 'impersonal' || lexeme.flags.has('intransitive')) return every(['neuter'], ['singular'], declined ? ['nominative', 'accusative'] : ['nominative']);
       return declined ? every(genders, numbers, cases) : [citation];
     default:
       return declined ? every(genders, numbers, cases) : [citation];

@@ -51,7 +51,9 @@ export function supineStems(lexeme: LatinLexeme): Fork<string> {
   return lexeme.supineStems.map(source => ({
     value: source.stem,
     steps: source.kind === 'listed'
-      ? [step(latinRules['la.stem.supine'], source.part, source.stem)]
+      ? source.participle
+        ? [step(latinRules['la.stem.participle'], source.part.replace(/um$/u, 'us'), source.stem)]
+        : [step(latinRules['la.stem.supine'], source.part, source.stem)]
       : defaultSteps(source, 'la.stem.supine-regular', 'la.stem.t-junction'),
     tags: sourceTags(source),
   }));

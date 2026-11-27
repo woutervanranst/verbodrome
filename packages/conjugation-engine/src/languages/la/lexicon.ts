@@ -4,7 +4,7 @@
  */
 import type { LexemeBase } from '../../core/grammar.js';
 import { infinitiveOf, regularEntries } from './entries.js';
-import type { LatinConjugation, LatinEntry, LatinFlag, LatinLack, LatinStemClass, LexicalForm } from './entries.js';
+import type { CompoundForm, LatinConjugation, LatinEntry, LatinFlag, LatinLack, LatinStemClass, LexicalForm } from './entries.js';
 import { irregularEntries } from './irregulars.js';
 import { latinKey } from './key.js';
 
@@ -29,11 +29,15 @@ export interface LatinFamily {
   readonly infinitive: string;
   readonly perfect?: readonly string[];
   readonly supine?: readonly string[];
-  /** The only prefixes the family takes; absent: any prefix. */
+  /** The only prefixes the family takes (ids of the prefix table); absent: any prefix. */
   readonly prefixes?: readonly string[];
   /** The compounds take a weakened form (-cipiō), so they do not inherit the simple verb's lexical quirks. */
   readonly weakened: boolean;
   readonly vary: boolean;
+  /** A compound's own perfect and supine, by prefix id (ferō: ad- attulī allātum). */
+  readonly overrides: NonNullable<CompoundForm['overrides']>;
+  /** A prefix the overrides do not list is assumed to follow the simple verb. */
+  readonly assumeUnlisted: boolean;
 }
 
 /** The root of an infinitive key (amare → am, sequi → sequ), for the minimum family root of three letters (GD §3.4). */
@@ -41,30 +45,39 @@ function rootOf(key: string): string {
   return key.replace(/(?:are|ere|ire|ari|eri|iri|i)$/u, '');
 }
 
-function familyOf(entry: LatinEntry): LatinFamily | null {
+function simpleFamily(entry: LatinEntry, prefixes: readonly string[] | undefined): LatinFamily {
   const compound = entry.compound;
-  if (entry.present === null || entry.impersonal) return null;
-  if (compound?.present !== undefined) {
-    const deponent = entry.voice === 'deponent';
-    const infinitive = compound.infinitive ?? infinitiveOf(compound.present, entry.conjugation, deponent);
-    return {
-      base: entry, present: compound.present, infinitive, ...(compound.perfect ? { perfect: compound.perfect } : {}),
-      ...(compound.supine ? { supine: compound.supine } : {}), ...(compound.prefixes ? { prefixes: compound.prefixes } : {}),
-      weakened: compound.present !== entry.present, vary: compound.vary === true,
-    };
-  }
-  if (compound?.prefixes !== undefined && compound.prefixes.length === 0) return null;
-  const listed = compound?.prefixes !== undefined;
-  // A simple-form family: any regular verb whose root has at least three letters, or a family that lists its prefixes.
-  if (!listed && !entry.familyOnly && (entry.conjugation === 'irregular' || rootOf(latinKey(entry.infinitive)).length < 3)) return null;
   return {
-    base: entry, present: entry.present, infinitive: entry.infinitive, ...(entry.perfect ? { perfect: entry.perfect } : {}),
-    ...(entry.supine ? { supine: entry.supine } : {}), ...(listed ? { prefixes: compound!.prefixes! } : {}),
-    weakened: false, vary: compound?.vary === true,
+    base: entry, present: entry.present!, infinitive: entry.infinitive, ...(entry.perfect ? { perfect: entry.perfect } : {}),
+    ...(entry.supine ? { supine: entry.supine } : {}), ...(prefixes ? { prefixes } : {}),
+    weakened: false, vary: compound?.vary === true, overrides: compound?.overrides ?? {}, assumeUnlisted: compound?.assumeUnlisted === true,
   };
 }
 
-const familyList: readonly LatinFamily[] = latinEntries.flatMap(entry => familyOf(entry) ?? []);
+function familiesOf(entry: LatinEntry): LatinFamily[] {
+  const compound = entry.compound;
+  if (entry.present === null || entry.impersonal || entry.attested) return [];
+  if (compound?.present !== undefined) {
+    const deponent = entry.voice === 'deponent';
+    const infinitive = compound.infinitive ?? infinitiveOf(compound.present, entry.conjugation, deponent);
+    const weakened: LatinFamily = {
+      base: entry, present: compound.present, infinitive, ...(compound.perfect ? { perfect: compound.perfect } : {}),
+      ...(compound.supine ? { supine: compound.supine } : {}), ...(compound.prefixes ? { prefixes: compound.prefixes } : {}),
+      weakened: compound.present !== entry.present, vary: compound.vary === true, overrides: compound.overrides ?? {},
+      assumeUnlisted: compound.assumeUnlisted === true,
+    };
+    return compound.simplePrefixes ? [weakened, simpleFamily(entry, compound.simplePrefixes)] : [weakened];
+  }
+  if (compound?.prefixes !== undefined && compound.prefixes.length === 0) return [];
+  const listed = compound?.prefixes !== undefined;
+  // A simple-form family: any regular verb whose root has at least three letters, a family that lists its prefixes, or
+  // an irregular verb with compound data (ferō).
+  const irregularFamily = entry.conjugation === 'irregular' && compound !== undefined;
+  if (!listed && !entry.familyOnly && !irregularFamily && (entry.conjugation === 'irregular' || rootOf(latinKey(entry.infinitive)).length < 3)) return [];
+  return [simpleFamily(entry, listed ? compound!.prefixes : undefined)];
+}
+
+const familyList: readonly LatinFamily[] = latinEntries.flatMap(familiesOf);
 
 /** Families keyed by the key of the infinitive their compounds end in (cipere, ducere). */
 export const latinFamilies: Readonly<Record<string, readonly LatinFamily[]>> = (() => {
@@ -83,6 +96,8 @@ export const familyCount: number = familyList.filter(family => family.weakened |
 export const noInherit: ReadonlySet<string> = new Set([
   'ambire', 'intellegere', 'neglegere', 'diligere', 'cogere', 'degere', 'comere', 'demere', 'promere', 'sumere', 'pergere',
   'surgere', 'aperire', 'operire', 'reperire', 'comperire', 'debere', 'praebere', 'exercere', 'coercere', 'circumdare', 'venire',
+  'prohibere', 'profiteri', 'calefacere', 'benefacere', 'satisfacere', 'perdere', 'reddere', 'tradere', 'vendere', 'abdere', 'addere',
+  'condere', 'credere', 'dedere', 'edere', 'indere', 'prodere', 'subdere',
 ]);
 
 /** Glosses of homograph compounds, from their Lewis & Short entries (the `condition` of each paradigm, GD §3.6). */
@@ -105,6 +120,8 @@ export type StemSource =
   | {
     readonly kind: 'listed'; readonly part: string; readonly stem: string; readonly hinted: boolean;
     readonly usage?: LexicalForm['usage']; readonly pattern?: string;
+    /** The part is a participle's neuter (deponents, semi-deponents): the stem is explained from the participle. */
+    readonly participle?: boolean;
   }
   | {
     readonly kind: 'default'; readonly base: string; readonly suffix: string; readonly joined: string;
