@@ -132,10 +132,11 @@ export const frenchCitations = {
   'fr.stem.imperative-from-subjunctive': [oqlf(24203, 'Avoir, être, savoir et vouloir'), conjugation('A9S0657', 'savoir')],
   'fr.stem.participle-from-subjunctive': [conjugation('A9S0657', 'savoir (sachant)'), conjugation('A9A3461', 'avoir (ayant)')],
   'fr.stem.suppletive': [oqlf(24213, 'Avoir, être et aller ; dites, faites'), verbArticle],
-  'fr.stem.listed-spelling': jo1990('II.4 : les formes listées n’y figurent pas (voir frenchSecondaryOnly)'),
+  'fr.stem.listed-spelling': [conjugation('A9E1359', 'enclore : il enclôt ou enclot'), conjugation('A9E0262', 'éclore : il éclôt ou éclot')],
   'fr.orth.circumflex-before-t': [oqlf(23701, 'Il clôt, il gît, il plaît'), jo1990('II.4 : plait'), conjugation('A9G0655', 'gésir'), conjugation('A9C2658', 'clore')],
   'fr.orth.croitre-homograph': [jo1990('II.4 b : le verbe croître'), oqlf(23166, 'Exceptions : croître'), conjugation('A9C5057', 'croître')],
-  'fr.orth.1990-assoir': [jo1990('III, Liste H : assoir, rassoir, sursoir'), conjugation('A9A2823', 'asseoir'), oqlf(23838, 'ASSEOIR et ASSOIR')],
+  'fr.orth.1990-assoir': [jo1990('III, Liste H : assoir, rassoir, sursoir'), oqlf(23838, 'ASSEOIR et ASSOIR')],
+  'fr.orth.1990-sursoir-future': jo1990('III, Liste H : sursoir (l’infinitif)'),
   'fr.orth.1990-interpeler': [jo1990('III, Anomalies : interpeler'), oqlf(23169, 'Appeler, jeter et leurs dérivés, y compris interpeler')],
   'fr.orth.1990-absout': [jo1990('III, Liste : absout, absoute'), conjugation('A9A0175', 'absoudre')],
   'fr.periphrasis.perfect': [oqlf(24224, 'Avoir et être forment les temps composés'), conjugation('A9C1222', 'céder (passé composé)')],
@@ -191,24 +192,9 @@ const futureAndConditional = ['fut', 'cond'].flatMap(row => ['1s', '2s', '3s', '
 
 export const frenchSecondaryOnly: readonly SecondaryOnly[] = [
   {
-    family: 'croître', cells: ['pp.fs', 'pp.mp', 'pp.fp'], spelling: 'rectified',
-    reason: 'Listed rectified crûe, crûs, crûes: the Académie writes crû (invariable) and JO 1990 II.4 only keeps or removes circumflexes (GD O1).',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9C5057',
-  },
-  {
-    family: 'clore', cells: ['pres.3s'], spelling: 'rectified',
-    reason: 'Listed rectified il clot: the 1990 rule concerns i and u only, and the Académie writes il clôt without a 1990 variant (GD O2).',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9C2658',
-  },
-  {
     family: 'surseoir', cells: futureAndConditional, spelling: 'rectified',
-    reason: 'Rule 13 writes sursoirai, but JO 1990 note (a) to Liste H reads “j’assoirai (mais je surseoirai)” and the Académie prints only surseoirai.',
+    reason: 'Rule fr.orth.1990-sursoir-future builds sursoirai on the 1990 infinitive sursoir; note (a) to JO 1990 Liste H reads “j’assoirai (mais je surseoirai)” and the Académie prints only surseoirai.',
     source: 'https://www.dictionnaire-academie.fr/conjuguer/A9S3721',
-  },
-  {
-    family: 'asseoir', cells: futureAndConditional, spelling: 'traditional',
-    reason: 'The assois paradigm keeps asseoirai as its traditional future; the Académie table prints assiérai ou assoirai and no asseoirai.',
-    source: 'https://www.dictionnaire-academie.fr/conjuguer/A9A2823',
   },
   {
     family: 'bruire', cells: ['pp.ms'],

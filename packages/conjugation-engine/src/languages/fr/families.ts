@@ -131,7 +131,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     id: 'croître', lemmas: ['croître'], suffixes: [],
     except: [], exceptEndings: [], strip: 7,
     paradigms: [
-      { pattern: null, usage: 'standard', parts: { P1: 'croî', set: 's', P2: 'croiss', F: 'croîtr', PS: 'cr', theme: 'u', PP: 'crû' }, gaps: [], cells: {}, spellings: { 'pp.fs': { rectified: ['crûe'] }, 'pp.mp': { rectified: ['crûs'] }, 'pp.fp': { rectified: ['crûes'] } } },
+      { pattern: null, usage: 'standard', parts: { P1: 'croî', set: 's', P2: 'croiss', F: 'croîtr', PS: 'cr', theme: 'u', PP: 'crû' }, gaps: [], cells: {}, spellings: {} },
     ],
     flags: { verified: { academie: 'A9C5057', date: '2026-11-25' } },
   },
@@ -403,9 +403,18 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     id: 'clore', lemmas: [], suffixes: ['clore'],
     except: [], exceptEndings: [], strip: 5,
     paradigms: [
-      { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': { rectified: ['clot'] } } },
+      { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: {} },
     ],
     flags: { circumflexBeforeT: true, verified: { academie: 'A9C2658', date: '2026-11-25' } },
+  },
+  {
+    // clore's forms; the Académie's table (A9E0262) prints « éclôt ou éclot ».
+    id: 'éclore', lemmas: ['éclore'], suffixes: [],
+    except: [], exceptEndings: [], strip: 5,
+    paradigms: [
+      { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['pres.1p', 'pres.2p', 'impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
+    ],
+    flags: { circumflexBeforeT: true },
   },
   {
     id: 'acquérir', lemmas: [], suffixes: ['quérir'],
@@ -432,7 +441,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
       { pattern: 'faille', usage: 'standard', parts: { P1: 'failli', set: 's', P2: 'failliss', F: 'faudr', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'faill', SJ2: 'faill' }, gaps: [], cells: {}, spellings: {} },
       { pattern: 'faux', usage: 'dated', parts: { P1: 'fau', set: 'x', P2: 'faill', F: 'faillir', PS: 'faill', theme: 'i', PP: 'failli', SJ1: 'failliss', SJ2: 'failliss' }, gaps: [], cells: {}, spellings: {} },
     ],
-    flags: { noImperative: true, verified: { academie: 'A9F0105', date: '2026-11-25' } },
+    flags: { invariableParticiple: true, noImperative: true, verified: { academie: 'A9F0105', date: '2026-11-25' } },
   },
   {
     id: 'bouillir', lemmas: [], suffixes: ['bouillir'],
@@ -550,7 +559,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     id: 'asseoir', lemmas: [], suffixes: ['asseoir'],
     except: [], exceptEndings: [], strip: 7,
     paradigms: [
-      { pattern: 'assois', usage: 'standard', parts: { P1: 'assoi', set: 's', P2: 'assoy', P3: 'assoi', F: 'asseoir', PS: 'ass', theme: 'i', PP: 'assis' }, gaps: [], cells: {}, spellings: {} },
+      { pattern: 'assois', usage: 'standard', parts: { P1: 'assoi', set: 's', P2: 'assoy', P3: 'assoi', F: 'assoir', PS: 'ass', theme: 'i', PP: 'assis' }, gaps: [], cells: {}, spellings: {} },
       { pattern: 'assieds', usage: 'standard', parts: { P1: 'assied', set: 's', P2: 'assey', F: 'assiér', PS: 'ass', theme: 'i', PP: 'assis' }, gaps: [], cells: {}, spellings: {} },
     ],
     flags: {},
@@ -719,7 +728,7 @@ export const frenchFamilies: readonly FamilyEntry[] = [
     id: 'enclore', lemmas: [], suffixes: ['enclore'],
     except: [], exceptEndings: [], strip: 5,
     paradigms: [
-      { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': { rectified: ['clot'] } } },
+      { pattern: null, usage: 'standard', parts: { P1: 'clo', set: 's', P2: 'clos', F: 'clor', PP: 'clos' }, gaps: ['impf.1s', 'impf.2s', 'impf.3s', 'impf.1p', 'impf.2p', 'impf.3p', 'imp.1p', 'imp.2p'], cells: {}, spellings: { 'pres.3s': ['clot'] } },
     ],
     flags: { circumflexBeforeT: true, verified: { academie: 'A9E1359', date: '2026-11-25' } },
   },

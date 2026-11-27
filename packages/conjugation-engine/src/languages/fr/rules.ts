@@ -1,5 +1,5 @@
 /**
- * Every rule the French grammar records (GD §4): 22 classify, 13 stem, 11 ending, 15 orthography, 14 periphrasis,
+ * Every rule the French grammar records (GD §4): 22 classify, 13 stem, 11 ending, 16 orthography, 14 periphrasis,
  * 14 clause and 5 availability rules. Their messages are in `src/i18n/locales/{en,nl}/fr.ts`, their citations in
  * `sources.ts`.
  */
@@ -69,6 +69,7 @@ export const frenchRules = defineRules({
   'fr.orth.croitre-homograph': { stage: 'orthography' },
   'fr.orth.1990-circumflex': { stage: 'orthography' },
   'fr.orth.1990-assoir': { stage: 'orthography' },
+  'fr.orth.1990-sursoir-future': { stage: 'orthography' },
   'fr.orth.1990-interpeler': { stage: 'orthography' },
   'fr.orth.1990-absout': { stage: 'orthography' },
   // §4.5 Periphrasis

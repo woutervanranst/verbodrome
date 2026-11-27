@@ -27,7 +27,7 @@ is not used for any rule.
    subjunctive, avoir and savoir their participe présent too. 28 suppletive cells are listed words (être 10, avoir 7,
    aller 3, faire 2, dire 1, pouvoir 1, seoir 1, messeoir 1, échoir 2). The passé simple and imperfect subjunctive are
    tagged literary.
-3. **Spelling** (`orthography.ts`): the fifteen rules below, in order, at the stem/ending boundary. A form is born in both
+3. **Spelling** (`orthography.ts`): the sixteen rules below, in order, at the stem/ending boundary. A form is born in both
    spellings; only the -eler/-eter fork, the future of céder-type verbs and the 1990 rules split it into a traditional
    and a rectified form.
 4. **Availability** (`availability.ts`): the first reason that applies, in this order: pronominal past imperative, no
@@ -90,7 +90,7 @@ is not used for any rule.
 | `fr.stem.participle-from-subjunctive` | lexical | The present participle of {before} is built on its subjunctive stem {after}-. | [Académie: savoir (sachant), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9S0657); [Académie: avoir (ayant), conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A3461) |
 | `fr.stem.hint` | rule | The {part} stem you gave is used here: {after}-. | [BDL: Radical des verbes irréguliers](https://vitrinelinguistique.oqlf.gouv.qc.ca/24214/la-grammaire/le-verbe/conjugaison/radical-des-verbes-irreguliers-au-present-de-lindicatif) |
 | `fr.stem.suppletive` | lexical | {after} is an irregular form of {before}: learn it by heart. | [BDL: Avoir, être et aller ; dites, faites](https://vitrinelinguistique.oqlf.gouv.qc.ca/24213/la-grammaire/le-verbe/conjugaison/terminaison-des-verbes-reguliers-et-irreguliers-au-present-de-lindicatif); Académie: article et tableau de conjugaison du verbe |
-| `fr.stem.listed-spelling` | lexical | In the 1990 spelling this form is listed as {after} instead of {before}. | [JO 1990: II.4 : les formes listées n’y figurent pas (voir frenchSecondaryOnly)](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf) |
+| `fr.stem.listed-spelling` | lexical | Beside {before}, the Académie’s table also prints {after}. | [Académie: enclore : il enclôt ou enclot, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9E1359); [Académie: éclore : il éclôt ou éclot, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9E0262) |
 
 ### Endings
 
@@ -124,7 +124,8 @@ is not used for any rule.
 | `fr.orth.circumflex-before-t` | rule | Before the t of il the stem vowel takes a circumflex: {before} becomes {after}. | [BDL: Il clôt, il gît, il plaît](https://vitrinelinguistique.oqlf.gouv.qc.ca/23701/lorthographe/accents-trema-et-cedille/accent-circonflexe/laccent-circonflexe-dans-les-formes-verbales); [JO 1990: II.4 : plait](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: gésir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9G0655); [Académie: clore, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C2658) |
 | `fr.orth.croitre-homograph` | rule | croître keeps a circumflex here so that it is not spelt like croire: {before} becomes {after}. | [JO 1990: II.4 b : le verbe croître](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Exceptions : croître](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe); [Académie: croître, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C5057) |
 | `fr.orth.1990-circumflex` | rule | In the 1990 spelling i and u lose their circumflex: {before} becomes {after}. | [JO 1990: II.4](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Accent circonflexe : rectifications](https://vitrinelinguistique.oqlf.gouv.qc.ca/23166/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-accents-et-au-trema/rectifications-liees-a-laccent-circonflexe) |
-| `fr.orth.1990-assoir` | rule | The 1990 spelling drops the e of -eoi-: {before} becomes {after}. | [JO 1990: III, Liste H : assoir, rassoir, sursoir](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: asseoir, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A2823); [BDL: ASSEOIR et ASSOIR](https://vitrinelinguistique.oqlf.gouv.qc.ca/23838/la-grammaire/le-verbe/conjugaison/emplois-du-verbe-asseoir) |
+| `fr.orth.1990-assoir` | rule | The 1990 spelling drops the e of -eoi-: {before} becomes {after}. | [JO 1990: III, Liste H : assoir, rassoir, sursoir](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: ASSEOIR et ASSOIR](https://vitrinelinguistique.oqlf.gouv.qc.ca/23838/la-grammaire/le-verbe/conjugaison/emplois-du-verbe-asseoir) |
+| `fr.orth.1990-sursoir-future` | rule | In the 1990 spelling the future and the conditionnel are built on the infinitive sursoir: {before} becomes {after}. The Académie prints only the forms with -seoi- (surseoirai). | [JO 1990: III, Liste H : sursoir (l’infinitif)](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf) |
 | `fr.orth.1990-interpeler` | rule | The 1990 spelling writes interpeler with one l, doubled only before a silent e: {before} becomes {after}. | [JO 1990: III, Anomalies : interpeler](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [BDL: Appeler, jeter et leurs dérivés, y compris interpeler](https://vitrinelinguistique.oqlf.gouv.qc.ca/23169/lorthographe/rectifications-de-lorthographe/rectifications-liees-aux-consonnes-doubles/rectifications-liees-a-la-conjugaison-des-verbes-en-eler-et-en-eter) |
 | `fr.orth.1990-absout` | rule | The 1990 spelling ends the masculine in t, like the feminine absoute: {before} becomes {after}. | [JO 1990: III, Liste : absout, absoute](https://www.academie-francaise.fr/sites/academie-francaise.fr/files/rectifications.pdf); [Académie: absoudre, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9A0175) |
 
@@ -152,7 +153,7 @@ is not used for any rule.
 | Rule | Kind | Message (en) | Sources |
 |---|---|---|---|
 | `fr.clause.subject` | rule | The subject pronoun {pronoun} comes before the verb. | [Académie: céder, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C1222); [BDL: Formes de l’impératif, introduction](https://vitrinelinguistique.oqlf.gouv.qc.ca/24203/la-grammaire/le-verbe/conjugaison/formes-de-limperatif) |
-| `fr.clause.subject-gender` | rule | This form is for a {gender} subject: il or ils for a masculine one, elle or elles for a feminine one, and a participle that agrees with the subject takes its gender. | [BDL: Synthèse des règles d’accord](https://vitrinelinguistique.oqlf.gouv.qc.ca/24222/la-grammaire/le-verbe/accord-du-participe-passe/avec-lauxiliaire-etre/synthese-des-regles-daccord-du-participe-passe-employe-avec-etre); [Académie: céder, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C1222) |
+| `fr.clause.subject-gender` | rule | This form is for a {gender} subject. | [BDL: Synthèse des règles d’accord](https://vitrinelinguistique.oqlf.gouv.qc.ca/24222/la-grammaire/le-verbe/accord-du-participe-passe/avec-lauxiliaire-etre/synthese-des-regles-daccord-du-participe-passe-employe-avec-etre); [Académie: céder, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C1222) |
 | `fr.clause.impersonal-subject` | rule | This verb is impersonal: its only subject is the neutral il, which never becomes elle. | [Académie: article falloir](https://www.dictionnaire-academie.fr/article/A9F0145) |
 | `fr.clause.que` | rule | The subjunctive is given after que, the way it is used in a clause. | [Académie: céder, conjugaison](https://www.dictionnaire-academie.fr/conjuguer/A9C1222); [BDL: Le subjonctif présent](https://vitrinelinguistique.oqlf.gouv.qc.ca/24237/la-grammaire/le-verbe/conjugaison/formes-du-subjonctif) |
 | `fr.clause.gerund-en` | rule | The gerund is en followed by the present participle. | [BDL: Participe présent](https://vitrinelinguistique.oqlf.gouv.qc.ca/22915/la-grammaire/le-verbe/modes/distinction-entre-le-participe-present-et-ladjectif-participe) |
@@ -192,53 +193,64 @@ An assumption is recorded first in the analysis and is never restated as a fact:
 
 ## The family lexicon
 
-`families.ts` has one entry per family (94, 101 paradigms), generated once from the former model tables and maintained
+`families.ts` has one entry per family (95, 102 paradigms), generated once from the former model tables and maintained
 by hand. 90 families are marked `verified` against the Académie's conjugation table of their representative verb
 (checked 2026-11-25): the forms both print agree, alternatives being allowed to be a subset. The rest are listed in
 `frenchSecondaryOnly` (`sources.ts`).
 
 ## Spellings no checked authority supports
 
-These reproduce the earlier output and are kept until the user decides (`frenchSecondaryOnly`):
+These are kept until the user decides (`frenchSecondaryOnly`):
 
-- croître: rectified past participles crûe, crûs, crûes (listed spellings). The Académie writes crû (invariable); the
-  1990 rules only keep or drop a circumflex.
-- clore: rectified il clot (listed spelling). The 1990 circumflex rule concerns i and u; the Académie writes il clôt.
-  (enclore's enclot is printed by the Académie: "il enclôt ou enclot".)
-- surseoir: rectified future and conditional sursoir-. JO 1990, note (a) to Liste H: "j'assoirai … (mais je
-  surseoirai)"; the Académie prints only surseoirai.
-- asseoir (assois): traditional future asseoir-; the Académie table prints "assiérai ou assoirai".
+- surseoir: rectified future and conditional sursoir- (`fr.orth.1990-sursoir-future`), built on the 1990 infinitive
+  sursoir (JO 1990 III, Liste H). Secondary source only: note (a) to the same Liste H reads "j'assoirai … (mais je
+  surseoirai)", and the Académie prints only surseoirai. The traditional surseoirai stays; the rectified form is
+  preferred by the general rule (rectified first).
 - bruire: past participle bruit; the Académie gives brui (invariable).
 - rassir: kept as infinitive and participle (rassis) only; the Académie conjugates it like finir (rassi).
 - issir: no entry in the 9th edition (8th edition A8I1568-A only).
 
+Two cells carry a second word that the Académie's table prints after « ou », in both spellings and after the derived
+one (`fr.stem.listed-spelling`): il enclôt ou enclot (enclore, A9E1359) and il éclôt ou éclot (éclore, A9E0262).
+croître's participle is crû, crue, crus, crues and clore's 3sg il clôt, in both spellings (JO 1990 II.4; Académie
+A9C5057, A9C2658); the former listed rectified crûe, crûs, crûes and il clot are gone.
+
 ## Intended differences from the frozen snapshot
 
-165 line replacements in `tests/characterization/intended-diffs.json`, all for invented probe verbs at the edges of
-the former ending whitelists:
+Line entries in `tests/characterization/intended-diffs.json` (each with its reason and an Académie, JO 1990 or BDL
+source; corpus fixtures that held the old form have a sourced correction in `tests/fixtures/corrections.json`):
 
-- bleder, crebler, pequer (plain and `gender: masculine` queries; 156 lines): the mute e of the last stem syllable
-  becomes è before a mute ending whatever consonant follows (je blède, je crèble, je pèque; analysis `lever` instead of
-  `aimer`). The former tables only knew -emer, -ener, -eper, -erer, -eser, -ever, -evrer, -ecer. Source: BDL 24212.
-- blettre (9 lines): -ttre verbs keep one t in the singular present and the imperative (je blets, il blet, blets),
-  as battre and mettre do in the Académie's tables; the former tables wrote bletts, blett.
+- bleder, crebler, pequer: the mute e of the last stem syllable becomes è before a mute ending whatever consonant
+  follows (je blède, je crèble, je pèque; analysis `lever` instead of `aimer`). The former tables only knew -emer,
+  -ener, -eper, -erer, -eser, -ever, -evrer, -ecer. Source: BDL 24212.
+- blettre: -ttre verbs keep one t in the singular present and the imperative (je blets, il blet, blets), as battre and
+  mettre do in the Académie's tables; the former tables wrote bletts, blett.
+- Auxiliaries: an avoir that no checked table gives is recorded as the assumption `fr.classify.assume-avoir` (invented
+  verbs of a family, férir, issir, ensuivre); paraître takes avoir or être (Académie A9P0487); atteindre is listed with
+  avoir (A9A3024).
+- croître: participle crû, crue, crus, crues in both spellings (A9C5057). clore: il clôt in both spellings (A9C2658).
+  enclore: il enclôt and il enclot in both spellings, enclôt first (A9E1359). asseoir (assois): future and conditional
+  assoir- in both spellings (A9A2823). faillir: avoir only, invariable participle; an `auxiliary: 'être'` hint is now
+  refused (A9F0105). Invented verbs of these families and of devoir (…du in the 1990 spelling, JO 1990 II.4) follow.
 
 Behaviour changes outside the snapshot: every unlisted -e(C)er verb whose consonant opens a syllable takes è (zeger,
 blecher); hinted stems go through the spelling rules (blouper + `stems.plural: 'blac'` → nous blaçons); the 1990
-circumflex rule applies to every group (mûrir → murir) and keeps jeûne(s); `model` naming a productive model must be the
-one the verb's spelling gives.
+circumflex rule applies to every group (mûrir → murir) and keeps jeûne(s), and dû only for devoir itself (redevoir:
+redu, traditionally redû); `model` naming a productive model must be the one the verb's spelling gives. Outside the
+snapshot the Académie's tables also give apparaître, réapparaître, disparaître, éclore, redescendre and ressusciter
+avoir or être, and redevenir être.
 
 ## Open questions for the user
 
-1. The unsupported spellings above (croître, clore, surseoir, asseoir, bruire, rassir, issir): keep or ledger a change.
+1. The unsupported forms above (surseoir, bruire, rassir, issir): keep or ledger a change.
 2. Forms the Académie prints that French lacks: the imperative of gésir (gis, gisons, gisez), choir (chois), déchoir and
    faillir; the passé simple and imperfect subjunctive of absoudre (absolus); frire's participe présent (friant); braire
    in every person; choir's chussent.
 3. Forms French has that the Académie does not print: paître's future, subjunctive and conditional; clore's and
    enclore's present plural, future, subjunctive and conditional; bruire's present singular, future and conditional;
    échoir's imparfait; the participles of seoir and messeoir; férir's féru (the Académie gives the infinitive only).
-4. Participles the Académie marks invariable that French declines: faillir, bouillir, prévaloir, surseoir, déchoir,
-   choir and croître (intransitive), raire.
+4. Participles the Académie marks invariable that French declines: bouillir, prévaloir, surseoir, déchoir, choir and
+   croître (intransitive), raire.
 5. The pronominal past imperative: French reports it unavailable, the Académie prints sois-toi assis (asseoir).
 
 ## Limits

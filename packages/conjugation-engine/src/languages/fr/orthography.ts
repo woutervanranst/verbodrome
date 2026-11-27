@@ -4,6 +4,7 @@
  * (rectified) spelling. Every form is born in both spellings.
  */
 import { one } from '../../core/fork.js';
+import type { Fork } from '../../core/fork.js';
 import type { Juncture, JunctureRule } from '../../core/juncture.js';
 import type { Cell } from '../../core/staged.js';
 import type { FrenchLexeme } from './grammar.js';
@@ -124,11 +125,14 @@ function croitreHomographCell(index: number): boolean {
   return [0, 1, 2, 42, 46].includes(index) || (index >= 12 && index < 18) || (index >= 30 && index < 36);
 }
 
-/** Where the 1990 spelling keeps the circumflex (JO 1990 II.4 b): croître's homographs of croire, dû, jeûne(s). */
+/**
+ * Where the 1990 spelling keeps the circumflex (JO 1990 II.4 b): croître's homographs of croire, dû, jeûne(s). The
+ * exception « ne concerne pas les dérivés et les composés », so redevoir writes redu.
+ */
 function protectedCircumflex(lexeme: FrenchLexeme, cell: Cell, j: Juncture): boolean {
   const index = cellIndex(cell);
   if (lexeme.family?.id === 'croître' && croitreHomographCell(index)) return true;
-  if (lexeme.family?.id === 'devoir' && index === 46) return true;
+  if (lexeme.lemma === 'devoir' && index === 46) return true;
   return j.stem.endsWith('jeûn') && (j.ending === 'e' || j.ending === 'es');
 }
 
@@ -141,17 +145,36 @@ const circumflex1990: Rule = {
   },
 };
 
-/** 13. The 1990 spelling writes assoir and sursoir: the e of -eoi- goes (assoirai, assoir). */
+/** The future and conditional cells (futur, conditionnel). */
+const futureCell = (index: number): boolean => (index >= 18 && index < 24) || (index >= 36 && index < 42);
+
+/** The rectified spelling of a stem with -eoi-: the e goes (assoir, sursoir). */
+const withoutE = (j: Juncture): Fork<Juncture> => rectified({ stem: j.stem.replace('seoi', 'soi'), ending: j.ending });
+
+/** 13. The 1990 spelling writes the infinitives assoir and sursoir: the e of -eoi- goes (JO 1990 III, Liste H). */
 const assoir1990: Rule = {
   info: frenchRules['fr.orth.1990-assoir'],
-  apply(j, { lexeme }) {
+  apply(j, { lexeme, cell }) {
     const id = lexeme.family?.id;
     if ((id !== 'asseoir' && id !== 'surseoir') || !j.stem.includes('seoi')) return null;
-    return [...traditional(j), ...rectified({ stem: j.stem.replace('seoi', 'soi'), ending: j.ending })];
+    if (id === 'surseoir' && futureCell(cellIndex(cell))) return null;
+    return [...traditional(j), ...withoutE(j)];
   },
 };
 
-/** 14. The 1990 spelling writes interpeler, conjugated like appeler: ll only before a silent e (interpelle, interpelons). */
+/**
+ * 14. surseoir's future and conditional in the 1990 spelling are built on the infinitive sursoir (sursoirai). No checked
+ * authority prints them: the Académie and note (a) of the 1990 Liste H write surseoirai (docs/grammar/fr.md).
+ */
+const sursoirFuture1990: Rule = {
+  info: frenchRules['fr.orth.1990-sursoir-future'],
+  apply(j, { lexeme, cell }) {
+    if (lexeme.family?.id !== 'surseoir' || !futureCell(cellIndex(cell)) || !j.stem.includes('seoi')) return null;
+    return [...traditional(j), ...withoutE(j)];
+  },
+};
+
+/** 15. The 1990 spelling writes interpeler, conjugated like appeler: ll only before a silent e (interpelle, interpelons). */
 const interpeler1990: Rule = {
   info: frenchRules['fr.orth.1990-interpeler'],
   apply(j, { lexeme }) {
@@ -162,7 +185,7 @@ const interpeler1990: Rule = {
   },
 };
 
-/** 15. The 1990 spelling writes absout, dissout like their feminine absoute (masculine singular and plural). */
+/** 16. The 1990 spelling writes absout, dissout like their feminine absoute (masculine singular and plural). */
 const absout1990: Rule = {
   info: frenchRules['fr.orth.1990-absout'],
   apply(j, { lexeme, cell }) {
@@ -173,8 +196,8 @@ const absout1990: Rule = {
 };
 
 /**
- * A spelling the family lists for the 1990 spelling, with no rule behind it (GD O1, O2: il clot, crûe): the derived
- * word stays the traditional one. Secondary-only (`sources.ts`).
+ * Another word the Académie's table prints for the cell after « ou » (il enclôt ou enclot): it comes in both spellings,
+ * after the derived word.
  */
 const listedSpelling: Rule = {
   info: frenchRules['fr.stem.listed-spelling'],
@@ -183,12 +206,12 @@ const listedSpelling: Rule = {
     const listed = lexeme.paradigm.spellings[cellNameOf(cell)];
     if (!listed) return null;
     const prefix = familyPrefix(lexeme);
-    return [...traditional(j), ...listed.rectified.flatMap(word => rectified({ stem: prefix + word, ending: '' }))];
+    return [...one(j), ...listed.flatMap(word => one({ stem: prefix + word, ending: '' }))];
   },
 };
 
-/** The spelling rules, in the order of GD §4.4, then the listed spellings. */
+/** The spelling rules, in the order of GD §4.4, then the Académie's other words. */
 export const frenchOrthography: readonly Rule[] = [
   elerEter, muteEGrave, closedEGrave, cCedilla, gE, yToI, diaeresis, tAfterDental, ttSingular, circumflexBeforeT, croitreHomograph,
-  circumflex1990, assoir1990, interpeler1990, absout1990, listedSpelling,
+  circumflex1990, assoir1990, sursoirFuture1990, interpeler1990, absout1990, listedSpelling,
 ];

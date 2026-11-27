@@ -67,8 +67,11 @@ export interface FamilyParadigm {
   readonly gaps: readonly CellName[];
   /** Suppletive cells: whole words that no formation rule produces. */
   readonly cells: Readonly<Partial<Record<CellName, readonly string[]>>>;
-  /** Listed spellings with no rule behind them (GD open questions O1, O2): the rectified words of a cell. */
-  readonly spellings: Readonly<Partial<Record<CellName, { readonly rectified: readonly string[] }>>>;
+  /**
+   * Other words the Académie's conjugation table prints for a cell after « ou » (enclôt ou enclot), relative to the
+   * stripped infinitive; they come in both spellings, after the derived word.
+   */
+  readonly spellings: Readonly<Partial<Record<CellName, readonly string[]>>>;
 }
 
 export interface FamilyFlags {

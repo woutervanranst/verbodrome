@@ -34,9 +34,9 @@ describe('French defective verbs', () => {
     expect(forms).toEqual([['il pleut', null], ['ils pleuvent', 'figurative'], ['elles pleuvent', 'figurative']]);
   });
 
-  it('clore: il clot (rectified) / il clôt (traditional); imparfait defective in all persons; nous allons clore available', () => {
+  it('clore: il clôt in both spellings; imparfait defective in all persons; nous allons clore available', () => {
     expect(conjugate('clore', { ...present, person: 3, number: 'singular' }).forms.map(form => [form.text, form.variant.orthography]))
-      .toEqual([['il clot', 'rectified'], ['il clôt', 'traditional'], ['elle clot', 'rectified'], ['elle clôt', 'traditional']]);
+      .toEqual([['il clôt', 'both'], ['elle clôt', 'both']]);
     expect(gaps('clore', { mood: 'indicative', tense: 'imperfect' })).toHaveLength(6);
     // Available: only the infinitive is needed (the periphrasis itself comes with the compound tenses).
     expect(gaps('clore', { mood: 'indicative', tense: 'near_future' }).filter(line => / (defective|impersonal|noImperative)$/u.test(line))).toEqual([]);

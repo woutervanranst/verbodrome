@@ -3868,11 +3868,11 @@
       "files": 222,
       "baseInfinitives": 84,
       "cells": 26196,
-      "targets": 24804,
-      "availableCells": 23963,
-      "unavailableCells": 2233,
-      "expectedForms": 23995,
-      "correctionCount": 125,
+      "targets": 24777,
+      "availableCells": 23759,
+      "unavailableCells": 2437,
+      "expectedForms": 23791,
+      "correctionCount": 460,
       "templatePlaceholders": 0,
       "checksum": "2a9fd8a573e77048e7993683035c8795326ed47eafff3a6717c0f981b392425d"
     },
@@ -3890,7 +3890,7 @@
     }
   },
   "corrections": {
-    "count": 531,
-    "checksum": "b09799ea0f7646186f78953f7d059758c2afdb1a6bfd8166556b6a817c94177c"
+    "count": 866,
+    "checksum": "ef7939bceb675edcf5802dc29af6e6a3b78f0da418cd233a76464498af2e1fab"
   }
 }

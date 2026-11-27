@@ -8,7 +8,7 @@ export const etreVerbs: ReadonlySet<string> = new Set([
 ]);
 
 export const dualAuxiliary: ReadonlySet<string> = new Set([
-  'choir', 'croître', 'déchoir', 'faillir', 'accourir', 'convenir', 'descendre', 'monter', 'remonter',
+  'choir', 'croître', 'déchoir', 'accourir', 'convenir', 'descendre', 'monter', 'remonter',
   'passer', 'repasser', 'retourner', 'rentrer', 'sortir', 'ressortir', 'demeurer',
   // « avoir ou être » in their Académie tables (fix wave, 2026-11-27).
   'paraître', 'apparaître', 'réapparaître', 'disparaître', 'éclore', 'redescendre', 'ressusciter',
@@ -25,7 +25,7 @@ export const knownAvoirVerbs: ReadonlySet<string> = new Set([
   'cacheter', 'celer', 'circoncire', 'circonvenir', 'clore', 'comprendre', 'compromettre', 'conclure', 'conduire',
   'confire', 'connaître', 'construire', 'coudre', 'courir', 'couvrir', 'craindre', 'croire', 'créer', 'cueillir',
   'cuire', 'céder', 'devoir', 'dire', 'dissoudre', 'dormir', 'déceler', 'décrire', 'démentir', 'enclore', 'endormir',
-  'envoyer', 'exclure', 'faire', 'falloir', 'finir', 'foutre', 'frire', 'fuir', 'haleter', 'harceler', 'haïr', 'inclure',
+  'envoyer', 'exclure', 'faillir', 'faire', 'falloir', 'finir', 'foutre', 'frire', 'fuir', 'haleter', 'harceler', 'haïr', 'inclure',
   'inscrire', 'interdire', 'interpeller', 'jeter', 'joindre', 'laver', 'lire', 'luire', 'manger', 'maudire',
   'mentir', 'mettre', 'modeler', 'moudre', 'mouvoir', 'méfaire', 'nuire', 'occire', 'ouvrir', 'ouïr', 'parler',
   'payer', 'paître', 'peindre', 'peler', 'peser', 'placer', 'plaindre', 'plaire', 'pleuvoir', 'pourvoir', 'pouvoir',
