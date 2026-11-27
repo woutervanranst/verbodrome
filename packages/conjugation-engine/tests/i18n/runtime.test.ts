@@ -5,7 +5,7 @@
  * that conjugates it and the queries to run; a query that the engine rejects with a ConjugationError has nothing to
  * explain and is skipped.
  */
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import type { Engine } from '../../src/core/engine.js';
 import { ConjugationError } from '../../src/errors.js';
@@ -35,6 +35,10 @@ const checked: readonly Checked[] = [
   {
     language: 'es', engine, queries: [...(JSON.parse(readFileSync(new URL('../fixtures/es.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), 'blorpar', 'fluzar', 'trobacar', 'drolgar', 'rimiguar', 'plontuar', 'flobiar', 'blaular', 'troger', 'blorecer', 'treer', 'fluñir', 'plostuir', 'bladucir', 'blorparse', 'protener', 'blotener', 'reir', 'blodeír', 'trasoír', 'enviar', 'cambiar', 'continuar', 'aislar', 'rehusar', 'construir', 'huir', 'rehuir', 'freír', 'sofreír', 'sonreír', 'entreoír', 'componer', 'deshacer', 'rehacer', 'prever', 'mantener', 'retrotraer', 'morir', 'vestirse', 'sentarse', 'reírse', 'dormirse', 'irse', 'devolver', 'imprimir', 'nevar', 'estudiar', 'argüir', 'concernir', 'atañer', 'balbucir', 'pudrir', 'agriar', 'evacuar', 'engrosar']
       .flatMap(infinitive => [{ language: 'es', infinitive }, { language: 'es', infinitive, subject: '2sg.formal' }, { language: 'es', infinitive, gender: 'feminine', mood: 'indicative', tense: 'present' }]),
+  },
+  {
+    language: 'it', engine, queries: [...new Set([...(JSON.parse(readFileSync(new URL('../fixtures/it.json', import.meta.url), 'utf8')) as { infinitive: string }[]).map(file => file.infinitive), ...readdirSync(new URL('../goldens/it/authority/', import.meta.url)).flatMap(name => (JSON.parse(readFileSync(new URL(`../goldens/it/authority/${name}`, import.meta.url), 'utf8')) as { cells: { lemma: string }[] }).cells.map(cell => cell.lemma)), 'blorpare', 'flugare', 'tricare', 'sbonciare', 'sbasciare', 'trongiare', 'trebiare', 'frogliare', 'strognare', 'blendere', 'flattere', 'flacere', 'tronire', 'sbradurre', 'stramettere', 'blomettere', 'blorparsi'])]
+      .flatMap(infinitive => [{ language: 'it', infinitive }, { language: 'it', infinitive, subject: '3sg.formal' }]),
   },
 ];
 

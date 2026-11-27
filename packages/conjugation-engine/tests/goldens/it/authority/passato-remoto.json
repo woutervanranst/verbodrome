@@ -1,0 +1,178 @@
+{
+ "source": {
+  "work": "treccani-edi",
+  "entry": "Passato remoto",
+  "url": "https://www.treccani.it/enciclopedia/passato-remoto_(Enciclopedia-dell'Italiano)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "cantare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "cantai"
+   ],
+   "printed": "cantai"
+  },
+  {
+   "lemma": "cantare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "cantasti"
+   ],
+   "printed": "cantasti"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "feci"
+   ],
+   "printed": "feci"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "fece"
+   ],
+   "printed": "fece"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "facesti"
+   ],
+   "printed": "facesti"
+  },
+  {
+   "lemma": "scrivere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "scrissi"
+   ],
+   "printed": "scrissi"
+  },
+  {
+   "lemma": "scrivere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "scrisse"
+   ],
+   "printed": "scrisse"
+  },
+  {
+   "lemma": "scrivere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1pl"
+   },
+   "forms": [
+    "scrivemmo"
+   ],
+   "printed": "scrivemmo"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vidi"
+   ],
+   "printed": "vidi"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "vide"
+   ],
+   "printed": "vide"
+  },
+  {
+   "lemma": "vedere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2pl"
+   },
+   "forms": [
+    "vedeste"
+   ],
+   "printed": "vedeste"
+  },
+  {
+   "lemma": "vendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vendei"
+   ],
+   "printed": "vendei"
+  },
+  {
+   "lemma": "vendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vendetti"
+   ],
+   "printed": "vendetti"
+  },
+  {
+   "lemma": "vendere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vendesti"
+   ],
+   "printed": "vendesti"
+  }
+ ]
+}

@@ -1,0 +1,298 @@
+{
+ "source": {
+  "work": "treccani-lgi",
+  "entry": "Imperativo",
+  "url": "https://www.treccani.it/enciclopedia/imperativo_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "parlare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "parla"
+   ],
+   "printed": "parla"
+  },
+  {
+   "lemma": "parlare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "parlate"
+   ],
+   "printed": "parlate"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vieni"
+   ],
+   "printed": "vieni"
+  },
+  {
+   "lemma": "venire",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "venite"
+   ],
+   "printed": "venite"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "corri"
+   ],
+   "printed": "corri"
+  },
+  {
+   "lemma": "correre",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "correte"
+   ],
+   "printed": "correte"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "stai"
+   ],
+   "printed": "stai"
+  },
+  {
+   "lemma": "stare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sta'"
+   ],
+   "printed": "sta’"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vai"
+   ],
+   "printed": "vai"
+  },
+  {
+   "lemma": "andare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "va'"
+   ],
+   "printed": "va’"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "fai"
+   ],
+   "printed": "fai"
+  },
+  {
+   "lemma": "fare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "fa'"
+   ],
+   "printed": "fa’"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "dai"
+   ],
+   "printed": "dai"
+  },
+  {
+   "lemma": "dare",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "da'"
+   ],
+   "printed": "da’"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sii"
+   ],
+   "printed": "sii"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "abbi"
+   ],
+   "printed": "abbi"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "sappi"
+   ],
+   "printed": "sappi"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2sg"
+   },
+   "forms": [
+    "vogli"
+   ],
+   "printed": "vogli"
+  },
+  {
+   "lemma": "essere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "siate"
+   ],
+   "printed": "siate"
+  },
+  {
+   "lemma": "avere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "abbiate"
+   ],
+   "printed": "abbiate"
+  },
+  {
+   "lemma": "sapere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "sappiate"
+   ],
+   "printed": "sappiate"
+  },
+  {
+   "lemma": "volere",
+   "query": {
+    "mood": "imperative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "vogliate"
+   ],
+   "printed": "vogliate"
+  },
+  {
+   "lemma": "parlare",
+   "query": {
+    "mood": "imperative",
+    "tense": "negative",
+    "subject": "2sg"
+   },
+   "forms": [
+    "non parlare"
+   ],
+   "printed": "non parlare"
+  },
+  {
+   "lemma": "alzarsi",
+   "query": {
+    "mood": "imperative",
+    "tense": "negative",
+    "subject": "2sg"
+   },
+   "forms": [
+    "non alzarti"
+   ],
+   "printed": "non alzarti"
+  }
+ ]
+}

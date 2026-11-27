@@ -1,0 +1,164 @@
+{
+ "source": {
+  "work": "treccani-lgi",
+  "entry": "Seconda coniugazione",
+  "url": "https://www.treccani.it/enciclopedia/seconda-coniugazione_(La-grammatica-italiana)/",
+  "retrieved": "2026-11-27"
+ },
+ "cells": [
+  {
+   "lemma": "battere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "battei"
+   ],
+   "printed": "battei"
+  },
+  {
+   "lemma": "credere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "credetti"
+   ],
+   "printed": "credetti"
+  },
+  {
+   "lemma": "credere",
+   "query": {
+    "mood": "indicative",
+    "tense": "simple_past",
+    "subject": "1sg"
+   },
+   "forms": [
+    "credei"
+   ],
+   "printed": "credei"
+  },
+  {
+   "lemma": "vincere",
+   "query": {
+    "mood": "subjunctive",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "vinca"
+   ],
+   "printed": "vinca"
+  },
+  {
+   "lemma": "stringere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "stringo"
+   ],
+   "printed": "stringo"
+  },
+  {
+   "lemma": "spegnere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "spegniamo"
+   ],
+   "printed": "spegn-iamo"
+  },
+  {
+   "lemma": "tacere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "taciuto"
+   ],
+   "printed": "taciuto"
+  },
+  {
+   "lemma": "crescere",
+   "query": {
+    "mood": "participle",
+    "tense": "past"
+   },
+   "forms": [
+    "cresciuto"
+   ],
+   "printed": "cresciuto"
+  },
+  {
+   "lemma": "sedersi",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "mi siedo"
+   ],
+   "printed": "mi siedo"
+  },
+  {
+   "lemma": "sedersi",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1pl"
+   },
+   "forms": [
+    "ci sediamo"
+   ],
+   "printed": "ci sediamo"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "3sg.m"
+   },
+   "forms": [
+    "tiene"
+   ],
+   "printed": "tiene"
+  },
+  {
+   "lemma": "tenere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "2pl"
+   },
+   "forms": [
+    "tenete"
+   ],
+   "printed": "tenete"
+  },
+  {
+   "lemma": "cuocere",
+   "query": {
+    "mood": "indicative",
+    "tense": "present",
+    "subject": "1sg"
+   },
+   "forms": [
+    "cuocio"
+   ],
+   "printed": "cuocio"
+  }
+ ]
+}
