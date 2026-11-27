@@ -26441,6 +26441,25 @@
     "correctedTarget": null
   },
   {
+    "file": "de/ausladen",
+    "cell": 21,
+    "original": "lade aus | lad aus",
+    "expected": [
+      "lade aus"
+    ],
+    "unavailable": false,
+    "reason": "After a stem ending in d or t the du-imperative keeps its -e (finde, halte); DWDS marks the bare form colloquial (ugs.).",
+    "source": "https://www.dwds.de/lemma/flexion/ausladen",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
     "file": "de/beginnen",
     "cell": 30,
     "original": "sie beginne",
@@ -26908,6 +26927,25 @@
       "tense": "past",
       "person": 3,
       "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "de/einladen",
+    "cell": 21,
+    "original": "lade ein | lad ein",
+    "expected": [
+      "lade ein"
+    ],
+    "unavailable": false,
+    "reason": "After a stem ending in d or t the du-imperative keeps its -e (finde, halte); DWDS marks the bare form colloquial (ugs.).",
+    "source": "https://www.dwds.de/lemma/flexion/einladen",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
       "agreement": null
     },
     "correctedTarget": null
@@ -29223,6 +29261,25 @@
       "tense": "past",
       "person": 3,
       "number": "plural",
+      "agreement": null
+    },
+    "correctedTarget": null
+  },
+  {
+    "file": "de/laden",
+    "cell": 21,
+    "original": "lade | lad",
+    "expected": [
+      "lade"
+    ],
+    "unavailable": false,
+    "reason": "After a stem ending in d or t the du-imperative keeps its -e (finde, halte); DWDS marks the bare form colloquial (ugs.).",
+    "source": "https://www.dwds.de/lemma/flexion/laden",
+    "target": {
+      "mood": "imperative",
+      "tense": "present",
+      "person": 2,
+      "number": "singular",
       "agreement": null
     },
     "correctedTarget": null

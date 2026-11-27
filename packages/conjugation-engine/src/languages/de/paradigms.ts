@@ -62,11 +62,15 @@ function subjunctiveII(lexeme: GermanLexeme, cell: FiniteCell, stem: string): Fo
   const ending = at(endingSets.subjunctiveII, index);
   const full = add('de.end.subjunctive-ii', stem, ending, { ending });
   const preterites = lexeme.entry === null ? [] : preteriteStems(lexeme).map(item => item.stem.text);
+  // Only on a stem the dictionary prints the short form for (with the verb's own prefix in front of it).
   const printed = Object.hasOwn(shortSubjunctive, lexeme.root) ? shortSubjunctive[lexeme.root] : undefined;
-  const shortens = printed !== undefined && (index === 1 || index === 4) && !preterites.includes(stem) && !/(?:[dt]|(?:[bdfgkpstvxzß]|ch)[mn]|[sßzx])$/u.test(stem);
+  const onStem = printed !== undefined && printed.stems.some(short => stem.endsWith(short));
+  const shortens = onStem && (index === 1 || index === 4) && !preterites.includes(stem) && !/(?:[dt]|(?:[bdfgkpstvxzß]|ch)[mn]|[sßzx])$/u.test(stem);
   if (!shortens) return full;
   const short = ending.slice(1);
-  const steps = [step(rules['de.end.subjunctive-ii-short'], stem, stem + short), ...(printed === 'duden' ? [step(rules['de.stem.duden-only'], stem, stem + short)] : [])];
+  // A stem already marked Duden only (verdürb-) is not marked again on its short form.
+  const stemMarked = lexeme.entry?.subjunctive?.some(item => item.source === 'duden' && stem.endsWith(item.text)) ?? false;
+  const steps = [step(rules['de.end.subjunctive-ii-short'], stem, stem + short), ...(printed!.source === 'duden' && !stemMarked ? [step(rules['de.stem.duden-only'], stem, stem + short)] : [])];
   return [...full, ...one(short, steps, { pattern: 'short' })];
 }
 

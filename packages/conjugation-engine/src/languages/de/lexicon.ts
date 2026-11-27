@@ -30,8 +30,8 @@ export interface Alternate {
   readonly text: string;
   readonly usage?: 'dated' | 'literary';
   readonly pattern?: string;
-  /** Printed by Duden only, not by DWDS: the form says so in its explanation. */
-  readonly source?: 'duden';
+  /** Printed by one dictionary only (Duden, or DWDS): the form says which in its explanation. */
+  readonly source?: 'duden' | 'dwds';
 }
 
 export type SlotKey = '1sg' | '2sg' | '3sg' | '1pl' | '2pl' | '3pl';
@@ -112,6 +112,7 @@ const SOUTH_DWDS: readonly AuxiliaryUse[] = [{ verb: 'haben' }, { verb: 'sein', 
 const dated = (text: string): Alternate => ({ text, usage: 'dated' });
 const literary = (text: string): Alternate => ({ text, usage: 'literary' });
 const dudenOnly = (text: string): Alternate => ({ text, pattern: 'alternate', source: 'duden' });
+const dwdsOnly = (text: string): Alternate => ({ text, pattern: 'alternate', source: 'dwds' });
 const alternate = (text: string): Alternate => ({ text, pattern: 'alternate' });
 const weakPreterite = (stem: string): Alternate => ({ text: stem, pattern: 'weak' });
 
@@ -248,8 +249,8 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
     ],
   },
   erwägen: strong('erwägen', 'erwog', 'erwogen', H),
-  melken: strong('melken', whole(weakPreterite('melk'), alternate('molk')), whole('gemelkt', alternate('gemolken')), H, {
-    present2: whole('melk', alternate('milk')), imperative: whole('melk', { text: 'melke', pattern: 'long' }, alternate('milk')),
+  melken: strong('melken', whole(weakPreterite('melk'), alternate('molk')), whole('gemolken', { text: 'gemelkt', pattern: 'weak' }), H, {
+    present2: whole('melk', dated('milk')), imperative: whole('melk', { text: 'melke', pattern: 'long' }, dated('milk')),
   }),
   quellen: strong('quellen', 'quoll', 'gequollen', S, { present2: 'quill' }),
   schmelzen: strong('schmelzen', 'schmolz', 'geschmolzen', SH, { present2: 'schmilz' }),
@@ -298,10 +299,10 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
     cells: { 'indicative.present.2sg': whole('birst'), 'indicative.present.3sg': whole('birst'), 'indicative.past.2sg': whole('barst', { text: 'barstest', pattern: 'long' }) },
   }),
   gelten: strong('gelten', 'galt', 'gegolten', H, { present2: 'gilt', subjunctive: whole('gält', dated('gölt')) }),
-  helfen: strong('helfen', 'half', 'geholfen', H, { present2: 'hilf', subjunctive: whole('hälf', alternate('hülf')) }),
-  schelten: strong('schelten', 'schalt', 'gescholten', H, { present2: 'schilt', subjunctive: whole('schält', dated('schölt')) }),
+  helfen: strong('helfen', 'half', 'geholfen', H, { present2: 'hilf', subjunctive: whole('hülf', alternate('hälf')) }),
+  schelten: strong('schelten', 'schalt', 'gescholten', H, { present2: 'schilt', subjunctive: whole({ text: 'schält', source: 'dwds' }, dated('schölt')) }),
   sterben: strong('sterben', 'starb', 'gestorben', S, { present2: 'stirb', subjunctive: whole('stürb') }),
-  verderben: strong('verderben', 'verdarb', 'verdorben', SH, { present2: 'verdirb', subjunctive: whole('verdärb', dudenOnly('verdürb')) }),
+  verderben: strong('verderben', 'verdarb', 'verdorben', SH, { present2: 'verdirb', subjunctive: whole({ text: 'verdürb', source: 'duden' }, dwdsOnly('verdärb')) }),
   werben: strong('werben', 'warb', 'geworben', H, { present2: 'wirb', subjunctive: whole('würb') }),
   werfen: strong('werfen', 'warf', 'geworfen', H, { present2: 'wirf', subjunctive: whole('würf') }),
   // 4 e – a – o, e → i(e)
@@ -346,7 +347,7 @@ export const germanLexicon: Readonly<Record<string, GermanEntry | DualEntry>> = 
   },
   fahren: strong('fahren', 'fuhr', 'gefahren', [{ verb: 'sein', condition: 'movement, travel' }, { verb: 'haben', condition: 'drive a vehicle, transport' }], { present2: 'fähr' }),
   graben: strong('graben', 'grub', 'gegraben', H, { present2: 'gräb' }),
-  laden: strong('laden', 'lud', 'geladen', H, { present2: 'läd', imperative: whole('lad', { text: 'lade', pattern: 'long' }) }),
+  laden: strong('laden', 'lud', 'geladen', H, { present2: 'läd' }),
   mahlen: strong('mahlen', whole(weakPreterite('mahl')), 'gemahlen', H),
   schaffen: {
     paradigms: [
@@ -663,15 +664,21 @@ export const noInherit: Readonly<Record<string, string>> = {
 export const particleVerbs: Readonly<Record<string, string>> = { bevorstehen: 'bevor' };
 
 /**
- * Strong verbs whose Konjunktiv II has a short du- and ihr-form beside -est and -et (kämst, kämt), as the Duden
- * conjugation table prints it; `dwds` where DWDS prints it too (only sein: wärst, wärt).
+ * Strong verbs whose Konjunktiv II has a short du- and ihr-form beside -est and -et (kämst, kämt), keyed by the
+ * Konjunktiv II stems the Duden conjugation table prints it for (verderben: verdürbst, never verdärbst); `dwds` where
+ * DWDS prints it too (only sein: wärst, wärt). rinnen is absent: Duden prints no short form of it.
  */
-export const shortSubjunctive: Readonly<Record<string, 'duden' | 'dwds'>> = Object.fromEntries([
-  ...['fliehen', 'frieren', 'schieben', 'verlieren', 'ziehen', 'kriechen', 'riechen', 'lügen', 'trügen', 'heben', 'schwören', 'dreschen',
-    'erlöschen', 'sinken', 'stinken', 'beginnen', 'gewinnen', 'rinnen', 'sinnen', 'spinnen', 'schwimmen', 'helfen', 'sterben', 'verderben',
-    'werben', 'werfen', 'befehlen', 'brechen', 'empfehlen', 'gebären', 'nehmen', 'sprechen', 'stechen', 'stehlen', 'treffen', 'kommen',
-    'geben', 'backen', 'fahren', 'graben', 'waschen'].map(lemma => [lemma, 'duden' as const]),
-  ['sein', 'dwds' as const],
+export const shortSubjunctive: Readonly<Record<string, { readonly stems: readonly string[]; readonly source: 'duden' | 'dwds' }>> = Object.fromEntries([
+  ...Object.entries({
+    fliehen: ['flöh'], frieren: ['frör'], schieben: ['schöb'], verlieren: ['verlör'], ziehen: ['zög'], kriechen: ['kröch'], riechen: ['röch'],
+    lügen: ['lög'], trügen: ['trög'], heben: ['höb', 'hüb'], schwören: ['schwör', 'schwür'], dreschen: ['drösch'], erlöschen: ['erlösch'],
+    sinken: ['sänk'], stinken: ['stänk'], beginnen: ['begänn', 'begönn'], gewinnen: ['gewänn', 'gewönn'], sinnen: ['sänn', 'sönn'],
+    spinnen: ['spänn', 'spönn'], schwimmen: ['schwämm', 'schwömm'], helfen: ['hülf', 'hälf'], sterben: ['stürb'], verderben: ['verdürb'],
+    werben: ['würb'], werfen: ['würf'], befehlen: ['befähl', 'beföhl'], brechen: ['bräch'], empfehlen: ['empfähl', 'empföhl'],
+    gebären: ['gebär'], nehmen: ['nähm'], sprechen: ['spräch'], stechen: ['stäch'], stehlen: ['stähl', 'stöhl'], treffen: ['träf'],
+    kommen: ['käm'], geben: ['gäb'], backen: ['bük'], fahren: ['führ'], graben: ['grüb'], waschen: ['wüsch'],
+  }).map(([lemma, stems]) => [lemma, { stems, source: 'duden' as const }]),
+  ['sein', { stems: ['wär'], source: 'dwds' as const }],
 ]);
 
 /** The inseparable prefixes that make a verb from a noun with a separable particle in it (be-antrag-en, ver-anlass-en). */

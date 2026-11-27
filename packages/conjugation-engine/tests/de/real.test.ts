@@ -107,7 +107,7 @@ describe('German real verbs outside the corpus', () => {
   });
 
   it('Konjunktiv II doublets: helfen, gewinnen, stehlen', () => {
-    expect(at('helfen', 'subjunctive', 'past', [sg(1)])).toEqual(['ich hälfe', 'ich hülfe']);
+    expect(at('helfen', 'subjunctive', 'past', [sg(1)])).toEqual(['ich hülfe', 'ich hälfe']);
     expect(at('gewinnen', 'subjunctive', 'past', [sg(1)])).toEqual(['ich gewänne', 'ich gewönne']);
     // gewönne: DWDS va. (dated); stöhle: Duden's table only.
     expect(at('stehlen', 'subjunctive', 'past', [sg(1)])).toEqual(['ich stähle', 'ich stöhle']);

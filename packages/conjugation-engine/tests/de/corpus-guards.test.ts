@@ -68,8 +68,8 @@ describe('German corpus guards', () => {
     }
   });
 
-  it('pins the ledger: 412 design records and one found by the import, each with an authority URL', () => {
-    expect(corrections).toHaveLength(413);
+  it('pins the ledger: 412 design records, one found by the import and three for laden (last round), each with an authority URL', () => {
+    expect(corrections).toHaveLength(416);
     const hosts = new Set(corrections.map(c => new URL(c.source).host));
     expect([...hosts].sort()).toEqual(['grammis.ids-mannheim.de', 'www.duden.de', 'www.dwds.de', 'www.rechtschreibrat.com']);
     for (const c of corrections) expect(c.reason.length, c.file).toBeGreaterThan(30);

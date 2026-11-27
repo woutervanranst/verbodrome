@@ -25,8 +25,10 @@ describe('German forms the review found wrong', () => {
   it('folds melken, triefen, dingen, glimmen and stieben into one paradigm with tagged older forms', () => {
     expect(result('melken', 'infinitive', 'present').analysis).not.toHaveProperty('alternatives');
     expect(labelled('melken', 'indicative', 'past', 1, 'singular')).toEqual([['ich melkte', 'standard', 'weak'], ['ich molk', 'standard', 'alternate']]);
-    expect(texts('melken', 'indicative', 'perfect', 1, 'singular')).toEqual(['ich habe gemelkt', 'ich habe gemolken']);
-    expect(texts('melken', 'indicative', 'present', 3, 'singular')).toEqual(['er melkt', 'er milkt']);
+    // Duden: gemelkt / (häufiger:) gemolken; milk! veraltet. An explicit mark in either dictionary decides.
+    expect(texts('melken', 'indicative', 'perfect', 1, 'singular')).toEqual(['ich habe gemolken', 'ich habe gemelkt']);
+    expect(labelled('melken', 'indicative', 'present', 3, 'singular')).toEqual([['er melkt', 'standard', null], ['er milkt', 'dated', null]]);
+    expect(labelled('melken', 'imperative', 'present', 2, 'singular')).toEqual([['melk', 'standard', null], ['melke', 'standard', 'long'], ['milk', 'dated', null]]);
     expect(labelled('triefen', 'indicative', 'past', 1, 'singular')).toEqual([['ich triefte', 'standard', 'weak'], ['ich troff', 'literary', null]]);
     expect(texts('triefen', 'indicative', 'perfect', 1, 'singular')).toEqual(['ich bin getrieft', 'ich habe getrieft']);
     expect(texts('dingen', 'indicative', 'past', 1, 'singular')).toEqual(['ich dingte', 'ich dang']);

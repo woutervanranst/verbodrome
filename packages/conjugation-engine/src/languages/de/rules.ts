@@ -17,6 +17,10 @@ export const germanRules = defineRules({
   'de.classify.assume-root-auxiliary': { stage: 'classify', kind: 'assumption', params: { root: 'text' } },
   'de.classify.assume-prefix-haben': { stage: 'classify', kind: 'assumption' },
   'de.classify.unseparated': { stage: 'classify', params: { particle: 'text' } },
+  'de.classify.assume-root-paradigm': { stage: 'classify', kind: 'assumption', params: { root: 'text' } },
+  'de.classify.assume-inseparable': { stage: 'classify', kind: 'assumption', params: { prefix: 'text' } },
+  'de.classify.assume-unsplit': { stage: 'classify', kind: 'assumption', params: { root: 'text' } },
+  'de.classify.particle-verb': { stage: 'classify', kind: 'lexical', params: { particle: 'text' } },
   'de.classify.duden-only': { stage: 'classify', kind: 'lexical' },
   'de.classify.transliteration': { stage: 'classify', kind: 'assumption', params: { written: 'text', read: 'text' } },
   'de.classify.hint': { stage: 'classify', params: { hint: 'text', value: 'text' } },
@@ -37,6 +41,7 @@ export const germanRules = defineRules({
   'de.stem.ge-blocked-stress': { stage: 'stem' },
   'de.stem.lexical-cell': { stage: 'stem', kind: 'lexical' },
   'de.stem.duden-only': { stage: 'stem', kind: 'lexical' },
+  'de.stem.dwds-only': { stage: 'stem', kind: 'lexical' },
   // Endings (GD §4.3).
   'de.end.present': { stage: 'ending', params: { ending: 'text', person: 'term', number: 'term' } },
   'de.end.preterite-present': { stage: 'ending', params: { ending: 'text' } },

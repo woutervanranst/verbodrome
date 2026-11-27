@@ -30,8 +30,9 @@ const alternates = (value: string | readonly Alternate[]): readonly Alternate[] 
 const tagsOf = ({ usage, pattern }: Alternate): VariantTags => ({ ...(usage === undefined ? {} : { usage }), ...(pattern === undefined ? {} : { pattern }) });
 
 /** The step that says a listed form rests on Duden only (none for a form DWDS prints). */
-export const dudenOnly = (item: Alternate, base: string): DerivationStep[] =>
-  item.source === 'duden' ? [step(rules['de.stem.duden-only'], base, item.text)] : [];
+/** The step that says a listed form rests on one dictionary only (Duden or DWDS). */
+export const dudenOnly = (item: Alternate, base: string, after = item.text): DerivationStep[] =>
+  item.source === undefined ? [] : [step(rules[item.source === 'duden' ? 'de.stem.duden-only' : 'de.stem.dwds-only'], base, after)];
 
 /** The Präteritum stems of a verb with an entry, each with whether it takes the weak -te. */
 export function preteriteStems(lexeme: GermanLexeme): readonly { readonly stem: Alternate; readonly weak: boolean }[] {
@@ -147,7 +148,8 @@ function subjunctiveStems(lexeme: GermanLexeme, stem: string, present: Derivatio
   const entry = lexeme.entry;
   if (entry === null) return one(stem, [present, step(rules['de.stem.subjunctive-weak'], lexeme.base, stem)]);
   if (entry.subjunctive !== undefined) {
-    return entry.subjunctive.flatMap(item => one(item.text, [step(rules['de.stem.subjunctive-lexical'], lexeme.base, item.text), ...dudenOnly(item, lexeme.base)], tagsOf(item)));
+    // A stem is named as a stem (verdürb-), not as a form.
+    return entry.subjunctive.flatMap(item => one(item.text, [step(rules['de.stem.subjunctive-lexical'], lexeme.base, item.text), ...dudenOnly(item, lexeme.base, `${item.text}-`)], tagsOf(item)));
   }
   return preteriteStems(lexeme).flatMap(({ stem: item, weak }) => {
     const preterite = step(rules['de.stem.preterite'], lexeme.base, item.text);

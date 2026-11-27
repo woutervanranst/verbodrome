@@ -12,11 +12,17 @@ const aufforderung = 'https://grammis.ids-mannheim.de/systematische-grammatik/29
 const wuerdeFormen = 'https://grammis.ids-mannheim.de/systematische-grammatik/312';
 const modalverben = 'https://www.duden.de/sprachwissen/sprachratgeber/modalverben';
 
-/** d/t-stem verbs whose bare du-imperative (find, halt) the DWDS inflection table marks colloquial (ugs.), checked one by one. */
+/**
+ * d/t-stem verbs whose bare du-imperative (find, halt) the DWDS inflection table marks colloquial (ugs.), checked one by
+ * one; for laden, einladen and ausladen it is the table of the modelled lädt set that marks lad ugs.
+ */
 const colloquialBareImperative: readonly string[] = [
   'bieten', 'binden', 'bitten', 'empfinden', 'finden', 'gleiten', 'halten', 'leiden', 'meiden', 'raten', 'reiten', 'scheiden',
-  'schneiden', 'schreiten', 'schwinden', 'streiten',
+  'schneiden', 'schreiten', 'schwinden', 'streiten', 'laden', 'einladen', 'ausladen',
 ];
+
+/** The -e form of a bare du-imperative, before a separable particle: lad ein → lade ein. */
+const withE = (text: string): string => text.replace(/^(\S+)/u, '$1e');
 
 const modals: Readonly<Record<string, string>> = {
   dürfen: 'gedurft', können: 'gekonnt', mögen: 'gemocht', müssen: 'gemusst', sollen: 'gesollt', wollen: 'gewollt',
@@ -84,9 +90,9 @@ export function germanCorrection(file: CorpusFile, cell: CorpusCell, index: numb
     if (Object.hasOwn(modals, verb) && cell.subject !== '2sg') {
       draft.markUnavailable('Modal verbs form no imperative: there is no command form of dürfen, können, mögen, müssen, sollen or wollen.', modalverben);
     }
-    // C12: the bare du-imperative of these d/t-stem verbs is colloquial (DWDS: ugs.); laden's lad is not marked.
+    // C12: the bare du-imperative of these d/t-stem verbs is colloquial (DWDS: ugs.).
     if (cell.subject === '2sg' && colloquialBareImperative.includes(verb)) {
-      keep(draft, draft.expected.filter(text => !(/[dt]$/u.test(text) && draft.expected.includes(`${text}e`))),
+      keep(draft, draft.expected.filter(text => !(/^\S*[dt](?: |$)/u.test(text) && draft.expected.includes(withE(text)))),
         'After a stem ending in d or t the du-imperative keeps its -e (finde, halte); DWDS marks the bare form colloquial (ugs.).',
         `https://www.dwds.de/lemma/flexion/${verb}`);
     }

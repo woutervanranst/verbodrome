@@ -104,7 +104,14 @@ describe('German simple tenses', () => {
     expect(ids('kommen', subjunctiveII(2, 'singular'), 1)).toContain('de.end.subjunctive-ii-short');
     expect(words('gehen', subjunctiveII(2, 'singular'))).toEqual(['gingest']);
     expect(ids('gehen', subjunctiveII(2, 'singular'))).toContain('de.stem.subjunctive-plain');
-    expect(words('helfen', subjunctiveII(1, 'singular'))).toEqual(['hälfe', 'hülfe']);
+    // Duden: "du hülfest, selten hälfest"; DWDS prints both unmarked. An explicit mark beats an unmarked listing.
+    expect(words('helfen', subjunctiveII(1, 'singular'))).toEqual(['hülfe', 'hälfe']);
+    expect(tagsOf('helfen', subjunctiveII(1, 'singular')).hälfe).toMatchObject({ pattern: 'alternate' });
+    // verderben: Duden prints verdürbe (and verdürbst), DWDS verdärbe only; neither prints verdärbst.
+    expect(words('verderben', subjunctiveII(2, 'singular'))).toEqual(['verdürbest', 'verdürbst', 'verdärbest']);
+    expect(ids('verderben', subjunctiveII(2, 'singular'), 2)).toContain('de.stem.dwds-only');
+    expect(ids('verderben', subjunctiveII(2, 'singular'), 1).filter(rule => rule === 'de.stem.duden-only')).toHaveLength(1);
+    expect(words('rinnen', subjunctiveII(2, 'singular'))).toEqual(['rännest', 'rönnest']);
     expect(ids('helfen', subjunctiveII(1, 'singular'))).toContain('de.stem.subjunctive-lexical');
     expect(words('brennen', subjunctiveII(1, 'singular'))).toEqual(['brennte']);
     expect(words('machen', subjunctiveII(1, 'singular'))).toEqual(['machte']);
