@@ -71,7 +71,7 @@ is not used for any rule.
 | `fr.classify.assume-avoir` | assumption | An unlisted non-reflexive verb defaults to avoir. | [BDL: Emploi de l’auxiliaire avoir : la plupart des verbes intransitifs](https://vitrinelinguistique.oqlf.gouv.qc.ca/24224/la-grammaire/le-verbe/auxiliaires/emploi-des-auxiliaires-avoir-et-etre) |
 | `fr.classify.indirect-reflexive` | lexical | Here the reflexive pronoun is an indirect object (to oneself), so the past participle does not agree with it. | [BDL: Le pronom réfléchi est complément indirect](https://vitrinelinguistique.oqlf.gouv.qc.ca/22942/la-grammaire/le-verbe/accord-du-participe-passe/avec-lauxiliaire-etre/accord-du-participe-passe-des-verbes-occasionnellement-pronominaux) |
 | `fr.classify.assume-direct-reflexive` | assumption | The reflexive pronoun is assumed direct; specify indirect-object context when needed. | [BDL: Le pronom réfléchi est le complément direct](https://vitrinelinguistique.oqlf.gouv.qc.ca/22942/la-grammaire/le-verbe/accord-du-participe-passe/avec-lauxiliaire-etre/accord-du-participe-passe-des-verbes-occasionnellement-pronominaux) |
-| `fr.classify.aspirated-h` | lexical | The h of {before} is aspirated: je, que and de keep their e in front of it. | [BDL: Élision interdite devant le h aspiré](https://vitrinelinguistique.oqlf.gouv.qc.ca/21745/lorthographe/elision-et-apostrophe/elision-interdite) |
+| `fr.classify.aspirated-h` | lexical | The h of {before} is aspirated: je, que and de keep their e in front of it. | [BDL: Élision interdite devant le h aspiré](https://vitrinelinguistique.oqlf.gouv.qc.ca/21745/lorthographe/elision-et-apostrophe/elision-interdite); Académie: tableau de conjugaison du verbe : « H aspiré » |
 | `fr.classify.assume-mute-h` | assumption | An unlisted initial h is assumed mute. | [BDL: Élision devant le h muet](https://vitrinelinguistique.oqlf.gouv.qc.ca/21737/lorthographe/elision-et-apostrophe/elision-obligatoire) |
 
 ### Stems
@@ -238,7 +238,8 @@ blecher); hinted stems go through the spelling rules (blouper + `stems.plural: '
 circumflex rule applies to every group (mûrir → murir) and keeps jeûne(s), and dû only for devoir itself (redevoir:
 redu, traditionally redû); `model` naming a productive model must be the one the verb's spelling gives. Outside the
 snapshot the Académie's tables also give apparaître, réapparaître, disparaître, éclore, redescendre and ressusciter
-avoir or être, and redevenir être.
+avoir or être, and redevenir être; 30 verbs keep je before their aspirated h, each marked « H aspiré » in its table
+(hâbler … hurler, humer included: je hume); any other initial h is assumed mute (j'hoble).
 
 ## Open questions for the user
 

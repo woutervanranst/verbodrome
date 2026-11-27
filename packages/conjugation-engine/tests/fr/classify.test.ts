@@ -98,3 +98,22 @@ describe('French auxiliaries (fix wave C2)', () => {
     expect(auxiliaryRules('gésir')).toEqual([]);
   });
 });
+
+describe('French aspirated h (fix wave I3)', () => {
+  const first = (infinitive: string) => shadow.conjugate({ language: 'fr', infinitive, mood: 'indicative', tense: 'present', person: 1, number: 'singular' }).forms[0]!.text;
+
+  // Each marked « Ce verbe ne fait pas l'élision ni la liaison (H aspiré) » in its Académie table (A9…, B0… for the 10th edition).
+  it.each([
+    'hâbler', 'hacher', 'haïr', 'haler', 'hâler', 'haleter', 'handicaper', 'hanter', 'happer', 'haranguer', 'harasser',
+    'harceler', 'harnacher', 'harponner', 'hasarder', 'hâter', 'hausser', 'héler', 'hennir', 'hérisser', 'heurter',
+    'hiérarchiser', 'hisser', 'hocher', 'honnir', 'hoqueter', 'houspiller', 'huer', 'humer', 'hurler',
+  ])('%s keeps je before its aspirated h', infinitive => {
+    expect(first(infinitive)).toMatch(/^je h/u);
+    expect(classifyFrench({ language: 'fr', infinitive })[0]!.steps.map(step => step.rule)).toContain('fr.classify.aspirated-h');
+  });
+
+  it('assumes the h of an unlisted verb mute', () => {
+    expect(first('hobler')).toBe('j\'hoble');
+    expect(classifyFrench({ language: 'fr', infinitive: 'hobler' })[0]!.steps.map(step => step.rule)).toContain('fr.classify.assume-mute-h');
+  });
+});

@@ -36,7 +36,15 @@ export const knownAvoirVerbs: ReadonlySet<string> = new Set([
 
 export const indirectReflexives: ReadonlySet<string> = new Set(['parler', 'téléphoner', 'mentir', 'nuire', 'succéder', 'sourire']);
 export const essentialReflexives: ReadonlySet<string> = new Set(['méfier', 'souvenir', 'enfuir', 'abstenir', 'évanouir', 'repentir']);
-export const aspiratedH: ReadonlySet<string> = new Set(['haïr', 'hacher', 'haleter', 'hanter', 'harceler', 'hâter', 'hisser', 'huer', 'hurler']);
+/**
+ * Verbs whose initial h is aspirated: each table at the Académie reads « Ce verbe ne fait pas l'élision ni la liaison
+ * (H aspiré) » (9th edition; handicaper and harceler 10th, read 2026-11-27). Any other initial h is assumed mute.
+ */
+export const aspiratedH: ReadonlySet<string> = new Set([
+  'hâbler', 'hacher', 'haïr', 'haler', 'hâler', 'haleter', 'handicaper', 'hanter', 'happer', 'haranguer', 'harasser',
+  'harceler', 'harnacher', 'harponner', 'hasarder', 'hâter', 'hausser', 'héler', 'hennir', 'hérisser', 'heurter',
+  'hiérarchiser', 'hisser', 'hocher', 'honnir', 'hoqueter', 'houspiller', 'huer', 'humer', 'hurler',
+]);
 
 export interface LexicalRestriction {
   readonly thirdPersonOnly?: boolean;

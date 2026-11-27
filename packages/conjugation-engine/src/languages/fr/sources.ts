@@ -97,7 +97,7 @@ export const frenchCitations = {
   'fr.classify.assume-avoir': oqlf(24224, 'Emploi de l’auxiliaire avoir : la plupart des verbes intransitifs'),
   'fr.classify.indirect-reflexive': oqlf(22942, 'Le pronom réfléchi est complément indirect'),
   'fr.classify.assume-direct-reflexive': oqlf(22942, 'Le pronom réfléchi est le complément direct'),
-  'fr.classify.aspirated-h': oqlf(21745, 'Élision interdite devant le h aspiré'),
+  'fr.classify.aspirated-h': [oqlf(21745, 'Élision interdite devant le h aspiré'), { work: 'academie', locator: 'tableau de conjugaison du verbe : « H aspiré »' }],
   'fr.classify.assume-mute-h': oqlf(21737, 'Élision devant le h muet'),
   'fr.stem.group-stem': [oqlf(24212, 'Radical des verbes réguliers'), oqlf(24654, 'Verbes réguliers')],
   'fr.stem.hint': oqlf(24214, 'Radical des verbes irréguliers'),
