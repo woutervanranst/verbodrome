@@ -7,7 +7,7 @@ import { getCatalogue } from '../../src/catalogue.js';
 import { languages } from '../../src/default-engine.js';
 import { concepts } from '../../src/equivalence/concepts.js';
 import type { ConceptLink } from '../../src/equivalence/concepts.js';
-import { maps, passiveLanguages } from '../../src/equivalence/index.js';
+import { maps, passiveLanguages, passiveTenses } from '../../src/equivalence/index.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import type { Language } from '../../src/types.js';
 
@@ -60,6 +60,14 @@ describe('tense maps', () => {
     const voiced = entries.map(([code]) => code)
       .filter(code => getCatalogue(code).some(entry => entry.voices?.includes('passive')));
     expect([...passiveLanguages].sort()).toEqual(voiced.sort());
+  });
+
+  it('lists the passive tenses of each passive language as its catalogue voices them', () => {
+    const tenses = passiveTenses as Readonly<Record<string, readonly string[]>>;
+    expect(Object.keys(tenses).sort()).toEqual([...passiveLanguages].sort());
+    for (const code of passiveLanguages) {
+      expect(tenses[code], code).toEqual(getCatalogue(code).filter(entry => entry.voices?.includes('passive')).map(entry => `${entry.mood}.${entry.tense}`));
+    }
   });
 
   it('freezes the registry', () => {

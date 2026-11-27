@@ -12,7 +12,8 @@
  * 3. Candidates sort by score, then by the register of the target link, then by catalogue (map) order.
  * 4. A pair override of the source tense replaces, prepends to or excludes from the list.
  * 5. With no match, the result's own notes say why: `eq.note.no-counterpart` and the source links' notes.
- * 6. A passive lookup into a language without a modelled passive flags every exact match approximate with a note.
+ * 6. A passive lookup into a language without a modelled passive flags every exact match approximate with a note; a
+ *    passive lookup of a tense without a voice is an active one.
  */
 import { ConjugationError } from '../errors.js';
 import { concepts, moodRelaxation } from './concepts.js';
@@ -60,6 +61,11 @@ export interface EquivalenceData {
   readonly overrides: readonly RawOverride[];
   /** The languages whose passive is modelled: a passive lookup may start only from one of them. */
   readonly passiveLanguages: readonly string[];
+  /**
+   * The tenses of a passive language that have a passive voice; a passive lookup of any other tense of it (a Latin
+   * participle, gerund or supine) is an active one. A passive language without an entry has a passive in every tense.
+   */
+  readonly passiveTenses?: Readonly<Record<string, readonly string[]>>;
 }
 
 export interface EquivalenceOptions {
@@ -198,10 +204,11 @@ function freezeEntry(entry: Omit<EquivalentFound, 'rank'>, rank: number): Equiva
 
 export function deriveEquivalents(data: EquivalenceData, from: string, to: string, tense: string,
   options: EquivalenceOptions = {}): RawEquivalence {
-  const passive = options.voice === 'passive';
-  if (passive && !data.passiveLanguages.includes(from)) {
+  if (options.voice === 'passive' && !data.passiveLanguages.includes(from)) {
     throw new ConjugationError('INVALID_REQUEST', `A passive lookup needs a language with a modelled passive (${data.passiveLanguages.join(', ') || 'none'}), not ${from}.`);
   }
+  const voiced = data.passiveTenses?.[from];
+  const passive = options.voice === 'passive' && (voiced === undefined || voiced.includes(tense));
   const sources = (data.maps[from]?.[tense] ?? []).filter(link => link.only !== 'target');
   const target = data.maps[to] ?? {};
   const same = from === to;

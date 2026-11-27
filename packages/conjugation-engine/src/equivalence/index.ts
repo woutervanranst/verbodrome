@@ -6,18 +6,19 @@
  */
 import { ConjugationError } from '../errors.js';
 import type { Language, MoodFor, TenseFor } from '../types.js';
-import type { ConceptId, ConceptLink, LanguageMap, NoteKey, Register } from './concepts.js';
+import type { ConceptId, ConceptLink, LanguageMap, NoteKey, Register, TenseKeyFor } from './concepts.js';
 import { de } from './de.js';
 import { deriveEquivalents } from './derive.js';
 import { es } from './es.js';
 import type { EquivalenceData, EquivalenceOptions, EquivalentFound, MatchType, RawEquivalence, Relaxation } from './derive.js';
 import { fr } from './fr.js';
 import { it } from './it.js';
+import { la } from './la.js';
 import { nl } from './nl.js';
 import { overrides } from './overrides.js';
 
 /** The registered languages that have a tense map so far. */
-export type MappedLanguage = Extract<Language, 'fr' | 'nl' | 'de' | 'es' | 'it'>;
+export type MappedLanguage = Extract<Language, 'fr' | 'nl' | 'de' | 'es' | 'it' | 'la'>;
 
 /** Freezes the registry and each map's link lists (the links themselves are frozen by `link`). */
 function frozen<T extends Readonly<Record<string, Readonly<Record<string, readonly ConceptLink[]>>>>>(registry: T): T {
@@ -28,12 +29,25 @@ function frozen<T extends Readonly<Record<string, Readonly<Record<string, readon
   return Object.freeze(registry);
 }
 
-export const maps = frozen({ fr, nl, de, es, it } satisfies { readonly [L in MappedLanguage]: LanguageMap<L> });
+export const maps = frozen({ fr, nl, de, es, it, la } satisfies { readonly [L in MappedLanguage]: LanguageMap<L> });
 
 /** The languages with a modelled passive: a passive lookup may start only from one of them. */
-export const passiveLanguages: readonly MappedLanguage[] = Object.freeze([]);
+export const passiveLanguages: readonly MappedLanguage[] = Object.freeze(['la']);
 
-export const equivalenceData: EquivalenceData = Object.freeze({ maps, overrides, passiveLanguages });
+/**
+ * The tenses of each passive language that have a passive voice (the catalogue entries with `voices`); a passive lookup
+ * of another tense (a Latin participle, the gerund, the supine) is an active one. The maps test checks it against the
+ * catalogue, which this module cannot read without loading the packs.
+ */
+export const passiveTenses = Object.freeze({
+  la: Object.freeze([
+    'indicative.present', 'indicative.imperfect', 'indicative.future', 'indicative.perfect', 'indicative.pluperfect',
+    'indicative.future_perfect', 'subjunctive.present', 'subjunctive.imperfect', 'subjunctive.perfect', 'subjunctive.pluperfect',
+    'imperative.present', 'imperative.future', 'infinitive.present', 'infinitive.perfect', 'infinitive.future',
+  ] as const),
+}) satisfies { readonly [L in (typeof passiveLanguages)[number]]?: readonly TenseKeyFor<L>[] };
+
+export const equivalenceData: EquivalenceData = Object.freeze({ maps, overrides, passiveLanguages, passiveTenses });
 
 /** A tense of language `L` as a mood and one of that mood's tenses. */
 export type TenseRef<L extends Language> = { [M in MoodFor<L>]: { readonly mood: M; readonly tense: TenseFor<L, M> } }[MoodFor<L>];

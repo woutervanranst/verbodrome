@@ -240,6 +240,15 @@ describe('deriveEquivalents', () => {
       expect(call(['aa'], 'aa', 'bb', [link('SUPINE', 1)])).toEqual(none());
     });
 
+    it('treats a passive lookup of a tense without a voice as an active one', () => {
+      const voiceless = deriveEquivalents(data(source, target, { passiveLanguages: ['aa'], passiveTenses: { aa: ['indicative.other'] } }),
+        'aa', 'bb', 'indicative.t', passive);
+      expect(voiceless).toEqual(run(source, target));
+      const voiced = deriveEquivalents(data(source, target, { passiveLanguages: ['aa'], passiveTenses: { aa: ['indicative.t'] } }),
+        'aa', 'bb', 'indicative.t', passive);
+      expect(voiced).toEqual(call(['aa']));
+    });
+
     it('treats the active voice as no voice at all', () => {
       expect(deriveEquivalents(data(source, target), 'aa', 'bb', 'indicative.t', { voice: 'active' })).toEqual(run(source, target));
     });

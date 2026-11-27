@@ -64,4 +64,14 @@ export const overrides: readonly RawOverride[] = Object.freeze([
     result: [{ tense: 'indicative.past', note: 'eq.de.past-written' }],
     reason: 'The passato remoto is the narrative past, which German writes in the Präteritum; the pivot ranks the Perfekt first (0.90 against 0.80) because the Perfekt is the usual spoken past.',
   }),
+  override({
+    from: 'la', to: 'nl', tense: 'subjunctive.imperfect', mode: 'prepend',
+    result: [{ tense: 'indicative.past', note: 'eq.pair.subjunctive-clause' }],
+    reason: 'The Latin imperfect subjunctive links COND_PRESENT 0.6, an exact match that ranks the Dutch conditional first and hides the indicative past that renders a Latin subordinate clause (cum amaret).',
+  }),
+  override({
+    from: 'la', to: 'nl', tense: 'subjunctive.pluperfect', mode: 'prepend',
+    result: [{ tense: 'indicative.pluperfect', note: 'eq.pair.subjunctive-clause' }],
+    reason: 'The Latin pluperfect subjunctive links COND_PERFECT 0.6, an exact match that ranks the Dutch conditional past first and hides the indicative pluperfect that renders a Latin subordinate clause (cum amavisset).',
+  }),
 ]);
