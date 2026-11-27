@@ -19,9 +19,8 @@ const tenseCounts: Readonly<Record<Language, number>> = { fr: 25, nl: 12, de: 19
 const isTenth = (weight: number): boolean => Math.abs(weight * 10 - Math.round(weight * 10)) < 1e-9;
 
 describe('tense maps', () => {
-  it('maps only registered languages', () => {
-    expect(entries.length).toBeGreaterThan(0);
-    for (const [code] of entries) expect(languages).toContain(code);
+  it('maps every registered language, and only those', () => {
+    expect(Object.keys(maps).sort()).toEqual([...languages].sort());
   });
 
   it.each(entries)('%s: lists every catalogue tense, in catalogue order', (code, map) => {
@@ -56,7 +55,7 @@ describe('tense maps', () => {
     }
   });
 
-  it('models the passive of exactly the mapped languages whose catalogue has one', () => {
+  it('models the passive of exactly the languages whose catalogue has one', () => {
     const voiced = entries.map(([code]) => code)
       .filter(code => getCatalogue(code).some(entry => entry.voices?.includes('passive')));
     expect([...passiveLanguages].sort()).toEqual(voiced.sort());

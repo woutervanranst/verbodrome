@@ -1,27 +1,24 @@
 /**
  * The five points of the plan's "Review Focus", as explicit tests (the matrix snapshot shows them too, but a snapshot
  * can be regenerated past a regression). They follow the controller's rulings: a lookup without a counterpart has no
- * match and says why in its own notes; the French passé composé gives the English simple past first. A case whose
- * languages are not all mapped yet is skipped.
+ * match and says why in its own notes; the French passé composé gives the English simple past first.
  */
 import { describe, expect, it } from 'vitest';
 import { equivalentTenses, maps } from '../../src/equivalence/index.js';
 import type { EquivalenceOptions } from '../../src/equivalence/index.js';
 import type { Language } from '../../src/types.js';
 
-type Mapped = Parameters<typeof equivalentTenses>[0];
 type Result = ReturnType<typeof equivalentTenses>;
 
-const mapped = new Set<string>(Object.keys(maps));
 const all: readonly Language[] = ['de', 'en', 'es', 'fr', 'it', 'la', 'nl'];
 
-/** A test that runs once every language it names has a map. */
-const when = (...codes: Language[]) => it.skipIf(!codes.every(code => mapped.has(code)));
+/** A test of the languages it names (they document which maps the case reads). */
+const when = (..._codes: Language[]) => it;
 
 function lookup(from: Language, tense: string, to: Language, options?: EquivalenceOptions): Result {
   const dot = tense.indexOf('.');
   const ref = { mood: tense.slice(0, dot), tense: tense.slice(dot + 1) } as Parameters<typeof equivalentTenses>[2];
-  return equivalentTenses(from as Mapped, to as Mapped, ref, options);
+  return equivalentTenses(from, to, ref, options);
 }
 
 /** The matches as `[tense, score, match, register]`. */
@@ -78,7 +75,7 @@ describe('2. A literary tense', () => {
   when(...all)('never outranks a standard tense of equal score anywhere in the matrix', () => {
     const rank = { standard: 0, literary: 1, dated: 2 } as const;
     for (const from of all) {
-      for (const tense of Object.keys(maps[from as Mapped])) {
+      for (const tense of Object.keys(maps[from])) {
         for (const to of all) {
           const found = lookup(from, tense, to).matches.filter(entry => entry.match !== 'override' && entry.rank > (from === to ? 1 : 0));
           found.forEach((entry, index) => {

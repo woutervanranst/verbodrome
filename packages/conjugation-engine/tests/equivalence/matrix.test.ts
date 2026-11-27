@@ -5,21 +5,22 @@
 import { describe, expect, it } from 'vitest';
 import { getCatalogue } from '../../src/catalogue.js';
 import { concepts } from '../../src/equivalence/concepts.js';
-import { equivalenceMatrix, maps } from '../../src/equivalence/index.js';
+import { languages } from '../../src/default-engine.js';
+import { equivalenceMatrix } from '../../src/equivalence/index.js';
 import { locales } from '../../src/i18n/locales/index.js';
 import type { Language } from '../../src/types.js';
 import { formatMatrix } from './matrix.js';
 
 const rows = equivalenceMatrix();
-const mapped = (Object.keys(maps) as Language[]).sort();
+const registered: readonly Language[] = [...languages].sort();
 
 describe('the equivalence matrix', () => {
   it('matches the checked-in snapshot', async () => {
     await expect(formatMatrix(rows)).toMatchFileSnapshot('./matrix.tsv');
   });
 
-  it('has one lookup for every source tense and target language, in canonical order', () => {
-    const expected = mapped.flatMap(from => getCatalogue(from).flatMap(entry => mapped.map(to => `${from} ${entry.mood}.${entry.tense} ${to}`)));
+  it('has one lookup for every registered source tense and target language, in canonical order', () => {
+    const expected = registered.flatMap(from => getCatalogue(from).flatMap(entry => registered.map(to => `${from} ${entry.mood}.${entry.tense} ${to}`)));
     expect(rows.map(row => `${row.from} ${row.tense} ${row.to}`)).toEqual(expected);
   });
 

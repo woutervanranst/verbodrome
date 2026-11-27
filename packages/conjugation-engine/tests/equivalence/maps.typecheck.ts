@@ -2,7 +2,9 @@
 import { link } from '../../src/equivalence/concepts.js';
 import type { LanguageMap, TenseKeyFor } from '../../src/equivalence/concepts.js';
 import { fr } from '../../src/equivalence/fr.js';
+import { maps } from '../../src/equivalence/index.js';
 import { nl } from '../../src/equivalence/nl.js';
+import type { Language } from '../../src/types.js';
 
 export const nearFuture: TenseKeyFor<'fr'> = 'indicative.near_future';
 // @ts-expect-error French has an imperfect, no indicative past.
@@ -19,3 +21,7 @@ export const foreign = { ...nl, 'indicative.near_future': [link('NEAR_FUTURE', 1
 export const unknownNote = link('PRESENT', 1, { note: 'eq.no-such-key' });
 // @ts-expect-error A concept must be one of the inventory.
 export const unknownConcept = link('NO_SUCH', 1);
+
+export const registry: { readonly [L in Language]: LanguageMap<L> } = maps;
+// @ts-expect-error A registered language without a map does not compile.
+export const unmapped: { readonly [L in Language]: LanguageMap<L> } = { fr, nl };

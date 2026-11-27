@@ -1,20 +1,13 @@
-/**
- * The pinned lookups of every file in `expectations/` (one per language, `core.ts` for French and Dutch). A row whose
- * languages are not both mapped yet is skipped, never wrong.
- */
+/** The pinned lookups of every file in `expectations/` (one per language, `core.ts` for French and Dutch). */
 import { readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { equivalentTenses, maps } from '../../src/equivalence/index.js';
+import { equivalentTenses } from '../../src/equivalence/index.js';
 import type { Expectation } from './expectations/types.js';
 
 const directory = new URL('./expectations/', import.meta.url);
 const files = readdirSync(directory).filter(name => name.endsWith('.ts') && name !== 'types.ts').sort();
 const loaded = await Promise.all(files.map(async name =>
   [name, (await import(new URL(name, directory).href) as { expectations: readonly Expectation[] }).expectations] as const));
-
-const mapped = new Set<string>(Object.keys(maps));
-
-type Mapped = Parameters<typeof equivalentTenses>[0];
 
 function ref(key: string): Parameters<typeof equivalentTenses>[2] {
   const dot = key.indexOf('.');
@@ -24,9 +17,9 @@ function ref(key: string): Parameters<typeof equivalentTenses>[2] {
 const keyOf = (tense: { readonly mood: string; readonly tense: string } | undefined): string | undefined => tense && `${tense.mood}.${tense.tense}`;
 
 describe.each(loaded)('expectations/%s', (_, rows) => {
-  for (const row of rows) it.skipIf(!mapped.has(row[0]) || !mapped.has(row[2]))(`${row[0]} ${row[1]} -> ${row[2]}`, () => {
+  for (const row of rows) it(`${row[0]} ${row[1]} -> ${row[2]}`, () => {
     const [from, tense, to, top, score, match, extra = {}] = row;
-    const result = equivalentTenses(from as Mapped, to as Mapped, ref(tense));
+    const result = equivalentTenses(from, to, ref(tense));
     if (match === 'none') {
       expect([top, score, result.matches]).toEqual([null, 0, []]);
       expect(result.notes).toEqual(extra.notes ?? []);

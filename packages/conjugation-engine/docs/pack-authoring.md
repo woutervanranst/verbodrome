@@ -350,7 +350,7 @@ Registering a language is one line or one import in each of these shared files. 
 | `tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`, `tests/package.test.ts` | the assertions that pin the list of languages: `expect(languages).toEqual(['fr', 'nl'])`, the message `Language must be one of: fr, nl.` (`tests/pack.test.ts`, `tests/options.test.ts`, `tests/cli.test.ts`), and the registered language codes in the `./core` / root check of `tests/package.test.ts`. `grep -rn "Language must be one of\|'fr', 'nl'" tests` finds them. |
 | `README.md`, `docs/api.md` | the list of languages the package conjugates |
 | `src/equivalence/<code>.ts` | the language's total tense map (section 11), from its design's section 10 as reconciled in `docs/superpowers/plans/2026-11-24-seven-language-engine-04-equivalence.md` |
-| `src/equivalence/index.ts` | `import { de } from './de.js';`, the code in the `MappedLanguage` union and `de` in `maps`; the code in `passiveLanguages` for a language whose catalogue has a passive voice |
+| `src/equivalence/index.ts` | `import { de } from './de.js';` and `de` in `maps`, which is checked `satisfies { readonly [L in Language]: LanguageMap<L> }`, so a registered language without a map does not compile; for a language whose catalogue has a passive voice, the code in `passiveLanguages` and its voiced tenses in `passiveTenses` |
 | `src/i18n/locales/en/equivalence/<code>.ts`, `src/i18n/locales/nl/equivalence/<code>.ts` and their `index.ts` | the language's equivalence notes (`eq.<code>.*`, exported as `deNotes`); `import` and `...deNotes` in each `index.ts` |
 | `tests/equivalence/expectations/<code>.ts` | the pinned lookups of the language (section 11) |
 | `tests/equivalence/matrix.tsv` | regenerated with `npm run equivalence:matrix`, never edited by hand; read the diff |
@@ -1057,12 +1057,12 @@ const { matches, notes } = equivalentTenses('fr', 'nl', { mood: 'indicative', te
 - `register`: the target tense's, so a trainer can leave out literary and dated tenses.
 - `notes`: message keys of the core catalogs, in order: the source link's, the target link's, then one per relaxation (`eq.note.relaxed-aspect`, `eq.note.no-subjunctive`, ...). `locales[locale][key]` is the text.
 - `matches` may be empty: no tense of the target corresponds (a Latin supine, a French gerund into German). The result's own `notes` then say why: `eq.note.no-counterpart`, then the source tense's notes. They are empty whenever there is a match.
-- `{ voice: 'passive' }` looks up the passive of the source tense. Only a language in `passiveLanguages` (its catalogue has a passive voice) can be the source; a target without a modelled passive gets its active tenses, every exact match turned approximate, with `eq.note.passive-not-modelled`.
+- `{ voice: 'passive' }` looks up the passive of the source tense. Only a language in `passiveLanguages` (its catalogue has a passive voice) can be the source; a tense it does not list in `passiveTenses` (a Latin participle, gerund or supine) is looked up as active; a target without a modelled passive gets its active tenses, every exact match turned approximate, with `eq.note.passive-not-modelled`.
 
 ### Adding a language
 
 1. Read the language's catalogue (`src/languages/<code>/catalogue.ts`): the map follows it, tense for tense.
 2. Write `tests/equivalence/expectations/<code>.ts`: the lookups a learner of the language would check first (its narrative past both ways, its subjunctives into Dutch, its tenses without a counterpart), as `[from, tense, to, top, score, match, extra?]` rows (`tests/equivalence/expectations/types.ts`).
 3. Write the notes, `src/i18n/locales/{en,nl}/equivalence/<code>.ts`, plain text without placeholders or a straight apostrophe (the Dutch file is typed `satisfies Record<keyof typeof english, string>` against the English one, so neither can miss a key), and spread them in both `index.ts` files. `tests/equivalence/notes.test.ts` checks the prefix and that both locales agree.
-4. Write `src/equivalence/<code>.ts` and register it in `src/equivalence/index.ts`. `npm run typecheck` fails until the map is total.
+4. Write `src/equivalence/<code>.ts` and register it in `src/equivalence/index.ts`. `npm run typecheck` fails from the moment the language is registered in `src/languages/registry.ts` until it has a map, and until the map is total.
 5. `npm run equivalence:matrix`, then read the new and changed lines of `tests/equivalence/matrix.tsv` pair by pair, as a learner translating a question from one language into the other would. Fix a wrong line in the map (or, rarely, with an override), never in the snapshot.

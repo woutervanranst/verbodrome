@@ -18,9 +18,6 @@ import { la } from './la.js';
 import { nl } from './nl.js';
 import { overrides } from './overrides.js';
 
-/** The registered languages that have a tense map so far. */
-export type MappedLanguage = Extract<Language, 'fr' | 'nl' | 'de' | 'es' | 'it' | 'la' | 'en'>;
-
 /** Freezes the registry and each map's link lists (the links themselves are frozen by `link`). */
 function frozen<T extends Readonly<Record<string, Readonly<Record<string, readonly ConceptLink[]>>>>>(registry: T): T {
   for (const map of Object.values(registry)) {
@@ -30,10 +27,11 @@ function frozen<T extends Readonly<Record<string, Readonly<Record<string, readon
   return Object.freeze(registry);
 }
 
-export const maps = frozen({ fr, nl, de, es, it, la, en } satisfies { readonly [L in MappedLanguage]: LanguageMap<L> });
+/** One total map per registered language: a registered language without a map, or a map that misses a tense, does not compile. */
+export const maps = frozen({ fr, nl, de, es, it, la, en } satisfies { readonly [L in Language]: LanguageMap<L> });
 
 /** The languages with a modelled passive: a passive lookup may start only from one of them. */
-export const passiveLanguages: readonly MappedLanguage[] = Object.freeze(['la']);
+export const passiveLanguages: readonly Language[] = Object.freeze(['la']);
 
 /**
  * The tenses of each passive language that have a passive voice (the catalogue entries with `voices`); a passive lookup
@@ -80,7 +78,7 @@ function tenseRef<L extends Language>(key: string): TenseRef<L> {
  * the source tense is passive: only a language with a modelled passive can be the source, and a target without one
  * gets its active tenses, flagged approximate.
  */
-export function equivalentTenses<F extends MappedLanguage, T extends MappedLanguage>(
+export function equivalentTenses<F extends Language, T extends Language>(
   from: F, to: T, tense: TenseRef<F>, options: EquivalenceOptions = {},
 ): TenseEquivalence<T> {
   for (const language of [from, to]) {
@@ -105,18 +103,18 @@ export function equivalentTenses<F extends MappedLanguage, T extends MappedLangu
 
 /** One lookup of the matrix: a source tense (a `mood.tense` key) into one target language. */
 export interface MatrixRow {
-  readonly from: MappedLanguage;
+  readonly from: Language;
   readonly tense: string;
-  readonly to: MappedLanguage;
+  readonly to: Language;
   readonly results: RawEquivalence;
 }
 
 /**
- * Every lookup between the mapped languages, active voice: source languages by code, their tenses in catalogue order,
+ * Every lookup between the registered languages, active voice: source languages by code, their tenses in catalogue order,
  * target languages by code. `tests/equivalence/matrix.tsv` is this matrix, checked in.
  */
 export function equivalenceMatrix(): readonly MatrixRow[] {
-  const codes = (Object.keys(maps) as MappedLanguage[]).sort();
+  const codes = (Object.keys(maps) as Language[]).sort();
   return Object.freeze(codes.flatMap(from => Object.keys(mapOf(from)!).flatMap(tense => codes.map(to =>
     Object.freeze({ from, tense, to, results: deriveEquivalents(equivalenceData, from, to, tense) })))));
 }
