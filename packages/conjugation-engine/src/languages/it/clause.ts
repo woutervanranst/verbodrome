@@ -42,8 +42,8 @@ function agreementsOf({ lexeme, target, agreeing, auxiliary, query, subject }: C
   const agreement = (gender: 'masculine' | 'feminine', number: GrammaticalNumber): Fork<Agreement> =>
     one({ gender, number }, [step(rule, null, null, { gender: { term: 'gender', id: gender }, number: { term: 'number', id: number } })], tags);
   const allowed = genders.filter(gender => query.gender === undefined || query.gender === gender);
-  // An impersonal (weather) verb has only the masculine singular: è piovuto, essendo piovuto.
-  if (lexeme.impersonal) return allowed.includes('masculine') ? agreement('masculine', 'singular') : [];
+  // An impersonal (weather) verb has no subject and only the masculine singular (è piovuto, essendo piovuto), whatever `gender`.
+  if (lexeme.impersonal) return agreement('masculine', 'singular');
   if (target.number !== null) {
     const slotGender = subject?.gender === 'masculine' || subject?.gender === 'feminine' ? subject.gender : undefined;
     return (slotGender === undefined ? allowed : [slotGender]).flatMap(gender => agreement(gender, target.number!));

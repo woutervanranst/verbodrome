@@ -97,6 +97,7 @@ describe('Italian compound tenses and clause', () => {
     expect(texts('piovere', 'indicative', 'perfect')).toEqual(['è piovuto', 'ha piovuto']);
     expect(bare('nevicare', 'gerund', 'past')).toEqual(['essendo nevicato', 'avendo nevicato']);
     expect(bare('piovere', 'participle', 'past')).toEqual(['piovuto']);
+    expect(bare('piovere', 'participle', 'past', { gender: 'feminine' })).toEqual(['piovuto']);
     expect(bare('piovere', 'infinitive', 'past')).toEqual(['essere piovuto', 'avere piovuto']);
     expect(conjugate({ language: 'it', infinitive: 'sapere', mood: 'participle', tense: 'present' }).unavailableTargets[0]!.explanation)
       .toBe('This verb has no Participio Presente.');
