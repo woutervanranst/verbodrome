@@ -14,7 +14,8 @@ const cells = files.flatMap(file => file.cells);
 const corrections = (JSON.parse(read('corrections')) as CorpusCorrection[]).filter(c => c.file.startsWith('de/'));
 
 /** Every form of every query the corpus test runs for a file. */
-const generated = new Map(files.map(file => [file.file, german.query(file).flatMap(query => conjugate(parseConjugationOptions(query.options)).forms)]));
+const byQuery = new Map(files.map(file => [file.file, new Map(german.query(file).map(query => [query.label, conjugate(parseConjugationOptions(query.options)).forms]))]));
+const generated = new Map([...byQuery].map(([file, queries]) => [file, [...queries.values()].flat()]));
 const allForms = [...generated.values()].flat();
 const formsOf = (infinitive: string) => generated.get(`de/${infinitive}`)!;
 const tagged = (form: ConjugatedForm) =>
@@ -29,6 +30,33 @@ describe('German corpus guards', () => {
         for (const form of group.slice(1)) expect(tagged(form), `${file}: ${form.text}`).toBe(true);
       }
     }
+  });
+
+  it('pins the reviewed untagged preferred forms the page lacks, so a new one fails', () => {
+    const ledger = new Map(corrections.map(c => [`${c.file}:${c.cell}`, c]));
+    const lacking: string[] = [];
+    for (const file of files) {
+      file.cells.forEach((cell, index) => {
+        const correction = ledger.get(`${file.file}:${index}`);
+        const target = correction?.correctedTarget ?? cell.target;
+        const expected = correction?.expected ?? cell.expected;
+        const query = cell.subject === '2.formal' ? 'formal' : 'default';
+        const forms = (byQuery.get(file.file)!.get(query) ?? []).filter(form => form.target.mood === target.mood && form.target.tense === target.tense
+          && (form.target.person ?? null) === target.person && (form.target.number ?? null) === target.number
+          && (cell.subject === undefined || form.target.subject === cell.subject));
+        for (const form of forms) if (!expected.includes(form.text) && !tagged(form)) lacking.push(`${file.infinitive}: ${form.text}`);
+      });
+    }
+    // -est before -st after d / t in the strong Präteritum (DWDS and Duden print -est first); the bare du-imperative of
+    // the mixed verbs and haben (DWDS prints it first); hülfe (Duden: "du hülfest, selten hälfest"). Each is sourced in
+    // the lexicon; the page prints only the other form.
+    expect(lacking).toEqual([
+      'ausladen: du ludest aus', 'bekennen: bekenn', 'bieten: du botest', 'binden: du bandest', 'brennen: brenn', 'einladen: du ludest ein',
+      'empfinden: du empfandest', 'fechten: du fochtest', 'finden: du fandest', 'gelten: du galtest', 'haben: hab', 'halten: du hieltest',
+      'helfen: ich hülfe', 'helfen: du hülfest', 'helfen: er hülfe', 'helfen: wir hülfen', 'helfen: ihr hülfet', 'helfen: sie hülfen',
+      'kennen: kenn', 'laden: du ludest', 'meiden: du miedest', 'nennen: nenn', 'raten: du rietest', 'rennen: renn', 'scheiden: du schiedest',
+      'schmelzen: du schmolzest', 'schwinden: du schwandest', 'treten: du tratest', 'vergelten: du vergaltest', 'vertreten: du vertratest',
+    ]);
   });
 
   it('tags the known extras the page omits or prints alone', () => {
